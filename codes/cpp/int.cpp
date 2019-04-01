@@ -72,7 +72,7 @@ map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
             n /= i;
         }
     }
-    if (n != 1) res[n] = 1;
+    if (n != 1) res[n] += 1;
     return res;
 }
 // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
