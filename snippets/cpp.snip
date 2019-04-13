@@ -1,0 +1,38 @@
+snippet  gcd
+  int gcd(int a, int b){
+    if (b>a) swap(a,b);
+    if (b==0) return a;
+    return gcd(b, a%b);
+  }
+
+
+snippet  lcd
+  int gcd(int a, int b){
+    if (b>a) swap(a,b);
+    if (b==0) return a;
+    return gcd(b, a%b);
+  }
+  int lcd(int a, int b){
+    return (a/gcd(a,b))*b;  // overflowしにくいように最初に割り算をする。
+  }
+
+
+snippet  rev
+  int gcd(int a, int b){
+    if (b>a) swap(a,b);
+    if (b==0) return a;
+    return gcd(b, a%b);
+  }
+  int lcd(int a, int b){
+    return (a/gcd(a,b))*b;  // overflowしにくいように最初に割り算をする。
+  }
+  int rev(int number) {
+    int reverse=0;
+    while (number > 0) {
+      reverse = reverse * 10 + number % 10;
+      number /= 10;
+    }
+    return reverse;
+  }
+
+

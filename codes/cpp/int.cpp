@@ -1,16 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// {{{ gcd, lcd
+//%snippet.set('gcd')%
+//%snippet.config({'abbr':'great common divisor', 'indent':True})%
 int gcd(int a, int b){
   if (b>a) swap(a,b);
   if (b==0) return a;
   return gcd(b, a%b);
 }
+//%snippet.end()%
 
+//%snippet.set('lcd')%
+//%snippet.include('gcd')%
 int lcd(int a, int b){
   return (a/gcd(a,b))*b;  // overflowしにくいように最初に割り算をする。
 }
+//%snippet.end()%
 
+
+//%snippet.set('rev')%
+//%snippet.include('lcd')%
 int rev(int number) {
   int reverse=0;
   while (number > 0) {
@@ -19,6 +29,8 @@ int rev(int number) {
   }
   return reverse;
 }
+//%snippet.end()%
+// }}}
 
 int digitSum(int x){/*{{{*/
   int res = 0;
