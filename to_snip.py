@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import re
-from copy import copy
+from copy import copy, deepcopy
 
 CODE_DIR = Path(os.path.dirname(__file__)) / 'codes/cpp'
 snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp.snip'
@@ -36,7 +36,7 @@ class Snippet(object):
     def end(self):
         # init for next snippet
         self.read_flag = False
-        snippets[self.name] = copy(self)
+        snippets[self.name] = deepcopy(self)
         self.__init__()
 
 
