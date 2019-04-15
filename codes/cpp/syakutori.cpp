@@ -1,17 +1,24 @@
-int r = 0;
-for (int l=0; l<n; ++l) {
-  while (r<n-1 && isok(r+1)) {
-    ++r;
-    // sum += a[r];
+//%snippet.set('syakutori')%
+//%snippet.config({'abbr':'syakutori-hou-[l,r)', 'indent':True})%
+  int res = 0;
+  int sum = 0;
+  int r = 0;
+  for (int l=0; l<n; ++l) {
+    auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
+      if (sum + s[r]<=k) return true;
+      else return false;
+    };
+    while (r<n && isok()) {
+      sum += s[r];
+      ++r;
+    }
+    chmax(res, (r-l));
+
+    // 枝刈り（not needed）
+    if (r==n) break;
+
+    // leftをincrementする準備
+    if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
+    else sum -= s[l];
   }
-
-  // if (isok(now))  // l==rでダメなやつも流れてくる場合があるので。
-  res += (r-l+1);  // 更新
-
-  // sum -= a[l];  // prepare move l
-  if (r<n-1 && r==l){
-    ++r;
-    // sum += a[r];
-  }
-
-}
+//%snippet.end()%
