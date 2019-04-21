@@ -1,4 +1,4 @@
-// template version 1.7
+// template version 1.8
 
 // varibable settings {{{
 using namespace std;
@@ -8,7 +8,7 @@ using namespace std;
 #define int long long
 #define INF 1e18
 // #define INF 2147483647
-#define MOD 1e9+7
+#define MOD 1000000007
 #define infile "../test/sample-1.in"
 int dx[]={1, -1, 0, 0};
 int dy[]={0, 0, 1, -1};
