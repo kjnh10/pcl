@@ -1,0 +1,60 @@
+snippet     map
+abbr        map(int,input().split())
+alias       input_as_separeted
+    map(${0:int}, input().split())
+
+snippet     list
+abbr        list(map(int,input().split()))
+alias       input_as_list
+    list(map(${0:int}, input().split()))
+
+snippet     2din
+abbr        [list(map(${0:int}, input().split())) for n in range(N)]
+alias       input_as_list
+    [list(map(${0:int}, input().split())) for n in range(N)]
+
+snippet     b_search
+abbr        [func]binary_search aliased as bs
+alias       bs
+options     indent
+	def bs(ng, ok, solver):  # binary search for integer set
+		"""
+		input:
+			ng: max number known to be ng. default -1
+			ok: min number known to be ok. default max number + 1
+		output:
+			the number that is OK firstly
+		"""
+		while math.fabs(ok-ng) > 1:
+			mid = (ok+ng)//2
+			if solver(mid):
+				ok = mid
+			else:
+				ng = mid
+		return ok
+
+	def solve(x):
+		pass
+		return False
+		# return True
+		# return False
+
+
+snippet     import standard library
+abbr        import standard library [im]
+alias       std
+options     indent
+    import re
+    from scipy import integrate
+    from operator import itemgetter
+    from collections import defaultdict as dd
+    from collections import Counter
+    from collections import deque
+    import numpy as np
+    import fractions
+    import itertools
+    import heapq
+    from copy import deepcopy as dcopy
+    from heapq import heappop, heappush, heapify
+    import math
+

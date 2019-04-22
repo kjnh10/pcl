@@ -4,7 +4,7 @@ import re
 from copy import copy, deepcopy
 
 CODE_DIR = Path(os.path.dirname(__file__)) / 'codes/cpp'
-snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp.snip'
+snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp/auto.snip'
 snippets = {}
 
 class Snippet(object):
