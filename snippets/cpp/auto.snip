@@ -1,3 +1,36 @@
+snippet  bit
+  template<typename T=int>
+  struct BIT {
+    public:
+      vector<T> data;  // 1-index
+  
+      // constructor
+      BIT(vector<T> v){  // v: 0-index vector
+        data = vector<T>(sz(v)+1);
+        rep(i, 1, sz(v)) add(i+1, v[i]);
+      }
+      BIT(int n){
+        data = vector<T>(n+1);
+      }
+      //------------
+  
+      T cum(int idx){
+        T res = 0;
+        for (int i = idx; i > 0; i -= i&-i) res += data[i];
+        return res;
+      }
+  
+      void add(int idx, T x){
+        for (int i = idx; i <= (int)data.size(); i += i&-i){
+          data[i] += x;
+        }
+      }
+  
+    private:
+  };
+  
+
+
 snippet  gcd
   int gcd(int a, int b){
     if (b>a) swap(a,b);
@@ -112,6 +145,22 @@ snippet  syakutori
   
 
 
+snippet  bsearch
+  int left = 0;
+  int right = 1000000001;
+  bool isright = [](int x) {
+    //
+    return true;
+  }
+  while (right-left>1){
+    int mid = (right+left)/2;
+    if (isright(mid)) { right = mid;}
+    else{ left = mid; }
+  }
+  // right;
+  
+
+
 snippet  com
   // {{{
   const int MAX = 510000;
@@ -137,6 +186,34 @@ snippet  com
       if (n < 0 || k < 0) return 0;
       return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
   }
+  
+
+
+snippet  unionfind
+  struct UnionFind {
+    vector<int> data;  // size defined only for root node
+    UnionFind(int size) : data(size, -1) { }
+    bool merge(int x, int y) {
+      x = root(x); y = root(y);
+      if (x != y) {
+        if (data[y] < data[x]) swap(x, y);
+        data[x] += data[y]; data[y] = x;
+      }
+      return x != y;
+    }
+    bool findSet(int x, int y) {
+      return root(x) == root(y);
+    }
+    int root(int x) {
+      return data[x] < 0 ? x : data[x] = root(data[x]);
+    }
+    bool same(int x,int y){
+      return root(x)==root(y);
+    }
+    int size(int x) {
+      return -data[root(x)];
+    }
+  };
   
 
 

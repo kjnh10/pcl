@@ -1,3 +1,4 @@
+//%snippet.set('bit')%
 template<typename T=int>
 struct BIT {
   public:

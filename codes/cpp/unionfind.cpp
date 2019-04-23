@@ -1,3 +1,4 @@
+//%snippet.set('unionfind')%
 struct UnionFind {
   vector<int> data;  // size defined only for root node
   UnionFind(int size) : data(size, -1) { }
