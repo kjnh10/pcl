@@ -2,26 +2,28 @@
 using namespace std;
 
 // {{{ gcd, lcd
-//%snippet.set('gcd')%
-//%snippet.config({'abbr':'great common divisor', 'indent':True})%
+// %snippet.set('gcd')%
+// %snippet.config({'abbr':'great common divisor', 'indent':True})%
 int gcd(int a, int b){
   if (b>a) swap(a,b);
   if (b==0) return a;
   return gcd(b, a%b);
 }
-//%snippet.end()%
+// %snippet.end()%  明示的に終了したい場合
 
-//%snippet.set('lcd')%
-//%snippet.include('gcd')%
+
+// %snippet.set('lcd')%
+// %snippet.include('gcd')%
 int lcd(int a, int b){
   return (a/gcd(a,b))*b;  // overflowしにくいように最初に割り算をする。
 }
-//%snippet.end()%
+// %snippet.end()%
 
+//}}}
 
-//%snippet.set('rev')%
-//%snippet.include('lcd')%
-int rev(int number) {
+//%snippet.set('reverse_int')%
+//%snippet.include('lcd')%  //再帰のテスト {{{
+int reverse_int(int number) {
   int reverse=0;
   while (number > 0) {
     reverse = reverse * 10 + number % 10;
@@ -29,9 +31,9 @@ int rev(int number) {
   }
   return reverse;
 }
-//%snippet.end()%
-// }}}
+// %snippet.end% }}}
 
+//%snippet.set('digitSum')%
 int digitSum(int x){/*{{{*/
   int res = 0;
   while (true) {
@@ -42,21 +44,7 @@ int digitSum(int x){/*{{{*/
   return res;
 }/*}}}*/
 
-// Combination Table by パスカルの三角形 {{{
-#define MAX_N 50
-int C[MAX_N+1][MAX_N+1]; // C[n][k] -> nCk
-void comb_table(int N){
-  for(int i=1;i<=N;++i){
-    for(int j=0;j<=N;++j){
-      if(j==0 or j==i){
-        C[i][j]=1LL;
-      }else{
-        C[i][j]=(C[i-1][j-1]+C[i-1][j]);
-      }
-    }
-  }
-}  // }}}
-
+//%snippet.set('sieve')%
 vector<int> sieve(int n) {  // エラトステネスのふるい O(NloglogN){{{
   // 素数の集合を得たい場合はsort, uniqueをすればよい。
   vector<int> primes(n);
@@ -67,8 +55,9 @@ vector<int> sieve(int n) {  // エラトステネスのふるい O(NloglogN){{{
       for (int j = i*i; j < n; j+=i)
         primes[j] = 0;
   return primes;
-}/*}}}*/
+}//}}}
 
+//%snippet.set('prime_factor')%
 bool is_prime(int n) {/*{{{*/
     for (int i = 2; i * i <= n; i++) {
         if (n % i == 0) return false;
@@ -76,6 +65,7 @@ bool is_prime(int n) {/*{{{*/
     return n != 1;
 }/*}}}*/
 
+//%snippet.set('prime_factor')%
 map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
     map<int, int> res;
     for(int i = 2; i * i <= n; i++) {
@@ -88,5 +78,5 @@ map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
     return res;
 }
 // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
-/*}}}*/
+//}}}
 

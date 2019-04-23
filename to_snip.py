@@ -3,15 +3,11 @@ from pathlib import Path
 import re
 from copy import copy, deepcopy
 
-CODE_DIR = Path(os.path.dirname(__file__)) / 'codes/cpp'
-snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp/auto.snip'
-snippets = {}
 
 class Snippet(object):
     def __init__(self):
         self.name = ''
         self.code = []
-        self.read_flag = False
         self.dependencies = []
         self.resolving = False
 
@@ -33,11 +29,10 @@ class Snippet(object):
         self.code.append(line)
 
 
-    def end(self):
+    def save_to(self, snippets):
         # init for next snippet
-        self.read_flag = False
+        self.format_code()
         snippets[self.name] = deepcopy(self)
-        self.__init__()
 
 
     def to_snip_file(self):
@@ -49,6 +44,13 @@ class Snippet(object):
             for l in self.code:
                 out.write('  ' + l)
             out.write('\n\n')
+
+
+    def format_code(self):
+        # 最後の空行は1行にする
+        while (self.code[-1]=='\n'):
+            self.code.pop()
+        self.code.append('\n')
 
 
     def __resolve_dependencies(self, resolve_path):
@@ -75,31 +77,45 @@ class Snippet(object):
         return resolve_path
 
 
-def extract_snips(f: Path) -> list:
-    snippet = Snippet()
+def extract_snips(f: Path, snippets: dict) -> list:
+    def get_command_from(line) -> str:
+        s = line.find('%')
+        e = line.find('%', s+1)
+        command = line[s+1:e]
+        print(s, e, command)
+        return command
+
     with f.open() as f:
         for l in f:
-            if re.search("\%snippet.*\%", l):
-                if not snippet.read_flag:
-                    snippet.read_flag=True
-
-                s = l.find('%')
-                e = l.find('%', s+1)
-                command = l[s+1:e]
-                # print(s, e, command)
-                exec(command)
-            elif snippet.read_flag:
+            if re.search("\%snippet.set.*\%", l):
+                if 'snippet' in locals():
+                    snippet.save_to(snippets)
+                snippet = Snippet()
+                exec(get_command_from(l))
+            elif re.search("\%snippet.end.*\%", l):
+                snippet.save_to(snippets)
+                del snippet
+            elif re.search("\%snippet.*\%", l):
+                exec(get_command_from(l))
+            elif 'snippet' in locals():
                 snippet.append(l)
             else:
                 pass  # ignore non-snippet lines
 
+    if 'snippet' in locals():
+        snippet.save_to(snippets)
+
 
 if __name__=='__main__':
+    CODE_DIR = Path(os.path.dirname(__file__)) / 'codes/cpp'
+    snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp/auto.snip'
+
+    snippets = {}
     if snip_file.exists():
         snip_file.unlink()
 
     for f in CODE_DIR.rglob('*.cpp'):
-        extract_snips(f)
+        extract_snips(f, snippets)
 
     for name in snippets.keys():
         snippets[name].to_snip_file()
