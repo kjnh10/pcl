@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// {{{ gcd, lcd
+// {{{ gcd, lcm
 // %snippet.set('gcd')%
 // %snippet.config({'abbr':'great common divisor', 'indent':True})%
 int gcd(int a, int b){
@@ -12,9 +12,9 @@ int gcd(int a, int b){
 // %snippet.end()%  明示的に終了したい場合
 
 
-// %snippet.set('lcd')%
+// %snippet.set('lcm')%
 // %snippet.include('gcd')%
-int lcd(int a, int b){
+int lcm(int a, int b){
   return (a/gcd(a,b))*b;  // overflowしにくいように最初に割り算をする。
 }
 // %snippet.end()%
@@ -22,7 +22,7 @@ int lcd(int a, int b){
 //}}}
 
 //%snippet.set('reverse_int')%
-//%snippet.include('lcd')%  //再帰のテスト {{{
+//%snippet.include('lcm')%  //再帰のテスト {{{
 int reverse_int(int number) {
   int reverse=0;
   while (number > 0) {
