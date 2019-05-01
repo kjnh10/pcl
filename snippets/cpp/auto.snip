@@ -1,3 +1,19 @@
+snippet  bsearch
+  int left = 0;
+  int right = 1000000001;
+  bool isright = [](int x) {
+    //
+    return true;
+  }
+  while (right-left>1){
+    int mid = (right+left)/2;
+    if (isright(mid)) { right = mid;}
+    else{ left = mid; }
+  }
+  // right;
+  
+
+
 snippet  bit
   template<typename T=int>
   struct BIT {
@@ -28,6 +44,113 @@ snippet  bit
   
     private:
   };
+  
+
+
+snippet  syakutori
+    int res = 0;
+    int sum = 0;
+    int r = 0;
+    for (int l=0; l<n; ++l) {
+      auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
+        if (sum + s[r]<=k) return true;
+        else return false;
+      };
+      while (r<n && isok()) {
+        sum += s[r];
+        ++r;
+      }
+      chmax(res, (r-l));
+  
+      // 枝刈り（not needed）
+      if (r==n) break;
+  
+      // leftをincrementする準備
+      if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
+      else sum -= s[l];
+    }
+  
+
+
+snippet  lcs
+  #define MAX_N 5000
+  #define MAX_M 5000
+  int lcs(string s, string t){
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+  
+    rep(i, n){
+      rep(j, m){
+        if (s[i]==t[j])
+          chmax(dp[i+1][j+1], dp[i][j]+1);
+        else{
+          chmax(dp[i+1][j+1], dp[i][j+1]);
+          chmax(dp[i+1][j+1], dp[i+1][j]);
+        }
+      }
+    }
+    return dp[n][m];
+  }
+  
+
+
+snippet  dijkstra
+  using COST = int;  // update
+  using POS = tuple<int, int>;  // TODO: update
+  using EDGE = pair<POS, COST>;
+  struct GRAPH{
+    map<POS, vector<EDGE>> all_edges;
+    void add_edge(POS from, POS to, COST cost){
+      all_edges[from].emplace_back(mp(to, cost));
+    }
+  
+    auto operator[](POS pos){
+      return all_edges[pos];
+    }
+  };
+  
+  map<POS, COST> dijkstra(GRAPH& G){
+    map<POS, COST> d;  // 最短距離
+    // TODO: vectorの場合はd[*]=INFにしておく。
+  
+    PQ<pair<COST, POS>> q;
+    q.push(mp(0LL, mp(0,0))); // putting start node TODO: update
+    while (!q.empty()){
+      auto cp = q.top(); q.pop();
+      auto cost = cp.first;
+      auto pos = cp.second;
+  
+      if (d.find(pos)==d.end() || cost < d[pos]) {
+        d[pos] = cost;
+        for (const auto &el:G[pos]){
+          auto ncost = cost + el.second;
+          auto npos = el.first;
+          q.push(mp(ncost, npos));
+        }
+      }
+    }
+    return d;
+  }
+  
+  // int sample(){
+  //   // init and build G
+  //   GRAPH G;
+  //
+  //   int n;cin>>n;
+  //   rep(i, n){
+  //     POS from, to;
+  //     COST cost;
+  //     cin>>from>>to>>cost;
+  //     pos--;from--;
+  //     G.add_edge(from, to, cost);
+  //   }
+  //
+  //   // calc min distance by G
+  //   auto d = dijkstra(G);
+  //   cout << d[n-1] << endl;
+  //   return 0;
+  // }
   
 
 
@@ -103,61 +226,30 @@ snippet  sieve
   
 
 
+snippet  is_prime
+  bool is_prime(int n) {/*{{{*/
+    for (int i = 2; i * i <= n; i++) {
+      if (n % i == 0) return false;
+    }
+    return n != 1;
+  }/*}}}*/
+  
+
+
 snippet  prime_factor
   map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
-      map<int, int> res;
-      for(int i = 2; i * i <= n; i++) {
-          while(n % i == 0) {
-              ++res[i];
-              n /= i;
-          }
+    map<int, int> res;  // vectorで持つことも考えられる。
+    for(int i = 2; i * i <= n; i++) {
+      while(n % i == 0) {
+        ++res[i];
+        n /= i;
       }
-      if (n != 1) res[n] += 1;
-      return res;
+    }
+    if (n != 1) res[n] += 1;
+    return res;
   }
   // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
   //}}}
-  
-
-
-snippet  syakutori
-    int res = 0;
-    int sum = 0;
-    int r = 0;
-    for (int l=0; l<n; ++l) {
-      auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
-        if (sum + s[r]<=k) return true;
-        else return false;
-      };
-      while (r<n && isok()) {
-        sum += s[r];
-        ++r;
-      }
-      chmax(res, (r-l));
-  
-      // 枝刈り（not needed）
-      if (r==n) break;
-  
-      // leftをincrementする準備
-      if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
-      else sum -= s[l];
-    }
-  
-
-
-snippet  bsearch
-  int left = 0;
-  int right = 1000000001;
-  bool isright = [](int x) {
-    //
-    return true;
-  }
-  while (right-left>1){
-    int mid = (right+left)/2;
-    if (isright(mid)) { right = mid;}
-    else{ left = mid; }
-  }
-  // right;
   
 
 
@@ -189,6 +281,86 @@ snippet  com
   
 
 
+snippet  kruskal
+  // {{{
+  template<typename T>
+  struct Kruskal{
+    
+    struct edge{
+      int from,to;
+      T cost;
+      int used;
+      edge(){}
+      edge(int from,int to,T cost):
+        from(from),to(to),cost(cost),used(0){}
+      bool operator<(const edge& e) const{
+        return cost<e.cost;
+      }
+    };
+  
+    int n;
+    vector<int> p,r;
+    vector<edge> edges;
+  
+    Kruskal(){}
+    Kruskal(int n):n(n){}
+  
+    void init(int n){
+      r.assign(n,1);
+      p.resize(n);
+      iota(p.begin(),p.end(),0);
+    }
+    
+    int find(int x){
+      return (x==p[x]?x:p[x]=find(p[x]));
+    }
+  
+    bool same(int x,int y){
+      return find(x)==find(y);
+    }
+  
+    void unite(int x,int y){
+      x=find(x);y=find(y);
+      if(x==y) return;
+      if(r[x]<r[y]) swap(x,y);
+      r[x]+=r[y];
+      p[y]=x;
+    }
+  
+    void add_edge(int u,int v,T c){
+      edges.emplace_back(u,v,c);
+    }
+    
+    T build(){
+      sort(edges.begin(),edges.end());
+      init(n);
+      T res=0;
+      for(auto &e:edges){
+        if(!same(e.from,e.to)){
+          res+=e.cost;
+          unite(e.from,e.to);
+          e.used=1;
+        }
+      }
+      return res;
+    }
+  };
+  // int main(){
+  //   int V,E;
+  //   scanf("%d %d",&V,&E);
+  //   Kruskal<int> ksk(V);
+  //   for(int i=0;i<E;i++){
+  //     int a,b,c;
+  //     scanf("%d %d %d",&a,&b,&c);
+  //     ksk.add_edge(a,b,c);
+  //   }
+  //   printf("%d\n",ksk.build());
+  //   return 0;
+  // }
+  //}}}
+  
+
+
 snippet  unionfind
   struct UnionFind {
     vector<int> data;  // size defined only for root node
@@ -214,6 +386,37 @@ snippet  unionfind
       return -data[root(x)];
     }
   };
+  
+
+
+snippet  zip
+  vector<int> unzipper;
+  map<int, int> zipper;
+  vector<int> zipped;
+  // a = [3, 10, 5, 5, 2]
+  // unzipper = [2, 3, 5, 10]
+  // zipper = {2:0, 3:2, 5:3, 10:4}
+  // zipped = [2, 4, 3, 3, 0]
+  
+  int zip(vector<int> a){
+    int n = sz(a);
+    unzipper = vector<int>(n);
+    zipped = vector<int>(n);
+    rep(i, n) {
+      cin>>a[i];
+      unzipper[i]=a[i];
+    }
+    uni(unzipper);
+  
+    rep(i, sz(unzipper)){
+      zipper[unzipper[i]] = i;
+    }
+  
+    rep(i, n){
+      zipped[i] = zipper[a[i]];
+    }
+    return 0;
+  }
   
 
 
