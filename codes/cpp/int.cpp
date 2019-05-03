@@ -57,25 +57,25 @@ vector<int> sieve(int n) {  // エラトステネスのふるい O(NloglogN){{{
   return primes;
 }//}}}
 
-//%snippet.set('prime_factor')%
+//%snippet.set('is_prime')%
 bool is_prime(int n) {/*{{{*/
-    for (int i = 2; i * i <= n; i++) {
-        if (n % i == 0) return false;
-    }
-    return n != 1;
+  for (int i = 2; i * i <= n; i++) {
+    if (n % i == 0) return false;
+  }
+  return n != 1;
 }/*}}}*/
 
 //%snippet.set('prime_factor')%
 map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
-    map<int, int> res;
-    for(int i = 2; i * i <= n; i++) {
-        while(n % i == 0) {
-            ++res[i];
-            n /= i;
-        }
+  map<int, int> res;  // vectorで持つことも考えられる。
+  for(int i = 2; i * i <= n; i++) {
+    while(n % i == 0) {
+      ++res[i];
+      n /= i;
     }
-    if (n != 1) res[n] += 1;
-    return res;
+  }
+  if (n != 1) res[n] += 1;
+  return res;
 }
 // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
 //}}}

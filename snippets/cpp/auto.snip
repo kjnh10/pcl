@@ -1,7 +1,7 @@
 snippet  bsearch
   int left = 0;
   int right = 1000000001;
-  bool isright = [](int x) {
+  auto isright = [&](int x) {
     //
     return true;
   }
@@ -10,7 +10,7 @@ snippet  bsearch
     if (isright(mid)) { right = mid;}
     else{ left = mid; }
   }
-  // right;
+  dump(right);
   
 
 
@@ -96,6 +96,7 @@ snippet  lcs
 
 
 snippet  dijkstra
+  
   using COST = int;  // update
   using POS = tuple<int, int>;  // TODO: update
   using EDGE = pair<POS, COST>;
