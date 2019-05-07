@@ -1,4 +1,4 @@
-// template version 1.8
+// template version 1.9
 
 // varibable settings {{{
 using namespace std;
@@ -24,6 +24,7 @@ int dy[]={0, 0, 1, -1};
 #define _rrep(i,n) rrepi(i,0,n)
 #define rrepi(i,a,b) for(int i=(int)(b-1);i>=(int)(a);--i)
 #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+#define each(i,a) for (auto&& i : a)
 #define all(x) (x).begin(),(x).end()
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)

@@ -67,12 +67,12 @@ struct GRAPH{
   }
 };
 
-map<POS, COST> dijkstra(GRAPH& G){
+map<POS, COST> dijkstra(GRAPH& G, POS start){
   map<POS, COST> d;  // 最短距離
   // TODO: vectorの場合はd[*]=INFにしておく。
 
   PQ<pair<COST, POS>> q;
-  q.push(mp(0LL, mp(0,0))); // putting start node TODO: update
+  q.push(mp(0LL, start)); // putting start node TODO: update
   while (!q.empty()){
     auto cp = q.top(); q.pop();
     auto cost = cp.first;
@@ -104,8 +104,10 @@ map<POS, COST> dijkstra(GRAPH& G){
 //   }
 //
 //   // calc min distance by G
-//   auto d = dijkstra(G);
-//   cout << d[n-1] << endl;
+//   POS start=...;
+//   POS goal=...;
+//   auto d = dijkstra(G, start);
+//   cout << d[goal] << endl;
 //   return 0;
 // }
 
@@ -131,7 +133,7 @@ int solve(){
   }
 
   // call dijkstra with G
-  auto d = dijkstra(G);
+  auto d = dijkstra(G, mp(0, 0));
   if (d.find(mp(N-1, K))!=d.end()){
     cout << d[mp(N-1, K)] << endl;
   }
