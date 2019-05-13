@@ -1,19 +1,15 @@
-// template version 1.9
-
-// varibable settings {{{
+// template version 1.10
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
 
+// varibable settings {{{
+#define infile "../test/sample-1.in"
 #define int long long
 const int INF=1e18;
 const int MOD=1e9+7;
-#define infile "../test/sample-1.in"
 int dx[]={1, -1, 0, 0};
 int dy[]={0, 0, 1, -1};
-#define fi first
-#define se second
-
 // }}}
 
 // define basic macro {{{
@@ -40,8 +36,10 @@ typedef long double ld;
 typedef pair<int,int> pii;
 typedef tuple<int,int,int> iii;
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+//}}}
 
-// dump macro
+// dump macro {{{
 #ifdef PCM
   #include "dump.hpp"
 #else
@@ -49,7 +47,6 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
   #define dump_1d(...) 42
   #define dump_2d(...) 42
 #endif
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
 int solve(){
