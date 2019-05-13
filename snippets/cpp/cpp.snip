@@ -189,3 +189,20 @@ snippet sandbox
 
 snippet remove_leading_zeros
   str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
+
+
+snippet p2
+alias pow
+  int p[500001];  // power of 2 {{{
+  p[0] = 1;
+  rep(i, 1, 500002){
+    p[i] = p[i-1]*2;
+    p[i] %= MOD;
+  }
+  // }}}
+
+snippet lambda
+alias f
+  auto f=[&](){
+  };
+

@@ -1,16 +1,23 @@
-snippet  bsearch
-  int left = 0;
-  int right = 1000000001;
-  auto isright = [&](int x) {
-    //
-    return true;
-  };
-  while (right-left>1){
-    int mid = (right+left)/2;
-    if (isright(mid)) { right = mid;}
-    else{ left = mid; }
+snippet  lcs
+  #define MAX_N 5000
+  #define MAX_M 5000
+  int lcs(string s, string t){
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+  
+    rep(i, n){
+      rep(j, m){
+        if (s[i]==t[j])
+          chmax(dp[i+1][j+1], dp[i][j]+1);
+        else{
+          chmax(dp[i+1][j+1], dp[i][j+1]);
+          chmax(dp[i+1][j+1], dp[i+1][j]);
+        }
+      }
+    }
+    return dp[n][m];
   }
-  dump(right);
   
 
 
@@ -47,113 +54,34 @@ snippet  bit
   
 
 
-snippet  syakutori
-    int res = 0;
-    int sum = 0;
-    int r = 0;
-    for (int l=0; l<n; ++l) {
-      auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
-        if (sum + s[r]<=k) return true;
-        else return false;
-      };
-      while (r<n && isok()) {
-        sum += s[r];
-        ++r;
-      }
-      chmax(res, (r-l));
+snippet  zip
+  vector<int> unzipper;
+  map<int, int> zipper;
+  vector<int> zipped;
+  // a = [3, 10, 5, 5, 2]
+  // unzipper = [2, 3, 5, 10]
+  // zipper = {2:0, 3:2, 5:3, 10:4}
+  // zipped = [2, 4, 3, 3, 0]
   
-      // 枝刈り（not needed）
-      if (r==n) break;
-  
-      // leftをincrementする準備
-      if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
-      else sum -= s[l];
+  int zip(vector<int> a){
+    int n = sz(a);
+    unzipper = vector<int>(n);
+    zipped = vector<int>(n);
+    rep(i, n) {
+      cin>>a[i];
+      unzipper[i]=a[i];
     }
+    uni(unzipper);
   
-
-
-snippet  lcs
-  #define MAX_N 5000
-  #define MAX_M 5000
-  int lcs(string s, string t){
-    int n = sz(s);
-    int m = sz(t);
-    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+    rep(i, sz(unzipper)){
+      zipper[unzipper[i]] = i;
+    }
   
     rep(i, n){
-      rep(j, m){
-        if (s[i]==t[j])
-          chmax(dp[i+1][j+1], dp[i][j]+1);
-        else{
-          chmax(dp[i+1][j+1], dp[i][j+1]);
-          chmax(dp[i+1][j+1], dp[i+1][j]);
-        }
-      }
+      zipped[i] = zipper[a[i]];
     }
-    return dp[n][m];
+    return 0;
   }
-  
-
-
-snippet  dijkstra
-  
-  using COST = int;  // update
-  using POS = tuple<int, int>;  // TODO: update
-  using EDGE = pair<POS, COST>;
-  struct GRAPH{
-    map<POS, vector<EDGE>> all_edges;
-    void add_edge(POS from, POS to, COST cost){
-      all_edges[from].emplace_back(mp(to, cost));
-    }
-  
-    auto operator[](POS pos){
-      return all_edges[pos];
-    }
-  };
-  
-  map<POS, COST> dijkstra(GRAPH& G, POS start){
-    map<POS, COST> d;  // 最短距離
-    // TODO: vectorの場合はd[*]=INFにしておく。
-  
-    PQ<pair<COST, POS>> q;
-    q.push(mp(0LL, start)); // putting start node TODO: update
-    while (!q.empty()){
-      auto cp = q.top(); q.pop();
-      auto cost = cp.first;
-      auto pos = cp.second;
-  
-      if (d.find(pos)==d.end() || cost < d[pos]) {
-        d[pos] = cost;
-        for (const auto &el:G[pos]){
-          auto ncost = cost + el.second;
-          auto npos = el.first;
-          q.push(mp(ncost, npos));
-        }
-      }
-    }
-    return d;
-  }
-  
-  // int sample(){
-  //   // init and build G
-  //   GRAPH G;
-  //
-  //   int n;cin>>n;
-  //   rep(i, n){
-  //     POS from, to;
-  //     COST cost;
-  //     cin>>from>>to>>cost;
-  //     pos--;from--;
-  //     G.add_edge(from, to, cost);
-  //   }
-  //
-  //   // calc min distance by G
-  //   POS start=...;
-  //   POS goal=...;
-  //   auto d = dijkstra(G, start);
-  //   cout << d[goal] << endl;
-  //   return 0;
-  // }
   
 
 
@@ -256,31 +184,103 @@ snippet  prime_factor
   
 
 
-snippet  com
-  // {{{
-  const int MAX = 510000;
-  const int MOD = 1000000007;
-  
-  ll fac[MAX], finv[MAX], inv[MAX];
-  
-  // 前処理
-  void COMinit() {
-      fac[0] = fac[1] = 1;
-      finv[0] = finv[1] = 1;
-      inv[1] = 1;
-      for (int i = 2; i < MAX; i++){
-          fac[i] = fac[i - 1] * i % MOD;
-          inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
-          finv[i] = finv[i - 1] * inv[i] % MOD;
+snippet  syakutori
+    int res = 0;
+    int sum = 0;
+    int r = 0;
+    for (int l=0; l<n; ++l) {
+      auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
+        if (sum + s[r]<=k) return true;
+        else return false;
+      };
+      while (r<n && isok()) {
+        sum += s[r];
+        ++r;
       }
+      chmax(res, (r-l));
+  
+      // leftをincrementする準備
+      if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
+      else sum -= s[l];
+    }
+  
+
+
+snippet  bsearch
+  int left = 0;
+  int right = 1000000001;
+  auto isright = [&](int x) {
+    //
+    return true;
+  };
+  while (right-left>1){
+    int mid = (right+left)/2;
+    if (isright(mid)) { right = mid;}
+    else{ left = mid; }
+  }
+  dump(right);
+  
+
+
+snippet  dijkstra
+  
+  using COST = int;  // update
+  using POS = tuple<int, int>;  // TODO: update
+  using EDGE = pair<POS, COST>;
+  struct GRAPH{
+    map<POS, vector<EDGE>> all_edges;
+    void add_edge(POS from, POS to, COST cost){
+      all_edges[from].emplace_back(mp(to, cost));
+    }
+  
+    auto operator[](POS pos){
+      return all_edges[pos];
+    }
+  };
+  
+  map<POS, COST> dijkstra(GRAPH& G, POS start){
+    map<POS, COST> d;  // 最短距離
+    // TODO: vectorの場合はd[*]=INFにしておく。
+  
+    PQ<pair<COST, POS>> q;
+    q.push(mp(0LL, start)); // putting start node TODO: update
+    while (!q.empty()){
+      auto cp = q.top(); q.pop();
+      auto cost = cp.first;
+      auto pos = cp.second;
+  
+      if (d.find(pos)==d.end() || cost < d[pos]) {
+        d[pos] = cost;
+        for (const auto &el:G[pos]){
+          auto ncost = cost + el.second;
+          auto npos = el.first;
+          q.push(mp(ncost, npos));
+        }
+      }
+    }
+    return d;
   }
   
-  // 二項係数計算
-  ll COM(int n, int k){
-      if (n < k) return 0;
-      if (n < 0 || k < 0) return 0;
-      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
-  }
+  // int sample(){
+  //   // init and build G
+  //   GRAPH G;
+  //
+  //   int n;cin>>n;
+  //   rep(i, n){
+  //     POS from, to;
+  //     COST cost;
+  //     cin>>from>>to>>cost;
+  //     pos--;from--;
+  //     G.add_edge(from, to, cost);
+  //   }
+  //
+  //   // calc min distance by G
+  //   POS start=...;
+  //   POS goal=...;
+  //   auto d = dijkstra(G, start);
+  //   cout << d[goal] << endl;
+  //   return 0;
+  // }
   
 
 
@@ -364,6 +364,34 @@ snippet  kruskal
   
 
 
+snippet  com
+  // {{{
+  const int MAX = 510000;
+  const int MOD = 1000000007;
+  
+  ll fac[MAX], finv[MAX], inv[MAX];
+  
+  // 前処理
+  void COMinit() {
+      fac[0] = fac[1] = 1;
+      finv[0] = finv[1] = 1;
+      inv[1] = 1;
+      for (int i = 2; i < MAX; i++){
+          fac[i] = fac[i - 1] * i % MOD;
+          inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
+          finv[i] = finv[i - 1] * inv[i] % MOD;
+      }
+  }
+  
+  // 二項係数計算
+  ll COM(int n, int k){
+      if (n < k) return 0;
+      if (n < 0 || k < 0) return 0;
+      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
+  }
+  
+
+
 snippet  unionfind
   struct UnionFind {
     vector<int> data;  // size defined only for root node
@@ -389,37 +417,6 @@ snippet  unionfind
       return -data[root(x)];
     }
   };
-  
-
-
-snippet  zip
-  vector<int> unzipper;
-  map<int, int> zipper;
-  vector<int> zipped;
-  // a = [3, 10, 5, 5, 2]
-  // unzipper = [2, 3, 5, 10]
-  // zipper = {2:0, 3:2, 5:3, 10:4}
-  // zipped = [2, 4, 3, 3, 0]
-  
-  int zip(vector<int> a){
-    int n = sz(a);
-    unzipper = vector<int>(n);
-    zipped = vector<int>(n);
-    rep(i, n) {
-      cin>>a[i];
-      unzipper[i]=a[i];
-    }
-    uni(unzipper);
-  
-    rep(i, sz(unzipper)){
-      zipper[unzipper[i]] = i;
-    }
-  
-    rep(i, n){
-      zipped[i] = zipper[a[i]];
-    }
-    return 0;
-  }
   
 
 

@@ -14,9 +14,6 @@
     }
     chmax(res, (r-l));
 
-    // 枝刈り（not needed）
-    if (r==n) break;
-
     // leftをincrementする準備
     if (r==l) ++r;  // l,rが同時に動くのでsumは変動しない。
     else sum -= s[l];
