@@ -35,9 +35,9 @@ class Snippet(object):
         snippets[self.name] = deepcopy(self)
 
 
-    def to_snip_file(self):
+    def to_snip_file(self, snip_file, snippets):
         resolve_path = []
-        resolve_path = self.__resolve_dependencies(resolve_path)
+        resolve_path = self.__resolve_dependencies(resolve_path, snippets)
         print(self.name, resolve_path)
         with snip_file.open(mode='a') as out:
             out.write(f'snippet  {self.name}\n')
@@ -53,7 +53,7 @@ class Snippet(object):
         self.code.append('\n')
 
 
-    def __resolve_dependencies(self, resolve_path):
+    def __resolve_dependencies(self, resolve_path, snippets):
         if self.resolving==True:
             raise Exception(
                     f"""
@@ -69,7 +69,7 @@ class Snippet(object):
             pass
         else:
             for name in self.dependencies:
-                snippets[name].__resolve_dependencies(resolve_path)
+                snippets[name].__resolve_dependencies(resolve_path, snippets)
                 self.code = snippets[name].code + self.code
                 self.dependencies.remove(name)
 
@@ -104,20 +104,5 @@ def extract_snips(f: Path, snippets: dict) -> list:
 
     if 'snippet' in locals():
         snippet.save_to(snippets)
-
-
-if __name__=='__main__':
-    CODE_DIR = Path(os.path.dirname(__file__)) / 'codes/cpp'
-    snip_file = Path(os.path.dirname(__file__)) / 'snippets/cpp/auto.snip'
-
-    snippets = {}
-    if snip_file.exists():
-        snip_file.unlink()
-
-    for f in CODE_DIR.rglob('*.cpp'):
-        extract_snips(f, snippets)
-
-    for name in snippets.keys():
-        snippets[name].to_snip_file()
 
 
