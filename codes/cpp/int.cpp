@@ -80,3 +80,16 @@ map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
 // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
 //}}}
 
+//%snippet.set('divisor')%
+vi divisor(int n){  // 約数全列挙{{{
+  vi p,q;
+  for(int i=1; i*i<=n; i++){
+    if (n%i==0){
+      p.pb(i);
+      if (i*i!=n) q.pb(n/i);
+    }
+  }
+  reverse(all(q));
+  p.insert(p.end(), all(q));
+  return p;
+}//}}}
