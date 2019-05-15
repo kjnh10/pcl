@@ -1,4 +1,4 @@
-snippet  lcs
+snippet lcs
   #define MAX_N 5000
   #define MAX_M 5000
   int lcs(string s, string t){
@@ -21,11 +21,11 @@ snippet  lcs
   
 
 
-snippet  bit
+snippet bit
   template<typename T=int>
   struct BIT {
     public:
-      vector<T> data;  // 1-index
+      vector<T> data;  // 1-indexed
   
       // constructor
       BIT(vector<T> v){  // v: 0-index vector
@@ -37,7 +37,7 @@ snippet  bit
       }
       //------------
   
-      T cum(int idx){
+      T sum(int idx){  // return sum of [1, r]
         T res = 0;
         for (int i = idx; i > 0; i -= i&-i) res += data[i];
         return res;
@@ -52,9 +52,19 @@ snippet  bit
     private:
   };
   
+  ostream& operator<<(ostream& stream, BIT<int> bit){
+    int n = sz(bit.data);
+    stream << "bit[";
+    rep(i, 1, n){
+      stream << bit.sum(i) << (i==n-1 ? "" : ", ");
+    }
+    stream << "]";
+    return stream;
+  }
+  
 
 
-snippet  zip
+snippet zip
   vector<int> unzipper;
   map<int, int> zipper;
   vector<int> zipped;
@@ -85,7 +95,7 @@ snippet  zip
   
 
 
-snippet  gcd
+snippet gcd
   int gcd(int a, int b){
     if (b>a) swap(a,b);
     if (b==0) return a;
@@ -94,7 +104,7 @@ snippet  gcd
   
 
 
-snippet  lcm
+snippet lcm
   int gcd(int a, int b){
     if (b>a) swap(a,b);
     if (b==0) return a;
@@ -107,7 +117,7 @@ snippet  lcm
   
 
 
-snippet  reverse_int
+snippet reverse_int
   int gcd(int a, int b){
     if (b>a) swap(a,b);
     if (b==0) return a;
@@ -129,7 +139,7 @@ snippet  reverse_int
   
 
 
-snippet  digitSum
+snippet digitSum
   int digitSum(int x){/*{{{*/
     int res = 0;
     while (true) {
@@ -142,7 +152,7 @@ snippet  digitSum
   
 
 
-snippet  sieve
+snippet sieve
   vector<int> sieve(int n) {  // エラトステネスのふるい O(NloglogN){{{
     // 素数の集合を得たい場合はsort, uniqueをすればよい。
     vector<int> primes(n);
@@ -157,7 +167,7 @@ snippet  sieve
   
 
 
-snippet  is_prime
+snippet is_prime
   bool is_prime(int n) {/*{{{*/
     for (int i = 2; i * i <= n; i++) {
       if (n % i == 0) return false;
@@ -167,7 +177,7 @@ snippet  is_prime
   
 
 
-snippet  prime_factor
+snippet prime_factor
   map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
     map<int, int> res;  // vectorで持つことも考えられる。
     for(int i = 2; i * i <= n; i++) {
@@ -184,7 +194,23 @@ snippet  prime_factor
   
 
 
-snippet  syakutori
+snippet divisor
+  vi divisor(int n){  // 約数全列挙{{{
+    vi p,q;
+    for(int i=1; i*i<=n; i++){
+      if (n%i==0){
+        p.pb(i);
+        if (i*i!=n) q.pb(n/i);
+      }
+    }
+    reverse(all(q));
+    p.insert(p.end(), all(q));
+    return p;
+  }//}}}
+  
+
+
+snippet syakutori
     int res = 0;
     int sum = 0;
     int r = 0;
@@ -206,7 +232,7 @@ snippet  syakutori
   
 
 
-snippet  bsearch
+snippet bsearch
   int left = 0;
   int right = 1000000001;
   auto isright = [&](int x) {
@@ -222,7 +248,7 @@ snippet  bsearch
   
 
 
-snippet  dijkstra
+snippet dijkstra
   
   using COST = int;  // update
   using POS = tuple<int, int>;  // TODO: update
@@ -284,7 +310,7 @@ snippet  dijkstra
   
 
 
-snippet  kruskal
+snippet kruskal
   // {{{
   template<typename T>
   struct Kruskal{
@@ -364,7 +390,7 @@ snippet  kruskal
   
 
 
-snippet  com
+snippet com
   // {{{
   const int MAX = 510000;
   const int MOD = 1000000007;
@@ -392,7 +418,7 @@ snippet  com
   
 
 
-snippet  unionfind
+snippet unionfind
   struct UnionFind {
     vector<int> data;  // size defined only for root node
     UnionFind(int size) : data(size, -1) { }
@@ -416,6 +442,152 @@ snippet  unionfind
     int size(int x) {
       return -data[root(x)];
     }
+  };
+  
+
+
+snippet template
+  // template version 1.10
+  using namespace std;
+  #include <iostream>
+  #include <bits/stdc++.h>
+  
+  // varibable settings {{{
+  #define infile "../test/sample-1.in"
+  #define int long long
+  const int INF=1e18;
+  const int MOD=1e9+7;
+  int dx[]={1, -1, 0, 0};
+  int dy[]={0, 0, 1, -1};
+  // }}}
+  
+  // define basic macro {{{
+  #define _overload3(_1,_2,_3,name,...) name
+  #define _rep(i,n) repi(i,0,n)
+  #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
+  #define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
+  #define _rrep(i,n) rrepi(i,0,n)
+  #define rrepi(i,a,b) for(int i=(int)(b-1);i>=(int)(a);--i)
+  #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+  #define each(i,a) for (auto&& i : a)
+  #define all(x) (x).begin(),(x).end()
+  #define sz(x) ((int)(x).size())
+  #define pb(a) push_back(a)
+  #define mp(a, b) make_pair(a, b)
+  #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+  template<class T> inline void chmax(T &a, const T &b) { if(a < b) a = b; }
+  template<class T> inline void chmin(T &a, const T &b) { if(a > b) a = b; }
+  
+  typedef long long ll;
+  typedef vector<int> vi;
+  typedef vector<vi> vvi;
+  typedef long double ld;
+  typedef pair<int,int> pii;
+  typedef tuple<int,int,int> iii;
+  template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+  struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+  //}}}
+  
+  // dump macro {{{
+  #ifdef PCM
+    #include "dump.hpp"
+  #else
+    #define dump(...) 42
+    #define dump_1d(...) 42
+    #define dump_2d(...) 42
+  #endif
+  // }}}
+  
+  int solve(){
+    return 0;
+  }
+  
+  signed main() { //{{{
+  #ifdef INPUT_FROM_FILE
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
+  #endif
+    solve();
+    return 0;
+  } //}}}
+  
+
+
+snippet SegmentTreeRSQ
+alias rsq
+  struct SegmentTree {
+  private:
+      int n;
+      vector<int> node;
+  public:
+      SegmentTree(vector<int> v) {
+          int sz = (int)v.size();
+          n = 1; while(n < sz) n *= 2;
+          node.resize(2*n-1, 0);
+   
+          for(int i=0; i<sz; i++) node[i+n-1] = v[i];
+          for(int i=n-2; i>=0; i--) node[i] = node[i*2+1] + node[i*2+2];
+      }
+   
+      void add(int k, int val) {
+          k += (n - 1);
+          node[k] += val;
+   
+          while(k > 0) {
+              k = (k - 1) / 2;
+              node[k] = node[2*k+1] + node[2*k+2];
+          }
+      }
+   
+      // get sum of [l r)
+      int getsum(int a, int b, int k=0, int l=0, int r=-1) {
+          if(r < 0) r = n;
+          if(b <= l || r <= a) return 0;
+          if(a <= l && r <= b) return node[k];
+   
+          int vl = getsum(a, b, 2*k+1, l, (l+r)/2);
+          int vr = getsum(a, b, 2*k+2, (l+r)/2, r);
+          return vl + vr;
+      }
+  };
+  
+
+
+snippet SegmentTreeRMQ
+alias rmq
+  struct SegmentTree {
+    private:
+      int n;
+      vector<int> node;
+  
+    public:
+      SegmentTree(vector<int> v) {
+        int sz = v.size();
+        n = 1; while(n < sz) n *= 2;
+        node.resize(2*n-1, INF);
+        for(int i=0; i<sz; i++) node[i+n-1] = v[i];
+        for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
+      }
+  
+      void update(int x, int val) {
+        x += (n - 1);
+        node[x] = val;
+        while(x > 0) {
+          x = (x - 1) / 2;
+          node[x] = min(node[2*x+1], node[2*x+2]);
+        }
+      }
+  
+      // get min of [l, r)
+      int getmin(int a, int b, int k=0, int l=0, int r=-1) {
+        if(r < 0) r = n;
+        if(r <= a || b <= l) return INF;
+        if(a <= l && r <= b) return node[k];
+  
+        int vl = getmin(a, b, 2*k+1, l, (l+r)/2);
+        int vr = getmin(a, b, 2*k+2, (l+r)/2, r);
+        return min(vl, vr);
+      }
   };
   
 
