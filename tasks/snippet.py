@@ -7,6 +7,7 @@ from copy import copy, deepcopy
 class Snippet(object):
     def __init__(self):
         self.name = ''
+        self.option = {}
         self.code = []
         self.dependencies = []
         self.resolving = False
@@ -16,9 +17,9 @@ class Snippet(object):
         self.name = name
 
 
-    def config(self, *dict):
-        # TODO: implement
-        print(dict)
+    def config(self, option: dict):
+        # TODO: dot access出来るようにしたい。
+        self.option = option
 
 
     def include(self, name):
@@ -40,7 +41,10 @@ class Snippet(object):
         resolve_path = self.__resolve_dependencies(resolve_path, snippets)
         print(self.name, resolve_path)
         with snip_file.open(mode='a') as out:
-            out.write(f'snippet  {self.name}\n')
+            out.write(f'snippet {self.name}\n')
+            if ('alias' in self.option):
+                out.write(f"alias {self.option['alias']}\n")
+
             for l in self.code:
                 out.write('  ' + l)
             out.write('\n\n')
