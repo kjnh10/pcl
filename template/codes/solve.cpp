@@ -40,7 +40,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 // dump macro {{{
-#ifdef PCM
+#if defined(PCM) || defined(LOCAL)
   #include "dump.hpp"
 #else
   #define dump(...) 42
