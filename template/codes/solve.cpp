@@ -1,4 +1,4 @@
-// template version 1.10
+// template version 1.11
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
@@ -18,7 +18,7 @@ int dy[]={0, 0, 1, -1};
 #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
 #define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
 #define _rrep(i,n) rrepi(i,0,n)
-#define rrepi(i,a,b) for(int i=(int)(b-1);i>=(int)(a);--i)
+#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
 #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
 #define each(i,a) for (auto&& i : a)
 #define all(x) (x).begin(),(x).end()
@@ -26,8 +26,8 @@ int dy[]={0, 0, 1, -1};
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-template<class T> inline void chmax(T &a, const T &b) { if(a < b) a = b; }
-template<class T> inline void chmin(T &a, const T &b) { if(a > b) a = b; }
+template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
+template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
 
 typedef long long ll;
 typedef vector<int> vi;
