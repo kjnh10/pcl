@@ -8,8 +8,6 @@ using namespace std;
 #define int long long
 const int INF=1e18;
 const int MOD=1e9+7;
-int dx[]={1, -1, 0, 0};
-int dy[]={0, 0, 1, -1};
 // }}}
 
 // define basic macro {{{
@@ -26,6 +24,8 @@ int dy[]={0, 0, 1, -1};
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define ub upper_bound
+#define lb lower_bound
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
 
