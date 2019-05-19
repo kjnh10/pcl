@@ -2,6 +2,7 @@
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
+#include "lib/dump.hpp"
 
 // varibable settings {{{
 #define infile "../test/sample-1.in"
@@ -38,16 +39,6 @@ typedef tuple<int,int,int> iii;
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
-
-// dump macro {{{
-#if defined(PCM) || defined(LOCAL)
-  #include "dump.hpp"
-#else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-#endif
-// }}}
 
 int solve(){
   return 0;
