@@ -2,7 +2,6 @@
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
-#include "lib/dump.hpp"
 
 // varibable settings {{{
 #define infile "../test/sample-1.in"
@@ -36,8 +35,12 @@ typedef vector<vi> vvi;
 typedef long double ld;
 typedef pair<int,int> pii;
 typedef tuple<int,int,int> iii;
+
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+#if defined(PCM) || defined(LOCAL)
+  #include "lib/dump.hpp"
+#endif
 //}}}
 
 int solve(){
