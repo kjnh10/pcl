@@ -26,6 +26,8 @@ const int MOD=1e9+7;
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
+#define posl(A, x) (lower_bound(all(A), x)-A.begin())
+#define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
 
