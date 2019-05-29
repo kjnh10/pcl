@@ -49,6 +49,7 @@
             "name": "(gdb) Bash on Windows Launch",
             "type": "cppdbg",
             "request": "launch",
+            "preLaunchTask": "build",
             "program": "${command:extension.vscode-wsl-workspaceFolder}/bin/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
