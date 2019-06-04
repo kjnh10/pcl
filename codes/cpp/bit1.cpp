@@ -1,7 +1,6 @@
 using namespace std;
 #include <bits/stdc++.h>
 #include <iostream>
-
 // varibable settings {{{
 #define infile "../test/sample-1.in"
 #define int long long
@@ -39,67 +38,55 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 //%snippet.set('bit1')%
-template<typename T> struct BIT {//{{{
-  int n;
-  vector<T> dat;
+template<typename T=int>
+struct BIT {
+  public:
+    vector<T> data;  // 1-indexed
 
-  BIT(int n=0){/*{{{*/
-    initialize(n);
-  }/*}}}*/
-
-  void initialize(int nin){/*{{{*/
-    n = nin;
-    dat.resize(n);
-    for(int i = 0; i<n; i++) dat[i] = 0;
-  }/*}}}*/
-
-  T sum(int i){/*{{{*/
-    T s = 0;
-    while(i >= 0){
-      s += dat[i];
-      i = (i & (i+1)) - 1;
+    // constructor
+    BIT(vector<T> v){  // v: 0-index vector
+      data = vector<T>(sz(v)+1);
+      rep(i, 1, sz(v)) add(i+1, v[i]);
     }
-    return s;
-  }/*}}}*/
-
-  T sum_between(int i, int j){/*{{{*/
-    if(i > j) return 0;
-    return sum(j) - sum(i-1);
-  }/*}}}*/
-
-  void add(int i, T x){/*{{{*/
-    while(i < n){
-      dat[i] += x;
-      i |= i+1;
+    BIT(int n){
+      data = vector<T>(n+1);
     }
-  }/*}}}*/
+    //------------
 
-  int lower_bound(T x){ // a[0]+...+a[ret] >= x{{{
-    int ret = -1;
-    int k = 1;
-    while(2*k <= n) k <<= 1;
-    for( ;k>0; k>>=1){
-      if(ret+k < n && dat[ret+k] < x){
-        x -= dat[ret+k];
-        ret += k;
+    T sum(int idx){  // return sum of [1, r]
+      T res = 0;
+      for (int i = idx; i > 0; i -= i&-i) res += data[i];
+      return res;
+    }
+
+    void add(int idx, T x){
+      for (int i = idx; i <= (int)data.size(); i += i&-i){
+        data[i] += x;
       }
     }
-    return ret + 1;
-  }/*}}}*/
-};//}}}
+
+  private:
+};
+
+ostream& operator<<(ostream& stream, BIT<int> bit){
+  int n = sz(bit.data);
+  stream << "bit[";
+  rep(i, 1, n){
+    stream << bit.sum(i) << (i==n-1 ? "" : ", ");
+  }
+  stream << "]";
+  return stream;
+}
 //%snippet.end%
 
 signed main(){
   BIT<int> bit(5);
-  bit.add(0, 1);
-  bit.add(1, 2);
-  bit.add(2, 4);
-  bit.add(3, 8);
-  bit.add(4, 16);
-  cout << bit.sum(0) << endl;  //1
-  cout << bit.sum(1) << endl;  //3
-  cout << bit.sum(2) << endl;  //7
-  cout << bit.sum(3) << endl;  //15
-  cout << bit.sum(4) << endl;  //31
+  bit.add(1, 1);
+  bit.add(2, 2);
+  bit.add(3, 4);
+  bit.add(4, 8);
+  bit.add(5, 16);
+  cout << bit << endl;
+
   return 0;
 }

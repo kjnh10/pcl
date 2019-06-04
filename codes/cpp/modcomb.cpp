@@ -4,10 +4,10 @@ using namespace std;
 using ll = long long;
 
 //%snippet.set('com')%
-// {{{
 const int MAX = 510000;
 const int MOD = 1000000007;
-
+// Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
+// {{{
 ll fac[MAX], finv[MAX], inv[MAX];
 
 // 前処理
@@ -28,7 +28,8 @@ ll COM(int n, int k){
     if (n < 0 || k < 0) return 0;
     return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
-//%snippet.end()% }}}
+//}}}
+//%snippet.end()%
 
 int main() {
     // 前処理

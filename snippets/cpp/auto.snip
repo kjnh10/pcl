@@ -1,3 +1,55 @@
+snippet bit1
+  template<typename T> struct BIT {//{{{
+    int n;
+    vector<T> dat;
+  
+    BIT(int n=0){/*{{{*/
+      initialize(n);
+    }/*}}}*/
+  
+    void initialize(int nin){/*{{{*/
+      n = nin;
+      dat.resize(n);
+      for(int i = 0; i<n; i++) dat[i] = 0;
+    }/*}}}*/
+  
+    T sum(int i){/*{{{*/
+      T s = 0;
+      while(i >= 0){
+        s += dat[i];
+        i = (i & (i+1)) - 1;
+      }
+      return s;
+    }/*}}}*/
+  
+    T sum_between(int i, int j){/*{{{*/
+      if(i > j) return 0;
+      return sum(j) - sum(i-1);
+    }/*}}}*/
+  
+    void add(int i, T x){/*{{{*/
+      while(i < n){
+        dat[i] += x;
+        i |= i+1;
+      }
+    }/*}}}*/
+  
+    int lower_bound(T x){ // a[0]+...+a[ret] >= x{{{
+      int ret = -1;
+      int k = 1;
+      while(2*k <= n) k <<= 1;
+      for( ;k>0; k>>=1){
+        if(ret+k < n && dat[ret+k] < x){
+          x -= dat[ret+k];
+          ret += k;
+        }
+      }
+      return ret + 1;
+    }/*}}}*/
+  };//}}}
+  
+
+
 snippet lcs
   #define MAX_N 5000
   #define MAX_M 5000
@@ -21,77 +73,22 @@ snippet lcs
   
 
 
-snippet bit
-  template<typename T=int>
-  struct BIT {
-    public:
-      vector<T> data;  // 1-indexed
-  
-      // constructor
-      BIT(vector<T> v){  // v: 0-index vector
-        data = vector<T>(sz(v)+1);
-        rep(i, 1, sz(v)) add(i+1, v[i]);
-      }
-      BIT(int n){
-        data = vector<T>(n+1);
-      }
-      //------------
-  
-      T sum(int idx){  // return sum of [1, r]
-        T res = 0;
-        for (int i = idx; i > 0; i -= i&-i) res += data[i];
-        return res;
-      }
-  
-      void add(int idx, T x){
-        for (int i = idx; i <= (int)data.size(); i += i&-i){
-          data[i] += x;
-        }
-      }
-  
-    private:
-  };
-  
-  ostream& operator<<(ostream& stream, BIT<int> bit){
-    int n = sz(bit.data);
-    stream << "bit[";
-    rep(i, 1, n){
-      stream << bit.sum(i) << (i==n-1 ? "" : ", ");
-    }
-    stream << "]";
-    return stream;
-  }
-  
-
-
 snippet zip
-  vector<int> unzipper;
-  map<int, int> zipper;
-  vector<int> zipped;
-  // a = [3, 10, 5, 5, 2]
-  // unzipper = [2, 3, 5, 10]
-  // zipper = {2:0, 3:2, 5:3, 10:4}
-  // zipped = [2, 4, 3, 3, 0]
-  
-  int zip(vector<int> a){
+  // zip: a = [3, 10, 5, 5, 2]
+  vector<int> unzipper; // [2, 3, 5, 10]
+  map<int, int> zipper; // {2:0, 3:2, 5:3, 10:4}
+  vector<int> zipped; // [2, 4, 3, 3, 0]
+  auto zip=[&](vector<int> a){ //{{{
     int n = sz(a);
-    unzipper = vector<int>(n);
-    zipped = vector<int>(n);
-    rep(i, n) {
-      cin>>a[i];
-      unzipper[i]=a[i];
-    }
+    unzipper = vector<int>(n); zipped = vector<int>(n);
+    rep(i, n) { unzipper[i]=a[i]; }
     uni(unzipper);
-  
-    rep(i, sz(unzipper)){
-      zipper[unzipper[i]] = i;
-    }
-  
-    rep(i, n){
-      zipped[i] = zipper[a[i]];
-    }
+    rep(i, sz(unzipper)){ zipper[unzipper[i]] = i; }
+    rep(i, n){ zipped[i] = zipper[a[i]]; }
     return 0;
-  }
+  }; /// }}}
+  zip(/*your vector*/);
+  dump(unzipper); dump(zipper); dump(zipped);
   
 
 
@@ -391,10 +388,10 @@ snippet kruskal
 
 
 snippet com
-  // {{{
   const int MAX = 510000;
   const int MOD = 1000000007;
-  
+  // Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
+  // {{{
   ll fac[MAX], finv[MAX], inv[MAX];
   
   // 前処理
@@ -415,6 +412,7 @@ snippet com
       if (n < 0 || k < 0) return 0;
       return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
   }
+  //}}}
   
 
 
