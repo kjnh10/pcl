@@ -54,14 +54,15 @@ int dy[]={0, 0, 1, -1};
 // }}}
 
 //BEGIN CUT HERE
-using mat=vvi;
+using value=int;
+using mat=vector<vector<value>>;
 
 mat mul(mat& A, mat& B){
-  mat res(A.size(), vi(B[0].size()));
+  mat res(A.size(), vector<value>(B[0].size()));
   rep(i, A.size()){
     rep(j, B[0].size()){
       rep(k, B.size()){
-        res[i][j] = (res[i][j]+A[i][k]*B[k][j])%MOD;
+        res[i][j] = (res[i][j]+A[i][k]*B[k][j])%MOD; // remove %MOD if not needed
       }
     }
   }
@@ -69,7 +70,7 @@ mat mul(mat& A, mat& B){
 }
 
 mat pow(mat A, int n){
-  mat B(A.size(), vi(A.size()));
+  mat B(A.size(), vector<value>(A.size()));
   rep(i, A.size()){
     B[i][i]=1;  // E
   }
@@ -85,7 +86,7 @@ mat pow(mat A, int n){
 int solve(){
   int n,m;cin>>n>>m;
 
-  mat A(m, vi(m, 0));
+  mat A(m, vi(m, 0)); // m==0だと落ちるので注意。
   A[0][0] = 1;
   A[0][m-1] = 1;
   rep(i, 1, m){
