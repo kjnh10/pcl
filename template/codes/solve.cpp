@@ -4,9 +4,10 @@ using namespace std;
 #include <bits/stdc++.h>
 
 // varibable settings
-#define int long long
+#define infile "../test/sample-1.in"
+#define int long long //{{{
 const int INF=1e18;
-const int MOD=1e9+7;
+const int MOD=1e9+7; //}}}
 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
