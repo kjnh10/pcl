@@ -115,7 +115,7 @@ snippet digitdp
     rep(leq, 2){  //未満確定フラグ
       int lim = leq ? 9 : S[i]-'0';
       rep(d, lim+1){
-        dp[i][leq || d<lim] += dp[i-1][leq];
+        dp[leq || d<lim][i] += dp[leq][i-1];
       }
     }
   }
