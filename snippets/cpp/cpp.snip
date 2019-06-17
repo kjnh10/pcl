@@ -75,7 +75,7 @@ snippet     af
   assert(false);
 
 snippet     sortkey
-  sort(all(${0}), [](auto &left, auto &right){return left.second < right.second;});
+  sort(all(${0}), [&](auto &left, auto &right){return left.second < right.second;});
 
 snippet     perm
   do{
