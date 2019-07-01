@@ -54,7 +54,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //%snippet.set('dijkstra')%
 
 using COST = int;  // update
-using POS = tuple<int, int>;  // TODO: update
+using POS = pair<int, int>;  // TODO: update
 using EDGE = pair<POS, COST>;
 struct GRAPH{
   map<POS, vector<EDGE>> all_edges;
@@ -66,13 +66,17 @@ struct GRAPH{
     return all_edges[pos];
   }
 };
+auto& operator<<(auto& stream, GRAPH G){
+  stream << G.all_edges;
+  return stream;
+}
 
 map<POS, COST> dijkstra(GRAPH& G, POS start){
   map<POS, COST> d;  // 最短距離
   // TODO: vectorの場合はd[*]=INFにしておく。
 
   PQ<pair<COST, POS>> q;
-  q.push(mp(0LL, start)); // putting start node TODO: update
+  q.push(mp(0LL, start));
   while (!q.empty()){
     auto cp = q.top(); q.pop();
     auto cost = cp.first;
