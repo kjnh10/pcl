@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import re
 from copy import copy, deepcopy
+import json
 
 
 class Snippet(object):
@@ -41,13 +42,31 @@ class Snippet(object):
         resolve_path = self.__resolve_dependencies(resolve_path, snippets)
         print(self.name, resolve_path)
         with snip_file.open(mode='a') as out:
-            out.write(f'snippet {self.name}\n')
-            if ('alias' in self.option):
-                out.write(f"alias {self.option['alias']}\n")
+            if format=='neosnippet':
+                out.write(f'snippet {self.name}\n')
+                if ('alias' in self.option):
+                    out.write(f"alias {self.option['alias']}\n")
 
-            for l in self.code:
-                out.write('  ' + l)
-            out.write('\n\n')
+                for l in self.code:
+                    out.write('  ' + l)
+                out.write('\n\n')
+            elif format=='textmate':
+                res = {}
+                with open(snip_file, mode='r') as f:
+                    try:
+                        res = json.loads(f.read())
+                    except:
+                        pass
+
+                res[self.name] = {
+                        "scope" : "cpp",
+                        "prefix" : self.name,
+                        "body" : [x.replace("\n", "") for x in self.code],
+                        "description" : "desc",
+                        }
+                json.dump(res, open(snip_file, mode='w'), indent=2, ensure_ascii=False)
+            else:
+                raise Exception(f'to_snip_file for {format} not defined')
 
 
     def format_code(self):

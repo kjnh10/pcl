@@ -8,15 +8,22 @@ def build(c):
     print("Building!")
 
     CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes/cpp'
-    snip_file = Path(os.path.dirname(__file__)).parent / 'snippets/cpp/auto.snip'
+
+    neosnip_file = Path(os.path.dirname(__file__)).parent / 'snippets/cpp/auto.snip'
+    vssnip_file = Path(os.path.dirname(__file__)).parent / 'template/.vscode/auto.code-snippets'
+
+    if neosnip_file.exists():
+        neosnip_file.unlink()
+
+    if vssnip_file.exists():
+        vssnip_file.unlink()
 
     snippets = {}
-    if snip_file.exists():
-        snip_file.unlink()
-
     for f in CODE_DIR.rglob('*.cpp'):
         extract_snips(f, snippets)
 
     for name in snippets.keys():
-        snippets[name].to_snip_file(snip_file, snippets)
+        snippets[name].to_snip_file(neosnip_file, snippets, format='neosnippet')
+        snippets[name].to_snip_file(vssnip_file, snippets, format='textmate')
+
 
