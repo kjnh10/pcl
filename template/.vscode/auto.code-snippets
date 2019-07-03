@@ -198,6 +198,411 @@
     ],
     "description": "desc"
   },
+  "cout": {
+    "scope": "cpp",
+    "prefix": "cout",
+    "body": [
+      "cout << ${0:TARGET} << endl;",
+      ""
+    ],
+    "description": "desc"
+  },
+  "couts": {
+    "scope": "cpp",
+    "prefix": "couts",
+    "body": [
+      "rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");",
+      ""
+    ],
+    "description": "desc"
+  },
+  "?": {
+    "scope": "cpp",
+    "prefix": "?",
+    "body": [
+      "  (${1} ? ${2} : ${3})",
+      ""
+    ],
+    "description": "desc"
+  },
+  "inv": {
+    "scope": "cpp",
+    "prefix": "inv",
+    "body": [
+      "vector<int> ${1}(n);",
+      "rep(i, n) {",
+      "  cin>>$1[i];",
+      "}",
+      "dump($1);${0}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "invv": {
+    "scope": "cpp",
+    "prefix": "invv",
+    "body": [
+      "vector<vector<int>> ${1}(h, vector<int>(w));",
+      "rep(i, h){",
+      "  rep(j,w){",
+      "    cin>>$1[i][j];",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "invvs": {
+    "scope": "cpp",
+    "prefix": "invvs",
+    "body": [
+      "vector<vector<int>> ${1}(h, vector<int>(w));",
+      "rep(i, h){",
+      "  string tmp;cin>>tmp;",
+      "  rep(j,w){",
+      "    if (tmp[j]=='#') $1[i][j]=1;",
+      "    else             $1[i][j]=0; ",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "rep": {
+    "scope": "cpp",
+    "prefix": "rep",
+    "body": [
+      "rep(${0}){",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "rrep": {
+    "scope": "cpp",
+    "prefix": "rrep",
+    "body": [
+      "rrep(${0}){",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "for": {
+    "scope": "cpp",
+    "prefix": "for",
+    "body": [
+      "for(int i=0; i<n; i++){${0}",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "if": {
+    "scope": "cpp",
+    "prefix": "if",
+    "body": [
+      "if (${0}) {",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "else": {
+    "scope": "cpp",
+    "prefix": "else",
+    "body": [
+      "else{${0}",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "elif": {
+    "scope": "cpp",
+    "prefix": "elif",
+    "body": [
+      "else if(${0}){",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "while": {
+    "scope": "cpp",
+    "prefix": "while",
+    "body": [
+      "while (${0}){",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "reprep": {
+    "scope": "cpp",
+    "prefix": "reprep",
+    "body": [
+      "rep(${1}) rep(${2}){${0}",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "d": {
+    "scope": "cpp",
+    "prefix": "d",
+    "body": [
+      "dump(${0});",
+      ""
+    ],
+    "description": "desc"
+  },
+  "af": {
+    "scope": "cpp",
+    "prefix": "af",
+    "body": [
+      "assert(false);",
+      ""
+    ],
+    "description": "desc"
+  },
+  "sortkey": {
+    "scope": "cpp",
+    "prefix": "sortkey",
+    "body": [
+      "sort(all(${0}), [&](auto &left, auto &right){return left.second < right.second;});",
+      ""
+    ],
+    "description": "desc"
+  },
+  "perm": {
+    "scope": "cpp",
+    "prefix": "perm",
+    "body": [
+      "do{",
+      "  ${0};",
+      "} while (next_permutation(all(x)));",
+      ""
+    ],
+    "description": "desc"
+  },
+  "to_bin": {
+    "scope": "cpp",
+    "prefix": "to_bin",
+    "body": [
+      "string to_bin(int n, int d){",
+      "  // nをd桁の2進数で表示する。",
+      "  stringstream ss;",
+      "  ss << bitset<20>(n);",
+      "  return ss.str().substr(20-d, d);",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "warsharll": {
+    "scope": "cpp",
+    "prefix": "warsharll",
+    "body": [
+      "// init",
+      "int d[N][N]={};  // 必要があればglobalに",
+      "rep(i, N)rep(j, N){",
+      "  d[i][j] = (i==j ? 0 : INF)",
+      "}",
+      "",
+      "// input",
+      "${0};",
+      "",
+      "// calc",
+      "rep(k, N){",
+      "  rep(i, N){",
+      "    rep(j, N){",
+      "      chmin(d[i][j], d[i][k]+d[k][j]);",
+      "    }",
+      "  }",
+      "}",
+      "dump_2d(d, N, N);",
+      ""
+    ],
+    "description": "desc"
+  },
+  "digitdp": {
+    "scope": "cpp",
+    "prefix": "digitdp",
+    "body": [
+      "rep(i, sz(S)){  //桁数",
+      "  rep(leq, 2){  //未満確定フラグ",
+      "    int lim = leq ? 9 : S[i]-'0';",
+      "    rep(d, lim+1){",
+      "      dp[leq || d<lim][i] += dp[leq][i-1];",
+      "    }",
+      "  }",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "rangesum": {
+    "scope": "cpp",
+    "prefix": "rangesum",
+    "body": [
+      "int rangesum(int l, int r){",
+      "  // a[]: accumulative sum",
+      "  l = max(0, l);",
+      "  // r = min(0, n-1);",
+      "  if (l > r) return 0;",
+      "  return a[r] - (l-1>=0 ? a[l-1] : 0);",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "asv": {
+    "scope": "cpp",
+    "prefix": "asv",
+    "body": [
+      "// acumulative sum vector {{{",
+      "template<typename T=int>",
+      "struct asvector : public vector<T> {",
+      "  using vector<T>::vector;",
+      "  vector<T> cum; //accumulative sum",
+      "  bool is_accumulated = false;",
+      "",
+      "  public:",
+      "  T rsum(int l, int r) {  // return sum of [l, r] of data.",
+      "    if (!is_accumulated)",
+      "      _accumulate();",
+      "    l = std::max(0LL, l);",
+      "    r = std::min(r, sz(cum)-1);",
+      "    return _calc_rangesum(l, r);",
+      "  }",
+      "",
+      "  T rsum(int r) {  // return sum of [0, r] of data.",
+      "    if (!is_accumulated)",
+      "      _accumulate();",
+      "    int l = 0;",
+      "    r = std::min(r, sz(cum)-1);",
+      "    return _calc_rangesum(l, r);",
+      "  }",
+      "",
+      "  void _accumulate(){",
+      "    cum = vector<T>(*this);",
+      "    for(T i=1; i<sz(cum); i++){",
+      "      cum[i] = cum[i-1] + (*this)[i];",
+      "    }",
+      "    is_accumulated = true;",
+      "  }",
+      "",
+      "  void push_back(T x){",
+      "    (*this).emplace_back(x);",
+      "    is_accumulated = false;",
+      "  }",
+      "",
+      "  private:",
+      "  T _calc_rangesum(int l, int r) {",
+      "    if (l > r)",
+      "      return 0;",
+      "    else",
+      "      return cum[r] - (l-1>=0 ? cum[l-1] : 0);",
+      "  }",
+      "};",
+      "using asvi = asvector<int>;",
+      "//}}}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "sandbox": {
+    "scope": "cpp",
+    "prefix": "sandbox",
+    "body": [
+      "using namespace std;",
+      "#include <bits/stdc++.h>",
+      "#include <iostream>",
+      "",
+      "int main(){",
+      "  return 0;",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "remove_leading_zeros": {
+    "scope": "cpp",
+    "prefix": "remove_leading_zeros",
+    "body": [
+      "str.erase(0, min(str.find_first_not_of('0'), str.size()-1));",
+      ""
+    ],
+    "description": "desc"
+  },
+  "p2": {
+    "scope": "cpp",
+    "prefix": "p2",
+    "body": [
+      "int p[500001];  // power of 2 {{{",
+      "p[0] = 1;",
+      "rep(i, 1, 500002){",
+      "  p[i] = p[i-1]*2;",
+      "  p[i] %= MOD;",
+      "}",
+      "// }}}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "lambda": {
+    "scope": "cpp",
+    "prefix": "lambda",
+    "body": [
+      "auto f=[&](){",
+      "};",
+      ""
+    ],
+    "description": "desc"
+  },
+  "dxdy": {
+    "scope": "cpp",
+    "prefix": "dxdy",
+    "body": [
+      "int dx[]={1, -1, 0, 0};",
+      "int dy[]={0, 0, 1, -1};",
+      ""
+    ],
+    "description": "desc"
+  },
+  "ostream": {
+    "scope": "cpp",
+    "prefix": "ostream",
+    "body": [
+      "ostream& <<(ostream& os, const& ${1}){",
+      "  os << ${2};",
+      "  return os;",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
+  "POS": {
+    "scope": "cpp",
+    "prefix": "POS",
+    "body": [
+      "struct POS{ ",
+      "  int node, level;",
+      "  POS(int n, int l) : node(n), level(l){};",
+      "};",
+      "bool operator<(auto &left, auto &right){",
+      "  if (left.node != right.node) return (left.node < right.node);",
+      "  else return left.level < right.level;",
+      "}",
+      "auto& operator<<(auto& stream, POS pos){",
+      "  stream << \"pos(\" << pos.node << \",\" << pos.level << \")\";",
+      "  return stream;",
+      "}",
+      ""
+    ],
+    "description": "desc"
+  },
   "gcd": {
     "scope": "cpp",
     "prefix": "gcd",

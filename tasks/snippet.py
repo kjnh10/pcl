@@ -37,7 +37,7 @@ class Snippet(object):
         snippets[self.name] = deepcopy(self)
 
 
-    def to_snip_file(self, snip_file, snippets):
+    def to_snip_file(self, snip_file, snippets, format):
         resolve_path = []
         resolve_path = self.__resolve_dependencies(resolve_path, snippets)
         print(self.name, resolve_path)
@@ -60,7 +60,7 @@ class Snippet(object):
 
                 res[self.name] = {
                         "scope" : "cpp",
-                        "prefix" : self.name,
+                        "prefix" : self.name,  # TODO: aliasも取り込む
                         "body" : [x.replace("\n", "") for x in self.code],
                         "description" : "desc",
                         }
