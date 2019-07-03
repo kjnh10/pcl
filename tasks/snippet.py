@@ -45,7 +45,10 @@ class Snippet(object):
             if format=='neosnippet':
                 out.write(f'snippet {self.name}\n')
                 if ('alias' in self.option):
-                    out.write(f"alias {self.option['alias']}\n")
+                    if type(self.option['alias']) is str:
+                        out.write(f"alias {self.option['alias']}\n")
+                    elif type(self.option['alias']) is list:
+                        out.write(f"alias {','.join(self.option['alias'])}\n")
 
                 for l in self.code:
                     out.write('  ' + l)
@@ -58,9 +61,16 @@ class Snippet(object):
                     except:
                         pass
 
+                prefix = [self.name]
+                if ('alias' in self.option):
+                    if type(self.option['alias']) is str:
+                        prefix.append(self.option['alias'])
+                    elif type(self.option['alias']) is list:
+                        prefix += self.option['alias']
+
                 res[self.name] = {
                         "scope" : "cpp",
-                        "prefix" : self.name,  # TODO: aliasも取り込む
+                        "prefix" : prefix,
                         "body" : [x.replace("\n", "") for x in self.code],
                         "description" : "desc",
                         }

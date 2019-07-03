@@ -10,7 +10,8 @@ def build(c):
     CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes/cpp'
 
     neosnip_file = Path(os.path.dirname(__file__)).parent / 'snippets/cpp/auto.snip'
-    vssnip_file = Path(os.path.dirname(__file__)).parent / 'template/.vscode/auto.code-snippets'
+    # vssnip_file = Path(os.path.dirname(__file__)).parent / 'template/.vscode/auto.code-snippets'
+    vssnip_file = Path.home() / '.config/Code/User/snippets/auto.code-snippets'
 
     if neosnip_file.exists():
         neosnip_file.unlink()
