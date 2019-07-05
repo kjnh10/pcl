@@ -1,3 +1,4 @@
+# %snippet.set('bit1')%
 # Binary Indexd Tree
 class BIT():
     def __init__(self, N):
@@ -14,6 +15,7 @@ class BIT():
         while n <= N:
             self.data[n] += x
             n += (n & -n)
+# %snippet.end%
 
 
 # test

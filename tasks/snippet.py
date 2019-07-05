@@ -37,7 +37,7 @@ class Snippet(object):
         snippets[self.name] = deepcopy(self)
 
 
-    def to_snip_file(self, snip_file, snippets, format):
+    def to_snip_file(self, snip_file, snippets, format, scope=None):
         resolve_path = []
         resolve_path = self.__resolve_dependencies(resolve_path, snippets)
         print(self.name, resolve_path)
@@ -69,11 +69,12 @@ class Snippet(object):
                         prefix += self.option['alias']
 
                 res[self.name] = {
-                        "scope" : "cpp",
                         "prefix" : prefix,
                         "body" : [x.replace("\n", "") for x in self.code],
                         "description" : "desc",
                         }
+                if scope:
+                    res[self.name]['scope'] = scope
                 json.dump(res, open(snip_file, mode='w'), indent=2, ensure_ascii=False)
             else:
                 raise Exception(f'to_snip_file for {format} not defined')
@@ -137,5 +138,4 @@ def extract_snips(f: Path, snippets: dict) -> list:
 
     if 'snippet' in locals():
         snippet.save_to(snippets)
-
 
