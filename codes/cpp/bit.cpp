@@ -38,7 +38,7 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
-//%snippet.set('bit1')%
+//%snippet.set('bit')%
 template<typename T> struct BIT {//{{{
   int n;
   vector<T> dat;

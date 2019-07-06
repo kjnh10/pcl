@@ -8,11 +8,6 @@ def build(c):
     print("building snippets")
 
     CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes'
-
-    # where to output
-    # neosnip_file = Path(os.path.dirname(__file__)).parent / 'snippets/cpp/auto.snip'
-    # vssnip_file = Path.home() / '.config/Code/User/snippets/cpp.code-snippets'
-
     neosnip_dir = Path(os.path.dirname(__file__)).parent / 'snippets/'
     vssnip_dir = Path.home() / '.config/Code/User/snippets/'
 

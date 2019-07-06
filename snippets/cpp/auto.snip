@@ -1,4 +1,70 @@
 snippet bit1
+  template<typename T=int>
+  struct BIT {
+    public:
+      vector<T> data;  // 1-indexed
+  
+      // constructor
+      BIT(vector<T> v){  // v: 0-index vector
+        data = vector<T>(sz(v)+1);
+        rep(i, 1, sz(v)) add(i+1, v[i]);
+      }
+      BIT(int n){
+        data = vector<T>(n+1);
+      }
+      //------------
+  
+      T sum(int idx){  // return sum of [1, r]
+        T res = 0;
+        for (int i = idx; i > 0; i -= i&-i) res += data[i];
+        return res;
+      }
+  
+      void add(int idx, T x){
+        for (int i = idx; i <= (int)data.size(); i += i&-i){
+          data[i] += x;
+        }
+      }
+  
+    private:
+  };
+  
+  ostream& operator<<(ostream& stream, BIT<int> bit){
+    int n = sz(bit.data);
+    stream << "bit[";
+    rep(i, 1, n){
+      stream << bit.sum(i) << (i==n-1 ? "" : ", ");
+    }
+    stream << "]";
+    return stream;
+  }
+  
+
+
+snippet lcs
+  #define MAX_N 5000
+  #define MAX_M 5000
+  int lcs(string s, string t){
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+  
+    rep(i, n){
+      rep(j, m){
+        if (s[i]==t[j])
+          chmax(dp[i+1][j+1], dp[i][j]+1);
+        else{
+          chmax(dp[i+1][j+1], dp[i][j+1]);
+          chmax(dp[i+1][j+1], dp[i+1][j]);
+        }
+      }
+    }
+    return dp[n][m];
+  }
+  
+
+
+snippet bit
   template<typename T> struct BIT {//{{{
     int n;
     vector<T> dat;
@@ -47,29 +113,6 @@ snippet bit1
       return ret + 1;
     }/*}}}*/
   };//}}}
-  
-
-
-snippet lcs
-  #define MAX_N 5000
-  #define MAX_M 5000
-  int lcs(string s, string t){
-    int n = sz(s);
-    int m = sz(t);
-    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
-  
-    rep(i, n){
-      rep(j, m){
-        if (s[i]==t[j])
-          chmax(dp[i+1][j+1], dp[i][j]+1);
-        else{
-          chmax(dp[i+1][j+1], dp[i][j+1]);
-          chmax(dp[i+1][j+1], dp[i+1][j]);
-        }
-      }
-    }
-    return dp[n][m];
-  }
   
 
 
