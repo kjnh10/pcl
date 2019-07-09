@@ -216,7 +216,7 @@ int dy[]={0, 0, 1, -1};
 
 //%snippet.set('ostream')%
 //%snippet.config({'alias':'<<'})%
-ostream& <<(ostream& os, const& ${1}){
+ostream& ostream<<(ostream& os, const& ${1}){
   os << ${2};
   return os;
 }
