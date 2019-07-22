@@ -50,12 +50,12 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 //%snippet.set('slide_min')%
-template< typename T >
-vector< T > slide_min(const vector< T > &v, int k)
-{
+template< typename T >  //{{{
+vector<T> slide_min(const vector<T> &v, int k) {
   deque< int > deq;
   vector< T > ret;
-  for(int i = 0; i < v.size(); i++) {
+  int m = sz(v);
+  rep(i, m){
     while(!deq.empty() && v[deq.back()] >= v[i]) {
       deq.pop_back();
     }
@@ -65,6 +65,6 @@ vector< T > slide_min(const vector< T > &v, int k)
       if(deq.front() == i - k + 1) deq.pop_front();
     }
   }
-  return ret;
-}
+  return ret;  // sz(res) == m-k+1, last index is m-k
+}  //}}}
 //%snippet.end%
