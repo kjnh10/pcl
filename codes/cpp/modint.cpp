@@ -1,119 +1,120 @@
-template<unsigned MOD>
-class ModInt {
+//%snippet.set('mint2')%
+template<unsigned mod>/*{{{*/
+class mint {
 public:
   unsigned x;
-  ModInt(): x(0) { }
-  ModInt(signed y) : x(y >= 0 ? y % MOD : MOD - (-y) % MOD) {}
+  mint(): x(0) { }
+  mint(signed y) : x(y >= 0 ? y % mod : mod - (-y) % mod) {}
   unsigned get() const { return x; }
 
   // 逆数
-  ModInt inv() const {
-    ll a = 1, p = x, e = MOD-2;
+  mint inv() const {
+    ll a = 1, p = x, e = mod-2;
     while(e > 0) {
-      if(e%2 == 0) {p = (p*p) % MOD; e /= 2;}
-      else {a = (a*p) % MOD; e--;}
+      if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+      else {a = (a*p) % mod; e--;}
     }
-    a %= MOD;
-    return ModInt(a);
+    a %= mod;
+    return mint(a);
   }
   // e乗
-  ModInt pow(ll e) {
+  mint pow(ll e) {
     ll a = 1, p = x;
     while(e > 0) {
-      if(e%2 == 0) {p = (p*p) % MOD; e /= 2;}
-      else {a = (a*p) % MOD; e--;}
+      if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+      else {a = (a*p) % mod; e--;}
     }
-    a %= MOD;
-    return ModInt(a);
+    a %= mod;
+    return mint(a);
   }
   // 2のx乗
-  ModInt pow2() {
+  mint pow2() {
     ll a = 1, p = 2, e = x;
     while(e > 0) {
-      if(e%2 == 0) {p = (p*p) % MOD; e /= 2;}
-      else {a = (a*p) % MOD; e--;}
+      if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+      else {a = (a*p) % mod; e--;}
     }
-    a %= MOD;
-    return ModInt(a);
+    a %= mod;
+    return mint(a);
   }
 
   // Comparators
-  bool operator <(ModInt b) { return x < b.x; }
-  bool operator >(ModInt b) { return x > b.x; }
-  bool operator<=(ModInt b) { return x <= b.x; }
-  bool operator>=(ModInt b) { return x >= b.x; }
-  bool operator!=(ModInt b) { return x != b.x; }
-  bool operator==(ModInt b) { return x == b.x; }
+  bool operator <(mint b) { return x < b.x; }
+  bool operator >(mint b) { return x > b.x; }
+  bool operator<=(mint b) { return x <= b.x; }
+  bool operator>=(mint b) { return x >= b.x; }
+  bool operator!=(mint b) { return x != b.x; }
+  bool operator==(mint b) { return x == b.x; }
 
   // increment, decrement
-  ModInt operator++() { x++; return *this; }
-  ModInt operator--() { x--; return *this; }
+  mint operator++() { x++; return *this; }
+  mint operator--() { x--; return *this; }
 
   // Basic Operations
-  ModInt &operator+=(ModInt that) {
-    x = ((ll)x+that.x)%MOD;
+  mint &operator+=(mint that) {
+    x = ((ll)x+that.x)%mod;
     return *this;
   }
-  ModInt &operator-=(ModInt that) {
-    x = ((((ll)x-that.x)%MOD)+MOD)%MOD;
+  mint &operator-=(mint that) {
+    x = ((((ll)x-that.x)%mod)+mod)%mod;
     return *this;
   }
-  ModInt &operator*=(ModInt that) {
-    x = (ll)x * that.x % MOD;
+  mint &operator*=(mint that) {
+    x = (ll)x * that.x % mod;
     return *this;
   }
   // O(log(mod))かかるので注意
-  ModInt &operator/=(ModInt that) {
-    x = (ll)x * that.inv() % MOD;
+  mint &operator/=(mint that) {
+    x = (ll)x * that.inv() % mod;
     return *this;
   }
-  ModInt &operator%=(ModInt that) {
+  mint &operator%=(mint that) {
     x = (ll)x % that.x;
     return *this;
   }
-  ModInt operator+(ModInt that)const{return ModInt(*this) += that;}
-  ModInt operator-(ModInt that)const{return ModInt(*this) -= that;}
-  ModInt operator*(ModInt that)const{return ModInt(*this) *= that;}
-  ModInt operator/(ModInt that)const{return ModInt(*this) /= that;}
-  ModInt operator%(ModInt that)const{return ModInt(*this) %= that;}
+  mint operator+(mint that)const{return mint(*this) += that;}
+  mint operator-(mint that)const{return mint(*this) -= that;}
+  mint operator*(mint that)const{return mint(*this) *= that;}
+  mint operator/(mint that)const{return mint(*this) /= that;}
+  mint operator%(mint that)const{return mint(*this) %= that;}
 };
-typedef ModInt<1000000007> mint;
+typedef mint<1000000007> mint;
+ostream& operator<<(ostream& os, const mint& a){
+  os << a.x;
+  return os;
+}
+/*}}}*/
 
-// tourist mod calc{{{
-const int md = (int) 1e9 + 7;
-inline void add(int &a, int b) {
-  a += b;
-  if (a >= md) a -= md;
-}
-inline void sub(int &a, int b) {
-  a -= b;
-  if (a < 0) a += md;
-}
-inline int mul(int a, int b) {
-  return (int) ((long long) a * b % md);
-}
-inline int power(int a, long long b) {
-  int res = 1;
-  while (b > 0) {
-    if (b & 1) {
-      res = mul(res, a);
-    }
-    a = mul(a, a);
-    b >>= 1;
+//%snippet.set('mint')%
+struct mint { //逆元などを使いたければmint2{{{
+  int x;
+  mint(int x=0):x(x%mod){}
+  mint& operator+=(const mint a) {
+    (x += a.x) %= mod;
+    return *this;
   }
-  return res;
-}
-inline int inv(int a) {
-  a %= md;
-  if (a < 0) a += md;
-  int b = md, u = 0, v = 1;
-  while (a) {
-    int t = b / a;
-    b -= t * a; swap(a, b);
-    u -= t * v; swap(u, v);
+  mint& operator-=(const mint a) {
+    (x += mod-a.x) %= mod;
+    return *this;
   }
-  assert(b == 1);
-  if (u < 0) u += md;
-  return u;
-}
-//}}}
+  mint& operator*=(const mint a) {
+    (x *= a.x) %= mod;
+    return *this;
+  }
+  mint operator+(const mint a) const {
+    mint res(*this);
+    return res+=a;
+  }
+  mint operator-(const mint a) const {
+    mint res(*this);
+    return res-=a;
+  }
+  mint operator*(const mint a) const {
+    mint res(*this);
+    return res*=a;
+  }
+};
+ostream& operator<<(ostream& os, const mint& a){
+  os << a.x;
+  return os;
+} //}}}

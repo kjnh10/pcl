@@ -193,8 +193,7 @@ int main(){
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 
 
-//%snippet.set('p2')%
-//%snippet.config({'alias':'pow'})%
+operator//%snippet.set('pow2')%
 int p[500001];  // power of 2 {{{
 p[0] = 1;
 rep(i, 1, 500002){
@@ -202,6 +201,19 @@ rep(i, 1, 500002){
   p[i] %= MOD;
 }
 // }}}
+
+//%snippet.set('pow')%
+int pow_(int b, int x){ //{{{
+  if (x==1) return b%M;
+  if (x%2==0){
+    int t = pow_(b, x/2);
+    return (t*t)%M;
+  }
+  else{
+    return pow_(b, x-1)*b%M;
+  }
+} //}}}
+
 
 //%snippet.set('lambda')%
 //%snippet.config({'alias':'f'})%
@@ -216,8 +228,8 @@ int dy[]={0, 0, 1, -1};
 
 //%snippet.set('ostream')%
 //%snippet.config({'alias':'<<'})%
-ostream& ostream<<(ostream& os, const& ${1}){
-  os << ${2};
+ostream& operator<<(ostream& os, const ${1:type}& ${2}){
+  os << ${3};
   return os;
 }
 

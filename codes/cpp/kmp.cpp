@@ -1,3 +1,4 @@
+//%snippet.set('kmp')%
 // kmp をやるための前計算
 vector<int> makeTable(const string& s) {
   int n = s.size();
@@ -30,3 +31,4 @@ vector<int> kmp(const string& str, const string& word) {
   }
   return ret;
 }
+//%snippet.end%

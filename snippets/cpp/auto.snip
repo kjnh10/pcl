@@ -116,6 +116,131 @@ snippet bit
   
 
 
+snippet mint2
+  template<unsigned mod>/*{{{*/
+  class mint {
+  public:
+    unsigned x;
+    mint(): x(0) { }
+    mint(signed y) : x(y >= 0 ? y % mod : mod - (-y) % mod) {}
+    unsigned get() const { return x; }
+  
+    // 逆数
+    mint inv() const {
+      ll a = 1, p = x, e = mod-2;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+    // e乗
+    mint pow(ll e) {
+      ll a = 1, p = x;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+    // 2のx乗
+    mint pow2() {
+      ll a = 1, p = 2, e = x;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+  
+    // Comparators
+    bool operator <(mint b) { return x < b.x; }
+    bool operator >(mint b) { return x > b.x; }
+    bool operator<=(mint b) { return x <= b.x; }
+    bool operator>=(mint b) { return x >= b.x; }
+    bool operator!=(mint b) { return x != b.x; }
+    bool operator==(mint b) { return x == b.x; }
+  
+    // increment, decrement
+    mint operator++() { x++; return *this; }
+    mint operator--() { x--; return *this; }
+  
+    // Basic Operations
+    mint &operator+=(mint that) {
+      x = ((ll)x+that.x)%mod;
+      return *this;
+    }
+    mint &operator-=(mint that) {
+      x = ((((ll)x-that.x)%mod)+mod)%mod;
+      return *this;
+    }
+    mint &operator*=(mint that) {
+      x = (ll)x * that.x % mod;
+      return *this;
+    }
+    // O(log(mod))かかるので注意
+    mint &operator/=(mint that) {
+      x = (ll)x * that.inv() % mod;
+      return *this;
+    }
+    mint &operator%=(mint that) {
+      x = (ll)x % that.x;
+      return *this;
+    }
+    mint operator+(mint that)const{return mint(*this) += that;}
+    mint operator-(mint that)const{return mint(*this) -= that;}
+    mint operator*(mint that)const{return mint(*this) *= that;}
+    mint operator/(mint that)const{return mint(*this) /= that;}
+    mint operator%(mint that)const{return mint(*this) %= that;}
+  };
+  typedef mint<1000000007> mint;
+  ostream& operator<<(ostream& os, const mint& a){
+    os << a.x;
+    return os;
+  }
+  /*}}}*/
+  
+
+
+snippet mint
+  struct mint { //逆元などを使いたければmint2{{{
+    int x;
+    mint(int x=0):x(x%mod){}
+    mint& operator+=(const mint a) {
+      (x += a.x) %= mod;
+      return *this;
+    }
+    mint& operator-=(const mint a) {
+      (x += mod-a.x) %= mod;
+      return *this;
+    }
+    mint& operator*=(const mint a) {
+      (x *= a.x) %= mod;
+      return *this;
+    }
+    mint operator+(const mint a) const {
+      mint res(*this);
+      return res+=a;
+    }
+    mint operator-(const mint a) const {
+      mint res(*this);
+      return res-=a;
+    }
+    mint operator*(const mint a) const {
+      mint res(*this);
+      return res*=a;
+    }
+  };
+  ostream& operator<<(ostream& os, const mint& a){
+    os << a.x;
+    return os;
+  } //}}}
+  
+
+
 snippet zip
   // zip: a = [3, 10, 5, 5, 2]
   vector<int> unzipper; // [2, 3, 5, 10]
@@ -356,13 +481,14 @@ snippet dijkstra
   //   // init and build G
   //   GRAPH G;
   //
-  //   int n;cin>>n;
-  //   rep(i, n){
+  //   int n,m;cin>>n>>m;
+  //   rep(i, m){
   //     POS from, to;
   //     COST cost;
   //     cin>>from>>to>>cost;
   //     pos--;from--;
   //     G.add_edge(from, to, cost);
+  //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
   //   }
   //
   //   // calc min distance by G
@@ -613,8 +739,7 @@ snippet remove_leading_zeros
   
 
 
-snippet p2
-alias pow
+snippet pow2
   int p[500001];  // power of 2 {{{
   p[0] = 1;
   rep(i, 1, 500002){
@@ -622,6 +747,20 @@ alias pow
     p[i] %= MOD;
   }
   // }}}
+  
+
+
+snippet pow
+  int pow_(int b, int x){ //{{{
+    if (x==1) return b%M;
+    if (x%2==0){
+      int t = pow_(b, x/2);
+      return (t*t)%M;
+    }
+    else{
+      return pow_(b, x-1)*b%M;
+    }
+  } //}}}
   
 
 
@@ -640,8 +779,8 @@ snippet dxdy
 
 snippet ostream
 alias <<
-  ostream& ostream<<(ostream& os, const& ${1}){
-    os << ${2};
+  ostream& operator<<(ostream& os, const ${1:type}& ${2}){
+    os << ${3};
     return os;
   }
   
@@ -799,6 +938,42 @@ snippet unionfind
       return -data[root(x)];
     }
   };
+  
+
+
+snippet kmp
+  // kmp をやるための前計算
+  vector<int> makeTable(const string& s) {
+    int n = s.size();
+    vector<int> ret(n+1);
+    ret[0] = -1;
+    int j = -1;
+    for (int i = 0; i < n; i++) {
+      while (j >= 0 && s[i] != s[j]) j = ret[j];
+      ret[i+1] = ++j;
+    }
+    return ret;
+  }
+  
+  // str の中に word とマッチする場所のリストを返す
+  // ret のそれぞれの要素 el は, 「str[el] からの文字列が word と一致する」ことを示す
+  vector<int> kmp(const string& str, const string& word) {
+    vector<int> table = makeTable(word), ret;
+    int m = 0, i = 0, n = str.size();
+    while (m+i < n) {
+      if (word[i] == str[m+i]) {
+        if (++i == (int)(word.size())) {
+          ret.push_back(m);
+          m = m+i-table[i];
+          i = table[i];
+        }
+      } else {
+        m = m+i-table[i];
+        if (i > 0) i = table[i];
+      }
+    }
+    return ret;
+  }
   
 
 

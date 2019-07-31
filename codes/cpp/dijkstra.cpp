@@ -98,13 +98,14 @@ map<POS, COST> dijkstra(GRAPH& G, POS start){
 //   // init and build G
 //   GRAPH G;
 //
-//   int n;cin>>n;
-//   rep(i, n){
+//   int n,m;cin>>n>>m;
+//   rep(i, m){
 //     POS from, to;
 //     COST cost;
 //     cin>>from>>to>>cost;
 //     pos--;from--;
 //     G.add_edge(from, to, cost);
+//     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
 //   }
 //
 //   // calc min distance by G
