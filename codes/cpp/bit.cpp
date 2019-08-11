@@ -39,40 +39,40 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 //%snippet.set('bit')%
-template<typename T> struct BIT {//{{{
+template<typename T=int> struct BIT {//{{{
   int n;
   vector<T> dat;
 
-  BIT(int n=0){/*{{{*/
+  BIT(int n=0){ //{{{
     initialize(n);
-  }/*}}}*/
+  } //}}}
 
-  void initialize(int nin){/*{{{*/
+  void initialize(int nin){ //{{{
     n = nin;
     dat.resize(n);
     for(int i = 0; i<n; i++) dat[i] = 0;
-  }/*}}}*/
+  } //}}}
 
-  T sum(int i){/*{{{*/
+  T sum(int i){ //{{{
     T s = 0;
     while(i >= 0){
       s += dat[i];
       i = (i & (i+1)) - 1;
     }
     return s;
-  }/*}}}*/
+  } //}}}
 
-  T sum_between(int i, int j){/*{{{*/
+  T sum(int i, int j){ //{{{  [i, j]
     if(i > j) return 0;
     return sum(j) - sum(i-1);
-  }/*}}}*/
+  } //}}}
 
-  void add(int i, T x){/*{{{*/
+  void add(int i, T x){ //{{{
     while(i < n){
       dat[i] += x;
       i |= i+1;
     }
-  }/*}}}*/
+  } //}}}
 
   int lower_bound(T x){ // a[0]+...+a[ret] >= x{{{
     int ret = -1;
@@ -85,8 +85,8 @@ template<typename T> struct BIT {//{{{
       }
     }
     return ret + 1;
-  }/*}}}*/
-};//}}}
+  } //}}}
+}; //}}}
 //%snippet.end%
 
 signed main(){
@@ -101,5 +101,7 @@ signed main(){
   cout << bit.sum(2) << endl;  //7
   cout << bit.sum(3) << endl;  //15
   cout << bit.sum(4) << endl;  //31
+
+  cout << bit.sum(2, 4) << endl;  // 28
   return 0;
 }

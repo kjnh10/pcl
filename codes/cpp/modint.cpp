@@ -86,6 +86,7 @@ ostream& operator<<(ostream& os, const mint& a){
 /*}}}*/
 
 //%snippet.set('mint')%
+int mod = 1e9+7;
 struct mint { //逆元などを使いたければmint2{{{
   int x;
   mint(int x=0):x(x%mod){}
