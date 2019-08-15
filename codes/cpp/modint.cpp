@@ -89,7 +89,7 @@ ostream& operator<<(ostream& os, const mint& a){
 int mod = 1e9+7;
 struct mint { //逆元などを使いたければmint2{{{
   int x;
-  mint(int x=0):x(x%mod){}
+  mint(int x=0):x((x%mod+mod)%mod){}
   mint& operator+=(const mint a) {
     (x += a.x) %= mod;
     return *this;

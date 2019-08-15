@@ -53,11 +53,13 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 //%snippet.set('dijkstra')%
 
-using COST = int;  // update
+using COST = int;  // TODO: update
 using POS = pair<int, int>;  // TODO: update
 using EDGE = pair<POS, COST>;
 struct GRAPH{
   map<POS, vector<EDGE>> all_edges;
+  vector<POS> all_nodes;
+
   void add_edge(POS from, POS to, COST cost){
     all_edges[from].emplace_back(mp(to, cost));
   }
@@ -73,7 +75,7 @@ auto& operator<<(auto& stream, GRAPH G){
 
 map<POS, COST> dijkstra(GRAPH& G, POS start){
   map<POS, COST> d;  // 最短距離
-  // TODO: vectorの場合はd[*]=INFにしておく。
+  each(node, G.all_nodes) {d[node] = INF;}
 
   PQ<pair<COST, POS>> q;
   q.push(mp(0LL, start));
@@ -82,7 +84,7 @@ map<POS, COST> dijkstra(GRAPH& G, POS start){
     auto cost = cp.first;
     auto pos = cp.second;
 
-    if (d.find(pos)==d.end() || cost < d[pos]) {
+    if (cost < d[pos]) {
       d[pos] = cost;
       for (const auto &el:G[pos]){
         auto ncost = cost + el.second;
@@ -99,11 +101,12 @@ map<POS, COST> dijkstra(GRAPH& G, POS start){
 //   GRAPH G;
 //
 //   int n,m;cin>>n>>m;
+//   rep(i, n) G.all_nodes.pb(i);  // add node
 //   rep(i, m){
 //     POS from, to;
 //     COST cost;
 //     cin>>from>>to>>cost;
-//     pos--;from--;
+//     from--;to--;
 //     G.add_edge(from, to, cost);
 //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
 //   }
