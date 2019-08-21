@@ -91,7 +91,7 @@ string to_bin(int n, int d){
 // init
 int d[N][N]={};  // 必要があればglobalに
 rep(i, N)rep(j, N){
-  d[i][j] = (i==j ? 0 : INF)
+  d[i][j] = (i==j ? 0 : INF);
 }
 
 // input
