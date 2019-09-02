@@ -1,3 +1,53 @@
+snippet topological_sort
+alias tps
+  template<class node>
+  using graph = vector<vector<node>>;
+  
+  template<class node>
+  pair<vector<node>, int> topological_sort(const graph<node>& G){
+    int V = sz(G);  // node数
+    vector<node> ans;  // sort後の結果を格納
+    vector<int> h(V); // 頂点ごとの入次数
+    stack<node> st;  // 入次数が0になっている頂点の集合
+    int max_len = 0; // 最長経路の長さ
+  /*{{{*/
+    // 入次数を計算する。
+    rep(v, V){
+      for(auto to: G[v]){
+        h[to]++;
+      }
+    }
+  
+    // 最初に入次数0になっている頂点を集める。
+    rep(v, V){
+      if (h[v]==0){
+        st.push(v); 
+        ans.push_back(v);
+      }
+    }
+  
+    // 入次数0の頂点をansに追加しそこから出て行く辺は削除していく。O(V+E)
+    while(!st.empty()){
+      stack<node> nex_st;
+      while(!st.empty()){
+        node v = st.top();st.pop();
+        for(auto to: G[v]){
+          h[to]--;
+          if (h[to]==0){
+            ans.push_back(to);
+            nex_st.push(to);
+          }
+        }
+      }
+      max_len++;
+      st = nex_st;
+    }
+  /*}}}*/
+    return make_pair(ans, max_len);  // ans.size()<Vなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+  }
+  
+
+
 snippet bit1
   template<typename T=int>
   struct BIT {
@@ -826,7 +876,16 @@ snippet pow
 
 snippet lambda
 alias f
-  auto f=[&](){
+  auto f = [&](){
+  };
+  
+
+
+snippet dfs_lambda
+alias dfs
+  auto dfs = [&](const auto& dfs, int x, int v) -> void {
+    // 処理
+    dfs(dfs, nx, nv);
   };
   
 

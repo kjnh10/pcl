@@ -217,7 +217,15 @@ int pow_(int b, int x){ //{{{
 
 //%snippet.set('lambda')%
 //%snippet.config({'alias':'f'})%
-auto f=[&](){
+auto f = [&](){
+};
+
+
+//%snippet.set('dfs_lambda')%
+//%snippet.config({'alias':'dfs'})%
+auto dfs = [&](const auto& dfs, int x, int v) -> void {
+  // 処理
+  dfs(dfs, nx, nv);
 };
 
 
