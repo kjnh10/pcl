@@ -1,53 +1,3 @@
-snippet topological_sort
-alias tps
-  template<class node>
-  using graph = vector<vector<node>>;
-  
-  template<class node>
-  pair<vector<node>, int> topological_sort(const graph<node>& G){
-    int V = sz(G);  // node数
-    vector<node> ans;  // sort後の結果を格納
-    vector<int> h(V); // 頂点ごとの入次数
-    stack<node> st;  // 入次数が0になっている頂点の集合
-    int max_len = 0; // 最長経路の長さ
-  /*{{{*/
-    // 入次数を計算する。
-    rep(v, V){
-      for(auto to: G[v]){
-        h[to]++;
-      }
-    }
-  
-    // 最初に入次数0になっている頂点を集める。
-    rep(v, V){
-      if (h[v]==0){
-        st.push(v); 
-        ans.push_back(v);
-      }
-    }
-  
-    // 入次数0の頂点をansに追加しそこから出て行く辺は削除していく。O(V+E)
-    while(!st.empty()){
-      stack<node> nex_st;
-      while(!st.empty()){
-        node v = st.top();st.pop();
-        for(auto to: G[v]){
-          h[to]--;
-          if (h[to]==0){
-            ans.push_back(to);
-            nex_st.push(to);
-          }
-        }
-      }
-      max_len++;
-      st = nex_st;
-    }
-  /*}}}*/
-    return make_pair(ans, max_len);  // ans.size()<Vなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
-  }
-  
-
-
 snippet bit1
   template<typename T=int>
   struct BIT {
@@ -87,29 +37,6 @@ snippet bit1
     }
     stream << "]";
     return stream;
-  }
-  
-
-
-snippet lcs
-  #define MAX_N 5000
-  #define MAX_M 5000
-  int lcs(string s, string t){
-    int n = sz(s);
-    int m = sz(t);
-    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
-  
-    rep(i, n){
-      rep(j, m){
-        if (s[i]==t[j])
-          chmax(dp[i+1][j+1], dp[i][j]+1);
-        else{
-          chmax(dp[i+1][j+1], dp[i][j+1]);
-          chmax(dp[i+1][j+1], dp[i+1][j]);
-        }
-      }
-    }
-    return dp[n][m];
   }
   
 
@@ -311,62 +238,6 @@ snippet zip
   
 
 
-snippet bellman_ford
-  struct Edge {
-    int to, cost;  // 辺の接続先頂点, 辺の重み
-    Edge(int to, int cost) : to(to), cost(cost) {}
-  };
-  
-  typedef vector<vector<Edge> > Graph;  // 隣接リストの型
-  Graph graph;  // グラフの辺を格納した構造体
-  // graph[v][i]は頂点vから出るi番目の辺Edge
-  
-  const int INF = 100000000;
-  
-  vector<int> dist; // 最短距離
-  
-  // 戻り値がtrueなら負の閉路を含む
-  bool bellman_ford(int n, int s) { // nは頂点数、sは開始頂点
-    dist = vector<int>(n, INF);
-    dist[s] = 0; // 開始点の距離は0
-    for (int i = 0; i < n; i++) {
-      for (int v = 0; v < n; v++) {
-        for (int k = 0; k < (int)graph[v].size(); k++) {
-          Edge e = graph[v][k];
-          if (dist[v] != INF && dist[e.to] > dist[v] + e.cost) {
-            dist[e.to] = dist[v] + e.cost;
-            if (i == n - 1) return true; // n回目にも更新があるなら負の閉路が存在
-          }
-        }
-      }
-    }
-    return false;
-  }
-  
-  // int main() {
-  //   int n, m;
-  //   cin >> n >> m;
-  //
-  //   graph = Graph(n);
-  //  
-  //   for (int i = 0; i < m; i++) {
-  //     int from, to, cost;
-  //     cin >> from >> to >> cost;
-  //     graph[from].push_back(Edge(to, cost));
-  //   }
-  //  
-  //   bellman_ford(n, 0);
-  //  
-  //   for (int i = 0; i < n; i++) {
-  //     if (dist[i] != INF)
-  //       cout << "0から" << i << "へのコスト: " << dist[i] << endl;
-  //   }
-  //  
-  //   return 0;
-  // }
-  
-
-
 snippet gcd
   int gcd(int a, int b){
     if (b>a) swap(a,b);
@@ -538,76 +409,6 @@ snippet bsearch
     else{ left = mid; }
   }
   dump(right);
-  
-
-
-snippet dijkstra
-  
-  using COST = int;  // TODO: update
-  using POS = pair<int, int>;  // TODO: update
-  using EDGE = pair<POS, COST>;
-  struct GRAPH{
-    map<POS, vector<EDGE>> all_edges;
-    vector<POS> all_nodes;
-  
-    void add_edge(POS from, POS to, COST cost){
-      all_edges[from].emplace_back(mp(to, cost));
-    }
-  
-    auto operator[](POS pos){
-      return all_edges[pos];
-    }
-  };
-  auto& operator<<(auto& stream, GRAPH G){
-    stream << G.all_edges;
-    return stream;
-  }
-  
-  map<POS, COST> dijkstra(GRAPH& G, POS start){
-    map<POS, COST> d;  // 最短距離
-    each(node, G.all_nodes) {d[node] = INF;}
-  
-    PQ<pair<COST, POS>> q;
-    q.push(mp(0LL, start));
-    while (!q.empty()){
-      auto cp = q.top(); q.pop();
-      auto cost = cp.first;
-      auto pos = cp.second;
-  
-      if (cost < d[pos]) {
-        d[pos] = cost;
-        for (const auto &el:G[pos]){
-          auto ncost = cost + el.second;
-          auto npos = el.first;
-          q.push(mp(ncost, npos));
-        }
-      }
-    }
-    return d;
-  }
-  
-  // int sample(){
-  //   // init and build G
-  //   GRAPH G;
-  //
-  //   int n,m;cin>>n>>m;
-  //   rep(i, n) G.all_nodes.pb(i);  // add node
-  //   rep(i, m){
-  //     POS from, to;
-  //     COST cost;
-  //     cin>>from>>to>>cost;
-  //     from--;to--;
-  //     G.add_edge(from, to, cost);
-  //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
-  //   }
-  //
-  //   // calc min distance by G
-  //   POS start=...;
-  //   POS goal=...;
-  //   auto d = dijkstra(G, start);
-  //   cout << d[goal] << endl;
-  //   return 0;
-  // }
   
 
 
@@ -922,6 +723,279 @@ alias pos
   
 
 
+snippet com
+  const int MAX = 510000;
+  const int MOD = 1000000007;
+  // Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
+  // {{{
+  ll fac[MAX], finv[MAX], inv[MAX];
+  
+  // 前処理
+  void COMinit() {
+      fac[0] = fac[1] = 1;
+      finv[0] = finv[1] = 1;
+      inv[1] = 1;
+      for (int i = 2; i < MAX; i++){
+          fac[i] = fac[i - 1] * i % MOD;
+          inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
+          finv[i] = finv[i - 1] * inv[i] % MOD;
+      }
+  }
+  
+  // 二項係数計算
+  ll COM(int n, int k){
+      if (n < k) return 0;
+      if (n < 0 || k < 0) return 0;
+      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
+  }
+  //}}}
+  
+
+
+snippet template
+  // template version 1.11
+  using namespace std;
+  #include <iostream>
+  #include <bits/stdc++.h>
+  
+  // varibable settings {{{
+  #define infile "../test/sample-1.in"
+  #define int long long
+  const int INF=1e18;
+  const int MOD=1e9+7;
+  // }}}
+  
+  // define basic macro {{{
+  #define _overload3(_1,_2,_3,name,...) name
+  #define _rep(i,n) repi(i,0,n)
+  #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
+  #define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
+  #define _rrep(i,n) rrepi(i,0,n)
+  #define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
+  #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+  #define each(i,a) for (auto&& i : a)
+  #define all(x) (x).begin(),(x).end()
+  #define sz(x) ((int)(x).size())
+  #define pb(a) push_back(a)
+  #define mp(a, b) make_pair(a, b)
+  #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+  #define ub upper_bound
+  #define lb lower_bound
+  #define posl(A, x) (lower_bound(all(A), x)-A.begin())
+  #define posu(A, x) (upper_bound(all(A),x)-A.begin())
+  template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
+  template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+  
+  typedef long long ll;
+  typedef vector<int> vi;
+  typedef vector<vi> vvi;
+  typedef long double ld;
+  typedef pair<int,int> pii;
+  typedef tuple<int,int,int> iii;
+  
+  template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+  struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+  
+  #if defined(PCM) || defined(LOCAL)
+    #include "/home/koji0708/go/src/github.com/kjnh10/pcl/template/codes/lib/dump.hpp"
+  #else
+    #define dump(...) 42
+    #define dump_1d(...) 42
+    #define dump_2d(...) 42
+  #endif
+  //}}}
+  
+  int solve(){
+    return 0;
+  }
+  
+  signed main() { //{{{
+  #ifdef INPUT_FROM_FILE
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
+  #endif
+    solve();
+    return 0;
+  } //}}}
+  
+
+
+snippet topological_sort
+alias tps
+  template<class node>
+  using graph = vector<vector<node>>;
+  
+  template<class node>
+  pair<vector<node>, int> topological_sort(const graph<node>& G){
+    int V = sz(G);  // node数
+    vector<node> ans;  // sort後の結果を格納
+    vector<int> h(V); // 頂点ごとの入次数
+    stack<node> st;  // 入次数が0になっている頂点の集合
+    int max_len = 0; // 最長経路の長さ
+  /*{{{*/
+    // 入次数を計算する。
+    rep(v, V){
+      for(auto to: G[v]){
+        h[to]++;
+      }
+    }
+  
+    // 最初に入次数0になっている頂点を集める。
+    rep(v, V){
+      if (h[v]==0){
+        st.push(v); 
+        ans.push_back(v);
+      }
+    }
+  
+    // 入次数0の頂点をansに追加しそこから出て行く辺は削除していく。O(V+E)
+    while(!st.empty()){
+      stack<node> nex_st;
+      while(!st.empty()){
+        node v = st.top();st.pop();
+        for(auto to: G[v]){
+          h[to]--;
+          if (h[to]==0){
+            ans.push_back(to);
+            nex_st.push(to);
+          }
+        }
+      }
+      max_len++;
+      st = nex_st;
+    }
+  /*}}}*/
+    return make_pair(ans, max_len);  // ans.size()<Vなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+  }
+  
+
+
+snippet bellman_ford
+  struct Edge {
+    int to, cost;  // 辺の接続先頂点, 辺の重み
+    Edge(int to, int cost) : to(to), cost(cost) {}
+  };
+  
+  typedef vector<vector<Edge> > Graph;  // 隣接リストの型
+  Graph graph;  // グラフの辺を格納した構造体
+  // graph[v][i]は頂点vから出るi番目の辺Edge
+  
+  const int INF = 100000000;
+  
+  vector<int> dist; // 最短距離
+  
+  // 戻り値がtrueなら負の閉路を含む
+  bool bellman_ford(int n, int s) { // nは頂点数、sは開始頂点
+    dist = vector<int>(n, INF);
+    dist[s] = 0; // 開始点の距離は0
+    for (int i = 0; i < n; i++) {
+      for (int v = 0; v < n; v++) {
+        for (int k = 0; k < (int)graph[v].size(); k++) {
+          Edge e = graph[v][k];
+          if (dist[v] != INF && dist[e.to] > dist[v] + e.cost) {
+            dist[e.to] = dist[v] + e.cost;
+            if (i == n - 1) return true; // n回目にも更新があるなら負の閉路が存在
+          }
+        }
+      }
+    }
+    return false;
+  }
+  
+  // int main() {
+  //   int n, m;
+  //   cin >> n >> m;
+  //
+  //   graph = Graph(n);
+  //  
+  //   for (int i = 0; i < m; i++) {
+  //     int from, to, cost;
+  //     cin >> from >> to >> cost;
+  //     graph[from].push_back(Edge(to, cost));
+  //   }
+  //  
+  //   bellman_ford(n, 0);
+  //  
+  //   for (int i = 0; i < n; i++) {
+  //     if (dist[i] != INF)
+  //       cout << "0から" << i << "へのコスト: " << dist[i] << endl;
+  //   }
+  //  
+  //   return 0;
+  // }
+  
+
+
+snippet dijkstra
+  
+  using COST = int;  // TODO: update
+  using POS = pair<int, int>;  // TODO: update
+  using EDGE = pair<POS, COST>;
+  struct GRAPH{
+    map<POS, vector<EDGE>> all_edges;
+    vector<POS> all_nodes;
+  
+    void add_edge(POS from, POS to, COST cost){
+      all_edges[from].emplace_back(mp(to, cost));
+    }
+  
+    auto operator[](POS pos){
+      return all_edges[pos];
+    }
+  };
+  auto& operator<<(auto& stream, GRAPH G){
+    stream << G.all_edges;
+    return stream;
+  }
+  
+  map<POS, COST> dijkstra(GRAPH& G, POS start){
+    map<POS, COST> d;  // 最短距離
+    each(node, G.all_nodes) {d[node] = INF;}
+  
+    PQ<pair<COST, POS>> q;
+    q.push(mp(0LL, start));
+    while (!q.empty()){
+      auto cp = q.top(); q.pop();
+      auto cost = cp.first;
+      auto pos = cp.second;
+  
+      if (cost < d[pos]) {
+        d[pos] = cost;
+        for (const auto &el:G[pos]){
+          auto ncost = cost + el.second;
+          auto npos = el.first;
+          q.push(mp(ncost, npos));
+        }
+      }
+    }
+    return d;
+  }
+  
+  // int sample(){
+  //   // init and build G
+  //   GRAPH G;
+  //
+  //   int n,m;cin>>n>>m;
+  //   rep(i, n) G.all_nodes.pb(i);  // add node
+  //   rep(i, m){
+  //     POS from, to;
+  //     COST cost;
+  //     cin>>from>>to>>cost;
+  //     from--;to--;
+  //     G.add_edge(from, to, cost);
+  //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
+  //   }
+  //
+  //   // calc min distance by G
+  //   POS start=...;
+  //   POS goal=...;
+  //   auto d = dijkstra(G, start);
+  //   cout << d[goal] << endl;
+  //   return 0;
+  // }
+  
+
+
 snippet kruskal
   // {{{
   template<typename T>
@@ -1002,32 +1076,64 @@ snippet kruskal
   
 
 
-snippet com
-  const int MAX = 510000;
-  const int MOD = 1000000007;
-  // Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
-  // {{{
-  ll fac[MAX], finv[MAX], inv[MAX];
+snippet StronglyConnectedComponents
+alias scc
+  using Graph = vector< vector< int > >;
+  struct StronglyConnectedComponents {
+    // how to use
+    // StronglyConnectedComponents scc(g); // g: Graph
+    // scc.build();
+    // dump(scc.comp, scc.dag);
   
-  // 前処理
-  void COMinit() {
-      fac[0] = fac[1] = 1;
-      finv[0] = finv[1] = 1;
-      inv[1] = 1;
-      for (int i = 2; i < MAX; i++){
-          fac[i] = fac[i - 1] * i % MOD;
-          inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
-          finv[i] = finv[i - 1] * inv[i] % MOD;
+    const Graph &g; //{{{
+    vector< int > comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+    Graph dag;  // 縮約されたDAG graph. sizeをとれば今日連結成分の個数が分かる。
+    Graph _rg;  // reversed graph
+    vector< int > _order; // order[i]: 行きがけの番号
+    vector< int > _used;
+  
+    StronglyConnectedComponents(Graph &g)
+      : g(g), comp(g.size(), -1), _rg(g.size()), _used(g.size()) {
+      for(int i = 0; i < sz(g); i++) {
+        for(auto e : g[i]) {
+          _rg[(int) e].emplace_back(i);
+        }
       }
-  }
+    }
   
-  // 二項係数計算
-  ll COM(int n, int k){
-      if (n < k) return 0;
-      if (n < 0 || k < 0) return 0;
-      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
-  }
-  //}}}
+    int operator[](int k) {
+      return comp[k];
+    }
+  
+    void build() {
+      for(int i = 0; i < sz(g); i++) _dfs(i);
+      reverse(begin(_order), end(_order));
+      int cnt = 0;
+      for(int i : _order) if(comp[i] == -1) _rdfs(i, cnt), cnt++;
+  
+      dag.resize(cnt);
+      for(int i = 0; i < sz(g); i++) {
+        for(auto &to : g[i]) {
+          int x = comp[i], y = comp[to];
+          if(x == y) continue;
+          dag[x].push_back(y);
+        }
+      }
+    }
+  
+    void _dfs(int idx) {
+      if(_used[idx]) return;
+      _used[idx] = true;
+      for(int to : g[idx]) _dfs(to);
+      _order.push_back(idx);
+    }
+  
+    void _rdfs(int idx, int cnt) {
+      if(comp[idx] != -1) return;
+      comp[idx] = cnt;
+      for(int to : _rg[idx]) _rdfs(to, cnt);
+    } //}}}
+  };
   
 
 
@@ -1057,110 +1163,6 @@ snippet unionfind
       return -data[root(x)];
     }
   };
-  
-
-
-snippet kmp
-  // kmp をやるための前計算
-  vector<int> makeTable(const string& s) {
-    int n = s.size();
-    vector<int> ret(n+1);
-    ret[0] = -1;
-    int j = -1;
-    for (int i = 0; i < n; i++) {
-      while (j >= 0 && s[i] != s[j]) j = ret[j];
-      ret[i+1] = ++j;
-    }
-    return ret;
-  }
-  
-  // str の中に word とマッチする場所のリストを返す
-  // ret のそれぞれの要素 el は, 「str[el] からの文字列が word と一致する」ことを示す
-  vector<int> kmp(const string& str, const string& word) {
-    vector<int> table = makeTable(word), ret;
-    int m = 0, i = 0, n = str.size();
-    while (m+i < n) {
-      if (word[i] == str[m+i]) {
-        if (++i == (int)(word.size())) {
-          ret.push_back(m);
-          m = m+i-table[i];
-          i = table[i];
-        }
-      } else {
-        m = m+i-table[i];
-        if (i > 0) i = table[i];
-      }
-    }
-    return ret;
-  }
-  
-
-
-snippet template
-  // template version 1.11
-  using namespace std;
-  #include <iostream>
-  #include <bits/stdc++.h>
-  
-  // varibable settings {{{
-  #define infile "../test/sample-1.in"
-  #define int long long
-  const int INF=1e18;
-  const int MOD=1e9+7;
-  // }}}
-  
-  // define basic macro {{{
-  #define _overload3(_1,_2,_3,name,...) name
-  #define _rep(i,n) repi(i,0,n)
-  #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
-  #define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
-  #define _rrep(i,n) rrepi(i,0,n)
-  #define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
-  #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
-  #define each(i,a) for (auto&& i : a)
-  #define all(x) (x).begin(),(x).end()
-  #define sz(x) ((int)(x).size())
-  #define pb(a) push_back(a)
-  #define mp(a, b) make_pair(a, b)
-  #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-  #define ub upper_bound
-  #define lb lower_bound
-  #define posl(A, x) (lower_bound(all(A), x)-A.begin())
-  #define posu(A, x) (upper_bound(all(A),x)-A.begin())
-  template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
-  template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
-  
-  typedef long long ll;
-  typedef vector<int> vi;
-  typedef vector<vi> vvi;
-  typedef long double ld;
-  typedef pair<int,int> pii;
-  typedef tuple<int,int,int> iii;
-  
-  template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
-  struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-  
-  #if defined(PCM) || defined(LOCAL)
-    #include "/home/koji0708/go/src/github.com/kjnh10/pcl/template/codes/lib/dump.hpp"
-  #else
-    #define dump(...) 42
-    #define dump_1d(...) 42
-    #define dump_2d(...) 42
-  #endif
-  //}}}
-  
-  int solve(){
-    return 0;
-  }
-  
-  signed main() { //{{{
-  #ifdef INPUT_FROM_FILE
-    std::ifstream in(infile);
-    std::cin.rdbuf(in.rdbuf());
-  #endif
-    solve();
-    return 0;
-  } //}}}
   
 
 
@@ -1284,6 +1286,65 @@ alias rmq
         return min(vl, vr);
       }
   };
+  
+
+
+snippet lcs
+  #define MAX_N 5000
+  #define MAX_M 5000
+  int lcs(string s, string t){
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+  
+    rep(i, n){
+      rep(j, m){
+        if (s[i]==t[j])
+          chmax(dp[i+1][j+1], dp[i][j]+1);
+        else{
+          chmax(dp[i+1][j+1], dp[i][j+1]);
+          chmax(dp[i+1][j+1], dp[i+1][j]);
+        }
+      }
+    }
+    return dp[n][m];
+  }
+  
+
+
+snippet kmp
+  // kmp をやるための前計算
+  vector<int> makeTable(const string& s) {
+    int n = s.size();
+    vector<int> ret(n+1);
+    ret[0] = -1;
+    int j = -1;
+    for (int i = 0; i < n; i++) {
+      while (j >= 0 && s[i] != s[j]) j = ret[j];
+      ret[i+1] = ++j;
+    }
+    return ret;
+  }
+  
+  // str の中に word とマッチする場所のリストを返す
+  // ret のそれぞれの要素 el は, 「str[el] からの文字列が word と一致する」ことを示す
+  vector<int> kmp(const string& str, const string& word) {
+    vector<int> table = makeTable(word), ret;
+    int m = 0, i = 0, n = str.size();
+    while (m+i < n) {
+      if (word[i] == str[m+i]) {
+        if (++i == (int)(word.size())) {
+          ret.push_back(m);
+          m = m+i-table[i];
+          i = table[i];
+        }
+      } else {
+        m = m+i-table[i];
+        if (i > 0) i = table[i];
+      }
+    }
+    return ret;
+  }
   
 
 
