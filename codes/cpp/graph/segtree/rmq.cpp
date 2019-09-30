@@ -21,6 +21,7 @@ struct SegmentTree {
       for(int i=0; i<sz; i++) node[i+n-1] = v[i];
       for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
     }
+    SegmentTree(int V) : SegmentTree(vector<int>(V, INF)) {}
 
     void update(int x, int val) {
       x += (n - 1);
@@ -46,7 +47,7 @@ struct SegmentTree {
 
 int main() {
   cin >> N >> Q;
-  SegmentTree seg( vector<int>(N, INF) );
+  SegmentTree seg(N);
   for(int i=0; i<Q; i++) {
     int c, x, y; cin >> c >> x >> y;
     if(c == 0) seg.update(x, y);
