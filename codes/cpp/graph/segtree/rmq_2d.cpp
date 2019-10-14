@@ -90,4 +90,4 @@ struct segtree {
         return min(minimum_w(lj,rj,sj,mj,i,2*k+1),minimum_w(lj,rj,mj,tj,i,2*k+2));
     }
 };
-//%snippet.end%
+//%snippet.end()%

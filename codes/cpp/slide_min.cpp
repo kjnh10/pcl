@@ -67,4 +67,4 @@ vector<T> slide_min(const vector<T> &v, int k) {
   }
   return ret;  // sz(res) == m-k+1, last index is m-k
 }  //}}}
-//%snippet.end%
+//%snippet.end()%

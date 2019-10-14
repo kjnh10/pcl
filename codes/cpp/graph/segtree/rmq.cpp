@@ -14,11 +14,11 @@ struct SegmentTree {
     vector<int> node;
 
   public:
-    SegmentTree(vector<int> v) {
-      int sz = v.size();
+    SegmentTree(vector<int> a) {
+      int sz = a.size();
       n = 1; while(n < sz) n *= 2;
       node.resize(2*n-1, INF);
-      for(int i=0; i<sz; i++) node[i+n-1] = v[i];
+      for(int i=0; i<sz; i++) node[i+n-1] = a[i];
       for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
     }
     SegmentTree(int V) : SegmentTree(vector<int>(V, INF)) {}
@@ -43,7 +43,7 @@ struct SegmentTree {
       return min(vl, vr);
     }
 };
-//%snippet.end%
+//%snippet.end()%
 
 int main() {
   cin >> N >> Q;

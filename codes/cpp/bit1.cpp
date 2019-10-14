@@ -77,7 +77,7 @@ ostream& operator<<(ostream& stream, BIT<int> bit){
   stream << "]";
   return stream;
 }
-//%snippet.end%
+//%snippet.end()%
 
 signed main(){
   BIT<int> bit(5);

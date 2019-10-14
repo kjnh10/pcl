@@ -63,4 +63,4 @@ signed main() { //{{{
   solve();
   return 0;
 } //}}}
-//%snippet.end%
+//%snippet.end()%

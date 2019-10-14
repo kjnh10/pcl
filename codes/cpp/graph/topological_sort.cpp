@@ -96,7 +96,7 @@ pair<vector<node>, int> topological_sort(const graph<node>& G){
 /*}}}*/
   return make_pair(ans, max_len);  // ans.size()<Vなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
 }
-//%snippet.end%
+//%snippet.end()%
 
 
 int solve(){  // ABC139 E:https://atcoder.jp/contests/abc139

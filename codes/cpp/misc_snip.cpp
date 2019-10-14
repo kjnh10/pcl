@@ -241,18 +241,3 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
   return os;
 }
 
-
-//%snippet.set('POS')%
-//%snippet.config({'alias':'pos'})%
-struct POS{ 
-  int node, level;
-  POS(int n, int l) : node(n), level(l){};
-};
-bool operator<(auto &left, auto &right){
-  if (left.node != right.node) return (left.node < right.node);
-  else return left.level < right.level;
-}
-auto& operator<<(auto& stream, POS pos){
-  stream << "pos(" << pos.node << "," << pos.level << ")";
-  return stream;
-}

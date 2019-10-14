@@ -31,7 +31,7 @@ int reverse_int(int number) {
   }
   return reverse;
 }
-// %snippet.end% }}}
+// %snippet.end()% }}}
 
 //%snippet.set('digitSum')%
 int digitSum(int x){/*{{{*/

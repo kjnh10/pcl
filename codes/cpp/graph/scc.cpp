@@ -108,7 +108,7 @@ struct StronglyConnectedComponents {
     for(int to : _rg[idx]) _rdfs(to, cnt);
   } //}}}
 };
-//%snippet.end%
+//%snippet.end()%
 
 int solve(){
   int n,m;cin>>n>>m;

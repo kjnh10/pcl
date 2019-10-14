@@ -42,18 +42,26 @@ snippet bit1
 
 
 snippet bit
-  template<typename T=int> struct BIT {//{{{
+  
+  template<typename T=int> struct bit {//{{{
     int n;
     vector<T> dat;
+    vector<T> raw;
   
-    BIT(int n=0){ //{{{
-      initialize(n);
+    bit(int _n=0){ //{{{
+      n = _n;
+      dat = vector<T>(n);
+      raw = vector<T>(n);
     } //}}}
   
-    void initialize(int nin){ //{{{
-      n = nin;
-      dat.resize(n);
-      for(int i = 0; i<n; i++) dat[i] = 0;
+    bit(vector<T> a){ // {{{
+      n = (int)a.size();
+      dat = vector<T>(n);
+      raw = vector<T>(n);
+      for(int i = 0; i<n; i++){
+        add(i, a[i]);
+        raw[i] = a[i];
+      }
     } //}}}
   
     T sum(int i){ //{{{
@@ -71,6 +79,7 @@ snippet bit
     } //}}}
   
     void add(int i, T x){ //{{{
+      raw[i] += x;
       while(i < n){
         dat[i] += x;
         i |= i+1;
@@ -88,6 +97,16 @@ snippet bit
         }
       }
       return ret + 1;
+    } //}}}
+  
+    friend ostream& operator<<(ostream &os, bit<T>& b){ //{{{
+      os << endl << "  raw:" << b.raw << endl;
+      vector<T> acum;
+      rep(i, b.n){
+        acum.pb(b.sum(i));
+      }
+      os << "  acm:" << acum << endl;
+      return os;
     } //}}}
   }; //}}}
   
@@ -223,6 +242,31 @@ snippet mint
     bool operator==(const mint&r)const{return x==r.x;}
   };
   //}}}
+  
+
+
+snippet POS
+alias pos
+  struct POS{
+    int x,y;
+    bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
+      if (a<=x && x<b && c<=y && y<d) return true;
+      else return false;
+    }
+  
+    friend ostream& operator<<(ostream& stream, POS p){
+      stream << "(" << p.x <<  "," << p.y << ")";
+      return stream;
+    }
+    friend bool operator<(auto &left, auto &right){
+      if (left.x != right.x){
+        return left.x < right.x;
+      }
+      else{
+        return left.y < right.y;
+      }
+    }
+  };
   
 
 
@@ -709,23 +753,6 @@ alias <<
   ostream& operator<<(ostream& os, const ${1:type}& ${2}){
     os << ${3};
     return os;
-  }
-  
-
-
-snippet POS
-alias pos
-  struct POS{ 
-    int node, level;
-    POS(int n, int l) : node(n), level(l){};
-  };
-  bool operator<(auto &left, auto &right){
-    if (left.node != right.node) return (left.node < right.node);
-    else return left.level < right.level;
-  }
-  auto& operator<<(auto& stream, POS pos){
-    stream << "pos(" << pos.node << "," << pos.level << ")";
-    return stream;
   }
   
 
@@ -1265,11 +1292,11 @@ alias rmq
       vector<int> node;
   
     public:
-      SegmentTree(vector<int> v) {
-        int sz = v.size();
+      SegmentTree(vector<int> a) {
+        int sz = a.size();
         n = 1; while(n < sz) n *= 2;
         node.resize(2*n-1, INF);
-        for(int i=0; i<sz; i++) node[i+n-1] = v[i];
+        for(int i=0; i<sz; i++) node[i+n-1] = a[i];
         for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
       }
       SegmentTree(int V) : SegmentTree(vector<int>(V, INF)) {}

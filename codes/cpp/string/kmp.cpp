@@ -31,4 +31,4 @@ vector<int> kmp(const string& str, const string& word) {
   }
   return ret;
 }
-//%snippet.end%
+//%snippet.end()%

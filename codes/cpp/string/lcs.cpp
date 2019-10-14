@@ -71,7 +71,7 @@ int lcs(string s, string t){
   }
   return dp[n][m];
 }
-// %snippet.end%
+// %snippet.end()%
 
 int solve(){/*{{{*/
   string s,t;cin>>s>>t;

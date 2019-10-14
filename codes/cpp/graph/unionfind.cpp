@@ -75,7 +75,7 @@ struct UnionFind {
     return -data[root(x)];
   }
 };
-//%snippet.end%
+//%snippet.end()%
 
 int solve(){
   int N,M;cin>>N>>M;
