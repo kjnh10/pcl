@@ -39,18 +39,26 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 //%snippet.set('bit')%
-template<typename T=int> struct BIT {//{{{
+
+template<typename T=int> struct bit {//{{{
   int n;
   vector<T> dat;
+  vector<T> raw;
 
-  BIT(int n=0){ //{{{
-    initialize(n);
+  bit(int _n=0){ //{{{
+    n = _n;
+    dat = vector<T>(n);
+    raw = vector<T>(n);
   } //}}}
 
-  void initialize(int nin){ //{{{
-    n = nin;
-    dat.resize(n);
-    for(int i = 0; i<n; i++) dat[i] = 0;
+  bit(vector<T> a){ // {{{
+    n = (int)a.size();
+    dat = vector<T>(n);
+    raw = vector<T>(n);
+    for(int i = 0; i<n; i++){
+      add(i, a[i]);
+      raw[i] = a[i];
+    }
   } //}}}
 
   T sum(int i){ //{{{
@@ -68,6 +76,7 @@ template<typename T=int> struct BIT {//{{{
   } //}}}
 
   void add(int i, T x){ //{{{
+    raw[i] += x;
     while(i < n){
       dat[i] += x;
       i |= i+1;
@@ -86,22 +95,40 @@ template<typename T=int> struct BIT {//{{{
     }
     return ret + 1;
   } //}}}
+
+  friend ostream& operator<<(ostream &os, bit<T>& b){ //{{{
+    os << endl << "  raw:" << b.raw << endl;
+    vector<T> acum;
+    rep(i, b.n){
+      acum.pb(b.sum(i));
+    }
+    os << "  acm:" << acum << endl;
+    return os;
+  } //}}}
 }; //}}}
-//%snippet.end%
+
+//%snippet.end()%
 
 signed main(){
-  BIT<int> bit(5);
-  bit.add(0, 1);
-  bit.add(1, 2);
-  bit.add(2, 4);
-  bit.add(3, 8);
-  bit.add(4, 16);
-  cout << bit.sum(0) << endl;  //1
-  cout << bit.sum(1) << endl;  //3
-  cout << bit.sum(2) << endl;  //7
-  cout << bit.sum(3) << endl;  //15
-  cout << bit.sum(4) << endl;  //31
+  // vi x = {1, 2, 3, 4, 5};
+  // bit<int> b(x);
+  bit<int> b(5);
+  b.add(0, 1);
+  b.add(1, 2);
+  b.add(2, 4);
+  b.add(3, 8);
+  b.add(4, 16);
+  rep(i, 5){
+    cout << b.raw[i] << (i!=5-1?" ":"\n");
+  }
+  // cout << b << endl;  // dump.hppをimportしないと使えない。
+  cout << b.sum(0) << endl;  //1
+  cout << b.sum(1) << endl;  //3
+  cout << b.sum(2) << endl;  //7
+  cout << b.sum(3) << endl;  //15
+  cout << b.sum(4) << endl;  //31
+  cout << b.sum(2, 4) << endl;  // 28
 
-  cout << bit.sum(2, 4) << endl;  // 28
+
   return 0;
 }
