@@ -112,139 +112,6 @@ snippet bit
   
 
 
-snippet mint2
-  template<unsigned mod>/*{{{*/
-  class mint {
-  public:
-    unsigned x;
-    mint(): x(0) { }
-    mint(signed y) : x(y >= 0 ? y % mod : mod - (-y) % mod) {}
-    unsigned get() const { return x; }
-  
-    // 逆数
-    mint inv() const {
-      ll a = 1, p = x, e = mod-2;
-      while(e > 0) {
-        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
-        else {a = (a*p) % mod; e--;}
-      }
-      a %= mod;
-      return mint(a);
-    }
-    // e乗
-    mint pow(ll e) {
-      ll a = 1, p = x;
-      while(e > 0) {
-        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
-        else {a = (a*p) % mod; e--;}
-      }
-      a %= mod;
-      return mint(a);
-    }
-    // 2のx乗
-    mint pow2() {
-      ll a = 1, p = 2, e = x;
-      while(e > 0) {
-        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
-        else {a = (a*p) % mod; e--;}
-      }
-      a %= mod;
-      return mint(a);
-    }
-  
-    // Comparators
-    bool operator <(mint b) { return x < b.x; }
-    bool operator >(mint b) { return x > b.x; }
-    bool operator<=(mint b) { return x <= b.x; }
-    bool operator>=(mint b) { return x >= b.x; }
-    bool operator!=(mint b) { return x != b.x; }
-    bool operator==(mint b) { return x == b.x; }
-  
-    // increment, decrement
-    mint operator++() { x++; return *this; }
-    mint operator--() { x--; return *this; }
-  
-    // Basic Operations
-    mint &operator+=(mint that) {
-      x = ((ll)x+that.x)%mod;
-      return *this;
-    }
-    mint &operator-=(mint that) {
-      x = ((((ll)x-that.x)%mod)+mod)%mod;
-      return *this;
-    }
-    mint &operator*=(mint that) {
-      x = (ll)x * that.x % mod;
-      return *this;
-    }
-    // O(log(mod))かかるので注意
-    mint &operator/=(mint that) {
-      x = (ll)x * that.inv() % mod;
-      return *this;
-    }
-    mint &operator%=(mint that) {
-      x = (ll)x % that.x;
-      return *this;
-    }
-    mint operator+(mint that)const{return mint(*this) += that;}
-    mint operator-(mint that)const{return mint(*this) -= that;}
-    mint operator*(mint that)const{return mint(*this) *= that;}
-    mint operator/(mint that)const{return mint(*this) /= that;}
-    mint operator%(mint that)const{return mint(*this) %= that;}
-  };
-  typedef mint<1000000007> mint;
-  ostream& operator<<(ostream& os, const mint& a){
-    os << a.x;
-    return os;
-  }
-  /*}}}*/
-  
-
-
-snippet mint
-  int mod = 1e9+7;
-  struct mint { //{{{
-    int x;
-    mint(int x=0):x((x%mod+mod)%mod){}
-  
-    // ?= operator
-    mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
-    mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
-    mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
-    mint&operator/=(const mint&rhs){return *this*=rhs.inv();}
-  
-    mint operator+(const mint a) const { mint res(*this); return res+=a; }
-    mint operator-(const mint a) const { mint res(*this); return res-=a; }
-    mint operator*(const mint a) const { mint res(*this); return res*=a; }
-    mint operator/(const mint&rhs)const{return mint(*this)/=rhs;}
-  
-    mint pow(int n)const{
-      mint res(1),x(*this);
-      while(n){
-        if(n&1)res*=x;
-        x*=x;
-        n>>=1;
-      }
-      return res;
-    }
-    mint inv()const{return pow(mod-2);}
-    /*mint inv()const{
-      int x,y;
-      int g=extgcd(v,mod,x,y);
-      assert(g==1);
-      if(x<0)x+=mod;
-      return mint(x);
-      }*/
-    friend ostream& operator<<(ostream&os,const mint&m){
-      return os<<m.x;
-    }
-    bool operator<(const mint&r)const{return x<r.x;}
-    bool operator==(const mint&r)const{return x==r.x;}
-  };
-  //}}}
-  
-
-
 snippet POS
 alias pos
   struct POS{
@@ -401,6 +268,95 @@ snippet divisor
     p.insert(p.end(), all(q));
     return p;
   }//}}}
+  
+
+
+snippet mint2
+  template<unsigned mod>/*{{{*/
+  class mint {
+  public:
+    unsigned x;
+    mint(): x(0) { }
+    mint(signed y) : x(y >= 0 ? y % mod : mod - (-y) % mod) {}
+    unsigned get() const { return x; }
+  
+    // 逆数
+    mint inv() const {
+      ll a = 1, p = x, e = mod-2;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+    // e乗
+    mint pow(ll e) {
+      ll a = 1, p = x;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+    // 2のx乗
+    mint pow2() {
+      ll a = 1, p = 2, e = x;
+      while(e > 0) {
+        if(e%2 == 0) {p = (p*p) % mod; e /= 2;}
+        else {a = (a*p) % mod; e--;}
+      }
+      a %= mod;
+      return mint(a);
+    }
+  
+    // Comparators
+    bool operator <(mint b) { return x < b.x; }
+    bool operator >(mint b) { return x > b.x; }
+    bool operator<=(mint b) { return x <= b.x; }
+    bool operator>=(mint b) { return x >= b.x; }
+    bool operator!=(mint b) { return x != b.x; }
+    bool operator==(mint b) { return x == b.x; }
+  
+    // increment, decrement
+    mint operator++() { x++; return *this; }
+    mint operator--() { x--; return *this; }
+  
+    // Basic Operations
+    mint &operator+=(mint that) {
+      x = ((ll)x+that.x)%mod;
+      return *this;
+    }
+    mint &operator-=(mint that) {
+      x = ((((ll)x-that.x)%mod)+mod)%mod;
+      return *this;
+    }
+    mint &operator*=(mint that) {
+      x = (ll)x * that.x % mod;
+      return *this;
+    }
+    // O(log(mod))かかるので注意
+    mint &operator/=(mint that) {
+      x = (ll)x * that.inv() % mod;
+      return *this;
+    }
+    mint &operator%=(mint that) {
+      x = (ll)x % that.x;
+      return *this;
+    }
+    mint operator+(mint that)const{return mint(*this) += that;}
+    mint operator-(mint that)const{return mint(*this) -= that;}
+    mint operator*(mint that)const{return mint(*this) *= that;}
+    mint operator/(mint that)const{return mint(*this) /= that;}
+    mint operator%(mint that)const{return mint(*this) %= that;}
+  };
+  typedef mint<1000000007> mint;
+  ostream& operator<<(ostream& os, const mint& a){
+    os << a.x;
+    return os;
+  }
+  /*}}}*/
   
 
 
@@ -794,7 +750,6 @@ snippet template
   
   // varibable settings {{{
   #define infile "../test/sample-1.in"
-  #define int long long
   const int INF=1e18;
   const int MOD=1e9+7;
   // }}}
@@ -839,18 +794,53 @@ snippet template
   #endif
   //}}}
   
-  int solve(){
-    return 0;
-  }
+
+
+snippet mint
+  int mod = 1e9+7;
+  struct mint { //{{{
+    int x;
+    mint(int x=0):x((x%mod+mod)%mod){}
   
-  signed main() { //{{{
-  #ifdef INPUT_FROM_FILE
-    std::ifstream in(infile);
-    std::cin.rdbuf(in.rdbuf());
-  #endif
-    solve();
-    return 0;
-  } //}}}
+    // ?= operator
+    mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
+    mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
+    mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+    mint&operator/=(const mint&rhs){return *this*=rhs.inv();}
+  
+    mint operator+(const mint a) const { mint res(*this); return res+=a; }
+    mint operator-(const mint a) const { mint res(*this); return res-=a; }
+    mint operator*(const mint a) const { mint res(*this); return res*=a; }
+    mint operator/(const mint&rhs)const{return mint(*this)/=rhs;}
+  
+    mint pow(int n)const{
+      mint res(1),x(*this);
+      if (n<0){
+        n = -n;
+        x =(*this).inv();
+      }
+      while(n){
+        if(n&1)res*=x;
+        x*=x;
+        n>>=1;
+      }
+      return res;
+    }
+    mint inv()const{return pow(mod-2);}
+    /*mint inv()const{
+      int x,y;
+      int g=extgcd(v,mod,x,y);
+      assert(g==1);
+      if(x<0)x+=mod;
+      return mint(x);
+      }*/
+    friend ostream& operator<<(ostream&os,const mint&m){
+      return os<<m.x;
+    }
+    bool operator<(const mint&r)const{return x<r.x;}
+    bool operator==(const mint&r)const{return x==r.x;}
+  };
+  //}}}
   
 
 
@@ -1321,6 +1311,85 @@ alias rmq
         return min(vl, vr);
       }
   };
+  
+
+
+snippet baybe_step_giant_step
+alias bsgs
+  int mod = 1e9+7;
+  struct mint { //{{{
+    int x;
+    mint(int x=0):x((x%mod+mod)%mod){}
+  
+    // ?= operator
+    mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
+    mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
+    mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+    mint&operator/=(const mint&rhs){return *this*=rhs.inv();}
+  
+    mint operator+(const mint a) const { mint res(*this); return res+=a; }
+    mint operator-(const mint a) const { mint res(*this); return res-=a; }
+    mint operator*(const mint a) const { mint res(*this); return res*=a; }
+    mint operator/(const mint&rhs)const{return mint(*this)/=rhs;}
+  
+    mint pow(int n)const{
+      mint res(1),x(*this);
+      if (n<0){
+        n = -n;
+        x =(*this).inv();
+      }
+      while(n){
+        if(n&1)res*=x;
+        x*=x;
+        n>>=1;
+      }
+      return res;
+    }
+    mint inv()const{return pow(mod-2);}
+    /*mint inv()const{
+      int x,y;
+      int g=extgcd(v,mod,x,y);
+      assert(g==1);
+      if(x<0)x+=mod;
+      return mint(x);
+      }*/
+    friend ostream& operator<<(ostream&os,const mint&m){
+      return os<<m.x;
+    }
+    bool operator<(const mint&r)const{return x<r.x;}
+    bool operator==(const mint&r)const{return x==r.x;}
+  };
+  //}}}
+  
+  
+  int bsgs(int a, int b){ //{{{
+    if (b>=mod) {
+      return -1;
+    }
+  
+    // find x s.t a^x = b in (mod)
+    mint x;
+    int sq = sqrt(mod);
+    // x = p*sq + r  (0<=r<sq and 0<=p<=sq)
+  
+    map<int, int> minr; // minr[v]: min(r s.t a^r=v)
+    mint ar = 1;
+    rep(r, 0, sq){
+      if (minr.find(ar.x)==minr.end()) minr[ar.x] = r;
+      ar *= a;
+    }
+  
+    mint A = mint(a).pow(-sq);
+    rep(p, 0, sq+1){
+      int Ab = (A.pow(p)*b).x;
+      if (minr.find(Ab)!=minr.end()){
+        int r = minr[Ab];
+        return p*sq + r;
+      }
+    }
+  
+    return -1;
+  } //}}}
   
 
 
