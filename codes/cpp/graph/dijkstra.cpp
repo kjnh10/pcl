@@ -89,7 +89,7 @@ map<POS, COST> dijkstra(GRAPH& G, POS start){
       for (const auto &el:G[pos]){
         auto ncost = cost + el.second;
         auto npos = el.first;
-        q.push(mp(ncost, npos));
+        if (ncost < d[npos]) q.push(mp(ncost, npos));
       }
     }
   }

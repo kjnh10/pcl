@@ -15,7 +15,7 @@ while (!q.empty()){
       int nx = x+dx[i];
       int ny = y+dy[i];
       if (0<= nx && nx <= h-1 && 0<=ny && ny <= w-1){
-        if (M[nx][ny]=='.') q.push(mp(cost+1, mp(nx, ny)));
+        if (M[nx][ny]=='.' && cost+1<d[nx][ny]) q.push(mp(cost+1, mp(nx, ny)));
       }
     }
   }

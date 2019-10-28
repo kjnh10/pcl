@@ -241,3 +241,18 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
   return os;
 }
 
+//%snippet.set('query')%
+int query(){
+
+  cerr << endl;
+  return 0;
+}
+
+int solve(){
+  int Q;cin>>Q;
+  rep(_, Q){
+    query();
+  }
+  return 0;
+}
+

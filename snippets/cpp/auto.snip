@@ -713,6 +713,23 @@ alias <<
   
 
 
+snippet query
+  int query(){
+  
+    cerr << endl;
+    return 0;
+  }
+  
+  int solve(){
+    int Q;cin>>Q;
+    rep(_, Q){
+      query();
+    }
+    return 0;
+  }
+  
+
+
 snippet com
   const int MAX = 510000;
   const int MOD = 1000000007;
@@ -745,15 +762,12 @@ snippet com
 snippet template
   // template version 1.11
   using namespace std;
-  #include <iostream>
   #include <bits/stdc++.h>
   
   // varibable settings {{{
+  #define int long long
   #define infile "../test/sample-1.in"
-  const int INF=1e18;
-  const int MOD=1e9+7;
   // }}}
-  
   // define basic macro {{{
   #define _overload3(_1,_2,_3,name,...) name
   #define _rep(i,n) repi(i,0,n)
@@ -793,6 +807,8 @@ snippet template
     #define dump_2d(...) 42
   #endif
   //}}}
+  
+  #include "mint.cpp"
   
 
 
@@ -988,7 +1004,7 @@ snippet dijkstra
         for (const auto &el:G[pos]){
           auto ncost = cost + el.second;
           auto npos = el.first;
-          q.push(mp(ncost, npos));
+          if (ncost < d[npos]) q.push(mp(ncost, npos));
         }
       }
     }
