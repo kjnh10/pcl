@@ -690,7 +690,6 @@ alias f
 
 
 snippet dfs_lambda
-alias dfs
   auto dfs = [&](const auto& dfs, int x, int v) -> void {
     // 処理
     dfs(dfs, nx, nv);
@@ -720,7 +719,7 @@ snippet query
     return 0;
   }
   
-  int solve(){
+  signed main(){
     int Q;cin>>Q;
     rep(_, Q){
       query();
@@ -756,6 +755,66 @@ snippet com
       return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
   }
   //}}}
+  
+
+
+snippet dfs
+  
+  stack<int> st;
+  vector<int> used(n);
+  
+  st.push(0);
+  used[0] = 1;
+  while (!st.empty()){
+    auto v = st.top();st.pop();
+  
+    if (!used[v]) continue;
+    each(u, used[v]){
+      used[u] = 1;
+      // process
+      q.push(u);
+    }
+  }
+  
+
+
+snippet bfs
+  
+  queue<int> q;
+  vector<int> used(n);
+  
+  st.push(0);
+  used[0] = 1;
+  while (!st.empty()){
+    auto v = q.front();q.pop();
+  
+    if (!used[v]) continue;
+    each(u, used[v]){
+      used[u] = 1;
+      // process
+      q.push(u);
+    }
+  }
+  
+
+
+snippet 01bfs
+  
+  deque<int> dq;
+  vector<int> used(n);
+  
+  st.push(0);
+  used[0] = 1;
+  while (!st.empty()){
+    auto v = dq.front();dq.pop_front();
+  
+    if (!used[v]) continue;
+    each(u, used[v]){
+      used[u] = 1;
+      // process
+      q.push_back(u);
+    }
+  }
   
 
 
@@ -1206,130 +1265,6 @@ snippet unionfind
   
 
 
-snippet SegmentTree2DRMQ
-alias 2drmq
-  struct segtree {
-      int H, W;
-      vector<vector<int>> dat;
-      segtree(){}
-      segtree(vector<vector<int>> &f) {
-          H = W = 1;
-          while(H < (int)f.size()) H <<= 1;
-          while(W < (int)f[0].size()) W <<= 1;
-          dat.assign(2*H-1,vector<int>(2*W-1,INF));
-          init(f);
-      }
-      void init(vector<vector<int>> &f) {
-          for (int i = 0; i < (int)f.size(); i++)
-              for (int j = 0; j < (int)f[0].size(); j++)
-                  dat[i+H-1][j+W-1] = f[i][j];
-          dump("hello");
-          for (int i = 2*H-2; i > H-2; i--)
-              for (int j = W-2; j >= 0; j--)
-                  dat[i][j] = min(dat[i][2*j+1], dat[i][2*j+2]);
-          dump("hello1");
-          for (int i = H-2; i >= 0; i--)
-              for (int j = 0; j < 2*W-1; j++)
-                  dat[i][j] = min(dat[2*i+1][j], dat[2*i+2][j]);
-          dump("hello2");
-      }
-      int minimum(int li, int lj, int ri, int rj) { return minimum_h(li,lj,ri,rj,0,H,0); }
-      int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
-          if(ri <= si or ti <= li) return INF;
-          if(li <= si and ti <= ri) return minimum_w(lj,rj,0,W,k,0);
-          const int mi = (si+ti)/2;
-          return min(minimum_h(li,lj,ri,rj,si,mi,2*k+1), minimum_h(li,lj,ri,rj,mi,ti,2*k+2));
-      }
-      int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
-          if(rj <= sj or tj <= lj) return INF;
-          if(lj <= sj and tj <= rj) return dat[i][k];
-          const int mj = (sj+tj)/2;
-          return min(minimum_w(lj,rj,sj,mj,i,2*k+1),minimum_w(lj,rj,mj,tj,i,2*k+2));
-      }
-  };
-  
-
-
-snippet SegmentTreeRSQ
-alias rsq
-  struct SegmentTree {
-  private:
-      int n;
-      vector<int> node;
-  public:
-      SegmentTree(vector<int> v) {
-          int sz = (int)v.size();
-          n = 1; while(n < sz) n *= 2;
-          node.resize(2*n-1, 0);
-   
-          for(int i=0; i<sz; i++) node[i+n-1] = v[i];
-          for(int i=n-2; i>=0; i--) node[i] = node[i*2+1] + node[i*2+2];
-      }
-   
-      void add(int k, int val) {
-          k += (n - 1);
-          node[k] += val;
-   
-          while(k > 0) {
-              k = (k - 1) / 2;
-              node[k] = node[2*k+1] + node[2*k+2];
-          }
-      }
-   
-      // get sum of [l r)
-      int getsum(int a, int b, int k=0, int l=0, int r=-1) {
-          if(r < 0) r = n;
-          if(b <= l || r <= a) return 0;
-          if(a <= l && r <= b) return node[k];
-   
-          int vl = getsum(a, b, 2*k+1, l, (l+r)/2);
-          int vr = getsum(a, b, 2*k+2, (l+r)/2, r);
-          return vl + vr;
-      }
-  };
-  
-
-
-snippet SegmentTreeRMQ
-alias rmq
-  struct SegmentTree {
-    private:
-      int n;
-      vector<int> node;
-  
-    public:
-      SegmentTree(vector<int> a) {
-        int sz = a.size();
-        n = 1; while(n < sz) n *= 2;
-        node.resize(2*n-1, INF);
-        for(int i=0; i<sz; i++) node[i+n-1] = a[i];
-        for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
-      }
-      SegmentTree(int V) : SegmentTree(vector<int>(V, INF)) {}
-  
-      void update(int x, int val) {
-        x += (n - 1);
-        node[x] = val;
-        while(x > 0) {
-          x = (x - 1) / 2;
-          node[x] = min(node[2*x+1], node[2*x+2]);
-        }
-      }
-  
-      // get min of [l, r)
-      int getmin(int a, int b, int k=0, int l=0, int r=-1) {
-        if(r < 0) r = n;
-        if(r <= a || b <= l) return INF;
-        if(a <= l && r <= b) return node[k];
-  
-        int vl = getmin(a, b, 2*k+1, l, (l+r)/2);
-        int vr = getmin(a, b, 2*k+2, (l+r)/2, r);
-        return min(vl, vr);
-      }
-  };
-  
-
-
 snippet generalized_baybe_step_giant_step
 alias gbsgs
   int mod = 1e9+7;
@@ -1547,6 +1482,130 @@ snippet kmp
     }
     return ret;
   }
+  
+
+
+snippet SegmentTree2DRMQ
+alias 2drmq
+  struct segtree {
+      int H, W;
+      vector<vector<int>> dat;
+      segtree(){}
+      segtree(vector<vector<int>> &f) {
+          H = W = 1;
+          while(H < (int)f.size()) H <<= 1;
+          while(W < (int)f[0].size()) W <<= 1;
+          dat.assign(2*H-1,vector<int>(2*W-1,INF));
+          init(f);
+      }
+      void init(vector<vector<int>> &f) {
+          for (int i = 0; i < (int)f.size(); i++)
+              for (int j = 0; j < (int)f[0].size(); j++)
+                  dat[i+H-1][j+W-1] = f[i][j];
+          dump("hello");
+          for (int i = 2*H-2; i > H-2; i--)
+              for (int j = W-2; j >= 0; j--)
+                  dat[i][j] = min(dat[i][2*j+1], dat[i][2*j+2]);
+          dump("hello1");
+          for (int i = H-2; i >= 0; i--)
+              for (int j = 0; j < 2*W-1; j++)
+                  dat[i][j] = min(dat[2*i+1][j], dat[2*i+2][j]);
+          dump("hello2");
+      }
+      int minimum(int li, int lj, int ri, int rj) { return minimum_h(li,lj,ri,rj,0,H,0); }
+      int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
+          if(ri <= si or ti <= li) return INF;
+          if(li <= si and ti <= ri) return minimum_w(lj,rj,0,W,k,0);
+          const int mi = (si+ti)/2;
+          return min(minimum_h(li,lj,ri,rj,si,mi,2*k+1), minimum_h(li,lj,ri,rj,mi,ti,2*k+2));
+      }
+      int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
+          if(rj <= sj or tj <= lj) return INF;
+          if(lj <= sj and tj <= rj) return dat[i][k];
+          const int mj = (sj+tj)/2;
+          return min(minimum_w(lj,rj,sj,mj,i,2*k+1),minimum_w(lj,rj,mj,tj,i,2*k+2));
+      }
+  };
+  
+
+
+snippet SegmentTreeRSQ
+alias rsq
+  struct SegmentTree {
+  private:
+      int n;
+      vector<int> node;
+  public:
+      SegmentTree(vector<int> v) {
+          int sz = (int)v.size();
+          n = 1; while(n < sz) n *= 2;
+          node.resize(2*n-1, 0);
+   
+          for(int i=0; i<sz; i++) node[i+n-1] = v[i];
+          for(int i=n-2; i>=0; i--) node[i] = node[i*2+1] + node[i*2+2];
+      }
+   
+      void add(int k, int val) {
+          k += (n - 1);
+          node[k] += val;
+   
+          while(k > 0) {
+              k = (k - 1) / 2;
+              node[k] = node[2*k+1] + node[2*k+2];
+          }
+      }
+   
+      // get sum of [l r)
+      int getsum(int a, int b, int k=0, int l=0, int r=-1) {
+          if(r < 0) r = n;
+          if(b <= l || r <= a) return 0;
+          if(a <= l && r <= b) return node[k];
+   
+          int vl = getsum(a, b, 2*k+1, l, (l+r)/2);
+          int vr = getsum(a, b, 2*k+2, (l+r)/2, r);
+          return vl + vr;
+      }
+  };
+  
+
+
+snippet SegmentTreeRMQ
+alias rmq
+  struct SegmentTree {
+    private:
+      int n;
+      vector<int> node;
+  
+    public:
+      SegmentTree(vector<int> a) {
+        int sz = a.size();
+        n = 1; while(n < sz) n *= 2;
+        node.resize(2*n-1, INF);
+        for(int i=0; i<sz; i++) node[i+n-1] = a[i];
+        for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
+      }
+      SegmentTree(int V) : SegmentTree(vector<int>(V, INF)) {}
+  
+      void update(int x, int val) {
+        x += (n - 1);
+        node[x] = val;
+        while(x > 0) {
+          x = (x - 1) / 2;
+          node[x] = min(node[2*x+1], node[2*x+2]);
+        }
+      }
+  
+      // get min of [l, r)
+      int getmin(int a, int b, int k=0, int l=0, int r=-1) {
+        if(r < 0) r = n;
+        if(r <= a || b <= l) return INF;
+        if(a <= l && r <= b) return node[k];
+  
+        int vl = getmin(a, b, 2*k+1, l, (l+r)/2);
+        int vr = getmin(a, b, 2*k+2, (l+r)/2, r);
+        return min(vl, vr);
+      }
+  };
   
 
 

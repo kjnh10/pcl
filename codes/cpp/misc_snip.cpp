@@ -222,7 +222,6 @@ auto f = [&](){
 
 
 //%snippet.set('dfs_lambda')%
-//%snippet.config({'alias':'dfs'})%
 auto dfs = [&](const auto& dfs, int x, int v) -> void {
   // 処理
   dfs(dfs, nx, nv);
@@ -248,7 +247,7 @@ int query(){
   return 0;
 }
 
-int solve(){
+signed main(){
   int Q;cin>>Q;
   rep(_, Q){
     query();
