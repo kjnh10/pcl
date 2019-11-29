@@ -255,3 +255,25 @@ signed main(){
   return 0;
 }
 
+//%snippet.set('pos')%
+// いらない？？
+template<typename T1, typename T2>
+struct pos{
+  T1 x;
+  T2 y;
+  pos(int _x, int _y) : x(_x), y(_y){
+  }
+
+  bool operator<(const pos &another){
+    if (x < another.x) return true;
+    if (x > another.x) return false;
+    if (y < another.y) return true;
+    else               return false;
+  }
+  bool operator>(const pos &another){
+    if (x > another.x) return true;
+    if (x < another.x) return false;
+    if (y > another.y) return true;
+    else               return false;
+  }
+}

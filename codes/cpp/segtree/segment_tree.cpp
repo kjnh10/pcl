@@ -74,13 +74,16 @@ int main() {
   int N = 6;
   vector<int> a = {1, 4, -2, 3, 6, 7};
   auto f=[&](int a,int b){return max(a,b);};
-  const int id = -1e9;
-  SegmentTree<int, decltype(f)> seg(a, f, id);
+  SegmentTree<int, decltype(f)> seg(a, f, -1e9);
 
+  assert(seg.query(0, 8)==7);
   cout << seg.query(0, 8) << endl;
+  cout << seg.query(0, 10) << endl;
+  cout << seg.query(-3, 10) << endl;
   cout << seg[0] << endl;
   cout << seg[1] << endl;
   cout << seg[2] << endl;
+  cout << seg << endl;
   seg.update(2, 10);
   cout << seg.query(0, 8) << endl;
 
