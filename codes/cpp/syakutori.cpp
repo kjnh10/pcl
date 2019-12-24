@@ -3,12 +3,14 @@
   int res = 0;
   int sum = 0;
   int r = 0;
+
+  auto isok=[&](int r){ // [l, r] e.g [l, r+1) is ok?
+    if (sum + s[r-1]<=k) return true;
+    else               return false;
+  };
+
   for (int l=0; l<n; ++l) {
-    auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
-      if (sum + s[r]<=k) return true;
-      else return false;
-    };
-    while (r<n && isok()) {
+    while (r<n && isok(r+1)) {
       sum += s[r];
       ++r;
     }

@@ -116,6 +116,8 @@ snippet POS
 alias pos
   struct POS{
     int x,y;
+    pos(int _x, int _y) : x(_x), y(_y){
+    }
     bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
       if (a<=x && x<b && c<=y && y<d) return true;
       else return false;
@@ -131,6 +133,14 @@ alias pos
       }
       else{
         return left.y < right.y;
+      }
+    }
+    friend bool operator>(auto &left, auto &right){
+      if (left.x != right.x){
+        return left.x > right.x;
+      }
+      else{
+        return left.y > right.y;
       }
     }
   };
@@ -385,12 +395,14 @@ snippet syakutori
     int res = 0;
     int sum = 0;
     int r = 0;
+  
+    auto isok=[&](int r){ // [l, r] e.g [l, r+1) is ok?
+      if (sum + s[r-1]<=k) return true;
+      else               return false;
+    };
+  
     for (int l=0; l<n; ++l) {
-      auto isok=[&](){ // [l, r] e.g [l, r+1) is ok?
-        if (sum + s[r]<=k) return true;
-        else return false;
-      };
-      while (r<n && isok()) {
+      while (r<n && isok(r+1)) {
         sum += s[r];
         ++r;
       }
@@ -536,12 +548,15 @@ snippet perm
 
 
 snippet to_bin
+  #define N 61
   string to_bin(int n, int d){
     // nをd桁の2進数で表示する。
     stringstream ss;
-    ss << bitset<20>(n);
-    return ss.str().substr(20-d, d);
+    ss << bitset<N>(n);
+    return ss.str().substr(N-d, d);
   }
+  // int d = (32 - __builtin_clz(n));  // 桁数
+  // int f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
   
 
 
@@ -725,31 +740,6 @@ snippet query
       query();
     }
     return 0;
-  }
-  
-
-
-snippet pos
-  // いらない？？
-  template<typename T1, typename T2>
-  struct pos{
-    T1 x;
-    T2 y;
-    pos(int _x, int _y) : x(_x), y(_y){
-    }
-  
-    bool operator<(const pos &another){
-      if (x < another.x) return true;
-      if (x > another.x) return false;
-      if (y < another.y) return true;
-      else               return false;
-    }
-    bool operator>(const pos &another){
-      if (x > another.x) return true;
-      if (x < another.x) return false;
-      if (y > another.y) return true;
-      else               return false;
-    }
   }
   
 
