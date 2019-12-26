@@ -394,13 +394,13 @@ snippet slide_min
 snippet syakutori
     int res = 0;
     int sum = 0;
-    int r = 0;
   
     auto isok=[&](int r){ // [l, r] e.g [l, r+1) is ok?
       if (sum + s[r-1]<=k) return true;
       else               return false;
     };
   
+    int r = 0;
     for (int l=0; l<n; ++l) {
       while (r<n && isok(r+1)) {
         sum += s[r];
@@ -1201,7 +1201,7 @@ alias scc
   
     const Graph &g; //{{{
     vector< int > comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-    Graph dag;  // 縮約されたDAG graph. sizeをとれば今日連結成分の個数が分かる。
+    Graph dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
     Graph _rg;  // reversed graph
     vector< int > _order; // order[i]: 行きがけの番号
     vector< int > _used;

@@ -61,7 +61,7 @@ struct StronglyConnectedComponents {
 
   const Graph &g; //{{{
   vector< int > comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-  Graph dag;  // 縮約されたDAG graph. sizeをとれば今日連結成分の個数が分かる。
+  Graph dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
   Graph _rg;  // reversed graph
   vector< int > _order; // order[i]: 行きがけの番号
   vector< int > _used;
