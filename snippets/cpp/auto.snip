@@ -607,51 +607,32 @@ snippet rangesum
 
 snippet asv
   // acumulative sum vector {{{
-  template<typename T=int>
-  struct asvector : public vector<T> {
-    using vector<T>::vector;
+  template<typename T>
+  struct asvector {
     vector<T> cum; //accumulative sum
-    bool is_accumulated = false;
+    asvector(vector<T> a): cum(a){  // {{{  // constructor
+      rep(i, 1, sz(a))  cum[i]+=cum[i-1];
+    } // }}}
   
-    public:
-    T rsum(int l, int r) {  // return sum of [l, r] of data.
-      if (!is_accumulated)
-        _accumulate();
-      l = std::max(0LL, l);
-      r = std::min(r, sz(cum)-1);
-      return _calc_rangesum(l, r);
-    }
-  
-    T rsum(int r) {  // return sum of [0, r] of data.
-      if (!is_accumulated)
-        _accumulate();
-      int l = 0;
-      r = std::min(r, sz(cum)-1);
-      return _calc_rangesum(l, r);
-    }
-  
-    void _accumulate(){
-      cum = vector<T>(*this);
-      for(T i=1; i<sz(cum); i++){
-        cum[i] = cum[i-1] + (*this)[i];
+    T rsum(int l, int r) {  // return sum of [l, r) of data.  {{{
+      l = max(0LL, l);
+      r = min(r, sz(cum));
+      if (l<=r){
+        return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
       }
-      is_accumulated = true;
-    }
-  
-    void push_back(T x){
-      (*this).emplace_back(x);
-      is_accumulated = false;
-    }
-  
-    private:
-    T _calc_rangesum(int l, int r) {
-      if (l > r)
+      else{
         return 0;
-      else
-        return cum[r] - (l-1>=0 ? cum[l-1] : 0);
-    }
+      }
+    } // }}}
+  
+    T& operator[](int i) { // {{{
+      return cum[i]; 
+    } // }}}
+  
+    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
+      os << as.cum; return os;
+    } //}}}
   };
-  using asvi = asvector<int>;
   //}}}
   
 
