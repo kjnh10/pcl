@@ -127,3 +127,8 @@ layout: default
 * :warning: <a href="library/template/codes/lib/prettyprint.hpp.html">template/codes/lib/prettyprint.hpp</a>
 
 
+## Verify Files
+
+* :heavy_check_mark: <a href="verify/example.test.cpp.html">example.test.cpp</a>
+
+
