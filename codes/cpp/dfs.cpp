@@ -6,16 +6,16 @@ stack<int> st;
 vector<int> used(n);
 
 st.push(0);
-used[0] = 1;
 while (!st.empty()){
   auto v = st.top();st.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
+    if (used[u]) continue;
     // process
-    q.push(u);
+    st.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -26,17 +26,16 @@ while (!st.empty()){
 queue<int> q;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
+q.push(0);
 while (!st.empty()){
   auto v = q.front();q.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -47,17 +46,16 @@ while (!st.empty()){
 deque<int> dq;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
-while (!st.empty()){
+dq.push_back(0);
+while (!dq.empty()){
   auto v = dq.front();dq.pop_front();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push_back(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
