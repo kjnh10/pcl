@@ -87,6 +87,37 @@ snippet mint2
 	
 
 
+snippet RectangleSum
+	
+	template <typename T>
+	struct RectangleSum {
+	  vector<vector<T>> sum;
+	  T GetSum(int left, int right, int top, int bottom) { //[left, right], [top, bottom]{{{
+	    T res = sum[bottom][right];
+	    if (left > 0) res -= sum[bottom][left - 1];
+	    if (top > 0) res -= sum[top - 1][right];
+	    if (left > 0 && top > 0) res += sum[top - 1][left - 1];
+	    return res;
+	  }/*}}}*/
+	
+	  void init(const vector<vector<T>> &s) {/*{{{*/
+	    int h = s.size();
+	    int w = s[0].size();
+	    sum.resize(h);
+	    for (int i = 0; i < h; i ++) sum[i].resize(w, 0);
+	    for (int y = 0; y < h; y ++) {
+	      for (int x = 0; x < w; x ++) {
+	        sum[y][x] = s[y][x];
+	        if (y > 0) sum[y][x] += sum[y - 1][x];
+	        if (x > 0) sum[y][x] += sum[y][x - 1];
+	        if (y > 0 && x > 0) sum[y][x] -= sum[y - 1][x - 1];
+	      }
+	    }
+	  }/*}}}*/
+	};
+	
+
+
 snippet bsearch
 	int left = 0;
 	int right = 1000000001;
@@ -100,49 +131,6 @@ snippet bsearch
 	  else{ left = mid; }
 	}
 	dump(right);
-	
-
-
-snippet bit1
-	template<typename T=int>
-	struct BIT {
-	  public:
-	    vector<T> data;  // 1-indexed
-	
-	    // constructor
-	    BIT(vector<T> v){  // v: 0-index vector
-	      data = vector<T>(sz(v)+1);
-	      rep(i, 1, sz(v)) add(i+1, v[i]);
-	    }
-	    BIT(int n){
-	      data = vector<T>(n+1);
-	    }
-	    //------------
-	
-	    T sum(int idx){  // return sum of [1, r]
-	      T res = 0;
-	      for (int i = idx; i > 0; i -= i&-i) res += data[i];
-	      return res;
-	    }
-	
-	    void add(int idx, T x){
-	      for (int i = idx; i <= (int)data.size(); i += i&-i){
-	        data[i] += x;
-	      }
-	    }
-	
-	  private:
-	};
-	
-	ostream& operator<<(ostream& stream, BIT<int> bit){
-	  int n = sz(bit.data);
-	  stream << "bit[";
-	  rep(i, 1, n){
-	    stream << bit.sum(i) << (i==n-1 ? "" : ", ");
-	  }
-	  stream << "]";
-	  return stream;
-	}
 	
 
 
@@ -164,77 +152,6 @@ snippet slide_min
 	  }
 	  return ret;  // sz(res) == m-k+1, last index is m-k
 	}  //}}}
-	
-
-
-snippet bit
-	
-	template<typename T=int> struct bit {//{{{
-	  int n;
-	  vector<T> dat;
-	  vector<T> raw;
-	
-	  bit(int _n=0){ //{{{
-	    n = _n;
-	    dat = vector<T>(n);
-	    raw = vector<T>(n);
-	  } //}}}
-	
-	  bit(vector<T> a){ // {{{
-	    n = (int)a.size();
-	    dat = vector<T>(n);
-	    raw = vector<T>(n);
-	    for(int i = 0; i<n; i++){
-	      add(i, a[i]);
-	      raw[i] = a[i];
-	    }
-	  } //}}}
-	
-	  T sum(int i){ //{{{
-	    T s = 0;
-	    while(i >= 0){
-	      s += dat[i];
-	      i = (i & (i+1)) - 1;
-	    }
-	    return s;
-	  } //}}}
-	
-	  T sum(int i, int j){ //{{{  [i, j]
-	    if(i > j) return 0;
-	    return sum(j) - sum(i-1);
-	  } //}}}
-	
-	  void add(int i, T x){ //{{{
-	    raw[i] += x;
-	    while(i < n){
-	      dat[i] += x;
-	      i |= i+1;
-	    }
-	  } //}}}
-	
-	  int lower_bound(T x){ // a[0]+...+a[ret] >= x{{{
-	    int ret = -1;
-	    int k = 1;
-	    while(2*k <= n) k <<= 1;
-	    for( ;k>0; k>>=1){
-	      if(ret+k < n && dat[ret+k] < x){
-	        x -= dat[ret+k];
-	        ret += k;
-	      }
-	    }
-	    return ret + 1;
-	  } //}}}
-	
-	  friend ostream& operator<<(ostream &os, bit<T>& b){ //{{{
-	    os << endl << "  raw:" << b.raw << endl;
-	    vector<T> acum;
-	    rep(i, b.n){
-	      acum.pb(b.sum(i));
-	    }
-	    os << "  acm:" << acum << endl;
-	    return os;
-	  } //}}}
-	}; //}}}
 	
 
 
@@ -581,16 +498,16 @@ snippet dfs
 	vector<int> used(n);
 	
 	st.push(0);
-	used[0] = 1;
 	while (!st.empty()){
 	  auto v = st.top();st.pop();
+	  if (used[v]) continue;
 	
-	  if (!used[v]) continue;
-	  each(u, used[v]){
-	    used[u] = 1;
+	  each(u, g[v]){
+	    if (used[u]) continue;
 	    // process
-	    q.push(u);
+	    st.push(u);
 	  }
+	  used[v] = 1;
 	}
 	
 
@@ -600,17 +517,16 @@ snippet bfs
 	queue<int> q;
 	vector<int> used(n);
 	
-	st.push(0);
-	used[0] = 1;
+	q.push(0);
 	while (!st.empty()){
 	  auto v = q.front();q.pop();
+	  if (used[v]) continue;
 	
-	  if (!used[v]) continue;
-	  each(u, used[v]){
-	    used[u] = 1;
+	  each(u, g[v]){
 	    // process
 	    q.push(u);
 	  }
+	  used[v] = 1;
 	}
 	
 
@@ -620,17 +536,16 @@ snippet 01bfs
 	deque<int> dq;
 	vector<int> used(n);
 	
-	st.push(0);
-	used[0] = 1;
-	while (!st.empty()){
+	dq.push_back(0);
+	while (!dq.empty()){
 	  auto v = dq.front();dq.pop_front();
+	  if (used[v]) continue;
 	
-	  if (!used[v]) continue;
-	  each(u, used[v]){
-	    used[u] = 1;
+	  each(u, g[v]){
 	    // process
 	    q.push_back(u);
 	  }
+	  used[v] = 1;
 	}
 	
 
@@ -747,6 +662,38 @@ snippet divisor
 	  p.insert(p.end(), all(q));
 	  return p;
 	}//}}}
+	
+
+
+snippet double_sweep
+	
+	int double_sweep(const auto & g){/*{{{*/
+	  int n = sz(g);
+	  int x = 0;
+	  int max_d = 0;
+	  auto dfs = [&](const auto& dfs, auto& d, int u, int cost) -> void {
+	    each(v, g[u]){
+	      if (d[v]<INF) continue;
+	      d[v] = cost+1;
+	      if (d[v]>max_d){
+	        chmax(max_d, d[v]);
+	        x = v;
+	      }
+	      dfs(dfs, d, v, cost+1);
+	    }
+	  };
+	
+	  vi d0(n, INF); d0[0] = 0;  // distance from 0
+	  dfs(dfs, d0, 0, 0);
+	  vi dx(n, INF); dx[x] = 0;  // distance from x
+	  int a = x;  // 保存
+	
+	  max_d = 0;
+	  dfs(dfs, dx, x, 0);
+	  int b = x;
+	
+	  return max_d; // d(a,b) == max_d;
+	}/*}}}*/
 	
 
 
@@ -1570,6 +1517,120 @@ snippet lcs
 	  }
 	  return dp[n][m];
 	}
+	
+
+
+snippet bit1
+	template<typename T=int>
+	struct BIT {
+	  public:
+	    vector<T> data;  // 1-indexed
+	
+	    // constructor
+	    BIT(vector<T> v){  // v: 0-index vector
+	      data = vector<T>(sz(v)+1);
+	      rep(i, 1, sz(v)) add(i+1, v[i]);
+	    }
+	    BIT(int n){
+	      data = vector<T>(n+1);
+	    }
+	    //------------
+	
+	    T sum(int idx){  // return sum of [1, r]
+	      T res = 0;
+	      for (int i = idx; i > 0; i -= i&-i) res += data[i];
+	      return res;
+	    }
+	
+	    void add(int idx, T x){
+	      for (int i = idx; i <= (int)data.size(); i += i&-i){
+	        data[i] += x;
+	      }
+	    }
+	
+	  private:
+	};
+	
+	ostream& operator<<(ostream& stream, BIT<int> bit){
+	  int n = sz(bit.data);
+	  stream << "bit[";
+	  rep(i, 1, n){
+	    stream << bit.sum(i) << (i==n-1 ? "" : ", ");
+	  }
+	  stream << "]";
+	  return stream;
+	}
+	
+
+
+snippet bit
+	
+	template<typename T=int> struct bit {//{{{
+	  int n;
+	  vector<T> dat;
+	  vector<T> raw;
+	
+	  bit(int _n=0){ //{{{
+	    n = _n;
+	    dat = vector<T>(n);
+	    raw = vector<T>(n);
+	  } //}}}
+	
+	  bit(vector<T> a){ // {{{
+	    n = (int)a.size();
+	    dat = vector<T>(n);
+	    raw = vector<T>(n);
+	    for(int i = 0; i<n; i++){
+	      add(i, a[i]);
+	      raw[i] = a[i];
+	    }
+	  } //}}}
+	
+	  T sum(int i){ //{{{
+	    T s = 0;
+	    while(i >= 0){
+	      s += dat[i];
+	      i = (i & (i+1)) - 1;
+	    }
+	    return s;
+	  } //}}}
+	
+	  T sum(int i, int j){ //{{{  [i, j]
+	    if(i > j) return 0;
+	    return sum(j) - sum(i-1);
+	  } //}}}
+	
+	  void add(int i, T x){ //{{{
+	    raw[i] += x;
+	    while(i < n){
+	      dat[i] += x;
+	      i |= i+1;
+	    }
+	  } //}}}
+	
+	  int lower_bound(T x){ // a[0]+...+a[ret] >= x{{{
+	    int ret = -1;
+	    int k = 1;
+	    while(2*k <= n) k <<= 1;
+	    for( ;k>0; k>>=1){
+	      if(ret+k < n && dat[ret+k] < x){
+	        x -= dat[ret+k];
+	        ret += k;
+	      }
+	    }
+	    return ret + 1;
+	  } //}}}
+	
+	  friend ostream& operator<<(ostream &os, bit<T>& b){ //{{{
+	    os << endl << "  raw:" << b.raw << endl;
+	    vector<T> acum;
+	    rep(i, b.n){
+	      acum.pb(b.sum(i));
+	    }
+	    os << "  acm:" << acum << endl;
+	    return os;
+	  } //}}}
+	}; //}}}
 	
 
 
