@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/dfs.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-11-26 01:16:15+09:00
+    - Last commit date: 2019-12-31 17:03:53+09:00
 
 
 
@@ -49,16 +49,16 @@ stack<int> st;
 vector<int> used(n);
 
 st.push(0);
-used[0] = 1;
 while (!st.empty()){
   auto v = st.top();st.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
+    if (used[u]) continue;
     // process
-    q.push(u);
+    st.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -69,17 +69,16 @@ while (!st.empty()){
 queue<int> q;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
+q.push(0);
 while (!st.empty()){
   auto v = q.front();q.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -90,17 +89,16 @@ while (!st.empty()){
 deque<int> dq;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
-while (!st.empty()){
+dq.push_back(0);
+while (!dq.empty()){
   auto v = dq.front();dq.pop_front();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push_back(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -120,16 +118,16 @@ stack<int> st;
 vector<int> used(n);
 
 st.push(0);
-used[0] = 1;
 while (!st.empty()){
   auto v = st.top();st.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
+    if (used[u]) continue;
     // process
-    q.push(u);
+    st.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -140,17 +138,16 @@ while (!st.empty()){
 queue<int> q;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
+q.push(0);
 while (!st.empty()){
   auto v = q.front();q.pop();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -161,17 +158,16 @@ while (!st.empty()){
 deque<int> dq;
 vector<int> used(n);
 
-st.push(0);
-used[0] = 1;
-while (!st.empty()){
+dq.push_back(0);
+while (!dq.empty()){
   auto v = dq.front();dq.pop_front();
+  if (used[v]) continue;
 
-  if (!used[v]) continue;
-  each(u, used[v]){
-    used[u] = 1;
+  each(u, g[v]){
     // process
     q.push_back(u);
   }
+  used[v] = 1;
 }
 
 //%snippet.end()%
