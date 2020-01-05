@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-29 09:26:11+09:00
+    - Last commit date: 2020-01-05 18:24:19+09:00
 
 
 
@@ -282,6 +282,12 @@ signed main(){
 }
 
 
+//%snippet.set('random_generator')%
+uint64_t rng() {
+  static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+  return uniform_int_distribution<uint64_t>(0, -1)(mt);
+}
+
 ```
 {% endraw %}
 
@@ -529,6 +535,12 @@ signed main(){
   return 0;
 }
 
+
+//%snippet.set('random_generator')%
+uint64_t rng() {
+  static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+  return uniform_int_distribution<uint64_t>(0, -1)(mt);
+}
 
 ```
 {% endraw %}

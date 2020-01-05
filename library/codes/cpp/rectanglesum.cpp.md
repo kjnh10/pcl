@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/rectanglesum.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-02 21:18:23+09:00
+    - Last commit date: 2020-01-05 18:24:19+09:00
 
 
 
@@ -57,7 +57,7 @@ struct RectangleSum {
     return res;
   }/*}}}*/
 
-  void init(const vector<vector<T>> &s) {/*{{{*/
+  RectangleSum(const vector<vector<T>> &s) {/*{{{*/
     int h = s.size();
     int w = s[0].size();
     sum.resize(h);
@@ -98,7 +98,7 @@ struct RectangleSum {
     return res;
   }/*}}}*/
 
-  void init(const vector<vector<T>> &s) {/*{{{*/
+  RectangleSum(const vector<vector<T>> &s) {/*{{{*/
     int h = s.size();
     int w = s[0].size();
     sum.resize(h);
