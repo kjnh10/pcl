@@ -51,7 +51,7 @@ class Snippet(object):
                         out.write(f"alias {','.join(self.option['alias'])}\n")
 
                 for l in self.code:
-                    out.write('\t' + l)
+                    out.write('  ' + l)
                 out.write('\n\n')
             elif format=='textmate':
                 res = {}

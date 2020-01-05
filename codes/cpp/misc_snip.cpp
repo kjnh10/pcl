@@ -238,3 +238,9 @@ signed main(){
   return 0;
 }
 
+
+//%snippet.set('random_generator')%
+uint64_t rng() {
+  static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
+  return uniform_int_distribution<uint64_t>(0, -1)(mt);
+}

@@ -14,7 +14,7 @@ struct RectangleSum {
     return res;
   }/*}}}*/
 
-  void init(const vector<vector<T>> &s) {/*{{{*/
+  RectangleSum(const vector<vector<T>> &s) {/*{{{*/
     int h = s.size();
     int w = s[0].size();
     sum.resize(h);
