@@ -52,18 +52,18 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
-//%snippet.set('POS')%
+//%snippet.set('Pos')%
 //%snippet.config({'alias':'pos'})%
-struct POS{
+struct Pos{
   int x,y;
-  pos(int _x, int _y) : x(_x), y(_y){
+  Pos(int _x, int _y) : x(_x), y(_y){
   }
   bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
     if (a<=x && x<b && c<=y && y<d) return true;
     else return false;
   }
 
-  friend ostream& operator<<(ostream& stream, POS p){
+  friend ostream& operator<<(ostream& stream, Pos p){
     stream << "(" << p.x <<  "," << p.y << ")";
     return stream;
   }
