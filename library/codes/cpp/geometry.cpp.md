@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/geometry.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-24 19:21:16+09:00
+    - Last commit date: 2020-01-13 16:10:40+09:00
 
 
 
@@ -95,18 +95,18 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
-//%snippet.set('POS')%
+//%snippet.set('Pos')%
 //%snippet.config({'alias':'pos'})%
-struct POS{
+struct Pos{
   int x,y;
-  pos(int _x, int _y) : x(_x), y(_y){
+  Pos(int _x, int _y) : x(_x), y(_y){
   }
   bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
     if (a<=x && x<b && c<=y && y<d) return true;
     else return false;
   }
 
-  friend ostream& operator<<(ostream& stream, POS p){
+  friend ostream& operator<<(ostream& stream, Pos p){
     stream << "(" << p.x <<  "," << p.y << ")";
     return stream;
   }
@@ -136,9 +136,9 @@ struct POS{
 {% raw %}
 ```cpp
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.0/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
     bundler.update(self.file_class.file_path)
-  File "/opt/hostedtoolcache/Python/3.8.0/x64/lib/python3.8/site-packages/onlinejudge_verify/bundle.py", line 153, in update
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/bundle.py", line 153, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
 onlinejudge_verify.bundle.BundleError: codes/cpp/geometry.cpp: line 46: unable to process #include in #if / #ifdef / #ifndef other than include guards
 

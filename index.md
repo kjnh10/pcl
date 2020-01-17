@@ -89,6 +89,7 @@ layout: default
 * :warning: <a href="library/codes/cpp/graph/dijkstra.cpp.html">codes/cpp/graph/dijkstra.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/dijkstra_dinamic.cpp.html">codes/cpp/graph/dijkstra_dinamic.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/double_sweep.cpp.html">codes/cpp/graph/double_sweep.cpp</a>
+* :warning: <a href="library/codes/cpp/graph/gridgraph.cpp.html">codes/cpp/graph/gridgraph.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/kruskal.cpp.html">codes/cpp/graph/kruskal.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/scc.cpp.html">codes/cpp/graph/scc.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/topological_sort.cpp.html">codes/cpp/graph/topological_sort.cpp</a>

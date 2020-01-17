@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/dfs.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-12-31 17:03:53+09:00
+    - Last commit date: 2020-01-13 15:17:14+09:00
 
 
 
@@ -50,15 +50,16 @@ vector<int> used(n);
 
 st.push(0);
 while (!st.empty()){
-  auto v = st.top();st.pop();
-  if (used[v]) continue;
+  auto u = st.top();st.pop();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
-    if (used[u]) continue;
-    // process
-    st.push(u);
+  each(v, g[u]){
+    if (used[v]) continue;
+    // if (d[u]+cost>=d[v]) continue;
+    // d[v] = d[u]+cost;
+    st.push(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -70,15 +71,15 @@ queue<int> q;
 vector<int> used(n);
 
 q.push(0);
-while (!st.empty()){
-  auto v = q.front();q.pop();
-  if (used[v]) continue;
+while (!q.empty()){
+  auto u = q.front();q.pop();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
+  each(v, g[u]){
     // process
-    q.push(u);
+    q.push(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -91,14 +92,14 @@ vector<int> used(n);
 
 dq.push_back(0);
 while (!dq.empty()){
-  auto v = dq.front();dq.pop_front();
-  if (used[v]) continue;
+  auto u = dq.front();dq.pop_front();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
+  each(v, g[u]){
     // process
-    q.push_back(u);
+    q.push_back(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -119,15 +120,16 @@ vector<int> used(n);
 
 st.push(0);
 while (!st.empty()){
-  auto v = st.top();st.pop();
-  if (used[v]) continue;
+  auto u = st.top();st.pop();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
-    if (used[u]) continue;
-    // process
-    st.push(u);
+  each(v, g[u]){
+    if (used[v]) continue;
+    // if (d[u]+cost>=d[v]) continue;
+    // d[v] = d[u]+cost;
+    st.push(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -139,15 +141,15 @@ queue<int> q;
 vector<int> used(n);
 
 q.push(0);
-while (!st.empty()){
-  auto v = q.front();q.pop();
-  if (used[v]) continue;
+while (!q.empty()){
+  auto u = q.front();q.pop();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
+  each(v, g[u]){
     // process
-    q.push(u);
+    q.push(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
@@ -160,14 +162,14 @@ vector<int> used(n);
 
 dq.push_back(0);
 while (!dq.empty()){
-  auto v = dq.front();dq.pop_front();
-  if (used[v]) continue;
+  auto u = dq.front();dq.pop_front();
+  if (used[u]) continue;
+  used[u] = 1;
 
-  each(u, g[v]){
+  each(v, g[u]){
     // process
-    q.push_back(u);
+    q.push_back(v);
   }
-  used[v] = 1;
 }
 
 //%snippet.end()%
