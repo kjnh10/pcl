@@ -112,38 +112,6 @@ snippet bit
   
 
 
-snippet double_sweep
-  
-  int double_sweep(const auto & g){/*{{{*/
-    int n = sz(g);
-    int x = 0;
-    int max_d = 0;
-    auto dfs = [&](const auto& dfs, auto& d, int u, int cost) -> void {
-      each(v, g[u]){
-        if (d[v]<INF) continue;
-        d[v] = cost+1;
-        if (d[v]>max_d){
-          chmax(max_d, d[v]);
-          x = v;
-        }
-        dfs(dfs, d, v, cost+1);
-      }
-    };
-  
-    vi d0(n, INF); d0[0] = 0;  // distance from 0
-    dfs(dfs, d0, 0, 0);
-    vi dx(n, INF); dx[x] = 0;  // distance from x
-    int a = x;  // 保存
-  
-    max_d = 0;
-    dfs(dfs, dx, x, 0);
-    int b = x;
-  
-    return max_d; // d(a,b) == max_d;
-  }/*}}}*/
-  
-
-
 snippet RectangleSum
   
   template <typename T>
@@ -175,36 +143,27 @@ snippet RectangleSum
   
 
 
-snippet POS
+snippet Pos
 alias pos
-  struct POS{
+  struct Pos{
     int x,y;
-    pos(int _x, int _y) : x(_x), y(_y){
+    Pos(int _x, int _y) : x(_x), y(_y){
+    }
+    Pos() {
+      x = 0; y = 0;
     }
     bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
       if (a<=x && x<b && c<=y && y<d) return true;
       else return false;
     }
   
-    friend ostream& operator<<(ostream& stream, POS p){
+    bool operator<(const Pos &r) const { return (x!=r.x ? x<r.x : y<r.y); }
+    bool operator>(const Pos &r) const { return (x!=r.x ? x>r.x : y>r.y); }
+    bool operator==(const Pos &r) const { return (x==r.x && y==r.y); }
+  
+    friend ostream& operator<<(ostream& stream, Pos p){
       stream << "(" << p.x <<  "," << p.y << ")";
       return stream;
-    }
-    friend bool operator<(auto &left, auto &right){
-      if (left.x != right.x){
-        return left.x < right.x;
-      }
-      else{
-        return left.y < right.y;
-      }
-    }
-    friend bool operator>(auto &left, auto &right){
-      if (left.x != right.x){
-        return left.x > right.x;
-      }
-      else{
-        return left.y > right.y;
-      }
     }
   };
   
@@ -799,60 +758,59 @@ snippet random_generator
 snippet event_sort
   
   struct Event {
-  	Event(int t_, int s_, int e_, int isIn_) : t(t_), s(s_), e(e_), isIn(isIn_) {}
-  	int t;
-  	int s, e;
-  	int isIn;
+    Event(int t_, int s_, int e_, int isIn_) : t(t_), s(s_), e(e_), isIn(isIn_) {}
+    int t;
+    int s, e;
+    int isIn;
   
-  	bool operator<(const Event& rhs) {
-  		if (t == rhs.t)
-  			return isIn < rhs.isIn;
+    bool operator<(const Event& rhs) {
+      if (t == rhs.t)
+        return isIn < rhs.isIn;
   
-  		return t < rhs.t;
-  	}
+      return t < rhs.t;
+    }
   };
   
   void event_sort(vector<int>& s, vector<int>& e) {
     // 回収はl, rは掃除するversion
-  	multiset<int> e_set;
+    multiset<int> e_set;
     int n = sz(s);
   
-  	vector<Event> events;
-  	for (int i = 0; i < n; i++) {
-  		events.emplace_back(s[i], s[i], e[i], 1);
-  		events.emplace_back(e[i] + 1, s[i], e[i], 0);
-  	}
+    vector<Event> events;
+    for (int i = 0; i < n; i++) {
+      events.emplace_back(s[i], s[i], e[i], 1);
+      events.emplace_back(e[i] + 1, s[i], e[i], 0);
+    }
   
-  	sort(all(events));
+    sort(all(events));
   
-  	for (int i = 0; i < 2 * n; i++) {
-  		if (events[i].isIn) {
-  			e_set.insert(events[i].e);
-  		}
-  		else {
-  			e_set.erase(e_set.find(events[i].e));
-  		}
-  	}
+    for (int i = 0; i < 2 * n; i++) {
+      if (events[i].isIn) {
+        e_set.insert(events[i].e);
+      }
+      else {
+        e_set.erase(e_set.find(events[i].e));
+      }
+    }
   }
   
 
 
 snippet com
   const int MAX = 510000;
-  const int MOD = 1000000007;
   // Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
   // {{{
   ll fac[MAX], finv[MAX], inv[MAX];
   
   // 前処理
   void COMinit() {
-      fac[0] = fac[1] = 1;
-      finv[0] = finv[1] = 1;
-      inv[1] = 1;
+      fac[0] = fac[1] = 1;  // 階乗
+      finv[0] = finv[1] = 1; // 階乗の逆元
+      inv[1] = 1;  // 逆元
       for (int i = 2; i < MAX; i++){
-          fac[i] = fac[i - 1] * i % MOD;
-          inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
-          finv[i] = finv[i - 1] * inv[i] % MOD;
+          fac[i] = fac[i - 1] * i % mod;
+          inv[i] = mod - inv[mod%i] * (mod / i) % mod;
+          finv[i] = finv[i - 1] * inv[i] % mod;
       }
   }
   
@@ -860,7 +818,7 @@ snippet com
   ll COM(int n, int k){
       if (n < k) return 0;
       if (n < 0 || k < 0) return 0;
-      return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
+      return fac[n] * (finv[k] * finv[n - k] % mod) % mod;
   }
   //}}}
   
@@ -873,15 +831,16 @@ snippet dfs
   
   st.push(0);
   while (!st.empty()){
-    auto v = st.top();st.pop();
-    if (used[v]) continue;
+    auto u = st.top();st.pop();
+    if (used[u]) continue;
+    used[u] = 1;
   
-    each(u, g[v]){
-      if (used[u]) continue;
-      // process
-      st.push(u);
+    each(v, g[u]){
+      if (used[v]) continue;
+      // if (d[u]+cost>=d[v]) continue;
+      // d[v] = d[u]+cost;
+      st.push(v);
     }
-    used[v] = 1;
   }
   
 
@@ -892,15 +851,15 @@ snippet bfs
   vector<int> used(n);
   
   q.push(0);
-  while (!st.empty()){
-    auto v = q.front();q.pop();
-    if (used[v]) continue;
+  while (!q.empty()){
+    auto u = q.front();q.pop();
+    if (used[u]) continue;
+    used[u] = 1;
   
-    each(u, g[v]){
+    each(v, g[u]){
       // process
-      q.push(u);
+      q.push(v);
     }
-    used[v] = 1;
   }
   
 
@@ -912,14 +871,14 @@ snippet 01bfs
   
   dq.push_back(0);
   while (!dq.empty()){
-    auto v = dq.front();dq.pop_front();
-    if (used[v]) continue;
+    auto u = dq.front();dq.pop_front();
+    if (used[u]) continue;
+    used[u] = 1;
   
-    each(u, g[v]){
+    each(v, g[u]){
       // process
-      q.push_back(u);
+      q.push_back(v);
     }
-    used[v] = 1;
   }
   
 
@@ -1075,6 +1034,78 @@ alias tps
   
 
 
+snippet gridgraph
+  
+    // grid graphを通常のグラフに格納する。
+    // (i, j) -> i*w + j
+    // u -> (u/w, u%w)
+  
+    int h,w;cin>>h>>w;
+    int n = h*w;
+    vvi block(h, vi(w));
+    rep(i, h){
+      string s;cin>>s;
+      rep(j, w){
+        block[i][j] = (s[j]=='.'?0:1);
+      }
+    }
+  
+    vvi g(n);
+    // Graph G;
+  
+    int di[]={1, -1, 0, 0};
+    int dj[]={0, 0, 1, -1};
+    rep(i, h)rep(j, w){
+      if (block[i][j]) continue;  // blockから出る辺はない
+      int u = i*w+j;
+  
+      rep(k, 4){
+        int ni = i+di[k];
+        int nj = j+dj[k];
+        int v = ni*w + nj;
+        if (is_in(ni, 0, h) && is_in(nj, 0, w)){
+          if (block[ni][nj]) continue;  // blockに入る辺はない
+          g[u].pb(v);
+          // G.add_edge(u, v, 1);
+          // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+        }
+      }
+    }
+  
+
+
+snippet double_sweep
+  
+  int double_sweep(const auto & g){/*{{{*/
+    int n = sz(g);
+    int x = 0;
+    int max_d = 0;
+    auto dfs = [&](const auto& dfs, auto& d, int u, int cost) -> void {
+      each(v, g[u]){
+        if (d[v]<INF) continue;
+        d[v] = cost+1;
+        if (d[v]>max_d){
+          chmax(max_d, d[v]);
+          x = v;
+        }
+        dfs(dfs, d, v, cost+1);
+      }
+    };
+  
+    vi d0(n, INF); d0[0] = 0;  // distance from 0
+    dfs(dfs, d0, 0, 0);
+    vi dx(n, INF); dx[x] = 0;  // distance from x
+    int a = x;  // 保存
+  
+    max_d = 0;
+    dfs(dfs, dx, x, 0);
+    int b = x;
+  
+    return max_d; // d(a,b) == max_d;
+  }/*}}}*/
+  
+
+
 snippet bellman_ford
   struct Edge {
     int to, cost;  // 辺の接続先頂点, 辺の重み
@@ -1133,70 +1164,93 @@ snippet bellman_ford
 
 snippet dijkstra
   
-  using COST = int;  // TODO: update
-  using POS = pair<int, int>;  // TODO: update
-  using EDGE = pair<POS, COST>;
-  struct GRAPH{
-    map<POS, vector<EDGE>> all_edges;
-    vector<POS> all_nodes;
+  using Pos = int;  // TODO: update if needed
   
-    void add_edge(POS from, POS to, COST cost){
-      all_edges[from].emplace_back(mp(to, cost));
+  using Cost = int;  // TODO: update if needed
+  Cost zerocost = 0LL;  // TODO: update if needed
+  Cost infcost = INF;  // TODO: update if needed
+  // using Cost = pii;
+  // Cost zerocost = mp(0, 0);
+  // Cost infcost = mp(INF, INF);
+  
+  struct Edge {
+    Pos to;/*{{{*/
+    Cost cost;
+    Edge(Pos to, Cost cost): to(to), cost(cost) {
+    }
+    friend auto& operator<<(auto &os, const Edge& e){
+      os << e.to << " " << e.cost;
+      return os;
+    }/*}}}*/
+  };
+  struct Graph{
+    unordered_map<Pos, vector<Edge>> all_edges;//Posがpiiでなくintならunordredの方が早い{{{
+    void add_edge(Pos from, Pos to, Cost cost){
+      all_edges[from].emplace_back(to, cost);
     }
   
-    auto operator[](POS pos){
+    auto operator[](Pos pos) {
       return all_edges[pos];
     }
+  
+    friend auto& operator<<(auto &os, const Graph& G){
+      os << G.all_edges;
+      return os;
+    }/*}}}*/
   };
-  auto& operator<<(auto& stream, GRAPH G){
-    stream << G.all_edges;
-    return stream;
-  }
+  struct Dist {
+    unordered_map<Pos, Cost> data;/*{{{*/
+    Cost operator[](Pos pos){
+      if (data.find(pos)!=data.end()) return data[pos];
+      else                      return infcost;
+    }/*}}}*/
+  };
+  Dist dijkstra(Graph& G, Pos start) {
+    vector<Pos> starts = {start};
+    return dijkstra(G, starts);
+  };
   
-  map<POS, COST> dijkstra(GRAPH& G, POS start){
-    map<POS, COST> d;  // 最短距離
-    each(node, G.all_nodes) {d[node] = INF;}
-  
-    PQ<pair<COST, POS>> q;
-    q.push(mp(0LL, start));
-    while (!q.empty()){
-      auto cp = q.top(); q.pop();
+  Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
+    Dist d;  // 最短距離{{{
+    PQ<pair<Cost, Pos>> pq;
+    each(start, starts){
+      d.data[start] = zerocost;
+      pq.push(mp(zerocost, start));
+    }
+    while (!pq.empty()){
+      auto cp = pq.top(); pq.pop();
       auto cost = cp.first;
-      auto pos = cp.second;
-  
-      if (cost < d[pos]) {
-        d[pos] = cost;
-        for (const auto &el:G[pos]){
-          auto ncost = cost + el.second;
-          auto npos = el.first;
-          if (ncost < d[npos]) q.push(mp(ncost, npos));
+      auto u = cp.second;
+      for (const auto &edge: G[u]){
+        Pos v = edge.to;
+        Cost ncost = cost+edge.cost;
+        if (ncost < d[v]){
+          d.data[u] = cost;
+          pq.push(mp(ncost, v));
         }
       }
     }
-    return d;
-  }
+    return d;/*}}}*/
+  };
   
   // int sample(){
-  //   // init and build G
-  //   GRAPH G;
-  //
-  //   int n,m;cin>>n>>m;
-  //   rep(i, n) G.all_nodes.pb(i);  // add node
-  //   rep(i, m){
-  //     POS from, to;
-  //     COST cost;
-  //     cin>>from>>to>>cost;
-  //     from--;to--;
-  //     G.add_edge(from, to, cost);
-  //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
-  //   }
-  //
-  //   // calc min distance by G
-  //   POS start=...;
-  //   POS goal=...;
-  //   auto d = dijkstra(G, start);
-  //   cout << d[goal] << endl;
-  //   return 0;
+    // init and build G
+    // Graph G;
+    //
+    // int n,m;cin>>n>>m;
+    // rep(i, m){
+    //   Pos from, to;
+    //   Cost cost;
+    //   cin>>from>>to>>cost;
+    //   from--;to--;
+    //   G.add_edge(from, to, cost);
+    //   G.add_edge(to, from, cost);  // TODO: if directed, remove this line
+    // }
+    //
+    // // calc min distance by G
+    // auto d = dijkstra(G, {start});
+    // cout << d[{goal}] << endl;  // 到達不可能ならd[goal] -> INF
+    // return 0;
   // }
   
 

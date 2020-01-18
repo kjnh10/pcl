@@ -1,4 +1,4 @@
-//%snippet.set('dijkstra')%
+//%snippet.set('gridgraph')%
 
   // grid graphを通常のグラフに格納する。
   // (i, j) -> i*w + j
