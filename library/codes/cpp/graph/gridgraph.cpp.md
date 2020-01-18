@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-13 16:10:40+09:00
+    - Last commit date: 2020-01-18 14:14:41+09:00
 
 
 
@@ -41,7 +41,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-//%snippet.set('dijkstra')%
+//%snippet.set('gridgraph')%
 
   // grid graphを通常のグラフに格納する。
   // (i, j) -> i*w + j
@@ -88,7 +88,7 @@ layout: default
 {% raw %}
 ```cpp
 #line 1 "codes/cpp/graph/gridgraph.cpp"
-//%snippet.set('dijkstra')%
+//%snippet.set('gridgraph')%
 
   // grid graphを通常のグラフに格納する。
   // (i, j) -> i*w + j

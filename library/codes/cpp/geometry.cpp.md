@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/geometry.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-13 16:10:40+09:00
+    - Last commit date: 2020-01-18 14:14:41+09:00
 
 
 
@@ -96,37 +96,28 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
 //%snippet.set('Pos')%
-//%snippet.config({'alias':'pos'})%
 struct Pos{
   int x,y;
   Pos(int _x, int _y) : x(_x), y(_y){
+  }
+  Pos() {
+    x = 0; y = 0;
   }
   bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
     if (a<=x && x<b && c<=y && y<d) return true;
     else return false;
   }
 
+  bool operator<(const Pos &r) const { return (x!=r.x ? x<r.x : y<r.y); }
+  bool operator>(const Pos &r) const { return (x!=r.x ? x>r.x : y>r.y); }
+  bool operator==(const Pos &r) const { return (x==r.x && y==r.y); }
+
   friend ostream& operator<<(ostream& stream, Pos p){
     stream << "(" << p.x <<  "," << p.y << ")";
     return stream;
   }
-  friend bool operator<(auto &left, auto &right){
-    if (left.x != right.x){
-      return left.x < right.x;
-    }
-    else{
-      return left.y < right.y;
-    }
-  }
-  friend bool operator>(auto &left, auto &right){
-    if (left.x != right.x){
-      return left.x > right.x;
-    }
-    else{
-      return left.y > right.y;
-    }
-  }
 };
+//%snippet.config({'alias':'pos'})%
 //%snippet.end%
 
 ```

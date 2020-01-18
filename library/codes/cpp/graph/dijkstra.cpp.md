@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-13 16:10:40+09:00
+    - Last commit date: 2020-01-18 14:14:41+09:00
 
 
 
@@ -137,19 +137,27 @@ struct Dist {
   }/*}}}*/
 };
 Dist dijkstra(Graph& G, Pos start) {
+  vector<Pos> starts = {start};
+  return dijkstra(G, starts);
+};
+
+Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
   Dist d;  // 最短距離{{{
   PQ<pair<Cost, Pos>> pq;
-  pq.push(mp(zerocost, start));
+  each(start, starts){
+    d.data[start] = zerocost;
+    pq.push(mp(zerocost, start));
+  }
   while (!pq.empty()){
     auto cp = pq.top(); pq.pop();
     auto cost = cp.first;
     auto u = cp.second;
-    if (cost < d[u]) {
-      d.data[u] = cost;
-      for (const auto &edge: G[u]){
-        int v = edge.to;
-        int ncost = cost+edge.cost;
-        if (ncost < d[v]) pq.push(mp(ncost, v));
+    for (const auto &edge: G[u]){
+      Pos v = edge.to;
+      Cost ncost = cost+edge.cost;
+      if (ncost < d[v]){
+        d.data[u] = cost;
+        pq.push(mp(ncost, v));
       }
     }
   }
