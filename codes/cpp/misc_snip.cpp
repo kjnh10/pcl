@@ -244,3 +244,29 @@ uint64_t rng() {
   static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
   return uniform_int_distribution<uint64_t>(0, -1)(mt);
 }
+
+
+//%snippet.set('bitall')%
+rep(mask, 1<<n){
+  vi vmask(n);
+  rep(i, n){
+    if (mask&(1<<i)) vmask[i] = 1;
+  }
+  cerrendl;
+  dump(vmask);
+  rep(i, n){
+    if (vmask[i]){
+    }
+    else{
+    }
+  }
+}
+
+
+//%snippet.set('printf')%
+printf("%.12f\n", ${1});
+
+
+//%snippet.set('sep')%
+//%snippet.config({'alias':'<<'})%
+<< " " << ${1}

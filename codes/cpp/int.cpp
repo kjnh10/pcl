@@ -44,18 +44,6 @@ int digitSum(int x){/*{{{*/
   return res;
 }/*}}}*/
 
-//%snippet.set('sieve')%
-vector<int> sieve(int n) {  // エラトステネスのふるい O(NloglogN){{{
-  // 素数の集合を得たい場合はsort, uniqueをすればよい。
-  vector<int> primes(n);
-  for (int i = 2; i < n; ++i)
-    primes[i] = i;
-  for (int i = 2; i*i < n; ++i)
-    if (primes[i])
-      for (int j = i*i; j < n; j+=i)
-        primes[j] = 0;
-  return primes;
-}//}}}
 
 //%snippet.set('is_prime')%
 bool is_prime(int n) {/*{{{*/
@@ -64,6 +52,7 @@ bool is_prime(int n) {/*{{{*/
   }
   return n != 1;
 }/*}}}*/
+
 
 //%snippet.set('prime_factor')%
 map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
@@ -80,6 +69,7 @@ map<int, int> prime_factor(int n) { // 素因数分解 (o(√N)){{{
 // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
 //}}}
 
+
 //%snippet.set('divisor')%
 vi divisor(int n){  // 約数全列挙{{{
   vi p,q;
@@ -93,3 +83,49 @@ vi divisor(int n){  // 約数全列挙{{{
   p.insert(p.end(), all(q));
   return p;
 }//}}}
+
+
+//%snippet.set('sieve')%
+
+struct Sieve {
+  // エラトステネスのふるい O(NloglogN)
+  int n;
+  vector<int> f;
+  vector<int> primes;  // [2, 3, 5, .......]
+  Sieve(int n=1):n(n), f(n+1) {/*{{{*/
+    f[0] = f[1] = -1;
+    for (ll i = 2; i <= n; ++i) {
+      if (f[i]) continue;
+      primes.push_back(i);
+      f[i] = i;
+      for (ll j = i*i; j <= n; j += i) {
+        if (!f[j]) f[j] = i;
+      }
+    }
+  }/*}}}*/
+  bool isPrime(int x) { return f[x] == x;}
+  vector<int> factorList(int x) {/*{{{*/
+    vector<int> res;
+    while (x != 1) {
+      res.push_back(f[x]);
+      x /= f[x];
+    }
+    return res;
+  }/*}}}*/
+  vector<pii> factor(int x) {/*{{{*/
+    vector<int> fl = factorList(x);
+    if (fl.size() == 0) return {};
+    vector<pii> res(1, P(fl[0], 0));
+    for (int p : fl) {
+      if (res.back().first == p) {
+        res.back().second++;
+      } else {
+        res.emplace_back(p, 1);
+      }
+    }
+    return res;
+  }/*}}}*/
+};
+
+// Sieve sv(1e6);
+// sv.factor(x);  // 素因数分解

@@ -61,7 +61,7 @@ template<typename T=int> struct bit {//{{{
     }
   } //}}}
 
-  T sum(int i){ //{{{
+  T rsum(int i){ //{{{ [0, i]
     T s = 0;
     while(i >= 0){
       s += dat[i];
@@ -70,9 +70,9 @@ template<typename T=int> struct bit {//{{{
     return s;
   } //}}}
 
-  T sum(int i, int j){ //{{{  [i, j]
-    if(i > j) return 0;
-    return sum(j) - sum(i-1);
+  T sum(int l, int r){ //{{{  [l, r)
+    if(l > r-1) return 0;
+    return rsum(r-1) - rsum(l-1);
   } //}}}
 
   void add(int i, T x){ //{{{
@@ -122,13 +122,12 @@ signed main(){
     cout << b.raw[i] << (i!=5-1?" ":"\n");
   }
   // cout << b << endl;  // dump.hppをimportしないと使えない。
-  cout << b.sum(0) << endl;  //1
-  cout << b.sum(1) << endl;  //3
-  cout << b.sum(2) << endl;  //7
-  cout << b.sum(3) << endl;  //15
-  cout << b.sum(4) << endl;  //31
-  cout << b.sum(2, 4) << endl;  // 28
-
+  cout << b.rsum(0) << endl;  //1
+  cout << b.rsum(1) << endl;  //3
+  cout << b.rsum(2) << endl;  //7
+  cout << b.rsum(3) << endl;  //15
+  cout << b.rsum(4) << endl;  //31
+  cout << b.sum(2, 4) << endl;  // 12
 
   return 0;
 }
