@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 18:24:19+09:00
+    - Last commit date: 2020-01-28 21:08:11+09:00
 
 
 
@@ -288,6 +288,32 @@ uint64_t rng() {
   return uniform_int_distribution<uint64_t>(0, -1)(mt);
 }
 
+
+//%snippet.set('bitall')%
+rep(mask, 1<<n){
+  vi vmask(n);
+  rep(i, n){
+    if (mask&(1<<i)) vmask[i] = 1;
+  }
+  cerrendl;
+  dump(vmask);
+  rep(i, n){
+    if (vmask[i]){
+    }
+    else{
+    }
+  }
+}
+
+
+//%snippet.set('printf')%
+printf("%.12f\n", ${1});
+
+
+//%snippet.set('sep')%
+//%snippet.config({'alias':'<<'})%
+<< " " << ${1}
+
 ```
 {% endraw %}
 
@@ -541,6 +567,32 @@ uint64_t rng() {
   static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
   return uniform_int_distribution<uint64_t>(0, -1)(mt);
 }
+
+
+//%snippet.set('bitall')%
+rep(mask, 1<<n){
+  vi vmask(n);
+  rep(i, n){
+    if (mask&(1<<i)) vmask[i] = 1;
+  }
+  cerrendl;
+  dump(vmask);
+  rep(i, n){
+    if (vmask[i]){
+    }
+    else{
+    }
+  }
+}
+
+
+//%snippet.set('printf')%
+printf("%.12f\n", ${1});
+
+
+//%snippet.set('sep')%
+//%snippet.config({'alias':'<<'})%
+<< " " << ${1}
 
 ```
 {% endraw %}

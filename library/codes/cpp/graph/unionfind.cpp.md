@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/unionfind.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-10-14 15:20:35+09:00
+    - Last commit date: 2020-01-30 02:05:56+09:00
 
 
 
@@ -92,14 +92,12 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 // }}}
 
-//%snippet.set('unionfind')%
-struct UnionFind {
+//%snippet.set('union_find')%
+struct union_find {
   vector<int> data;  // size defined only for root node
   int count;
-
-  UnionFind(int size) : data(size, -1), count(size){ }
-
-  bool merge(int x, int y) {
+  union_find(int size) : data(size, -1), count(size){ }
+  bool merge(int x, int y) {/*{{{*/
     x=root(x); y=root(y);
     if (x!=y) {
       if (data[y]<data[x]) swap(x, y);
@@ -107,22 +105,16 @@ struct UnionFind {
       count--;
     }
     return x != y;
-  }
-  int root(int x) {
-    return (data[x]<0 ? x : data[x]=root(data[x]));
-  }
-  bool same(int x,int y){
-    return root(x)==root(y);
-  }
-  int size(int x) {
-    return -data[root(x)];
-  }
+  }/*}}}*/
+  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
+  bool same(int x,int y){ return root(x)==root(y); }
+  int size(int x) { return -data[root(x)]; }
 };
 //%snippet.end()%
 
 int solve(){
   int N,M;cin>>N>>M;
-  UnionFind uf(N);
+  union_find uf(N);
   rep(m,M){
     int x,y,z;cin>>x>>y>>z;
     x--;y--;
@@ -149,9 +141,9 @@ signed main() { //{{{
 {% raw %}
 ```cpp
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 342, in write_contents
     bundler.update(self.file_class.file_path)
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/bundle.py", line 153, in update
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/bundle.py", line 181, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
 onlinejudge_verify.bundle.BundleError: codes/cpp/graph/unionfind.cpp: line 44: unable to process #include in #if / #ifdef / #ifndef other than include guards
 

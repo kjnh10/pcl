@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#be3aa2b43feda595aa89da363e1e6700">codes/cpp/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/segtree/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 18:24:19+09:00
+    - Last commit date: 2020-01-28 21:08:11+09:00
 
 
 
@@ -101,13 +101,13 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
   // -----------------------------------------------
-  // auto mymin=[&](auto a, auto b){return min(a,b);};
+  // auto mymin=[](auto a, auto b){return min(a,b);};
   // SegmentTree<int, decltype(mymin)> seg(a, mymin, 1e18);
 
-  // auto mymax=[&](auto a, auto b){return max(a,b);};
+  // auto mymax=[](auto a, auto b){return max(a,b);};
   // SegmentTree<int, decltype(mymax)> seg(a, mymax, -1e18);
 
-  // auto add=[&](auto a, auto b){return a+b;};
+  // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<int, decltype(add)> seg(a, add, 0);
   // -----------------------------------------------
 
@@ -207,13 +207,13 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
   // -----------------------------------------------
-  // auto mymin=[&](auto a, auto b){return min(a,b);};
+  // auto mymin=[](auto a, auto b){return min(a,b);};
   // SegmentTree<int, decltype(mymin)> seg(a, mymin, 1e18);
 
-  // auto mymax=[&](auto a, auto b){return max(a,b);};
+  // auto mymax=[](auto a, auto b){return max(a,b);};
   // SegmentTree<int, decltype(mymax)> seg(a, mymax, -1e18);
 
-  // auto add=[&](auto a, auto b){return a+b;};
+  // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<int, decltype(add)> seg(a, add, 0);
   // -----------------------------------------------
 
