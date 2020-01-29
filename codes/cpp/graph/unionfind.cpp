@@ -49,14 +49,12 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 // }}}
 
-//%snippet.set('unionfind')%
-struct UnionFind {
+//%snippet.set('union_find')%
+struct union_find {
   vector<int> data;  // size defined only for root node
   int count;
-
-  UnionFind(int size) : data(size, -1), count(size){ }
-
-  bool merge(int x, int y) {
+  union_find(int size) : data(size, -1), count(size){ }
+  bool merge(int x, int y) {/*{{{*/
     x=root(x); y=root(y);
     if (x!=y) {
       if (data[y]<data[x]) swap(x, y);
@@ -64,22 +62,16 @@ struct UnionFind {
       count--;
     }
     return x != y;
-  }
-  int root(int x) {
-    return (data[x]<0 ? x : data[x]=root(data[x]));
-  }
-  bool same(int x,int y){
-    return root(x)==root(y);
-  }
-  int size(int x) {
-    return -data[root(x)];
-  }
+  }/*}}}*/
+  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
+  bool same(int x,int y){ return root(x)==root(y); }
+  int size(int x) { return -data[root(x)]; }
 };
 //%snippet.end()%
 
 int solve(){
   int N,M;cin>>N>>M;
-  UnionFind uf(N);
+  union_find uf(N);
   rep(m,M){
     int x,y,z;cin>>x>>y>>z;
     x--;y--;

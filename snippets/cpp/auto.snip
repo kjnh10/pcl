@@ -318,7 +318,7 @@ snippet sieve
     vector<pii> factor(int x) {/*{{{*/
       vector<int> fl = factorList(x);
       if (fl.size() == 0) return {};
-      vector<pii> res(1, P(fl[0], 0));
+      vector<pii> res(1, mp(fl[0], 0));
       for (int p : fl) {
         if (res.back().first == p) {
           res.back().second++;
@@ -1473,14 +1473,12 @@ alias scc
   
 
 
-snippet unionfind
-  struct UnionFind {
+snippet union_find
+  struct union_find {
     vector<int> data;  // size defined only for root node
     int count;
-  
-    UnionFind(int size) : data(size, -1), count(size){ }
-  
-    bool merge(int x, int y) {
+    union_find(int size) : data(size, -1), count(size){ }
+    bool merge(int x, int y) {/*{{{*/
       x=root(x); y=root(y);
       if (x!=y) {
         if (data[y]<data[x]) swap(x, y);
@@ -1488,16 +1486,10 @@ snippet unionfind
         count--;
       }
       return x != y;
-    }
-    int root(int x) {
-      return (data[x]<0 ? x : data[x]=root(data[x]));
-    }
-    bool same(int x,int y){
-      return root(x)==root(y);
-    }
-    int size(int x) {
-      return -data[root(x)];
-    }
+    }/*}}}*/
+    int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
+    bool same(int x,int y){ return root(x)==root(y); }
+    int size(int x) { return -data[root(x)]; }
   };
   
 
