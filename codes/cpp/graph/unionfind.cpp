@@ -66,6 +66,13 @@ struct union_find {
   int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
   bool same(int x,int y){ return root(x)==root(y); }
   int size(int x) { return -data[root(x)]; }
+
+  friend auto& operator<<(auto &os, union_find& uf){ //{{{
+    map<int, vector<int>> group;
+    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
+    os << endl; each(g, group){ os << g << endl; }
+    return os;
+  } //}}}
 };
 //%snippet.end()%
 
