@@ -89,8 +89,8 @@ vi divisor(int n){  // 約数全列挙{{{
 
 struct Sieve {
   // エラトステネスのふるい O(NloglogN)
-  int n;
-  vector<int> f;
+  int n; // n]
+  vector<int> f;  // [1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
   vector<int> primes;  // [2, 3, 5, .......]
   Sieve(int n=1):n(n), f(n+1) {/*{{{*/
     f[0] = f[1] = -1;
@@ -104,16 +104,30 @@ struct Sieve {
     }
   }/*}}}*/
   bool isPrime(int x) { return f[x] == x;}
-  vector<int> factorList(int x) {/*{{{*/
+
+  vector<int> factor_list(int x) {/*{{{*/
     vector<int> res;
-    while (x != 1) {
-      res.push_back(f[x]);
-      x /= f[x];
+    if (x<n){
+      while (x != 1) {
+        res.push_back(f[x]);
+        x /= f[x];
+      }
     }
-    return res;
+    else{
+      for(int i = 0; primes[i]*primes[i]<=x ; i++) {
+        while(x % primes[i] == 0) {
+          res.pb(primes[i]);
+          x /= primes[i];
+        }
+      }
+      if (x != 1) res.pb(x);
+    }
+
+    return res; // [2, 3, 3, 5, 5, 5.....]
   }/*}}}*/
+
   vector<pii> factor(int x) {/*{{{*/
-    vector<int> fl = factorList(x);
+    vector<int> fl = factor_list(x);
     if (fl.size() == 0) return {};
     vector<pii> res(1, mp(fl[0], 0));
     for (int p : fl) {
@@ -123,7 +137,7 @@ struct Sieve {
         res.emplace_back(p, 1);
       }
     }
-    return res;
+    return res;  // [(2,1), (3,2), (5,3), .....]
   }/*}}}*/
 };
 
