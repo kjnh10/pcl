@@ -6,11 +6,12 @@ using namespace std;
 //%snippet.set('SegmentTree')%
 //%snippet.config({'alias':'rmq'})%
 
-template<typename T, typename F>
+template<typename T>
 struct SegmentTree { // {{{
   private:
-    int n; 
-    int N;  // 
+    using F = function<T(T,T)>;
+    int n;  // 元の配列のサイズ
+    int N;  // n以上の最小の2冪
     vector<T> node;
     F merge;
     T identity;
@@ -36,6 +37,15 @@ struct SegmentTree { // {{{
       }
     }
 
+    void add(int x, T val) {
+      x += (N - 1);
+      node[x] += val;
+      while(x > 0) {
+        x = (x - 1) / 2;
+        node[x] = merge(node[2*x+1], node[2*x+2]);
+      }
+    }
+
     // query for [l, r)
     T query(int a, int b, int k=0, int l=0, int r=-1) {
       if(r < 0) r = N;
@@ -47,7 +57,7 @@ struct SegmentTree { // {{{
       return merge(vl, vr);
     }
 
-    friend ostream& operator<<(ostream &os, SegmentTree<T, F>& sg){ //
+    friend ostream& operator<<(ostream &os, SegmentTree<T>& sg){ //
       os << "[";
       for(int i=0; i<sg.n; i++){
         os << sg[i] << (i==sg.n-1?"]\n":", ");
@@ -59,13 +69,13 @@ struct SegmentTree { // {{{
 // Sample:
   // -----------------------------------------------
   // auto mymin=[](auto a, auto b){return min(a,b);};
-  // SegmentTree<int, decltype(mymin)> seg(a, mymin, 1e18);
+  // SegmentTree<int> seg(a, mymin, 1e18);
 
   // auto mymax=[](auto a, auto b){return max(a,b);};
-  // SegmentTree<int, decltype(mymax)> seg(a, mymax, -1e18);
+  // SegmentTree<int> seg(a, mymax, -1e18);
 
   // auto add=[](auto a, auto b){return a+b;};
-  // SegmentTree<int, decltype(add)> seg(a, add, 0);
+  // SegmentTree<int> seg(a, add, 0);
   // -----------------------------------------------
 
 //%snippet.end()%
@@ -73,7 +83,7 @@ struct SegmentTree { // {{{
 int main() {
   vector<int> a = {1, 4, -2, 3, 6, 7};
   auto f=[&](auto a, auto b){return max(a,b);};
-  SegmentTree<int, decltype(f)> seg(a, f, -1e9);
+  SegmentTree<int> seg(a, f, -1e9);
 
   assert(seg.query(0, 8)==7);
   cout << seg.query(0, 8) << endl;
@@ -89,7 +99,7 @@ int main() {
   // doubleなど他の型でも動くかチェック
   auto mymax=[&](auto a, auto b){return max(a,b);};
   vector<double> p(6);
-  SegmentTree<double, decltype(mymax)> segd(p, mymax, -1e18);
+  SegmentTree<double> segd(p, mymax, -1e18);
   segd.update(0, 1.2);
   segd.update(1, 1.4);
   segd.update(2, 1.6);
