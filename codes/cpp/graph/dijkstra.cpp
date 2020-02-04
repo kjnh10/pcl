@@ -93,11 +93,6 @@ struct Dist {
     else                      return infcost;
   }/*}}}*/
 };
-Dist dijkstra(Graph& G, Pos start) {
-  vector<Pos> starts = {start};
-  return dijkstra(G, starts);
-};
-
 Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
   Dist d;  // 最短距離{{{
   PQ<pair<Cost, Pos>> pq;
@@ -113,12 +108,16 @@ Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
       Pos v = edge.to;
       Cost ncost = cost+edge.cost;
       if (ncost < d[v]){
-        d.data[u] = cost;
+        d.data[v] = ncost;
         pq.push(mp(ncost, v));
       }
     }
   }
   return d;/*}}}*/
+};
+Dist dijkstra(Graph& G, Pos start) {
+  vector<Pos> starts = {start};
+  return dijkstra(G, starts);
 };
 
 // int sample(){
