@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/int.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-30 02:05:56+09:00
+    - Last commit date: 2020-02-05 02:41:54+09:00
 
 
 
@@ -132,8 +132,8 @@ vi divisor(int n){  // 約数全列挙{{{
 
 struct Sieve {
   // エラトステネスのふるい O(NloglogN)
-  int n;
-  vector<int> f;
+  int n; // n]
+  vector<int> f;  // [1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
   vector<int> primes;  // [2, 3, 5, .......]
   Sieve(int n=1):n(n), f(n+1) {/*{{{*/
     f[0] = f[1] = -1;
@@ -147,16 +147,30 @@ struct Sieve {
     }
   }/*}}}*/
   bool isPrime(int x) { return f[x] == x;}
-  vector<int> factorList(int x) {/*{{{*/
+
+  vector<int> factor_list(int x) {/*{{{*/
     vector<int> res;
-    while (x != 1) {
-      res.push_back(f[x]);
-      x /= f[x];
+    if (x<n){
+      while (x != 1) {
+        res.push_back(f[x]);
+        x /= f[x];
+      }
     }
-    return res;
+    else{
+      for(int i = 0; primes[i]*primes[i]<=x ; i++) {
+        while(x % primes[i] == 0) {
+          res.pb(primes[i]);
+          x /= primes[i];
+        }
+      }
+      if (x != 1) res.pb(x);
+    }
+
+    return res; // [2, 3, 3, 5, 5, 5.....]
   }/*}}}*/
+
   vector<pii> factor(int x) {/*{{{*/
-    vector<int> fl = factorList(x);
+    vector<int> fl = factor_list(x);
     if (fl.size() == 0) return {};
     vector<pii> res(1, mp(fl[0], 0));
     for (int p : fl) {
@@ -166,7 +180,7 @@ struct Sieve {
         res.emplace_back(p, 1);
       }
     }
-    return res;
+    return res;  // [(2,1), (3,2), (5,3), .....]
   }/*}}}*/
 };
 
@@ -271,8 +285,8 @@ vi divisor(int n){  // 約数全列挙{{{
 
 struct Sieve {
   // エラトステネスのふるい O(NloglogN)
-  int n;
-  vector<int> f;
+  int n; // n]
+  vector<int> f;  // [1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
   vector<int> primes;  // [2, 3, 5, .......]
   Sieve(int n=1):n(n), f(n+1) {/*{{{*/
     f[0] = f[1] = -1;
@@ -286,16 +300,30 @@ struct Sieve {
     }
   }/*}}}*/
   bool isPrime(int x) { return f[x] == x;}
-  vector<int> factorList(int x) {/*{{{*/
+
+  vector<int> factor_list(int x) {/*{{{*/
     vector<int> res;
-    while (x != 1) {
-      res.push_back(f[x]);
-      x /= f[x];
+    if (x<n){
+      while (x != 1) {
+        res.push_back(f[x]);
+        x /= f[x];
+      }
     }
-    return res;
+    else{
+      for(int i = 0; primes[i]*primes[i]<=x ; i++) {
+        while(x % primes[i] == 0) {
+          res.pb(primes[i]);
+          x /= primes[i];
+        }
+      }
+      if (x != 1) res.pb(x);
+    }
+
+    return res; // [2, 3, 3, 5, 5, 5.....]
   }/*}}}*/
+
   vector<pii> factor(int x) {/*{{{*/
-    vector<int> fl = factorList(x);
+    vector<int> fl = factor_list(x);
     if (fl.size() == 0) return {};
     vector<pii> res(1, mp(fl[0], 0));
     for (int p : fl) {
@@ -305,7 +333,7 @@ struct Sieve {
         res.emplace_back(p, 1);
       }
     }
-    return res;
+    return res;  // [(2,1), (3,2), (5,3), .....]
   }/*}}}*/
 };
 

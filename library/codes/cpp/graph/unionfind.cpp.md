@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/unionfind.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-30 02:05:56+09:00
+    - Last commit date: 2020-02-05 02:47:32+09:00
 
 
 
@@ -109,6 +109,13 @@ struct union_find {
   int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
   bool same(int x,int y){ return root(x)==root(y); }
   int size(int x) { return -data[root(x)]; }
+
+  friend auto& operator<<(auto &os, union_find& uf){ //{{{
+    map<int, vector<int>> group;
+    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
+    os << endl; each(g, group){ os << g << endl; }
+    return os;
+  } //}}}
 };
 //%snippet.end()%
 
