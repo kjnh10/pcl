@@ -292,8 +292,8 @@ snippet sieve
   
   struct Sieve {
     // エラトステネスのふるい O(NloglogN)
-    int n;
-    vector<int> f;
+    int n; // n]
+    vector<int> f;  // [1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
     vector<int> primes;  // [2, 3, 5, .......]
     Sieve(int n=1):n(n), f(n+1) {/*{{{*/
       f[0] = f[1] = -1;
@@ -307,16 +307,30 @@ snippet sieve
       }
     }/*}}}*/
     bool isPrime(int x) { return f[x] == x;}
-    vector<int> factorList(int x) {/*{{{*/
+  
+    vector<int> factor_list(int x) {/*{{{*/
       vector<int> res;
-      while (x != 1) {
-        res.push_back(f[x]);
-        x /= f[x];
+      if (x<n){
+        while (x != 1) {
+          res.push_back(f[x]);
+          x /= f[x];
+        }
       }
-      return res;
+      else{
+        for(int i = 0; primes[i]*primes[i]<=x ; i++) {
+          while(x % primes[i] == 0) {
+            res.pb(primes[i]);
+            x /= primes[i];
+          }
+        }
+        if (x != 1) res.pb(x);
+      }
+  
+      return res; // [2, 3, 3, 5, 5, 5.....]
     }/*}}}*/
+  
     vector<pii> factor(int x) {/*{{{*/
-      vector<int> fl = factorList(x);
+      vector<int> fl = factor_list(x);
       if (fl.size() == 0) return {};
       vector<pii> res(1, mp(fl[0], 0));
       for (int p : fl) {
@@ -326,7 +340,7 @@ snippet sieve
           res.emplace_back(p, 1);
         }
       }
-      return res;
+      return res;  // [(2,1), (3,2), (5,3), .....]
     }/*}}}*/
   };
   
@@ -1282,11 +1296,6 @@ snippet dijkstra
       else                      return infcost;
     }/*}}}*/
   };
-  Dist dijkstra(Graph& G, Pos start) {
-    vector<Pos> starts = {start};
-    return dijkstra(G, starts);
-  };
-  
   Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
     Dist d;  // 最短距離{{{
     PQ<pair<Cost, Pos>> pq;
@@ -1302,12 +1311,16 @@ snippet dijkstra
         Pos v = edge.to;
         Cost ncost = cost+edge.cost;
         if (ncost < d[v]){
-          d.data[u] = cost;
+          d.data[v] = ncost;
           pq.push(mp(ncost, v));
         }
       }
     }
     return d;/*}}}*/
+  };
+  Dist dijkstra(Graph& G, Pos start) {
+    vector<Pos> starts = {start};
+    return dijkstra(G, starts);
   };
   
   // int sample(){
@@ -1490,6 +1503,13 @@ snippet union_find
     int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
     bool same(int x,int y){ return root(x)==root(y); }
     int size(int x) { return -data[root(x)]; }
+  
+    friend auto& operator<<(auto &os, union_find& uf){ //{{{
+      map<int, vector<int>> group;
+      rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
+      os << endl; each(g, group){ os << g << endl; }
+      return os;
+    } //}}}
   };
   
 
@@ -1765,11 +1785,12 @@ alias 2drmq
 snippet SegmentTree
 alias rmq
   
-  template<typename T, typename F>
+  template<typename T>
   struct SegmentTree { // {{{
     private:
-      int n; 
-      int N;  // 
+      using F = function<T(T,T)>;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
       vector<T> node;
       F merge;
       T identity;
@@ -1795,6 +1816,15 @@ alias rmq
         }
       }
   
+      void add(int x, T val) {
+        x += (N - 1);
+        node[x] += val;
+        while(x > 0) {
+          x = (x - 1) / 2;
+          node[x] = merge(node[2*x+1], node[2*x+2]);
+        }
+      }
+  
       // query for [l, r)
       T query(int a, int b, int k=0, int l=0, int r=-1) {
         if(r < 0) r = N;
@@ -1806,7 +1836,7 @@ alias rmq
         return merge(vl, vr);
       }
   
-      friend ostream& operator<<(ostream &os, SegmentTree<T, F>& sg){ //
+      friend ostream& operator<<(ostream &os, SegmentTree<T>& sg){ //
         os << "[";
         for(int i=0; i<sg.n; i++){
           os << sg[i] << (i==sg.n-1?"]\n":", ");
@@ -1818,13 +1848,13 @@ alias rmq
   // Sample:
     // -----------------------------------------------
     // auto mymin=[](auto a, auto b){return min(a,b);};
-    // SegmentTree<int, decltype(mymin)> seg(a, mymin, 1e18);
+    // SegmentTree<int> seg(a, mymin, 1e18);
   
     // auto mymax=[](auto a, auto b){return max(a,b);};
-    // SegmentTree<int, decltype(mymax)> seg(a, mymax, -1e18);
+    // SegmentTree<int> seg(a, mymax, -1e18);
   
     // auto add=[](auto a, auto b){return a+b;};
-    // SegmentTree<int, decltype(add)> seg(a, add, 0);
+    // SegmentTree<int> seg(a, add, 0);
     // -----------------------------------------------
   
 
