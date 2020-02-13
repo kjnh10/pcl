@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/segtree/rmq_2d.cpp
+# :warning: codes/cpp/graph/tree.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#be3aa2b43feda595aa89da363e1e6700">codes/cpp/segtree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/segtree/rmq_2d.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-11-16 23:52:39+09:00
+* category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/tree.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-13 10:47:19+09:00
 
 
 
@@ -41,17 +41,14 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.12
+// template version 1.15
 using namespace std;
-#include <iostream>
 #include <bits/stdc++.h>
- 
+
 // varibable settings
-#define infile "../test/sample-1.in"
-#define int long long //{{{
+#define int long long
 const int INF=1e18;
-const int MOD=1e9+7; //}}}
- 
+
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
@@ -65,75 +62,87 @@ const int MOD=1e9+7; //}}}
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define mt(a, b, c) make_tuple(a, b, c)
 #define ub upper_bound
 #define lb lower_bound
 #define posl(A, x) (lower_bound(all(A), x)-A.begin())
 #define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
- 
+
+#define divceil(a,b) ((a)+(b)-1)/(b)
+#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
+#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define slice(l, r) substr(l, r-l)
+
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
 typedef pair<int,int> pii;
 typedef tuple<int,int,int> iii;
- 
+
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
- 
+
 #if defined(PCM) || defined(LOCAL)
   #include "lib/dump.hpp"
 #else
   #define dump(...) 42
   #define dump_1d(...) 42
   #define dump_2d(...) 42
+  #define cerrendl 42
 #endif
 //}}}
- 
-//%snippet.set('SegmentTree2DRMQ')%
-//%snippet.config({'alias':'2drmq'})%
-struct segtree {
-    int H, W;
-    vector<vector<int>> dat;
-    segtree(){}
-    segtree(vector<vector<int>> &f) {
-        H = W = 1;
-        while(H < (int)f.size()) H <<= 1;
-        while(W < (int)f[0].size()) W <<= 1;
-        dat.assign(2*H-1,vector<int>(2*W-1,INF));
-        init(f);
+
+struct tree(){
+  int n;
+  vector<pair<int, int>> par;  // par[i]: dfs木における親
+  vector<int> ord;  // ord[i]: iのdfs木における訪問順
+  vector<int> pos;  // pos[i]: dfs終了時のカウンター
+  vector<vector<int>> children;
+  vector<vector<pair<int, int>>> g; // 隣接リスト
+
+  tree(int n): n(n), par(n), ord(n), pos(n), children(n){};
+
+  void add_edge(int u, int v, int cost){
+    g[u].emplace_back(v, cost);
+    g[v].emplace_back(u, cost);
+  }
+
+  void build(int root){
+    par[u] = mp(counter, INF);
+    dfs_tree(root, 0, -1);
+  }
+
+  int dfs_tree(int u, int counter, int pre){
+    int max_counter = counter;
+    each(el, g[u]){
+      int v = el.first;
+      int cost = el.second;
+      if (v==pre) continue;
+
+      children[u].pb(v);
+      par[v] = mp(counter+1, cost);
+      chmax(max_counter, dfs_tree(v, counter+1));
     }
-    void init(vector<vector<int>> &f) {
-        for (int i = 0; i < (int)f.size(); i++)
-            for (int j = 0; j < (int)f[0].size(); j++)
-                dat[i+H-1][j+W-1] = f[i][j];
-        dump("hello");
-        for (int i = 2*H-2; i > H-2; i--)
-            for (int j = W-2; j >= 0; j--)
-                dat[i][j] = min(dat[i][2*j+1], dat[i][2*j+2]);
-        dump("hello1");
-        for (int i = H-2; i >= 0; i--)
-            for (int j = 0; j < 2*W-1; j++)
-                dat[i][j] = min(dat[2*i+1][j], dat[2*i+2][j]);
-        dump("hello2");
-    }
-    int minimum(int li, int lj, int ri, int rj) { return minimum_h(li,lj,ri,rj,0,H,0); }
-    int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
-        if(ri <= si or ti <= li) return INF;
-        if(li <= si and ti <= ri) return minimum_w(lj,rj,0,W,k,0);
-        const int mi = (si+ti)/2;
-        return min(minimum_h(li,lj,ri,rj,si,mi,2*k+1), minimum_h(li,lj,ri,rj,mi,ti,2*k+2));
-    }
-    int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
-        if(rj <= sj or tj <= lj) return INF;
-        if(lj <= sj and tj <= rj) return dat[i][k];
-        const int mj = (sj+tj)/2;
-        return min(minimum_w(lj,rj,sj,mj,i,2*k+1),minimum_w(lj,rj,mj,tj,i,2*k+2));
-    }
+    pos[u] = max_counter;
+  }
 };
-//%snippet.end()%
+
+
+signed main() {
+  tree tr(8);
+  tree.add_edge(0, 1, 1);
+  tree.add_edge(0, 2, 1);
+  tree.add_edge(1, 3, 1);
+  tree.add_edge(1, 4, 1);
+  tree.add_edge(4, 6, 1);
+  tree.add_edge(4, 7, 1);
+  tree.add_edge(2, 5, 1);
+
+  tr.build()
+}
 
 ```
 {% endraw %}
@@ -148,7 +157,7 @@ Traceback (most recent call last):
     bundler.update(path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 181, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
-onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/segtree/rmq_2d.cpp: line 44: unable to process #include in #if / #ifdef / #ifndef other than include guards
+onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/graph/tree.cpp: line 46: unable to process #include in #if / #ifdef / #ifndef other than include guards
 
 ```
 {% endraw %}
