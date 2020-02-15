@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#be3aa2b43feda595aa89da363e1e6700">codes/cpp/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/segtree/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-05 02:49:04+09:00
+    - Last commit date: 2020-02-15 13:37:02+09:00
 
 
 
@@ -60,6 +60,7 @@ struct SegmentTree { // {{{
     T identity;
 
   public:
+    SegmentTree(){}
     SegmentTree(vector<T> a, F f, T id):merge(f), identity(id) {
       n = a.size();
       N = 1; while(N < n) N *= 2;
@@ -176,6 +177,7 @@ struct SegmentTree { // {{{
     T identity;
 
   public:
+    SegmentTree(){}
     SegmentTree(vector<T> a, F f, T id):merge(f), identity(id) {
       n = a.size();
       N = 1; while(N < n) N *= 2;

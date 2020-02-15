@@ -94,7 +94,6 @@ layout: default
 * :warning: <a href="library/codes/cpp/graph/kruskal.cpp.html">codes/cpp/graph/kruskal.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/scc.cpp.html">codes/cpp/graph/scc.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/topological_sort.cpp.html">codes/cpp/graph/topological_sort.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/tree.cpp.html">codes/cpp/graph/tree.cpp</a>
 * :warning: <a href="library/codes/cpp/graph/unionfind.cpp.html">codes/cpp/graph/unionfind.cpp</a>
 
 
