@@ -86,7 +86,7 @@ string to_bin(int n, int d){
   ss << bitset<N>(n);
   return ss.str().substr(N-d, d);
 }
-// int d = (32 - __builtin_clz(n));  // 桁数
+// int d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
 // int f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
 
 //%snippet.set('warsharll')%
@@ -205,10 +205,15 @@ auto f = [&](){
 
 
 //%snippet.set('dfs_lambda')%
-auto dfs = [&](const auto& dfs, int x, int v) -> void {
-  // 処理
-  dfs(dfs, nx, nv);
+vector<int> used(n);
+auto dfs = [&](const auto& dfs, int u) -> void {
+  used[u] = 1;
+  each(v, g[u]){
+    if (used[v]) continue;
+    dfs(dfs, v);
+  }
 };
+dfs(dfs, 0);
 
 
 //%snippet.set('dxdy')%
