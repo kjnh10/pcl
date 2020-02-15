@@ -54,10 +54,9 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 //}}}
 
+//%snippet.set('tree')%
 
-
-template<typename T>
-struct SegmentTree { // {{{
+template<typename T> struct SegmentTree { // {{{
   private:
     using F = function<T(T,T)>;
     int n;  // 元の配列のサイズ
@@ -117,8 +116,7 @@ struct SegmentTree { // {{{
     }
 };
 // }}}
-
-struct tree{
+struct tree{/*{{{*/
   int n;
   vector<int> par;  // par[i]: dfs木における親
   vector<int> cost;  // par[i]: dfs木における親への辺のコスト
@@ -190,10 +188,25 @@ struct tree{
   }
 
   int lca(int u, int v){
+    if (u==v) return u;
     if (et_fpos[u]>et_fpos[v]) swap(u, v);
     return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
   }
-};
+};/*}}}*/
+  // ----sample------
+  // int n,q;cin>>n>>q;
+  // tree tr(n);
+  // rep(u, 1, n){
+  //   int p;cin>>p;
+  //   tr.add_edge(p,u);
+  // }
+  // tr.build(0);
+  // rep(_, q){
+  //   int u,v;cin>>u>>v;
+  //   cout << tr.lca(u, v) << endl;
+  // }
+
+//%snippet.end()%
 
 
 signed main() {
