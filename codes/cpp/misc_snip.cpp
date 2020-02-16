@@ -230,8 +230,8 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
 
 //%snippet.set('query')%
 int query(){
+  cerrendl;
 
-  cerr << endl;
   return 0;
 }
 

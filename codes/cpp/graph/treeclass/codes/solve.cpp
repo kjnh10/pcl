@@ -192,6 +192,12 @@ struct tree{/*{{{*/
     if (et_fpos[u]>et_fpos[v]) swap(u, v);
     return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
   }
+
+  int dist(int u, int v){
+    int p = lca(u, v);
+    return depth[u] + depth[v] - 2*depth[p];
+  }
+
 };/*}}}*/
   // ----sample------
   // int n,q;cin>>n>>q;
