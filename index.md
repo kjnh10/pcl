@@ -119,14 +119,7 @@ layout: default
 
 * :warning: <a href="library/codes/cpp/segtree/rmq_2d.cpp.html">codes/cpp/segtree/rmq_2d.cpp</a>
 * :warning: <a href="library/codes/cpp/segtree/segment_tree.cpp.html">codes/cpp/segtree/segment_tree.cpp</a>
-
-
-<div id="fd7327930a755f2af79454333bd36f77"></div>
-
-### codes/cpp/segtree/lazy
-
-* :warning: <a href="library/codes/cpp/segtree/lazy/range_add_sum.cpp.html">codes/cpp/segtree/lazy/range_add_sum.cpp</a>
-* :warning: <a href="library/codes/cpp/segtree/lazy/range_update_min.cpp.html">codes/cpp/segtree/lazy/range_update_min.cpp</a>
+* :warning: <a href="library/codes/cpp/segtree/segment_tree_lazy.cpp.html">codes/cpp/segtree/segment_tree_lazy.cpp</a>
 
 
 <div id="f42fe2b40278a2240b94f3b23e9cd7ad"></div>

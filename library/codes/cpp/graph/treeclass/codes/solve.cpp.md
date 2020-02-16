@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-15 13:53:34+09:00
+    - Last commit date: 2020-02-16 18:00:35+09:00
 
 
 
@@ -235,6 +235,12 @@ struct tree{/*{{{*/
     if (et_fpos[u]>et_fpos[v]) swap(u, v);
     return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
   }
+
+  int dist(int u, int v){
+    int p = lca(u, v);
+    return depth[u] + depth[v] - 2*depth[p];
+  }
+
 };/*}}}*/
   // ----sample------
   // int n,q;cin>>n>>q;
@@ -294,7 +300,7 @@ signed main() {
 {% raw %}
 ```cpp
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 343, in write_contents
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 347, in write_contents
     bundled_code = language.bundle(self.file_class.file_path, basedir=self.cpp_source_path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 63, in bundle
     bundler.update(path)

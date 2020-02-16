@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-15 13:37:22+09:00
+    - Last commit date: 2020-02-16 18:00:35+09:00
 
 
 
@@ -273,8 +273,8 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
 
 //%snippet.set('query')%
 int query(){
+  cerrendl;
 
-  cerr << endl;
   return 0;
 }
 
@@ -558,8 +558,8 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
 
 //%snippet.set('query')%
 int query(){
+  cerrendl;
 
-  cerr << endl;
   return 0;
 }
 
