@@ -82,6 +82,13 @@ layout: default
 * :warning: <a href="library/codes/cpp/gbsgs/naive.cpp.html">codes/cpp/gbsgs/naive.cpp</a>
 
 
+<div id="8616042c429b9b7b0fd5371a59ae7751"></div>
+
+### codes/cpp/geoemtry
+
+* :warning: <a href="library/codes/cpp/geoemtry/dist_between_line_and_point.cpp.html">codes/cpp/geoemtry/dist_between_line_and_point.cpp</a>
+
+
 <div id="3ec2d728d77befc78f832b5911706770"></div>
 
 ### codes/cpp/graph
@@ -150,8 +157,7 @@ layout: default
 
 ### codes/cpp/string/suffix_array/codes
 
-* :warning: <a href="library/codes/cpp/string/suffix_array/codes/naive.cpp.html">codes/cpp/string/suffix_array/codes/naive.cpp</a>
-* :warning: <a href="library/codes/cpp/string/suffix_array/codes/solve.cpp.html">codes/cpp/string/suffix_array/codes/solve.cpp</a>
+* :warning: <a href="library/codes/cpp/string/suffix_array/codes/suffix_array.cpp.html">codes/cpp/string/suffix_array/codes/suffix_array.cpp</a>
 
 
 <div id="899eb88961293b9de4633ef66032385e"></div>

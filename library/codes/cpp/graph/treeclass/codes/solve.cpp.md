@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-16 18:00:35+09:00
+    - Last commit date: 2020-02-21 02:54:48+09:00
 
 
 
@@ -171,6 +171,7 @@ struct tree{/*{{{*/
   // ordとdfstrvは逆変換
 
   vector<int> depth;  // depth[i]: dfs木でのiの深さ
+  vector<int> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
   vector<vector<pair<int, int>>> g; // 辺(隣接リスト)
   vector<vector<int>> children;
   vector<int> euler_tour;
@@ -180,7 +181,8 @@ struct tree{/*{{{*/
   int _counter = 0;
 
   tree(int n):
-    n(n),par(n),cost(n,1),ord(n),pos(n),psize(n),depth(n),g(n),children(n),et_fpos(n)
+    n(n),par(n),cost(n,1),ord(n),pos(n),
+    psize(n),depth(n),ldepth(n),g(n),children(n),et_fpos(n)
   {};
 
   void add_edge(int u, int v, int cost){
@@ -196,16 +198,19 @@ struct tree{/*{{{*/
     _counter = 0;
     par[root] = -1;
     cost[root] = INF;
-    _dfs_tree(root, -1, 0);
+    _dfs_tree(root, -1);
     _dfs_et(root);
     vector<int> ini(2*n-1); rep(i, 2*n-1) ini[i] = ord[euler_tour[i]];
     _seg = SegmentTree<int>(ini, [](auto a, auto b){return min(a,b);}, 1e18);
   }
 
-  void _dfs_tree(int u, int pre, int _depth){
+  void _dfs_tree(int u, int pre){
     dfstrv.pb(u);
     ord[u] = _counter;
-    depth[u] = _depth;
+    if (pre!=-1){
+      depth[u] = depth[pre]+1; 
+      ldepth[u] = ldepth[pre]+cost[u]; 
+    }
 
     _counter++;
     each(el, g[u]){
@@ -215,7 +220,7 @@ struct tree{/*{{{*/
       children[u].pb(v);
       par[v] = u;
       cost[v] = el.second;
-      _dfs_tree(v, u, _depth+1);
+      _dfs_tree(v, u);
     }
     pos[u] = _counter;
     psize[u] = pos[u] - ord[u];
@@ -239,6 +244,25 @@ struct tree{/*{{{*/
   int dist(int u, int v){
     int p = lca(u, v);
     return depth[u] + depth[v] - 2*depth[p];
+  }
+  int ldist(int u, int v){  // length dist
+    int p = lca(u, v);
+    return ldepth[u] + ldepth[v] - 2*ldepth[p];
+  }
+  pair<int, int> diameter(){
+    int u, v;
+    int max_len = *max_element(all(ldepth));
+    rep(i, n){
+      if(ldepth[i]==max_len){
+        u = i; break;
+      }
+    }
+    int md = -1;
+    rep(i, n){
+      int d = ldist(u, i);
+      if (d>md){ v = i; md = d; }
+    }
+    return mp(u, v);
   }
 
 };/*}}}*/

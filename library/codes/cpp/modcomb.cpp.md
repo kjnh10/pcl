@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/modcomb.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-13 15:17:14+09:00
+    - Last commit date: 2020-02-17 21:29:12+09:00
 
 
 
@@ -47,42 +47,24 @@ using namespace std;
 using ll = long long;
 
 //%snippet.set('com')%
-const int MAX = 510000;
-// Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
-// {{{
-ll fac[MAX], finv[MAX], inv[MAX];
-
-// 前処理
-void COMinit() {
-    fac[0] = fac[1] = 1;  // 階乗
-    finv[0] = finv[1] = 1; // 階乗の逆元
-    inv[1] = 1;  // 逆元
-    for (int i = 2; i < MAX; i++){
-        fac[i] = fac[i - 1] * i % mod;
-        inv[i] = mod - inv[mod%i] * (mod / i) % mod;
-        finv[i] = finv[i - 1] * inv[i] % mod;
-    }
-}
-
-// 二項係数計算
-ll COM(int n, int k){
-    if (n < k) return 0;
-    if (n < 0 || k < 0) return 0;
-    return fac[n] * (finv[k] * finv[n - k] % mod) % mod;
-}
-//}}}
+// %snippet.include('mint')%
+struct combination {  // {{{
+  vector<mint> fact, ifact;
+  combination(int n):fact(n+1),ifact(n+1) {
+    assert(n < mod);
+    fact[0] = 1;
+    for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
+    ifact[n] = fact[n].inv();
+    for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
+  }
+  mint operator()(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return fact[n]*ifact[k]*ifact[n-k];
+  }
+} // }}}
+com(500001);
 //%snippet.end()%
 
-int main() {
-    // 前処理
-    COMinit();
-
-    // 計算例
-    assert(COM(5, 2) == 10);
-    cout << COM(10, 3) << endl;  // 120
-}
-
-// ref: [http://drken1215.hatenablog.com/entry/2018/06/08/210000]
 
 ```
 {% endraw %}
@@ -97,42 +79,24 @@ using namespace std;
 using ll = long long;
 
 //%snippet.set('com')%
-const int MAX = 510000;
-// Calculate COM(MAX, k) for k<=MAX by O(1) after COMinit() by O(MAX)
-// {{{
-ll fac[MAX], finv[MAX], inv[MAX];
-
-// 前処理
-void COMinit() {
-    fac[0] = fac[1] = 1;  // 階乗
-    finv[0] = finv[1] = 1; // 階乗の逆元
-    inv[1] = 1;  // 逆元
-    for (int i = 2; i < MAX; i++){
-        fac[i] = fac[i - 1] * i % mod;
-        inv[i] = mod - inv[mod%i] * (mod / i) % mod;
-        finv[i] = finv[i - 1] * inv[i] % mod;
-    }
-}
-
-// 二項係数計算
-ll COM(int n, int k){
-    if (n < k) return 0;
-    if (n < 0 || k < 0) return 0;
-    return fac[n] * (finv[k] * finv[n - k] % mod) % mod;
-}
-//}}}
+// %snippet.include('mint')%
+struct combination {  // {{{
+  vector<mint> fact, ifact;
+  combination(int n):fact(n+1),ifact(n+1) {
+    assert(n < mod);
+    fact[0] = 1;
+    for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
+    ifact[n] = fact[n].inv();
+    for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
+  }
+  mint operator()(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return fact[n]*ifact[k]*ifact[n-k];
+  }
+} // }}}
+com(500001);
 //%snippet.end()%
 
-int main() {
-    // 前処理
-    COMinit();
-
-    // 計算例
-    assert(COM(5, 2) == 10);
-    cout << COM(10, 3) << endl;  // 120
-}
-
-// ref: [http://drken1215.hatenablog.com/entry/2018/06/08/210000]
 
 ```
 {% endraw %}
