@@ -50,7 +50,11 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 struct suffix_array{
-  vector<int> a, order, lcp;
+  vector<int> a;
+  vector<int> pos;  // pos[j]: j位のsumffixはどこから始まるか
+  vector<int> rank;  // rank[i]: s[i:]は何位か
+  // pos = rank^-1
+  vector<int> lcp_array;  // lcp_arry[j]: s[j:]とs[j+1:]のlcp
   int n;
 
   suffix_array(){}
@@ -63,13 +67,13 @@ struct suffix_array{
 
   void build(){
     _build_order();
-    // _build_lcp();
+    _build_lcp_array();
   }
 
   void _build_order(){
-    order.resize(n);
-    iota(all(order), 0);
-    vector<int> rank(a);  // k=1でのrank. rank[i]: iのスコア
+    pos.resize(n);
+    iota(all(pos), 0);
+    rank = a;  // aでそのままスコア化
 
     for (int k=1; k<n; k*=2){
       // kでのrankが生成されている前提で2*kでのrankを生成する
@@ -79,32 +83,62 @@ struct suffix_array{
         auto right = mp(rank[r], (r+k<n ? rank[r+k] : -1));
         return left < right;
       };
-      sort(all(order), _comp);
+      sort(all(pos), _comp);
 
       vector<int> next_rank(n);
-      next_rank[order[0]] = 0;
+      next_rank[pos[0]] = 0;
       int r = 0;
       rep(i, 1, n){
-        if (_comp(order[i-1], order[i])) r++;
-        next_rank[order[i]] = r;
+        if (_comp(pos[i-1], pos[i])) r++;
+        next_rank[pos[i]] = r;
       }
       rank = next_rank;
     }
   }
 
-  void _build_lcp(){
+  void _build_lcp_array(){
+    lcp_array.resize(n);
+    // vector<int> pos;  // pos[j]: j位のsumffixはどこから始まるか
+    // vector<int> rank;  // rank[i]: s[i:]は何位か
+    // vector<int> lcp_array;  // lcp_arry[j]: s[j:]とs[j+1:]のlcp
+
+    // rank[0], rank[0]+1の間のlcp, lcp_array[rank[0]]についてまずやる。
+    int con = 1;
+    rep(l, 0, n){
+      if (rank[l]+1==n){
+        lcp_array[rank[l]] = -1;
+        con = 1;
+        continue;
+      }
+
+      if (con>0) con--;
+      int r = pos[rank[l]+1];
+      while(l+con<n && r+con<n && a[l+con]==a[r+con]){
+        con++;
+      }
+      lcp_array[rank[l]] = con;
+    }
+  }
+
+  int lcp(int i, int j){ // longest cummon prefix 
+    int res = 0;
+    // TODO: implement
+    return res;
   }
 };
 
 signed main() {
-  // string s = "adcdacbdcab";
+  string s = "adcdacbdcab";
   // string s = "aaaaa";
-  string s;cin>>s;
+  // string s;cin>>s;
 
+  dump(s);
   suffix_array sa(s);
   sa.build();
-  dump(sa.order);
+  dump(sa.pos);
+  dump(sa.rank);
+  dump(sa.lcp_array);
 
-  rep(i, sz(sa.order)) cout << sa.order[i] << (i!=sz(sa.order)-1 ? " " : "\n");
+  rep(i, sz(sa.pos)) cout << sa.pos[i] << (i!=sz(sa.pos)-1 ? " " : "\n");
   return 0;
 }
