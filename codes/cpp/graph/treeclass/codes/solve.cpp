@@ -206,6 +206,21 @@ struct tree{/*{{{*/
     int p = lca(u, v);
     return ldepth[u] + ldepth[v] - 2*ldepth[p];
   }
+  pair<int, int> diameter(){
+    int u, v;
+    int max_len = *max_element(all(ldepth));
+    rep(i, n){
+      if(ldepth[i]==max_len){
+        u = i; break;
+      }
+    }
+    int md = -1;
+    rep(i, n){
+      int d = ldist(u, i);
+      if (d>md){ v = i; md = d; }
+    }
+    return mp(u, v);
+  }
 
 };/*}}}*/
   // ----sample------

@@ -5,13 +5,15 @@ using namespace std;
 #define DUMPOUT cerr // where to dump. cout or cerr
 
 namespace dump_macro{
-  vector<string> varnames;
-  int varidx;
+  stack<vector<string>> varnames;
+  stack<int> varidx;
 }
+
+#define cerrendl cerr << endl
 
 #define dump(...)  \
   {  \
-      dump_macro::varnames = [](string s) -> vector<string> { \
+    dump_macro::varnames.push([](string s) -> vector<string> { \
       int n = s.size(); \
       vector<string> res; \
       string tmp = ""; \
@@ -20,7 +22,7 @@ namespace dump_macro{
         if (s[i]=='(') parlevel++; \
         if (s[i]==')') parlevel--; \
         if (s[i]==' ') continue; \
-        if (s[i]==','){ \
+        if (s[i]==',' && parlevel==0){ \
           res.push_back(tmp); \
           tmp = ""; \
         } \
@@ -30,9 +32,10 @@ namespace dump_macro{
       } \
       res.push_back(tmp); \
       return res; \
-    }(#__VA_ARGS__); \
-    dump_macro::varidx = 0; \
+    }(#__VA_ARGS__)); \
+    dump_macro::varidx.push(0); \
     dump_func(__VA_ARGS__); DUMPOUT<<"in ["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl;  \
+    dump_macro::varnames.pop();dump_macro::varidx.pop(); \
   }
 
 #define dump_1d(x,n)  \
@@ -55,14 +58,14 @@ void dump_func() {
 template <class Head, class... Tail>
 void dump_func(Head&& head, Tail&&... tail)
 {
-    DUMPOUT << dump_macro::varnames[dump_macro::varidx] << ":" << head;
+    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()] << ":" << head;
     if (sizeof...(Tail) == 0) {
         DUMPOUT << " ";
     }
     else {
         DUMPOUT << ", ";
     }
-    ++dump_macro::varidx;
+    ++dump_macro::varidx.top();
     dump_func(std::move(tail)...);
 }
 

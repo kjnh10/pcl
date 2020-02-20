@@ -91,23 +91,23 @@ string to_bin(int n, int d){
 
 //%snippet.set('warsharll')%
 // init
-int d[N][N]={};  // 必要があればglobalに
-rep(i, N)rep(j, N){
-  d[i][j] = (i==j ? 0 : INF);
+vector<vector<int>> d(n, vector<int>(n, INF));
+rep(i, n)rep(j, n){
+  if (i==j) d[i][j] = 0;
 }
 
 // input
 ${0};
 
 // calc
-rep(k, N){
-  rep(i, N){
-    rep(j, N){
+rep(k, n){
+  rep(i, n){
+    rep(j, n){
       chmin(d[i][j], d[i][k]+d[k][j]);
     }
   }
 }
-dump_2d(d, N, N);
+dump_2d(d, n, n);
 
 
 //%snippet.set('digitdp')%
