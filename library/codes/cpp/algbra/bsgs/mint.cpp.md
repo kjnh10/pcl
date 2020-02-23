@@ -21,24 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/bsgs/mint.cpp
+# :warning: codes/cpp/algbra/bsgs/mint.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#2919ca346b08b61c9d5887ac26b78604">codes/cpp/bsgs</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/bsgs/mint.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-10-15 23:20:52+09:00
+* category: <a href="../../../../../index.html#2470d604da78346d1e94e45c40afd4da">codes/cpp/algbra/bsgs</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/bsgs/mint.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-23 17:29:25+09:00
 
 
 
 
 ## Required by
 
-* :warning: <a href="bsgs.cpp.html">codes/cpp/bsgs/bsgs.cpp</a>
+* :warning: <a href="bsgs.cpp.html">codes/cpp/algbra/bsgs/bsgs.cpp</a>
 
 
 ## Code
@@ -98,7 +98,7 @@ struct mint { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/bsgs/mint.cpp"
+#line 1 "codes/cpp/algbra/bsgs/mint.cpp"
 //%snippet.set('mint')%
 int mod = 1e9+7;
 struct mint { //{{{
@@ -148,5 +148,5 @@ struct mint { //{{{
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

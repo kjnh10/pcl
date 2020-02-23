@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/bsgs/naive.cpp
+# :warning: codes/cpp/graph/bridge/codes/naive.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#2919ca346b08b61c9d5887ac26b78604">codes/cpp/bsgs</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/bsgs/naive.cpp">View this file on GitHub</a>
-    - Last commit date: 2019-10-15 23:20:52+09:00
+* category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/naive.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-23 17:29:25+09:00
 
 
 
@@ -41,16 +41,13 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.11
+// template version 1.15
 using namespace std;
 #include <bits/stdc++.h>
 
-// varibable settings {{{
-#define infile "../test/sample-1.in"
+// varibable settings
 #define int long long
 const int INF=1e18;
-const int MOD=1e9+7;
-// }}}
 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
@@ -65,6 +62,9 @@ const int MOD=1e9+7;
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
+#define mt(a, b, c) make_tuple(a, b, c)
+#define divceil(a,b) ((a)+(b)-1)/(b)
+#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
@@ -84,28 +84,17 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
-#include "/home/koji0708/go/src/github.com/kjnh10/pcl/template/codes/lib/dump.hpp"
+  #include "lib/dump.hpp"
 #else
-#define dump(...) 42
-#define dump_1d(...) 42
-#define dump_2d(...) 42
+  #define dump(...) 42
+  #define dump_1d(...) 42
+  #define dump_2d(...) 42
+  #define cerrendl 42
 #endif
 //}}}
 
 int solve(){
-  int a,b,p;cin>>a>>b>>p;
-  int v = 1;
-  int res = INF;
-  rep(x, 0, p){
-    // dump(x, v);
-    if (v==b){
-      cout << x << endl;
-      return 0;
-    }
-    v *= a;
-    v %= p;
-  }
-  cout << -1 << endl;
+  cout << "you need to write AC code here for random test" << endl;
   return 0;
 }
 
@@ -125,16 +114,16 @@ signed main() { //{{{
 {% raw %}
 ```cpp
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 347, in write_contents
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 348, in write_contents
     bundled_code = language.bundle(self.file_class.file_path, basedir=self.cpp_source_path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 63, in bundle
     bundler.update(path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 181, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
-onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/bsgs/naive.cpp: line 44: unable to process #include in #if / #ifdef / #ifndef other than include guards
+onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/graph/bridge/codes/naive.cpp: line 44: unable to process #include in #if / #ifdef / #ifndef other than include guards
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../../index.html">Back to top page</a>
 
