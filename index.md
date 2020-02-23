@@ -230,6 +230,5 @@ layout: default
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/codes/cpp/graph/treeclass/codes/lca.test.cpp.html">codes/cpp/graph/treeclass/codes/lca.test.cpp</a>
-* :heavy_check_mark: <a href="verify/example.test.cpp.html">example.test.cpp</a>
 
 
