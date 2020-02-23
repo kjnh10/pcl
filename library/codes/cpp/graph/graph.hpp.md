@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :warning: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Required by

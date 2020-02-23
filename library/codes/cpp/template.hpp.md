@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/template.hpp
+# :heavy_check_mark: codes/cpp/template.hpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -41,7 +41,13 @@ layout: default
 * :warning: <a href="graph/bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+* :heavy_check_mark: <a href="graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 * :warning: <a href="graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../verify/codes/cpp/graph/treeclass/codes/lca.test.cpp.html">codes/cpp/graph/treeclass/codes/lca.test.cpp</a>
 
 
 ## Code

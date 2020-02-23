@@ -25,15 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/treeclass/codes/solve.cpp
+# :heavy_check_mark: codes/cpp/graph/treeclass/codes/tree.hpp
 
 <a href="../../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-21 02:54:48+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/tree.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-23 17:50:19+09:00
 
 
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../../../verify/codes/cpp/graph/treeclass/codes/lca.test.cpp.html">codes/cpp/graph/treeclass/codes/lca.test.cpp</a>
 
 
 ## Code
@@ -41,61 +51,8 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#include "../../../template.hpp"
 // (参考) https://www.slideshare.net/Proktmr/ss-138534092
-
-// template version 1.15
-using namespace std;
-#include <bits/stdc++.h>
-
-// varibable settings
-#define int long long
-const int INF=1e18;
-
-// define basic macro {{{
-#define _overload3(_1,_2,_3,name,...) name
-#define _rep(i,n) repi(i,0,n)
-#define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
-#define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
-#define _rrep(i,n) rrepi(i,0,n)
-#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
-#define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
-#define each(i,a) for (auto&& i : a)
-#define all(x) (x).begin(),(x).end()
-#define sz(x) ((int)(x).size())
-#define pb(a) push_back(a)
-#define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define ub upper_bound
-#define lb lower_bound
-#define posl(A, x) (lower_bound(all(A), x)-A.begin())
-#define posu(A, x) (upper_bound(all(A),x)-A.begin())
-template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
-template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
-
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-#define slice(l, r) substr(l, r-l)
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
-
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-
-#if defined(PCM) || defined(LOCAL)
-  #include "lib/dump.hpp"
-#else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-  #define cerrendl 42
-#endif
-//}}}
 
 //%snippet.set('tree')%
 
@@ -282,41 +239,6 @@ struct tree{/*{{{*/
 //%snippet.end()%
 
 
-signed main() {
-  // tree tr(8);
-  // tr.add_edge(0, 1, 1);
-  // tr.add_edge(0, 2, 1);
-  // tr.add_edge(1, 3, 1);
-  // tr.add_edge(1, 4, 1);
-  // tr.add_edge(4, 6, 1);
-  // tr.add_edge(4, 7, 1);
-  // tr.add_edge(2, 5, 1);
-  //
-  // tr.build(2);
-  // dump(tr.par);
-  // dump(tr.dfstrv);
-  // dump(tr.ord);
-  // dump(tr.pos);
-  // dump(tr.depth);
-  // dump(tr.children);
-  // dump(tr.euler_tour);
-  // dump(tr.et_fpos);
-  // dump(tr.lca(3, 5));
-
-  // https://judge.yosupo.jp/problem/lca
-  int n,q;cin>>n>>q;
-  tree tr(n);
-  rep(u, 1, n){
-    int p;cin>>p;
-    tr.add_edge(p,u);
-  }
-  tr.build(0);
-  rep(_, q){
-    int u,v;cin>>u>>v;
-    cout << tr.lca(u, v) << endl;
-  }
-}
-
 ```
 {% endraw %}
 
@@ -328,9 +250,11 @@ Traceback (most recent call last):
     bundled_code = language.bundle(self.file_class.file_path, basedir=self.cpp_source_path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 63, in bundle
     bundler.update(path)
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 182, in update
+    self.update(self._resolve(included, included_from=path))
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 181, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
-onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/graph/treeclass/codes/solve.cpp: line 48: unable to process #include in #if / #ifdef / #ifndef other than include guards
+onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hpp: line 48: unable to process #include in #if / #ifdef / #ifndef other than include guards
 
 ```
 {% endraw %}

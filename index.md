@@ -49,7 +49,7 @@ layout: default
 * :warning: <a href="library/codes/cpp/rectanglesum.cpp.html">codes/cpp/rectanglesum.cpp</a>
 * :warning: <a href="library/codes/cpp/slide_min.cpp.html">codes/cpp/slide_min.cpp</a>
 * :warning: <a href="library/codes/cpp/syakutori.cpp.html">codes/cpp/syakutori.cpp</a>
-* :warning: <a href="library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 * :warning: <a href="library/codes/cpp/zip.cpp.html">codes/cpp/zip.cpp</a>
 
 
@@ -144,8 +144,7 @@ layout: default
 
 ### codes/cpp/graph/treeclass/codes
 
-* :warning: <a href="library/codes/cpp/graph/treeclass/codes/naive.cpp.html">codes/cpp/graph/treeclass/codes/naive.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/treeclass/codes/solve.cpp.html">codes/cpp/graph/treeclass/codes/solve.cpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 
 
 <div id="8d3e9a1606d563c0566c7398efddddee"></div>
@@ -230,6 +229,7 @@ layout: default
 
 ## Verify Files
 
+* :heavy_check_mark: <a href="verify/codes/cpp/graph/treeclass/codes/lca.test.cpp.html">codes/cpp/graph/treeclass/codes/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/example.test.cpp.html">example.test.cpp</a>
 
 

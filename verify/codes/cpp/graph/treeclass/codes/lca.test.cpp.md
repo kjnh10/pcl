@@ -21,31 +21,25 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/unionfind.hpp
+# :heavy_check_mark: codes/cpp/graph/treeclass/codes/lca.test.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/unionfind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-23 17:29:25+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/lca.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-02-23 17:50:19+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
-
-
-## Required by
-
-* :warning: <a href="bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
-* :warning: <a href="graph.hpp.html">codes/cpp/graph/graph.hpp</a>
-* :warning: <a href="test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+* :heavy_check_mark: <a href="../../../../../../library/codes/cpp/graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -53,37 +47,42 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include "../template.hpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/lca"
+#include "./tree.hpp"
 
-//%snippet.set('UnionFind')%
-struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
+signed main() {
+  // tree tr(8);
+  // tr.add_edge(0, 1, 1);
+  // tr.add_edge(0, 2, 1);
+  // tr.add_edge(1, 3, 1);
+  // tr.add_edge(1, 4, 1);
+  // tr.add_edge(4, 6, 1);
+  // tr.add_edge(4, 7, 1);
+  // tr.add_edge(2, 5, 1);
+  //
+  // tr.build(2);
+  // dump(tr.par);
+  // dump(tr.dfstrv);
+  // dump(tr.ord);
+  // dump(tr.pos);
+  // dump(tr.depth);
+  // dump(tr.children);
+  // dump(tr.euler_tour);
+  // dump(tr.et_fpos);
+  // dump(tr.lca(3, 5));
 
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
-    }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
-
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
-};
-//%snippet.end()%
+  int n,q;cin>>n>>q;
+  tree tr(n);
+  rep(u, 1, n){
+    int p;cin>>p;
+    tr.add_edge(p,u);
+  }
+  tr.build(0);
+  rep(_, q){
+    int u,v;cin>>u>>v;
+    cout << tr.lca(u, v) << endl;
+  }
+}
 
 ```
 {% endraw %}
@@ -98,6 +97,8 @@ Traceback (most recent call last):
     bundler.update(path)
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 182, in update
     self.update(self._resolve(included, included_from=path))
+  File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 182, in update
+    self.update(self._resolve(included, included_from=path))
   File "/opt/hostedtoolcache/Python/3.8.1/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 181, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
 onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hpp: line 48: unable to process #include in #if / #ifdef / #ifndef other than include guards
@@ -105,5 +106,5 @@ onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hp
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../../index.html">Back to top page</a>
 
