@@ -169,7 +169,9 @@ layout: default
 
 * :warning: <a href="library/codes/cpp/segtree/rmq_2d.cpp.html">codes/cpp/segtree/rmq_2d.cpp</a>
 * :warning: <a href="library/codes/cpp/segtree/segment_tree.cpp.html">codes/cpp/segtree/segment_tree.cpp</a>
+* :warning: <a href="library/codes/cpp/segtree/segment_tree_beats.cpp.html">codes/cpp/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="library/codes/cpp/segtree/segment_tree_lazy.cpp.html">codes/cpp/segtree/segment_tree_lazy.cpp</a>
+* :warning: <a href="library/codes/cpp/segtree/yuki.cpp.html">codes/cpp/segtree/yuki.cpp</a>
 
 
 <div id="f42fe2b40278a2240b94f3b23e9cd7ad"></div>
