@@ -17,7 +17,6 @@ struct SegmentTree { // {{{
     T identity;
 
   public:
-    SegmentTree(){}
     SegmentTree(vector<T> a, F f, T id):merge(f), identity(id) {
       n = a.size();
       N = 1; while(N < n) N *= 2;
