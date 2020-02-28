@@ -71,7 +71,7 @@ dump(${0});
 assert(false);
 
 //%snippet.set('sortkey')%
-sort(all(${0}), [&](auto &left, auto &right){return left.second < right.second;});
+sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
 do{
