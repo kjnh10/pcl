@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-21 02:54:48+09:00
+    - Last commit date: 2020-02-28 13:23:04+09:00
 
 
 
@@ -114,7 +114,7 @@ dump(${0});
 assert(false);
 
 //%snippet.set('sortkey')%
-sort(all(${0}), [&](auto &left, auto &right){return left.second < right.second;});
+sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
 do{
@@ -399,7 +399,7 @@ dump(${0});
 assert(false);
 
 //%snippet.set('sortkey')%
-sort(all(${0}), [&](auto &left, auto &right){return left.second < right.second;});
+sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
 do{
