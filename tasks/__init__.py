@@ -18,6 +18,12 @@ def build(c):
             vssnip_file = vssnip_dir / 'cpp.code-snippets',
             )
     _build_snippet(
+            code_dir = CODE_DIR / 'cpp',
+            extention = 'hpp',
+            neosnip_file = neosnip_dir / 'cpp/auto.snip',
+            vssnip_file = vssnip_dir / 'cpp.code-snippets',
+            )
+    _build_snippet(
             code_dir = CODE_DIR / 'python',
             extention = 'py',
             neosnip_file = neosnip_dir / 'python/auto.snip',
