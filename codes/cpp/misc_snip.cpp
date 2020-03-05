@@ -57,7 +57,7 @@ else if(${0}){
 }
 
 //%snippet.set('while')%
-while (${0}){
+while(${0}){
 }
 
 //%snippet.set('reprep')%
@@ -246,8 +246,8 @@ signed main(){
 
 //%snippet.set('random_generator')%
 uint64_t rng() {
-  static mt19937 mt(chrono::steady_clock::now().time_since_epoch().count());
-  return uniform_int_distribution<uint64_t>(0, -1)(mt);
+  static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
+  return uniform_int_distribution<uint64_t>(0, -1)(x);
 }
 
 
@@ -275,3 +275,24 @@ printf("%.12f\n", ${1});
 //%snippet.set('sep')%
 //%snippet.config({'alias':'<<'})%
 << " " << ${1}
+
+
+//%snippet.set('interactive')%
+int counter = 0;
+int query(int u, int v){/*{{{*/
+    dump('q', u+1, v+1);
+    counter++;
+    if (counter>n/2) assert(false);
+
+    cout << "?" << " " << u << " " << v << endl;
+    fflush(stdout);
+    
+    // int res = tr.lca(u, v);
+    int res; cin>>res;
+
+    return res;
+}/*}}}*/
+
+void ans(int u){/*{{{*/
+    cout << "!" << " " << u+1 << endl;
+}/*}}}*/

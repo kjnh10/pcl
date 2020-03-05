@@ -13,25 +13,19 @@ def build(c):
 
     _build_snippet(
             code_dir = CODE_DIR / 'cpp',
-            extention = 'cpp',
-            neosnip_file = neosnip_dir / 'cpp/auto.snip',
-            vssnip_file = vssnip_dir / 'cpp.code-snippets',
-            )
-    _build_snippet(
-            code_dir = CODE_DIR / 'cpp',
-            extention = 'hpp',
+            extentions = ['cpp', 'hpp'],
             neosnip_file = neosnip_dir / 'cpp/auto.snip',
             vssnip_file = vssnip_dir / 'cpp.code-snippets',
             )
     _build_snippet(
             code_dir = CODE_DIR / 'python',
-            extention = 'py',
+            extentions = ['py'],
             neosnip_file = neosnip_dir / 'python/auto.snip',
             vssnip_file = vssnip_dir / 'python.code-snippets',
             )
 
 
-def _build_snippet(code_dir, extention, neosnip_file, vssnip_file):
+def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     if neosnip_file.exists():
         neosnip_file.unlink()
 
@@ -39,8 +33,9 @@ def _build_snippet(code_dir, extention, neosnip_file, vssnip_file):
         vssnip_file.unlink()
 
     snippets = {}
-    for f in code_dir.rglob(f'*.{extention}'):
-        extract_snips(f, snippets)
+    for extention in extentions:
+        for f in code_dir.rglob(f'*.{extention}'):
+            extract_snips(f, snippets)
 
     for name in snippets.keys():
         snippets[name].to_snip_file(neosnip_file, snippets, format='neosnippet')
