@@ -213,22 +213,6 @@ layout: default
 * :warning: <a href="library/codes/cpp/string/suffix_array/codes/lib/prettyprint.hpp.html">codes/cpp/string/suffix_array/codes/lib/prettyprint.hpp</a>
 
 
-<div id="cec240864475a2bf018f158bcf464795"></div>
-
-### template/codes
-
-* :warning: <a href="library/template/codes/naive.cpp.html">template/codes/naive.cpp</a>
-* :warning: <a href="library/template/codes/solve.cpp.html">template/codes/solve.cpp</a>
-
-
-<div id="28696bc3f2ce84c48e7d93f9b7692649"></div>
-
-### template/codes/lib
-
-* :warning: <a href="library/template/codes/lib/dump.hpp.html">template/codes/lib/dump.hpp</a>
-* :warning: <a href="library/template/codes/lib/prettyprint.hpp.html">template/codes/lib/prettyprint.hpp</a>
-
-
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/codes/cpp/graph/treeclass/codes/lca.test.cpp.html">codes/cpp/graph/treeclass/codes/lca.test.cpp</a>
