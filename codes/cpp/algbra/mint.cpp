@@ -36,10 +36,10 @@ struct mint { //{{{
       if(x<0)x+=mod;
       return mint(x);
       }*/
-    friend ostream& operator<<(ostream&os,const mint&m){
-        return os<<m.x;
-    }
+    operator int() const{return x;}
     bool operator<(const mint&r)const{return x<r.x;}
     bool operator==(const mint&r)const{return x==r.x;}
 };
+istream& operator>>(istream& is, const mint& a) {return is >> a.x;}
+ostream& operator<<(ostream& os, const mint& a) {return os << a.x;}
 //}}}
