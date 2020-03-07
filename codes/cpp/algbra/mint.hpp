@@ -1,3 +1,6 @@
+#pragma once
+#include "../template.hpp"
+
 //%snippet.set('mint')%
 int mod = 1e9+7;
 struct mint { //{{{
