@@ -31,14 +31,15 @@ layout: default
 
 * category: <a href="../../../../../index.html#2470d604da78346d1e94e45c40afd4da">codes/cpp/algbra/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-23 17:29:25+09:00
+    - Last commit date: 2020-03-08 16:05:16+09:00
 
 
 
 
 ## Depends on
 
-* :warning: <a href="mint.cpp.html">codes/cpp/algbra/bsgs/mint.cpp</a>
+* :warning: <a href="../mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
+* :heavy_check_mark: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -95,7 +96,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 //}}}
 
-#include "mint.cpp"
+#include "../mint.hpp"
 
 // %snippet.set('baybe_step_giant_step')%
 // %snippet.config({'alias':'bsgs'})%

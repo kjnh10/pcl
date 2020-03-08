@@ -38,6 +38,8 @@ layout: default
 
 ## Required by
 
+* :warning: <a href="algbra/bsgs/bsgs.cpp.html">codes/cpp/algbra/bsgs/bsgs.cpp</a>
+* :warning: <a href="algbra/mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
 * :warning: <a href="graph/bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>

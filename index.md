@@ -58,8 +58,7 @@ layout: default
 ### codes/cpp/algbra
 
 * :warning: <a href="library/codes/cpp/algbra/int.cpp.html">codes/cpp/algbra/int.cpp</a>
-* :warning: <a href="library/codes/cpp/algbra/mint.cpp.html">codes/cpp/algbra/mint.cpp</a>
-* :warning: <a href="library/codes/cpp/algbra/mint2.cpp.html">codes/cpp/algbra/mint2.cpp</a>
+* :warning: <a href="library/codes/cpp/algbra/mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
 * :warning: <a href="library/codes/cpp/algbra/modcomb.cpp.html">codes/cpp/algbra/modcomb.cpp</a>
 
 
@@ -68,7 +67,6 @@ layout: default
 ### codes/cpp/algbra/bsgs
 
 * :warning: <a href="library/codes/cpp/algbra/bsgs/bsgs.cpp.html">codes/cpp/algbra/bsgs/bsgs.cpp</a>
-* :warning: <a href="library/codes/cpp/algbra/bsgs/mint.cpp.html">codes/cpp/algbra/bsgs/mint.cpp</a>
 * :warning: <a href="library/codes/cpp/algbra/bsgs/naive.cpp.html">codes/cpp/algbra/bsgs/naive.cpp</a>
 
 
