@@ -16,7 +16,10 @@ struct mint { //{{{
     mint operator+(const mint a) const { mint res(*this); return res+=a; }
     mint operator-(const mint a) const { mint res(*this); return res-=a; }
     mint operator*(const mint a) const { mint res(*this); return res*=a; }
-    mint operator/(const mint&rhs)const{return mint(*this)/=rhs;}
+    mint&operator/=(const mint&rhs){
+        if (rhs.x==0) throw runtime_error("mint zero division");
+        return *this*=rhs.inv(); 
+    }
 
     mint pow(int n)const{
         mint res(1),x(*this);
@@ -31,7 +34,10 @@ struct mint { //{{{
         }
         return res;
     }
-    mint inv()const{return pow(mod-2);}
+    mint inv() const{
+        if (x==0) throw runtime_error("inv does not exist");
+        return pow(mod-2);
+    }
     /*mint inv()const{
       int x,y;
       int g=extgcd(v,mod,x,y);
