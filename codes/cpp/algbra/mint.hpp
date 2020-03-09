@@ -11,7 +11,6 @@ struct mint { //{{{
     mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
     mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
     mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
-    mint&operator/=(const mint&rhs){return *this*=rhs.inv();}
 
     mint operator+(const mint a) const { mint res(*this); return res+=a; }
     mint operator-(const mint a) const { mint res(*this); return res-=a; }
