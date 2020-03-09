@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#23a23c125caf8741d8c92b2934bce27d">codes/cpp/algbra</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/mint.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-08 13:32:35+09:00
+    - Last commit date: 2020-03-09 23:30:07+09:00
 
 
 
@@ -64,7 +64,6 @@ struct mint { //{{{
     mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
     mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
     mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
-    mint&operator/=(const mint&rhs){return *this*=rhs.inv();}
 
     mint operator+(const mint a) const { mint res(*this); return res+=a; }
     mint operator-(const mint a) const { mint res(*this); return res-=a; }
