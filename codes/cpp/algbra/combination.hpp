@@ -1,9 +1,8 @@
-#include <iostream>
-#include<bits/stdc++.h>
-using namespace std;
-using ll = long long;
+#pragma once
+#include "../template.hpp"
+#include "./mint.hpp"
 
-//%snippet.set('com')%
+//%snippet.set('combination')%
 // %snippet.include('mint')%
 struct combination {  // {{{
   vector<mint> fact, ifact;

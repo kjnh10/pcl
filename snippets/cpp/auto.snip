@@ -1467,75 +1467,6 @@ snippet sieve
   
 
 
-snippet com
-  int mod = 1e9+7;
-  struct mint { //{{{
-      int x;
-      mint(int x=0):x((x%mod+mod)%mod){}
-  
-      // ?= operator
-      mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
-      mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
-      mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
-  
-      mint operator+(const mint a) const { mint res(*this); return res+=a; }
-      mint operator-(const mint a) const { mint res(*this); return res-=a; }
-      mint operator*(const mint a) const { mint res(*this); return res*=a; }
-      mint&operator/=(const mint&rhs){
-          if (rhs.x==0) throw runtime_error("mint zero division");
-          return *this*=rhs.inv(); 
-      }
-  
-      mint pow(int n)const{
-          mint res(1),x(*this);
-          if (n<0){
-              n = -n;
-              x =(*this).inv();
-          }
-          while(n){
-              if(n&1)res*=x;
-              x*=x;
-              n>>=1;
-          }
-          return res;
-      }
-      mint inv() const{
-          if (x==0) throw runtime_error("inv does not exist");
-          return pow(mod-2);
-      }
-      /*mint inv()const{
-        int x,y;
-        int g=extgcd(v,mod,x,y);
-        assert(g==1);
-        if(x<0)x+=mod;
-        return mint(x);
-        }*/
-      operator int() const{return x;}
-      bool operator<(const mint&r)const{return x<r.x;}
-      bool operator==(const mint&r)const{return x==r.x;}
-  };
-  istream& operator>>(istream& is, const mint& a) {return is >> a.x;}
-  ostream& operator<<(ostream& os, const mint& a) {return os << a.x;}
-  //}}}
-  
-  struct combination {  // {{{
-    vector<mint> fact, ifact;
-    combination(int n):fact(n+1),ifact(n+1) {
-      assert(n < mod);
-      fact[0] = 1;
-      for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
-      ifact[n] = fact[n].inv();
-      for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
-    }
-    mint operator()(int n, int k) {
-      if (k < 0 || k > n) return 0;
-      return fact[n]*ifact[k]*ifact[n-k];
-    }
-  } // }}}
-  com(500001);
-  
-
-
 snippet template
   // template version 1.11
   using namespace std;
@@ -1592,6 +1523,7 @@ snippet template
 snippet generalized_baybe_step_giant_step
 alias gbsgs
   int mod = 1e9+7;
+  // int mod = 998244353;
   struct mint { //{{{
       int x;
       mint(int x=0):x((x%mod+mod)%mod){}
@@ -1600,14 +1532,15 @@ alias gbsgs
       mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
       mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
       mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+      mint& operator/=(const mint&rhs){
+          if (rhs.x==0) throw runtime_error("mint zero division");
+          return *this*=rhs.inv(); 
+      }
   
       mint operator+(const mint a) const { mint res(*this); return res+=a; }
       mint operator-(const mint a) const { mint res(*this); return res-=a; }
       mint operator*(const mint a) const { mint res(*this); return res*=a; }
-      mint&operator/=(const mint&rhs){
-          if (rhs.x==0) throw runtime_error("mint zero division");
-          return *this*=rhs.inv(); 
-      }
+      mint operator/(const mint a) const { mint res(*this); return res/=a; }
   
       mint pow(int n)const{
           mint res(1),x(*this);
@@ -1622,18 +1555,19 @@ alias gbsgs
           }
           return res;
       }
+  
       mint inv() const{
           if (x==0) throw runtime_error("inv does not exist");
           return pow(mod-2);
       }
-      /*mint inv()const{
-        int x,y;
-        int g=extgcd(v,mod,x,y);
-        assert(g==1);
-        if(x<0)x+=mod;
-        return mint(x);
-        }*/
-      operator int() const{return x;}
+      // mint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return mint(x);
+      // }
+  
       bool operator<(const mint&r)const{return x<r.x;}
       bool operator==(const mint&r)const{return x==r.x;}
   };
@@ -1679,6 +1613,7 @@ alias gbsgs
 snippet baybe_step_giant_step
 alias bsgs
   int mod = 1e9+7;
+  // int mod = 998244353;
   struct mint { //{{{
       int x;
       mint(int x=0):x((x%mod+mod)%mod){}
@@ -1687,14 +1622,15 @@ alias bsgs
       mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
       mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
       mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+      mint& operator/=(const mint&rhs){
+          if (rhs.x==0) throw runtime_error("mint zero division");
+          return *this*=rhs.inv(); 
+      }
   
       mint operator+(const mint a) const { mint res(*this); return res+=a; }
       mint operator-(const mint a) const { mint res(*this); return res-=a; }
       mint operator*(const mint a) const { mint res(*this); return res*=a; }
-      mint&operator/=(const mint&rhs){
-          if (rhs.x==0) throw runtime_error("mint zero division");
-          return *this*=rhs.inv(); 
-      }
+      mint operator/(const mint a) const { mint res(*this); return res/=a; }
   
       mint pow(int n)const{
           mint res(1),x(*this);
@@ -1709,18 +1645,19 @@ alias bsgs
           }
           return res;
       }
+  
       mint inv() const{
           if (x==0) throw runtime_error("inv does not exist");
           return pow(mod-2);
       }
-      /*mint inv()const{
-        int x,y;
-        int g=extgcd(v,mod,x,y);
-        assert(g==1);
-        if(x<0)x+=mod;
-        return mint(x);
-        }*/
-      operator int() const{return x;}
+      // mint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return mint(x);
+      // }
+  
       bool operator<(const mint&r)const{return x<r.x;}
       bool operator==(const mint&r)const{return x==r.x;}
   };
@@ -2310,6 +2247,7 @@ snippet tree
 
 snippet mint
   int mod = 1e9+7;
+  // int mod = 998244353;
   struct mint { //{{{
       int x;
       mint(int x=0):x((x%mod+mod)%mod){}
@@ -2318,14 +2256,15 @@ snippet mint
       mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
       mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
       mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+      mint& operator/=(const mint&rhs){
+          if (rhs.x==0) throw runtime_error("mint zero division");
+          return *this*=rhs.inv(); 
+      }
   
       mint operator+(const mint a) const { mint res(*this); return res+=a; }
       mint operator-(const mint a) const { mint res(*this); return res-=a; }
       mint operator*(const mint a) const { mint res(*this); return res*=a; }
-      mint&operator/=(const mint&rhs){
-          if (rhs.x==0) throw runtime_error("mint zero division");
-          return *this*=rhs.inv(); 
-      }
+      mint operator/(const mint a) const { mint res(*this); return res/=a; }
   
       mint pow(int n)const{
           mint res(1),x(*this);
@@ -2340,24 +2279,97 @@ snippet mint
           }
           return res;
       }
+  
       mint inv() const{
           if (x==0) throw runtime_error("inv does not exist");
           return pow(mod-2);
       }
-      /*mint inv()const{
-        int x,y;
-        int g=extgcd(v,mod,x,y);
-        assert(g==1);
-        if(x<0)x+=mod;
-        return mint(x);
-        }*/
-      operator int() const{return x;}
+      // mint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return mint(x);
+      // }
+  
       bool operator<(const mint&r)const{return x<r.x;}
       bool operator==(const mint&r)const{return x==r.x;}
   };
   istream& operator>>(istream& is, const mint& a) {return is >> a.x;}
   ostream& operator<<(ostream& os, const mint& a) {return os << a.x;}
   //}}}
+  
+
+
+snippet combination
+  int mod = 1e9+7;
+  // int mod = 998244353;
+  struct mint { //{{{
+      int x;
+      mint(int x=0):x((x%mod+mod)%mod){}
+  
+      // ?= operator
+      mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
+      mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
+      mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+      mint& operator/=(const mint&rhs){
+          if (rhs.x==0) throw runtime_error("mint zero division");
+          return *this*=rhs.inv(); 
+      }
+  
+      mint operator+(const mint a) const { mint res(*this); return res+=a; }
+      mint operator-(const mint a) const { mint res(*this); return res-=a; }
+      mint operator*(const mint a) const { mint res(*this); return res*=a; }
+      mint operator/(const mint a) const { mint res(*this); return res/=a; }
+  
+      mint pow(int n)const{
+          mint res(1),x(*this);
+          if (n<0){
+              n = -n;
+              x =(*this).inv();
+          }
+          while(n){
+              if(n&1)res*=x;
+              x*=x;
+              n>>=1;
+          }
+          return res;
+      }
+  
+      mint inv() const{
+          if (x==0) throw runtime_error("inv does not exist");
+          return pow(mod-2);
+      }
+      // mint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return mint(x);
+      // }
+  
+      bool operator<(const mint&r)const{return x<r.x;}
+      bool operator==(const mint&r)const{return x==r.x;}
+  };
+  istream& operator>>(istream& is, const mint& a) {return is >> a.x;}
+  ostream& operator<<(ostream& os, const mint& a) {return os << a.x;}
+  //}}}
+  
+  struct combination {  // {{{
+    vector<mint> fact, ifact;
+    combination(int n):fact(n+1),ifact(n+1) {
+      assert(n < mod);
+      fact[0] = 1;
+      for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
+      ifact[n] = fact[n].inv();
+      for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
+    }
+    mint operator()(int n, int k) {
+      if (k < 0 || k > n) return 0;
+      return fact[n]*ifact[k]*ifact[n-k];
+    }
+  } // }}}
+  com(500001);
   
 
 
