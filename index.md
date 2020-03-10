@@ -57,9 +57,9 @@ layout: default
 
 ### codes/cpp/algbra
 
+* :warning: <a href="library/codes/cpp/algbra/combination.hpp.html">codes/cpp/algbra/combination.hpp</a>
 * :warning: <a href="library/codes/cpp/algbra/int.cpp.html">codes/cpp/algbra/int.cpp</a>
 * :warning: <a href="library/codes/cpp/algbra/mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
-* :warning: <a href="library/codes/cpp/algbra/modcomb.cpp.html">codes/cpp/algbra/modcomb.cpp</a>
 
 
 <div id="2470d604da78346d1e94e45c40afd4da"></div>

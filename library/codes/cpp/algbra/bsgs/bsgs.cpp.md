@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#2470d604da78346d1e94e45c40afd4da">codes/cpp/algbra/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-09 23:30:07+09:00
+    - Last commit date: 2020-03-10 17:10:09+09:00
 
 
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#23a23c125caf8741d8c92b2934bce27d">codes/cpp/algbra</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/mint.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-09 23:30:07+09:00
+    - Last commit date: 2020-03-10 17:10:09+09:00
 
 
 
@@ -44,6 +44,7 @@ layout: default
 ## Required by
 
 * :warning: <a href="bsgs/bsgs.cpp.html">codes/cpp/algbra/bsgs/bsgs.cpp</a>
+* :warning: <a href="combination.hpp.html">codes/cpp/algbra/combination.hpp</a>
 
 
 ## Code
@@ -56,6 +57,7 @@ layout: default
 
 //%snippet.set('mint')%
 int mod = 1e9+7;
+// int mod = 998244353;
 struct mint { //{{{
     int x;
     mint(int x=0):x((x%mod+mod)%mod){}
@@ -64,14 +66,15 @@ struct mint { //{{{
     mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
     mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
     mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+    mint& operator/=(const mint&rhs){
+        if (rhs.x==0) throw runtime_error("mint zero division");
+        return *this*=rhs.inv(); 
+    }
 
     mint operator+(const mint a) const { mint res(*this); return res+=a; }
     mint operator-(const mint a) const { mint res(*this); return res-=a; }
     mint operator*(const mint a) const { mint res(*this); return res*=a; }
-    mint&operator/=(const mint&rhs){
-        if (rhs.x==0) throw runtime_error("mint zero division");
-        return *this*=rhs.inv(); 
-    }
+    mint operator/(const mint a) const { mint res(*this); return res/=a; }
 
     mint pow(int n)const{
         mint res(1),x(*this);
@@ -86,18 +89,19 @@ struct mint { //{{{
         }
         return res;
     }
+
     mint inv() const{
         if (x==0) throw runtime_error("inv does not exist");
         return pow(mod-2);
     }
-    /*mint inv()const{
-      int x,y;
-      int g=extgcd(v,mod,x,y);
-      assert(g==1);
-      if(x<0)x+=mod;
-      return mint(x);
-      }*/
-    operator int() const{return x;}
+    // mint inv()const{
+    //     int x,y;
+    //     int g=extgcd(v,mod,x,y);
+    //     assert(g==1);
+    //     if(x<0)x+=mod;
+    //     return mint(x);
+    // }
+
     bool operator<(const mint&r)const{return x<r.x;}
     bool operator==(const mint&r)const{return x==r.x;}
 };
