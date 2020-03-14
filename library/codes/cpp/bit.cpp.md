@@ -184,7 +184,7 @@ signed main(){
 #line 1 "codes/cpp/bit.cpp"
 using namespace std;
 #include <bits/stdc++.h>
-#include <iostream>
+#line 4 "codes/cpp/bit.cpp"
 
 // varibable settings {{{
 #define infile "../test/sample-1.in"

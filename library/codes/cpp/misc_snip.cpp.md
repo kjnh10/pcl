@@ -514,7 +514,7 @@ struct asvector {
 //%snippet.set('sandbox')%
 using namespace std;
 #include <bits/stdc++.h>
-#include <iostream>
+#line 169 "codes/cpp/misc_snip.cpp"
 
 int main(){
   return 0;

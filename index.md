@@ -142,6 +142,7 @@ layout: default
 
 ### codes/cpp/graph/treeclass/codes
 
+* :warning: <a href="library/codes/cpp/graph/treeclass/codes/reroot.cpp.html">codes/cpp/graph/treeclass/codes/reroot.cpp</a>
 * :heavy_check_mark: <a href="library/codes/cpp/graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 
 

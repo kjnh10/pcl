@@ -25,22 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: codes/cpp/graph/treeclass/codes/lca.test.cpp
+# :warning: codes/cpp/graph/treeclass/codes/reroot.cpp
 
 <a href="../../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/lca.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/reroot.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-14 16:14:37+09:00
 
 
-* see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../../../library/codes/cpp/graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -48,41 +47,90 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://judge.yosupo.jp/problem/lca"
+// %test('http://codeforces.com/contest/1324/problem/F')%
+#include "../../../template.hpp"
 #include "./tree.hpp"
 
 signed main() {
-  // tree tr(8);
-  // tr.add_edge(0, 1, 1);
-  // tr.add_edge(0, 2, 1);
-  // tr.add_edge(1, 3, 1);
-  // tr.add_edge(1, 4, 1);
-  // tr.add_edge(4, 6, 1);
-  // tr.add_edge(4, 7, 1);
-  // tr.add_edge(2, 5, 1);
-  //
-  // tr.build(2);
-  // dump(tr.par);
-  // dump(tr.dfstrv);
-  // dump(tr.ord);
-  // dump(tr.pos);
-  // dump(tr.depth);
-  // dump(tr.children);
-  // dump(tr.euler_tour);
-  // dump(tr.et_fpos);
-  // dump(tr.lca(3, 5));
+    int n; cin>>n;
+    vector<int> col(n);
+    rep(i, n){
+        cin>>col[i];
+        if (col[i]==0) col[i] = -1;
+    }
 
-  int n,q;cin>>n>>q;
-  tree tr(n);
-  rep(u, 1, n){
-    int p;cin>>p;
-    tr.add_edge(p,u);
-  }
-  tr.build(0);
-  rep(_, q){
-    int u,v;cin>>u>>v;
-    cout << tr.lca(u, v) << endl;
-  }
+    //%snippet.set('reroot')%
+    tree tr(n);
+    rep(i, n-1){
+        int u, v;cin>>u>>v;
+        u--;v--;
+        tr.add_edge(u, v);
+    }
+    tr.build(0);
+
+    vector<map<int, int>> dp(n);
+
+    // first dfs
+    rrep(i, 1, n){
+        int u = tr.dfstrv[i];
+        dp[u][tr.par[u]] = col[u];  // TODO: update
+        each(ch, tr.children[u]){
+            dp[u][tr.par[u]] += max(0LL, dp[ch][u]);  // TODO: update
+        }
+    }
+    dump_2d(dp, n, n);
+
+    // second dfs
+    rep(i, 0, n){
+        cerrendl;
+        int u = tr.dfstrv[i];
+        int m = sz(tr.adj[u]);
+        // uを頂点とする部分木の情報dp[u][*]を配る。
+
+        vector<int> lcum(m+2);
+        vector<int> rcum(m+2);
+        { // 前処理
+            vector<int> child_info(m+2);
+            rep(j, 1, m+1){
+                int v = tr.adj[u][j-1];
+                child_info[j] = max(dp[v][u], 0LL);  // TODO: update
+            }
+            lcum[0] = 0; lcum[m+1] = 0;  // 番兵  // TODO: update
+            rep(j, 1, m+1){
+                lcum[j] = lcum[j-1] + child_info[j];
+            }
+            rcum[0] = 0; rcum[m+1] = 0;  // 番兵  // TODO: update
+            rrep(j, 1, m+1){
+                rcum[j] = rcum[j+1] + child_info[j];  // TODO: update
+            }
+            dump(child_info);
+        }
+
+        dump(lcum);
+        dump(rcum);
+        rep(j, 1, m+1){
+            int v = tr.adj[u][j-1];
+            dp[u][v] = lcum[j-1] + rcum[j+1];  // TODO: update
+            dp[u][v] += col[u];  // 追加条件  // TODO: update
+            dump(u, v, j, dp[u][v], lcum[j-1], rcum[j+1], col[u]);
+        }
+    }
+    dump_2d(dp, n, n);
+
+    // answer
+    vector<int> ans;
+    rep(u, n){
+        int res = col[u];  // TODO: update
+        each(v, tr.adj[u]){
+            res += max(0LL, dp[v][u]);  // TODO: update
+        }
+        ans.push_back(res);
+    }
+    rep(i, sz(ans)) cout << ans[i] << (i!=sz(ans)-1 ? " " : "\n");
+
+    //%snippet.end()%
+
+    return 0;
 }
 
 ```
@@ -96,8 +144,6 @@ Traceback (most recent call last):
     bundled_code = language.bundle(self.file_class.file_path, basedir=pathlib.Path.cwd())
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 68, in bundle
     bundler.update(path)
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
-    self.update(self._resolve(pathlib.Path(included), included_from=path))
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
     self.update(self._resolve(pathlib.Path(included), included_from=path))
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 281, in update
