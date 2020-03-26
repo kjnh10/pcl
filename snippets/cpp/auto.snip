@@ -98,7 +98,7 @@ snippet bsearch
     //
     bool ans = (cond ? true : false);
     dump(x, ans);
-    return true;
+    return ans;
   };
   while(right-left>1){
     int mid = (right+left)/2;
@@ -303,9 +303,12 @@ snippet warsharll
 
 
 snippet digitdp
-  rep(i, sz(S)){  //桁数
+  int n = sz(s);
+  vector<vector<int>> dp(2, vector<int>(n));
+  dp[0][0] = 1;
+  rep(i, 1, n+1){  //桁数
     rep(leq, 2){  //未満確定フラグ
-      int lim = leq ? 9 : S[i]-'0';
+      int lim = leq ? 9 : s[i-1]-'0';
       rep(d, lim+1){
         dp[leq || d<lim][i] += dp[leq][i-1];
       }
@@ -636,6 +639,23 @@ snippet 01bfs
       q.push_back(v);
     }
   }
+  
+
+
+snippet lis
+  
+  int lis(vector<int>& x){/*{{{*/
+      int n = sz(x);
+      vector<int> dp(n, INF);
+      int res = 0;
+      rep(i, n){
+          int j = lb(all(dp), x[i]) - dp.begin();
+          chmax(res, j+1);
+          dp[j] = x[i];
+      }
+      // dump(dp);
+      return res;
+  }/*}}}*/
   
 
 

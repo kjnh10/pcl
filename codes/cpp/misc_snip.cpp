@@ -111,9 +111,12 @@ dump_2d(d, n, n);
 
 
 //%snippet.set('digitdp')%
-rep(i, sz(S)){  //桁数
+int n = sz(s);
+vector<vector<int>> dp(2, vector<int>(n));
+dp[0][0] = 1;
+rep(i, 1, n+1){  //桁数
   rep(leq, 2){  //未満確定フラグ
-    int lim = leq ? 9 : S[i]-'0';
+    int lim = leq ? 9 : s[i-1]-'0';
     rep(d, lim+1){
       dp[leq || d<lim][i] += dp[leq][i-1];
     }

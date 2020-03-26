@@ -6,7 +6,7 @@ auto isright = [&](int x) {
   //
   bool ans = (cond ? true : false);
   dump(x, ans);
-  return true;
+  return ans;
 };
 while(right-left>1){
   int mid = (right+left)/2;
