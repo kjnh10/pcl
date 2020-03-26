@@ -47,6 +47,7 @@ layout: default
 * :warning: <a href="graph/treeclass/codes/reroot.cpp.html">codes/cpp/graph/treeclass/codes/reroot.cpp</a>
 * :heavy_check_mark: <a href="graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 * :warning: <a href="graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
+* :warning: <a href="lis.cpp.html">codes/cpp/lis.cpp</a>
 
 
 ## Verified with
@@ -124,7 +125,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 Traceback (most recent call last):
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
     bundled_code = language.bundle(self.file_class.file_path, basedir=pathlib.Path.cwd())
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 68, in bundle
+  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 170, in bundle
     bundler.update(path)
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 281, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")

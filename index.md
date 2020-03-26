@@ -43,6 +43,7 @@ layout: default
 * :warning: <a href="library/codes/cpp/dfs.cpp.html">codes/cpp/dfs.cpp</a>
 * :warning: <a href="library/codes/cpp/event_sort.cpp.html">codes/cpp/event_sort.cpp</a>
 * :warning: <a href="library/codes/cpp/geometry.cpp.html">codes/cpp/geometry.cpp</a>
+* :warning: <a href="library/codes/cpp/lis.cpp.html">codes/cpp/lis.cpp</a>
 * :warning: <a href="library/codes/cpp/matrix.cpp.html">codes/cpp/matrix.cpp</a>
 * :warning: <a href="library/codes/cpp/misc_snip.cpp.html">codes/cpp/misc_snip.cpp</a>
 * :warning: <a href="library/codes/cpp/napsack.cpp.html">codes/cpp/napsack.cpp</a>

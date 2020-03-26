@@ -21,26 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/test.make_bipartie/codes/solve.cpp
+# :warning: codes/cpp/lis.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#6dd0511cf921e627379fb6f893780804">codes/cpp/graph/test.make_bipartie/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-23 17:29:25+09:00
+* category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/lis.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-26 18:44:51+09:00
 
 
 
 
 ## Depends on
 
-* :warning: <a href="../../graph.hpp.html">codes/cpp/graph/graph.hpp</a>
-* :warning: <a href="../../unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -48,28 +46,30 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../graph.hpp"
+#include "./template.hpp"
 
-signed main() {
-  int n,m;cin>>n>>m;
-  Graph<int, int> g(n);
-  rep(i, m){
-    int a,b;cin>>a>>b;
-    a--;b--;
-    g.add_edge(a, b, 1);
-  }
+//%snippet.set('lis')%
 
-  auto res = g.make_bipartite();
-  dump(res);
-  if (res[0]==-1){
-    cout << n*(n-1)/2 - m << endl;
-  }
-  else{
-    int c = accumulate(all(res), 0LL);
-    cout << c*(n-c) - m << endl;
-  }
+int lis(vector<int>& x){/*{{{*/
+    int n = sz(x);
+    vector<int> dp(n, INF);
+    int res = 0;
+    rep(i, n){
+        int j = lb(all(dp), x[i]) - dp.begin();
+        chmax(res, j+1);
+        dp[j] = x[i];
+    }
+    // dump(dp);
+    return res;
+}/*}}}*/
 
-  return 0;
+//%snippet.end()%
+
+signed main(){
+    vi x({1, 5, 4, 2, 3, 7});
+    auto res = lis(x);
+    dump(res);
+    return 0;
 }
 
 ```
@@ -85,8 +85,6 @@ Traceback (most recent call last):
     bundler.update(path)
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
     self.update(self._resolve(pathlib.Path(included), included_from=path))
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
-    self.update(self._resolve(pathlib.Path(included), included_from=path))
   File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 281, in update
     raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
 onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hpp: line 48: unable to process #include in #if / #ifdef / #ifndef other than include guards
@@ -94,5 +92,5 @@ onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hp
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

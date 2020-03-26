@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/bsearch.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-21 02:54:48+09:00
+    - Last commit date: 2020-03-26 18:44:51+09:00
 
 
 
@@ -49,7 +49,7 @@ auto isright = [&](int x) {
   //
   bool ans = (cond ? true : false);
   dump(x, ans);
-  return true;
+  return ans;
 };
 while(right-left>1){
   int mid = (right+left)/2;
@@ -73,7 +73,7 @@ auto isright = [&](int x) {
   //
   bool ans = (cond ? true : false);
   dump(x, ans);
-  return true;
+  return ans;
 };
 while(right-left>1){
   int mid = (right+left)/2;
