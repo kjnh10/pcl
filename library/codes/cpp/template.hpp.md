@@ -48,6 +48,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 * :warning: <a href="graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
 * :warning: <a href="lis.cpp.html">codes/cpp/lis.cpp</a>
+* :warning: <a href="pascal.cpp.html">codes/cpp/pascal.cpp</a>
 
 
 ## Verified with

@@ -47,6 +47,7 @@ layout: default
 * :warning: <a href="library/codes/cpp/matrix.cpp.html">codes/cpp/matrix.cpp</a>
 * :warning: <a href="library/codes/cpp/misc_snip.cpp.html">codes/cpp/misc_snip.cpp</a>
 * :warning: <a href="library/codes/cpp/napsack.cpp.html">codes/cpp/napsack.cpp</a>
+* :warning: <a href="library/codes/cpp/pascal.cpp.html">codes/cpp/pascal.cpp</a>
 * :warning: <a href="library/codes/cpp/rectanglesum.cpp.html">codes/cpp/rectanglesum.cpp</a>
 * :warning: <a href="library/codes/cpp/slide_min.cpp.html">codes/cpp/slide_min.cpp</a>
 * :warning: <a href="library/codes/cpp/syakutori.cpp.html">codes/cpp/syakutori.cpp</a>
