@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-26 18:44:51+09:00
+    - Last commit date: 2020-03-29 11:19:50+09:00
 
 
 
@@ -343,6 +343,22 @@ void ans(int u){/*{{{*/
     cout << "!" << " " << u+1 << endl;
 }/*}}}*/
 
+
+//%snippet.set('pairsort')%
+template<class T>
+void pairsort(vector<T>& x, vector<T>& y){
+    int n = sz(x);
+    vector<tuple<T, T>> t(n);
+    rep(i, n){
+        t[i] = make_tuple(x[i], y[i]);
+    }
+    sort(all(t));
+    rep(i, n){
+        x[i] = get<0>(t[i]);
+        y[i] = get<1>(t[i]);
+    }
+}
+
 ```
 {% endraw %}
 
@@ -651,6 +667,22 @@ int query(int u, int v){/*{{{*/
 void ans(int u){/*{{{*/
     cout << "!" << " " << u+1 << endl;
 }/*}}}*/
+
+
+//%snippet.set('pairsort')%
+template<class T>
+void pairsort(vector<T>& x, vector<T>& y){
+    int n = sz(x);
+    vector<tuple<T, T>> t(n);
+    rep(i, n){
+        t[i] = make_tuple(x[i], y[i]);
+    }
+    sort(all(t));
+    rep(i, n){
+        x[i] = get<0>(t[i]);
+        y[i] = get<1>(t[i]);
+    }
+}
 
 ```
 {% endraw %}
