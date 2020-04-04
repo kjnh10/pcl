@@ -74,9 +74,14 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
+vi p(n);
+iota(all(p), 0LL);
 do{
-  ${0};
-} while (next_permutation(all(x)));
+    dump(p);
+    vi ma(a);
+    rep(i, n) ma[i] = a[p[i]];
+    dump(ma);
+} while (next_permutation(all(p)));
 
 //%snippet.set('to_bin')%
 #define N 61

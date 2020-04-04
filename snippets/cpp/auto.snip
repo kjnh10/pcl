@@ -280,9 +280,14 @@ snippet sortkey
 
 
 snippet perm
+  vi p(n);
+  iota(all(p), 0LL);
   do{
-    ${0};
-  } while (next_permutation(all(x)));
+      dump(p);
+      vi ma(a);
+      rep(i, n) ma[i] = a[p[i]];
+      dump(ma);
+  } while (next_permutation(all(p)));
   
 
 
@@ -554,7 +559,7 @@ snippet bit
       }
     } //}}}
   
-    T rsum(int i){ //{{{ [0, i]
+    T _rsum(int i){ //{{{ [0, i]
       T s = 0;
       while(i >= 0){
         s += dat[i];
@@ -565,7 +570,7 @@ snippet bit
   
     T sum(int l, int r){ //{{{  [l, r)
       if(l > r-1) return 0;
-      return rsum(r-1) - rsum(l-1);
+      return _rsum(r-1) - _rsum(l-1);
     } //}}}
   
     void add(int i, T x){ //{{{
@@ -1520,82 +1525,82 @@ snippet dijkstra
   // Cost infcost = mp(INF, INF);
   
   struct Edge {
-    Pos to;/*{{{*/
-    Cost cost;
-    Edge(Pos to, Cost cost): to(to), cost(cost) {
-    }
-    friend auto& operator<<(auto &os, const Edge& e){
-      os << e.to << " " << e.cost;
-      return os;
-    }/*}}}*/
+      Pos to;/*{{{*/
+      Cost cost;
+      Edge(Pos to, Cost cost): to(to), cost(cost) {
+      }
+      friend auto& operator<<(auto &os, const Edge& e){
+          os << e.to << " " << e.cost;
+          return os;
+      }/*}}}*/
   };
   struct Graph{
-    unordered_map<Pos, vector<Edge>> all_edges;//Posがpiiでなくintならunordredの方が早い{{{
-    void add_edge(Pos from, Pos to, Cost cost){
-      all_edges[from].emplace_back(to, cost);
-    }
+      unordered_map<Pos, vector<Edge>> all_edges;//Posがpiiでなくintならunordredの方が早い{{{
+      void add_edge(Pos from, Pos to, Cost cost){
+          all_edges[from].emplace_back(to, cost);
+      }
   
-    auto operator[](Pos pos) {
-      return all_edges[pos];
-    }
+      auto operator[](Pos pos) {
+          return all_edges[pos];
+      }
   
-    friend auto& operator<<(auto &os, const Graph& G){
-      os << G.all_edges;
-      return os;
-    }/*}}}*/
+      friend auto& operator<<(auto &os, const Graph& G){
+          os << G.all_edges;
+          return os;
+      }/*}}}*/
   };
   struct Dist {
-    unordered_map<Pos, Cost> data;/*{{{*/
-    Cost operator[](Pos pos){
-      if (data.find(pos)!=data.end()) return data[pos];
-      else                      return infcost;
-    }/*}}}*/
+      unordered_map<Pos, Cost> data;/*{{{*/
+      Cost operator[](Pos pos){
+          if (data.find(pos)!=data.end()) return data[pos];
+          else                      return infcost;
+      }/*}}}*/
   };
   Dist dijkstra(Graph& G, vector<Pos> starts) {  // 多点スタート
-    Dist d;  // 最短距離{{{
-    PQ<pair<Cost, Pos>> pq;
-    each(start, starts){
-      d.data[start] = zerocost;
-      pq.push(mp(zerocost, start));
-    }
-    while (!pq.empty()){
-      auto cp = pq.top(); pq.pop();
-      auto cost = cp.first;
-      auto u = cp.second;
-      for (const auto &edge: G[u]){
-        Pos v = edge.to;
-        Cost ncost = cost+edge.cost;
-        if (ncost < d[v]){
-          d.data[v] = ncost;
-          pq.push(mp(ncost, v));
-        }
+      Dist d;  // 最短距離{{{
+      PQ<pair<Cost, Pos>> pq;
+      each(start, starts){
+          d.data[start] = zerocost;
+          pq.push(mp(zerocost, start));
       }
-    }
-    return d;/*}}}*/
+      while (!pq.empty()){
+          auto cp = pq.top(); pq.pop();
+          auto cost = cp.first;
+          auto u = cp.second;
+          for (const auto &edge: G[u]){
+              Pos v = edge.to;
+              Cost ncost = cost+edge.cost;
+              if (ncost < d[v]){
+                  d.data[v] = ncost;
+                  pq.push(mp(ncost, v));
+              }
+          }
+      }
+      return d;/*}}}*/
   };
   Dist dijkstra(Graph& G, Pos start) {
-    vector<Pos> starts = {start};
-    return dijkstra(G, starts);
+      vector<Pos> starts = {start};
+      return dijkstra(G, starts);
   };
   
   // int sample(){
-    // init and build G
-    // Graph G;
-    //
-    // int n,m;cin>>n>>m;
-    // rep(i, m){
-    //   Pos from, to;
-    //   Cost cost;
-    //   cin>>from>>to>>cost;
-    //   from--;to--;
-    //   G.add_edge(from, to, cost);
-    //   G.add_edge(to, from, cost);  // TODO: if directed, remove this line
-    // }
-    //
-    // // calc min distance by G
-    // auto d = dijkstra(G, {start});
-    // cout << d[{goal}] << endl;  // 到達不可能ならd[goal] -> INF
-    // return 0;
+  // init and build G
+  // Graph G;
+  //
+  // int n,m;cin>>n>>m;
+  // rep(i, m){
+  //     Pos from, to;
+  //     Cost cost;
+  //     cin>>from>>to>>cost;
+  //     from--;to--;
+  //     G.add_edge(from, to, cost);
+  //     G.add_edge(to, from, cost);  // TODO: if directed, remove this line
+  // }
+  //
+  // // calc min distance by G
+  // auto d = dijkstra(G, {start});
+  // cout << d[{goal}] << endl;  // 到達不可能ならd[goal] -> INF
+  // return 0;
   // }
   
 
@@ -1754,8 +1759,9 @@ snippet reroot
   
       // first dfs
       rrep(i, 1, n){
+          // 葉からdp
           int u = tr.dfstrv[i];
-          dp[u][tr.par[u]] = col[u];  // TODO: update
+          dp[u][tr.par[u]] = col[u];  // TODO: update: 子供がいない場合
           each(ch, tr.children[u]){
               dp[u][tr.par[u]] += max(0LL, dp[ch][u]);  // TODO: update
           }
@@ -1765,9 +1771,9 @@ snippet reroot
       // second dfs
       rep(i, 0, n){
           cerrendl;
+          // uを頂点とする部分木の情報dp[u][*]を配る。
           int u = tr.dfstrv[i];
           int m = sz(tr.adj[u]);
-          // uを頂点とする部分木の情報dp[u][*]を配る。
   
           vector<int> lcum(m+2);
           vector<int> rcum(m+2);
@@ -1777,11 +1783,11 @@ snippet reroot
                   int v = tr.adj[u][j-1];
                   child_info[j] = max(dp[v][u], 0LL);  // TODO: update
               }
-              lcum[0] = 0; lcum[m+1] = 0;  // 番兵  // TODO: update
+              lcum[0] = 0; lcum[m+1] = 0;  // 単位元を番兵に  // TODO: update
+              rcum[0] = 0; rcum[m+1] = 0;  // 単位元を番兵に  // TODO: update
               rep(j, 1, m+1){
-                  lcum[j] = lcum[j-1] + child_info[j];
+                  lcum[j] = lcum[j-1] + child_info[j];  // TODO: update
               }
-              rcum[0] = 0; rcum[m+1] = 0;  // 番兵  // TODO: update
               rrep(j, 1, m+1){
                   rcum[j] = rcum[j+1] + child_info[j];  // TODO: update
               }
