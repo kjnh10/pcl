@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/reroot.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-14 16:14:37+09:00
+    - Last commit date: 2020-04-04 15:53:48+09:00
 
 
 
@@ -72,8 +72,9 @@ signed main() {
 
     // first dfs
     rrep(i, 1, n){
+        // 葉からdp
         int u = tr.dfstrv[i];
-        dp[u][tr.par[u]] = col[u];  // TODO: update
+        dp[u][tr.par[u]] = col[u];  // TODO: update: 子供がいない場合
         each(ch, tr.children[u]){
             dp[u][tr.par[u]] += max(0LL, dp[ch][u]);  // TODO: update
         }
@@ -83,9 +84,9 @@ signed main() {
     // second dfs
     rep(i, 0, n){
         cerrendl;
+        // uを頂点とする部分木の情報dp[u][*]を配る。
         int u = tr.dfstrv[i];
         int m = sz(tr.adj[u]);
-        // uを頂点とする部分木の情報dp[u][*]を配る。
 
         vector<int> lcum(m+2);
         vector<int> rcum(m+2);
@@ -95,11 +96,11 @@ signed main() {
                 int v = tr.adj[u][j-1];
                 child_info[j] = max(dp[v][u], 0LL);  // TODO: update
             }
-            lcum[0] = 0; lcum[m+1] = 0;  // 番兵  // TODO: update
+            lcum[0] = 0; lcum[m+1] = 0;  // 単位元を番兵に  // TODO: update
+            rcum[0] = 0; rcum[m+1] = 0;  // 単位元を番兵に  // TODO: update
             rep(j, 1, m+1){
-                lcum[j] = lcum[j-1] + child_info[j];
+                lcum[j] = lcum[j-1] + child_info[j];  // TODO: update
             }
-            rcum[0] = 0; rcum[m+1] = 0;  // 番兵  // TODO: update
             rrep(j, 1, m+1){
                 rcum[j] = rcum[j+1] + child_info[j];  // TODO: update
             }

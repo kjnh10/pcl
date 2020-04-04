@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-29 11:19:50+09:00
+    - Last commit date: 2020-04-04 15:54:19+09:00
 
 
 
@@ -117,9 +117,14 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
+vi p(n);
+iota(all(p), 0LL);
 do{
-  ${0};
-} while (next_permutation(all(x)));
+    dump(p);
+    vi ma(a);
+    rep(i, n) ma[i] = a[p[i]];
+    dump(ma);
+} while (next_permutation(all(p)));
 
 //%snippet.set('to_bin')%
 #define N 61
@@ -442,9 +447,14 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
+vi p(n);
+iota(all(p), 0LL);
 do{
-  ${0};
-} while (next_permutation(all(x)));
+    dump(p);
+    vi ma(a);
+    rep(i, n) ma[i] = a[p[i]];
+    dump(ma);
+} while (next_permutation(all(p)));
 
 //%snippet.set('to_bin')%
 #define N 61
@@ -536,7 +546,7 @@ struct asvector {
 //%snippet.set('sandbox')%
 using namespace std;
 #include <bits/stdc++.h>
-#line 172 "codes/cpp/misc_snip.cpp"
+#line 177 "codes/cpp/misc_snip.cpp"
 
 int main(){
   return 0;

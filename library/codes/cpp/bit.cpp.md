@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/bit.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-28 21:08:11+09:00
+    - Last commit date: 2020-04-04 15:53:48+09:00
 
 
 
@@ -104,7 +104,7 @@ template<typename T=int> struct bit {//{{{
     }
   } //}}}
 
-  T rsum(int i){ //{{{ [0, i]
+  T _rsum(int i){ //{{{ [0, i]
     T s = 0;
     while(i >= 0){
       s += dat[i];
@@ -115,7 +115,7 @@ template<typename T=int> struct bit {//{{{
 
   T sum(int l, int r){ //{{{  [l, r)
     if(l > r-1) return 0;
-    return rsum(r-1) - rsum(l-1);
+    return _rsum(r-1) - _rsum(l-1);
   } //}}}
 
   void add(int i, T x){ //{{{
@@ -165,11 +165,11 @@ signed main(){
     cout << b.raw[i] << (i!=5-1?" ":"\n");
   }
   // cout << b << endl;  // dump.hppをimportしないと使えない。
-  cout << b.rsum(0) << endl;  //1
-  cout << b.rsum(1) << endl;  //3
-  cout << b.rsum(2) << endl;  //7
-  cout << b.rsum(3) << endl;  //15
-  cout << b.rsum(4) << endl;  //31
+  cout << b._rsum(0) << endl;  //1
+  cout << b._rsum(1) << endl;  //3
+  cout << b._rsum(2) << endl;  //7
+  cout << b._rsum(3) << endl;  //15
+  cout << b._rsum(4) << endl;  //31
   cout << b.sum(2, 4) << endl;  // 12
 
   return 0;
@@ -245,7 +245,7 @@ template<typename T=int> struct bit {//{{{
     }
   } //}}}
 
-  T rsum(int i){ //{{{ [0, i]
+  T _rsum(int i){ //{{{ [0, i]
     T s = 0;
     while(i >= 0){
       s += dat[i];
@@ -256,7 +256,7 @@ template<typename T=int> struct bit {//{{{
 
   T sum(int l, int r){ //{{{  [l, r)
     if(l > r-1) return 0;
-    return rsum(r-1) - rsum(l-1);
+    return _rsum(r-1) - _rsum(l-1);
   } //}}}
 
   void add(int i, T x){ //{{{
@@ -306,11 +306,11 @@ signed main(){
     cout << b.raw[i] << (i!=5-1?" ":"\n");
   }
   // cout << b << endl;  // dump.hppをimportしないと使えない。
-  cout << b.rsum(0) << endl;  //1
-  cout << b.rsum(1) << endl;  //3
-  cout << b.rsum(2) << endl;  //7
-  cout << b.rsum(3) << endl;  //15
-  cout << b.rsum(4) << endl;  //31
+  cout << b._rsum(0) << endl;  //1
+  cout << b._rsum(1) << endl;  //3
+  cout << b._rsum(2) << endl;  //7
+  cout << b._rsum(3) << endl;  //15
+  cout << b._rsum(4) << endl;  //31
   cout << b.sum(2, 4) << endl;  // 12
 
   return 0;
