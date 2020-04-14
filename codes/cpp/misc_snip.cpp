@@ -148,10 +148,10 @@ struct asvector {
     rep(i, 1, sz(a))  cum[i]+=cum[i-1];
   } // }}}
 
-  T rsum(int l, int r) {  // return sum of [l, r) of data.  {{{
+  T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
     l = max(0LL, l);
     r = min(r, sz(cum));
-    if (l<=r){
+    if (l<r){
       return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
     }
     else{
