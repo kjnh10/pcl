@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-04 15:54:19+09:00
+    - Last commit date: 2020-04-14 22:44:45+09:00
 
 
 
@@ -191,10 +191,10 @@ struct asvector {
     rep(i, 1, sz(a))  cum[i]+=cum[i-1];
   } // }}}
 
-  T rsum(int l, int r) {  // return sum of [l, r) of data.  {{{
+  T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
     l = max(0LL, l);
     r = min(r, sz(cum));
-    if (l<=r){
+    if (l<r){
       return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
     }
     else{
@@ -521,10 +521,10 @@ struct asvector {
     rep(i, 1, sz(a))  cum[i]+=cum[i-1];
   } // }}}
 
-  T rsum(int l, int r) {  // return sum of [l, r) of data.  {{{
+  T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
     l = max(0LL, l);
     r = min(r, sz(cum));
-    if (l<=r){
+    if (l<r){
       return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
     }
     else{
