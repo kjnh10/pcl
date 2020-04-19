@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7c19064045d3d46a80d9dc742b659ff9">codes/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-14 22:44:45+09:00
+    - Last commit date: 2020-04-19 13:32:41+09:00
 
 
 
@@ -364,6 +364,18 @@ void pairsort(vector<T>& x, vector<T>& y){
     }
 }
 
+
+//%snippet.set('make_vector')%
+template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
+    return vector<vector<T>>(n1, vector<T>(n2, init_value));
+}
+
+template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+    return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
+}
+// auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
+// auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
+
 ```
 {% endraw %}
 
@@ -693,6 +705,18 @@ void pairsort(vector<T>& x, vector<T>& y){
         y[i] = get<1>(t[i]);
     }
 }
+
+
+//%snippet.set('make_vector')%
+template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
+    return vector<vector<T>>(n1, vector<T>(n2, init_value));
+}
+
+template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+    return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
+}
+// auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
+// auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
 
 ```
 {% endraw %}
