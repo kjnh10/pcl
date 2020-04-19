@@ -361,10 +361,10 @@ snippet asv
       rep(i, 1, sz(a))  cum[i]+=cum[i-1];
     } // }}}
   
-    T rsum(int l, int r) {  // return sum of [l, r) of data.  {{{
+    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
       l = max(0LL, l);
       r = min(r, sz(cum));
-      if (l<=r){
+      if (l<r){
         return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
       }
       else{
@@ -533,6 +533,36 @@ snippet interactive
   void ans(int u){/*{{{*/
       cout << "!" << " " << u+1 << endl;
   }/*}}}*/
+  
+
+
+snippet pairsort
+  template<class T>
+  void pairsort(vector<T>& x, vector<T>& y){
+      int n = sz(x);
+      vector<tuple<T, T>> t(n);
+      rep(i, n){
+          t[i] = make_tuple(x[i], y[i]);
+      }
+      sort(all(t));
+      rep(i, n){
+          x[i] = get<0>(t[i]);
+          y[i] = get<1>(t[i]);
+      }
+  }
+  
+
+
+snippet make_vector
+  template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
+      return vector<vector<T>>(n1, vector<T>(n2, init_value));
+  }
+  
+  template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+      return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
+  }
+  // auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
+  // auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
   
 
 

@@ -320,3 +320,15 @@ void pairsort(vector<T>& x, vector<T>& y){
         y[i] = get<1>(t[i]);
     }
 }
+
+
+//%snippet.set('make_vector')%
+template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
+    return vector<vector<T>>(n1, vector<T>(n2, init_value));
+}
+
+template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+    return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
+}
+// auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
+// auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
