@@ -69,9 +69,9 @@ struct tree{/*{{{*/
     vector<int> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv; // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
     vector<int> ord;  // ord[u]: uのdfs木における訪問順
-    vector<int> pos;  // pos[u]: uのdfs終了時のカウンター
+    vector<int> end;  // end[u]: uのdfs終了時のカウンター
     vector<int> psize; // psize[u]: uのpartial tree size
-    // vの部分木は[ord[v], pos[v])
+    // uの部分木は[ord[u], end[u])
     // ordとdfstrvは逆変換
 
     vector<int> depth;  // depth[i]: dfs木でのiの深さ
@@ -82,39 +82,46 @@ struct tree{/*{{{*/
     vector<int> euler_tour;
     vector<int> et_fpos;  // euler_tour first occurence position
     SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
+    vector<int> head_of_comp;
 
     int _counter = 0;
 
     tree(){};
-    tree(int n):
-        n(n),par(n),cost(n,1),ord(n),pos(n),
-        psize(n),depth(n),ldepth(n),g(n),adj(n),children(n),et_fpos(n)
-    {};
+    tree(int n): n(n),par(n),cost(n,1),ord(n),end(n),psize(n),depth(n),ldepth(n),g(n),adj(n),children(n),et_fpos(n),head_of_comp(n){};
 
-    void add_edge(int u, int v, int cost){
+    void add_edge(int u, int v, int cost){/*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
         adj[u].emplace_back(v);
         adj[v].emplace_back(u);
-    }
-    void add_edge(int u, int v){
+    }/*}}}*/
+    void add_edge(int u, int v){/*{{{*/
         g[u].emplace_back(v, 1);
         g[v].emplace_back(u, 1);
         adj[u].emplace_back(v);
         adj[v].emplace_back(u);
-    }
-
-    void build(int root){
+    }/*}}}*/
+    void build(int root){/*{{{*/
         _counter = 0;
         par[root] = -1;
         cost[root] = INF;
-        _dfs_tree(root, -1);
+        _dfs_psize(root, -1);
+        _dfs_tree(root, -1, root);
         _dfs_et(root);
         vector<int> ini(2*n-1); rep(i, 2*n-1) ini[i] = ord[euler_tour[i]];
         _seg = SegmentTree<int>(ini, [](auto a, auto b){return min(a,b);}, 1e18);
-    }
-
-    void _dfs_tree(int u, int pre){
+    }/*}}}*/
+    int _dfs_psize(int u, int pre){/*{{{*/
+        psize[u] = 1;
+        each(el, g[u]){
+            int v = el.first;
+            if (v==pre) continue;
+            psize[u] += _dfs_psize(v, u);
+        }
+        return psize[u];
+    }/*}}}*/
+    void _dfs_tree(int u, int pre, int head_node){/*{{{*/
+        dump("dfs_tree", u, pre, head_node);
         dfstrv.pb(u);
         ord[u] = _counter;
         if (pre!=-1){
@@ -123,43 +130,57 @@ struct tree{/*{{{*/
         }
 
         _counter++;
-        each(el, g[u]){
-            int v = el.first;
+        // sort(all(g[u]), [&](auto &l, auto &r){return psize[l.first] > psize[r.first];});
+        int most_heavy_i;
+        {
+            // calc most heavy child
+            int max_psize = 0;
+            rep(i, sz(g[u])){
+                if (g[u][i].first==pre) continue;
+                if (psize[g[u][i].first] > max_psize){
+                    most_heavy_i = i;
+                    max_psize = psize[g[u][i].first];
+                }
+            }
+        }
+
+        head_of_comp[u] = head_node;
+        rep(i, sz(g[u])){
+            int v = g[u][i].first;
             if (v==pre) continue;
 
             children[u].pb(v);
             par[v] = u;
-            cost[v] = el.second;
-            _dfs_tree(v, u);
-        }
-        pos[u] = _counter;
-        psize[u] = pos[u] - ord[u];
-    }
+            cost[v] = g[u][i].second;
 
-    void _dfs_et(int u){
+            dump(u, g[u], i, v);
+            if (i==most_heavy_i) _dfs_tree(v, u, head_node); // continue components
+            else                 _dfs_tree(v, u, v);         // new
+        }
+        end[u] = _counter;
+    }/*}}}*/
+    void _dfs_et(int u){/*{{{*/
         et_fpos[u] = euler_tour.size();
         euler_tour.pb(u);
         each(v, children[u]){
             _dfs_et(v);
             euler_tour.pb(u);
         }
-    }
-
-    int lca(int u, int v){
+    }/*}}}*/
+    int lca(int u, int v){/*{{{*/
         if (u==v) return u;
         if (et_fpos[u]>et_fpos[v]) swap(u, v);
         return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
-    }
-
-    int dist(int u, int v){
+    }/*}}}*/
+    int dist(int u, int v){/*{{{*/
         int p = lca(u, v);
         return depth[u] + depth[v] - 2*depth[p];
-    }
-    int ldist(int u, int v){  // length dist
+    }/*}}}*/
+    int ldist(int u, int v){  // length dist{{{
         int p = lca(u, v);
         return ldepth[u] + ldepth[v] - 2*ldepth[p];
-    }
-    pair<int, int> diameter(){
+    }/*}}}*/
+    pair<int, int> diameter(){/*{{{*/
         int u, v;
         int max_len = *max_element(all(ldepth));
         rep(i, n){
@@ -173,9 +194,42 @@ struct tree{/*{{{*/
             if (d>md){ v = i; md = d; }
         }
         return mp(u, v);
-    }
+    }/*}}}*/
+    vector<pair<int, int>> get_range_of_HLD(int u, int v){ //{{{
+        // u, vはlca後のものを仮定. 閉区間をvectorで返す
+        vector<pair<int, int>> res;
+        int p = lca(u, v);
+        if (u!=p && v!=p) assert(false);
+
+        if (depth[u]>depth[v]) swap(u, v);
+        int cur = v;
+        while(1){
+            if (head_of_comp[u] == head_of_comp[cur]){
+                res.pb(mp(ord[u], ord[cur]));
+                return res;
+            }
+            else{
+                res.pb(mp(ord[head_of_comp[cur]], ord[cur]));
+                cur = par[head_of_comp[cur]];
+            }
+        }
+        return res;
+    } //}}}
 
 };/*}}}*/
+ostream& operator<<(ostream& os, const tree& tr){
+    os << endl;
+    os << "par:         " << tr.par << endl;
+    os << "dfstrv:      " << tr.dfstrv << endl;
+    os << "ord:         " << tr.ord << endl;
+    os << "end:         " << tr.end << endl;
+    os << "depth:       " << tr.depth << endl;
+    os << "children:    " << tr.children << endl;
+    os << "euler_tour:  " << tr.euler_tour << endl;
+    os << "et_fpos:     " << tr.et_fpos << endl;
+    os << "head_of_comp:" << tr.head_of_comp << endl;
+    return os;
+}
 
 //%snippet.end()%
 

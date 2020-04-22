@@ -20,6 +20,7 @@ signed main() {
     tr.build(0);
 
     vector<map<int, int>> dp(n);
+    // dp[u][v]: uの親をvとするような向きで木を見た時のuを頂点とする部分木の情報
 
     // first dfs
     rrep(i, 1, n){
