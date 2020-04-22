@@ -1,6 +1,6 @@
 #include "../../../template.hpp"
-// (参考) https://www.slideshare.net/Proktmr/ss-138534092
-
+// (ref) https://www.slideshare.net/Proktmr/ss-138534092
+// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 //%snippet.set('tree')%
 
 template<typename T> struct SegmentTree { // {{{
@@ -104,7 +104,7 @@ struct tree{/*{{{*/
     void build(int root){/*{{{*/
         _counter = 0;
         par[root] = -1;
-        cost[root] = INF;
+        cost[root] = -1;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
         _dfs_et(root);
@@ -121,7 +121,6 @@ struct tree{/*{{{*/
         return psize[u];
     }/*}}}*/
     void _dfs_tree(int u, int pre, int head_node){/*{{{*/
-        dump("dfs_tree", u, pre, head_node);
         dfstrv.pb(u);
         ord[u] = _counter;
         if (pre!=-1){
@@ -130,11 +129,10 @@ struct tree{/*{{{*/
         }
 
         _counter++;
-        // sort(all(g[u]), [&](auto &l, auto &r){return psize[l.first] > psize[r.first];});
-        int most_heavy_i;
         {
-            // calc most heavy child
+            // set most heavy child to top
             int max_psize = 0;
+            int most_heavy_i = -1;
             rep(i, sz(g[u])){
                 if (g[u][i].first==pre) continue;
                 if (psize[g[u][i].first] > max_psize){
@@ -142,6 +140,7 @@ struct tree{/*{{{*/
                     max_psize = psize[g[u][i].first];
                 }
             }
+            if (most_heavy_i!=-1) swap(g[u][most_heavy_i], g[u][0]);
         }
 
         head_of_comp[u] = head_node;
@@ -153,9 +152,8 @@ struct tree{/*{{{*/
             par[v] = u;
             cost[v] = g[u][i].second;
 
-            dump(u, g[u], i, v);
-            if (i==most_heavy_i) _dfs_tree(v, u, head_node); // continue components
-            else                 _dfs_tree(v, u, v);         // new
+            if (i==0) _dfs_tree(v, u, head_node); // continue components
+            else      _dfs_tree(v, u, v);         // new
         }
         end[u] = _counter;
     }/*}}}*/
@@ -195,31 +193,28 @@ struct tree{/*{{{*/
         }
         return mp(u, v);
     }/*}}}*/
-    vector<pair<int, int>> get_range_of_HLD(int u, int v){ //{{{
-        // u, vはlca後のものを仮定. 閉区間をvectorで返す
-        vector<pair<int, int>> res;
-        int p = lca(u, v);
-        if (u!=p && v!=p) assert(false);
-
-        if (depth[u]>depth[v]) swap(u, v);
-        int cur = v;
-        while(1){
-            if (head_of_comp[u] == head_of_comp[cur]){
-                res.pb(mp(ord[u], ord[cur]));
-                return res;
+    vector<pair<int, int>> hld_path(int u, int v){ //{{{
+        // 閉区間をvectorで返す
+        vector<pair<int,int>> res;
+        while(head_of_comp[u] != head_of_comp[v]){
+            if(depth[head_of_comp[u]] < depth[head_of_comp[v]]){
+                res.push_back({ord[head_of_comp[v]], ord[v]});
+                v = par[head_of_comp[v]];
             }
             else{
-                res.pb(mp(ord[head_of_comp[cur]], ord[cur]));
-                cur = par[head_of_comp[cur]];
+                res.push_back({ord[head_of_comp[u]], ord[u]});
+                u = par[head_of_comp[u]];
             }
         }
+        res.push_back({min(ord[u],ord[v]), max(ord[u], ord[v])});
         return res;
     } //}}}
 
 };/*}}}*/
-ostream& operator<<(ostream& os, const tree& tr){
+ostream& operator<<(ostream& os, const tree& tr){/*{{{*/
     os << endl;
     os << "par:         " << tr.par << endl;
+    os << "cost:        " << tr.cost << endl;
     os << "dfstrv:      " << tr.dfstrv << endl;
     os << "ord:         " << tr.ord << endl;
     os << "end:         " << tr.end << endl;
@@ -229,7 +224,7 @@ ostream& operator<<(ostream& os, const tree& tr){
     os << "et_fpos:     " << tr.et_fpos << endl;
     os << "head_of_comp:" << tr.head_of_comp << endl;
     return os;
-}
+}/*}}}*/
 
 //%snippet.end()%
 

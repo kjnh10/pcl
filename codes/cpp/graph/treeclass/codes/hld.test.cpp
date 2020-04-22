@@ -16,6 +16,6 @@ signed main() {
     tr.add_edge(2, 1, 1);
     tr.build(0);
     dump(tr);
-    dump(tr.get_range_of_HLD(1, 0));
+    dump(tr.hld_path(1, 0));
     return 0;
 }
