@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#2470d604da78346d1e94e45c40afd4da">codes/cpp/algbra/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/algbra/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-10 17:10:09+09:00
+    - Last commit date: 2020-04-22 17:45:26+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="../mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
-* :heavy_check_mark: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+* :x: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code

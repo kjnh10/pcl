@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/graph.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-02-23 17:29:25+09:00
+    - Last commit date: 2020-04-22 17:45:26+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
+* :x: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Required by
@@ -123,16 +123,151 @@ struct Graph{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
-    bundled_code = language.bundle(self.file_class.file_path, basedir=pathlib.Path.cwd())
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 170, in bundle
-    bundler.update(path)
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
-    self.update(self._resolve(pathlib.Path(included), included_from=path))
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 281, in update
-    raise BundleError(path, i + 1, "unable to process #include in #if / #ifdef / #ifndef other than include guards")
-onlinejudge_verify.languages.cplusplus_bundle.BundleError: codes/cpp/template.hpp: line 48: unable to process #include in #if / #ifdef / #ifndef other than include guards
+#line 2 "codes/cpp/template.hpp"
+
+// template version 1.15
+using namespace std;
+#include <bits/stdc++.h>
+
+// varibable settings
+#define int long long
+const int INF=1e18;
+
+// define basic macro {{{
+#define _overload3(_1,_2,_3,name,...) name
+#define _rep(i,n) repi(i,0,n)
+#define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
+#define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
+#define _rrep(i,n) rrepi(i,0,n)
+#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
+#define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+#define each(i,a) for (auto&& i : a)
+#define all(x) (x).begin(),(x).end()
+#define sz(x) ((int)(x).size())
+#define pb(a) push_back(a)
+#define mp(a, b) make_pair(a, b)
+#define mt(a, b, c) make_tuple(a, b, c)
+#define ub upper_bound
+#define lb lower_bound
+#define posl(A, x) (lower_bound(all(A), x)-A.begin())
+#define posu(A, x) (upper_bound(all(A),x)-A.begin())
+template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
+template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+
+#define divceil(a,b) ((a)+(b)-1)/(b)
+#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
+#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define slice(l, r) substr(l, r-l)
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef long double ld;
+typedef pair<int,int> pii;
+typedef tuple<int,int,int> iii;
+
+template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+
+#if defined(PCM) || defined(LOCAL)
+#else
+  #define dump(...) 42
+  #define dump_1d(...) 42
+  #define dump_2d(...) 42
+  #define cerrendl 42
+#endif
+
+#line 3 "codes/cpp/graph/unionfind.hpp"
+
+//%snippet.set('UnionFind')%
+struct UnionFind {
+  vector<int> data;  // size defined only for root node
+  int count;  // count of groups
+
+  UnionFind(){}
+  UnionFind(int size) : data(size, -1), count(size){}
+  bool merge(int x, int y) {/*{{{*/
+    x=root(x); y=root(y);
+    if (x!=y) {
+      if (data[y]<data[x]) swap(x, y);
+      data[x]+=data[y]; data[y]=x;
+      count--;
+    }
+    return x != y;
+  }/*}}}*/
+  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
+  bool same(int x,int y){ return root(x)==root(y); }
+  int size(int x) { return -data[root(x)]; }
+
+  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
+    map<int, vector<int>> group;
+    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
+    os << endl; each(g, group){ os << g << endl; }
+    return os;
+  } //}}}
+};
+//%snippet.end()%
+#line 4 "codes/cpp/graph/graph.hpp"
+
+//%snippet.set('Graph')%
+//%snippet.include('UnionFind')%
+
+template<class Pos=int, class Cost=int, Cost zerocost=0LL, Cost infcost=INF>
+struct Graph{
+  struct Edge {
+    Pos to;
+    Cost cost;
+    Edge(Pos to, Cost cost): to(to), cost(cost) {
+    }
+    friend auto& operator<<(auto &os, const Edge& e){
+      os << e.to << " " << e.cost;
+      return os;
+    }
+  };
+
+  int n;  // 頂点数
+  // unordered_map<Pos, vector<Edge>> adj_list;//Posがpiiでなくintならunordredの方が早い
+  vector<vector<Edge>> adj_list;//Posがpiiでなくintならunordredの方が早い
+  UnionFind buf;
+
+  Graph(int n): n(n), adj_list(n){}
+
+  void add_edge(Pos from, Pos to, Cost cost){
+    adj_list[from].emplace_back(to, cost);
+  }
+
+  auto operator[](Pos pos) {
+    return adj_list[pos];
+  }
+
+  vector<int> make_bipartite(){
+    buf = UnionFind(2*n);
+    rep(u, n){
+      each(e, adj_list[u]){
+        buf.merge(u, e.to+n);
+        buf.merge(e.to, u+n);
+      }
+    }
+
+    vector<int> res(n, -1);
+    rep(u, n){
+      if(buf.same(u, u+n)){
+        return res;
+      }
+    }
+    rep(u, n){
+      if (buf.same(0, u)) res[u] = 0;
+      else res[u] = 1;
+    }
+    return res;
+  }
+
+  void make_dfstree(){
+    // lolinkを構築
+  }
+};
+
+//%snippet.end()%
 
 ```
 {% endraw %}
