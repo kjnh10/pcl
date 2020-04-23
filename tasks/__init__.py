@@ -1,7 +1,54 @@
 from invoke import task
 from .snippet import extract_snips
 from pathlib import Path
+import re
 import os
+import click
+
+@task
+def modify(c):
+    print("modifying path")
+
+    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes/cpp'
+
+    headers = {}
+    for p in CODE_DIR.rglob("*.hpp"):
+        print(p)
+        if p.name in headers.keys():
+            raise Exception("header dupulication")
+        headers[p.name] = p.resolve()
+
+    for p in CODE_DIR.rglob("*"):
+        if (p.is_dir()):
+            continue
+        modified = False
+        modified_lines = []
+        with open(p, mode='r') as f:
+            for line in f.readlines():
+                if (re.search('#include ".*"', line)):
+                    print(line)
+                    first = line.find('"')
+                    second = line.find('"', first+1)
+                    now_path = Path(line[first+1:second])
+                    if (not now_path.name in headers):
+                        click.secho(f"not exit: {now_path}", fg='red')
+                        modified = True
+                    elif (headers[now_path.name] != now_path):
+                        click.secho(f"path changed: {now_path}", fg='yellow')
+                        modified_path = headers[now_path.name].relative_to(CODE_DIR)
+                        modified_lines.append(f'#include "{modified_path}"')
+                        modified = True
+                    else:
+                        click.secho(f"ok: {now_path}", fg='green')
+                        modified_lines.append(line)
+                else:
+                    modified_lines.append(line)
+
+        if (modified):
+            print(f"changed {p.absolute()}")
+            with open(p, mode='w') as f:
+                for line in modified_lines:
+                    f.write(line)
 
 @task
 def build(c):
@@ -40,3 +87,5 @@ def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     for name in snippets.keys():
         snippets[name].to_snip_file(neosnip_file, snippets, format='neosnippet')
         snippets[name].to_snip_file(vssnip_file, snippets, format='textmate')
+
+
