@@ -40,7 +40,8 @@ def modify(c):
                         missing_library.append(now_path_str)
                     elif (headers[now_path.name] != now_path):
                         # ここには参照は壊れていないがファイルからの相対パスで書いたものも出てくる。
-                        modified_path = headers[now_path.name].relative_to(CODE_DIR)
+                        # modified_path = headers[now_path.name].relative_to(CODE_DIR)
+                        modified_path = Path(os.path.relpath(headers[now_path.name], p.parent))
                         if str(modified_path) != now_path_str:
                             modified_line = re.sub('#include ".*"', f'#include "{modified_path}"', line)
                             to_write_data.append(modified_line)

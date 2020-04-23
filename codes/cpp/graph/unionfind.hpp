@@ -1,5 +1,5 @@
 #pragma once
-#include "template.hpp"
+#include "../template.hpp"
 
 //%snippet.set('UnionFind')%
 struct UnionFind {

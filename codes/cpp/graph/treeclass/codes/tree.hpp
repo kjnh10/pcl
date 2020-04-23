@@ -1,4 +1,4 @@
-#include "template.hpp"
+#include "../../../template.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 //%snippet.set('tree')%
@@ -209,22 +209,22 @@ struct tree{/*{{{*/
         res.push_back({min(ord[u],ord[v]), max(ord[u], ord[v])});
         return res;
     } //}}}
+    friend auto& operator<<(auto& os, const tree& tr){/*{{{*/
+        os << endl;
+        os << "par:         " << tr.par << endl;
+        os << "cost:        " << tr.cost << endl;
+        os << "dfstrv:      " << tr.dfstrv << endl;
+        os << "ord:         " << tr.ord << endl;
+        os << "end:         " << tr.end << endl;
+        os << "depth:       " << tr.depth << endl;
+        os << "children:    " << tr.children << endl;
+        os << "euler_tour:  " << tr.euler_tour << endl;
+        os << "et_fpos:     " << tr.et_fpos << endl;
+        os << "head_of_comp:" << tr.head_of_comp << endl;
+        return os;
+    }/*}}}*/
 
 };/*}}}*/
-ostream& operator<<(ostream& os, const tree& tr){/*{{{*/
-    os << endl;
-    os << "par:         " << tr.par << endl;
-    os << "cost:        " << tr.cost << endl;
-    os << "dfstrv:      " << tr.dfstrv << endl;
-    os << "ord:         " << tr.ord << endl;
-    os << "end:         " << tr.end << endl;
-    os << "depth:       " << tr.depth << endl;
-    os << "children:    " << tr.children << endl;
-    os << "euler_tour:  " << tr.euler_tour << endl;
-    os << "et_fpos:     " << tr.et_fpos << endl;
-    os << "head_of_comp:" << tr.head_of_comp << endl;
-    return os;
-}/*}}}*/
 
 //%snippet.end()%
 

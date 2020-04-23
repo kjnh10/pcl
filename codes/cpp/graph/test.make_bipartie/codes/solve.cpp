@@ -1,4 +1,4 @@
-#include "graph/graph.hpp"
+#include "../../graph.hpp"
 
 signed main() {
   int n,m;cin>>n>>m;

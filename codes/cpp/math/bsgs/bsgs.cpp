@@ -46,7 +46,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 //}}}
 
-#include "math/mint.hpp"
+#include "../mint.hpp"
 
 // %snippet.set('baybe_step_giant_step')%
 // %snippet.config({'alias':'bsgs'})%
