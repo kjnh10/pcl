@@ -13,21 +13,24 @@ def modify(c):
     os.chdir(CODE_DIR)
 
     headers = {}
+    print("---------------found headers-------------------------")
     for p in CODE_DIR.rglob("*.hpp"):
         print(p)
         if p.name in headers.keys():
             raise Exception("header dupulication")
         headers[p.name] = p.resolve()
 
+    print("---------------------------------------------------")
     for p in CODE_DIR.rglob("*"):
         if (p.is_dir()):
             continue
         modified = False
         missing_library = []
-        modified_lines = []
+        to_write_data = []
+        modified_history = []
         with open(p, mode='r') as f:
             for line in f.readlines():
-                if (re.search('#include ".*"', line)):
+                if (re.match('#include ".*"', line)):  # coment outされてる場合は処理しない
                     first = line.find('"')
                     second = line.find('"', first+1)
                     now_path_str = line[first+1:second]
@@ -39,26 +42,31 @@ def modify(c):
                         # ここには参照は壊れていないがファイルからの相対パスで書いたものも出てくる。
                         modified_path = headers[now_path.name].relative_to(CODE_DIR)
                         if str(modified_path) != now_path_str:
-                            click.secho(f"path changed: {now_path}", fg='yellow')
                             modified_line = re.sub('#include ".*"', f'#include "{modified_path}"', line)
-                            modified_lines.append(modified_line)
+                            to_write_data.append(modified_line)
                             modified = True
+                            modified_history.append((line, modified_line))
                         else:
-                            modified_lines.append(line)
+                            to_write_data.append(line)
                     else:
                         click.secho(f"ok: {now_path}", fg='green')
-                        modified_lines.append(line)
+                        to_write_data.append(line)
                 else:
-                    modified_lines.append(line)
+                    to_write_data.append(line)
 
         if missing_library:
-            click.secho("{p} has missing library", fg='red')
+            click.secho(f'missing library in {p}', fg='red')
             print(missing_library)
+            print("")
         elif modified:
-            print(f"changed {p.absolute()}")
+            click.secho(f"changed {p.absolute()}", fg='yellow')
+            for change in modified_history:
+                print(f"before: {change[0]}".rstrip())
+                print(f"after : {change[1]}".rstrip())
             with open(p, mode='w') as f:
-                for line in modified_lines:
+                for line in to_write_data:
                     f.write(line)
+            print("")
 
 @task
 def build(c):
@@ -97,5 +105,3 @@ def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     for name in snippets.keys():
         snippets[name].to_snip_file(neosnip_file, snippets, format='neosnippet')
         snippets[name].to_snip_file(vssnip_file, snippets, format='textmate')
-
-
