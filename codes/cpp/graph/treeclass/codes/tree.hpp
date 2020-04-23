@@ -209,7 +209,8 @@ struct tree{/*{{{*/
         res.push_back({min(ord[u],ord[v]), max(ord[u], ord[v])});
         return res;
     } //}}}
-    friend auto& operator<<(auto& os, const tree& tr){/*{{{*/
+#if defined(PCM) || defined(LOCAL)/*{{{*/
+    friend ostream& operator<<(ostream& os, const tree& tr){
         os << endl;
         os << "par:         " << tr.par << endl;
         os << "cost:        " << tr.cost << endl;
@@ -222,7 +223,8 @@ struct tree{/*{{{*/
         os << "et_fpos:     " << tr.et_fpos << endl;
         os << "head_of_comp:" << tr.head_of_comp << endl;
         return os;
-    }/*}}}*/
+    }
+#endif/*}}}*/
 
 };/*}}}*/
 
