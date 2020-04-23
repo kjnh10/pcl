@@ -1,6 +1,6 @@
 #pragma once
-#include "../template.hpp"
-#include "./mint.hpp"
+#include "template.hpp"
+#include "math/mint.hpp"
 
 //%snippet.set('combination')%
 // %snippet.include('mint')%

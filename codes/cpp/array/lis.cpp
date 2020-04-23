@@ -1,4 +1,4 @@
-#include "./template.hpp"
+#include "template.hpp"
 
 //%snippet.set('lis')%
 

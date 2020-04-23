@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
-#include "./tree.hpp"
+#include "graph/treeclass/codes/tree.hpp"
 
 signed main() {
     // tree tr(12);

@@ -36,7 +36,7 @@ def modify(c):
                     elif (headers[now_path.name] != now_path):
                         click.secho(f"path changed: {now_path}", fg='yellow')
                         modified_path = headers[now_path.name].relative_to(CODE_DIR)
-                        modified_lines.append(f'#include "{modified_path}"')
+                        modified_lines.append(f'#include "{modified_path}"\n')
                         modified = True
                     else:
                         click.secho(f"ok: {now_path}", fg='green')

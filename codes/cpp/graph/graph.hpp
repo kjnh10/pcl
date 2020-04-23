@@ -1,6 +1,6 @@
 #pragma once
-#include "../template.hpp"
-#include "./unionfind.hpp"
+#include "template.hpp"
+#include "graph/unionfind.hpp"
 
 //%snippet.set('Graph')%
 //%snippet.include('UnionFind')%

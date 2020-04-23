@@ -1,6 +1,6 @@
 // %test('http://codeforces.com/contest/1324/problem/F')%
-#include "../../../template.hpp"
-#include "./tree.hpp"
+#include "template.hpp"
+#include "graph/treeclass/codes/tree.hpp"
 
 signed main() {
     int n; cin>>n;

@@ -39,7 +39,6 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
-  #include "/home/koji0708/go/src/github.com/kjnh10/pcl/template/codes/lib/dump.hpp"
 #else
   #define dump(...) 42
   #define dump_1d(...) 42
@@ -47,7 +46,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 //}}}
 
-#include "../mint.hpp"
+#include "math/mint.hpp"
 
 // %snippet.set('baybe_step_giant_step')%
 // %snippet.config({'alias':'bsgs'})%
