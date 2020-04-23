@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/string/lcs.cpp
+# :warning: codes/cpp/math/matrix.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#f42fe2b40278a2240b94f3b23e9cd7ad">codes/cpp/string</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/string/lcs.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#29eb2bc680bfa8c6d4c98720ef2f247a">codes/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/matrix.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 14:21:22+09:00
 
 
@@ -41,25 +41,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.8
-
-// varibable settings {{{
+// template version 1.6
+// {{{ define basic macro
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
-
+// varibable settings
 #define int long long
-const int INF=1e18;
-const int MOD=1e9+7;
+#define INF 1000000000000000000LL
+// #define INF 2147483647
+#define MOD 1000000007LL
+// #define MOD 998244353LL
 #define infile "../test/sample-1.in"
-int dx[]={1, -1, 0, 0};
-int dy[]={0, 0, 1, -1};
-#define fi first
-#define se second
 
-// }}}
-
-// define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
 #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
@@ -72,16 +66,12 @@ int dy[]={0, 0, 1, -1};
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define ten(n) ((int)1e##n)
+template<class T, size_t N> size_t sza(const T (&array)[N]) { return N; }
 template<class T> inline void chmax(T &a, const T &b) { if(a < b) a = b; }
 template<class T> inline void chmin(T &a, const T &b) { if(a > b) a = b; }
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+template<class T=int> T in() {T x; cin>>x; return (x);}
+struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 // dump macro
 #ifdef PCM
@@ -90,37 +80,66 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
   #define dump_1d(...) 42
   #define dump_2d(...) 42
 #endif
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef long double ld;
+typedef pair<int,int> pii;
+typedef tuple<int,int,int> iii;
+template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+int dx[]={1, -1, 0, 0};
+int dy[]={0, 0, 1, -1};
+#define fi first
+#define se second
+
 // }}}
 
-//%snippet.set('lcs')%
-#define MAX_N 5000
-#define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+//BEGIN CUT HERE
+using value=int;
+using mat=vector<vector<value>>;
 
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
+mat mul(mat& A, mat& B){
+  mat res(A.size(), vector<value>(B[0].size()));
+  rep(i, A.size()){
+    rep(j, B[0].size()){
+      rep(k, B.size()){
+        res[i][j] = (res[i][j]+A[i][k]*B[k][j])%MOD; // remove %MOD if not needed
       }
     }
   }
-  return dp[n][m];
+  return res;
 }
-// %snippet.end()%
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+mat pow(mat A, int n){
+  mat B(A.size(), vector<value>(A.size()));
+  rep(i, A.size()){
+    B[i][i]=1;  // E
+  }
+  while (n>0) {
+    if (n & 1) B = mul(B, A);
+    A = mul(A, A);
+    n >>= 1;
+  }
+  return B;
+}
+//END CUT HERE
+
+int solve(){
+  int n,m;cin>>n>>m;
+
+  mat A(m, vi(m, 0)); // m==0だと落ちるので注意。
+  A[0][0] = 1;
+  A[0][m-1] = 1;
+  rep(i, 1, m){
+    A[i][i-1] = 1;
+  }
+  // dump(pow(A, n));
+
+  cout << pow(A, n)[0][0] << endl;
 
   return 0;
-}/*}}}*/
+}
 
 signed main() { //{{{
 #ifdef INPUT_FROM_FILE
@@ -137,26 +156,20 @@ signed main() { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/string/lcs.cpp"
-// template version 1.8
-
-// varibable settings {{{
+#line 1 "codes/cpp/math/matrix.cpp"
+// template version 1.6
+// {{{ define basic macro
 using namespace std;
 #include <iostream>
 #include <bits/stdc++.h>
-
+// varibable settings
 #define int long long
-const int INF=1e18;
-const int MOD=1e9+7;
+#define INF 1000000000000000000LL
+// #define INF 2147483647
+#define MOD 1000000007LL
+// #define MOD 998244353LL
 #define infile "../test/sample-1.in"
-int dx[]={1, -1, 0, 0};
-int dy[]={0, 0, 1, -1};
-#define fi first
-#define se second
 
-// }}}
-
-// define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
 #define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
@@ -169,16 +182,12 @@ int dy[]={0, 0, 1, -1};
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define ten(n) ((int)1e##n)
+template<class T, size_t N> size_t sza(const T (&array)[N]) { return N; }
 template<class T> inline void chmax(T &a, const T &b) { if(a < b) a = b; }
 template<class T> inline void chmin(T &a, const T &b) { if(a > b) a = b; }
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+template<class T=int> T in() {T x; cin>>x; return (x);}
+struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 // dump macro
 #ifdef PCM
@@ -187,37 +196,66 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
   #define dump_1d(...) 42
   #define dump_2d(...) 42
 #endif
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef long double ld;
+typedef pair<int,int> pii;
+typedef tuple<int,int,int> iii;
+template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
+int dx[]={1, -1, 0, 0};
+int dy[]={0, 0, 1, -1};
+#define fi first
+#define se second
+
 // }}}
 
-//%snippet.set('lcs')%
-#define MAX_N 5000
-#define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+//BEGIN CUT HERE
+using value=int;
+using mat=vector<vector<value>>;
 
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
+mat mul(mat& A, mat& B){
+  mat res(A.size(), vector<value>(B[0].size()));
+  rep(i, A.size()){
+    rep(j, B[0].size()){
+      rep(k, B.size()){
+        res[i][j] = (res[i][j]+A[i][k]*B[k][j])%MOD; // remove %MOD if not needed
       }
     }
   }
-  return dp[n][m];
+  return res;
 }
-// %snippet.end()%
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+mat pow(mat A, int n){
+  mat B(A.size(), vector<value>(A.size()));
+  rep(i, A.size()){
+    B[i][i]=1;  // E
+  }
+  while (n>0) {
+    if (n & 1) B = mul(B, A);
+    A = mul(A, A);
+    n >>= 1;
+  }
+  return B;
+}
+//END CUT HERE
+
+int solve(){
+  int n,m;cin>>n>>m;
+
+  mat A(m, vi(m, 0)); // m==0だと落ちるので注意。
+  A[0][0] = 1;
+  A[0][m-1] = 1;
+  rep(i, 1, m){
+    A[i][i-1] = 1;
+  }
+  // dump(pow(A, n));
+
+  cout << pow(A, n)[0][0] << endl;
 
   return 0;
-}/*}}}*/
+}
 
 signed main() { //{{{
 #ifdef INPUT_FROM_FILE

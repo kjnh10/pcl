@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/lca.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-22 21:58:54+09:00
+    - Last commit date: 2020-04-23 15:35:17+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
@@ -49,7 +49,7 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
-#include "./tree.hpp"
+#include "codes/cpp/graph/treeclass/codes/tree.hpp"
 
 signed main() {
     // tree tr(12);

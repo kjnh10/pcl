@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/unionfind.hpp
+# :warning: codes/cpp/math/pascal.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/unionfind.hpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#29eb2bc680bfa8c6d4c98720ef2f247a">codes/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/pascal.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 15:35:17+09:00
 
 
@@ -41,48 +41,30 @@ layout: default
 * :x: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
 
 
-## Required by
-
-* :warning: <a href="bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
-* :warning: <a href="graph.hpp.html">codes/cpp/graph/graph.hpp</a>
-* :warning: <a href="test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
-
-
 ## Code
 
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
 #include "codes/cpp/template.hpp"
 
-//%snippet.set('UnionFind')%
-struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
+//%snippet.set('pascal')%
 
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
+template<class T> vector<vector<T>> pascal(int N){ // {{{
+    vector<vector<T>> com(N+1, vector<T>(N+1));
+    com[0][0] = 1;
+    rep(i, 1, N+1){
+        // パスカルの三角形は0-indexdで段を数えるとよい。
+        // com[i]を計算。
+        rep(j, 0, i+1){
+            if (j-1>=0) com[i][j] += com[i-1][j-1];
+            com[i][j] += com[i-1][j];
+            // com[i][j] /= 2.0;  // probability version
+        }
     }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
+    return com;
+} // }}}
 
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
-};
 //%snippet.end()%
 
 ```
@@ -145,35 +127,25 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 3 "codes/cpp/graph/unionfind.hpp"
+#line 2 "codes/cpp/math/pascal.cpp"
 
-//%snippet.set('UnionFind')%
-struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
+//%snippet.set('pascal')%
 
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
+template<class T> vector<vector<T>> pascal(int N){ // {{{
+    vector<vector<T>> com(N+1, vector<T>(N+1));
+    com[0][0] = 1;
+    rep(i, 1, N+1){
+        // パスカルの三角形は0-indexdで段を数えるとよい。
+        // com[i]を計算。
+        rep(j, 0, i+1){
+            if (j-1>=0) com[i][j] += com[i-1][j-1];
+            com[i][j] += com[i-1][j];
+            // com[i][j] /= 2.0;  // probability version
+        }
     }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
+    return com;
+} // }}}
 
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
-};
 //%snippet.end()%
 
 ```

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/reroot.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-22 21:58:54+09:00
+    - Last commit date: 2020-04-23 15:35:17+09:00
 
 
 
@@ -48,8 +48,8 @@ layout: default
 {% raw %}
 ```cpp
 // %test('http://codeforces.com/contest/1324/problem/F')%
-#include "../../../template.hpp"
-#include "./tree.hpp"
+#include "codes/cpp/template.hpp"
+#include "codes/cpp/graph/treeclass/codes/tree.hpp"
 
 signed main() {
     int n; cin>>n;

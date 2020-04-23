@@ -38,17 +38,19 @@ layout: default
 
 ## Required by
 
-* :warning: <a href="algbra/bsgs/bsgs.cpp.html">codes/cpp/algbra/bsgs/bsgs.cpp</a>
-* :warning: <a href="algbra/combination.hpp.html">codes/cpp/algbra/combination.hpp</a>
-* :warning: <a href="algbra/mint.hpp.html">codes/cpp/algbra/mint.hpp</a>
+* :warning: <a href="array/lis.cpp.html">codes/cpp/array/lis.cpp</a>
 * :warning: <a href="graph/bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :warning: <a href="graph/treeclass/codes/reroot.cpp.html">codes/cpp/graph/treeclass/codes/reroot.cpp</a>
 * :x: <a href="graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
 * :warning: <a href="graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :warning: <a href="lis.cpp.html">codes/cpp/lis.cpp</a>
-* :warning: <a href="pascal.cpp.html">codes/cpp/pascal.cpp</a>
+* :warning: <a href="math/bsgs/bsgs.cpp.html">codes/cpp/math/bsgs/bsgs.cpp</a>
+* :warning: <a href="math/combination.hpp.html">codes/cpp/math/combination.hpp</a>
+* :warning: <a href="math/gbsgs/gbsgs.cpp.html">codes/cpp/math/gbsgs/gbsgs.cpp</a>
+* :warning: <a href="math/mint.hpp.html">codes/cpp/math/mint.hpp</a>
+* :warning: <a href="math/pascal.cpp.html">codes/cpp/math/pascal.cpp</a>
+* :warning: <a href="misc/zipper.lib/codes/zipper.hpp.html">codes/cpp/misc/zipper.lib/codes/zipper.hpp</a>
 
 
 ## Verified with

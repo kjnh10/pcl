@@ -21,16 +21,16 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/bridge/codes/naive.cpp
+# :warning: codes/cpp/array/slide_min.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/naive.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#2ccaf388340b410f2f5de77ef560fb20">codes/cpp/array</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/array/slide_min.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 14:21:22+09:00
 
 
@@ -41,14 +41,17 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.15
+// template version 1.12
 using namespace std;
+#include <iostream>
 #include <bits/stdc++.h>
-
+ 
 // varibable settings
-#define int long long
+#define infile "../test/sample-1.in"
+#define int long long //{{{
 const int INF=1e18;
-
+const int MOD=1e9+7; //}}}
+ 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
@@ -62,9 +65,6 @@ const int INF=1e18;
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
@@ -72,39 +72,44 @@ const int INF=1e18;
 #define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
-
+ 
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
 typedef pair<int,int> pii;
 typedef tuple<int,int,int> iii;
-
+ 
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-
+ 
 #if defined(PCM) || defined(LOCAL)
 #else
   #define dump(...) 42
   #define dump_1d(...) 42
   #define dump_2d(...) 42
-  #define cerrendl 42
 #endif
 //}}}
 
-int solve(){
-  cout << "you need to write AC code here for random test" << endl;
-  return 0;
-}
-
-signed main() { //{{{
-#ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
-#endif
-  solve();
-  return 0;
-} //}}}
+//%snippet.set('slide_min')%
+template< typename T >  //{{{
+vector<T> slide_min(const vector<T> &v, int k) {
+  deque< int > deq;
+  vector< T > ret;
+  int m = sz(v);
+  rep(i, m){
+    while(!deq.empty() && v[deq.back()] >= v[i]) {
+      deq.pop_back();
+    }
+    deq.push_back(i);
+    if(i - k + 1 >= 0) {
+      ret.emplace_back(v[deq.front()]);
+      if(deq.front() == i - k + 1) deq.pop_front();
+    }
+  }
+  return ret;  // sz(res) == m-k+1, last index is m-k
+}  //}}}
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -112,15 +117,18 @@ signed main() { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/graph/bridge/codes/naive.cpp"
-// template version 1.15
+#line 1 "codes/cpp/array/slide_min.cpp"
+// template version 1.12
 using namespace std;
+#include <iostream>
 #include <bits/stdc++.h>
-
+ 
 // varibable settings
-#define int long long
+#define infile "../test/sample-1.in"
+#define int long long //{{{
 const int INF=1e18;
-
+const int MOD=1e9+7; //}}}
+ 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
@@ -134,9 +142,6 @@ const int INF=1e18;
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
@@ -144,42 +149,47 @@ const int INF=1e18;
 #define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
-
+ 
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
 typedef pair<int,int> pii;
 typedef tuple<int,int,int> iii;
-
+ 
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-
+ 
 #if defined(PCM) || defined(LOCAL)
 #else
   #define dump(...) 42
   #define dump_1d(...) 42
   #define dump_2d(...) 42
-  #define cerrendl 42
 #endif
 //}}}
 
-int solve(){
-  cout << "you need to write AC code here for random test" << endl;
-  return 0;
-}
-
-signed main() { //{{{
-#ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
-#endif
-  solve();
-  return 0;
-} //}}}
+//%snippet.set('slide_min')%
+template< typename T >  //{{{
+vector<T> slide_min(const vector<T> &v, int k) {
+  deque< int > deq;
+  vector< T > ret;
+  int m = sz(v);
+  rep(i, m){
+    while(!deq.empty() && v[deq.back()] >= v[i]) {
+      deq.pop_back();
+    }
+    deq.push_back(i);
+    if(i - k + 1 >= 0) {
+      ret.emplace_back(v[deq.front()]);
+      if(deq.front() == i - k + 1) deq.pop_front();
+    }
+  }
+  return ret;  // sz(res) == m-k+1, last index is m-k
+}  //}}}
+//%snippet.end()%
 
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-22 21:58:54+09:00
+    - Last commit date: 2020-04-23 15:35:17+09:00
 
 
 
@@ -57,7 +57,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../template.hpp"
+#include "codes/cpp/template.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 //%snippet.set('tree')%

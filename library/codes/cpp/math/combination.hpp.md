@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/unionfind.hpp
+# :warning: codes/cpp/math/combination.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#3ec2d728d77befc78f832b5911706770">codes/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/unionfind.hpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#29eb2bc680bfa8c6d4c98720ef2f247a">codes/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/combination.hpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 15:35:17+09:00
 
 
@@ -38,14 +38,8 @@ layout: default
 
 ## Depends on
 
+* :warning: <a href="mint.hpp.html">codes/cpp/math/mint.hpp</a>
 * :x: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
-
-
-## Required by
-
-* :warning: <a href="bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
-* :warning: <a href="graph.hpp.html">codes/cpp/graph/graph.hpp</a>
-* :warning: <a href="test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 
 
 ## Code
@@ -55,35 +49,27 @@ layout: default
 ```cpp
 #pragma once
 #include "codes/cpp/template.hpp"
+#include "codes/cpp/math/mint.hpp"
 
-//%snippet.set('UnionFind')%
-struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
-
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
-    }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
-
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
-};
+//%snippet.set('combination')%
+// %snippet.include('mint')%
+struct combination {  // {{{
+  vector<mint> fact, ifact;
+  combination(int n):fact(n+1),ifact(n+1) {
+    assert(n < mod);
+    fact[0] = 1;
+    for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
+    ifact[n] = fact[n].inv();
+    for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
+  }
+  mint operator()(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return fact[n]*ifact[k]*ifact[n-k];
+  }
+} // }}}
+com(500001);
 //%snippet.end()%
+
 
 ```
 {% endraw %}
@@ -145,36 +131,82 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 3 "codes/cpp/graph/unionfind.hpp"
+#line 3 "codes/cpp/math/mint.hpp"
 
-//%snippet.set('UnionFind')%
-struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
+//%snippet.set('mint')%
+int mod = 1e9+7;
+// int mod = 998244353;
+struct mint { //{{{
+    int x;
+    mint(int x=0):x((x%mod+mod)%mod){}
 
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
+    // ?= operator
+    mint& operator+=(const mint a) { (x += a.x) %= mod; return *this; }
+    mint& operator-=(const mint a) { (x += mod-a.x) %= mod; return *this; }
+    mint& operator*=(const mint a) { (x *= a.x) %= mod; return *this; }
+    mint& operator/=(const mint&rhs){
+        if (rhs.x==0) throw runtime_error("mint zero division");
+        return *this*=rhs.inv(); 
     }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
 
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
+    mint operator+(const mint a) const { mint res(*this); return res+=a; }
+    mint operator-(const mint a) const { mint res(*this); return res-=a; }
+    mint operator*(const mint a) const { mint res(*this); return res*=a; }
+    mint operator/(const mint a) const { mint res(*this); return res/=a; }
+
+    mint pow(int n)const{
+        mint res(1),x(*this);
+        if (n<0){
+            n = -n;
+            x =(*this).inv();
+        }
+        while(n){
+            if(n&1)res*=x;
+            x*=x;
+            n>>=1;
+        }
+        return res;
+    }
+
+    mint inv() const{
+        if (x==0) throw runtime_error("inv does not exist");
+        return pow(mod-2);
+    }
+    // mint inv()const{
+    //     int x,y;
+    //     int g=extgcd(v,mod,x,y);
+    //     assert(g==1);
+    //     if(x<0)x+=mod;
+    //     return mint(x);
+    // }
+
+    bool operator<(const mint&r)const{return x<r.x;}
+    bool operator==(const mint&r)const{return x==r.x;}
 };
+istream& operator>>(istream& is, const mint& a) {return is >> a.x;}
+ostream& operator<<(ostream& os, const mint& a) {return os << a.x;}
+//}}}
+#line 4 "codes/cpp/math/combination.hpp"
+
+//%snippet.set('combination')%
+// %snippet.include('mint')%
+struct combination {  // {{{
+  vector<mint> fact, ifact;
+  combination(int n):fact(n+1),ifact(n+1) {
+    assert(n < mod);
+    fact[0] = 1;
+    for (int i = 1; i <= n; ++i) fact[i] = fact[i-1]*i;
+    ifact[n] = fact[n].inv();
+    for (int i = n; i >= 1; --i) ifact[i-1] = ifact[i]*i;
+  }
+  mint operator()(int n, int k) {
+    if (k < 0 || k > n) return 0;
+    return fact[n]*ifact[k]*ifact[n-k];
+  }
+} // }}}
+com(500001);
 //%snippet.end()%
+
 
 ```
 {% endraw %}

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-22 17:45:26+09:00
+    - Last commit date: 2020-04-23 15:35:17+09:00
 
 
 
@@ -48,7 +48,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../graph.hpp"
+#include "codes/cpp/graph/graph.hpp"
 
 signed main() {
   return 0;

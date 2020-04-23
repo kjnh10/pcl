@@ -21,16 +21,16 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/bridge/codes/naive.cpp
+# :warning: codes/cpp/math/gbsgs/naive.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/naive.cpp">View this file on GitHub</a>
+* category: <a href="../../../../../index.html#7de7d6e724be10e54982a5937c46285a">codes/cpp/math/gbsgs</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/gbsgs/naive.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 14:21:22+09:00
 
 
@@ -41,13 +41,16 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.15
+// template version 1.11
 using namespace std;
 #include <bits/stdc++.h>
 
-// varibable settings
+// varibable settings {{{
+#define infile "../test/sample-1.in"
 #define int long long
 const int INF=1e18;
+const int MOD=1e9+7;
+// }}}
 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
@@ -62,9 +65,6 @@ const int INF=1e18;
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
@@ -85,15 +85,26 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-  #define cerrendl 42
+#define dump(...) 42
+#define dump_1d(...) 42
+#define dump_2d(...) 42
 #endif
 //}}}
 
 int solve(){
-  cout << "you need to write AC code here for random test" << endl;
+  int a,b,p;cin>>a>>b>>p;
+  int v = 1;
+  int res = INF;
+  rep(x, 0, p){
+    // dump(x, v);
+    if (v==b){
+      cout << x << endl;
+      return 0;
+    }
+    v *= a;
+    v %= p;
+  }
+  cout << -1 << endl;
   return 0;
 }
 
@@ -112,14 +123,17 @@ signed main() { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/graph/bridge/codes/naive.cpp"
-// template version 1.15
+#line 1 "codes/cpp/math/gbsgs/naive.cpp"
+// template version 1.11
 using namespace std;
 #include <bits/stdc++.h>
 
-// varibable settings
+// varibable settings {{{
+#define infile "../test/sample-1.in"
 #define int long long
 const int INF=1e18;
+const int MOD=1e9+7;
+// }}}
 
 // define basic macro {{{
 #define _overload3(_1,_2,_3,name,...) name
@@ -134,9 +148,6 @@ const int INF=1e18;
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
@@ -157,15 +168,26 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-  #define cerrendl 42
+#define dump(...) 42
+#define dump_1d(...) 42
+#define dump_2d(...) 42
 #endif
 //}}}
 
 int solve(){
-  cout << "you need to write AC code here for random test" << endl;
+  int a,b,p;cin>>a>>b>>p;
+  int v = 1;
+  int res = INF;
+  rep(x, 0, p){
+    // dump(x, v);
+    if (v==b){
+      cout << x << endl;
+      return 0;
+    }
+    v *= a;
+    v %= p;
+  }
+  cout << -1 << endl;
   return 0;
 }
 
@@ -181,5 +203,5 @@ signed main() { //{{{
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

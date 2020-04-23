@@ -21,16 +21,16 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/string/lcs.cpp
+# :warning: codes/cpp/math/geoemtry/geometry.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#f42fe2b40278a2240b94f3b23e9cd7ad">codes/cpp/string</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/string/lcs.cpp">View this file on GitHub</a>
+* category: <a href="../../../../../index.html#1c523b37df8bf18147b947ed8ab931bc">codes/cpp/math/geoemtry</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/geoemtry/geometry.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-23 14:21:22+09:00
 
 
@@ -41,7 +41,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// template version 1.8
+// template version 1.9
 
 // varibable settings {{{
 using namespace std;
@@ -67,6 +67,7 @@ int dy[]={0, 0, 1, -1};
 #define _rrep(i,n) rrepi(i,0,n)
 #define rrepi(i,a,b) for(int i=(int)(b-1);i>=(int)(a);--i)
 #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+#define each(i,a) for (auto&& i : a)
 #define all(x) (x).begin(),(x).end()
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
@@ -93,43 +94,30 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
-//%snippet.set('lcs')%
-#define MAX_N 5000
-#define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
-
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
-      }
-    }
+//%snippet.set('Pos')%
+struct Pos{
+  int x,y;
+  Pos(int _x, int _y) : x(_x), y(_y){
   }
-  return dp[n][m];
-}
-// %snippet.end()%
+  Pos() {
+    x = 0; y = 0;
+  }
+  bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
+    if (a<=x && x<b && c<=y && y<d) return true;
+    else return false;
+  }
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+  bool operator<(const Pos &r) const { return (x!=r.x ? x<r.x : y<r.y); }
+  bool operator>(const Pos &r) const { return (x!=r.x ? x>r.x : y>r.y); }
+  bool operator==(const Pos &r) const { return (x==r.x && y==r.y); }
 
-  return 0;
-}/*}}}*/
-
-signed main() { //{{{
-#ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
-#endif
-  solve();
-  return 0;
-} //}}}
+  friend ostream& operator<<(ostream& stream, Pos p){
+    stream << "(" << p.x <<  "," << p.y << ")";
+    return stream;
+  }
+};
+//%snippet.config({'alias':'pos'})%
+//%snippet.end%
 
 ```
 {% endraw %}
@@ -137,8 +125,8 @@ signed main() { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/string/lcs.cpp"
-// template version 1.8
+#line 1 "codes/cpp/math/geoemtry/geometry.cpp"
+// template version 1.9
 
 // varibable settings {{{
 using namespace std;
@@ -164,6 +152,7 @@ int dy[]={0, 0, 1, -1};
 #define _rrep(i,n) rrepi(i,0,n)
 #define rrepi(i,a,b) for(int i=(int)(b-1);i>=(int)(a);--i)
 #define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
+#define each(i,a) for (auto&& i : a)
 #define all(x) (x).begin(),(x).end()
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
@@ -190,46 +179,33 @@ template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 // }}}
 
-//%snippet.set('lcs')%
-#define MAX_N 5000
-#define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
-
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
-      }
-    }
+//%snippet.set('Pos')%
+struct Pos{
+  int x,y;
+  Pos(int _x, int _y) : x(_x), y(_y){
   }
-  return dp[n][m];
-}
-// %snippet.end()%
+  Pos() {
+    x = 0; y = 0;
+  }
+  bool in(int a, int b, int c, int d){ // x in [a, b) && y in [c, d)
+    if (a<=x && x<b && c<=y && y<d) return true;
+    else return false;
+  }
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+  bool operator<(const Pos &r) const { return (x!=r.x ? x<r.x : y<r.y); }
+  bool operator>(const Pos &r) const { return (x!=r.x ? x>r.x : y>r.y); }
+  bool operator==(const Pos &r) const { return (x==r.x && y==r.y); }
 
-  return 0;
-}/*}}}*/
-
-signed main() { //{{{
-#ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
-#endif
-  solve();
-  return 0;
-} //}}}
+  friend ostream& operator<<(ostream& stream, Pos p){
+    stream << "(" << p.x <<  "," << p.y << ")";
+    return stream;
+  }
+};
+//%snippet.config({'alias':'pos'})%
+//%snippet.end%
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

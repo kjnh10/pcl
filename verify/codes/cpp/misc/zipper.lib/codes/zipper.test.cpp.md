@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/graph/bridge/codes/naive.cpp
+# :x: codes/cpp/misc/zipper.lib/codes/zipper.test.cpp
 
 <a href="../../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/naive.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 14:21:22+09:00
+* category: <a href="../../../../../../index.html#644ce7f4a4322aa44c795077f3546c08">codes/cpp/misc/zipper.lib/codes</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc/zipper.lib/codes/zipper.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-23 14:12:56+09:00
 
 
 
@@ -63,15 +63,17 @@ const int INF=1e18;
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
 #define posl(A, x) (lower_bound(all(A), x)-A.begin())
 #define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+
+#define divceil(a,b) ((a)+(b)-1)/(b)
+#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
+#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define slice(l, r) substr(l, r-l)
 
 typedef long long ll;
 typedef vector<int> vi;
@@ -85,25 +87,24 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-  #define cerrendl 42
+    #define dump(...) 42
+    #define dump_1d(...) 42
+    #define dump_2d(...) 42
+    #define cerrendl 42
 #endif
 //}}}
-
 int solve(){
-  cout << "you need to write AC code here for random test" << endl;
-  return 0;
+    cout << "you need to write AC code here for random test" << endl;
+    return 0;
 }
 
 signed main() { //{{{
 #ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
 #endif
-  solve();
-  return 0;
+    solve();
+    return 0;
 } //}}}
 
 ```
@@ -112,7 +113,7 @@ signed main() { //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/graph/bridge/codes/naive.cpp"
+#line 1 "codes/cpp/misc/zipper.lib/codes/zipper.test.cpp"
 // template version 1.15
 using namespace std;
 #include <bits/stdc++.h>
@@ -135,15 +136,17 @@ const int INF=1e18;
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define mt(a, b, c) make_tuple(a, b, c)
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define ub upper_bound
 #define lb lower_bound
 #define posl(A, x) (lower_bound(all(A), x)-A.begin())
 #define posu(A, x) (upper_bound(all(A),x)-A.begin())
 template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
 template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+
+#define divceil(a,b) ((a)+(b)-1)/(b)
+#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
+#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
+#define slice(l, r) substr(l, r-l)
 
 typedef long long ll;
 typedef vector<int> vi;
@@ -157,25 +160,24 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) 42
-  #define dump_1d(...) 42
-  #define dump_2d(...) 42
-  #define cerrendl 42
+    #define dump(...) 42
+    #define dump_1d(...) 42
+    #define dump_2d(...) 42
+    #define cerrendl 42
 #endif
 //}}}
-
 int solve(){
-  cout << "you need to write AC code here for random test" << endl;
-  return 0;
+    cout << "you need to write AC code here for random test" << endl;
+    return 0;
 }
 
 signed main() { //{{{
 #ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
 #endif
-  solve();
-  return 0;
+    solve();
+    return 0;
 } //}}}
 
 ```
