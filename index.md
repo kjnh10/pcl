@@ -38,7 +38,7 @@ layout: default
 
 ### codes/cpp
 
-* :question: <a href="library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 <div id="2ccaf388340b410f2f5de77ef560fb20"></div>
@@ -105,7 +105,7 @@ layout: default
 ### codes/cpp/graph/tree.lib
 
 * :warning: <a href="library/codes/cpp/graph/tree.lib/reroot.cpp.html">codes/cpp/graph/tree.lib/reroot.cpp</a>
-* :question: <a href="library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
 
 
 <div id="29eb2bc680bfa8c6d4c98720ef2f247a"></div>
@@ -158,7 +158,7 @@ layout: default
 
 ### codes/cpp/misc/zipper.lib
 
-* :x: <a href="library/codes/cpp/misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
 
 
 <div id="f42fe2b40278a2240b94f3b23e9cd7ad"></div>
@@ -186,8 +186,8 @@ layout: default
 
 ## Verify Files
 
-* :x: <a href="verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
-* :x: <a href="verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :heavy_check_mark: <a href="verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 

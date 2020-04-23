@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: codes/cpp/template.hpp
+# :heavy_check_mark: codes/cpp/template.hpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -43,21 +43,21 @@ layout: default
 * :warning: <a href="graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :warning: <a href="graph/tree.lib/reroot.cpp.html">codes/cpp/graph/tree.lib/reroot.cpp</a>
-* :question: <a href="graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
 * :warning: <a href="graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
 * :warning: <a href="math/bsgs/bsgs.cpp.html">codes/cpp/math/bsgs/bsgs.cpp</a>
 * :warning: <a href="math/combination.hpp.html">codes/cpp/math/combination.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">codes/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/mint.hpp.html">codes/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">codes/cpp/math/pascal.cpp</a>
-* :x: <a href="misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
+* :heavy_check_mark: <a href="misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
-* :x: <a href="../../../verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 
 ## Code

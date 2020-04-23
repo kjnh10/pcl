@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: codes/cpp/misc/zipper.lib/zipper.test.cpp
+# :heavy_check_mark: codes/cpp/misc/zipper.lib/zipper.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#7f39b7f0e4f2c6fbc3620897324e8e79">codes/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc/zipper.lib/zipper.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 18:58:05+09:00
+    - Last commit date: 2020-04-23 19:25:53+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../../library/codes/cpp/misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
-* :question: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -72,6 +72,7 @@ signed main(){
     dump(z1.get_zipped(x));
     assert(z1.get_zipped(x) == vector<int>({1,3,2,4}));
 
+    cout << "Hello World" << endl;
     return 0;
 }
 
@@ -187,14 +188,16 @@ struct zipper{/*{{{*/
         if (!_is_build) assert(false);
         return _unzipper[sv];
     }/*}}}*/
-};
-ostream& operator<<(ostream& os, const zipper& zp){/*{{{*/
-    os << endl;
-    os << "_is_build: " << zp._is_build << endl;
-    os << "zip_map:   " << zp.zip_map << endl;
-    return os;
-}/*}}}*//*}}}*/
-// How to use{{{
+#if defined(PCM) || defined(LOCAL)/*{{{*/
+    friend ostream& operator<<(ostream& os, const zipper& zp){
+        os << endl;
+        os << "_is_build: " << zp._is_build << endl;
+        os << "zip_map:   " << zp.zip_map << endl;
+        return os;
+    }
+#endif/*}}}*/
+};/*}}}*/
+// How to use {{{
 // construct
     // auto z = zipper(x); // x: vector<long long>;
     // auto z = zipper(x, 30*INF);
@@ -211,10 +214,9 @@ ostream& operator<<(ostream& os, const zipper& zp){/*{{{*/
     // z(x[i]); -> zipped x[i]
     // z.unzip(z(x[i])) -> x[i];
     // z.get_zipped(x) -> zipped x
-/*}}}*/
+// }}}
 
 //%snippet.end()%
-
 
 #line 3 "codes/cpp/misc/zipper.lib/zipper.test.cpp"
 
@@ -239,6 +241,7 @@ signed main(){
     dump(z1.get_zipped(x));
     assert(z1.get_zipped(x) == vector<int>({1,3,2,4}));
 
+    cout << "Hello World" << endl;
     return 0;
 }
 

@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
-* :question: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code

@@ -40,7 +40,7 @@ layout: default
 
 * :warning: <a href="../../graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="../../unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :question: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code

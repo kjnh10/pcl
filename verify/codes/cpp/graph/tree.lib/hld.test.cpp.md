@@ -25,21 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: codes/cpp/graph/tree.lib/hld.test.cpp
+# :heavy_check_mark: codes/cpp/graph/tree.lib/hld.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#ab4cad55b600d355aaad694bb4364fcb">codes/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/tree.lib/hld.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 19:17:19+09:00
+    - Last commit date: 2020-04-23 19:25:53+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
 
 
 ## Depends on
 
-* :question: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
-* :question: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -47,6 +48,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #include "tree.hpp"
 
 signed main() {
@@ -63,8 +65,10 @@ signed main() {
     tr.add_edge(2, 4, 1);
     tr.add_edge(2, 1, 1);
     tr.build(0);
-    // dump(tr);
-    // dump(tr.hld_path(1, 0));
+    dump(tr);
+    dump(tr.hld_path(1, 0));
+
+    cout << "Hello World" << endl;
     return 0;
 }
 
@@ -74,6 +78,8 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "codes/cpp/graph/tree.lib/hld.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #line 2 "codes/cpp/template.hpp"
 
 // template version 1.15
@@ -360,7 +366,7 @@ struct tree{/*{{{*/
 
 //%snippet.end()%
 
-#line 2 "codes/cpp/graph/tree.lib/hld.test.cpp"
+#line 3 "codes/cpp/graph/tree.lib/hld.test.cpp"
 
 signed main() {
     tree tr(12);
@@ -376,8 +382,10 @@ signed main() {
     tr.add_edge(2, 4, 1);
     tr.add_edge(2, 1, 1);
     tr.build(0);
-    // dump(tr);
-    // dump(tr.hld_path(1, 0));
+    dump(tr);
+    dump(tr.hld_path(1, 0));
+
+    cout << "Hello World" << endl;
     return 0;
 }
 

@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="../mint.hpp.html">codes/cpp/math/mint.hpp</a>
-* :question: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code

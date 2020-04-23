@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :question: codes/cpp/graph/tree.lib/tree.hpp
+# :heavy_check_mark: codes/cpp/graph/tree.lib/tree.hpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+* :heavy_check_mark: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Required by
@@ -48,7 +48,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../../../verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
 
 
