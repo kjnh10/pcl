@@ -10,6 +10,7 @@ def modify(c):
     print("modifying path")
 
     CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes/cpp'
+    os.chdir(CODE_DIR)
 
     headers = {}
     for p in CODE_DIR.rglob("*.hpp"):
@@ -22,29 +23,38 @@ def modify(c):
         if (p.is_dir()):
             continue
         modified = False
+        missing_library = []
         modified_lines = []
         with open(p, mode='r') as f:
             for line in f.readlines():
                 if (re.search('#include ".*"', line)):
-                    print(line)
                     first = line.find('"')
                     second = line.find('"', first+1)
-                    now_path = Path(line[first+1:second])
-                    if (not now_path.name in headers):
+                    now_path_str = line[first+1:second]
+                    now_path = Path(now_path_str)
+                    if (now_path.name not in headers):
                         click.secho(f"not exit: {now_path}", fg='red')
-                        modified = True
+                        missing_library.append(now_path_str)
                     elif (headers[now_path.name] != now_path):
-                        click.secho(f"path changed: {now_path}", fg='yellow')
+                        # ここには参照は壊れていないがファイルからの相対パスで書いたものも出てくる。
                         modified_path = headers[now_path.name].relative_to(CODE_DIR)
-                        modified_lines.append(f'#include "{modified_path}"\n')
-                        modified = True
+                        if str(modified_path) != now_path_str:
+                            click.secho(f"path changed: {now_path}", fg='yellow')
+                            modified_line = re.sub('#include ".*"', f'#include "{modified_path}"', line)
+                            modified_lines.append(modified_line)
+                            modified = True
+                        else:
+                            modified_lines.append(line)
                     else:
                         click.secho(f"ok: {now_path}", fg='green')
                         modified_lines.append(line)
                 else:
                     modified_lines.append(line)
 
-        if (modified):
+        if missing_library:
+            click.secho("{p} has missing library", fg='red')
+            print(missing_library)
+        elif modified:
             print(f"changed {p.absolute()}")
             with open(p, mode='w') as f:
                 for line in modified_lines:
