@@ -48,14 +48,16 @@ struct zipper{/*{{{*/
         if (!_is_build) assert(false);
         return _unzipper[sv];
     }/*}}}*/
-};
-ostream& operator<<(ostream& os, const zipper& zp){/*{{{*/
-    os << endl;
-    os << "_is_build: " << zp._is_build << endl;
-    os << "zip_map:   " << zp.zip_map << endl;
-    return os;
-}/*}}}*//*}}}*/
-// How to use{{{
+#if defined(PCM) || defined(LOCAL)/*{{{*/
+    friend ostream& operator<<(ostream& os, const zipper& zp){
+        os << endl;
+        os << "_is_build: " << zp._is_build << endl;
+        os << "zip_map:   " << zp.zip_map << endl;
+        return os;
+    }
+#endif/*}}}*/
+};/*}}}*/
+// How to use {{{
 // construct
     // auto z = zipper(x); // x: vector<long long>;
     // auto z = zipper(x, 30*INF);
@@ -72,8 +74,7 @@ ostream& operator<<(ostream& os, const zipper& zp){/*{{{*/
     // z(x[i]); -> zipped x[i]
     // z.unzip(z(x[i])) -> x[i];
     // z.get_zipped(x) -> zipped x
-/*}}}*/
+// }}}
 
 //%snippet.end()%
-
 

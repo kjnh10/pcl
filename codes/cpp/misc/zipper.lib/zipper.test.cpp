@@ -22,5 +22,6 @@ signed main(){
     dump(z1.get_zipped(x));
     assert(z1.get_zipped(x) == vector<int>({1,3,2,4}));
 
+    cout << "Hello World" << endl;
     return 0;
 }

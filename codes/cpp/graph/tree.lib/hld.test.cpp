@@ -1,3 +1,4 @@
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #include "tree.hpp"
 
 signed main() {
@@ -14,7 +15,9 @@ signed main() {
     tr.add_edge(2, 4, 1);
     tr.add_edge(2, 1, 1);
     tr.build(0);
-    // dump(tr);
-    // dump(tr.hld_path(1, 0));
+    dump(tr);
+    dump(tr.hld_path(1, 0));
+
+    cout << "Hello World" << endl;
     return 0;
 }
