@@ -21,7 +21,7 @@ def modify(c):
         headers[p.name] = p.resolve()
 
     print("---------------------------------------------------")
-    for p in CODE_DIR.rglob("*"):
+    for p in CODE_DIR.rglob("*.[ch]pp"):
         if (p.is_dir()):
             continue
         modified = False
@@ -29,6 +29,7 @@ def modify(c):
         to_write_data = []
         modified_history = []
         with open(p, mode='r') as f:
+            print(p)
             for line in f.readlines():
                 if (re.match('#include ".*"', line)):  # coment outされてる場合は処理しない
                     first = line.find('"')

@@ -1,4 +1,4 @@
-#include "../../../template.hpp"
+#include "../../template.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 //%snippet.set('tree')%

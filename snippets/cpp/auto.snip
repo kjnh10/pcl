@@ -1162,7 +1162,6 @@ snippet template
   struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   
   #if defined(PCM) || defined(LOCAL)
-    #include "/home/koji0708/go/src/github.com/kjnh10/pcl/template/codes/lib/dump.hpp"
   #else
     #define dump(...) 42
     #define dump_1d(...) 42
@@ -2600,22 +2599,24 @@ snippet tree
           res.push_back({min(ord[u],ord[v]), max(ord[u], ord[v])});
           return res;
       } //}}}
+  #if defined(PCM) || defined(LOCAL)/*{{{*/
+      friend ostream& operator<<(ostream& os, const tree& tr){
+          os << endl;
+          os << "par:         " << tr.par << endl;
+          os << "cost:        " << tr.cost << endl;
+          os << "dfstrv:      " << tr.dfstrv << endl;
+          os << "ord:         " << tr.ord << endl;
+          os << "end:         " << tr.end << endl;
+          os << "depth:       " << tr.depth << endl;
+          os << "children:    " << tr.children << endl;
+          os << "euler_tour:  " << tr.euler_tour << endl;
+          os << "et_fpos:     " << tr.et_fpos << endl;
+          os << "head_of_comp:" << tr.head_of_comp << endl;
+          return os;
+      }
+  #endif/*}}}*/
   
   };/*}}}*/
-  ostream& operator<<(ostream& os, const tree& tr){/*{{{*/
-      os << endl;
-      os << "par:         " << tr.par << endl;
-      os << "cost:        " << tr.cost << endl;
-      os << "dfstrv:      " << tr.dfstrv << endl;
-      os << "ord:         " << tr.ord << endl;
-      os << "end:         " << tr.end << endl;
-      os << "depth:       " << tr.depth << endl;
-      os << "children:    " << tr.children << endl;
-      os << "euler_tour:  " << tr.euler_tour << endl;
-      os << "et_fpos:     " << tr.et_fpos << endl;
-      os << "head_of_comp:" << tr.head_of_comp << endl;
-      return os;
-  }/*}}}*/
   
 
 
