@@ -21,24 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: codes/cpp/misc/zipper.lib/codes/zipper.hpp
+# :x: codes/cpp/misc/zipper.lib/zipper.hpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#644ce7f4a4322aa44c795077f3546c08">codes/cpp/misc/zipper.lib/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc/zipper.lib/codes/zipper.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+* category: <a href="../../../../../index.html#7f39b7f0e4f2c6fbc3620897324e8e79">codes/cpp/misc/zipper.lib</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/misc/zipper.lib/zipper.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-23 18:58:05+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+
+
+## Verified with
+
+* :x: <a href="../../../../../verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 
 ## Code
@@ -46,7 +51,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "codes/cpp/template.hpp"
+#include "../../template.hpp"
 
 //%snippet.set('zip')%
 
@@ -186,7 +191,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 2 "codes/cpp/misc/zipper.lib/codes/zipper.hpp"
+#line 2 "codes/cpp/misc/zipper.lib/zipper.hpp"
 
 //%snippet.set('zip')%
 
@@ -269,5 +274,5 @@ ostream& operator<<(ostream& os, const zipper& zp){/*{{{*/
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

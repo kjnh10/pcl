@@ -21,25 +21,25 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: codes/cpp/graph/treeclass/codes/hld.test.cpp
+# :x: codes/cpp/graph/tree.lib/hld.test.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#54dcc55c2c64fd1eb0de496df8f72752">codes/cpp/graph/treeclass/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/treeclass/codes/hld.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+* category: <a href="../../../../../index.html#ab4cad55b600d355aaad694bb4364fcb">codes/cpp/graph/tree.lib</a>
+* <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/tree.lib/hld.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-23 19:17:19+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="../../../../../../library/codes/cpp/graph/treeclass/codes/tree.hpp.html">codes/cpp/graph/treeclass/codes/tree.hpp</a>
-* :x: <a href="../../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :question: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -47,8 +47,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-// #define PROBLEM "https://judge.yosupo.jp/problem/lca"
-#include "codes/cpp/graph/treeclass/codes/tree.hpp"
+#include "tree.hpp"
 
 signed main() {
     tree tr(12);
@@ -64,8 +63,8 @@ signed main() {
     tr.add_edge(2, 4, 1);
     tr.add_edge(2, 1, 1);
     tr.build(0);
-    dump(tr);
-    dump(tr.hld_path(1, 0));
+    // dump(tr);
+    // dump(tr.hld_path(1, 0));
     return 0;
 }
 
@@ -75,8 +74,6 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "codes/cpp/graph/treeclass/codes/hld.test.cpp"
-// #define PROBLEM "https://judge.yosupo.jp/problem/lca"
 #line 2 "codes/cpp/template.hpp"
 
 // template version 1.15
@@ -131,7 +128,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 2 "codes/cpp/graph/treeclass/codes/tree.hpp"
+#line 2 "codes/cpp/graph/tree.lib/tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 //%snippet.set('tree')%
@@ -342,26 +339,28 @@ struct tree{/*{{{*/
         res.push_back({min(ord[u],ord[v]), max(ord[u], ord[v])});
         return res;
     } //}}}
+#if defined(PCM) || defined(LOCAL)/*{{{*/
+    friend ostream& operator<<(ostream& os, const tree& tr){
+        os << endl;
+        os << "par:         " << tr.par << endl;
+        os << "cost:        " << tr.cost << endl;
+        os << "dfstrv:      " << tr.dfstrv << endl;
+        os << "ord:         " << tr.ord << endl;
+        os << "end:         " << tr.end << endl;
+        os << "depth:       " << tr.depth << endl;
+        os << "children:    " << tr.children << endl;
+        os << "euler_tour:  " << tr.euler_tour << endl;
+        os << "et_fpos:     " << tr.et_fpos << endl;
+        os << "head_of_comp:" << tr.head_of_comp << endl;
+        return os;
+    }
+#endif/*}}}*/
 
 };/*}}}*/
-ostream& operator<<(ostream& os, const tree& tr){/*{{{*/
-    os << endl;
-    os << "par:         " << tr.par << endl;
-    os << "cost:        " << tr.cost << endl;
-    os << "dfstrv:      " << tr.dfstrv << endl;
-    os << "ord:         " << tr.ord << endl;
-    os << "end:         " << tr.end << endl;
-    os << "depth:       " << tr.depth << endl;
-    os << "children:    " << tr.children << endl;
-    os << "euler_tour:  " << tr.euler_tour << endl;
-    os << "et_fpos:     " << tr.et_fpos << endl;
-    os << "head_of_comp:" << tr.head_of_comp << endl;
-    return os;
-}/*}}}*/
 
 //%snippet.end()%
 
-#line 3 "codes/cpp/graph/treeclass/codes/hld.test.cpp"
+#line 2 "codes/cpp/graph/tree.lib/hld.test.cpp"
 
 signed main() {
     tree tr(12);
@@ -377,13 +376,13 @@ signed main() {
     tr.add_edge(2, 4, 1);
     tr.add_edge(2, 1, 1);
     tr.build(0);
-    dump(tr);
-    dump(tr.hld_path(1, 0));
+    // dump(tr);
+    // dump(tr.hld_path(1, 0));
     return 0;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

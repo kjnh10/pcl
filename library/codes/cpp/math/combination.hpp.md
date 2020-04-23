@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#29eb2bc680bfa8c6d4c98720ef2f247a">codes/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/combination.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+    - Last commit date: 2020-04-23 17:19:22+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="mint.hpp.html">codes/cpp/math/mint.hpp</a>
-* :x: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -48,8 +48,8 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
-#include "codes/cpp/template.hpp"
-#include "codes/cpp/math/mint.hpp"
+#include "../template.hpp"
+#include "mint.hpp"
 
 //%snippet.set('combination')%
 // %snippet.include('mint')%

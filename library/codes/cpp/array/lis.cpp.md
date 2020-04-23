@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#2ccaf388340b410f2f5de77ef560fb20">codes/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/array/lis.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+    - Last commit date: 2020-04-23 17:19:22+09:00
 
 
 
 
 ## Depends on
 
-* :x: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -46,7 +46,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "codes/cpp/template.hpp"
+#include "../template.hpp"
 
 //%snippet.set('lis')%
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#7de7d6e724be10e54982a5937c46285a">codes/cpp/math/gbsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/gbsgs/gbsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+    - Last commit date: 2020-04-23 17:19:22+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="../mint.hpp.html">codes/cpp/math/mint.hpp</a>
-* :x: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -96,7 +96,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 //}}}
 
 
-#include "codes/cpp/math/mint.hpp"
+#include "../mint.hpp"
 // %snippet.set('generalized_baybe_step_giant_step')%
 // %snippet.config({'alias':'gbsgs'})%
 // %snippet.include('mint')%

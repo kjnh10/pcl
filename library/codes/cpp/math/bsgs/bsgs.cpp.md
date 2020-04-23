@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#13af3eb46e86c75dd001992172805b75">codes/cpp/math/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/math/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+    - Last commit date: 2020-04-23 17:19:22+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="../mint.hpp.html">codes/cpp/math/mint.hpp</a>
-* :x: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -95,7 +95,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 #endif
 //}}}
 
-#include "codes/cpp/math/mint.hpp"
+#include "../mint.hpp"
 
 // %snippet.set('baybe_step_giant_step')%
 // %snippet.config({'alias':'bsgs'})%

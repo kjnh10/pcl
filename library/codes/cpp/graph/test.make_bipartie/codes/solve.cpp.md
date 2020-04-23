@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#6dd0511cf921e627379fb6f893780804">codes/cpp/graph/test.make_bipartie/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 15:35:17+09:00
+    - Last commit date: 2020-04-23 17:19:22+09:00
 
 
 
@@ -40,7 +40,7 @@ layout: default
 
 * :warning: <a href="../../graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="../../unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
-* :x: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
+* :question: <a href="../../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
 ## Code
@@ -48,7 +48,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "codes/cpp/graph/graph.hpp"
+#include "../../graph.hpp"
 
 signed main() {
   int n,m;cin>>n>>m;
