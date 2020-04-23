@@ -39,6 +39,7 @@ layout: default
 ## Required by
 
 * :warning: <a href="array/lis.cpp.html">codes/cpp/array/lis.cpp</a>
+* :heavy_check_mark: <a href="array/segtree/segment_tree.hpp.html">codes/cpp/array/segtree/segment_tree.hpp</a>
 * :warning: <a href="graph/bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
@@ -55,6 +56,7 @@ layout: default
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../../verify/codes/cpp/array/segtree/segment_tree.test.cpp.html">codes/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>

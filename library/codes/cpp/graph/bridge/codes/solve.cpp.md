@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#91e3da44bc37bdbe9b2970197862792c">codes/cpp/graph/bridge/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/bridge/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 17:19:22+09:00
+    - Last commit date: 2020-04-23 20:17:47+09:00
 
 
 
@@ -118,30 +118,32 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 //%snippet.set('UnionFind')%
 struct UnionFind {
-  vector<int> data;  // size defined only for root node
-  int count;  // count of groups
+    vector<int> data;  // size defined only for root node
+    int count;  // count of groups
 
-  UnionFind(){}
-  UnionFind(int size) : data(size, -1), count(size){}
-  bool merge(int x, int y) {/*{{{*/
-    x=root(x); y=root(y);
-    if (x!=y) {
-      if (data[y]<data[x]) swap(x, y);
-      data[x]+=data[y]; data[y]=x;
-      count--;
+    UnionFind(){}
+    UnionFind(int size) : data(size, -1), count(size){}
+    bool merge(int x, int y) {/*{{{*/
+        x=root(x); y=root(y);
+        if (x!=y) {
+            if (data[y]<data[x]) swap(x, y);
+            data[x]+=data[y]; data[y]=x;
+            count--;
+        }
+        return x != y;
+    }/*}}}*/
+    int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
+    bool same(int x,int y){ return root(x)==root(y); }
+    int size(int x) { return -data[root(x)]; }
+
+    #if defined(PCM) || defined(LOCAL) // {{{
+    friend auto& operator<<(auto &os, UnionFind& uf){
+        map<int, vector<int>> group;
+        rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
+        os << endl; each(g, group){ os << g << endl; }
+        return os;
     }
-    return x != y;
-  }/*}}}*/
-  int root(int x) { return (data[x]<0 ? x : data[x]=root(data[x])); }
-  bool same(int x,int y){ return root(x)==root(y); }
-  int size(int x) { return -data[root(x)]; }
-
-  friend auto& operator<<(auto &os, UnionFind& uf){ //{{{
-    map<int, vector<int>> group;
-    rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
-    os << endl; each(g, group){ os << g << endl; }
-    return os;
-  } //}}}
+    #endif // }}}
 };
 //%snippet.end()%
 #line 4 "codes/cpp/graph/graph.hpp"

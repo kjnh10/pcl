@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ab4cad55b600d355aaad694bb4364fcb">codes/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/tree.lib/lca.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 19:17:19+09:00
+    - Last commit date: 2020-04-23 20:17:47+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
@@ -39,6 +39,7 @@ layout: default
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../../../library/codes/cpp/array/segtree/segment_tree.hpp.html">codes/cpp/array/segtree/segment_tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
 
@@ -127,12 +128,14 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 2 "codes/cpp/graph/tree.lib/tree.hpp"
-// (ref) https://www.slideshare.net/Proktmr/ss-138534092
-// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
-//%snippet.set('tree')%
+#line 3 "codes/cpp/array/segtree/segment_tree.hpp"
+// http://tsutaj.hatenablog.com/entry/2017/03/29/204841
 
-template<typename T> struct SegmentTree { // {{{
+//%snippet.set('segment_tree')%
+//%snippet.config({'alias':'rmq'})%
+
+template<typename T>
+struct SegmentTree { // {{{
     private:
         using F = function<T(T,T)>;
         int n;  // 元の配列のサイズ
@@ -183,6 +186,7 @@ template<typename T> struct SegmentTree { // {{{
             return merge(vl, vr);
         }
 
+        #if defined(PCM) || defined(LOCAL)
         friend ostream& operator<<(ostream &os, SegmentTree<T>& sg){ //
             os << "[";
             for(int i=0; i<sg.n; i++){
@@ -190,8 +194,29 @@ template<typename T> struct SegmentTree { // {{{
             }
             return os;
         }
+        #endif
 };
 // }}}
+// Sample:
+// -----------------------------------------------
+// auto mymin=[](auto a, auto b){return min(a,b);};
+// SegmentTree<int> seg(a, mymin, 1e18);
+
+// auto mymax=[](auto a, auto b){return max(a,b);};
+// SegmentTree<int> seg(a, mymax, -1e18);
+
+// auto add=[](auto a, auto b){return a+b;};
+// SegmentTree<int> seg(a, add, 0);
+// -----------------------------------------------
+
+//%snippet.end()%
+
+#line 4 "codes/cpp/graph/tree.lib/tree.hpp"
+// (ref) https://www.slideshare.net/Proktmr/ss-138534092
+// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
+
+//%snippet.set('tree')%
+//%snippet.include('segment_tree')%
 struct tree{/*{{{*/
     int n;
     vector<int> par;  // par[i]: dfs木における親

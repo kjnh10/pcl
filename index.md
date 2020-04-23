@@ -57,7 +57,7 @@ layout: default
 ### codes/cpp/array/segtree
 
 * :warning: <a href="library/codes/cpp/array/segtree/rmq_2d.cpp.html">codes/cpp/array/segtree/rmq_2d.cpp</a>
-* :warning: <a href="library/codes/cpp/array/segtree/segment_tree.cpp.html">codes/cpp/array/segtree/segment_tree.cpp</a>
+* :heavy_check_mark: <a href="library/codes/cpp/array/segtree/segment_tree.hpp.html">codes/cpp/array/segtree/segment_tree.hpp</a>
 * :warning: <a href="library/codes/cpp/array/segtree/segment_tree_beats.cpp.html">codes/cpp/array/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="library/codes/cpp/array/segtree/segment_tree_lazy.cpp.html">codes/cpp/array/segtree/segment_tree_lazy.cpp</a>
 * :warning: <a href="library/codes/cpp/array/segtree/yuki.cpp.html">codes/cpp/array/segtree/yuki.cpp</a>
@@ -186,6 +186,7 @@ layout: default
 
 ## Verify Files
 
+* :heavy_check_mark: <a href="verify/codes/cpp/array/segtree/segment_tree.test.cpp.html">codes/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>

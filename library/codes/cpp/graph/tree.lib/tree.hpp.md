@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../../../../index.html#ab4cad55b600d355aaad694bb4364fcb">codes/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/codes/cpp/graph/tree.lib/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 19:17:19+09:00
+    - Last commit date: 2020-04-23 20:17:47+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../array/segtree/segment_tree.hpp.html">codes/cpp/array/segtree/segment_tree.hpp</a>
 * :heavy_check_mark: <a href="../../template.hpp.html">codes/cpp/template.hpp</a>
 
 
@@ -57,71 +58,14 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#pragma once
 #include "../../template.hpp"
+#include "../../array/segtree/segment_tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
+
 //%snippet.set('tree')%
-
-template<typename T> struct SegmentTree { // {{{
-    private:
-        using F = function<T(T,T)>;
-        int n;  // 元の配列のサイズ
-        int N;  // n以上の最小の2冪
-        vector<T> node;
-        F merge;
-        T identity;
-
-    public:
-        SegmentTree(){}
-        SegmentTree(vector<T> a, F f, T id):merge(f), identity(id) {
-            n = a.size();
-            N = 1; while(N < n) N *= 2;
-            node.resize(2*N-1, identity);
-            for(int i=0; i<n; i++) node[i+N-1] = a[i];
-            for(int i=N-2; i>=0; i--) node[i] = merge(node[2*i+1], node[2*i+2]);
-        }
-        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
-
-        T& operator[](int i) { return node[i+N-1]; }
-
-        void update(int x, T val) {
-            x += (N - 1);
-            node[x] = val;
-            while(x > 0) {
-                x = (x - 1) / 2;
-                node[x] = merge(node[2*x+1], node[2*x+2]);
-            }
-        }
-
-        void add(int x, T val) {
-            x += (N - 1);
-            node[x] += val;
-            while(x > 0) {
-                x = (x - 1) / 2;
-                node[x] = merge(node[2*x+1], node[2*x+2]);
-            }
-        }
-
-        // query for [l, r)
-        T query(int a, int b, int k=0, int l=0, int r=-1) {
-            if(r < 0) r = N;
-            if(r <= a || b <= l) return identity;
-            if(a <= l && r <= b) return node[k];
-
-            T vl = query(a, b, 2*k+1, l, (l+r)/2);
-            T vr = query(a, b, 2*k+2, (l+r)/2, r);
-            return merge(vl, vr);
-        }
-
-        friend ostream& operator<<(ostream &os, SegmentTree<T>& sg){ //
-            os << "[";
-            for(int i=0; i<sg.n; i++){
-                os << sg[i] << (i==sg.n-1?"]\n":", ");
-            }
-            return os;
-        }
-};
-// }}}
+//%snippet.include('segment_tree')%
 struct tree{/*{{{*/
     int n;
     vector<int> par;  // par[i]: dfs木における親
@@ -350,12 +294,14 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define cerrendl 42
 #endif
 
-#line 2 "codes/cpp/graph/tree.lib/tree.hpp"
-// (ref) https://www.slideshare.net/Proktmr/ss-138534092
-// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
-//%snippet.set('tree')%
+#line 3 "codes/cpp/array/segtree/segment_tree.hpp"
+// http://tsutaj.hatenablog.com/entry/2017/03/29/204841
 
-template<typename T> struct SegmentTree { // {{{
+//%snippet.set('segment_tree')%
+//%snippet.config({'alias':'rmq'})%
+
+template<typename T>
+struct SegmentTree { // {{{
     private:
         using F = function<T(T,T)>;
         int n;  // 元の配列のサイズ
@@ -406,6 +352,7 @@ template<typename T> struct SegmentTree { // {{{
             return merge(vl, vr);
         }
 
+        #if defined(PCM) || defined(LOCAL)
         friend ostream& operator<<(ostream &os, SegmentTree<T>& sg){ //
             os << "[";
             for(int i=0; i<sg.n; i++){
@@ -413,8 +360,29 @@ template<typename T> struct SegmentTree { // {{{
             }
             return os;
         }
+        #endif
 };
 // }}}
+// Sample:
+// -----------------------------------------------
+// auto mymin=[](auto a, auto b){return min(a,b);};
+// SegmentTree<int> seg(a, mymin, 1e18);
+
+// auto mymax=[](auto a, auto b){return max(a,b);};
+// SegmentTree<int> seg(a, mymax, -1e18);
+
+// auto add=[](auto a, auto b){return a+b;};
+// SegmentTree<int> seg(a, add, 0);
+// -----------------------------------------------
+
+//%snippet.end()%
+
+#line 4 "codes/cpp/graph/tree.lib/tree.hpp"
+// (ref) https://www.slideshare.net/Proktmr/ss-138534092
+// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
+
+//%snippet.set('tree')%
+//%snippet.include('segment_tree')%
 struct tree{/*{{{*/
     int n;
     vector<int> par;  // par[i]: dfs木における親
