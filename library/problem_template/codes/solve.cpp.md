@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-25 22:22:51+09:00
 
 
 
@@ -48,7 +48,7 @@ layout: default
 ```cpp
 #include "header.hpp"
 
-int main() {
+signed main() {
     return 0;
 }
 
@@ -113,7 +113,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 
 #line 2 "problem_template/codes/solve.cpp"
 
-int main() {
+signed main() {
     return 0;
 }
 

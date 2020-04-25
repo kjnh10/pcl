@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-25 22:22:51+09:00
 
 
 
@@ -60,8 +60,6 @@ namespace dump_macro{
     stack<vector<string>> varnames;
     stack<int> varidx;
 }
-
-#define cerrendl cerr << endl
 
 #define dump(...)  \
 {  \
@@ -195,8 +193,6 @@ namespace dump_macro{
     stack<vector<string>> varnames;
     stack<int> varidx;
 }
-
-#define cerrendl cerr << endl
 
 #define dump(...)  \
 {  \
@@ -693,7 +689,7 @@ namespace std
 
 
 #endif  // H_PRETTY_PRINT
-#line 76 "library/cpp/debug/dump.hpp"
+#line 74 "library/cpp/debug/dump.hpp"
 
 ```
 {% endraw %}
