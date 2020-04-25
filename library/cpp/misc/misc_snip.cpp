@@ -36,8 +36,8 @@ rep(i, h){
 rep(${0}){
 }
 
-//%snippet.set('rrep')%
-rrep(${0}){
+//%snippet.set('r_rep')%
+r_rep(${0}){
 }
 
 //%snippet.set('for')%
