@@ -23,7 +23,7 @@ signed main() {
     // dp[u][v]: uの親をvとするような向きで木を見た時のuを頂点とする部分木の情報
 
     // first dfs
-    rrep(i, 1, n){
+    r_rep(i, 1, n){
         // 葉からdp
         int u = tr.dfstrv[i];
         dp[u][tr.par[u]] = col[u];  // TODO: update: 子供がいない場合
@@ -53,7 +53,7 @@ signed main() {
             rep(j, 1, m+1){
                 lcum[j] = lcum[j-1] + child_info[j];  // TODO: update
             }
-            rrep(j, 1, m+1){
+            r_rep(j, 1, m+1){
                 rcum[j] = rcum[j+1] + child_info[j];  // TODO: update
             }
             dump(child_info);

@@ -1,55 +1,4 @@
-// template version 1.15
-using namespace std;
-#include <bits/stdc++.h>
-
-// varibable settings
-#define int long long
-const int INF=1e18;
-
-// define basic macro {{{
-#define _overload3(_1,_2,_3,name,...) name
-#define _rep(i,n) repi(i,0,n)
-#define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
-#define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
-#define _rrep(i,n) rrepi(i,0,n)
-#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
-#define rrep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
-#define each(i,a) for (auto&& i : a)
-#define all(x) (x).begin(),(x).end()
-#define sz(x) ((int)(x).size())
-#define pb(a) push_back(a)
-#define mp(a, b) make_pair(a, b)
-#define mt(a, b, c) make_tuple(a, b, c)
-#define ub upper_bound
-#define lb lower_bound
-#define posl(A, x) (lower_bound(all(A), x)-A.begin())
-#define posu(A, x) (upper_bound(all(A),x)-A.begin())
-template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
-template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
-
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-#define slice(l, r) substr(l, r-l)
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
-
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-
-#if defined(PCM) || defined(LOCAL)
-#else
-#define dump(...) 42
-#define dump_1d(...) 42
-#define dump_2d(...) 42
-#define cerrendl 42
-#endif
-//}}}
+#include "../../../../problem_template/codes/header.hpp"
 
 template<typename T>
 struct SegmentTree { // {{{
@@ -148,7 +97,7 @@ public:
         rep (i, n_, n) {
             tag<UPDATE>(n - 1 + i, 0);
         }
-        rrep (i, n - 1) {
+        r_rep (i, n - 1) {
             update(i);
         }
     }
@@ -405,7 +354,7 @@ signed main() {
     vi R(n);
     {
         segment_tree_beats lseg2(all(m));
-        rrep(i, n-1){
+        r_rep(i, n-1){
             lseg2.range_chmin(i+1, n, m[i]);
             R[i] = lseg2.range_sum(i+1, n);
         }
@@ -430,7 +379,7 @@ signed main() {
     int cur;
 
     cur = m[x];
-    rrep(i, 0, x){
+    r_rep(i, 0, x){
         if(m[i]>cur){
             tmp[i] = cur;
         }
