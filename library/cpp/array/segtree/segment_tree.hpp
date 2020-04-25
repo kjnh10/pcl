@@ -70,14 +70,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%
