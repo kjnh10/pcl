@@ -1,5 +1,5 @@
 #include "header.hpp"
 
-int main() {
+signed main() {
     return 0;
 }

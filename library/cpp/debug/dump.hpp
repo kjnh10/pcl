@@ -12,8 +12,6 @@ namespace dump_macro{
     stack<int> varidx;
 }
 
-#define cerrendl cerr << endl
-
 #define dump(...)  \
 {  \
     dump_macro::varnames.push([](string s) -> vector<string> { \
