@@ -47,7 +47,7 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
   nd           = """g++ {srcpath} -o {outpath} \
                -std=c++17 \
-               -include /home/koji0708/go/src/github.com/kjnh10/pcl/problem_template/codes/header.hpp \
+               -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/header.hpp \
                -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
             """
 
