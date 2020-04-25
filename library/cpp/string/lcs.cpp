@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('lcs')%
 #define MAX_N 5000

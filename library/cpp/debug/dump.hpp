@@ -3,7 +3,7 @@
 // http://www.creativ.xyz/dump-cpp-652
 using namespace std;
 #include <bits/stdc++.h>
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 #define DUMPOUT cerr // where to dump. cout or cerr
 

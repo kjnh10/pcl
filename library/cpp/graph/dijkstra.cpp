@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 // https://atcoder.jp/contests/abc151/tasks/abc151_d
 
 //%snippet.set('dijkstra')%

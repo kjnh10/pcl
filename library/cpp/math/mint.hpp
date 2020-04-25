@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('mint')%
 int mod = 1e9+7;

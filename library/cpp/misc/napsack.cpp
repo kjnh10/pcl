@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 int nampsack01all(int n, const vector<int>& v, const vector<int>& w){
   // abc032_d

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('UnionFind')%
 struct UnionFind {
@@ -22,7 +22,7 @@ struct UnionFind {
     int size(int x) { return -data[root(x)]; }
 
     #if defined(PCM) || defined(LOCAL) // {{{
-    friend auto& operator<<(auto &os, UnionFind& uf){
+    friend ostream& operator<<(ostream &os, UnionFind& uf){
         map<int, vector<int>> group;
         rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
         os << endl; each(g, group){ os << g << endl; }

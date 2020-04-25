@@ -1,4 +1,4 @@
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 
 template<typename T>
 struct SegmentTree { // {{{

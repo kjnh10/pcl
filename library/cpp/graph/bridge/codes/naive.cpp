@@ -1,4 +1,4 @@
-#include "../../../../../problem_template/codes/header.hpp"
+#include "../../../header.hpp"
 
 int solve(){
   cout << "you need to write AC code here for random test" << endl;

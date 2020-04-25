@@ -9,7 +9,7 @@ import click
 def modify(c):
     print("modifying path")
 
-    CODE_DIR = Path(os.path.dirname(__file__)).parent
+    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'library/cpp'
     os.chdir(CODE_DIR)
 
     headers = {}

@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 #include "../math/mint.hpp"
 
 template<typename T, T MOD, T B>

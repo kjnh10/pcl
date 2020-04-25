@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('topological_sort')%
 //%snippet.config({'alias':'tps'})%

@@ -1,4 +1,4 @@
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 
 int solve(){
   int a,b,p;cin>>a>>b>>p;

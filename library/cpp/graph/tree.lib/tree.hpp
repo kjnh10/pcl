@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 #include "../../array/segtree/segment_tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3

@@ -1,4 +1,4 @@
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 
 // Dinic: https://tubo28.me/compprog/algorithm/dinic/
 using Capacity = int;

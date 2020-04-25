@@ -1,4 +1,4 @@
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('slide_min')%
 template< typename T >  //{{{

@@ -1,4 +1,4 @@
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 #include "../mint.hpp"
 // %snippet.set('generalized_baybe_step_giant_step')%
 // %snippet.config({'alias':'gbsgs'})%

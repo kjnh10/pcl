@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 // http://tsutaj.hatenablog.com/entry/2017/03/29/204841
 
 //%snippet.set('segment_tree')%
