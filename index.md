@@ -34,161 +34,177 @@ layout: default
 
 ## Library Files
 
-<div id="7c19064045d3d46a80d9dc742b659ff9"></div>
+<div id="0e902850ca3e9230d87c81984f25b3bb"></div>
 
-### codes/cpp
+### library/cpp/array
 
-* :heavy_check_mark: <a href="library/codes/cpp/template.hpp.html">codes/cpp/template.hpp</a>
+* :warning: <a href="library/library/cpp/array/bit.cpp.html">library/cpp/array/bit.cpp</a>
+* :warning: <a href="library/library/cpp/array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
+* :warning: <a href="library/library/cpp/array/lis.cpp.html">library/cpp/array/lis.cpp</a>
+* :warning: <a href="library/library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
+* :warning: <a href="library/library/cpp/array/syakutori.cpp.html">library/cpp/array/syakutori.cpp</a>
 
 
-<div id="2ccaf388340b410f2f5de77ef560fb20"></div>
+<div id="ebc279bbe94c10384fe9898d1a2c958d"></div>
 
-### codes/cpp/array
+### library/cpp/array/segtree
 
-* :warning: <a href="library/codes/cpp/array/bit.cpp.html">codes/cpp/array/bit.cpp</a>
-* :warning: <a href="library/codes/cpp/array/bsearch.cpp.html">codes/cpp/array/bsearch.cpp</a>
-* :warning: <a href="library/codes/cpp/array/lis.cpp.html">codes/cpp/array/lis.cpp</a>
-* :warning: <a href="library/codes/cpp/array/slide_min.cpp.html">codes/cpp/array/slide_min.cpp</a>
-* :warning: <a href="library/codes/cpp/array/syakutori.cpp.html">codes/cpp/array/syakutori.cpp</a>
+* :warning: <a href="library/library/cpp/array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :warning: <a href="library/library/cpp/array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
+* :warning: <a href="library/library/cpp/array/segtree/segment_tree_lazy.cpp.html">library/cpp/array/segtree/segment_tree_lazy.cpp</a>
+* :warning: <a href="library/library/cpp/array/segtree/yuki.cpp.html">library/cpp/array/segtree/yuki.cpp</a>
 
 
-<div id="ffb0718479aed01fa4753b7dc0564cc8"></div>
+<div id="dbefae66adc6b6e178b4020d7ee0c756"></div>
 
-### codes/cpp/array/segtree
+### library/cpp/debug
 
-* :warning: <a href="library/codes/cpp/array/segtree/rmq_2d.cpp.html">codes/cpp/array/segtree/rmq_2d.cpp</a>
-* :heavy_check_mark: <a href="library/codes/cpp/array/segtree/segment_tree.hpp.html">codes/cpp/array/segtree/segment_tree.hpp</a>
-* :warning: <a href="library/codes/cpp/array/segtree/segment_tree_beats.cpp.html">codes/cpp/array/segtree/segment_tree_beats.cpp</a>
-* :warning: <a href="library/codes/cpp/array/segtree/segment_tree_lazy.cpp.html">codes/cpp/array/segtree/segment_tree_lazy.cpp</a>
-* :warning: <a href="library/codes/cpp/array/segtree/yuki.cpp.html">codes/cpp/array/segtree/yuki.cpp</a>
+* :warning: <a href="library/library/cpp/debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
+* :warning: <a href="library/library/cpp/debug/prettyprint.hpp.html">library/cpp/debug/prettyprint.hpp</a>
 
 
-<div id="3ec2d728d77befc78f832b5911706770"></div>
+<div id="df01edd2bf6d13defce1efe9440d670c"></div>
 
-### codes/cpp/graph
+### library/cpp/graph
 
-* :warning: <a href="library/codes/cpp/graph/bellman_ford.cpp.html">codes/cpp/graph/bellman_ford.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/dijkstra.cpp.html">codes/cpp/graph/dijkstra.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/dijkstra_dinamic.cpp.html">codes/cpp/graph/dijkstra_dinamic.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/graph.hpp.html">codes/cpp/graph/graph.hpp</a>
-* :warning: <a href="library/codes/cpp/graph/gridgraph.cpp.html">codes/cpp/graph/gridgraph.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/kruskal.cpp.html">codes/cpp/graph/kruskal.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/scc.cpp.html">codes/cpp/graph/scc.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/topological_sort.cpp.html">codes/cpp/graph/topological_sort.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/unionfind.hpp.html">codes/cpp/graph/unionfind.hpp</a>
+* :warning: <a href="library/library/cpp/graph/bellman_ford.cpp.html">library/cpp/graph/bellman_ford.cpp</a>
+* :warning: <a href="library/library/cpp/graph/dijkstra.cpp.html">library/cpp/graph/dijkstra.cpp</a>
+* :warning: <a href="library/library/cpp/graph/dijkstra_dinamic.cpp.html">library/cpp/graph/dijkstra_dinamic.cpp</a>
+* :warning: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
+* :warning: <a href="library/library/cpp/graph/kruskal.cpp.html">library/cpp/graph/kruskal.cpp</a>
+* :warning: <a href="library/library/cpp/graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
+* :warning: <a href="library/library/cpp/graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
+* :warning: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 
 
-<div id="91e3da44bc37bdbe9b2970197862792c"></div>
+<div id="4104fb3f94c89a2bf40e35b285e41c68"></div>
 
-### codes/cpp/graph/bridge/codes
+### library/cpp/graph/bridge/codes
 
-* :warning: <a href="library/codes/cpp/graph/bridge/codes/naive.cpp.html">codes/cpp/graph/bridge/codes/naive.cpp</a>
-* :warning: <a href="library/codes/cpp/graph/bridge/codes/solve.cpp.html">codes/cpp/graph/bridge/codes/solve.cpp</a>
+* :warning: <a href="library/library/cpp/graph/bridge/codes/naive.cpp.html">library/cpp/graph/bridge/codes/naive.cpp</a>
+* :warning: <a href="library/library/cpp/graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
 
 
-<div id="def13a06d42fcf0a1437c224365a9780"></div>
+<div id="08be9a8a45b2e811a312f82c2e412c8c"></div>
 
-### codes/cpp/graph/flow
+### library/cpp/graph/flow
 
-* :warning: <a href="library/codes/cpp/graph/flow/dinic.cpp.html">codes/cpp/graph/flow/dinic.cpp</a>
+* :warning: <a href="library/library/cpp/graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
 
 
-<div id="6dd0511cf921e627379fb6f893780804"></div>
+<div id="705d3ed53d77dbb4f313b001665c2a66"></div>
 
-### codes/cpp/graph/test.make_bipartie/codes
+### library/cpp/graph/test.make_bipartie/codes
 
-* :warning: <a href="library/codes/cpp/graph/test.make_bipartie/codes/solve.cpp.html">codes/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+* :warning: <a href="library/library/cpp/graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 
 
-<div id="ab4cad55b600d355aaad694bb4364fcb"></div>
+<div id="eaeee77e776a943cad05fb3e3b603f65"></div>
 
-### codes/cpp/graph/tree.lib
+### library/cpp/graph/tree.lib
 
-* :warning: <a href="library/codes/cpp/graph/tree.lib/reroot.cpp.html">codes/cpp/graph/tree.lib/reroot.cpp</a>
-* :heavy_check_mark: <a href="library/codes/cpp/graph/tree.lib/tree.hpp.html">codes/cpp/graph/tree.lib/tree.hpp</a>
+* :warning: <a href="library/library/cpp/graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 
 
-<div id="29eb2bc680bfa8c6d4c98720ef2f247a"></div>
+<div id="38e8a99339d0d505d14feb619e0537d8"></div>
 
-### codes/cpp/math
+### library/cpp/math
 
-* :warning: <a href="library/codes/cpp/math/combination.hpp.html">codes/cpp/math/combination.hpp</a>
-* :warning: <a href="library/codes/cpp/math/int.cpp.html">codes/cpp/math/int.cpp</a>
-* :warning: <a href="library/codes/cpp/math/matrix.cpp.html">codes/cpp/math/matrix.cpp</a>
-* :warning: <a href="library/codes/cpp/math/mint.hpp.html">codes/cpp/math/mint.hpp</a>
-* :warning: <a href="library/codes/cpp/math/pascal.cpp.html">codes/cpp/math/pascal.cpp</a>
+* :warning: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :warning: <a href="library/library/cpp/math/int.cpp.html">library/cpp/math/int.cpp</a>
+* :warning: <a href="library/library/cpp/math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
+* :warning: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 
 
-<div id="13af3eb46e86c75dd001992172805b75"></div>
+<div id="51139f4eb77e81dbd61f182500602d94"></div>
 
-### codes/cpp/math/bsgs
+### library/cpp/math/bsgs
 
-* :warning: <a href="library/codes/cpp/math/bsgs/bsgs.cpp.html">codes/cpp/math/bsgs/bsgs.cpp</a>
-* :warning: <a href="library/codes/cpp/math/bsgs/naive.cpp.html">codes/cpp/math/bsgs/naive.cpp</a>
+* :warning: <a href="library/library/cpp/math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
+* :warning: <a href="library/library/cpp/math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
 
 
-<div id="7de7d6e724be10e54982a5937c46285a"></div>
+<div id="9d994c49b3b2b338ab838471a698a660"></div>
 
-### codes/cpp/math/gbsgs
+### library/cpp/math/gbsgs
 
-* :warning: <a href="library/codes/cpp/math/gbsgs/gbsgs.cpp.html">codes/cpp/math/gbsgs/gbsgs.cpp</a>
-* :warning: <a href="library/codes/cpp/math/gbsgs/naive.cpp.html">codes/cpp/math/gbsgs/naive.cpp</a>
+* :warning: <a href="library/library/cpp/math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
+* :warning: <a href="library/library/cpp/math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
 
 
-<div id="1c523b37df8bf18147b947ed8ab931bc"></div>
+<div id="cef394f212ede05bd80525fdb8bcaf21"></div>
 
-### codes/cpp/math/geoemtry
+### library/cpp/math/geoemtry
 
-* :warning: <a href="library/codes/cpp/math/geoemtry/dist_between_line_and_point.cpp.html">codes/cpp/math/geoemtry/dist_between_line_and_point.cpp</a>
-* :warning: <a href="library/codes/cpp/math/geoemtry/geometry.cpp.html">codes/cpp/math/geoemtry/geometry.cpp</a>
+* :warning: <a href="library/library/cpp/math/geoemtry/dist_between_line_and_point.cpp.html">library/cpp/math/geoemtry/dist_between_line_and_point.cpp</a>
+* :warning: <a href="library/library/cpp/math/geoemtry/geometry.cpp.html">library/cpp/math/geoemtry/geometry.cpp</a>
 
 
-<div id="332ea86b24dcdfe987d2922eb448b5fe"></div>
+<div id="b4c52cffc478acefbc1ee6a9d0578055"></div>
 
-### codes/cpp/misc
+### library/cpp/misc
 
-* :warning: <a href="library/codes/cpp/misc/dfs.cpp.html">codes/cpp/misc/dfs.cpp</a>
-* :warning: <a href="library/codes/cpp/misc/event_sort.cpp.html">codes/cpp/misc/event_sort.cpp</a>
-* :warning: <a href="library/codes/cpp/misc/misc_snip.cpp.html">codes/cpp/misc/misc_snip.cpp</a>
-* :warning: <a href="library/codes/cpp/misc/napsack.cpp.html">codes/cpp/misc/napsack.cpp</a>
-* :warning: <a href="library/codes/cpp/misc/rectanglesum.cpp.html">codes/cpp/misc/rectanglesum.cpp</a>
+* :warning: <a href="library/library/cpp/misc/dfs.cpp.html">library/cpp/misc/dfs.cpp</a>
+* :warning: <a href="library/library/cpp/misc/event_sort.cpp.html">library/cpp/misc/event_sort.cpp</a>
+* :warning: <a href="library/library/cpp/misc/misc_snip.cpp.html">library/cpp/misc/misc_snip.cpp</a>
+* :warning: <a href="library/library/cpp/misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
+* :warning: <a href="library/library/cpp/misc/rectanglesum.cpp.html">library/cpp/misc/rectanglesum.cpp</a>
 
 
-<div id="7f39b7f0e4f2c6fbc3620897324e8e79"></div>
+<div id="04045c664907c0ef027b886794febe26"></div>
 
-### codes/cpp/misc/zipper.lib
+### library/cpp/misc/zipper.lib
 
-* :heavy_check_mark: <a href="library/codes/cpp/misc/zipper.lib/zipper.hpp.html">codes/cpp/misc/zipper.lib/zipper.hpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
 
 
-<div id="f42fe2b40278a2240b94f3b23e9cd7ad"></div>
+<div id="6e84951d1d0c19ce3fef1705f200b877"></div>
 
-### codes/cpp/string
+### library/cpp/string
 
-* :warning: <a href="library/codes/cpp/string/lcs.cpp.html">codes/cpp/string/lcs.cpp</a>
-* :warning: <a href="library/codes/cpp/string/rollinghash.cpp.html">codes/cpp/string/rollinghash.cpp</a>
+* :warning: <a href="library/library/cpp/string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
+* :warning: <a href="library/library/cpp/string/rollinghash.cpp.html">library/cpp/string/rollinghash.cpp</a>
 
 
-<div id="1d22c759e427a6019ba914310d3a3f1b"></div>
+<div id="c4edc97866360646965a77b5500cc883"></div>
 
-### codes/cpp/string/kmp/codes
+### library/cpp/string/kmp/codes
 
-* :warning: <a href="library/codes/cpp/string/kmp/codes/naive.cpp.html">codes/cpp/string/kmp/codes/naive.cpp</a>
-* :warning: <a href="library/codes/cpp/string/kmp/codes/solve.cpp.html">codes/cpp/string/kmp/codes/solve.cpp</a>
+* :warning: <a href="library/library/cpp/string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
+* :warning: <a href="library/library/cpp/string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
 
 
-<div id="319ca7f5ba57e96381c85edf1b8dc54b"></div>
+<div id="04b9fdf3733e033461bbd7a8ed473f54"></div>
 
-### codes/cpp/string/suffix_array/codes
+### library/cpp/string/suffix_array/codes
 
-* :warning: <a href="library/codes/cpp/string/suffix_array/codes/suffix_array.cpp.html">codes/cpp/string/suffix_array/codes/suffix_array.cpp</a>
+* :warning: <a href="library/library/cpp/string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
+
+
+<div id="dd26a324a0aa66900316935adc80e31b"></div>
+
+### problem_template/codes
+
+* :heavy_check_mark: <a href="library/problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :warning: <a href="library/problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
+
+
+<div id="76c92c32675513a9b45b3a525f3ad871"></div>
+
+### problem_template/test
+
+* :warning: <a href="library/problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>
 
 
 ## Verify Files
 
-* :heavy_check_mark: <a href="verify/codes/cpp/array/segtree/segment_tree.test.cpp.html">codes/cpp/array/segtree/segment_tree.test.cpp</a>
-* :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/hld.test.cpp.html">codes/cpp/graph/tree.lib/hld.test.cpp</a>
-* :heavy_check_mark: <a href="verify/codes/cpp/graph/tree.lib/lca.test.cpp.html">codes/cpp/graph/tree.lib/lca.test.cpp</a>
-* :heavy_check_mark: <a href="verify/codes/cpp/misc/zipper.lib/zipper.test.cpp.html">codes/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 
