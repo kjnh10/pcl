@@ -1,10 +1,12 @@
 #pragma once
-#ifndef HEADER_H
-#define HEADER_H
 
 // template version 2.0
 using namespace std;
 #include <bits/stdc++.h>
+
+// varibable settings
+#define int long long
+const int INF=1e18;
 
 #define _overload3(_1,_2,_3,name,...) name
 #define _rep(i,n) repi(i,0,n)
@@ -31,11 +33,12 @@ template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b);
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define slice(l, r) substr(l, r-l)
 
-template<class T> using V = vector<T>;
 typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll,ll> pii;
-typedef tuple<ll,ll,ll> iii;
+typedef pair<int,int> pii;
+typedef tuple<int,int,int> iii;
 
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
@@ -47,6 +50,4 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define dump_2d(...) ;
   #define cerrendl ;
 #endif
-
-#endif /* HEADER_H */
 
