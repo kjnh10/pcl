@@ -1,5 +1,5 @@
 // %test('http://codeforces.com/contest/1324/problem/F')%
-#include "../../template.hpp"
+#include "../../../../problem_template/codes/header.hpp"
 #include "tree.hpp"
 
 signed main() {

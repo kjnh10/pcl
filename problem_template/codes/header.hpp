@@ -1,4 +1,6 @@
 #pragma once
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -29,12 +31,11 @@ template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b);
 #define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
 #define slice(l, r) substr(l, r-l)
 
+template<class T> using V = vector<T>;
 typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
+typedef pair<ll,ll> pii;
+typedef tuple<ll,ll,ll> iii;
 
 template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
 struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
@@ -46,4 +47,6 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   #define dump_2d(...) ;
   #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 
