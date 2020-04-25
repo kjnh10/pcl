@@ -9,7 +9,7 @@ import click
 def modify(c):
     print("modifying path")
 
-    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes/cpp'
+    CODE_DIR = Path(os.path.dirname(__file__)).parent
     os.chdir(CODE_DIR)
 
     headers = {}
@@ -74,7 +74,7 @@ def modify(c):
 def build(c):
     print("building snippets")
 
-    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'codes'
+    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'library'
     neosnip_dir = Path(os.path.dirname(__file__)).parent / 'snippets/'
     vssnip_dir = Path.home() / '.config/Code/User/snippets/'
 
