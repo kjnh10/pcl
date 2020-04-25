@@ -1,0 +1,70 @@
+template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this directory does not exist or not specified, default template directory will be used
+
+[prepare]
+  [prepare.custom_hook_command]
+  after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" -c ""'
+
+[ppp]
+  [ppp.custom_hook_command]
+  after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" -c ""'
+
+[submit]
+  [submit.default_lang.AtCoder]
+  # cpp = '4003'
+  cpp = '3003'
+  py = '4047'
+
+  [submit.default_lang.Codeforces]
+  cpp = '50'  # GNU G++14 6.4.0
+  py = '41'   # pypy if you prefer python3, use '31'
+
+  [submit.language.AtCoder]
+  gcc = '4003' # C++17 (GCC 9.2.1)
+  clang = '4004' # C++17 (Glang 10.0.0)
+  py = '4006' # python 3.8.2
+  pypy = '4047' # pypy3
+
+  [submit.language.Codeforces]
+  gcc = '50'
+  clang = '52'
+  py = '31'
+  py3 = '31'
+  pypy = '41'
+
+[test]
+  timeout_sec=2
+  max_memory=256
+
+  [test.compile_command]
+  configname = 'standard_17'  # specify the profile used by default for tt and sb
+
+  [test.compile_command.cpp]  # for tt command, you can change the compile command by --cc option. like 'pcm tt -c 1 --cc v5'
+  standard_17 = """g++ {srcpath} -o {outpath} \
+               -std=c++17 \
+               -include {pcm_dir_path}/lib_cplusplus/dump.hpp \
+               -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
+            """
+
+  debug = """g++ {srcpath} -o {outpath} \
+            -std=c++17 \
+            -include {pcm_dir_path}/lib_cplusplus/dump.hpp \
+            -DPCM -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -fuse-ld=gold \
+            -g
+            """
+
+  # how to install clang: https://qiita.com/tekito2/items/0a534781631342f2a3a9
+  clang = """/home/llvm/bin/clang++ {srcpath} -o {outpath} \
+          -std=c++17 \
+          -include {pcm_dir_path}/lib_cplusplus/dump.hpp \
+          -I/usr/include/x86_64-linux-gnu/c++/9 \
+          -I/usr/include/c++/9 \
+          -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=lld
+          """
+
+  detail = """g++ {srcpath} -o {outpath} \
+            -std=c++17 \
+            -include {pcm_dir_path}/lib_cplusplus/dump.hpp \
+            -DPCM\
+            -Wall -Wextra -pedantic -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector \
+  """
+
