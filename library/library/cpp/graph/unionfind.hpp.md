@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/unionfind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
@@ -93,7 +93,7 @@ struct UnionFind {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

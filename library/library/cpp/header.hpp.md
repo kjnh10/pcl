@@ -25,55 +25,55 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: problem_template/codes/header.hpp
+# :heavy_check_mark: library/cpp/header.hpp
 
 <a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/header.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+* category: <a href="../../../index.html#b74e03aadbcf5e719ddbe48ef08361fd">library/cpp</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/header.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
 
 ## Required by
 
-* :warning: <a href="../../library/cpp/array/bit.cpp.html">library/cpp/array/bit.cpp</a>
-* :warning: <a href="../../library/cpp/array/lis.cpp.html">library/cpp/array/lis.cpp</a>
-* :warning: <a href="../../library/cpp/array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
-* :heavy_check_mark: <a href="../../library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :warning: <a href="../../library/cpp/array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
-* :warning: <a href="../../library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
-* :warning: <a href="../../library/cpp/debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
-* :warning: <a href="../../library/cpp/graph/bridge/codes/naive.cpp.html">library/cpp/graph/bridge/codes/naive.cpp</a>
-* :warning: <a href="../../library/cpp/graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
-* :warning: <a href="../../library/cpp/graph/dijkstra.cpp.html">library/cpp/graph/dijkstra.cpp</a>
-* :warning: <a href="../../library/cpp/graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
-* :warning: <a href="../../library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :warning: <a href="../../library/cpp/graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
-* :warning: <a href="../../library/cpp/graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
-* :warning: <a href="../../library/cpp/graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
-* :warning: <a href="../../library/cpp/graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
-* :heavy_check_mark: <a href="../../library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :warning: <a href="../../library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :warning: <a href="../../library/cpp/math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
-* :warning: <a href="../../library/cpp/math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
-* :warning: <a href="../../library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
-* :warning: <a href="../../library/cpp/math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
-* :warning: <a href="../../library/cpp/math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
-* :warning: <a href="../../library/cpp/math/geoemtry/geometry.cpp.html">library/cpp/math/geoemtry/geometry.cpp</a>
-* :warning: <a href="../../library/cpp/math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
-* :warning: <a href="../../library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
-* :warning: <a href="../../library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
-* :warning: <a href="../../library/cpp/misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
-* :heavy_check_mark: <a href="../../library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
-* :warning: <a href="../../library/cpp/string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
-* :warning: <a href="../../library/cpp/string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
-* :warning: <a href="../../library/cpp/string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
-* :warning: <a href="../../library/cpp/string/rollinghash.cpp.html">library/cpp/string/rollinghash.cpp</a>
-* :warning: <a href="../../library/cpp/string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
-* :warning: <a href="solve.cpp.html">problem_template/codes/solve.cpp</a>
-* :warning: <a href="../test/judge.cpp.html">problem_template/test/judge.cpp</a>
+* :warning: <a href="array/bit.cpp.html">library/cpp/array/bit.cpp</a>
+* :warning: <a href="array/lis.cpp.html">library/cpp/array/lis.cpp</a>
+* :warning: <a href="array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
+* :heavy_check_mark: <a href="array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :warning: <a href="array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
+* :warning: <a href="array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
+* :warning: <a href="debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
+* :warning: <a href="graph/bridge/codes/naive.cpp.html">library/cpp/graph/bridge/codes/naive.cpp</a>
+* :warning: <a href="graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
+* :warning: <a href="graph/dijkstra.cpp.html">library/cpp/graph/dijkstra.cpp</a>
+* :warning: <a href="graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
+* :warning: <a href="graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :warning: <a href="graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
+* :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+* :warning: <a href="graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
+* :warning: <a href="graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
+* :heavy_check_mark: <a href="graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :warning: <a href="graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :warning: <a href="math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
+* :warning: <a href="math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
+* :warning: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
+* :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
+* :warning: <a href="math/geoemtry/geometry.cpp.html">library/cpp/math/geoemtry/geometry.cpp</a>
+* :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
+* :warning: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
+* :warning: <a href="misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
+* :heavy_check_mark: <a href="misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
+* :warning: <a href="string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
+* :warning: <a href="string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
+* :warning: <a href="string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
+* :warning: <a href="string/rollinghash.cpp.html">library/cpp/string/rollinghash.cpp</a>
+* :warning: <a href="string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
+* :warning: <a href="../../problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
+* :warning: <a href="../../problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>
 
 
 ## Verified with
@@ -149,7 +149,7 @@ struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

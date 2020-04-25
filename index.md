@@ -34,6 +34,13 @@ layout: default
 
 ## Library Files
 
+<div id="b74e03aadbcf5e719ddbe48ef08361fd"></div>
+
+### library/cpp
+
+* :heavy_check_mark: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+
+
 <div id="0e902850ca3e9230d87c81984f25b3bb"></div>
 
 ### library/cpp/array
@@ -189,7 +196,6 @@ layout: default
 
 ### problem_template/codes
 
-* :heavy_check_mark: <a href="library/problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
 * :warning: <a href="library/problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
 
 

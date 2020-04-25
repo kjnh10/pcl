@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
 
 
 ## Code
@@ -84,7 +84,7 @@ signed main(){
 ```cpp
 #line 1 "library/cpp/misc/zipper.lib/zipper.test.cpp"
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

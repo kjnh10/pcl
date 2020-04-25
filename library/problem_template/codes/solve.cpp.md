@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 22:22:51+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -58,7 +58,7 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

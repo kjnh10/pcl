@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/reroot.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 21:17:11+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
@@ -40,7 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
 * :heavy_check_mark: <a href="tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -144,7 +144,7 @@ signed main() {
 ```cpp
 #line 1 "library/cpp/graph/tree.lib/reroot.cpp"
 // %test('http://codeforces.com/contest/1324/problem/F')%
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

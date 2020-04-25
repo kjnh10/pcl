@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#4104fb3f94c89a2bf40e35b285e41c68">library/cpp/graph/bridge/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bridge/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
@@ -40,7 +40,7 @@ layout: default
 
 * :warning: <a href="../../graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="../../unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../../problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -60,7 +60,7 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

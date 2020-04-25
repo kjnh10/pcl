@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../../../index.html#04b9fdf3733e033461bbd7a8ed473f54">library/cpp/string/suffix_array/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/suffix_array/codes/suffix_array.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 21:17:11+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../../problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -270,7 +270,7 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;

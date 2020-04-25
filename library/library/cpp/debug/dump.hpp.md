@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 22:22:51+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="prettyprint.hpp.html">library/cpp/debug/prettyprint.hpp</a>
-* :heavy_check_mark: <a href="../../../problem_template/codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -132,11 +132,11 @@ void dump_func(Head&& head, Tail&&... tail)
 // http://www.creativ.xyz/dump-cpp-652
 using namespace std;
 #include <bits/stdc++.h>
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;
-#line 6 "problem_template/codes/header.hpp"
+#line 6 "library/cpp/header.hpp"
 
 // varibable settings
 #define int long long

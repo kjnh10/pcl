@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#76c92c32675513a9b45b3a525f3ad871">problem_template/test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/test/judge.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:58:40+09:00
+    - Last commit date: 2020-04-26 00:22:11+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../codes/header.hpp.html">problem_template/codes/header.hpp</a>
+* :heavy_check_mark: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -105,7 +105,7 @@ signed main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "problem_template/codes/header.hpp"
+#line 2 "library/cpp/header.hpp"
 
 // template version 2.0
 using namespace std;
