@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -43,6 +43,9 @@ layout: default
 
 ## Required by
 
+* :warning: <a href="../../graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
+* :heavy_check_mark: <a href="../../graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :warning: <a href="../../graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :warning: <a href="../../graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="../../graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 
@@ -50,6 +53,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 
@@ -60,7 +64,7 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 // http://tsutaj.hatenablog.com/entry/2017/03/29/204841
 
 //%snippet.set('segment_tree')%
@@ -131,14 +135,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%
@@ -274,14 +278,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%

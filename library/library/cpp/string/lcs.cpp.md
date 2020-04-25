@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/lcs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -46,7 +46,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('lcs')%
 #define MAX_N 5000

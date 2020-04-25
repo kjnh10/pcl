@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#4104fb3f94c89a2bf40e35b285e41c68">library/cpp/graph/bridge/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bridge/codes/naive.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -46,7 +46,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../../../problem_template/codes/header.hpp"
+#include "../../../header.hpp"
 
 int solve(){
   cout << "you need to write AC code here for random test" << endl;

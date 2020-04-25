@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -52,7 +52,7 @@ layout: default
 // http://www.creativ.xyz/dump-cpp-652
 using namespace std;
 #include <bits/stdc++.h>
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 #define DUMPOUT cerr // where to dump. cout or cerr
 

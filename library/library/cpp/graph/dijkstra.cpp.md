@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -46,7 +46,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 // https://atcoder.jp/contests/abc151/tasks/abc151_d
 
 //%snippet.set('dijkstra')%

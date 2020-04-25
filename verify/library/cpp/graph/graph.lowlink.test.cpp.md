@@ -21,28 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/test.make_bipartie/codes/solve.cpp
+# :heavy_check_mark: library/cpp/graph/graph.lowlink.test.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.lowlink.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-26 02:21:57+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -50,28 +51,24 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../graph.hpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp"
+// 関節点
 
-signed main() {
-  int n,m;cin>>n>>m;
-  Graph<int, int> g(n);
-  rep(i, m){
-    int a,b;cin>>a>>b;
-    a--;b--;
-    g.add_edge(a, b, 1);
-  }
+#include "graph.hpp"
 
-  auto res = g.make_bipartite();
-  dump(res);
-  if (res[0]==-1){
-    cout << n*(n-1)/2 - m << endl;
-  }
-  else{
-    int c = accumulate(all(res), 0LL);
-    cout << c*(n-c) - m << endl;
-  }
+signed main(){
+    int n,m;cin>>n>>m;
+    Graph g(n);
+    rep(i, m){
+        int u,v;cin>>u>>v;
+        g.add_edge(u, v, 1);
+        g.add_edge(v, u, 1);
+    }
+    g.build_tree(0);
+    dump(g.tr);
 
-  return 0;
+    auto res = g.get_articulation_points();
+    each(el, res) cout << el << endl;
 }
 
 ```
@@ -80,6 +77,10 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/graph/graph.lowlink.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp"
+// 関節点
+
 #line 2 "library/cpp/header.hpp"
 
 // template version 2.0
@@ -545,32 +546,25 @@ struct Graph{
 
 //%snippet.end()%
 
-#line 2 "library/cpp/graph/test.make_bipartie/codes/solve.cpp"
+#line 5 "library/cpp/graph/graph.lowlink.test.cpp"
 
-signed main() {
-  int n,m;cin>>n>>m;
-  Graph<int, int> g(n);
-  rep(i, m){
-    int a,b;cin>>a>>b;
-    a--;b--;
-    g.add_edge(a, b, 1);
-  }
+signed main(){
+    int n,m;cin>>n>>m;
+    Graph g(n);
+    rep(i, m){
+        int u,v;cin>>u>>v;
+        g.add_edge(u, v, 1);
+        g.add_edge(v, u, 1);
+    }
+    g.build_tree(0);
+    dump(g.tr);
 
-  auto res = g.make_bipartite();
-  dump(res);
-  if (res[0]==-1){
-    cout << n*(n-1)/2 - m << endl;
-  }
-  else{
-    int c = accumulate(all(res), 0LL);
-    cout << c*(n-c) - m << endl;
-  }
-
-  return 0;
+    auto res = g.get_articulation_points();
+    each(el, res) cout << el << endl;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

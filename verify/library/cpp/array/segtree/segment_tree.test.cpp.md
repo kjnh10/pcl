@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -212,14 +212,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%

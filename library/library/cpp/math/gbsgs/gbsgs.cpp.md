@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#9d994c49b3b2b338ab838471a698a660">library/cpp/math/gbsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/gbsgs/gbsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -47,7 +47,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 #include "../mint.hpp"
 // %snippet.set('generalized_baybe_step_giant_step')%
 // %snippet.config({'alias':'gbsgs'})%

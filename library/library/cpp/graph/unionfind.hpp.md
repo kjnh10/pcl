@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/unionfind.hpp
+# :heavy_check_mark: library/cpp/graph/unionfind.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/unionfind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -44,8 +44,13 @@ layout: default
 ## Required by
 
 * :warning: <a href="bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
-* :warning: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 
 
 ## Code
@@ -54,7 +59,7 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
-#include "../../../problem_template/codes/header.hpp"
+#include "../header.hpp"
 
 //%snippet.set('UnionFind')%
 struct UnionFind {
@@ -77,7 +82,7 @@ struct UnionFind {
     int size(int x) { return -data[root(x)]; }
 
     #if defined(PCM) || defined(LOCAL) // {{{
-    friend auto& operator<<(auto &os, UnionFind& uf){
+    friend ostream& operator<<(ostream &os, UnionFind& uf){
         map<int, vector<int>> group;
         rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
         os << endl; each(g, group){ os << g << endl; }
@@ -169,7 +174,7 @@ struct UnionFind {
     int size(int x) { return -data[root(x)]; }
 
     #if defined(PCM) || defined(LOCAL) // {{{
-    friend auto& operator<<(auto &os, UnionFind& uf){
+    friend ostream& operator<<(ostream &os, UnionFind& uf){
         map<int, vector<int>> group;
         rep(i, sz(uf.data)){ group[uf.root(i)].pb(i); }
         os << endl; each(g, group){ os << g << endl; }

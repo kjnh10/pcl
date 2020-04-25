@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#04b9fdf3733e033461bbd7a8ed473f54">library/cpp/string/suffix_array/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/suffix_array/codes/suffix_array.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -46,7 +46,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../../../../problem_template/codes/header.hpp"
+#include "../../../header.hpp"
 
 //%snippet.set('suffix_array')%
 

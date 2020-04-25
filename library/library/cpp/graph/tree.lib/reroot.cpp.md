@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/reroot.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -49,7 +49,7 @@ layout: default
 {% raw %}
 ```cpp
 // %test('http://codeforces.com/contest/1324/problem/F')%
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 #include "tree.hpp"
 
 signed main() {
@@ -268,14 +268,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%

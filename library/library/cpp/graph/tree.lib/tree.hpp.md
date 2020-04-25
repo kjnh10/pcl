@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 00:22:11+09:00
+    - Last commit date: 2020-04-26 02:21:57+09:00
 
 
 
@@ -44,11 +44,15 @@ layout: default
 
 ## Required by
 
+* :warning: <a href="../bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
+* :heavy_check_mark: <a href="../graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :warning: <a href="../test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :warning: <a href="reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 
@@ -59,7 +63,7 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
-#include "../../../../problem_template/codes/header.hpp"
+#include "../../header.hpp"
 #include "../../array/segtree/segment_tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
@@ -364,14 +368,14 @@ struct SegmentTree { // {{{
 // }}}
 // Sample:
 // -----------------------------------------------
-// auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+    // auto mymin=[](auto a, auto b){return min(a,b);};
+    // SegmentTree<int> seg(a, mymin, 1e18);
 
-// auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+    // auto mymax=[](auto a, auto b){return max(a,b);};
+    // SegmentTree<int> seg(a, mymax, -1e18);
 
-// auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+    // auto add=[](auto a, auto b){return a+b;};
+    // SegmentTree<int> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%
