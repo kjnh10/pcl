@@ -216,9 +216,9 @@ auto f = [&](){
 vector<int> used(n);
 auto dfs = [&](const auto& dfs, int u) -> void {
   used[u] = 1;
-  each(v, g[u]){
-    if (used[v]) continue;
-    dfs(dfs, v);
+  each(e, g[u]){
+    if (used[e.to]) continue;
+    dfs(dfs, e.to);
   }
 };
 dfs(dfs, 0);
