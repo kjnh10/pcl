@@ -1,8 +1,10 @@
 #include "../header.hpp"
 // https://atcoder.jp/contests/abc151/tasks/abc151_d
+// this module is depricated. use graph.hpp
 
 //%snippet.set('dijkstra')%
 
+// this module is depricated. use graph.hpp
 using Pos = int;  // TODO: update if needed
 
 using Cost = int;     // TODO: update if needed

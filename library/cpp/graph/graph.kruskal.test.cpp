@@ -2,7 +2,7 @@
     "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
 
 #include "../header.hpp"
-#include "./graph.hpp"
+#include "graph.hpp"
 
 signed main() {
     int n, m;
