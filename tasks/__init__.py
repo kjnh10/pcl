@@ -98,7 +98,10 @@ def format(c):
 
     CODE_DIR = Path(os.path.dirname(__file__)).parent
     for p in CODE_DIR.rglob("*.[ch]pp"):
+        if 'snip' in p.name:
+            continue  # snippetはformatされると動かなくなるので
         subprocess.run(f"clang-format {p} -i", shell=True)
+
 
 def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     if neosnip_file.exists():

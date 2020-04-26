@@ -425,65 +425,65 @@ snippet napsack
 
 
 snippet cout
-  cout << ${0 : TARGET} << endl;
+  cout << ${0:TARGET} << endl;
   
 
 
 snippet couts
-  rep(i, sz(${1 : x})) cout << $1[i] << (i != sz($1) - 1 ? " " : "\n");
+  rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
   
 
 
 snippet ?
-  (${1} ? ${2} : ${3})
+    (${1} ? ${2} : ${3})
   
 
 
 snippet inv
-      vector<int> ${1}(n);
-  rep(i, n) { cin >> $1[i]; }
-  dump($1);
-  ${0}
+  vector<int> ${1}(n);
+  rep(i, n) {
+    cin>>$1[i];
+  }
+  dump($1);${0}
   
 
 
 snippet invv
-  vector<vector<int>>
-      ${1}(h, vector<int>(w));
-  rep(i, h) {
-      rep(j, w) { cin >> $1[i][j]; }
+  vector<vector<int>> ${1}(h, vector<int>(w));
+  rep(i, h){
+    rep(j,w){
+      cin>>$1[i][j];
+    }
   }
   
 
 
 snippet invvs
   vector<vector<int>> ${1}(h, vector<int>(w));
-  rep(i, h) {
-      string tmp;
-      cin >> tmp;
-      rep(j, w) {
-          if (tmp[j] == '#')
-              $1[i][j] = 1;
-          else
-              $1[i][j] = 0;
-      }
+  rep(i, h){
+    string tmp;cin>>tmp;
+    rep(j,w){
+      if (tmp[j]=='#') $1[i][j]=1;
+      else             $1[i][j]=0; 
+    }
   }
   
 
 
 snippet rep
-  rep(${0}) {}
+  rep(${0}){
+  }
   
 
 
 snippet r_rep
-  r_rep(${0}) {}
+  r_rep(${0}){
+  }
   
 
 
 snippet for
-  for (int i = 0; i < n; i++) {
-      $ { 0 }
+  for(int i=0; i<n; i++){${0}
   }
   
 
@@ -495,27 +495,25 @@ snippet if
 
 
 snippet else
-  else {
-      $ { 0 }
+  else{${0}
   }
   
 
 
 snippet elif
-  else if (${0}) {
+  else if(${0}){
   }
   
 
 
 snippet while
-  while (${0}) {
+  while(${0}){
   }
   
 
 
 snippet reprep
-  rep(${1}) rep(${2}) {
-      $ { 0 }
+  rep(${1}) rep(${2}){${0}
   }
   
 
@@ -531,14 +529,14 @@ snippet af
 
 
 snippet sortkey
-  sort(all(${0}), [&](auto& l, auto& r) { return l.second < r.second; });
+  sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
   
 
 
 snippet perm
   vi p(n);
   iota(all(p), 0LL);
-  do {
+  do{
       dump(p);
       vi ma(a);
       rep(i, n) ma[i] = a[p[i]];
@@ -549,11 +547,11 @@ snippet perm
 
 snippet to_bin
   #define N 61
-  string to_bin(int n, int d) {
-      // nをd桁の2進数で表示する。
-      stringstream ss;
-      ss << bitset<N>(n);
-      return ss.str().substr(N - d, d);
+  string to_bin(int n, int d){
+    // nをd桁の2進数で表示する。
+    stringstream ss;
+    ss << bitset<N>(n);
+    return ss.str().substr(N-d, d);
   }
   // int d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
   // int f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
@@ -563,18 +561,20 @@ snippet to_bin
 snippet warsharll
   // init
   vector<vector<int>> d(n, vector<int>(n, INF));
-  rep(i, n) rep(j, n) {
-      if (i == j) d[i][j] = 0;
+  rep(i, n)rep(j, n){
+    if (i==j) d[i][j] = 0;
   }
   
   // input
   ${0};
   
   // calc
-  rep(k, n) {
-      rep(i, n) {
-          rep(j, n) { chmin(d[i][j], d[i][k] + d[k][j]); }
+  rep(k, n){
+    rep(i, n){
+      rep(j, n){
+        chmin(d[i][j], d[i][k]+d[k][j]);
       }
+    }
   }
   dump_2d(d, n, n);
   
@@ -584,53 +584,55 @@ snippet digitdp
   int n = sz(s);
   vector<vector<int>> dp(2, vector<int>(n));
   dp[0][0] = 1;
-  rep(i, 1, n + 1) {  //桁数
-      rep(leq, 2) {   //未満確定フラグ
-          int lim = leq ? 9 : s[i - 1] - '0';
-          rep(d, lim + 1) { dp[leq || d < lim][i] += dp[leq][i - 1]; }
+  rep(i, 1, n+1){  //桁数
+    rep(leq, 2){  //未満確定フラグ
+      int lim = leq ? 9 : s[i-1]-'0';
+      rep(d, lim+1){
+        dp[leq || d<lim][i] += dp[leq][i-1];
       }
+    }
   }
   
 
 
 snippet rangesum
-  int rangesum(int l, int r) {
-      // a[]: accumulative sum
-      l = max(0, l);
-      // r = min(0, n-1);
-      if (l > r) return 0;
-      return a[r] - (l - 1 >= 0 ? a[l - 1] : 0);
+  int rangesum(int l, int r){
+    // a[]: accumulative sum
+    l = max(0, l);
+    // r = min(0, n-1);
+    if (l > r) return 0;
+    return a[r] - (l-1>=0 ? a[l-1] : 0);
   }
   
 
 
 snippet asv
   // acumulative sum vector {{{
-  template <typename T>
+  template<typename T>
   struct asvector {
-      vector<T> cum;                    // accumulative sum
-      asvector(vector<T> a) : cum(a) {  // {{{  // constructor
-          rep(i, 1, sz(a)) cum[i] += cum[i - 1];
-      }  // }}}
+    vector<T> cum; //accumulative sum
+    asvector(vector<T> a): cum(a){  // {{{  // constructor
+      rep(i, 1, sz(a))  cum[i]+=cum[i-1];
+    } // }}}
   
-      T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
-          l = max(0LL, l);
-          r = min(r, sz(cum));
-          if (l < r) {
-              return cum[r - 1] - (l - 1 >= 0 ? cum[l - 1] : 0);
-          } else {
-              return 0;
-          }
-      }  // }}}
+    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+      l = max(0LL, l);
+      r = min(r, sz(cum));
+      if (l<r){
+        return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
+      }
+      else{
+        return 0;
+      }
+    } // }}}
   
-      T& operator[](int i) {  // {{{
-          return cum[i];
-      }  // }}}
+    T& operator[](int i) { // {{{
+      return cum[i]; 
+    } // }}}
   
-      friend ostream& operator<<(ostream& os, asvector<T>& as) {  //{{{
-          os << as.cum;
-          return os;
-      }  //}}}
+    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
+      os << as.cum; return os;
+    } //}}}
   };
   //}}}
   
@@ -639,113 +641,118 @@ snippet asv
 snippet sandbox
   using namespace std;
   #include <bits/stdc++.h>
-  
   #include <iostream>
   
-  int main() { return 0; }
+  int main(){
+    return 0;
+  }
   
 
 
 snippet remove_leading_zeros
-  str.erase(0, min(str.find_first_not_of('0'), str.size() - 1));
+  str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
   
 
 
 snippet pow2
-      int p[500001];  // power of 2 {{{
+  int p[500001];  // power of 2 {{{
   p[0] = 1;
-  rep(i, 1, 500002) {
-      p[i] = p[i - 1] * 2;
-      p[i] %= MOD;
+  rep(i, 1, 500002){
+    p[i] = p[i-1]*2;
+    p[i] %= MOD;
   }
   // }}}
   
 
 
 snippet pow
-  int pow_(int b, int x) {  //{{{
-      if (x == 1) return b % M;
-      if (x % 2 == 0) {
-          int t = pow_(b, x / 2);
-          return (t * t) % M;
-      } else {
-          return pow_(b, x - 1) * b % M;
-      }
-  }  //}}}
+  int pow_(int b, int x){ //{{{
+    if (x==1) return b%M;
+    if (x%2==0){
+      int t = pow_(b, x/2);
+      return (t*t)%M;
+    }
+    else{
+      return pow_(b, x-1)*b%M;
+    }
+  } //}}}
   
 
 
 snippet lambda
 alias f
-  auto f = [&]() {};
+  auto f = [&](){
+  };
   
 
 
 snippet dfs_lambda
   vector<int> used(n);
   auto dfs = [&](const auto& dfs, int u) -> void {
-      used[u] = 1;
-      each(v, g[u]) {
-          if (used[v]) continue;
-          dfs(dfs, v);
-      }
+    used[u] = 1;
+    each(v, g[u]){
+      if (used[v]) continue;
+      dfs(dfs, v);
+    }
   };
   dfs(dfs, 0);
   
 
 
 snippet dxdy
-  int dx[] = {1, -1, 0, 0};
-  int dy[] = {0, 0, 1, -1};
+  int dx[]={1, -1, 0, 0};
+  int dy[]={0, 0, 1, -1};
   
 
 
 snippet ostream
 alias <<
-  ostream& operator<<(ostream& os, const ${1 : type} & ${2}) {
-      os << ${3};
-      return os;
+  ostream& operator<<(ostream& os, const ${1:type}& ${2}){
+    os << ${3};
+    return os;
   }
   
 
 
 snippet query
-  int query() {
-      cerrendl;
+  int query(){
+    cerrendl;
   
-      return 0;
+    return 0;
   }
   
-  signed main() {
-      int Q;
-      cin >> Q;
-      rep(_, Q) { query(); }
-      return 0;
+  signed main(){
+    int Q;cin>>Q;
+    rep(_, Q){
+      query();
+    }
+    return 0;
   }
   
 
 
 snippet random_generator
   uint64_t rng() {
-      static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
-      return uniform_int_distribution<uint64_t>(0, -1)(x);
+    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
+    return uniform_int_distribution<uint64_t>(0, -1)(x);
   }
   
 
 
 snippet bitall
-  rep(mask, 1 << n) {
-      vi vmask(n);
-      rep(i, n) {
-          if (mask & (1 << i)) vmask[i] = 1;
+  rep(mask, 1<<n){
+    vi vmask(n);
+    rep(i, n){
+      if (mask&(1<<i)) vmask[i] = 1;
+    }
+    cerrendl;
+    dump(vmask);
+    rep(i, n){
+      if (vmask[i]){
       }
-      cerrendl;
-      dump(vmask);
-      rep(i, n) {
-          if (vmask[i]) {
-          } else {
-          }
+      else{
       }
+    }
   }
   
 
@@ -757,43 +764,42 @@ snippet printf
 
 snippet sep
 alias <<
-  << " " << $ { 1 }
+  << " " << ${1}
   
 
 
 snippet interactive
   int counter = 0;
-  int query(int u, int v) { /*{{{*/
-      dump('q', u + 1, v + 1);
+  int query(int u, int v){/*{{{*/
+      dump('q', u+1, v+1);
       counter++;
-      if (counter > n / 2) assert(false);
+      if (counter>n/2) assert(false);
   
-      cout << "?"
-           << " " << u << " " << v << endl;
+      cout << "?" << " " << u << " " << v << endl;
       fflush(stdout);
-  
+      
       // int res = tr.lca(u, v);
-      int res;
-      cin >> res;
+      int res; cin>>res;
   
       return res;
-  } /*}}}*/
+  }/*}}}*/
   
-  void ans(int u) { /*{{{*/
-      cout << "!"
-           << " " << u + 1 << endl;
-  } /*}}}*/
+  void ans(int u){/*{{{*/
+      cout << "!" << " " << u+1 << endl;
+  }/*}}}*/
   
 
 
 snippet pairsort
-  template <class T>
-  void pairsort(vector<T>& x, vector<T>& y) {
+  template<class T>
+  void pairsort(vector<T>& x, vector<T>& y){
       int n = sz(x);
       vector<tuple<T, T>> t(n);
-      rep(i, n) { t[i] = make_tuple(x[i], y[i]); }
+      rep(i, n){
+          t[i] = make_tuple(x[i], y[i]);
+      }
       sort(all(t));
-      rep(i, n) {
+      rep(i, n){
           x[i] = get<0>(t[i]);
           y[i] = get<1>(t[i]);
       }
@@ -802,15 +808,12 @@ snippet pairsort
 
 
 snippet make_vector
-  template <class T>
-  vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value) {
+  template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
       return vector<vector<T>>(n1, vector<T>(n2, init_value));
   }
   
-  template <class T>
-  vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value) {
-      return vector<vector<vector<T>>>(
-          n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
+  template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+      return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
   }
   // auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
   // auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
@@ -1368,41 +1371,41 @@ alias tps
 
 snippet gridgraph
   
-  // grid graphを通常のグラフに格納する。
-  // (i, j) -> i*w + j
-  // u -> (u/w, u%w)
+      // grid graphを通常のグラフに格納する。
+      // (i, j) -> i*w + j
+      // u -> (u/w, u%w)
   
-  int h, w;
-  cin >> h >> w;
-  int n = h * w;
-  vvi block(h, vi(w));
-  rep(i, h) {
-      string s;
-      cin >> s;
-      rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
-  }
+      int h, w;
+      cin >> h >> w;
+      int n = h * w;
+      vvi block(h, vi(w));
+      rep(i, h) {
+          string s;
+          cin >> s;
+          rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+      }
   
-  vvi g(n);
-  // Graph G;
+      vvi g(n);
+      // Graph G;
   
-  int di[] = {1, -1, 0, 0};
-  int dj[] = {0, 0, 1, -1};
-  rep(i, h) rep(j, w) {
-      if (block[i][j]) continue;  // blockから出る辺はない
-      int u = i * w + j;
+      int di[] = {1, -1, 0, 0};
+      int dj[] = {0, 0, 1, -1};
+      rep(i, h) rep(j, w) {
+          if (block[i][j]) continue;  // blockから出る辺はない
+          int u = i * w + j;
   
-      rep(k, 4) {
-          int ni = i + di[k];
-          int nj = j + dj[k];
-          int v = ni * w + nj;
-          if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-              if (block[ni][nj]) continue;  // blockに入る辺はない
-              g[u].pb(v);
-              // G.add_edge(u, v, 1);
-              // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+          rep(k, 4) {
+              int ni = i + di[k];
+              int nj = j + dj[k];
+              int v = ni * w + nj;
+              if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
+                  if (block[ni][nj]) continue;  // blockに入る辺はない
+                  g[u].pb(v);
+                  // G.add_edge(u, v, 1);
+                  // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+              }
           }
       }
-  }
   
 
 
@@ -1553,78 +1556,6 @@ snippet dijkstra
   // cout << d[{goal}] << endl;  // 到達不可能ならd[goal] -> INF
   // return 0;
   // }
-  
-
-
-snippet kruskal
-  // {{{
-  template <typename T>
-  struct Kruskal {
-      struct edge {
-          int from, to;
-          T cost;
-          int used;
-          edge() {}
-          edge(int from, int to, T cost)
-              : from(from), to(to), cost(cost), used(0) {}
-          bool operator<(const edge& e) const { return cost < e.cost; }
-      };
-  
-      int n;
-      vector<int> p, r;
-      vector<edge> edges;
-  
-      Kruskal() {}
-      Kruskal(int n) : n(n) {}
-  
-      void init(int n) {
-          r.assign(n, 1);
-          p.resize(n);
-          iota(p.begin(), p.end(), 0);
-      }
-  
-      int find(int x) { return (x == p[x] ? x : p[x] = find(p[x])); }
-  
-      bool same(int x, int y) { return find(x) == find(y); }
-  
-      void unite(int x, int y) {
-          x = find(x);
-          y = find(y);
-          if (x == y) return;
-          if (r[x] < r[y]) swap(x, y);
-          r[x] += r[y];
-          p[y] = x;
-      }
-  
-      void add_edge(int u, int v, T c) { edges.emplace_back(u, v, c); }
-  
-      T build() {
-          sort(edges.begin(), edges.end());
-          init(n);
-          T res = 0;
-          for (auto& e : edges) {
-              if (!same(e.from, e.to)) {
-                  res += e.cost;
-                  unite(e.from, e.to);
-                  e.used = 1;
-              }
-          }
-          return res;
-      }
-  };
-  // int main(){
-  //   int V,E;
-  //   scanf("%d %d",&V,&E);
-  //   Kruskal<int> ksk(V);
-  //   for(int i=0;i<E;i++){
-  //     int a,b,c;
-  //     scanf("%d %d %d",&a,&b,&c);
-  //     ksk.add_edge(a,b,c);
-  //   }
-  //   printf("%d\n",ksk.build());
-  //   return 0;
-  // }
-  //}}}
   
 
 
@@ -2417,15 +2348,16 @@ snippet Graph
   };
   
   
-  template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
-            Cost infcost = INF>
+  template <class Pos = int, class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
   struct Graph {
       struct Edge {
-          Pos to;
+          Pos from, to;
           Cost cost;
-          Edge(Pos to, Cost cost) : to(to), cost(cost) {}
+          int idx;
+          Edge() {};
+          Edge(Pos from, Pos to, Cost cost, int idx) : from(from), to(to), cost(cost), idx(idx) {}
           friend ostream& operator<<(ostream& os, const Edge& e) {
-              os << e.to << " " << e.cost;
+              os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
               return os;
           }
       };
@@ -2434,6 +2366,7 @@ snippet Graph
       // unordered_map<Pos, vector<Edge>>
       // adj_list;//Posがpiiでなくintならunordredの方が早い
       vector<vector<Edge>> adj_list;
+      vector<Edge> edges;
       UnionFind buf;
       tree tr;
       Pos root;
@@ -2443,8 +2376,9 @@ snippet Graph
       Graph() {}
       Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
   
-      void add_edge(Pos from, Pos to, Cost cost) {
-          adj_list[from].emplace_back(to, cost);
+      void add_edge(Pos from, Pos to, Cost cost, int idx) {
+          adj_list[from].emplace_back(from, to, cost, idx);
+          edges.emplace_back(from, to, cost, idx);
       }
   
       void build_tree(int _root) {
@@ -2482,14 +2416,12 @@ snippet Graph
   
       void _dfs_tree(int u) {
           _used_in_dfs[u] = 1;
-          each(el, adj_list[u]) {
-              auto [v, cost] = el;
-              if (_used_in_dfs[v]) continue;
-              tr.add_edge(u, v, cost);
-              _dfs_tree(v);
+          each(e, adj_list[u]) {
+              if (_used_in_dfs[e.to]) continue;
+              tr.add_edge(u, e.to, e.cost);
+              _dfs_tree(e.to);
           }
       }
-      // lolinkを構築
   
       void _make_lowlink() {
           lowlink = vector<int>(n, INF);
@@ -2497,14 +2429,13 @@ snippet Graph
               int u = tr.dfstrv[i];
               chmin(lowlink[u], tr.ord[u]);
   
-              each(el, adj_list[u]) {
-                  auto [v, cost] = el;
-                  if (v == tr.par[u])
+              each(e, adj_list[u]) {
+                  if (e.to == tr.par[u])
                       continue;
-                  else if (tr.ord[v] < tr.ord[u]) {
-                      chmin(lowlink[u], tr.ord[v]);
+                  else if (tr.ord[e.to] < tr.ord[u]) {
+                      chmin(lowlink[u], tr.ord[e.to]);
                   } else {
-                      chmin(lowlink[u], lowlink[v]);
+                      chmin(lowlink[u], lowlink[e.to]);
                   }
               }
           }
@@ -2528,6 +2459,26 @@ snippet Graph
               }
               if (is_kan) res.push_back(u);
           }
+          return res;
+      }
+  
+      vector<Edge> kruskal_tree(){
+          // 使用される辺のindexのvectorを返す
+          vector<Edge> res(n-1);
+          sort(all(edges), [&](auto l, auto r){return l.cost < r.cost;});
+          UnionFind uf(n);
+  
+          int total_cost = 0;
+          int i = 0;
+          each(e, edges){
+              if (uf.same(e.from, e.to)) continue;
+              uf.merge(e.from, e.to);
+              total_cost += e.cost;
+              res[i] = e;
+              i++;
+          }
+          assert(i==n-1);
+  
           return res;
       }
   };
