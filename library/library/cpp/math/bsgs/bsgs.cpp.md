@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#51139f4eb77e81dbd61f182500602d94">library/cpp/math/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 11:50:42+09:00
+    - Last commit date: 2020-04-26 14:30:26+09:00
 
 
 
@@ -98,195 +98,16 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 2 "library/cpp/header.hpp"
-#ifndef HEADER_H
-#define HEADER_H
-
-// template version 2.0
-using namespace std;
-#include <bits/stdc++.h>
-
-// varibable settings
-#define int long long
-const int INF = 1e18;
-
-#define _overload3(_1, _2, _3, name, ...) name
-#define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
-#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
-#define _rrep(i, n) rrepi(i, 0, n)
-#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
-#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
-#define each(i, a) for (auto &&i : a)
-#define all(x) (x).begin(), (x).end()
-#define sz(x) ((int)(x).size())
-#define pb(a) push_back(a)
-#define mp(a, b) make_pair(a, b)
-#define mt(...) make_tuple(__VA_ARGS__)
-#define ub upper_bound
-#define lb lower_bound
-#define lpos(A, x) (lower_bound(all(A), x) - A.begin())
-#define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T>
-inline void chmax(T &a, const T &b) {
-    if ((a) < (b)) (a) = (b);
-}
-template <class T>
-inline void chmin(T &a, const T &b) {
-    if ((a) > (b)) (a) = (b);
-}
-
-#define divceil(a, b) ((a) + (b)-1) / (b)
-#define is_in(x, a, b) ((a) <= (x) && (x) < (b))
-#define uni(x)    \
-    sort(all(x)); \
-    x.erase(unique(all(x)), x.end())
-#define slice(l, r) substr(l, r - l)
-
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef long double ld;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> iii;
-
-template <typename T>
-using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast {
-    Fast() {
-        std::cin.tie(0);
-        ios::sync_with_stdio(false);
-    }
-} fast;
-
-#if defined(PCM) || defined(LOCAL)
-#else
-#define dump(...) ;
-#define dump_1d(...) ;
-#define dump_2d(...) ;
-#define cerrendl ;
-#endif
-
-#endif /* HEADER_H */
-#line 3 "library/cpp/math/mint.hpp"
-
-//%snippet.set('mint')%
-int mod = 1e9 + 7;
-// int mod = 998244353;
-struct mint {  //{{{
-    int x;
-    mint(int x = 0) : x((x % mod + mod) % mod) {}
-
-    // ?= operator
-    mint& operator+=(const mint a) {
-        (x += a.x) %= mod;
-        return *this;
-    }
-    mint& operator-=(const mint a) {
-        (x += mod - a.x) %= mod;
-        return *this;
-    }
-    mint& operator*=(const mint a) {
-        (x *= a.x) %= mod;
-        return *this;
-    }
-    mint& operator/=(const mint& rhs) {
-        if (rhs.x == 0) throw runtime_error("mint zero division");
-        return *this *= rhs.inv();
-    }
-
-    mint operator+(const mint a) const {
-        mint res(*this);
-        return res += a;
-    }
-    mint operator-(const mint a) const {
-        mint res(*this);
-        return res -= a;
-    }
-    mint operator*(const mint a) const {
-        mint res(*this);
-        return res *= a;
-    }
-    mint operator/(const mint a) const {
-        mint res(*this);
-        return res /= a;
-    }
-
-    mint pow(int n) const {
-        mint res(1), x(*this);
-        if (n < 0) {
-            n = -n;
-            x = (*this).inv();
-        }
-        while (n) {
-            if (n & 1) res *= x;
-            x *= x;
-            n >>= 1;
-        }
-        return res;
-    }
-
-    mint inv() const {
-        if (x == 0) throw runtime_error("inv does not exist");
-        return pow(mod - 2);
-    }
-    // mint inv()const{
-    //     int x,y;
-    //     int g=extgcd(v,mod,x,y);
-    //     assert(g==1);
-    //     if(x<0)x+=mod;
-    //     return mint(x);
-    // }
-
-    bool operator<(const mint& r) const { return x < r.x; }
-    bool operator==(const mint& r) const { return x == r.x; }
-};
-istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
-//}}}
-#line 3 "library/cpp/math/bsgs/bsgs.cpp"
-
-// %snippet.set('baybe_step_giant_step')%
-// %snippet.config({'alias':'bsgs'})%
-// %snippet.include('mint')%
-
-int bsgs(int a, int b) {  //{{{
-    if (b >= mod) {
-        return -1;
-    }
-
-    // find x s.t a^x = b in (mod)
-    mint x;
-    int sq = sqrt(mod);
-    // x = p*sq + r  (0<=r<sq and 0<=p<=sq)
-
-    map<int, int> minr;  // minr[v]: min(r s.t a^r=v)
-    mint ar = 1;
-    rep(r, 0, sq) {
-        if (minr.find(ar.x) == minr.end()) minr[ar.x] = r;
-        ar *= a;
-    }
-
-    mint A = mint(a).pow(-sq);
-    rep(p, 0, sq + 1) {
-        int Ab = (A.pow(p) * b).x;
-        if (minr.find(Ab) != minr.end()) {
-            int r = minr[Ab];
-            return p * sq + r;
-        }
-    }
-
-    return -1;
-}  //}}}
-// %snippet.end()%
-
-signed main() {
-    int a, b, p;
-    cin >> a >> b >> p;
-    mod = p;
-    cout << bsgs(a, b) << endl;
-    return 0;
-}
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
+    bundled_code = language.bundle(self.file_class.file_path, basedir=pathlib.Path.cwd())
+  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 170, in bundle
+    bundler.update(path)
+  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
+    self.update(self._resolve(pathlib.Path(included), included_from=path))
+  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 214, in update
+    raise BundleError(path, i + 1, "#pragma once found in a non-first line")
+onlinejudge_verify.languages.cplusplus_bundle.BundleError: library/cpp/header.hpp: line 2: #pragma once found in a non-first line
 
 ```
 {% endraw %}
