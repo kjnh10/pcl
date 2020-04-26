@@ -1,3 +1,4 @@
+//%snippet.set('header')%
 #pragma once
 #ifndef HEADER_H
 #define HEADER_H
@@ -68,3 +69,4 @@ struct Fast {
 #endif
 
 #endif /* HEADER_H */
+//%snippet.end()%
