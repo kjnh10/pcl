@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 10:05:06+09:00
+    - Last commit date: 2020-04-26 10:51:03+09:00
 
 
 
@@ -546,7 +546,7 @@ struct Graph {
     void _make_lowlink() {
         lowlink = vector<int>(n, INF);
         r_rep(i, n) {
-            int u = tr.dfstrv[i];
+            Pos u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
 
             each(e, adj_list[u]) {
@@ -601,6 +601,34 @@ struct Graph {
 
         return res;
     }
+
+    vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート
+        vector<Cost> dist(n, infcost);           // 最短距離
+        PQ<pair<Cost, Pos>> pq;
+        each(start, starts) {
+            dist[start] = zerocost;
+            pq.push(make_pair(zerocost, start));
+        }
+        while (!pq.empty()) {
+            auto cp = pq.top();
+            pq.pop();
+            auto [cost, u] = cp;
+            for (const auto& edge : adj_list[u]) {
+                Pos v = edge.to;
+                Cost new_cost = cost + edge.cost;
+                if (new_cost < dist[v]) {
+                    dist[v] = new_cost;
+                    pq.push(make_pair(new_cost, v));
+                }
+            }
+        }
+        return dist;
+    };
+
+    vector<Cost> dijkstra(Pos start) {  // 1点スタート
+        vector<Pos> starts = {start};
+        return dijkstra(starts);
+    };
 };
 
 //%snippet.end()%

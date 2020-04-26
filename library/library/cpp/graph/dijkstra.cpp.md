@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 10:51:03+09:00
 
 
 
@@ -48,9 +48,11 @@ layout: default
 ```cpp
 #include "../header.hpp"
 // https://atcoder.jp/contests/abc151/tasks/abc151_d
+// this module is depricated. use graph.hpp
 
 //%snippet.set('dijkstra')%
 
+// this module is depricated. use graph.hpp
 using Pos = int;  // TODO: update if needed
 
 using Cost = int;     // TODO: update if needed
@@ -259,9 +261,11 @@ struct Fast {
 #endif
 #line 2 "library/cpp/graph/dijkstra.cpp"
 // https://atcoder.jp/contests/abc151/tasks/abc151_d
+// this module is depricated. use graph.hpp
 
 //%snippet.set('dijkstra')%
 
+// this module is depricated. use graph.hpp
 using Pos = int;  // TODO: update if needed
 
 using Cost = int;     // TODO: update if needed
