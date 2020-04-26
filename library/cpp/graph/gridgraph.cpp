@@ -1,7 +1,7 @@
 #include "../header.hpp"
 
-signed main(){
-//%snippet.set('gridgraph')%
+signed main() {
+    //%snippet.set('gridgraph')%
 
     // grid graphを通常のグラフに格納する。
     // (i, j) -> i*w + j
@@ -39,5 +39,5 @@ signed main(){
         }
     }
 
-//%snippet.end()%
+    //%snippet.end()%
 }
