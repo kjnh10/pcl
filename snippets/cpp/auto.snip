@@ -435,14 +435,14 @@ snippet couts
 
 
 snippet ?
-    (${1} ? ${2} : ${3})
+  (${1} ? ${2} : ${3})
   
 
 
 snippet inv
   vector<int> ${1}(n);
   rep(i, n) {
-    cin>>$1[i];
+      cin>>$1[i];
   }
   dump($1);${0}
   
@@ -451,9 +451,9 @@ snippet inv
 snippet invv
   vector<vector<int>> ${1}(h, vector<int>(w));
   rep(i, h){
-    rep(j,w){
-      cin>>$1[i][j];
-    }
+      rep(j,w){
+          cin>>$1[i][j];
+      }
   }
   
 
@@ -461,11 +461,11 @@ snippet invv
 snippet invvs
   vector<vector<int>> ${1}(h, vector<int>(w));
   rep(i, h){
-    string tmp;cin>>tmp;
-    rep(j,w){
-      if (tmp[j]=='#') $1[i][j]=1;
-      else             $1[i][j]=0; 
-    }
+      string tmp;cin>>tmp;
+      rep(j,w){
+          if (tmp[j]=='#') $1[i][j]=1;
+          else             $1[i][j]=0; 
+      }
   }
   
 
@@ -548,10 +548,10 @@ snippet perm
 snippet to_bin
   #define N 61
   string to_bin(int n, int d){
-    // nをd桁の2進数で表示する。
-    stringstream ss;
-    ss << bitset<N>(n);
-    return ss.str().substr(N-d, d);
+      // nをd桁の2進数で表示する。
+      stringstream ss;
+      ss << bitset<N>(n);
+      return ss.str().substr(N-d, d);
   }
   // int d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
   // int f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
@@ -562,7 +562,7 @@ snippet warsharll
   // init
   vector<vector<int>> d(n, vector<int>(n, INF));
   rep(i, n)rep(j, n){
-    if (i==j) d[i][j] = 0;
+      if (i==j) d[i][j] = 0;
   }
   
   // input
@@ -570,11 +570,11 @@ snippet warsharll
   
   // calc
   rep(k, n){
-    rep(i, n){
-      rep(j, n){
-        chmin(d[i][j], d[i][k]+d[k][j]);
+      rep(i, n){
+          rep(j, n){
+              chmin(d[i][j], d[i][k]+d[k][j]);
+          }
       }
-    }
   }
   dump_2d(d, n, n);
   
@@ -585,23 +585,23 @@ snippet digitdp
   vector<vector<int>> dp(2, vector<int>(n));
   dp[0][0] = 1;
   rep(i, 1, n+1){  //桁数
-    rep(leq, 2){  //未満確定フラグ
-      int lim = leq ? 9 : s[i-1]-'0';
-      rep(d, lim+1){
-        dp[leq || d<lim][i] += dp[leq][i-1];
+      rep(leq, 2){  //未満確定フラグ
+          int lim = leq ? 9 : s[i-1]-'0';
+          rep(d, lim+1){
+              dp[leq || d<lim][i] += dp[leq][i-1];
+          }
       }
-    }
   }
   
 
 
 snippet rangesum
   int rangesum(int l, int r){
-    // a[]: accumulative sum
-    l = max(0, l);
-    // r = min(0, n-1);
-    if (l > r) return 0;
-    return a[r] - (l-1>=0 ? a[l-1] : 0);
+      // a[]: accumulative sum
+      l = max(0, l);
+      // r = min(0, n-1);
+      if (l > r) return 0;
+      return a[r] - (l-1>=0 ? a[l-1] : 0);
   }
   
 
@@ -610,42 +610,31 @@ snippet asv
   // acumulative sum vector {{{
   template<typename T>
   struct asvector {
-    vector<T> cum; //accumulative sum
-    asvector(vector<T> a): cum(a){  // {{{  // constructor
-      rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-    } // }}}
+      vector<T> cum; //accumulative sum
+      asvector(vector<T> a): cum(a){  // {{{  // constructor
+          rep(i, 1, sz(a))  cum[i]+=cum[i-1];
+      } // }}}
   
-    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
-      l = max(0LL, l);
-      r = min(r, sz(cum));
-      if (l<r){
-        return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
-      }
-      else{
-        return 0;
-      }
-    } // }}}
+      T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+          l = max(0LL, l);
+          r = min(r, sz(cum));
+          if (l<r){
+              return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
+          }
+          else{
+              return 0;
+          }
+      } // }}}
   
-    T& operator[](int i) { // {{{
-      return cum[i]; 
-    } // }}}
+      T& operator[](int i) { // {{{
+          return cum[i]; 
+      } // }}}
   
-    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
-      os << as.cum; return os;
-    } //}}}
+      friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
+          os << as.cum; return os;
+      } //}}}
   };
   //}}}
-  
-
-
-snippet sandbox
-  using namespace std;
-  #include <bits/stdc++.h>
-  #include <iostream>
-  
-  int main(){
-    return 0;
-  }
   
 
 
@@ -658,8 +647,8 @@ snippet pow2
   int p[500001];  // power of 2 {{{
   p[0] = 1;
   rep(i, 1, 500002){
-    p[i] = p[i-1]*2;
-    p[i] %= MOD;
+      p[i] = p[i-1]*2;
+      p[i] %= MOD;
   }
   // }}}
   
@@ -667,14 +656,14 @@ snippet pow2
 
 snippet pow
   int pow_(int b, int x){ //{{{
-    if (x==1) return b%M;
-    if (x%2==0){
-      int t = pow_(b, x/2);
-      return (t*t)%M;
-    }
-    else{
-      return pow_(b, x-1)*b%M;
-    }
+      if (x==1) return b%M;
+      if (x%2==0){
+          int t = pow_(b, x/2);
+          return (t*t)%M;
+      }
+      else{
+          return pow_(b, x-1)*b%M;
+      }
   } //}}}
   
 
@@ -689,11 +678,11 @@ alias f
 snippet dfs_lambda
   vector<int> used(n);
   auto dfs = [&](const auto& dfs, int u) -> void {
-    used[u] = 1;
-    each(v, g[u]){
-      if (used[v]) continue;
-      dfs(dfs, v);
-    }
+      used[u] = 1;
+      each(e, g[u]){
+          if (used[e.to]) continue;
+          dfs(dfs, e.to);
+      }
   };
   dfs(dfs, 0);
   
@@ -708,51 +697,51 @@ snippet dxdy
 snippet ostream
 alias <<
   ostream& operator<<(ostream& os, const ${1:type}& ${2}){
-    os << ${3};
-    return os;
+      os << ${3};
+      return os;
   }
   
 
 
 snippet query
   int query(){
-    cerrendl;
+      cerrendl;
   
-    return 0;
+      return 0;
   }
   
   signed main(){
-    int Q;cin>>Q;
-    rep(_, Q){
-      query();
-    }
-    return 0;
+      int Q;cin>>Q;
+      rep(_, Q){
+          query();
+      }
+      return 0;
   }
   
 
 
 snippet random_generator
   uint64_t rng() {
-    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
-    return uniform_int_distribution<uint64_t>(0, -1)(x);
+      static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
+      return uniform_int_distribution<uint64_t>(0, -1)(x);
   }
   
 
 
 snippet bitall
   rep(mask, 1<<n){
-    vi vmask(n);
-    rep(i, n){
-      if (mask&(1<<i)) vmask[i] = 1;
-    }
-    cerrendl;
-    dump(vmask);
-    rep(i, n){
-      if (vmask[i]){
+      vi vmask(n);
+      rep(i, n){
+          if (mask&(1<<i)) vmask[i] = 1;
       }
-      else{
+      cerrendl;
+      dump(vmask);
+      rep(i, n){
+          if (vmask[i]){
+          }
+          else{
+          }
       }
-    }
   }
   
 
@@ -777,7 +766,7 @@ snippet interactive
   
       cout << "?" << " " << u << " " << v << endl;
       fflush(stdout);
-      
+  
       // int res = tr.lca(u, v);
       int res; cin>>res;
   
@@ -1468,6 +1457,7 @@ snippet bellman_ford
 
 snippet dijkstra
   
+  // this module is depricated. use graph.hpp
   using Pos = int;  // TODO: update if needed
   
   using Cost = int;     // TODO: update if needed
@@ -1946,6 +1936,80 @@ snippet kmp
   
   // KMP<vector<int>> kmp({1,2,3});
   // KMP<string> kmp("abc");
+  
+
+
+snippet header
+  #pragma once
+  #ifndef HEADER_H
+  #define HEADER_H
+  
+  // template version 2.0
+  using namespace std;
+  #include <bits/stdc++.h>
+  
+  // varibable settings
+  #define int long long
+  const int INF = 1e18;
+  
+  #define _overload3(_1, _2, _3, name, ...) name
+  #define _rep(i, n) repi(i, 0, n)
+  #define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+  #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+  #define _rrep(i, n) rrepi(i, 0, n)
+  #define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+  #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
+  #define each(i, a) for (auto &&i : a)
+  #define all(x) (x).begin(), (x).end()
+  #define sz(x) ((int)(x).size())
+  #define pb(a) push_back(a)
+  #define mp(a, b) make_pair(a, b)
+  #define mt(...) make_tuple(__VA_ARGS__)
+  #define ub upper_bound
+  #define lb lower_bound
+  #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
+  #define upos(A, x) (upper_bound(all(A), x) - A.begin())
+  template <class T>
+  inline void chmax(T &a, const T &b) {
+      if ((a) < (b)) (a) = (b);
+  }
+  template <class T>
+  inline void chmin(T &a, const T &b) {
+      if ((a) > (b)) (a) = (b);
+  }
+  
+  #define divceil(a, b) ((a) + (b)-1) / (b)
+  #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
+  #define uni(x)    \
+      sort(all(x)); \
+      x.erase(unique(all(x)), x.end())
+  #define slice(l, r) substr(l, r - l)
+  
+  typedef long long ll;
+  typedef vector<int> vi;
+  typedef vector<vi> vvi;
+  typedef long double ld;
+  typedef pair<int, int> pii;
+  typedef tuple<int, int, int> iii;
+  
+  template <typename T>
+  using PQ = priority_queue<T, vector<T>, greater<T>>;
+  struct Fast {
+      Fast() {
+          std::cin.tie(0);
+          ios::sync_with_stdio(false);
+      }
+  } fast;
+  
+  #if defined(PCM) || defined(LOCAL)
+  #else
+  #define dump(...) ;
+  #define dump_1d(...) ;
+  #define dump_2d(...) ;
+  #define cerrendl ;
+  #endif
+  
+  #endif /* HEADER_H */
   
 
 
