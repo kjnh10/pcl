@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#cef394f212ede05bd80525fdb8bcaf21">library/cpp/math/geoemtry</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geoemtry/dist_between_line_and_point.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -42,10 +42,11 @@ layout: default
 {% raw %}
 ```cpp
 
-double dist_line_podouble(double x1, double y1, double x2, double y2, double px, double py){
-  double num = abs((py-y1)*(x2-x1) - (y2-y1)*(px-x1));
-  double den = sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-  return num/den;
+double dist_line_podouble(double x1, double y1, double x2, double y2, double px,
+                          double py) {
+    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
+    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    return num / den;
 }
 
 ```
@@ -56,10 +57,11 @@ double dist_line_podouble(double x1, double y1, double x2, double y2, double px,
 ```cpp
 #line 1 "library/cpp/math/geoemtry/dist_between_line_and_point.cpp"
 
-double dist_line_podouble(double x1, double y1, double x2, double y2, double px, double py){
-  double num = abs((py-y1)*(x2-x1) - (y2-y1)*(px-x1));
-  double den = sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
-  return num/den;
+double dist_line_podouble(double x1, double y1, double x2, double y2, double px,
+                          double py) {
+    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
+    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    return num / den;
 }
 
 ```

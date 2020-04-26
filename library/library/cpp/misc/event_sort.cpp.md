@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/event_sort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -45,40 +45,39 @@ layout: default
 //%snippet.set('event_sort')%
 
 struct Event {
-	Event(int t_, int s_, int e_, int isIn_) : t(t_), s(s_), e(e_), isIn(isIn_) {}
-	int t;
-	int s, e;
-	int isIn;
+    Event(int t_, int s_, int e_, int isIn_)
+        : t(t_), s(s_), e(e_), isIn(isIn_) {}
+    int t;
+    int s, e;
+    int isIn;
 
-	bool operator<(const Event& rhs) {
-		if (t == rhs.t)
-			return isIn < rhs.isIn;
+    bool operator<(const Event& rhs) {
+        if (t == rhs.t) return isIn < rhs.isIn;
 
-		return t < rhs.t;
-	}
+        return t < rhs.t;
+    }
 };
 
 void event_sort(vector<int>& s, vector<int>& e) {
-  // 回収はl, rは掃除するversion
-	multiset<int> e_set;
-  int n = sz(s);
+    // 回収はl, rは掃除するversion
+    multiset<int> e_set;
+    int n = sz(s);
 
-	vector<Event> events;
-	for (int i = 0; i < n; i++) {
-		events.emplace_back(s[i], s[i], e[i], 1);
-		events.emplace_back(e[i] + 1, s[i], e[i], 0);
-	}
+    vector<Event> events;
+    for (int i = 0; i < n; i++) {
+        events.emplace_back(s[i], s[i], e[i], 1);
+        events.emplace_back(e[i] + 1, s[i], e[i], 0);
+    }
 
-	sort(all(events));
+    sort(all(events));
 
-	for (int i = 0; i < 2 * n; i++) {
-		if (events[i].isIn) {
-			e_set.insert(events[i].e);
-		}
-		else {
-			e_set.erase(e_set.find(events[i].e));
-		}
-	}
+    for (int i = 0; i < 2 * n; i++) {
+        if (events[i].isIn) {
+            e_set.insert(events[i].e);
+        } else {
+            e_set.erase(e_set.find(events[i].e));
+        }
+    }
 }
 
 ```
@@ -92,40 +91,39 @@ void event_sort(vector<int>& s, vector<int>& e) {
 //%snippet.set('event_sort')%
 
 struct Event {
-	Event(int t_, int s_, int e_, int isIn_) : t(t_), s(s_), e(e_), isIn(isIn_) {}
-	int t;
-	int s, e;
-	int isIn;
+    Event(int t_, int s_, int e_, int isIn_)
+        : t(t_), s(s_), e(e_), isIn(isIn_) {}
+    int t;
+    int s, e;
+    int isIn;
 
-	bool operator<(const Event& rhs) {
-		if (t == rhs.t)
-			return isIn < rhs.isIn;
+    bool operator<(const Event& rhs) {
+        if (t == rhs.t) return isIn < rhs.isIn;
 
-		return t < rhs.t;
-	}
+        return t < rhs.t;
+    }
 };
 
 void event_sort(vector<int>& s, vector<int>& e) {
-  // 回収はl, rは掃除するversion
-	multiset<int> e_set;
-  int n = sz(s);
+    // 回収はl, rは掃除するversion
+    multiset<int> e_set;
+    int n = sz(s);
 
-	vector<Event> events;
-	for (int i = 0; i < n; i++) {
-		events.emplace_back(s[i], s[i], e[i], 1);
-		events.emplace_back(e[i] + 1, s[i], e[i], 0);
-	}
+    vector<Event> events;
+    for (int i = 0; i < n; i++) {
+        events.emplace_back(s[i], s[i], e[i], 1);
+        events.emplace_back(e[i] + 1, s[i], e[i], 0);
+    }
 
-	sort(all(events));
+    sort(all(events));
 
-	for (int i = 0; i < 2 * n; i++) {
-		if (events[i].isIn) {
-			e_set.insert(events[i].e);
-		}
-		else {
-			e_set.erase(e_set.find(events[i].e));
-		}
-	}
+    for (int i = 0; i < 2 * n; i++) {
+        if (events[i].isIn) {
+            e_set.insert(events[i].e);
+        } else {
+            e_set.erase(e_set.find(events[i].e));
+        }
+    }
 }
 
 ```

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/lcs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 02:21:57+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -51,40 +51,41 @@ layout: default
 //%snippet.set('lcs')%
 #define MAX_N 5000
 #define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+int lcs(string s, string t) {
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N + 1][MAX_M + 1] = {};  // 1-index
 
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
-      }
+    rep(i, n) {
+        rep(j, m) {
+            if (s[i] == t[j])
+                chmax(dp[i + 1][j + 1], dp[i][j] + 1);
+            else {
+                chmax(dp[i + 1][j + 1], dp[i][j + 1]);
+                chmax(dp[i + 1][j + 1], dp[i + 1][j]);
+            }
+        }
     }
-  }
-  return dp[n][m];
+    return dp[n][m];
 }
 // %snippet.end()%
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+int solve() { /*{{{*/
+    string s, t;
+    cin >> s >> t;
+    cout << lcs(s, t) + 1 << endl;
 
-  return 0;
-}/*}}}*/
+    return 0;
+} /*}}}*/
 
-signed main() { //{{{
+signed main() {  //{{{
 #ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
 #endif
-  solve();
-  return 0;
-} //}}}
+    solve();
+    return 0;
+}  //}}}
 
 ```
 {% endraw %}
@@ -100,90 +101,104 @@ using namespace std;
 
 // varibable settings
 #define int long long
-const int INF=1e18;
+const int INF = 1e18;
 
-#define _overload3(_1,_2,_3,name,...) name
-#define _rep(i,n) repi(i,0,n)
-#define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
-#define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
-#define _rrep(i,n) rrepi(i,0,n)
-#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
-#define r_rep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
-#define each(i,a) for (auto&& i : a)
-#define all(x) (x).begin(),(x).end()
+#define _overload3(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define _rrep(i, n) rrepi(i, 0, n)
+#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
+#define each(i, a) for (auto &&i : a)
+#define all(x) (x).begin(), (x).end()
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define mt(...) make_tuple(__VA_ARGS__)
 #define ub upper_bound
 #define lb lower_bound
-#define lpos(A, x) (lower_bound(all(A), x)-A.begin())
-#define upos(A, x) (upper_bound(all(A),x)-A.begin())
-template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
-template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+#define lpos(A, x) (lower_bound(all(A), x) - A.begin())
+#define upos(A, x) (upper_bound(all(A), x) - A.begin())
+template <class T>
+inline void chmax(T &a, const T &b) {
+    if ((a) < (b)) (a) = (b);
+}
+template <class T>
+inline void chmin(T &a, const T &b) {
+    if ((a) > (b)) (a) = (b);
+}
 
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-#define slice(l, r) substr(l, r-l)
+#define divceil(a, b) ((a) + (b)-1) / (b)
+#define is_in(x, a, b) ((a) <= (x) && (x) < (b))
+#define uni(x)    \
+    sort(all(x)); \
+    x.erase(unique(all(x)), x.end())
+#define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> iii;
 
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+template <typename T>
+using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast {
+    Fast() {
+        std::cin.tie(0);
+        ios::sync_with_stdio(false);
+    }
+} fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) ;
-  #define dump_1d(...) ;
-  #define dump_2d(...) ;
-  #define cerrendl ;
+#define dump(...) ;
+#define dump_1d(...) ;
+#define dump_2d(...) ;
+#define cerrendl ;
 #endif
-
 #line 2 "library/cpp/string/lcs.cpp"
 
 //%snippet.set('lcs')%
 #define MAX_N 5000
 #define MAX_M 5000
-int lcs(string s, string t){
-  int n = sz(s);
-  int m = sz(t);
-  int dp[MAX_N+1][MAX_M+1]={};  // 1-index
+int lcs(string s, string t) {
+    int n = sz(s);
+    int m = sz(t);
+    int dp[MAX_N + 1][MAX_M + 1] = {};  // 1-index
 
-  rep(i, n){
-    rep(j, m){
-      if (s[i]==t[j])
-        chmax(dp[i+1][j+1], dp[i][j]+1);
-      else{
-        chmax(dp[i+1][j+1], dp[i][j+1]);
-        chmax(dp[i+1][j+1], dp[i+1][j]);
-      }
+    rep(i, n) {
+        rep(j, m) {
+            if (s[i] == t[j])
+                chmax(dp[i + 1][j + 1], dp[i][j] + 1);
+            else {
+                chmax(dp[i + 1][j + 1], dp[i][j + 1]);
+                chmax(dp[i + 1][j + 1], dp[i + 1][j]);
+            }
+        }
     }
-  }
-  return dp[n][m];
+    return dp[n][m];
 }
 // %snippet.end()%
 
-int solve(){/*{{{*/
-  string s,t;cin>>s>>t;
-  cout << lcs(s, t)+1 << endl;
+int solve() { /*{{{*/
+    string s, t;
+    cin >> s >> t;
+    cout << lcs(s, t) + 1 << endl;
 
-  return 0;
-}/*}}}*/
+    return 0;
+} /*}}}*/
 
-signed main() { //{{{
+signed main() {  //{{{
 #ifdef INPUT_FROM_FILE
-  std::ifstream in(infile);
-  std::cin.rdbuf(in.rdbuf());
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
 #endif
-  solve();
-  return 0;
-} //}}}
+    solve();
+    return 0;
+}  //}}}
 
 ```
 {% endraw %}

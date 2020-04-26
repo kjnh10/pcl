@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/pascal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 02:21:57+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -50,20 +50,21 @@ layout: default
 
 //%snippet.set('pascal')%
 
-template<class T> vector<vector<T>> pascal(int N){ // {{{
-    vector<vector<T>> com(N+1, vector<T>(N+1));
+template <class T>
+vector<vector<T>> pascal(int N) {  // {{{
+    vector<vector<T>> com(N + 1, vector<T>(N + 1));
     com[0][0] = 1;
-    rep(i, 1, N+1){
+    rep(i, 1, N + 1) {
         // パスカルの三角形は0-indexdで段を数えるとよい。
         // com[i]を計算。
-        rep(j, 0, i+1){
-            if (j-1>=0) com[i][j] += com[i-1][j-1];
-            com[i][j] += com[i-1][j];
+        rep(j, 0, i + 1) {
+            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
+            com[i][j] += com[i - 1][j];
             // com[i][j] /= 2.0;  // probability version
         }
     }
     return com;
-} // }}}
+}  // }}}
 
 //%snippet.end()%
 
@@ -81,69 +82,83 @@ using namespace std;
 
 // varibable settings
 #define int long long
-const int INF=1e18;
+const int INF = 1e18;
 
-#define _overload3(_1,_2,_3,name,...) name
-#define _rep(i,n) repi(i,0,n)
-#define repi(i,a,b) for(int i=(int)(a);i<(int)(b);++i)
-#define rep(...) _overload3(__VA_ARGS__,repi,_rep,)(__VA_ARGS__)
-#define _rrep(i,n) rrepi(i,0,n)
-#define rrepi(i,a,b) for(int i=(int)((b)-1);i>=(int)(a);--i)
-#define r_rep(...) _overload3(__VA_ARGS__,rrepi,_rrep,)(__VA_ARGS__)
-#define each(i,a) for (auto&& i : a)
-#define all(x) (x).begin(),(x).end()
+#define _overload3(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define _rrep(i, n) rrepi(i, 0, n)
+#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
+#define each(i, a) for (auto &&i : a)
+#define all(x) (x).begin(), (x).end()
 #define sz(x) ((int)(x).size())
 #define pb(a) push_back(a)
 #define mp(a, b) make_pair(a, b)
 #define mt(...) make_tuple(__VA_ARGS__)
 #define ub upper_bound
 #define lb lower_bound
-#define lpos(A, x) (lower_bound(all(A), x)-A.begin())
-#define upos(A, x) (upper_bound(all(A),x)-A.begin())
-template<class T> inline void chmax(T &a, const T &b) { if((a) < (b)) (a) = (b); }
-template<class T> inline void chmin(T &a, const T &b) { if((a) > (b)) (a) = (b); }
+#define lpos(A, x) (lower_bound(all(A), x) - A.begin())
+#define upos(A, x) (upper_bound(all(A), x) - A.begin())
+template <class T>
+inline void chmax(T &a, const T &b) {
+    if ((a) < (b)) (a) = (b);
+}
+template <class T>
+inline void chmin(T &a, const T &b) {
+    if ((a) > (b)) (a) = (b);
+}
 
-#define divceil(a,b) ((a)+(b)-1)/(b)
-#define is_in(x, a, b) ((a)<=(x) && (x)<(b))
-#define uni(x) sort(all(x));x.erase(unique(all(x)),x.end())
-#define slice(l, r) substr(l, r-l)
+#define divceil(a, b) ((a) + (b)-1) / (b)
+#define is_in(x, a, b) ((a) <= (x) && (x) < (b))
+#define uni(x)    \
+    sort(all(x)); \
+    x.erase(unique(all(x)), x.end())
+#define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int,int> pii;
-typedef tuple<int,int,int> iii;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> iii;
 
-template<typename T> using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast(){ std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+template <typename T>
+using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast {
+    Fast() {
+        std::cin.tie(0);
+        ios::sync_with_stdio(false);
+    }
+} fast;
 
 #if defined(PCM) || defined(LOCAL)
 #else
-  #define dump(...) ;
-  #define dump_1d(...) ;
-  #define dump_2d(...) ;
-  #define cerrendl ;
+#define dump(...) ;
+#define dump_1d(...) ;
+#define dump_2d(...) ;
+#define cerrendl ;
 #endif
-
 #line 2 "library/cpp/math/pascal.cpp"
 
 //%snippet.set('pascal')%
 
-template<class T> vector<vector<T>> pascal(int N){ // {{{
-    vector<vector<T>> com(N+1, vector<T>(N+1));
+template <class T>
+vector<vector<T>> pascal(int N) {  // {{{
+    vector<vector<T>> com(N + 1, vector<T>(N + 1));
     com[0][0] = 1;
-    rep(i, 1, N+1){
+    rep(i, 1, N + 1) {
         // パスカルの三角形は0-indexdで段を数えるとよい。
         // com[i]を計算。
-        rep(j, 0, i+1){
-            if (j-1>=0) com[i][j] += com[i-1][j-1];
-            com[i][j] += com[i-1][j];
+        rep(j, 0, i + 1) {
+            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
+            com[i][j] += com[i - 1][j];
             // com[i][j] /= 2.0;  // probability version
         }
     }
     return com;
-} // }}}
+}  // }}}
 
 //%snippet.end()%
 

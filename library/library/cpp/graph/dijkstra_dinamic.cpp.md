@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/dijkstra_dinamic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -41,27 +41,29 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-auto s = mp(0,0);  // TODO: startの設定
-rep(x, h) rep(y, w){ d[x][y]=INF; }  // dの初期化
-typedef pair<int, pii> CP; // (cost, pos)
+auto s = mp(0, 0);                      // TODO: startの設定
+rep(x, h) rep(y, w) { d[x][y] = INF; }  // dの初期化
+typedef pair<int, pii> CP;              // (cost, pos)
 PQ<CP> q;
 q.push(CP(0LL, s));
 
-while (!q.empty()){
-  auto v = q.top(); q.pop();
-  int cost = v.first;
-  int x = v.second.first;
-  int y = v.second.second;
-  if (cost < d[x][y]){
-    d[x][y] = cost;
-    rep(i, 4){
-      int nx = x+dx[i];
-      int ny = y+dy[i];
-      if (0<= nx && nx <= h-1 && 0<=ny && ny <= w-1){
-        if (M[nx][ny]=='.' && cost+1<d[nx][ny]) q.push(mp(cost+1, mp(nx, ny)));
-      }
+while (!q.empty()) {
+    auto v = q.top();
+    q.pop();
+    int cost = v.first;
+    int x = v.second.first;
+    int y = v.second.second;
+    if (cost < d[x][y]) {
+        d[x][y] = cost;
+        rep(i, 4) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (0 <= nx && nx <= h - 1 && 0 <= ny && ny <= w - 1) {
+                if (M[nx][ny] == '.' && cost + 1 < d[nx][ny])
+                    q.push(mp(cost + 1, mp(nx, ny)));
+            }
+        }
     }
-  }
 }
 
 ```
@@ -71,27 +73,29 @@ while (!q.empty()){
 {% raw %}
 ```cpp
 #line 1 "library/cpp/graph/dijkstra_dinamic.cpp"
-auto s = mp(0,0);  // TODO: startの設定
-rep(x, h) rep(y, w){ d[x][y]=INF; }  // dの初期化
-typedef pair<int, pii> CP; // (cost, pos)
+auto s = mp(0, 0);                      // TODO: startの設定
+rep(x, h) rep(y, w) { d[x][y] = INF; }  // dの初期化
+typedef pair<int, pii> CP;              // (cost, pos)
 PQ<CP> q;
 q.push(CP(0LL, s));
 
-while (!q.empty()){
-  auto v = q.top(); q.pop();
-  int cost = v.first;
-  int x = v.second.first;
-  int y = v.second.second;
-  if (cost < d[x][y]){
-    d[x][y] = cost;
-    rep(i, 4){
-      int nx = x+dx[i];
-      int ny = y+dy[i];
-      if (0<= nx && nx <= h-1 && 0<=ny && ny <= w-1){
-        if (M[nx][ny]=='.' && cost+1<d[nx][ny]) q.push(mp(cost+1, mp(nx, ny)));
-      }
+while (!q.empty()) {
+    auto v = q.top();
+    q.pop();
+    int cost = v.first;
+    int x = v.second.first;
+    int y = v.second.second;
+    if (cost < d[x][y]) {
+        d[x][y] = cost;
+        rep(i, 4) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (0 <= nx && nx <= h - 1 && 0 <= ny && ny <= w - 1) {
+                if (M[nx][ny] == '.' && cost + 1 < d[nx][ny])
+                    q.push(mp(cost + 1, mp(nx, ny)));
+            }
+        }
     }
-  }
 }
 
 ```

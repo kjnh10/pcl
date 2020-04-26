@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -43,41 +43,41 @@ layout: default
 ```cpp
 //%snippet.set('gridgraph')%
 
-  // grid graphを通常のグラフに格納する。
-  // (i, j) -> i*w + j
-  // u -> (u/w, u%w)
+// grid graphを通常のグラフに格納する。
+// (i, j) -> i*w + j
+// u -> (u/w, u%w)
 
-  int h,w;cin>>h>>w;
-  int n = h*w;
-  vvi block(h, vi(w));
-  rep(i, h){
-    string s;cin>>s;
-    rep(j, w){
-      block[i][j] = (s[j]=='.'?0:1);
-    }
-  }
+int h, w;
+cin >> h >> w;
+int n = h * w;
+vvi block(h, vi(w));
+rep(i, h) {
+    string s;
+    cin >> s;
+    rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+}
 
-  vvi g(n);
-  // Graph G;
+vvi g(n);
+// Graph G;
 
-  int di[]={1, -1, 0, 0};
-  int dj[]={0, 0, 1, -1};
-  rep(i, h)rep(j, w){
+int di[] = {1, -1, 0, 0};
+int dj[] = {0, 0, 1, -1};
+rep(i, h) rep(j, w) {
     if (block[i][j]) continue;  // blockから出る辺はない
-    int u = i*w+j;
+    int u = i * w + j;
 
-    rep(k, 4){
-      int ni = i+di[k];
-      int nj = j+dj[k];
-      int v = ni*w + nj;
-      if (is_in(ni, 0, h) && is_in(nj, 0, w)){
-        if (block[ni][nj]) continue;  // blockに入る辺はない
-        g[u].pb(v);
-        // G.add_edge(u, v, 1);
-        // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
-      }
+    rep(k, 4) {
+        int ni = i + di[k];
+        int nj = j + dj[k];
+        int v = ni * w + nj;
+        if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
+            if (block[ni][nj]) continue;  // blockに入る辺はない
+            g[u].pb(v);
+            // G.add_edge(u, v, 1);
+            // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+        }
     }
-  }
+}
 
 //%snippet.end()%
 
@@ -90,41 +90,41 @@ layout: default
 #line 1 "library/cpp/graph/gridgraph.cpp"
 //%snippet.set('gridgraph')%
 
-  // grid graphを通常のグラフに格納する。
-  // (i, j) -> i*w + j
-  // u -> (u/w, u%w)
+// grid graphを通常のグラフに格納する。
+// (i, j) -> i*w + j
+// u -> (u/w, u%w)
 
-  int h,w;cin>>h>>w;
-  int n = h*w;
-  vvi block(h, vi(w));
-  rep(i, h){
-    string s;cin>>s;
-    rep(j, w){
-      block[i][j] = (s[j]=='.'?0:1);
-    }
-  }
+int h, w;
+cin >> h >> w;
+int n = h * w;
+vvi block(h, vi(w));
+rep(i, h) {
+    string s;
+    cin >> s;
+    rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+}
 
-  vvi g(n);
-  // Graph G;
+vvi g(n);
+// Graph G;
 
-  int di[]={1, -1, 0, 0};
-  int dj[]={0, 0, 1, -1};
-  rep(i, h)rep(j, w){
+int di[] = {1, -1, 0, 0};
+int dj[] = {0, 0, 1, -1};
+rep(i, h) rep(j, w) {
     if (block[i][j]) continue;  // blockから出る辺はない
-    int u = i*w+j;
+    int u = i * w + j;
 
-    rep(k, 4){
-      int ni = i+di[k];
-      int nj = j+dj[k];
-      int v = ni*w + nj;
-      if (is_in(ni, 0, h) && is_in(nj, 0, w)){
-        if (block[ni][nj]) continue;  // blockに入る辺はない
-        g[u].pb(v);
-        // G.add_edge(u, v, 1);
-        // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
-      }
+    rep(k, 4) {
+        int ni = i + di[k];
+        int nj = j + dj[k];
+        int v = ni * w + nj;
+        if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
+            if (block[ni][nj]) continue;  // blockに入る辺はない
+            g[u].pb(v);
+            // G.add_edge(u, v, 1);
+            // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+        }
     }
-  }
+}
 
 //%snippet.end()%
 

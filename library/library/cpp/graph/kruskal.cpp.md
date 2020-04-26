@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/kruskal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -41,73 +41,65 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 using Int = long long;
-//BEGIN CUT HERE
+// BEGIN CUT HERE
 // %snippet.set('kruskal')%
 // {{{
-template<typename T>
-struct Kruskal{
-  
-  struct edge{
-    int from,to;
-    T cost;
-    int used;
-    edge(){}
-    edge(int from,int to,T cost):
-      from(from),to(to),cost(cost),used(0){}
-    bool operator<(const edge& e) const{
-      return cost<e.cost;
+template <typename T>
+struct Kruskal {
+    struct edge {
+        int from, to;
+        T cost;
+        int used;
+        edge() {}
+        edge(int from, int to, T cost)
+            : from(from), to(to), cost(cost), used(0) {}
+        bool operator<(const edge& e) const { return cost < e.cost; }
+    };
+
+    int n;
+    vector<int> p, r;
+    vector<edge> edges;
+
+    Kruskal() {}
+    Kruskal(int n) : n(n) {}
+
+    void init(int n) {
+        r.assign(n, 1);
+        p.resize(n);
+        iota(p.begin(), p.end(), 0);
     }
-  };
 
-  int n;
-  vector<int> p,r;
-  vector<edge> edges;
+    int find(int x) { return (x == p[x] ? x : p[x] = find(p[x])); }
 
-  Kruskal(){}
-  Kruskal(int n):n(n){}
+    bool same(int x, int y) { return find(x) == find(y); }
 
-  void init(int n){
-    r.assign(n,1);
-    p.resize(n);
-    iota(p.begin(),p.end(),0);
-  }
-  
-  int find(int x){
-    return (x==p[x]?x:p[x]=find(p[x]));
-  }
-
-  bool same(int x,int y){
-    return find(x)==find(y);
-  }
-
-  void unite(int x,int y){
-    x=find(x);y=find(y);
-    if(x==y) return;
-    if(r[x]<r[y]) swap(x,y);
-    r[x]+=r[y];
-    p[y]=x;
-  }
-
-  void add_edge(int u,int v,T c){
-    edges.emplace_back(u,v,c);
-  }
-  
-  T build(){
-    sort(edges.begin(),edges.end());
-    init(n);
-    T res=0;
-    for(auto &e:edges){
-      if(!same(e.from,e.to)){
-        res+=e.cost;
-        unite(e.from,e.to);
-        e.used=1;
-      }
+    void unite(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) return;
+        if (r[x] < r[y]) swap(x, y);
+        r[x] += r[y];
+        p[y] = x;
     }
-    return res;
-  }
+
+    void add_edge(int u, int v, T c) { edges.emplace_back(u, v, c); }
+
+    T build() {
+        sort(edges.begin(), edges.end());
+        init(n);
+        T res = 0;
+        for (auto& e : edges) {
+            if (!same(e.from, e.to)) {
+                res += e.cost;
+                unite(e.from, e.to);
+                e.used = 1;
+            }
+        }
+        return res;
+    }
 };
 // int main(){
 //   int V,E;
@@ -123,19 +115,19 @@ struct Kruskal{
 // }
 //}}}
 //%snippet.end()%
-//END CUT HERE
+// END CUT HERE
 
-int main(){
-  int V,E;
-  scanf("%d %d",&V,&E);
-  Kruskal<int> ksk(V);
-  for(int i=0;i<E;i++){
-    int a,b,c;
-    scanf("%d %d %d",&a,&b,&c);
-    ksk.add_edge(a,b,c);
-  }
-  printf("%d\n",ksk.build());
-  return 0;
+int main() {
+    int V, E;
+    scanf("%d %d", &V, &E);
+    Kruskal<int> ksk(V);
+    for (int i = 0; i < E; i++) {
+        int a, b, c;
+        scanf("%d %d %d", &a, &b, &c);
+        ksk.add_edge(a, b, c);
+    }
+    printf("%d\n", ksk.build());
+    return 0;
 }
 
 /*
@@ -150,73 +142,65 @@ int main(){
 {% raw %}
 ```cpp
 #line 1 "library/cpp/graph/kruskal.cpp"
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 using Int = long long;
-//BEGIN CUT HERE
+// BEGIN CUT HERE
 // %snippet.set('kruskal')%
 // {{{
-template<typename T>
-struct Kruskal{
-  
-  struct edge{
-    int from,to;
-    T cost;
-    int used;
-    edge(){}
-    edge(int from,int to,T cost):
-      from(from),to(to),cost(cost),used(0){}
-    bool operator<(const edge& e) const{
-      return cost<e.cost;
+template <typename T>
+struct Kruskal {
+    struct edge {
+        int from, to;
+        T cost;
+        int used;
+        edge() {}
+        edge(int from, int to, T cost)
+            : from(from), to(to), cost(cost), used(0) {}
+        bool operator<(const edge& e) const { return cost < e.cost; }
+    };
+
+    int n;
+    vector<int> p, r;
+    vector<edge> edges;
+
+    Kruskal() {}
+    Kruskal(int n) : n(n) {}
+
+    void init(int n) {
+        r.assign(n, 1);
+        p.resize(n);
+        iota(p.begin(), p.end(), 0);
     }
-  };
 
-  int n;
-  vector<int> p,r;
-  vector<edge> edges;
+    int find(int x) { return (x == p[x] ? x : p[x] = find(p[x])); }
 
-  Kruskal(){}
-  Kruskal(int n):n(n){}
+    bool same(int x, int y) { return find(x) == find(y); }
 
-  void init(int n){
-    r.assign(n,1);
-    p.resize(n);
-    iota(p.begin(),p.end(),0);
-  }
-  
-  int find(int x){
-    return (x==p[x]?x:p[x]=find(p[x]));
-  }
-
-  bool same(int x,int y){
-    return find(x)==find(y);
-  }
-
-  void unite(int x,int y){
-    x=find(x);y=find(y);
-    if(x==y) return;
-    if(r[x]<r[y]) swap(x,y);
-    r[x]+=r[y];
-    p[y]=x;
-  }
-
-  void add_edge(int u,int v,T c){
-    edges.emplace_back(u,v,c);
-  }
-  
-  T build(){
-    sort(edges.begin(),edges.end());
-    init(n);
-    T res=0;
-    for(auto &e:edges){
-      if(!same(e.from,e.to)){
-        res+=e.cost;
-        unite(e.from,e.to);
-        e.used=1;
-      }
+    void unite(int x, int y) {
+        x = find(x);
+        y = find(y);
+        if (x == y) return;
+        if (r[x] < r[y]) swap(x, y);
+        r[x] += r[y];
+        p[y] = x;
     }
-    return res;
-  }
+
+    void add_edge(int u, int v, T c) { edges.emplace_back(u, v, c); }
+
+    T build() {
+        sort(edges.begin(), edges.end());
+        init(n);
+        T res = 0;
+        for (auto& e : edges) {
+            if (!same(e.from, e.to)) {
+                res += e.cost;
+                unite(e.from, e.to);
+                e.used = 1;
+            }
+        }
+        return res;
+    }
 };
 // int main(){
 //   int V,E;
@@ -232,19 +216,19 @@ struct Kruskal{
 // }
 //}}}
 //%snippet.end()%
-//END CUT HERE
+// END CUT HERE
 
-int main(){
-  int V,E;
-  scanf("%d %d",&V,&E);
-  Kruskal<int> ksk(V);
-  for(int i=0;i<E;i++){
-    int a,b,c;
-    scanf("%d %d %d",&a,&b,&c);
-    ksk.add_edge(a,b,c);
-  }
-  printf("%d\n",ksk.build());
-  return 0;
+int main() {
+    int V, E;
+    scanf("%d %d", &V, &E);
+    Kruskal<int> ksk(V);
+    for (int i = 0; i < E; i++) {
+        int a, b, c;
+        scanf("%d %d %d", &a, &b, &c);
+        ksk.add_edge(a, b, c);
+    }
+    printf("%d\n", ksk.build());
+    return 0;
 }
 
 /*

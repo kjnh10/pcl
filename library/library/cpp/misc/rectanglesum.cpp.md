@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/rectanglesum.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-25 20:06:07+09:00
+    - Last commit date: 2020-04-26 09:08:25+09:00
 
 
 
@@ -48,29 +48,30 @@ using namespace std;
 
 template <typename T>
 struct RectangleSum {
-  vector<vector<T>> sum;
-  T GetSum(int left, int right, int top, int bottom) { //[left, right], [top, bottom]{{{
-    T res = sum[bottom][right];
-    if (left > 0) res -= sum[bottom][left - 1];
-    if (top > 0) res -= sum[top - 1][right];
-    if (left > 0 && top > 0) res += sum[top - 1][left - 1];
-    return res;
-  }/*}}}*/
+    vector<vector<T>> sum;
+    T GetSum(int left, int right, int top,
+             int bottom) {  //[left, right], [top, bottom]{{{
+        T res = sum[bottom][right];
+        if (left > 0) res -= sum[bottom][left - 1];
+        if (top > 0) res -= sum[top - 1][right];
+        if (left > 0 && top > 0) res += sum[top - 1][left - 1];
+        return res;
+    } /*}}}*/
 
-  RectangleSum(const vector<vector<T>> &s) {/*{{{*/
-    int h = s.size();
-    int w = s[0].size();
-    sum.resize(h);
-    for (int i = 0; i < h; i ++) sum[i].resize(w, 0);
-    for (int y = 0; y < h; y ++) {
-      for (int x = 0; x < w; x ++) {
-        sum[y][x] = s[y][x];
-        if (y > 0) sum[y][x] += sum[y - 1][x];
-        if (x > 0) sum[y][x] += sum[y][x - 1];
-        if (y > 0 && x > 0) sum[y][x] -= sum[y - 1][x - 1];
-      }
-    }
-  }/*}}}*/
+    RectangleSum(const vector<vector<T>> &s) { /*{{{*/
+        int h = s.size();
+        int w = s[0].size();
+        sum.resize(h);
+        for (int i = 0; i < h; i++) sum[i].resize(w, 0);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                sum[y][x] = s[y][x];
+                if (y > 0) sum[y][x] += sum[y - 1][x];
+                if (x > 0) sum[y][x] += sum[y][x - 1];
+                if (y > 0 && x > 0) sum[y][x] -= sum[y - 1][x - 1];
+            }
+        }
+    } /*}}}*/
 };
 
 //%snippet.end()%
@@ -89,29 +90,30 @@ using namespace std;
 
 template <typename T>
 struct RectangleSum {
-  vector<vector<T>> sum;
-  T GetSum(int left, int right, int top, int bottom) { //[left, right], [top, bottom]{{{
-    T res = sum[bottom][right];
-    if (left > 0) res -= sum[bottom][left - 1];
-    if (top > 0) res -= sum[top - 1][right];
-    if (left > 0 && top > 0) res += sum[top - 1][left - 1];
-    return res;
-  }/*}}}*/
+    vector<vector<T>> sum;
+    T GetSum(int left, int right, int top,
+             int bottom) {  //[left, right], [top, bottom]{{{
+        T res = sum[bottom][right];
+        if (left > 0) res -= sum[bottom][left - 1];
+        if (top > 0) res -= sum[top - 1][right];
+        if (left > 0 && top > 0) res += sum[top - 1][left - 1];
+        return res;
+    } /*}}}*/
 
-  RectangleSum(const vector<vector<T>> &s) {/*{{{*/
-    int h = s.size();
-    int w = s[0].size();
-    sum.resize(h);
-    for (int i = 0; i < h; i ++) sum[i].resize(w, 0);
-    for (int y = 0; y < h; y ++) {
-      for (int x = 0; x < w; x ++) {
-        sum[y][x] = s[y][x];
-        if (y > 0) sum[y][x] += sum[y - 1][x];
-        if (x > 0) sum[y][x] += sum[y][x - 1];
-        if (y > 0 && x > 0) sum[y][x] -= sum[y - 1][x - 1];
-      }
-    }
-  }/*}}}*/
+    RectangleSum(const vector<vector<T>> &s) { /*{{{*/
+        int h = s.size();
+        int w = s[0].size();
+        sum.resize(h);
+        for (int i = 0; i < h; i++) sum[i].resize(w, 0);
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                sum[y][x] = s[y][x];
+                if (y > 0) sum[y][x] += sum[y - 1][x];
+                if (x > 0) sum[y][x] += sum[y][x - 1];
+                if (y > 0 && x > 0) sum[y][x] -= sum[y - 1][x - 1];
+            }
+        }
+    } /*}}}*/
 };
 
 //%snippet.end()%
