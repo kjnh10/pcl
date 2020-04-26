@@ -1,4 +1,6 @@
 #pragma once
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -64,3 +66,5 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
