@@ -1,5 +1,3 @@
 #include "../../graph.hpp"
 
-signed main() {
-  return 0;
-}
+signed main() { return 0; }

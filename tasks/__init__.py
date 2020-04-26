@@ -3,6 +3,7 @@ from .snippet import extract_snips
 from pathlib import Path
 import re
 import os
+import subprocess
 import click
 
 @task
@@ -91,6 +92,13 @@ def build(c):
             vssnip_file = vssnip_dir / 'python.code-snippets',
             )
 
+@task
+def format(c):
+    print("formatting cpp codes")
+
+    CODE_DIR = Path(os.path.dirname(__file__)).parent
+    for p in CODE_DIR.rglob("*.[ch]pp"):
+        subprocess.run(f"clang-format {p} -i", shell=True)
 
 def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     if neosnip_file.exists():
