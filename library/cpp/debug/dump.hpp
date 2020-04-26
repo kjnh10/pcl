@@ -8,6 +8,8 @@ using namespace std;
 
 #define DUMPOUT cerr  // where to dump. cout or cerr
 
+#define cerrendl cerr << endl
+
 namespace dump_macro {
 stack<vector<string>> varnames;
 stack<int> varidx;
