@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:57:15+09:00
+    - Last commit date: 2020-04-26 10:05:06+09:00
 
 
 
@@ -48,8 +48,8 @@ layout: default
 ```cpp
 #include "../header.hpp"
 
-signed main(){
-//%snippet.set('gridgraph')%
+signed main() {
+    //%snippet.set('gridgraph')%
 
     // grid graphを通常のグラフに格納する。
     // (i, j) -> i*w + j
@@ -87,7 +87,7 @@ signed main(){
         }
     }
 
-//%snippet.end()%
+    //%snippet.end()%
 }
 
 ```
@@ -164,8 +164,8 @@ struct Fast {
 #endif
 #line 2 "library/cpp/graph/gridgraph.cpp"
 
-signed main(){
-//%snippet.set('gridgraph')%
+signed main() {
+    //%snippet.set('gridgraph')%
 
     // grid graphを通常のグラフに格納する。
     // (i, j) -> i*w + j
@@ -203,7 +203,7 @@ signed main(){
         }
     }
 
-//%snippet.end()%
+    //%snippet.end()%
 }
 
 ```

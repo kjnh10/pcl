@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:57:15+09:00
+    - Last commit date: 2020-04-26 10:05:06+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp</a>
@@ -51,18 +51,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
+#define PROBLEM \
+    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
 
 #include "../header.hpp"
 #include "./graph.hpp"
 
 signed main() {
     int n, m;
-    cin>>n>>m;
+    cin >> n >> m;
     Graph g(n);
     for (int i = 0; i < m; i++) {
         int a, b, c;
-        cin>>a>>b>>c;
+        cin >> a >> b >> c;
         g.add_edge(a, b, c, i);
         g.add_edge(b, a, c, i);
     }
@@ -81,7 +82,8 @@ signed main() {
 {% raw %}
 ```cpp
 #line 1 "library/cpp/graph/graph.kruskal.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
+#define PROBLEM \
+    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
 
 #line 2 "library/cpp/header.hpp"
 
@@ -467,14 +469,16 @@ struct UnionFind {
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-template <class Pos = int, class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
+template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
+          Cost infcost = INF>
 struct Graph {
     struct Edge {
         Pos from, to;
         Cost cost;
         int idx;
-        Edge() {};
-        Edge(Pos from, Pos to, Cost cost, int idx) : from(from), to(to), cost(cost), idx(idx) {}
+        Edge(){};
+        Edge(Pos from, Pos to, Cost cost, int idx)
+            : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
             os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
             return os;
@@ -581,37 +585,37 @@ struct Graph {
         return res;
     }
 
-    vector<Edge> kruskal_tree(){
+    vector<Edge> kruskal_tree() {
         // 使用される辺のindexのvectorを返す
-        vector<Edge> res(n-1);
-        sort(all(edges), [&](auto l, auto r){return l.cost < r.cost;});
+        vector<Edge> res(n - 1);
+        sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
         UnionFind uf(n);
 
         int total_cost = 0;
         int i = 0;
-        each(e, edges){
+        each(e, edges) {
             if (uf.same(e.from, e.to)) continue;
             uf.merge(e.from, e.to);
             total_cost += e.cost;
             res[i] = e;
             i++;
         }
-        assert(i==n-1);
+        assert(i == n - 1);
 
         return res;
     }
 };
 
 //%snippet.end()%
-#line 5 "library/cpp/graph/graph.kruskal.test.cpp"
+#line 6 "library/cpp/graph/graph.kruskal.test.cpp"
 
 signed main() {
     int n, m;
-    cin>>n>>m;
+    cin >> n >> m;
     Graph g(n);
     for (int i = 0; i < m; i++) {
         int a, b, c;
-        cin>>a>>b>>c;
+        cin >> a >> b >> c;
         g.add_edge(a, b, c, i);
         g.add_edge(b, a, c, i);
     }
