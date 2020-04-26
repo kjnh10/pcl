@@ -11,8 +11,8 @@ signed main() {
     rep(i, m) {
         int u, v;
         cin >> u >> v;
-        g.add_edge(u, v, 1);
-        g.add_edge(v, u, 1);
+        g.add_edge(u, v, 1, i);
+        g.add_edge(v, u, 1, i);
     }
     g.build_tree(0);
     dump(g.tr);
