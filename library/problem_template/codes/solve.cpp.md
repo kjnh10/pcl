@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 11:59:35+09:00
 
 
 
@@ -48,7 +48,9 @@ layout: default
 ```cpp
 #include "header.hpp"
 
-signed main() { return 0; }
+signed main() {
+    return 0; 
+}
 
 ```
 {% endraw %}
@@ -57,6 +59,8 @@ signed main() { return 0; }
 {% raw %}
 ```cpp
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -122,9 +126,13 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 #line 2 "problem_template/codes/solve.cpp"
 
-signed main() { return 0; }
+signed main() {
+    return 0; 
+}
 
 ```
 {% endraw %}

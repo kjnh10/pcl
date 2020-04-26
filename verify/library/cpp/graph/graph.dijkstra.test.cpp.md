@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 10:51:03+09:00
+    - Last commit date: 2020-04-26 11:50:42+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -89,6 +89,8 @@ signed main() {
     "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
 
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -154,6 +156,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 #line 3 "library/cpp/array/segtree/segment_tree.hpp"
 // http://tsutaj.hatenablog.com/entry/2017/03/29/204841
 

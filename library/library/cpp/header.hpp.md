@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#b74e03aadbcf5e719ddbe48ef08361fd">library/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/header.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 11:50:42+09:00
 
 
 
@@ -92,6 +92,8 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -157,6 +159,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 
 ```
 {% endraw %}
@@ -165,6 +169,8 @@ struct Fast {
 {% raw %}
 ```cpp
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -230,6 +236,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 
 ```
 {% endraw %}

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 11:50:42+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -87,6 +87,8 @@ signed main() {
 #define PROBLEM \
     "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -152,6 +154,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 #line 2 "library/cpp/misc/zipper.lib/zipper.hpp"
 
 //%snippet.set('zip')%

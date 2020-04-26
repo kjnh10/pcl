@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 11:50:42+09:00
 
 
 
@@ -139,10 +139,12 @@ using namespace std;
 #include <bits/stdc++.h>
 
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
-#line 6 "library/cpp/header.hpp"
+#line 8 "library/cpp/header.hpp"
 
 // varibable settings
 #define int long long
@@ -204,6 +206,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 #line 8 "library/cpp/debug/dump.hpp"
 
 #define DUMPOUT cerr  // where to dump. cout or cerr

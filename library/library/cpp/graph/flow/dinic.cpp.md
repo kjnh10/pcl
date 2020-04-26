@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#08be9a8a45b2e811a312f82c2e412c8c">library/cpp/graph/flow</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/flow/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 11:50:42+09:00
 
 
 
@@ -180,6 +180,8 @@ signed main() {
 {% raw %}
 ```cpp
 #line 2 "library/cpp/header.hpp"
+#ifndef HEADER_H
+#define HEADER_H
 
 // template version 2.0
 using namespace std;
@@ -245,6 +247,8 @@ struct Fast {
 #define dump_2d(...) ;
 #define cerrendl ;
 #endif
+
+#endif /* HEADER_H */
 #line 2 "library/cpp/graph/flow/dinic.cpp"
 
 // Dinic: https://tubo28.me/compprog/algorithm/dinic/
