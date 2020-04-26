@@ -96,7 +96,7 @@ def build(c):
 def format(c):
     print("formatting cpp codes")
 
-    CODE_DIR = Path(os.path.dirname(__file__)).parent
+    CODE_DIR = Path(os.path.dirname(__file__)).parent / 'library/cpp'
     for p in CODE_DIR.rglob("*.[ch]pp"):
         if 'snip' in p.name:
             continue  # snippetはformatされると動かなくなるので
