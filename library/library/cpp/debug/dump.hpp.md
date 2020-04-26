@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:36:04+09:00
 
 
 
@@ -56,6 +56,8 @@ using namespace std;
 #include "../header.hpp"
 
 #define DUMPOUT cerr  // where to dump. cout or cerr
+
+#define cerrendl cerr << endl
 
 namespace dump_macro {
 stack<vector<string>> varnames;

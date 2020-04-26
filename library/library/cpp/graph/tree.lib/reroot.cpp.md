@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/reroot.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

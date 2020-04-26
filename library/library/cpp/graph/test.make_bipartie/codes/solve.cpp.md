@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

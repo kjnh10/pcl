@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#51139f4eb77e81dbd61f182500602d94">library/cpp/math/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

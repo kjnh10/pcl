@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bit.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

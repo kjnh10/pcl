@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/lcs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

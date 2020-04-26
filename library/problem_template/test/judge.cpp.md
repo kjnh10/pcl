@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#76c92c32675513a9b45b3a525f3ad871">problem_template/test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/test/judge.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 
@@ -49,6 +49,11 @@ layout: default
 #include "header.hpp"
 
 signed main() {
+    //input
+    check_input();
+
+    //solve
+
     return 0; 
 }
 

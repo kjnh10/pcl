@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#c4edc97866360646965a77b5500cc883">library/cpp/string/kmp/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/kmp/codes/naive.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:30:26+09:00
+    - Last commit date: 2020-04-26 16:35:47+09:00
 
 
 
