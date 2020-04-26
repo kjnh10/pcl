@@ -80,18 +80,9 @@ layout: default
 * :warning: <a href="library/library/cpp/graph/dijkstra_dinamic.cpp.html">library/cpp/graph/dijkstra_dinamic.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
-* :warning: <a href="library/library/cpp/graph/kruskal.cpp.html">library/cpp/graph/kruskal.cpp</a>
 * :warning: <a href="library/library/cpp/graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
 * :warning: <a href="library/library/cpp/graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-
-
-<div id="4104fb3f94c89a2bf40e35b285e41c68"></div>
-
-### library/cpp/graph/bridge/codes
-
-* :warning: <a href="library/library/cpp/graph/bridge/codes/naive.cpp.html">library/cpp/graph/bridge/codes/naive.cpp</a>
-* :warning: <a href="library/library/cpp/graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
 
 
 <div id="08be9a8a45b2e811a312f82c2e412c8c"></div>
@@ -209,6 +200,7 @@ layout: default
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>

@@ -31,9 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 09:57:15+09:00
 
 
+
+
+## Depends on
+
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -41,45 +46,49 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
+#include "../header.hpp"
+
+signed main(){
 //%snippet.set('gridgraph')%
 
-// grid graphを通常のグラフに格納する。
-// (i, j) -> i*w + j
-// u -> (u/w, u%w)
+    // grid graphを通常のグラフに格納する。
+    // (i, j) -> i*w + j
+    // u -> (u/w, u%w)
 
-int h, w;
-cin >> h >> w;
-int n = h * w;
-vvi block(h, vi(w));
-rep(i, h) {
-    string s;
-    cin >> s;
-    rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
-}
+    int h, w;
+    cin >> h >> w;
+    int n = h * w;
+    vvi block(h, vi(w));
+    rep(i, h) {
+        string s;
+        cin >> s;
+        rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+    }
 
-vvi g(n);
-// Graph G;
+    vvi g(n);
+    // Graph G;
 
-int di[] = {1, -1, 0, 0};
-int dj[] = {0, 0, 1, -1};
-rep(i, h) rep(j, w) {
-    if (block[i][j]) continue;  // blockから出る辺はない
-    int u = i * w + j;
+    int di[] = {1, -1, 0, 0};
+    int dj[] = {0, 0, 1, -1};
+    rep(i, h) rep(j, w) {
+        if (block[i][j]) continue;  // blockから出る辺はない
+        int u = i * w + j;
 
-    rep(k, 4) {
-        int ni = i + di[k];
-        int nj = j + dj[k];
-        int v = ni * w + nj;
-        if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-            if (block[ni][nj]) continue;  // blockに入る辺はない
-            g[u].pb(v);
-            // G.add_edge(u, v, 1);
-            // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+        rep(k, 4) {
+            int ni = i + di[k];
+            int nj = j + dj[k];
+            int v = ni * w + nj;
+            if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
+                if (block[ni][nj]) continue;  // blockに入る辺はない
+                g[u].pb(v);
+                // G.add_edge(u, v, 1);
+                // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+            }
         }
     }
-}
 
 //%snippet.end()%
+}
 
 ```
 {% endraw %}
@@ -87,46 +96,115 @@ rep(i, h) rep(j, w) {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/gridgraph.cpp"
+#line 2 "library/cpp/header.hpp"
+
+// template version 2.0
+using namespace std;
+#include <bits/stdc++.h>
+
+// varibable settings
+#define int long long
+const int INF = 1e18;
+
+#define _overload3(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define _rrep(i, n) rrepi(i, 0, n)
+#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
+#define each(i, a) for (auto &&i : a)
+#define all(x) (x).begin(), (x).end()
+#define sz(x) ((int)(x).size())
+#define pb(a) push_back(a)
+#define mp(a, b) make_pair(a, b)
+#define mt(...) make_tuple(__VA_ARGS__)
+#define ub upper_bound
+#define lb lower_bound
+#define lpos(A, x) (lower_bound(all(A), x) - A.begin())
+#define upos(A, x) (upper_bound(all(A), x) - A.begin())
+template <class T>
+inline void chmax(T &a, const T &b) {
+    if ((a) < (b)) (a) = (b);
+}
+template <class T>
+inline void chmin(T &a, const T &b) {
+    if ((a) > (b)) (a) = (b);
+}
+
+#define divceil(a, b) ((a) + (b)-1) / (b)
+#define is_in(x, a, b) ((a) <= (x) && (x) < (b))
+#define uni(x)    \
+    sort(all(x)); \
+    x.erase(unique(all(x)), x.end())
+#define slice(l, r) substr(l, r - l)
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> iii;
+
+template <typename T>
+using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast {
+    Fast() {
+        std::cin.tie(0);
+        ios::sync_with_stdio(false);
+    }
+} fast;
+
+#if defined(PCM) || defined(LOCAL)
+#else
+#define dump(...) ;
+#define dump_1d(...) ;
+#define dump_2d(...) ;
+#define cerrendl ;
+#endif
+#line 2 "library/cpp/graph/gridgraph.cpp"
+
+signed main(){
 //%snippet.set('gridgraph')%
 
-// grid graphを通常のグラフに格納する。
-// (i, j) -> i*w + j
-// u -> (u/w, u%w)
+    // grid graphを通常のグラフに格納する。
+    // (i, j) -> i*w + j
+    // u -> (u/w, u%w)
 
-int h, w;
-cin >> h >> w;
-int n = h * w;
-vvi block(h, vi(w));
-rep(i, h) {
-    string s;
-    cin >> s;
-    rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
-}
+    int h, w;
+    cin >> h >> w;
+    int n = h * w;
+    vvi block(h, vi(w));
+    rep(i, h) {
+        string s;
+        cin >> s;
+        rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+    }
 
-vvi g(n);
-// Graph G;
+    vvi g(n);
+    // Graph G;
 
-int di[] = {1, -1, 0, 0};
-int dj[] = {0, 0, 1, -1};
-rep(i, h) rep(j, w) {
-    if (block[i][j]) continue;  // blockから出る辺はない
-    int u = i * w + j;
+    int di[] = {1, -1, 0, 0};
+    int dj[] = {0, 0, 1, -1};
+    rep(i, h) rep(j, w) {
+        if (block[i][j]) continue;  // blockから出る辺はない
+        int u = i * w + j;
 
-    rep(k, 4) {
-        int ni = i + di[k];
-        int nj = j + dj[k];
-        int v = ni * w + nj;
-        if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-            if (block[ni][nj]) continue;  // blockに入る辺はない
-            g[u].pb(v);
-            // G.add_edge(u, v, 1);
-            // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+        rep(k, 4) {
+            int ni = i + di[k];
+            int nj = j + dj[k];
+            int v = ni * w + nj;
+            if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
+                if (block[ni][nj]) continue;  // blockに入る辺はない
+                g[u].pb(v);
+                // G.add_edge(u, v, 1);
+                // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+            }
         }
     }
-}
 
 //%snippet.end()%
+}
 
 ```
 {% endraw %}

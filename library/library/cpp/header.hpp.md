@@ -45,11 +45,10 @@ layout: default
 * :warning: <a href="array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
 * :warning: <a href="debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
-* :warning: <a href="graph/bridge/codes/naive.cpp.html">library/cpp/graph/bridge/codes/naive.cpp</a>
-* :warning: <a href="graph/bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="graph/dijkstra.cpp.html">library/cpp/graph/dijkstra.cpp</a>
 * :warning: <a href="graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :warning: <a href="graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :warning: <a href="graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
 * :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :warning: <a href="graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
@@ -79,6 +78,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>

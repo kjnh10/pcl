@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-04-26 09:57:15+09:00
 
 
 
@@ -46,12 +46,12 @@ layout: default
 
 ## Required by
 
-* :warning: <a href="bridge/codes/solve.cpp.html">library/cpp/graph/bridge/codes/solve.cpp</a>
 * :warning: <a href="test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 
 
 ## Verified with
 
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 
 
@@ -69,15 +69,16 @@ layout: default
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
-          Cost infcost = INF>
+template <class Pos = int, class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
 struct Graph {
     struct Edge {
-        Pos to;
+        Pos from, to;
         Cost cost;
-        Edge(Pos to, Cost cost) : to(to), cost(cost) {}
+        int idx;
+        Edge() {};
+        Edge(Pos from, Pos to, Cost cost, int idx) : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
-            os << e.to << " " << e.cost;
+            os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
             return os;
         }
     };
@@ -86,6 +87,7 @@ struct Graph {
     // unordered_map<Pos, vector<Edge>>
     // adj_list;//Posがpiiでなくintならunordredの方が早い
     vector<vector<Edge>> adj_list;
+    vector<Edge> edges;
     UnionFind buf;
     tree tr;
     Pos root;
@@ -95,8 +97,9 @@ struct Graph {
     Graph() {}
     Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
 
-    void add_edge(Pos from, Pos to, Cost cost) {
-        adj_list[from].emplace_back(to, cost);
+    void add_edge(Pos from, Pos to, Cost cost, int idx) {
+        adj_list[from].emplace_back(from, to, cost, idx);
+        edges.emplace_back(from, to, cost, idx);
     }
 
     void build_tree(int _root) {
@@ -134,14 +137,12 @@ struct Graph {
 
     void _dfs_tree(int u) {
         _used_in_dfs[u] = 1;
-        each(el, adj_list[u]) {
-            auto [v, cost] = el;
-            if (_used_in_dfs[v]) continue;
-            tr.add_edge(u, v, cost);
-            _dfs_tree(v);
+        each(e, adj_list[u]) {
+            if (_used_in_dfs[e.to]) continue;
+            tr.add_edge(u, e.to, e.cost);
+            _dfs_tree(e.to);
         }
     }
-    // lolinkを構築
 
     void _make_lowlink() {
         lowlink = vector<int>(n, INF);
@@ -149,14 +150,13 @@ struct Graph {
             int u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
 
-            each(el, adj_list[u]) {
-                auto [v, cost] = el;
-                if (v == tr.par[u])
+            each(e, adj_list[u]) {
+                if (e.to == tr.par[u])
                     continue;
-                else if (tr.ord[v] < tr.ord[u]) {
-                    chmin(lowlink[u], tr.ord[v]);
+                else if (tr.ord[e.to] < tr.ord[u]) {
+                    chmin(lowlink[u], tr.ord[e.to]);
                 } else {
-                    chmin(lowlink[u], lowlink[v]);
+                    chmin(lowlink[u], lowlink[e.to]);
                 }
             }
         }
@@ -180,6 +180,26 @@ struct Graph {
             }
             if (is_kan) res.push_back(u);
         }
+        return res;
+    }
+
+    vector<Edge> kruskal_tree(){
+        // 使用される辺のindexのvectorを返す
+        vector<Edge> res(n-1);
+        sort(all(edges), [&](auto l, auto r){return l.cost < r.cost;});
+        UnionFind uf(n);
+
+        int total_cost = 0;
+        int i = 0;
+        each(e, edges){
+            if (uf.same(e.from, e.to)) continue;
+            uf.merge(e.from, e.to);
+            total_cost += e.cost;
+            res[i] = e;
+            i++;
+        }
+        assert(i==n-1);
+
         return res;
     }
 };
@@ -576,15 +596,16 @@ struct UnionFind {
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
-          Cost infcost = INF>
+template <class Pos = int, class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
 struct Graph {
     struct Edge {
-        Pos to;
+        Pos from, to;
         Cost cost;
-        Edge(Pos to, Cost cost) : to(to), cost(cost) {}
+        int idx;
+        Edge() {};
+        Edge(Pos from, Pos to, Cost cost, int idx) : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
-            os << e.to << " " << e.cost;
+            os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
             return os;
         }
     };
@@ -593,6 +614,7 @@ struct Graph {
     // unordered_map<Pos, vector<Edge>>
     // adj_list;//Posがpiiでなくintならunordredの方が早い
     vector<vector<Edge>> adj_list;
+    vector<Edge> edges;
     UnionFind buf;
     tree tr;
     Pos root;
@@ -602,8 +624,9 @@ struct Graph {
     Graph() {}
     Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
 
-    void add_edge(Pos from, Pos to, Cost cost) {
-        adj_list[from].emplace_back(to, cost);
+    void add_edge(Pos from, Pos to, Cost cost, int idx) {
+        adj_list[from].emplace_back(from, to, cost, idx);
+        edges.emplace_back(from, to, cost, idx);
     }
 
     void build_tree(int _root) {
@@ -641,14 +664,12 @@ struct Graph {
 
     void _dfs_tree(int u) {
         _used_in_dfs[u] = 1;
-        each(el, adj_list[u]) {
-            auto [v, cost] = el;
-            if (_used_in_dfs[v]) continue;
-            tr.add_edge(u, v, cost);
-            _dfs_tree(v);
+        each(e, adj_list[u]) {
+            if (_used_in_dfs[e.to]) continue;
+            tr.add_edge(u, e.to, e.cost);
+            _dfs_tree(e.to);
         }
     }
-    // lolinkを構築
 
     void _make_lowlink() {
         lowlink = vector<int>(n, INF);
@@ -656,14 +677,13 @@ struct Graph {
             int u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
 
-            each(el, adj_list[u]) {
-                auto [v, cost] = el;
-                if (v == tr.par[u])
+            each(e, adj_list[u]) {
+                if (e.to == tr.par[u])
                     continue;
-                else if (tr.ord[v] < tr.ord[u]) {
-                    chmin(lowlink[u], tr.ord[v]);
+                else if (tr.ord[e.to] < tr.ord[u]) {
+                    chmin(lowlink[u], tr.ord[e.to]);
                 } else {
-                    chmin(lowlink[u], lowlink[v]);
+                    chmin(lowlink[u], lowlink[e.to]);
                 }
             }
         }
@@ -687,6 +707,26 @@ struct Graph {
             }
             if (is_kan) res.push_back(u);
         }
+        return res;
+    }
+
+    vector<Edge> kruskal_tree(){
+        // 使用される辺のindexのvectorを返す
+        vector<Edge> res(n-1);
+        sort(all(edges), [&](auto l, auto r){return l.cost < r.cost;});
+        UnionFind uf(n);
+
+        int total_cost = 0;
+        int i = 0;
+        each(e, edges){
+            if (uf.same(e.from, e.to)) continue;
+            uf.merge(e.from, e.to);
+            total_cost += e.cost;
+            res[i] = e;
+            i++;
+        }
+        assert(i==n-1);
+
         return res;
     }
 };

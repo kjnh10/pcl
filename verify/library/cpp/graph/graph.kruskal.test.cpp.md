@@ -21,28 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/bridge/codes/solve.cpp
+# :heavy_check_mark: library/cpp/graph/graph.kruskal.test.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#4104fb3f94c89a2bf40e35b285e41c68">library/cpp/graph/bridge/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bridge/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.kruskal.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-26 09:57:15+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -50,9 +51,28 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../graph.hpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
 
-signed main() { return 0; }
+#include "../header.hpp"
+#include "./graph.hpp"
+
+signed main() {
+    int n, m;
+    cin>>n>>m;
+    Graph g(n);
+    for (int i = 0; i < m; i++) {
+        int a, b, c;
+        cin>>a>>b>>c;
+        g.add_edge(a, b, c, i);
+        g.add_edge(b, a, c, i);
+    }
+    auto ks = g.kruskal_tree();
+    int ans = 0;
+    each(e, ks) ans += e.cost;
+    cout << ans << endl;
+
+    return 0;
+}
 
 ```
 {% endraw %}
@@ -60,6 +80,9 @@ signed main() { return 0; }
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/graph/graph.kruskal.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp"
+
 #line 2 "library/cpp/header.hpp"
 
 // template version 2.0
@@ -444,15 +467,16 @@ struct UnionFind {
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
-          Cost infcost = INF>
+template <class Pos = int, class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
 struct Graph {
     struct Edge {
-        Pos to;
+        Pos from, to;
         Cost cost;
-        Edge(Pos to, Cost cost) : to(to), cost(cost) {}
+        int idx;
+        Edge() {};
+        Edge(Pos from, Pos to, Cost cost, int idx) : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
-            os << e.to << " " << e.cost;
+            os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
             return os;
         }
     };
@@ -461,6 +485,7 @@ struct Graph {
     // unordered_map<Pos, vector<Edge>>
     // adj_list;//Posがpiiでなくintならunordredの方が早い
     vector<vector<Edge>> adj_list;
+    vector<Edge> edges;
     UnionFind buf;
     tree tr;
     Pos root;
@@ -470,8 +495,9 @@ struct Graph {
     Graph() {}
     Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
 
-    void add_edge(Pos from, Pos to, Cost cost) {
-        adj_list[from].emplace_back(to, cost);
+    void add_edge(Pos from, Pos to, Cost cost, int idx) {
+        adj_list[from].emplace_back(from, to, cost, idx);
+        edges.emplace_back(from, to, cost, idx);
     }
 
     void build_tree(int _root) {
@@ -509,14 +535,12 @@ struct Graph {
 
     void _dfs_tree(int u) {
         _used_in_dfs[u] = 1;
-        each(el, adj_list[u]) {
-            auto [v, cost] = el;
-            if (_used_in_dfs[v]) continue;
-            tr.add_edge(u, v, cost);
-            _dfs_tree(v);
+        each(e, adj_list[u]) {
+            if (_used_in_dfs[e.to]) continue;
+            tr.add_edge(u, e.to, e.cost);
+            _dfs_tree(e.to);
         }
     }
-    // lolinkを構築
 
     void _make_lowlink() {
         lowlink = vector<int>(n, INF);
@@ -524,14 +548,13 @@ struct Graph {
             int u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
 
-            each(el, adj_list[u]) {
-                auto [v, cost] = el;
-                if (v == tr.par[u])
+            each(e, adj_list[u]) {
+                if (e.to == tr.par[u])
                     continue;
-                else if (tr.ord[v] < tr.ord[u]) {
-                    chmin(lowlink[u], tr.ord[v]);
+                else if (tr.ord[e.to] < tr.ord[u]) {
+                    chmin(lowlink[u], tr.ord[e.to]);
                 } else {
-                    chmin(lowlink[u], lowlink[v]);
+                    chmin(lowlink[u], lowlink[e.to]);
                 }
             }
         }
@@ -557,15 +580,51 @@ struct Graph {
         }
         return res;
     }
+
+    vector<Edge> kruskal_tree(){
+        // 使用される辺のindexのvectorを返す
+        vector<Edge> res(n-1);
+        sort(all(edges), [&](auto l, auto r){return l.cost < r.cost;});
+        UnionFind uf(n);
+
+        int total_cost = 0;
+        int i = 0;
+        each(e, edges){
+            if (uf.same(e.from, e.to)) continue;
+            uf.merge(e.from, e.to);
+            total_cost += e.cost;
+            res[i] = e;
+            i++;
+        }
+        assert(i==n-1);
+
+        return res;
+    }
 };
 
 //%snippet.end()%
-#line 2 "library/cpp/graph/bridge/codes/solve.cpp"
+#line 5 "library/cpp/graph/graph.kruskal.test.cpp"
 
-signed main() { return 0; }
+signed main() {
+    int n, m;
+    cin>>n>>m;
+    Graph g(n);
+    for (int i = 0; i < m; i++) {
+        int a, b, c;
+        cin>>a>>b>>c;
+        g.add_edge(a, b, c, i);
+        g.add_edge(b, a, c, i);
+    }
+    auto ks = g.kruskal_tree();
+    int ans = 0;
+    each(e, ks) ans += e.cost;
+    cout << ans << endl;
+
+    return 0;
+}
 
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
