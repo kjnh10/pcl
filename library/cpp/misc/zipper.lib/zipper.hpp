@@ -1,6 +1,6 @@
 #include "../../header.hpp"
 
-//%snippet.set('zip')%
+//%snippet.set('zipper')%
 
 struct zipper {                             /*{{{*/
     unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
