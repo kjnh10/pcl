@@ -5,6 +5,7 @@ from copy import copy, deepcopy
 import json
 from typing import TYPE_CHECKING, List, Optional, Type
 from collections import deque, defaultdict
+import click
 
 
 class Snippet(object):
@@ -28,35 +29,11 @@ class Snippet(object):
     def append(self, line):
         self.code.append(line)
 
-
     def format_code(self):
         # 最後の空行は1行にする
         while (self.code[-1]=='\n'):
             self.code.pop()
         self.code.append('\n')
-
-    def __resolve_dependencies(self, resolve_path, snippets):
-        if self.resolving==True:
-            raise Exception(
-                    f"""
-                    there is loop reference below.
-                    {resolve_path}
-                    """
-                    )
-
-        self.resolving = True
-        resolve_path.append(self.name)
-
-        if (len(self.dependencies)==0):
-            pass
-        else:
-            for name in self.dependencies:
-                snippets[name].__resolve_dependencies(resolve_path, snippets)
-                self.code = snippets[name].code + self.code
-                self.dependencies.remove(name)
-
-        self.resolving = False
-        return resolve_path
 
 
 class Dag(object):
@@ -71,7 +48,7 @@ class Dag(object):
         self.nodes.append(deepcopy(node))
         self.pos[node.name] = len(self.nodes) - 1
         self.size += 1
-        print(node.name, self.pos[node.name])
+        print(f"{self.pos[node.name]}: {node.name}")
 
     def topological_sort(self):
         edges = []
@@ -98,9 +75,10 @@ class Dag(object):
                 in_nums[v2] -= 1
                 if in_nums[v2] == 0:
                     q.append(v2)
+        click.secho("order sorted by topological sort", fg='green')
         print(sorted_list)
 
-        paths = defaultdict(set)
+        paths = {}
         for i in sorted_list:
             paths[i] = set([i])
             for j in ins[i]:
@@ -110,7 +88,11 @@ class Dag(object):
             paths[i] = list(paths[i])
             paths[i].sort(key=lambda x: ord_in_tpsorted_list[x])
 
+        click.secho("resolved_dependencies", fg='green')
         print(paths)
+        for i in range(self.size):
+            print(str(i)+":", self.nodes[i].name, list(map(lambda x:self.nodes[x].name, paths[i])))
+
         self.resolved_paths = paths
 
 
@@ -143,6 +125,9 @@ class Snippets(Dag):
             self.add_node(snippet)
 
     def to_snip_file(self, snip_file, format, scope=None):
+        if snip_file.exists():
+            snip_file.unlink()
+
         for idx in range(self.size):
             snippet = self.nodes[idx]
             resolve_path = self.resolved_paths[idx]
