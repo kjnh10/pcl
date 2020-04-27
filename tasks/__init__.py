@@ -1,5 +1,5 @@
 from invoke import task
-from .snippet import extract_snips
+from .snippet import Snippets
 from pathlib import Path
 import re
 import os
@@ -110,11 +110,11 @@ def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     if vssnip_file.exists():
         vssnip_file.unlink()
 
-    snippets = {}
+    snippets = Snippets()
     for extention in extentions:
         for f in code_dir.rglob(f'*.{extention}'):
-            extract_snips(f, snippets)
+            snippets.extract_snips(f)
 
-    for name in snippets.keys():
-        snippets[name].to_snip_file(neosnip_file, snippets, format='neosnippet')
-        snippets[name].to_snip_file(vssnip_file, snippets, format='textmate')
+    snippets.topological_sort()
+    snippets.to_snip_file(neosnip_file, format='neosnippet')
+    snippets.to_snip_file(neosnip_file, format='textmate')
