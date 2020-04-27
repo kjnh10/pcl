@@ -1,5 +1,6 @@
+#pragma once  // need to be first line for oj-bundle
+
 //%snippet.set('header')%
-#pragma once
 #ifndef HEADER_H
 #define HEADER_H
 
