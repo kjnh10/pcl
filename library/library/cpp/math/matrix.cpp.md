@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 11:40:49+09:00
+    - Last commit date: 2020-04-27 20:02:36+09:00
 
 
 
@@ -165,10 +165,16 @@ typedef tuple<int, int, int> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
-void check_input(){
+struct Fast {
+    Fast() {
+        std::cin.tie(0);
+        ios::sync_with_stdio(false);
+    }
+} fast;
+void check_input() {
     assert(cin.eof() == 0);
-    int tmp; cin >> tmp; 
+    int tmp;
+    cin >> tmp;
     assert(cin.eof() == 1);
 }
 
