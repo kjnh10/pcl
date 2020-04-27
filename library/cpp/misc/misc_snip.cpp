@@ -326,8 +326,39 @@ template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T ini
     return vector<vector<T>>(n1, vector<T>(n2, init_value));
 }
 
+
 template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
     return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
 }
 // auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
 // auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
+
+
+//%snippet.set('erase_loop')%
+for(auto iter=begin(s); iter!=end(s);){
+    // 処理
+
+    // 終了処理
+    if (*iter%3==0 || *iter==1) {  // delete
+        iter = s.erase(iter);
+    }
+    else{  // non-delete
+        ++iter;
+    }
+}
+
+
+//%snippet.set('erase_loop_reverse')%
+for(auto riter=rbegin(s); riter!=rend(s);){
+    // 処理
+
+    // 終了処理
+    if (*riter%3==0 || *riter==1) {
+        auto iter = riter.base(); --iter; // iterに変換
+        iter = s.erase(iter); // 要素を削除。これが終了した時点ではiterは削除要素の右を指している。
+        riter = reverse_iterator(iter); // reverseすると左に１個進むのでちょうどよい。
+    }
+    else{
+        riter++;
+    }
+}
