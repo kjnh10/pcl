@@ -238,6 +238,7 @@ signed main(){
     rep(_, Q){
         query();
     }
+    check_input();
     return 0;
 }
 
