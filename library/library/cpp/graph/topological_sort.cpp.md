@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/topological_sort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 16:35:47+09:00
+    - Last commit date: 2020-04-27 11:40:49+09:00
 
 
 
@@ -160,16 +160,186 @@ signed main() {  //{{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/docs.py", line 340, in write_contents
-    bundled_code = language.bundle(self.file_class.file_path, basedir=pathlib.Path.cwd())
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus.py", line 170, in bundle
-    bundler.update(path)
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 282, in update
-    self.update(self._resolve(pathlib.Path(included), included_from=path))
-  File "/opt/hostedtoolcache/Python/3.8.2/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/cplusplus_bundle.py", line 214, in update
-    raise BundleError(path, i + 1, "#pragma once found in a non-first line")
-onlinejudge_verify.languages.cplusplus_bundle.BundleError: library/cpp/header.hpp: line 2: #pragma once found in a non-first line
+#line 2 "library/cpp/header.hpp"
+
+//%snippet.set('header')%
+#ifndef HEADER_H
+#define HEADER_H
+
+// template version 2.0
+using namespace std;
+#include <bits/stdc++.h>
+
+// varibable settings
+#define int long long
+const int INF = 1e18;
+
+#define _overload3(_1, _2, _3, name, ...) name
+#define _rep(i, n) repi(i, 0, n)
+#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
+#define _rrep(i, n) rrepi(i, 0, n)
+#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
+#define each(i, a) for (auto &&i : a)
+#define all(x) (x).begin(), (x).end()
+#define sz(x) ((int)(x).size())
+#define pb(a) push_back(a)
+#define mp(a, b) make_pair(a, b)
+#define mt(...) make_tuple(__VA_ARGS__)
+#define ub upper_bound
+#define lb lower_bound
+#define lpos(A, x) (lower_bound(all(A), x) - A.begin())
+#define upos(A, x) (upper_bound(all(A), x) - A.begin())
+template <class T>
+inline void chmax(T &a, const T &b) {
+    if ((a) < (b)) (a) = (b);
+}
+template <class T>
+inline void chmin(T &a, const T &b) {
+    if ((a) > (b)) (a) = (b);
+}
+
+#define divceil(a, b) ((a) + (b)-1) / (b)
+#define is_in(x, a, b) ((a) <= (x) && (x) < (b))
+#define uni(x)    \
+    sort(all(x)); \
+    x.erase(unique(all(x)), x.end())
+#define slice(l, r) substr(l, r - l)
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> iii;
+
+template <typename T>
+using PQ = priority_queue<T, vector<T>, greater<T>>;
+struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+void check_input(){
+    assert(cin.eof() == 0);
+    int tmp; cin >> tmp; 
+    assert(cin.eof() == 1);
+}
+
+#if defined(PCM) || defined(LOCAL)
+#else
+#define dump(...) ;
+#define dump_1d(...) ;
+#define dump_2d(...) ;
+#define cerrendl ;
+#endif
+
+#endif /* HEADER_H */
+//%snippet.end()%
+#line 2 "library/cpp/graph/topological_sort.cpp"
+
+//%snippet.set('topological_sort')%
+//%snippet.config({'alias':'tps'})%
+template <class node>
+using graph = vector<vector<node>>;
+
+template <class node>
+pair<vector<node>, int> topological_sort(const graph<node>& G) {
+    int V = sz(G);     // node数
+    vector<node> ans;  // sort後の結果を格納
+    vector<int> h(V);  // 頂点ごとの入次数
+    stack<node> st;    // 入次数が0になっている頂点の集合
+    int max_len = 0;   // 最長経路の長さ
+                       /*{{{*/
+    // 入次数を計算する。
+    rep(v, V) {
+        for (auto to : G[v]) {
+            h[to]++;
+        }
+    }
+
+    // 最初に入次数0になっている頂点を集める。
+    rep(v, V) {
+        if (h[v] == 0) {
+            st.push(v);
+            ans.push_back(v);
+        }
+    }
+
+    // 入次数0の頂点をansに追加しそこから出て行く辺は削除していく。O(V+E)
+    while (!st.empty()) {
+        stack<node> nex_st;
+        while (!st.empty()) {
+            node v = st.top();
+            st.pop();
+            for (auto to : G[v]) {
+                h[to]--;
+                if (h[to] == 0) {
+                    ans.push_back(to);
+                    nex_st.push(to);
+                }
+            }
+        }
+        max_len++;
+        st = nex_st;
+    }
+    /*}}}*/
+    return make_pair(
+        ans,
+        max_len);  // ans.size()<Vなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+}
+//%snippet.end()%
+
+int solve() {  // ABC139 E:https://atcoder.jp/contests/abc139
+               // input
+    int n;
+    cin >> n;
+    int m = n * (n - 1) / 2;
+
+    vvi M(n);
+    rep(i, n) {
+        rep(j, n - 1) {
+            int a;
+            cin >> a;
+            a--;
+            M[i].pb(a);
+        }
+    }
+    dump_2d(M, n, n - 1);
+
+    // encode pair<int, int> -> int
+    int id = 0;
+    vvi idtable(n, vi(n));
+    rep(i, n) rep(j, i + 1, n) { idtable[i][j] = id++; }
+    auto toid = [&](int i, int j) {
+        if (i > j) swap(i, j);
+        return idtable[i][j];
+    };
+
+    // generate graph
+    graph<int> g(m + 2);
+    vi h(m + 2);
+    rep(i, n) {
+        rep(j, 1, n - 1) {
+            int pre = M[i][j - 1];
+            int to = M[i][j];
+            g[toid(i, pre)].pb(toid(i, to));
+            h[toid(i, to)]++;
+        }
+    }
+    dump(g);
+
+    // answer
+    auto ans = topological_sort(g);
+    cout << ((sz(ans.first) < m) ? -1 : ans.second) << endl;
+    return 0;
+}
+
+signed main() {  //{{{
+#ifdef INPUT_FROM_FILE
+    std::ifstream in(infile);
+    std::cin.rdbuf(in.rdbuf());
+#endif
+    solve();
+    return 0;
+}  //}}}
 
 ```
 {% endraw %}

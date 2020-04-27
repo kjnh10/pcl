@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 14:31:07+09:00
+    - Last commit date: 2020-04-27 11:35:40+09:00
 
 
 
@@ -281,6 +281,7 @@ signed main(){
     rep(_, Q){
         query();
     }
+    check_input();
     return 0;
 }
 
@@ -613,6 +614,7 @@ signed main(){
     rep(_, Q){
         query();
     }
+    check_input();
     return 0;
 }
 
