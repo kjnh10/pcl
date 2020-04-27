@@ -44,6 +44,14 @@ r_rep(${0}){
 for(int i=0; i<n; i++){${0}
 }
 
+//%snippet.set('for_iter')%
+for(auto iter=begin(${1}); iter!=end($1); ++iter){${0}
+}
+
+//%snippet.set('for_riter')%
+for(auto riter=rbegin(${1}); riter!=rend($1); ++riter){${0}
+}
+
 //%snippet.set('if')%
 if (${0}) {
 }
