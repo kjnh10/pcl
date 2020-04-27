@@ -6,12 +6,12 @@
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+template<class Cost=ll>
 struct tree { /*{{{*/
     int n;
     vector<int> par;   // par[i]: dfs木における親
-    vector<int> cost;  // par[i]: dfs木における親への辺のコスト
-    vector<int>
-        dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+    vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+    vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
     vector<int> ord;    // ord[u]: uのdfs木における訪問順
     vector<int> end;    // end[u]: uのdfs終了時のカウンター
     vector<int> psize;  // psize[u]: uのpartial tree size
@@ -19,8 +19,8 @@ struct tree { /*{{{*/
     // ordとdfstrvは逆変換
 
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
-    vector<int> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-    vector<vector<pair<int, int>>> g;  // 辺(隣接リスト)
+    vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+    vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
     vector<vector<int>> adj;           // 辺(隣接リスト)
     vector<vector<int>> children;
     vector<int> euler_tour;
@@ -34,7 +34,7 @@ struct tree { /*{{{*/
     tree(int n)
         : n(n),
           par(n),
-          cost(n, 1),
+          cost(n),
           ord(n),
           end(n),
           psize(n),
@@ -46,7 +46,7 @@ struct tree { /*{{{*/
           et_fpos(n),
           head_of_comp(n){};
 
-    void add_edge(int u, int v, int cost) { /*{{{*/
+    void add_edge(int u, int v, Cost cost) { /*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
         adj[u].emplace_back(v);
@@ -135,22 +135,22 @@ struct tree { /*{{{*/
         int p = lca(u, v);
         return depth[u] + depth[v] - 2 * depth[p];
     }                          /*}}}*/
-    int ldist(int u, int v) {  // length dist{{{
+    Cost ldist(int u, int v) {  // length dist{{{
         int p = lca(u, v);
         return ldepth[u] + ldepth[v] - 2 * ldepth[p];
     }                           /*}}}*/
     pair<int, int> diameter() { /*{{{*/
         int u, v;
-        int max_len = *max_element(all(ldepth));
+        Cost max_len = *max_element(all(ldepth));
         rep(i, n) {
             if (ldepth[i] == max_len) {
                 u = i;
                 break;
             }
         }
-        int md = -1;
+        Cost md = -1;
         rep(i, n) {
-            int d = ldist(u, i);
+            Cost d = ldist(u, i);
             if (d > md) {
                 v = i;
                 md = d;
