@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-28 07:34:23+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp</a>
@@ -254,12 +254,12 @@ struct SegmentTree {  // {{{
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+template<class Cost=ll>
 struct tree { /*{{{*/
     int n;
     vector<int> par;   // par[i]: dfs木における親
-    vector<int> cost;  // par[i]: dfs木における親への辺のコスト
-    vector<int>
-        dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+    vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+    vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
     vector<int> ord;    // ord[u]: uのdfs木における訪問順
     vector<int> end;    // end[u]: uのdfs終了時のカウンター
     vector<int> psize;  // psize[u]: uのpartial tree size
@@ -267,8 +267,8 @@ struct tree { /*{{{*/
     // ordとdfstrvは逆変換
 
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
-    vector<int> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-    vector<vector<pair<int, int>>> g;  // 辺(隣接リスト)
+    vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+    vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
     vector<vector<int>> adj;           // 辺(隣接リスト)
     vector<vector<int>> children;
     vector<int> euler_tour;
@@ -282,7 +282,7 @@ struct tree { /*{{{*/
     tree(int n)
         : n(n),
           par(n),
-          cost(n, 1),
+          cost(n),
           ord(n),
           end(n),
           psize(n),
@@ -294,7 +294,7 @@ struct tree { /*{{{*/
           et_fpos(n),
           head_of_comp(n){};
 
-    void add_edge(int u, int v, int cost) { /*{{{*/
+    void add_edge(int u, int v, Cost cost) { /*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
         adj[u].emplace_back(v);
@@ -383,22 +383,22 @@ struct tree { /*{{{*/
         int p = lca(u, v);
         return depth[u] + depth[v] - 2 * depth[p];
     }                          /*}}}*/
-    int ldist(int u, int v) {  // length dist{{{
+    Cost ldist(int u, int v) {  // length dist{{{
         int p = lca(u, v);
         return ldepth[u] + ldepth[v] - 2 * ldepth[p];
     }                           /*}}}*/
     pair<int, int> diameter() { /*{{{*/
         int u, v;
-        int max_len = *max_element(all(ldepth));
+        Cost max_len = *max_element(all(ldepth));
         rep(i, n) {
             if (ldepth[i] == max_len) {
                 u = i;
                 break;
             }
         }
-        int md = -1;
+        Cost md = -1;
         rep(i, n) {
-            int d = ldist(u, i);
+            Cost d = ldist(u, i);
             if (d > md) {
                 v = i;
                 md = d;
@@ -482,10 +482,19 @@ struct UnionFind {
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-template <class Pos = int, class Cost = ll, Cost zerocost = 0LL,
-          Cost infcost = INF>
+// template<class T, class U>
+// pair<T, U> operator+(pair<T, U> a, pair<T, U> b){
+//     pair<T, U> res;
+//     res.first = a.first + b.first;
+//     res.second = a.second + b.second;
+//     return res;
+// }
+// template <class Cost = pair<ll, ll>, Cost zerocost = mp(0LL, 0LL), Cost infcost = mp(INF, INF)>
+template <class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
 struct Graph {
-    struct Edge {
+    using Pos = int;
+
+    struct Edge {/*{{{*/
         Pos from, to;
         Cost cost;
         int idx;
@@ -496,15 +505,14 @@ struct Graph {
             os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
             return os;
         }
-    };
+    };/*}}}*/
 
     int n;  // 頂点数
-    // unordered_map<Pos, vector<Edge>>
-    // adj_list;//Posがpiiでなくintならunordredの方が早い
     vector<vector<Edge>> adj_list;
+    // map<Pos, vector<Edge>> adj_list;  //Posがpii
+
     vector<Edge> edges;
-    UnionFind buf;
-    tree tr;
+    tree<Cost> tr;
     Pos root;
     vector<int> _used_in_dfs;
     vector<int> lowlink;
@@ -512,22 +520,22 @@ struct Graph {
     Graph() {}
     Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
 
-    void add_edge(Pos from, Pos to, Cost cost, int idx) {
+    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
         adj_list[from].emplace_back(from, to, cost, idx);
         edges.emplace_back(from, to, cost, idx);
-    }
+    }/*}}}*/
 
-    void build_tree(int _root) {
+    auto operator[](Pos pos) { return adj_list[pos]; }
+
+    void build_tree(Pos _root) {/*{{{*/
         root = _root;
         _dfs_tree(root);
         tr.build(root);
         _make_lowlink();
-    }
+    }/*}}}*/
 
-    auto operator[](Pos pos) { return adj_list[pos]; }
-
-    vector<int> make_bipartite() {
-        buf = UnionFind(2 * n);
+    vector<int> make_bipartite() {/*{{{*/
+        UnionFind buf(2 * n);
         rep(u, n) {
             each(e, adj_list[u]) {
                 buf.merge(u, e.to + n);
@@ -537,30 +545,26 @@ struct Graph {
 
         vector<int> res(n, -1);
         rep(u, n) {
-            if (buf.same(u, u + n)) {
-                return res;
-            }
+            if (buf.same(u, u + n)) return res;
         }
         rep(u, n) {
-            if (buf.same(0, u))
-                res[u] = 0;
-            else
-                res[u] = 1;
+            if (buf.same(0, u)) res[u] = 0;
+            else res[u] = 1;
         }
         return res;
-    }
+    }/*}}}*/
 
-    void _dfs_tree(int u) {
+    void _dfs_tree(Pos u) {/*{{{*/
         _used_in_dfs[u] = 1;
         each(e, adj_list[u]) {
             if (_used_in_dfs[e.to]) continue;
             tr.add_edge(u, e.to, e.cost);
             _dfs_tree(e.to);
         }
-    }
+    }/*}}}*/
 
-    void _make_lowlink() {
-        lowlink = vector<int>(n, INF);
+    void _make_lowlink() {/*{{{*/
+        lowlink = vector<Pos>(n, INF);
         r_rep(i, n) {
             Pos u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
@@ -575,9 +579,9 @@ struct Graph {
                 }
             }
         }
-    }
+    }/*}}}*/
 
-    vector<Pos> get_articulation_points() {
+    vector<Pos> get_articulation_points() {/*{{{*/
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
 
         vector<Pos> res;
@@ -596,29 +600,29 @@ struct Graph {
             if (is_kan) res.push_back(u);
         }
         return res;
-    }
+    }/*}}}*/
 
-    vector<Edge> kruskal_tree() {
-        // 使用される辺のindexのvectorを返す
+    vector<Edge> kruskal_tree() {/*{{{*/
+        // 使用される辺のvectorを返す
         vector<Edge> res(n - 1);
         sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
         UnionFind uf(n);
 
-        int total_cost = 0;
-        int i = 0;
+        Cost total_cost = zerocost;
+        int idx = 0;
         each(e, edges) {
             if (uf.same(e.from, e.to)) continue;
             uf.merge(e.from, e.to);
-            total_cost += e.cost;
-            res[i] = e;
-            i++;
+            total_cost = total_cost + e.cost;
+            res[idx] = e;
+            idx++;
         }
-        assert(i == n - 1);
+        assert(idx == n - 1);
 
         return res;
-    }
+    }/*}}}*/
 
-    vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート
+    vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
         vector<Cost> dist(n, infcost);           // 最短距離
         PQ<pair<Cost, Pos>> pq;
         each(start, starts) {
@@ -639,12 +643,12 @@ struct Graph {
             }
         }
         return dist;
-    };
+    };/*}}}*/
 
-    vector<Cost> dijkstra(Pos start) {  // 1点スタート
+    vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
         vector<Pos> starts = {start};
         return dijkstra(starts);
-    };
+    };/*}}}*/
 };
 
 //%snippet.end()%
