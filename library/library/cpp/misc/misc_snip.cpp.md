@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 11:35:40+09:00
+    - Last commit date: 2020-04-27 15:01:15+09:00
 
 
 
@@ -85,6 +85,14 @@ r_rep(${0}){
 
 //%snippet.set('for')%
 for(int i=0; i<n; i++){${0}
+}
+
+//%snippet.set('for_iter')%
+for(auto iter=begin(${1}); iter!=end($1); ++iter){${0}
+}
+
+//%snippet.set('for_riter')%
+for(auto riter=rbegin(${1}); riter!=rend($1); ++riter){${0}
 }
 
 //%snippet.set('if')%
@@ -418,6 +426,14 @@ r_rep(${0}){
 
 //%snippet.set('for')%
 for(int i=0; i<n; i++){${0}
+}
+
+//%snippet.set('for_iter')%
+for(auto iter=begin(${1}); iter!=end($1); ++iter){${0}
+}
+
+//%snippet.set('for_riter')%
+for(auto riter=rbegin(${1}); riter!=rend($1); ++riter){${0}
 }
 
 //%snippet.set('if')%
