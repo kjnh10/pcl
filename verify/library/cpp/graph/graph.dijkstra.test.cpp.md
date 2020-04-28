@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-28 22:06:26+09:00
+    - Last commit date: 2020-04-28 22:51:16+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -584,7 +584,6 @@ template<class Cost=ll> struct Graph {/*{{{*/
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
 
         vector<Pos> res;
-        dump(tr.children[root]);
         if (sz(tr.children[root]) > 1) {
             res.push_back(root);
         }
@@ -600,6 +599,17 @@ template<class Cost=ll> struct Graph {/*{{{*/
         }
         return res;
     }/*}}}*/
+
+    vector<Edge> get_bridges() {/*{{{*/
+        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+        vector<Edge> res;
+        each(edge, edges){
+            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+        }
+        return res;
+    }/*}}}*/
+
+
 
     vector<Edge> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す

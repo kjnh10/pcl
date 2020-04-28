@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-28 22:06:26+09:00
+    - Last commit date: 2020-04-28 22:51:16+09:00
 
 
 
@@ -578,7 +578,6 @@ template<class Cost=ll> struct Graph {/*{{{*/
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
 
         vector<Pos> res;
-        dump(tr.children[root]);
         if (sz(tr.children[root]) > 1) {
             res.push_back(root);
         }
@@ -594,6 +593,17 @@ template<class Cost=ll> struct Graph {/*{{{*/
         }
         return res;
     }/*}}}*/
+
+    vector<Edge> get_bridges() {/*{{{*/
+        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+        vector<Edge> res;
+        each(edge, edges){
+            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+        }
+        return res;
+    }/*}}}*/
+
+
 
     vector<Edge> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
