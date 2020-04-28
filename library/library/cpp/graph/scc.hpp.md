@@ -25,26 +25,29 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/graph.2dcost.test.cpp
+# :heavy_check_mark: library/cpp/graph/scc.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.2dcost.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/scc.hpp">View this file on GitHub</a>
     - Last commit date: 2020-04-29 03:20:19+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
+* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/scc.test.cpp.html">library/cpp/graph/scc.test.cpp</a>
 
 
 ## Code
@@ -52,33 +55,69 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
-
 #include "../header.hpp"
 #include "graph.hpp"
-#include "../math/geoemtry/p2.hpp"
 
-signed main() {
-    int n;
-    cin >> n;
-    // int n = 10;
-    Graph g(n, P2(0LL, 0LL), P2(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2(cost, 0LL), i);
+//%snippet.set('StronglyConnectedComponents')%
+//%snippet.config({'alias':'scc'})%
+//%snippet.include('Graph')%
+
+struct StronglyConnectedComponents {
+    const Graph<> &g;  //{{{
+    vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+    Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
+    Graph<> _rg;  // reversed graph
+    vector<int> _order;  // order[i]: 帰りがけ順
+    vector<int> _used;
+
+    StronglyConnectedComponents(Graph<> &_g)
+        : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
+        for (int i = 0; i < g.n; i++) {
+            for (auto e : g[i]) {
+                _rg.add_edge(e.to, e.from, e.cost, e.idx);
+            }
         }
     }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
 
-    return 0;
-}
+    int operator[](int k) { return comp[k]; }
+
+    void build() {
+        for (int i = 0; i < g.n; i++) _dfs(i);
+        reverse(begin(_order), end(_order));
+        int cnt = 0;
+        for (int u : _order)
+            if (comp[u] == -1) _rdfs(u, cnt), cnt++;
+
+        dag = Graph(cnt);
+        for (int u = 0; u < g.n; u++) {
+            for (auto &e : g[u]) {
+                if (comp[u] == comp[e.to]) continue;
+                dag.add_edge(comp[u], comp[e.to]);
+            }
+        }
+    }
+
+    void _dfs(int idx) {
+        if (_used[idx]) return;
+        _used[idx] = true;
+        for (auto &e : g[idx]) _dfs(e.to);
+        _order.push_back(idx);
+    }
+
+    void _rdfs(int idx, int cnt) {
+        if (comp[idx] != -1) return;
+        comp[idx] = cnt;
+        for (auto e : _rg[idx]) _rdfs(e.to, cnt);
+    }  //}}}
+};
+// how to use
+// StronglyConnectedComponents scc(g); // g: Graph
+// scc.build();
+// dump(scc.comp, scc.dag);
+
+//%snippet.end()%
+
+
 
 ```
 {% endraw %}
@@ -86,9 +125,6 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/graph.2dcost.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
-
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -667,106 +703,68 @@ template<class Cost=ll> struct Graph {/*{{{*/
 };/*}}}*/
 
 //%snippet.end()%
-#line 2 "library/cpp/math/geoemtry/p2.hpp"
+#line 3 "library/cpp/graph/scc.hpp"
 
-//%snippet.set('P2')%
+//%snippet.set('StronglyConnectedComponents')%
+//%snippet.config({'alias':'scc'})%
+//%snippet.include('Graph')%
 
-template<class T>/*{{{*/
-struct P2 {
-    T x, y;
-    P2(T _x, T _y) : x(_x), y(_y) {}
-    P2() {
-        x = 0;
-        y = 0;
-    }
-    bool operator<(const P2 &r) const {
-        return (x != r.x ? x < r.x : y < r.y);
-    }
-    bool operator>(const P2 &r) const {
-        return (x != r.x ? x > r.x : y > r.y);
-    }
-    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+struct StronglyConnectedComponents {
+    const Graph<> &g;  //{{{
+    vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+    Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
+    Graph<> _rg;  // reversed graph
+    vector<int> _order;  // order[i]: 帰りがけ順
+    vector<int> _used;
 
-    friend ostream &operator<<(ostream &stream, P2 p) {
-        stream << "(" << p.x << "," << p.y << ")";
-        return stream;
-    }
-
-    P2 operator-() const {  // 単項演算子
-        return P2(-x, -y);
-    }
-
-    P2& operator+=(const P2& r){
-        x += r.x;
-        y += r.y;
-        return *this;
-    }
-    P2& operator-=(const P2& r){
-        x -= r.x;
-        y -= r.y;
-        return *this;
-    }
-
-    P2 operator+(const P2& r) const {
-        P2 res(*this);
-        return res += r;
-    }
-    P2 operator-(const P2& r) const {
-        P2 res(*this);
-        return res -= r;
-    }
-
-    template<class U=ll>
-    P2 operator*(U v) const {
-        P2 res(*this);
-        res.x *= v;
-        res.y *= v;
-        return res;
-    }
-    template<class U=ll>
-    P2 operator/(U v) const {
-        P2 res(*this);
-        res.x /= v;
-        res.y /= v;
-        return res;
-    }
-
-    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d)
-            return true;
-        else
-            return false;
-    }
-
-};/*}}}*/
-
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
-//%snippet.end%
-#line 6 "library/cpp/graph/graph.2dcost.test.cpp"
-
-signed main() {
-    int n;
-    cin >> n;
-    // int n = 10;
-    Graph g(n, P2(0LL, 0LL), P2(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2(cost, 0LL), i);
+    StronglyConnectedComponents(Graph<> &_g)
+        : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
+        for (int i = 0; i < g.n; i++) {
+            for (auto e : g[i]) {
+                _rg.add_edge(e.to, e.from, e.cost, e.idx);
+            }
         }
     }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
 
-    return 0;
-}
+    int operator[](int k) { return comp[k]; }
+
+    void build() {
+        for (int i = 0; i < g.n; i++) _dfs(i);
+        reverse(begin(_order), end(_order));
+        int cnt = 0;
+        for (int u : _order)
+            if (comp[u] == -1) _rdfs(u, cnt), cnt++;
+
+        dag = Graph(cnt);
+        for (int u = 0; u < g.n; u++) {
+            for (auto &e : g[u]) {
+                if (comp[u] == comp[e.to]) continue;
+                dag.add_edge(comp[u], comp[e.to]);
+            }
+        }
+    }
+
+    void _dfs(int idx) {
+        if (_used[idx]) return;
+        _used[idx] = true;
+        for (auto &e : g[idx]) _dfs(e.to);
+        _order.push_back(idx);
+    }
+
+    void _rdfs(int idx, int cnt) {
+        if (comp[idx] != -1) return;
+        comp[idx] = cnt;
+        for (auto e : _rg[idx]) _rdfs(e.to, cnt);
+    }  //}}}
+};
+// how to use
+// StronglyConnectedComponents scc(g); // g: Graph
+// scc.build();
+// dump(scc.comp, scc.dag);
+
+//%snippet.end()%
+
+
 
 ```
 {% endraw %}

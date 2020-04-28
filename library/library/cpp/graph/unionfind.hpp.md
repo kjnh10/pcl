@@ -44,6 +44,7 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :warning: <a href="test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 
 
@@ -54,6 +55,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.dijkstra.test.cpp.html">library/cpp/graph/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/scc.test.cpp.html">library/cpp/graph/scc.test.cpp</a>
 
 
 ## Code

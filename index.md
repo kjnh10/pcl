@@ -80,7 +80,7 @@ layout: default
 * :warning: <a href="library/library/cpp/graph/dijkstra_dinamic.cpp.html">library/cpp/graph/dijkstra_dinamic.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
-* :warning: <a href="library/library/cpp/graph/scc.cpp.html">library/cpp/graph/scc.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :warning: <a href="library/library/cpp/graph/topological_sort.cpp.html">library/cpp/graph/topological_sort.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 
@@ -205,6 +205,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.dijkstra.test.cpp.html">library/cpp/graph/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/scc.test.cpp.html">library/cpp/graph/scc.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>

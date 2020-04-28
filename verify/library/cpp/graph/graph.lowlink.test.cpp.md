@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.lowlink.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-28 22:51:16+09:00
+    - Last commit date: 2020-04-29 03:20:19+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp</a>
@@ -493,7 +493,8 @@ template<class Cost=ll> struct Graph {/*{{{*/
         Edge(Pos from, Pos to, Cost cost, int idx)
             : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
-            os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
+            // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+            os << "(" << e.from << "," << e.to << ")";
             return os;
         }
     };/*}}}*/
@@ -516,12 +517,16 @@ template<class Cost=ll> struct Graph {/*{{{*/
     Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
     }
 
-    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
+    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
         adj_list[from].emplace_back(from, to, cost, idx);
         edges.emplace_back(from, to, cost, idx);
-    }/*}}}*/
+    }
+    void add_edge(Pos from, Pos to) {  // for ll
+        adj_list[from].emplace_back(from, to, 1, -1);
+        edges.emplace_back(from, to, 1, -1);
+    }
 
-    auto operator[](Pos pos) { return adj_list[pos]; }
+    auto operator[](Pos pos) const { return adj_list[pos]; }
 
     void build_tree(Pos _root) {/*{{{*/
         root = _root;
