@@ -7,16 +7,7 @@
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-// template<class T, class U>
-// pair<T, U> operator+(pair<T, U> a, pair<T, U> b){
-//     pair<T, U> res;
-//     res.first = a.first + b.first;
-//     res.second = a.second + b.second;
-//     return res;
-// }
-// template <class Cost = pair<ll, ll>, Cost zerocost = mp(0LL, 0LL), Cost infcost = mp(INF, INF)>
-template <class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
-struct Graph {
+template<class Cost=ll> struct Graph {/*{{{*/
     using Pos = int;
 
     struct Edge {/*{{{*/
@@ -41,9 +32,12 @@ struct Graph {
     Pos root;
     vector<int> _used_in_dfs;
     vector<int> lowlink;
+    Cost zerocost;
+    Cost infcost;
 
     Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
+    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
+    }
 
     void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
         adj_list[from].emplace_back(from, to, cost, idx);
@@ -174,6 +168,6 @@ struct Graph {
         vector<Pos> starts = {start};
         return dijkstra(starts);
     };/*}}}*/
-};
+};/*}}}*/
 
 //%snippet.end()%

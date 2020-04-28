@@ -7,7 +7,7 @@
 signed main() {
     int n, m;
     cin >> n >> m;
-    Graph g(n);
+    Graph g(n, 0LL, INF);
     for (int i = 0; i < m; i++) {
         int a, b, c;
         cin >> a >> b >> c;
