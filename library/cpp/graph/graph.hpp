@@ -110,7 +110,6 @@ struct Graph {
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
 
         vector<Pos> res;
-        dump(tr.children[root]);
         if (sz(tr.children[root]) > 1) {
             res.push_back(root);
         }
@@ -126,6 +125,17 @@ struct Graph {
         }
         return res;
     }/*}}}*/
+
+    vector<Edge> get_bridges() {/*{{{*/
+        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+        vector<Edge> res;
+        each(edge, edges){
+            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+        }
+        return res;
+    }/*}}}*/
+
+
 
     vector<Edge> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
