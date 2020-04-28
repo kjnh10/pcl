@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-28 07:34:23+09:00
+    - Last commit date: 2020-04-28 22:06:26+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=jp</a>
@@ -308,8 +308,8 @@ struct tree { /*{{{*/
     }                      /*}}}*/
     void build(int root) { /*{{{*/
         _counter = 0;
-        par[root] = -1;
-        cost[root] = -1;
+        // par[root] = -1;
+        // cost[root] = -1;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
         _dfs_et(root);
@@ -482,16 +482,7 @@ struct UnionFind {
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
 
-// template<class T, class U>
-// pair<T, U> operator+(pair<T, U> a, pair<T, U> b){
-//     pair<T, U> res;
-//     res.first = a.first + b.first;
-//     res.second = a.second + b.second;
-//     return res;
-// }
-// template <class Cost = pair<ll, ll>, Cost zerocost = mp(0LL, 0LL), Cost infcost = mp(INF, INF)>
-template <class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
-struct Graph {
+template<class Cost=ll> struct Graph {/*{{{*/
     using Pos = int;
 
     struct Edge {/*{{{*/
@@ -516,9 +507,14 @@ struct Graph {
     Pos root;
     vector<int> _used_in_dfs;
     vector<int> lowlink;
+    Cost zerocost;
+    Cost infcost;
 
     Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
+    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) {
+    }
+    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
+    }
 
     void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
         adj_list[from].emplace_back(from, to, cost, idx);
@@ -649,7 +645,7 @@ struct Graph {
         vector<Pos> starts = {start};
         return dijkstra(starts);
     };/*}}}*/
-};
+};/*}}}*/
 
 //%snippet.end()%
 #line 6 "library/cpp/graph/graph.kruskal.test.cpp"

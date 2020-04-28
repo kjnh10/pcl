@@ -60,7 +60,7 @@ layout: default
 * :warning: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
-* :warning: <a href="math/geoemtry/geometry.cpp.html">library/cpp/math/geoemtry/geometry.cpp</a>
+* :heavy_check_mark: <a href="math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
 * :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
 * :warning: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
@@ -78,11 +78,13 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.2dcost.test.cpp.html">library/cpp/graph/graph.2dcost.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.dijkstra.test.cpp.html">library/cpp/graph/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 

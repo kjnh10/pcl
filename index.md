@@ -139,7 +139,7 @@ layout: default
 ### library/cpp/math/geoemtry
 
 * :warning: <a href="library/library/cpp/math/geoemtry/dist_between_line_and_point.cpp.html">library/cpp/math/geoemtry/dist_between_line_and_point.cpp</a>
-* :warning: <a href="library/library/cpp/math/geoemtry/geometry.cpp.html">library/cpp/math/geoemtry/geometry.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
 
 
 <div id="b4c52cffc478acefbc1ee6a9d0578055"></div>
@@ -200,11 +200,13 @@ layout: default
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/graph.2dcost.test.cpp.html">library/cpp/graph/graph.2dcost.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.dijkstra.test.cpp.html">library/cpp/graph/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 
 

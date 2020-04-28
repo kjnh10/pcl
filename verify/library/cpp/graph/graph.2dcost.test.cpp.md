@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/graph.lowlink.test.cpp
+# :heavy_check_mark: library/cpp/graph/graph.2dcost.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.lowlink.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.2dcost.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-28 22:06:26+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp</a>
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
 
 
 ## Depends on
@@ -44,6 +44,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
 
 
 ## Code
@@ -51,27 +52,32 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp"
-// 関節点
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
 
+#include "../header.hpp"
 #include "graph.hpp"
+#include "../math/geoemtry/p2.hpp"
 
 signed main() {
-    int n, m;
-    cin >> n >> m;
-    Graph g(n);
-    rep(i, m) {
-        int u, v;
-        cin >> u >> v;
-        g.add_edge(u, v, 1, i);
-        g.add_edge(v, u, 1, i);
+    int n;
+    cin >> n;
+    // int n = 10;
+    Graph g(n, P2(0LL, 0LL), P2(INF, INF));
+    rep(i, n) {
+        int u;
+        cin >> u;
+        int k;
+        cin >> k;
+        rep(j, k) {
+            int to, cost;
+            cin >> to >> cost;
+            g.add_edge(u, to, P2(cost, 0LL), i);
+        }
     }
-    g.build_tree(0);
-    dump(g.tr);
+    auto d = g.dijkstra(0);
+    rep(i, n) { cout << i << " " << d[i].x << endl; }
 
-    auto res = g.get_articulation_points();
-    each(el, res) cout << el << endl;
+    return 0;
 }
 
 ```
@@ -80,10 +86,8 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/graph.lowlink.test.cpp"
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp"
-// 関節点
+#line 1 "library/cpp/graph/graph.2dcost.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
 
 #line 2 "library/cpp/header.hpp"
 
@@ -648,23 +652,105 @@ template<class Cost=ll> struct Graph {/*{{{*/
 };/*}}}*/
 
 //%snippet.end()%
-#line 6 "library/cpp/graph/graph.lowlink.test.cpp"
+#line 2 "library/cpp/math/geoemtry/p2.hpp"
+
+//%snippet.set('P2')%
+
+template<class T>/*{{{*/
+struct P2 {
+    T x, y;
+    P2(T _x, T _y) : x(_x), y(_y) {}
+    P2() {
+        x = 0;
+        y = 0;
+    }
+    bool operator<(const P2 &r) const {
+        return (x != r.x ? x < r.x : y < r.y);
+    }
+    bool operator>(const P2 &r) const {
+        return (x != r.x ? x > r.x : y > r.y);
+    }
+    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+
+    friend ostream &operator<<(ostream &stream, P2 p) {
+        stream << "(" << p.x << "," << p.y << ")";
+        return stream;
+    }
+
+    P2 operator-() const {  // 単項演算子
+        return P2(-x, -y);
+    }
+
+    P2& operator+=(const P2& r){
+        x += r.x;
+        y += r.y;
+        return *this;
+    }
+    P2& operator-=(const P2& r){
+        x -= r.x;
+        y -= r.y;
+        return *this;
+    }
+
+    P2 operator+(const P2& r) const {
+        P2 res(*this);
+        return res += r;
+    }
+    P2 operator-(const P2& r) const {
+        P2 res(*this);
+        return res -= r;
+    }
+
+    template<class U=ll>
+    P2 operator*(U v) const {
+        P2 res(*this);
+        res.x *= v;
+        res.y *= v;
+        return res;
+    }
+    template<class U=ll>
+    P2 operator/(U v) const {
+        P2 res(*this);
+        res.x /= v;
+        res.y /= v;
+        return res;
+    }
+
+    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
+        if (a <= x && x < b && c <= y && y < d)
+            return true;
+        else
+            return false;
+    }
+
+};/*}}}*/
+
+//%snippet.config({'alias':'pos'})%
+//%snippet.config({'alias':'point'})%
+//%snippet.config({'alias':'pair'})%
+//%snippet.end%
+#line 6 "library/cpp/graph/graph.2dcost.test.cpp"
 
 signed main() {
-    int n, m;
-    cin >> n >> m;
-    Graph g(n);
-    rep(i, m) {
-        int u, v;
-        cin >> u >> v;
-        g.add_edge(u, v, 1, i);
-        g.add_edge(v, u, 1, i);
+    int n;
+    cin >> n;
+    // int n = 10;
+    Graph g(n, P2(0LL, 0LL), P2(INF, INF));
+    rep(i, n) {
+        int u;
+        cin >> u;
+        int k;
+        cin >> k;
+        rep(j, k) {
+            int to, cost;
+            cin >> to >> cost;
+            g.add_edge(u, to, P2(cost, 0LL), i);
+        }
     }
-    g.build_tree(0);
-    dump(g.tr);
+    auto d = g.dijkstra(0);
+    rep(i, n) { cout << i << " " << d[i].x << endl; }
 
-    auto res = g.get_articulation_points();
-    each(el, res) cout << el << endl;
+    return 0;
 }
 
 ```
