@@ -18,7 +18,8 @@ template<class Cost=ll> struct Graph {/*{{{*/
         Edge(Pos from, Pos to, Cost cost, int idx)
             : from(from), to(to), cost(cost), idx(idx) {}
         friend ostream& operator<<(ostream& os, const Edge& e) {
-            os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
+            // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+            os << "(" << e.from << "," << e.to << ")";
             return os;
         }
     };/*}}}*/
@@ -41,12 +42,16 @@ template<class Cost=ll> struct Graph {/*{{{*/
     Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
     }
 
-    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
+    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
         adj_list[from].emplace_back(from, to, cost, idx);
         edges.emplace_back(from, to, cost, idx);
-    }/*}}}*/
+    }
+    void add_edge(Pos from, Pos to) {  // for ll
+        adj_list[from].emplace_back(from, to, 1, -1);
+        edges.emplace_back(from, to, 1, -1);
+    }
 
-    auto operator[](Pos pos) { return adj_list[pos]; }
+    auto operator[](Pos pos) const { return adj_list[pos]; }
 
     void build_tree(Pos _root) {/*{{{*/
         root = _root;
