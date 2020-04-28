@@ -7,7 +7,7 @@ import subprocess
 import click
 
 @task
-def modify(c):
+def modpath(c):
     print("modifying path")
 
     CODE_DIR = Path(os.path.dirname(__file__)).parent / 'library/cpp'
