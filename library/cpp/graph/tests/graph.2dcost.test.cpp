@@ -1,8 +1,8 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
 
-#include "../header.hpp"
-#include "graph.hpp"
-#include "../math/geoemtry/p2.hpp"
+#include "../../header.hpp"
+#include "../graph.hpp"
+#include "../../math/geoemtry/p2.hpp"
 
 signed main() {
     int n;

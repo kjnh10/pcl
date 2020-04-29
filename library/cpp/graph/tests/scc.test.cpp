@@ -1,5 +1,5 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp"
-#include "scc.hpp"
+#include "../scc.hpp"
 
 signed main() {
     int n, m;

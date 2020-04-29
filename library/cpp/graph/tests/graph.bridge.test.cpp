@@ -1,7 +1,7 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_B&lang=ja"
 // 橋
 
-#include "graph.hpp"
+#include "../graph.hpp"
 
 signed main() {
     int n, m;

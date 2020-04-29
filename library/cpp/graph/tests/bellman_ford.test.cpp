@@ -1,5 +1,5 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_B&lang=jp"
-#include "bellman_ford.hpp"
+#include "../bellman_ford.hpp"
 
 signed main() {
     int n, m, s;

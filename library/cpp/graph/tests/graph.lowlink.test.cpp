@@ -2,7 +2,7 @@
     "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp"
 // 関節点
 
-#include "graph.hpp"
+#include "../graph.hpp"
 
 signed main() {
     int n, m;
