@@ -707,7 +707,6 @@ snippet dxdy
 
 
 snippet ostream
-alias <<
   ostream& operator<<(ostream& os, const ${1:type}& ${2}){
       os << ${3};
       return os;
@@ -1211,80 +1210,6 @@ alias gbsgs
   
 
 
-snippet P2
-alias pair
-  
-  template<class T>
-  struct P2 {
-      T x, y;
-      P2(T _x, T _y) : x(_x), y(_y) {}
-      P2() {
-          x = 0;
-          y = 0;
-      }
-      bool operator<(const P2 &r) const {
-          return (x != r.x ? x < r.x : y < r.y);
-      }
-      bool operator>(const P2 &r) const {
-          return (x != r.x ? x > r.x : y > r.y);
-      }
-      bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
-  
-      friend ostream &operator<<(ostream &stream, P2 p) {
-          stream << "(" << p.x << "," << p.y << ")";
-          return stream;
-      }
-  
-      P2 operator-() const {  // 単項演算子
-          return P2(-x, -y);
-      }
-  
-      P2& operator+=(const P2& r){
-          x += r.x;
-          y += r.y;
-          return *this;
-      }
-      P2& operator-=(const P2& r){
-          x -= r.x;
-          y -= r.y;
-          return *this;
-      }
-  
-      P2 operator+(const P2& r) const {
-          P2 res(*this);
-          return res += r;
-      }
-      P2 operator-(const P2& r) const {
-          P2 res(*this);
-          return res -= r;
-      }
-  
-      template<class U=ll>
-      P2 operator*(U v) const {
-          P2 res(*this);
-          res.x *= v;
-          res.y *= v;
-          return res;
-      }
-      template<class U=ll>
-      P2 operator/(U v) const {
-          P2 res(*this);
-          res.x /= v;
-          res.y /= v;
-          return res;
-      }
-  
-      bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-          if (a <= x && x < b && c <= y && y < d)
-              return true;
-          else
-              return false;
-      }
-  
-  };
-  
-
-
 snippet baybe_step_giant_step
 alias bsgs
   int mod = 1e9 + 7;
@@ -1449,97 +1374,50 @@ alias tps
 snippet gridgraph
   
       // grid graphを通常のグラフに格納する。
-      // (i, j) -> i*w + j
-      // u -> (u/w, u%w)
-  
       int h, w;
       cin >> h >> w;
-      int n = h * w;
+      int n = h * w;  // 頂点数
       vvi block(h, vi(w));
       rep(i, h) {
           string s;
           cin >> s;
-          rep(j, w) { block[i][j] = (s[j] == '.' ? 0 : 1); }
+          rep(j, w) { block[i][j] = (s[j] == '#' ? 1 : 0); }
       }
   
-      vvi g(n);
-      // Graph G;
+      Graph g(n);
+  
+      auto nid = [&](int i, int j){return (i*w + j);};
+      auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
+      // int u = nid(i, j);
+      // auto [i,j] = pos(u);
   
       int di[] = {1, -1, 0, 0};
       int dj[] = {0, 0, 1, -1};
+  
+      // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
+      // int di[] = {1, 0};
+      // int dj[] = {0, 1};
       rep(i, h) rep(j, w) {
           if (block[i][j]) continue;  // blockから出る辺はない
-          int u = i * w + j;
-  
           rep(k, 4) {
               int ni = i + di[k];
               int nj = j + dj[k];
-              int v = ni * w + nj;
               if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
                   if (block[ni][nj]) continue;  // blockに入る辺はない
-                  g[u].pb(v);
-                  // G.add_edge(u, v, 1);
+                  g.add_edge(nid(i, j), nid(ni, nj));
                   // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
               }
           }
       }
   
-
-
-snippet bellman_ford
-  struct Edge {
-      int to, cost;  // 辺の接続先頂点, 辺の重み
-      Edge(int to, int cost) : to(to), cost(cost) {}
-  };
-  
-  typedef vector<vector<Edge> > Graph;  // 隣接リストの型
-  Graph graph;                          // グラフの辺を格納した構造体
-  // graph[v][i]は頂点vから出るi番目の辺Edge
-  
-  const int INF = 100000000;
-  
-  vector<int> dist;  // 最短距離
-  
-  // 戻り値がtrueなら負の閉路を含む
-  bool bellman_ford(int n, int s) {  // nは頂点数、sは開始頂点
-      dist = vector<int>(n, INF);
-      dist[s] = 0;  // 開始点の距離は0
-      for (int i = 0; i < n; i++) {
-          for (int v = 0; v < n; v++) {
-              for (int k = 0; k < (int)graph[v].size(); k++) {
-                  Edge e = graph[v][k];
-                  if (dist[v] != INF && dist[e.to] > dist[v] + e.cost) {
-                      dist[e.to] = dist[v] + e.cost;
-                      if (i == n - 1)
-                          return true;  // n回目にも更新があるなら負の閉路が存在
-                  }
-              }
-          }
+      // https://atcoder.jp/contests/abc151/submissions/12467532
+      // (language updateが終わるまでは未veriyf)
+      int ans = 0;
+      rep(s, n){
+          auto d = g.dijkstra(s);
+          rep(i, sz(d)) if (d[i]<INF) chmax(ans, d[i]);
       }
-      return false;
-  }
-  
-  // int main() {
-  //   int n, m;
-  //   cin >> n >> m;
-  //
-  //   graph = Graph(n);
-  //
-  //   for (int i = 0; i < m; i++) {
-  //     int from, to, cost;
-  //     cin >> from >> to >> cost;
-  //     graph[from].push_back(Edge(to, cost));
-  //   }
-  //
-  //   bellman_ford(n, 0);
-  //
-  //   for (int i = 0; i < n; i++) {
-  //     if (dist[i] != INF)
-  //       cout << "0から" << i << "へのコスト: " << dist[i] << endl;
-  //   }
-  //
-  //   return 0;
-  // }
+      cout << ans << endl;
   
 
 
@@ -1634,66 +1512,6 @@ snippet dijkstra
   // cout << d[{goal}] << endl;  // 到達不可能ならd[goal] -> INF
   // return 0;
   // }
-  
-
-
-snippet StronglyConnectedComponents
-alias scc
-  using Graph = vector<vector<int> >;
-  struct StronglyConnectedComponents {
-      // how to use
-      // StronglyConnectedComponents scc(g); // g: Graph
-      // scc.build();
-      // dump(scc.comp, scc.dag);
-  
-      const Graph &g;  //{{{
-      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-      Graph dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
-      Graph _rg;  // reversed graph
-      vector<int> _order;  // order[i]: 行きがけの番号
-      vector<int> _used;
-  
-      StronglyConnectedComponents(Graph &g)
-          : g(g), comp(g.size(), -1), _rg(g.size()), _used(g.size()) {
-          for (int i = 0; i < sz(g); i++) {
-              for (auto e : g[i]) {
-                  _rg[(int)e].emplace_back(i);
-              }
-          }
-      }
-  
-      int operator[](int k) { return comp[k]; }
-  
-      void build() {
-          for (int i = 0; i < sz(g); i++) _dfs(i);
-          reverse(begin(_order), end(_order));
-          int cnt = 0;
-          for (int i : _order)
-              if (comp[i] == -1) _rdfs(i, cnt), cnt++;
-  
-          dag.resize(cnt);
-          for (int i = 0; i < sz(g); i++) {
-              for (auto &to : g[i]) {
-                  int x = comp[i], y = comp[to];
-                  if (x == y) continue;
-                  dag[x].push_back(y);
-              }
-          }
-      }
-  
-      void _dfs(int idx) {
-          if (_used[idx]) return;
-          _used[idx] = true;
-          for (int to : g[idx]) _dfs(to);
-          _order.push_back(idx);
-      }
-  
-      void _rdfs(int idx, int cnt) {
-          if (comp[idx] != -1) return;
-          comp[idx] = cnt;
-          for (int to : _rg[idx]) _rdfs(to, cnt);
-      }  //}}}
-  };
   
 
 
@@ -2436,6 +2254,615 @@ snippet mint
   
 
 
+snippet P2
+alias pair
+  
+  template<class T>/*{{{*/
+  struct P2 {
+      T x, y;
+      P2(T _x, T _y) : x(_x), y(_y) {}
+      P2() {
+          x = 0;
+          y = 0;
+      }
+      bool operator<(const P2 &r) const {
+          return (x != r.x ? x < r.x : y < r.y);
+      }
+      bool operator>(const P2 &r) const {
+          return (x != r.x ? x > r.x : y > r.y);
+      }
+      bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+  
+      friend ostream &operator<<(ostream &stream, P2 p) {
+          stream << "(" << p.x << "," << p.y << ")";
+          return stream;
+      }
+  
+      P2 operator-() const {  // 単項演算子
+          return P2(-x, -y);
+      }
+  
+      P2& operator+=(const P2& r){
+          x += r.x;
+          y += r.y;
+          return *this;
+      }
+      P2& operator-=(const P2& r){
+          x -= r.x;
+          y -= r.y;
+          return *this;
+      }
+  
+      P2 operator+(const P2& r) const {
+          P2 res(*this);
+          return res += r;
+      }
+      P2 operator-(const P2& r) const {
+          P2 res(*this);
+          return res -= r;
+      }
+  
+      template<class U=ll>
+      P2 operator*(U v) const {
+          P2 res(*this);
+          res.x *= v;
+          res.y *= v;
+          return res;
+      }
+      template<class U=ll>
+      P2 operator/(U v) const {
+          P2 res(*this);
+          res.x /= v;
+          res.y /= v;
+          return res;
+      }
+  
+      bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
+          if (a <= x && x < b && c <= y && y < d)
+              return true;
+          else
+              return false;
+      }
+  
+  };/*}}}*/
+  
+
+
+snippet StronglyConnectedComponents
+alias scc
+  
+  template <typename T>
+  struct SegmentTree {  // {{{
+     private:
+      using F = function<T(T, T)>;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
+      vector<T> node;
+      F merge;
+      T identity;
+  
+     public:
+      SegmentTree() {}
+      SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          n = a.size();
+          N = 1;
+          while (N < n) N *= 2;
+          node.resize(2 * N - 1, identity);
+          for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+          for (int i = N - 2; i >= 0; i--)
+              node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+      }
+      SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+  
+      T& operator[](int i) { return node[i + N - 1]; }
+  
+      void update(int x, T val) {
+          x += (N - 1);
+          node[x] = val;
+          while (x > 0) {
+              x = (x - 1) / 2;
+              node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+          }
+      }
+  
+      void add(int x, T val) {
+          x += (N - 1);
+          node[x] += val;
+          while (x > 0) {
+              x = (x - 1) / 2;
+              node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+          }
+      }
+  
+      // query for [l, r)
+      T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          if (r < 0) r = N;
+          if (r <= a || b <= l) return identity;
+          if (a <= l && r <= b) return node[k];
+  
+          T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+          T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+          return merge(vl, vr);
+      }
+  
+  #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          os << "[";
+          for (int i = 0; i < sg.n; i++) {
+              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+          }
+          return os;
+      }
+  #endif
+  };
+  // }}}
+  // Sample:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // SegmentTree<int> seg(a, mymin, 1e18);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // SegmentTree<int> seg(a, mymax, -1e18);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // SegmentTree<int> seg(a, add, 0);
+  // -----------------------------------------------
+  
+  struct UnionFind {
+      vector<int> data;  // size defined only for root node
+      int count;         // count of groups
+  
+      UnionFind() {}
+      UnionFind(int size) : data(size, -1), count(size) {}
+      bool merge(int x, int y) { /*{{{*/
+          x = root(x);
+          y = root(y);
+          if (x != y) {
+              if (data[y] < data[x]) swap(x, y);
+              data[x] += data[y];
+              data[y] = x;
+              count--;
+          }
+          return x != y;
+      } /*}}}*/
+      int root(int x) { return (data[x] < 0 ? x : data[x] = root(data[x])); }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -data[root(x)]; }
+  
+  #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, UnionFind& uf) {
+          map<int, vector<int>> group;
+          rep(i, sz(uf.data)) { group[uf.root(i)].pb(i); }
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+  #endif  // }}}
+  };
+  
+  template<class Cost=ll>
+  struct tree { /*{{{*/
+      int n;
+      vector<int> par;   // par[i]: dfs木における親
+      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+      vector<int> ord;    // ord[u]: uのdfs木における訪問順
+      vector<int> end;    // end[u]: uのdfs終了時のカウンター
+      vector<int> psize;  // psize[u]: uのpartial tree size
+      // uの部分木は[ord[u], end[u])
+      // ordとdfstrvは逆変換
+  
+      vector<int> depth;   // depth[i]: dfs木でのiの深さ
+      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+      vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
+      vector<vector<int>> adj;           // 辺(隣接リスト)
+      vector<vector<int>> children;
+      vector<int> euler_tour;
+      vector<int> et_fpos;    // euler_tour first occurence position
+      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
+      vector<int> head_of_comp;
+  
+      int _counter = 0;
+  
+      tree(){};
+      tree(int n)
+          : n(n),
+            par(n),
+            cost(n),
+            ord(n),
+            end(n),
+            psize(n),
+            depth(n),
+            ldepth(n),
+            g(n),
+            adj(n),
+            children(n),
+            et_fpos(n),
+            head_of_comp(n){};
+  
+      void add_edge(int u, int v, Cost cost) { /*{{{*/
+          g[u].emplace_back(v, cost);
+          g[v].emplace_back(u, cost);
+          adj[u].emplace_back(v);
+          adj[v].emplace_back(u);
+      }                             /*}}}*/
+      void add_edge(int u, int v) { /*{{{*/
+          g[u].emplace_back(v, 1);
+          g[v].emplace_back(u, 1);
+          adj[u].emplace_back(v);
+          adj[v].emplace_back(u);
+      }                      /*}}}*/
+      void build(int root) { /*{{{*/
+          _counter = 0;
+          // par[root] = -1;
+          // cost[root] = -1;
+          _dfs_psize(root, -1);
+          _dfs_tree(root, -1, root);
+          _dfs_et(root);
+          vector<int> ini(2 * n - 1);
+          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
+          _seg = SegmentTree<int>(
+              ini, [](auto a, auto b) { return min(a, b); }, 1e18);
+      }                                /*}}}*/
+      int _dfs_psize(int u, int pre) { /*{{{*/
+          psize[u] = 1;
+          each(el, g[u]) {
+              int v = el.first;
+              if (v == pre) continue;
+              psize[u] += _dfs_psize(v, u);
+          }
+          return psize[u];
+      }                                               /*}}}*/
+      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
+          dfstrv.pb(u);
+          ord[u] = _counter;
+          if (pre != -1) {
+              depth[u] = depth[pre] + 1;
+              ldepth[u] = ldepth[pre] + cost[u];
+          }
+  
+          _counter++;
+          {
+              // set most heavy child to top
+              int max_psize = 0;
+              int most_heavy_i = -1;
+              rep(i, sz(g[u])) {
+                  if (g[u][i].first == pre) continue;
+                  if (psize[g[u][i].first] > max_psize) {
+                      most_heavy_i = i;
+                      max_psize = psize[g[u][i].first];
+                  }
+              }
+              if (most_heavy_i != -1) swap(g[u][most_heavy_i], g[u][0]);
+          }
+  
+          head_of_comp[u] = head_node;
+          rep(i, sz(g[u])) {
+              int v = g[u][i].first;
+              if (v == pre) continue;
+  
+              children[u].pb(v);
+              par[v] = u;
+              cost[v] = g[u][i].second;
+  
+              if (i == 0)
+                  _dfs_tree(v, u, head_node);  // continue components
+              else
+                  _dfs_tree(v, u, v);  // new
+          }
+          end[u] = _counter;
+      }                     /*}}}*/
+      void _dfs_et(int u) { /*{{{*/
+          et_fpos[u] = euler_tour.size();
+          euler_tour.pb(u);
+          each(v, children[u]) {
+              _dfs_et(v);
+              euler_tour.pb(u);
+          }
+      }                       /*}}}*/
+      int lca(int u, int v) { /*{{{*/
+          if (u == v) return u;
+          if (et_fpos[u] > et_fpos[v]) swap(u, v);
+          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
+      }                        /*}}}*/
+      int dist(int u, int v) { /*{{{*/
+          int p = lca(u, v);
+          return depth[u] + depth[v] - 2 * depth[p];
+      }                          /*}}}*/
+      Cost ldist(int u, int v) {  // length dist{{{
+          int p = lca(u, v);
+          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
+      }                           /*}}}*/
+      pair<int, int> diameter() { /*{{{*/
+          int u, v;
+          Cost max_len = *max_element(all(ldepth));
+          rep(i, n) {
+              if (ldepth[i] == max_len) {
+                  u = i;
+                  break;
+              }
+          }
+          Cost md = -1;
+          rep(i, n) {
+              Cost d = ldist(u, i);
+              if (d > md) {
+                  v = i;
+                  md = d;
+              }
+          }
+          return mp(u, v);
+      }                                                /*}}}*/
+      vector<pair<int, int>> hld_path(int u, int v) {  //{{{
+          // 閉区間をvectorで返す
+          vector<pair<int, int>> res;
+          while (head_of_comp[u] != head_of_comp[v]) {
+              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
+                  res.push_back({ord[head_of_comp[v]], ord[v]});
+                  v = par[head_of_comp[v]];
+              } else {
+                  res.push_back({ord[head_of_comp[u]], ord[u]});
+                  u = par[head_of_comp[u]];
+              }
+          }
+          res.push_back({min(ord[u], ord[v]), max(ord[u], ord[v])});
+          return res;
+      }                              //}}}
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const tree& tr) {
+          os << endl;
+          os << "par:         " << tr.par << endl;
+          os << "cost:        " << tr.cost << endl;
+          os << "dfstrv:      " << tr.dfstrv << endl;
+          os << "ord:         " << tr.ord << endl;
+          os << "end:         " << tr.end << endl;
+          os << "depth:       " << tr.depth << endl;
+          os << "children:    " << tr.children << endl;
+          os << "euler_tour:  " << tr.euler_tour << endl;
+          os << "et_fpos:     " << tr.et_fpos << endl;
+          os << "head_of_comp:" << tr.head_of_comp << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  
+  }; /*}}}*/
+  
+  
+  template<class Cost=ll> struct Graph {/*{{{*/
+      using Pos = int;
+  
+      struct Edge {/*{{{*/
+          Pos from, to;
+          Cost cost;
+          int idx;
+          Edge(){};
+          Edge(Pos from, Pos to, Cost cost, int idx)
+              : from(from), to(to), cost(cost), idx(idx) {}
+          friend ostream& operator<<(ostream& os, const Edge& e) {
+              // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+              os << "(" << e.from << "," << e.to << ")";
+              return os;
+          }
+      };/*}}}*/
+  
+      int n;  // 頂点数
+      vector<vector<Edge>> adj_list;
+      // map<Pos, vector<Edge>> adj_list;  //Posがpii
+  
+      vector<Edge> edges;
+      tree<Cost> tr;
+      Pos root;
+      vector<int> _used_in_dfs;
+      vector<int> lowlink;
+      Cost zerocost;
+      Cost infcost;
+  
+      Graph() {}
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) {
+      }
+      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
+      }
+  
+      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
+          adj_list[from].emplace_back(from, to, cost, idx);
+          edges.emplace_back(from, to, cost, idx);
+      }
+      void add_edge(Pos from, Pos to) {  // for ll
+          adj_list[from].emplace_back(from, to, 1, -1);
+          edges.emplace_back(from, to, 1, -1);
+      }
+  
+      auto operator[](Pos pos) const { return adj_list[pos]; }
+  
+      void build_tree(Pos _root) {/*{{{*/
+          root = _root;
+          _dfs_tree(root);
+          tr.build(root);
+          _make_lowlink();
+      }/*}}}*/
+  
+      vector<int> make_bipartite() {/*{{{*/
+          UnionFind buf(2 * n);
+          rep(u, n) {
+              each(e, adj_list[u]) {
+                  buf.merge(u, e.to + n);
+                  buf.merge(e.to, u + n);
+              }
+          }
+  
+          vector<int> res(n, -1);
+          rep(u, n) {
+              if (buf.same(u, u + n)) return res;
+          }
+          rep(u, n) {
+              if (buf.same(0, u)) res[u] = 0;
+              else res[u] = 1;
+          }
+          return res;
+      }/*}}}*/
+  
+      void _dfs_tree(Pos u) {/*{{{*/
+          _used_in_dfs[u] = 1;
+          each(e, adj_list[u]) {
+              if (_used_in_dfs[e.to]) continue;
+              tr.add_edge(u, e.to, e.cost);
+              _dfs_tree(e.to);
+          }
+      }/*}}}*/
+  
+      void _make_lowlink() {/*{{{*/
+          lowlink = vector<Pos>(n, INF);
+          r_rep(i, n) {
+              Pos u = tr.dfstrv[i];
+              chmin(lowlink[u], tr.ord[u]);
+  
+              each(e, adj_list[u]) {
+                  if (e.to == tr.par[u])
+                      continue;
+                  else if (tr.ord[e.to] < tr.ord[u]) {
+                      chmin(lowlink[u], tr.ord[e.to]);
+                  } else {
+                      chmin(lowlink[u], lowlink[e.to]);
+                  }
+              }
+          }
+      }/*}}}*/
+  
+      vector<Pos> get_articulation_points() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+  
+          vector<Pos> res;
+          if (sz(tr.children[root]) > 1) {
+              res.push_back(root);
+          }
+          rep(u, 0, n) {
+              if (u == root) continue;
+              bool is_kan = false;
+              each(v, tr.children[u]) {
+                  if (tr.ord[u] <= lowlink[v]) {
+                      is_kan = true;
+                  }
+              }
+              if (is_kan) res.push_back(u);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge> get_bridges() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+          vector<Edge> res;
+          each(edge, edges){
+              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+          }
+          return res;
+      }/*}}}*/
+  
+  
+  
+      vector<Edge> kruskal_tree() {/*{{{*/
+          // 使用される辺のvectorを返す
+          vector<Edge> res(n - 1);
+          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
+          UnionFind uf(n);
+  
+          Cost total_cost = zerocost;
+          int idx = 0;
+          each(e, edges) {
+              if (uf.same(e.from, e.to)) continue;
+              uf.merge(e.from, e.to);
+              total_cost = total_cost + e.cost;
+              res[idx] = e;
+              idx++;
+          }
+          assert(idx == n - 1);
+  
+          return res;
+      }/*}}}*/
+  
+      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
+          vector<Cost> dist(n, infcost);           // 最短距離
+          PQ<pair<Cost, Pos>> pq;
+          each(start, starts) {
+              dist[start] = zerocost;
+              pq.push(make_pair(zerocost, start));
+          }
+          while (!pq.empty()) {
+              auto cp = pq.top();
+              pq.pop();
+              auto [cost, u] = cp;
+              for (const auto& edge : adj_list[u]) {
+                  Pos v = edge.to;
+                  Cost new_cost = cost + edge.cost;
+                  if (new_cost < dist[v]) {
+                      dist[v] = new_cost;
+                      pq.push(make_pair(new_cost, v));
+                  }
+              }
+          }
+          return dist;
+      };/*}}}*/
+  
+      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
+          vector<Pos> starts = {start};
+          return dijkstra(starts);
+      };/*}}}*/
+  };/*}}}*/
+  
+  
+  struct StronglyConnectedComponents {
+      const Graph<> &g;  //{{{
+      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+      Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
+      Graph<> _rg;  // reversed graph
+      vector<int> _order;  // order[i]: 帰りがけ順
+      vector<int> _used;
+  
+      StronglyConnectedComponents(Graph<> &_g)
+          : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
+          for (int i = 0; i < g.n; i++) {
+              for (auto e : g[i]) {
+                  _rg.add_edge(e.to, e.from, e.cost, e.idx);
+              }
+          }
+      }
+  
+      int operator[](int k) { return comp[k]; }
+  
+      void build() {
+          for (int i = 0; i < g.n; i++) _dfs(i);
+          reverse(begin(_order), end(_order));
+          int cnt = 0;
+          for (int u : _order)
+              if (comp[u] == -1) _rdfs(u, cnt), cnt++;
+  
+          dag = Graph(cnt);
+          for (int u = 0; u < g.n; u++) {
+              for (auto &e : g[u]) {
+                  if (comp[u] == comp[e.to]) continue;
+                  dag.add_edge(comp[u], comp[e.to]);
+              }
+          }
+      }
+  
+      void _dfs(int idx) {
+          if (_used[idx]) return;
+          _used[idx] = true;
+          for (auto &e : g[idx]) _dfs(e.to);
+          _order.push_back(idx);
+      }
+  
+      void _rdfs(int idx, int cnt) {
+          if (comp[idx] != -1) return;
+          comp[idx] = cnt;
+          for (auto e : _rg[idx]) _rdfs(e.to, cnt);
+      }  //}}}
+  };
+  // how to use
+  // StronglyConnectedComponents scc(g); // g: Graph
+  // scc.build();
+  // dump(scc.comp, scc.dag);
+  
+
+
 snippet UnionFind
   struct UnionFind {
       vector<int> data;  // size defined only for root node
@@ -2636,8 +3063,8 @@ snippet Graph
       }                      /*}}}*/
       void build(int root) { /*{{{*/
           _counter = 0;
-          par[root] = -1;
-          cost[root] = -1;
+          // par[root] = -1;
+          // cost[root] = -1;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -2769,16 +3196,7 @@ snippet Graph
   }; /*}}}*/
   
   
-  // template<class T, class U>
-  // pair<T, U> operator+(pair<T, U> a, pair<T, U> b){
-  //     pair<T, U> res;
-  //     res.first = a.first + b.first;
-  //     res.second = a.second + b.second;
-  //     return res;
-  // }
-  // template <class Cost = pair<ll, ll>, Cost zerocost = mp(0LL, 0LL), Cost infcost = mp(INF, INF)>
-  template <class Cost = ll, Cost zerocost = 0LL, Cost infcost = INF>
-  struct Graph {
+  template<class Cost=ll> struct Graph {/*{{{*/
       using Pos = int;
   
       struct Edge {/*{{{*/
@@ -2789,7 +3207,8 @@ snippet Graph
           Edge(Pos from, Pos to, Cost cost, int idx)
               : from(from), to(to), cost(cost), idx(idx) {}
           friend ostream& operator<<(ostream& os, const Edge& e) {
-              os << e.from << " " << e.to << " " << e.cost << " " << e.idx;
+              // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+              os << "(" << e.from << "," << e.to << ")";
               return os;
           }
       };/*}}}*/
@@ -2803,16 +3222,25 @@ snippet Graph
       Pos root;
       vector<int> _used_in_dfs;
       vector<int> lowlink;
+      Cost zerocost;
+      Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n) {}
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) {
+      }
+      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
+      }
   
-      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
+      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
           adj_list[from].emplace_back(from, to, cost, idx);
           edges.emplace_back(from, to, cost, idx);
-      }/*}}}*/
+      }
+      void add_edge(Pos from, Pos to) {  // for ll
+          adj_list[from].emplace_back(from, to, 1, -1);
+          edges.emplace_back(from, to, 1, -1);
+      }
   
-      auto operator[](Pos pos) { return adj_list[pos]; }
+      auto operator[](Pos pos) const { return adj_list[pos]; }
   
       void build_tree(Pos _root) {/*{{{*/
           root = _root;
@@ -2872,7 +3300,6 @@ snippet Graph
           if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
   
           vector<Pos> res;
-          dump(tr.children[root]);
           if (sz(tr.children[root]) > 1) {
               res.push_back(root);
           }
@@ -2888,6 +3315,17 @@ snippet Graph
           }
           return res;
       }/*}}}*/
+  
+      vector<Edge> get_bridges() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+          vector<Edge> res;
+          each(edge, edges){
+              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+          }
+          return res;
+      }/*}}}*/
+  
+  
   
       vector<Edge> kruskal_tree() {/*{{{*/
           // 使用される辺のvectorを返す
@@ -2936,7 +3374,504 @@ snippet Graph
           vector<Pos> starts = {start};
           return dijkstra(starts);
       };/*}}}*/
+  };/*}}}*/
+  
+
+
+snippet bellman_ford
+  
+  template <typename T>
+  struct SegmentTree {  // {{{
+     private:
+      using F = function<T(T, T)>;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
+      vector<T> node;
+      F merge;
+      T identity;
+  
+     public:
+      SegmentTree() {}
+      SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          n = a.size();
+          N = 1;
+          while (N < n) N *= 2;
+          node.resize(2 * N - 1, identity);
+          for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+          for (int i = N - 2; i >= 0; i--)
+              node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+      }
+      SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+  
+      T& operator[](int i) { return node[i + N - 1]; }
+  
+      void update(int x, T val) {
+          x += (N - 1);
+          node[x] = val;
+          while (x > 0) {
+              x = (x - 1) / 2;
+              node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+          }
+      }
+  
+      void add(int x, T val) {
+          x += (N - 1);
+          node[x] += val;
+          while (x > 0) {
+              x = (x - 1) / 2;
+              node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+          }
+      }
+  
+      // query for [l, r)
+      T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          if (r < 0) r = N;
+          if (r <= a || b <= l) return identity;
+          if (a <= l && r <= b) return node[k];
+  
+          T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+          T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+          return merge(vl, vr);
+      }
+  
+  #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          os << "[";
+          for (int i = 0; i < sg.n; i++) {
+              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+          }
+          return os;
+      }
+  #endif
   };
+  // }}}
+  // Sample:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // SegmentTree<int> seg(a, mymin, 1e18);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // SegmentTree<int> seg(a, mymax, -1e18);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // SegmentTree<int> seg(a, add, 0);
+  // -----------------------------------------------
+  
+  struct UnionFind {
+      vector<int> data;  // size defined only for root node
+      int count;         // count of groups
+  
+      UnionFind() {}
+      UnionFind(int size) : data(size, -1), count(size) {}
+      bool merge(int x, int y) { /*{{{*/
+          x = root(x);
+          y = root(y);
+          if (x != y) {
+              if (data[y] < data[x]) swap(x, y);
+              data[x] += data[y];
+              data[y] = x;
+              count--;
+          }
+          return x != y;
+      } /*}}}*/
+      int root(int x) { return (data[x] < 0 ? x : data[x] = root(data[x])); }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -data[root(x)]; }
+  
+  #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, UnionFind& uf) {
+          map<int, vector<int>> group;
+          rep(i, sz(uf.data)) { group[uf.root(i)].pb(i); }
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+  #endif  // }}}
+  };
+  
+  template<class Cost=ll>
+  struct tree { /*{{{*/
+      int n;
+      vector<int> par;   // par[i]: dfs木における親
+      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+      vector<int> ord;    // ord[u]: uのdfs木における訪問順
+      vector<int> end;    // end[u]: uのdfs終了時のカウンター
+      vector<int> psize;  // psize[u]: uのpartial tree size
+      // uの部分木は[ord[u], end[u])
+      // ordとdfstrvは逆変換
+  
+      vector<int> depth;   // depth[i]: dfs木でのiの深さ
+      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+      vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
+      vector<vector<int>> adj;           // 辺(隣接リスト)
+      vector<vector<int>> children;
+      vector<int> euler_tour;
+      vector<int> et_fpos;    // euler_tour first occurence position
+      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
+      vector<int> head_of_comp;
+  
+      int _counter = 0;
+  
+      tree(){};
+      tree(int n)
+          : n(n),
+            par(n),
+            cost(n),
+            ord(n),
+            end(n),
+            psize(n),
+            depth(n),
+            ldepth(n),
+            g(n),
+            adj(n),
+            children(n),
+            et_fpos(n),
+            head_of_comp(n){};
+  
+      void add_edge(int u, int v, Cost cost) { /*{{{*/
+          g[u].emplace_back(v, cost);
+          g[v].emplace_back(u, cost);
+          adj[u].emplace_back(v);
+          adj[v].emplace_back(u);
+      }                             /*}}}*/
+      void add_edge(int u, int v) { /*{{{*/
+          g[u].emplace_back(v, 1);
+          g[v].emplace_back(u, 1);
+          adj[u].emplace_back(v);
+          adj[v].emplace_back(u);
+      }                      /*}}}*/
+      void build(int root) { /*{{{*/
+          _counter = 0;
+          // par[root] = -1;
+          // cost[root] = -1;
+          _dfs_psize(root, -1);
+          _dfs_tree(root, -1, root);
+          _dfs_et(root);
+          vector<int> ini(2 * n - 1);
+          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
+          _seg = SegmentTree<int>(
+              ini, [](auto a, auto b) { return min(a, b); }, 1e18);
+      }                                /*}}}*/
+      int _dfs_psize(int u, int pre) { /*{{{*/
+          psize[u] = 1;
+          each(el, g[u]) {
+              int v = el.first;
+              if (v == pre) continue;
+              psize[u] += _dfs_psize(v, u);
+          }
+          return psize[u];
+      }                                               /*}}}*/
+      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
+          dfstrv.pb(u);
+          ord[u] = _counter;
+          if (pre != -1) {
+              depth[u] = depth[pre] + 1;
+              ldepth[u] = ldepth[pre] + cost[u];
+          }
+  
+          _counter++;
+          {
+              // set most heavy child to top
+              int max_psize = 0;
+              int most_heavy_i = -1;
+              rep(i, sz(g[u])) {
+                  if (g[u][i].first == pre) continue;
+                  if (psize[g[u][i].first] > max_psize) {
+                      most_heavy_i = i;
+                      max_psize = psize[g[u][i].first];
+                  }
+              }
+              if (most_heavy_i != -1) swap(g[u][most_heavy_i], g[u][0]);
+          }
+  
+          head_of_comp[u] = head_node;
+          rep(i, sz(g[u])) {
+              int v = g[u][i].first;
+              if (v == pre) continue;
+  
+              children[u].pb(v);
+              par[v] = u;
+              cost[v] = g[u][i].second;
+  
+              if (i == 0)
+                  _dfs_tree(v, u, head_node);  // continue components
+              else
+                  _dfs_tree(v, u, v);  // new
+          }
+          end[u] = _counter;
+      }                     /*}}}*/
+      void _dfs_et(int u) { /*{{{*/
+          et_fpos[u] = euler_tour.size();
+          euler_tour.pb(u);
+          each(v, children[u]) {
+              _dfs_et(v);
+              euler_tour.pb(u);
+          }
+      }                       /*}}}*/
+      int lca(int u, int v) { /*{{{*/
+          if (u == v) return u;
+          if (et_fpos[u] > et_fpos[v]) swap(u, v);
+          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
+      }                        /*}}}*/
+      int dist(int u, int v) { /*{{{*/
+          int p = lca(u, v);
+          return depth[u] + depth[v] - 2 * depth[p];
+      }                          /*}}}*/
+      Cost ldist(int u, int v) {  // length dist{{{
+          int p = lca(u, v);
+          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
+      }                           /*}}}*/
+      pair<int, int> diameter() { /*{{{*/
+          int u, v;
+          Cost max_len = *max_element(all(ldepth));
+          rep(i, n) {
+              if (ldepth[i] == max_len) {
+                  u = i;
+                  break;
+              }
+          }
+          Cost md = -1;
+          rep(i, n) {
+              Cost d = ldist(u, i);
+              if (d > md) {
+                  v = i;
+                  md = d;
+              }
+          }
+          return mp(u, v);
+      }                                                /*}}}*/
+      vector<pair<int, int>> hld_path(int u, int v) {  //{{{
+          // 閉区間をvectorで返す
+          vector<pair<int, int>> res;
+          while (head_of_comp[u] != head_of_comp[v]) {
+              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
+                  res.push_back({ord[head_of_comp[v]], ord[v]});
+                  v = par[head_of_comp[v]];
+              } else {
+                  res.push_back({ord[head_of_comp[u]], ord[u]});
+                  u = par[head_of_comp[u]];
+              }
+          }
+          res.push_back({min(ord[u], ord[v]), max(ord[u], ord[v])});
+          return res;
+      }                              //}}}
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const tree& tr) {
+          os << endl;
+          os << "par:         " << tr.par << endl;
+          os << "cost:        " << tr.cost << endl;
+          os << "dfstrv:      " << tr.dfstrv << endl;
+          os << "ord:         " << tr.ord << endl;
+          os << "end:         " << tr.end << endl;
+          os << "depth:       " << tr.depth << endl;
+          os << "children:    " << tr.children << endl;
+          os << "euler_tour:  " << tr.euler_tour << endl;
+          os << "et_fpos:     " << tr.et_fpos << endl;
+          os << "head_of_comp:" << tr.head_of_comp << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  
+  }; /*}}}*/
+  
+  
+  template<class Cost=ll> struct Graph {/*{{{*/
+      using Pos = int;
+  
+      struct Edge {/*{{{*/
+          Pos from, to;
+          Cost cost;
+          int idx;
+          Edge(){};
+          Edge(Pos from, Pos to, Cost cost, int idx)
+              : from(from), to(to), cost(cost), idx(idx) {}
+          friend ostream& operator<<(ostream& os, const Edge& e) {
+              // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+              os << "(" << e.from << "," << e.to << ")";
+              return os;
+          }
+      };/*}}}*/
+  
+      int n;  // 頂点数
+      vector<vector<Edge>> adj_list;
+      // map<Pos, vector<Edge>> adj_list;  //Posがpii
+  
+      vector<Edge> edges;
+      tree<Cost> tr;
+      Pos root;
+      vector<int> _used_in_dfs;
+      vector<int> lowlink;
+      Cost zerocost;
+      Cost infcost;
+  
+      Graph() {}
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) {
+      }
+      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
+      }
+  
+      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
+          adj_list[from].emplace_back(from, to, cost, idx);
+          edges.emplace_back(from, to, cost, idx);
+      }
+      void add_edge(Pos from, Pos to) {  // for ll
+          adj_list[from].emplace_back(from, to, 1, -1);
+          edges.emplace_back(from, to, 1, -1);
+      }
+  
+      auto operator[](Pos pos) const { return adj_list[pos]; }
+  
+      void build_tree(Pos _root) {/*{{{*/
+          root = _root;
+          _dfs_tree(root);
+          tr.build(root);
+          _make_lowlink();
+      }/*}}}*/
+  
+      vector<int> make_bipartite() {/*{{{*/
+          UnionFind buf(2 * n);
+          rep(u, n) {
+              each(e, adj_list[u]) {
+                  buf.merge(u, e.to + n);
+                  buf.merge(e.to, u + n);
+              }
+          }
+  
+          vector<int> res(n, -1);
+          rep(u, n) {
+              if (buf.same(u, u + n)) return res;
+          }
+          rep(u, n) {
+              if (buf.same(0, u)) res[u] = 0;
+              else res[u] = 1;
+          }
+          return res;
+      }/*}}}*/
+  
+      void _dfs_tree(Pos u) {/*{{{*/
+          _used_in_dfs[u] = 1;
+          each(e, adj_list[u]) {
+              if (_used_in_dfs[e.to]) continue;
+              tr.add_edge(u, e.to, e.cost);
+              _dfs_tree(e.to);
+          }
+      }/*}}}*/
+  
+      void _make_lowlink() {/*{{{*/
+          lowlink = vector<Pos>(n, INF);
+          r_rep(i, n) {
+              Pos u = tr.dfstrv[i];
+              chmin(lowlink[u], tr.ord[u]);
+  
+              each(e, adj_list[u]) {
+                  if (e.to == tr.par[u])
+                      continue;
+                  else if (tr.ord[e.to] < tr.ord[u]) {
+                      chmin(lowlink[u], tr.ord[e.to]);
+                  } else {
+                      chmin(lowlink[u], lowlink[e.to]);
+                  }
+              }
+          }
+      }/*}}}*/
+  
+      vector<Pos> get_articulation_points() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+  
+          vector<Pos> res;
+          if (sz(tr.children[root]) > 1) {
+              res.push_back(root);
+          }
+          rep(u, 0, n) {
+              if (u == root) continue;
+              bool is_kan = false;
+              each(v, tr.children[u]) {
+                  if (tr.ord[u] <= lowlink[v]) {
+                      is_kan = true;
+                  }
+              }
+              if (is_kan) res.push_back(u);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge> get_bridges() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+          vector<Edge> res;
+          each(edge, edges){
+              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+          }
+          return res;
+      }/*}}}*/
+  
+  
+  
+      vector<Edge> kruskal_tree() {/*{{{*/
+          // 使用される辺のvectorを返す
+          vector<Edge> res(n - 1);
+          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
+          UnionFind uf(n);
+  
+          Cost total_cost = zerocost;
+          int idx = 0;
+          each(e, edges) {
+              if (uf.same(e.from, e.to)) continue;
+              uf.merge(e.from, e.to);
+              total_cost = total_cost + e.cost;
+              res[idx] = e;
+              idx++;
+          }
+          assert(idx == n - 1);
+  
+          return res;
+      }/*}}}*/
+  
+      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
+          vector<Cost> dist(n, infcost);           // 最短距離
+          PQ<pair<Cost, Pos>> pq;
+          each(start, starts) {
+              dist[start] = zerocost;
+              pq.push(make_pair(zerocost, start));
+          }
+          while (!pq.empty()) {
+              auto cp = pq.top();
+              pq.pop();
+              auto [cost, u] = cp;
+              for (const auto& edge : adj_list[u]) {
+                  Pos v = edge.to;
+                  Cost new_cost = cost + edge.cost;
+                  if (new_cost < dist[v]) {
+                      dist[v] = new_cost;
+                      pq.push(make_pair(new_cost, v));
+                  }
+              }
+          }
+          return dist;
+      };/*}}}*/
+  
+      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
+          vector<Pos> starts = {start};
+          return dijkstra(starts);
+      };/*}}}*/
+  };/*}}}*/
+  
+  
+  // 負閉路検出
+  auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+      vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
+      dist[s] = 0;  // 開始点の距離は0
+      for (int i = 0; i < g.n; i++) {
+          each(edge, g.edges){
+              if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {
+                  dist[edge.to] = dist[edge.from] + edge.cost;
+                  if (i == g.n - 1)
+                      return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在
+              }
+          }
+      }
+      return make_pair(false, dist);
+  }
   
 
 
@@ -3073,8 +4008,8 @@ snippet tree
       }                      /*}}}*/
       void build(int root) { /*{{{*/
           _counter = 0;
-          par[root] = -1;
-          cost[root] = -1;
+          // par[root] = -1;
+          // cost[root] = -1;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
