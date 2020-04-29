@@ -1,5 +1,6 @@
 #pragma once
 #include "../header.hpp"
+#include "edge.hpp"
 #include "tree.lib/tree.hpp"
 #include "unionfind.hpp"
 
@@ -11,24 +12,11 @@
 template<class Cost=ll>
 struct Graph {
     using Pos = int;  // int以外には対応しない。
-    struct Edge {/*{{{*/
-        Pos from, to;
-        Cost cost;
-        int idx;
-        Edge(){};
-        Edge(Pos from, Pos to, Cost cost, int idx)
-            : from(from), to(to), cost(cost), idx(idx) {}
-        friend ostream& operator<<(ostream& os, const Edge& e) {
-            // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
-            os << "(" << e.from << "," << e.to << ")";
-            return os;
-        }
-    };/*}}}*/
 
     int n;  // 頂点数
-    vector<vector<Edge>> adj_list;
+    vector<vector<Edge<Cost>>> adj_list;
     auto operator[](Pos pos) const { return adj_list[pos]; }
-    vector<Edge> edges;
+    vector<Edge<Cost>> edges;
     tree<Cost> tr;
     Pos root;
     vector<int> _used_in_dfs;
@@ -123,18 +111,18 @@ struct Graph {
         return res;
     }/*}}}*/
 
-    vector<Edge> get_bridges() {/*{{{*/
+    vector<Edge<Cost>> get_bridges() {/*{{{*/
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-        vector<Edge> res;
+        vector<Edge<Cost>> res;
         each(edge, edges){
             if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
         }
         return res;
     }/*}}}*/
 
-    vector<Edge> kruskal_tree() {/*{{{*/
+    vector<Edge<Cost>> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
-        vector<Edge> res(n - 1);
+        vector<Edge<Cost>> res(n - 1);
         sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
         UnionFind uf(n);
 
