@@ -228,7 +228,6 @@ int dy[]={0, 0, 1, -1};
 
 
 //%snippet.set('ostream')%
-//%snippet.config({'alias':'<<'})%
 ostream& operator<<(ostream& os, const ${1:type}& ${2}){
     os << ${3};
     return os;

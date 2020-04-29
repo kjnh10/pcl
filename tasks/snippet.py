@@ -97,6 +97,26 @@ class Dag(object):
 
 
 class Snippets(Dag):
+    def __init__(self):
+        super().__init__()
+        self._names_and_aliases = set()
+
+    def add_node(self, node):
+        super().add_node(node)
+
+        def check(name):
+            if name in self._names_and_aliases:
+                raise Exception(f"{name} declaration dupulicated.")
+            self._names_and_aliases.add(name)
+
+        check(node.name)
+
+        if ('alias' in node.option):
+            if type(node.option['alias']) is str:
+                check(node.option['alias'])
+            elif type(node.option['alias']) is list:
+                [check(alias) for alias in node.option['alias']]
+
     def extract_snips(self, f: Path) -> list:
         def get_command_from(line) -> str:
             s = line.find('%')
