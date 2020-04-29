@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 03:20:19+09:00
+    - Last commit date: 2020-04-29 14:52:46+09:00
 
 
 
@@ -480,8 +480,7 @@ struct UnionFind {
 //%snippet.include('tree')%
 
 template<class Cost=ll> struct Graph {/*{{{*/
-    using Pos = int;
-
+    using Pos = int;  // int以外には対応しない。
     struct Edge {/*{{{*/
         Pos from, to;
         Cost cost;
@@ -498,8 +497,7 @@ template<class Cost=ll> struct Graph {/*{{{*/
 
     int n;  // 頂点数
     vector<vector<Edge>> adj_list;
-    // map<Pos, vector<Edge>> adj_list;  //Posがpii
-
+    auto operator[](Pos pos) const { return adj_list[pos]; }
     vector<Edge> edges;
     tree<Cost> tr;
     Pos root;
@@ -509,21 +507,17 @@ template<class Cost=ll> struct Graph {/*{{{*/
     Cost infcost;
 
     Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) {
-    }
-    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) {
-    }
+    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
 
-    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {
+    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
         adj_list[from].emplace_back(from, to, cost, idx);
         edges.emplace_back(from, to, cost, idx);
     }
     void add_edge(Pos from, Pos to) {  // for ll
         adj_list[from].emplace_back(from, to, 1, -1);
         edges.emplace_back(from, to, 1, -1);
-    }
-
-    auto operator[](Pos pos) const { return adj_list[pos]; }
+    }/*}}}*/
 
     void build_tree(Pos _root) {/*{{{*/
         root = _root;
@@ -608,8 +602,6 @@ template<class Cost=ll> struct Graph {/*{{{*/
         return res;
     }/*}}}*/
 
-
-
     vector<Edge> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
         vector<Edge> res(n - 1);
@@ -642,11 +634,10 @@ template<class Cost=ll> struct Graph {/*{{{*/
             pq.pop();
             auto [cost, u] = cp;
             for (const auto& edge : adj_list[u]) {
-                Pos v = edge.to;
-                Cost new_cost = cost + edge.cost;
-                if (new_cost < dist[v]) {
-                    dist[v] = new_cost;
-                    pq.push(make_pair(new_cost, v));
+                Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
+                if (new_cost < dist[edge.to]) {
+                    dist[edge.to] = new_cost;
+                    pq.push(make_pair(new_cost, edge.to));
                 }
             }
         }

@@ -46,7 +46,6 @@ layout: default
 * :warning: <a href="array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
 * :warning: <a href="debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
 * :heavy_check_mark: <a href="graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :warning: <a href="graph/dijkstra.cpp.html">library/cpp/graph/dijkstra.cpp</a>
 * :warning: <a href="graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
