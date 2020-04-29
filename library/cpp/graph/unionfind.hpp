@@ -2,6 +2,8 @@
 #include "../header.hpp"
 
 //%snippet.set('UnionFind')%
+//%snippet.fold()%
+
 struct UnionFind {
     vector<int> data;  // size defined only for root node
     int count;         // count of groups
@@ -33,4 +35,5 @@ struct UnionFind {
     }
 #endif  // }}}
 };
+
 //%snippet.end()%

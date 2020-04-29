@@ -6,8 +6,9 @@
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+//%snippet.fold()%
 template<class Cost=ll>
-struct tree { /*{{{*/
+struct tree { 
     int n;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
@@ -17,7 +18,6 @@ struct tree { /*{{{*/
     vector<int> psize;  // psize[u]: uのpartial tree size
     // uの部分木は[ord[u], end[u])
     // ordとdfstrvは逆変換
-
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
     vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
     vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
@@ -27,10 +27,9 @@ struct tree { /*{{{*/
     vector<int> et_fpos;    // euler_tour first occurence position
     SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
     vector<int> head_of_comp;
-
     int _counter = 0;
 
-    tree(){};
+    tree(){};/*{{{*/
     tree(int n)
         : n(n),
           par(n),
@@ -44,8 +43,7 @@ struct tree { /*{{{*/
           adj(n),
           children(n),
           et_fpos(n),
-          head_of_comp(n){};
-
+          head_of_comp(n){};/*}}}*/
     void add_edge(int u, int v, Cost cost) { /*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
@@ -189,7 +187,6 @@ struct tree { /*{{{*/
         return os;
     }
 #endif /*}}}*/
-
-}; /*}}}*/
+}; 
 
 //%snippet.end()%

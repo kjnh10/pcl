@@ -108,10 +108,9 @@ def format(c):
 
 def _build_snippet(code_dir, extentions, neosnip_file, vssnip_file):
     snippets = Snippets()
-    for extention in extentions:
-        for f in code_dir.rglob(f'*.{extention}'):
-            snippets.extract_snips(f)
-
+    for extension in extentions:
+        for f in code_dir.rglob(f'*.{extension}'):
+            snippets.extract_snips(f, extension)
     snippets.topological_sort()
     snippets.to_snip_file(neosnip_file, format='neosnippet')
     snippets.to_snip_file(vssnip_file, format='textmate')

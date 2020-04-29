@@ -3,11 +3,11 @@
 
 //%snippet.set('bellman_ford')%
 //%snippet.include('Graph')%
+//%snippet.fold()%
 
-// 負閉路検出
-auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
     vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
-    dist[s] = 0;  // 開始点の距離は0
+    dist[start] = g.zerocost;
     for (int i = 0; i < g.n; i++) {
         each(edge, g.edges){
             if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {

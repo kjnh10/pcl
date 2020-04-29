@@ -7,14 +7,16 @@ from typing import TYPE_CHECKING, List, Optional, Type
 from collections import deque, defaultdict
 import click
 
+comment_string  = {'cpp': '//', 'hpp': '//', 'py': '#'}
 
 class Snippet(object):
-    def __init__(self):
+    def __init__(self, extension):
+        self.extension = extension
         self.name = ''
         self.option = {}
         self.code = []
         self.dependencies = []
-        self.resolving = False
+        self.fold_flag = False
 
     def set(self, name):
         self.name = name
@@ -26,13 +28,20 @@ class Snippet(object):
     def include(self, name):
         self.dependencies.append(name)
 
-    def append(self, line):
+    def append_line(self, line):
         self.code.append(line)
+
+    def fold(self):
+        self.fold_flag = True
 
     def format_code(self):
         # 最後の空行は1行にする
         while (self.code[-1]=='\n'):
             self.code.pop()
+
+        if self.fold_flag:
+            self.code.insert(0, f"{comment_string[self.extension]} snippet:{self.name}" + ' {{{\n')
+            self.append_line(f"{comment_string[self.extension]} snippet:{self.name}" + ' }}}\n')
         self.code.append('\n')
 
 
@@ -117,7 +126,7 @@ class Snippets(Dag):
             elif type(node.option['alias']) is list:
                 [check(alias) for alias in node.option['alias']]
 
-    def extract_snips(self, f: Path) -> list:
+    def extract_snips(self, f: Path, extension: str) -> list:
         def get_command_from(line) -> str:
             s = line.find('%')
             e = line.find('%', s+1)
@@ -126,19 +135,20 @@ class Snippets(Dag):
 
         snippet = None
         with f.open() as f:
-            for l in f:
-                if re.search("\%snippet.set.*\%", l):
+            for line in f:
+                if re.search("\%snippet.set.*\%", line):
                     if snippet:
                         self.add_node(snippet)
-                    snippet = Snippet()
-                    exec(get_command_from(l))
-                elif re.search("\%snippet.end.*\%", l):
+                    snippet = Snippet(extension)
+                    exec(get_command_from(line))
+                elif re.search("\%snippet.end.*\%", line):
                     self.add_node(snippet)
                     snippet = None
-                elif re.search("\%snippet.*\%", l):
-                    exec(get_command_from(l))
+                elif re.search("\%snippet.*\%", line):
+                    exec(get_command_from(line))
                 elif snippet:
-                    snippet.append(l)
+                    if (snippet.code or line.strip()):
+                        snippet.append_line(line)
                 else:
                     pass  # ignore non-snippet lines
         if snippet:

@@ -4,6 +4,7 @@
 //%snippet.set('StronglyConnectedComponents')%
 //%snippet.config({'alias':'scc'})%
 //%snippet.include('Graph')%
+//%snippet.fold()%
 
 struct StronglyConnectedComponents {
     const Graph<> &g;  //{{{

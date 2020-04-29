@@ -6,8 +6,10 @@
 //%snippet.set('Graph')%
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
+//%snippet.fold()%
 
-template<class Cost=ll> struct Graph {/*{{{*/
+template<class Cost=ll>
+struct Graph {
     using Pos = int;  // int以外には対応しない。
     struct Edge {/*{{{*/
         Pos from, to;
@@ -176,6 +178,6 @@ template<class Cost=ll> struct Graph {/*{{{*/
         vector<Pos> starts = {start};
         return dijkstra(starts);
     };/*}}}*/
-};/*}}}*/
+};
 
 //%snippet.end()%
