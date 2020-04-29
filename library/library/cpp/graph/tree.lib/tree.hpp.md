@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 15:54:00+09:00
+    - Last commit date: 2020-04-29 19:35:46+09:00
 
 
 
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :question: <a href="../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="../edge.hpp.html">library/cpp/graph/edge.hpp</a>
 * :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
@@ -73,13 +74,15 @@ layout: default
 {% raw %}
 ```cpp
 #pragma once
-#include "../../array/segtree/segment_tree.hpp"
 #include "../../header.hpp"
+#include "../../array/segtree/segment_tree.hpp"
+#include "../edge.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+//%snippet.include('edge')%
 //%snippet.fold()%
 template<class Cost=ll>
 struct tree { 
@@ -94,8 +97,8 @@ struct tree {
     // ordとdfstrvは逆変換
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
     vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-    vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
-    vector<vector<int>> adj;           // 辺(隣接リスト)
+    vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
+    auto operator[](int pos) const { return adj_list[pos]; }
     vector<vector<int>> children;
     vector<int> euler_tour;
     vector<int> et_fpos;    // euler_tour first occurence position
@@ -113,22 +116,17 @@ struct tree {
           psize(n),
           depth(n),
           ldepth(n),
-          g(n),
-          adj(n),
+          adj_list(n),
           children(n),
           et_fpos(n),
           head_of_comp(n){};/*}}}*/
-    void add_edge(int u, int v, Cost cost) { /*{{{*/
-        g[u].emplace_back(v, cost);
-        g[v].emplace_back(u, cost);
-        adj[u].emplace_back(v);
-        adj[v].emplace_back(u);
+    void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
+        adj_list[u].emplace_back(u, v, cost, idx);
+        adj_list[v].emplace_back(v, u, cost, idx);
     }                             /*}}}*/
     void add_edge(int u, int v) { /*{{{*/
-        g[u].emplace_back(v, 1);
-        g[v].emplace_back(u, 1);
-        adj[u].emplace_back(v);
-        adj[v].emplace_back(u);
+        adj_list[u].emplace_back(u, v, 1, -1);
+        adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
     void build(int root) { /*{{{*/
         _counter = 0;
@@ -144,10 +142,9 @@ struct tree {
     }                                /*}}}*/
     int _dfs_psize(int u, int pre) { /*{{{*/
         psize[u] = 1;
-        each(el, g[u]) {
-            int v = el.first;
-            if (v == pre) continue;
-            psize[u] += _dfs_psize(v, u);
+        each(edge, adj_list[u]) {
+            if (edge.to == pre) continue;
+            psize[u] += _dfs_psize(edge.to, u);
         }
         return psize[u];
     }                                               /*}}}*/
@@ -164,24 +161,24 @@ struct tree {
             // set most heavy child to top
             int max_psize = 0;
             int most_heavy_i = -1;
-            rep(i, sz(g[u])) {
-                if (g[u][i].first == pre) continue;
-                if (psize[g[u][i].first] > max_psize) {
+            rep(i, sz(adj_list[u])) {
+                if (adj_list[u][i].to == pre) continue;
+                if (psize[adj_list[u][i].to] > max_psize) {
                     most_heavy_i = i;
-                    max_psize = psize[g[u][i].first];
+                    max_psize = psize[adj_list[u][i].to];
                 }
             }
-            if (most_heavy_i != -1) swap(g[u][most_heavy_i], g[u][0]);
+            if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
         }
 
         head_of_comp[u] = head_node;
-        rep(i, sz(g[u])) {
-            int v = g[u][i].first;
+        rep(i, sz(adj_list[u])) {
+            int v = adj_list[u][i].to;
             if (v == pre) continue;
 
             children[u].pb(v);
             par[v] = u;
-            cost[v] = g[u][i].second;
+            cost[v] = adj_list[u][i].cost;
 
             if (i == 0)
                 _dfs_tree(v, u, head_node);  // continue components
@@ -434,12 +431,33 @@ template <typename T> struct SegmentTree {  // {{{
 // -----------------------------------------------
 
 //%snippet.end()%
-#line 4 "library/cpp/graph/tree.lib/tree.hpp"
+#line 3 "library/cpp/graph/edge.hpp"
+
+//%snippet.set('edge')%
+//%snippet.fold()%
+template<class Cost=ll>
+struct Edge {
+    int from, to;
+    Cost cost;
+    int idx;
+    Edge(){};
+    Edge(int from, int to, Cost cost, int idx)
+        : from(from), to(to), cost(cost), idx(idx) {}
+
+    friend ostream& operator<<(ostream& os, const Edge& e) {
+        // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+        os << "(" << e.from << "," << e.to << ")";
+        return os;
+    }
+};
+//%snippet.end()%
+#line 5 "library/cpp/graph/tree.lib/tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
 // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+//%snippet.include('edge')%
 //%snippet.fold()%
 template<class Cost=ll>
 struct tree { 
@@ -454,8 +472,8 @@ struct tree {
     // ordとdfstrvは逆変換
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
     vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-    vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
-    vector<vector<int>> adj;           // 辺(隣接リスト)
+    vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
+    auto operator[](int pos) const { return adj_list[pos]; }
     vector<vector<int>> children;
     vector<int> euler_tour;
     vector<int> et_fpos;    // euler_tour first occurence position
@@ -473,22 +491,17 @@ struct tree {
           psize(n),
           depth(n),
           ldepth(n),
-          g(n),
-          adj(n),
+          adj_list(n),
           children(n),
           et_fpos(n),
           head_of_comp(n){};/*}}}*/
-    void add_edge(int u, int v, Cost cost) { /*{{{*/
-        g[u].emplace_back(v, cost);
-        g[v].emplace_back(u, cost);
-        adj[u].emplace_back(v);
-        adj[v].emplace_back(u);
+    void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
+        adj_list[u].emplace_back(u, v, cost, idx);
+        adj_list[v].emplace_back(v, u, cost, idx);
     }                             /*}}}*/
     void add_edge(int u, int v) { /*{{{*/
-        g[u].emplace_back(v, 1);
-        g[v].emplace_back(u, 1);
-        adj[u].emplace_back(v);
-        adj[v].emplace_back(u);
+        adj_list[u].emplace_back(u, v, 1, -1);
+        adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
     void build(int root) { /*{{{*/
         _counter = 0;
@@ -504,10 +517,9 @@ struct tree {
     }                                /*}}}*/
     int _dfs_psize(int u, int pre) { /*{{{*/
         psize[u] = 1;
-        each(el, g[u]) {
-            int v = el.first;
-            if (v == pre) continue;
-            psize[u] += _dfs_psize(v, u);
+        each(edge, adj_list[u]) {
+            if (edge.to == pre) continue;
+            psize[u] += _dfs_psize(edge.to, u);
         }
         return psize[u];
     }                                               /*}}}*/
@@ -524,24 +536,24 @@ struct tree {
             // set most heavy child to top
             int max_psize = 0;
             int most_heavy_i = -1;
-            rep(i, sz(g[u])) {
-                if (g[u][i].first == pre) continue;
-                if (psize[g[u][i].first] > max_psize) {
+            rep(i, sz(adj_list[u])) {
+                if (adj_list[u][i].to == pre) continue;
+                if (psize[adj_list[u][i].to] > max_psize) {
                     most_heavy_i = i;
-                    max_psize = psize[g[u][i].first];
+                    max_psize = psize[adj_list[u][i].to];
                 }
             }
-            if (most_heavy_i != -1) swap(g[u][most_heavy_i], g[u][0]);
+            if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
         }
 
         head_of_comp[u] = head_node;
-        rep(i, sz(g[u])) {
-            int v = g[u][i].first;
+        rep(i, sz(adj_list[u])) {
+            int v = adj_list[u][i].to;
             if (v == pre) continue;
 
             children[u].pb(v);
             par[v] = u;
-            cost[v] = g[u][i].second;
+            cost[v] = adj_list[u][i].cost;
 
             if (i == 0)
                 _dfs_tree(v, u, head_node);  // continue components

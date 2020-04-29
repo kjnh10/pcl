@@ -76,6 +76,7 @@ layout: default
 ### library/cpp/graph
 
 * :heavy_check_mark: <a href="library/library/cpp/graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
+* :question: <a href="library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
 * :question: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
