@@ -40,6 +40,7 @@ signed main() {
             }
         }
     }
+    //%snippet.end()%
 
     // https://atcoder.jp/contests/abc151/submissions/12467532
     // (language updateが終わるまでは未veriyf)
@@ -50,5 +51,4 @@ signed main() {
     }
     cout << ans << endl;
 
-    //%snippet.end()%
 }
