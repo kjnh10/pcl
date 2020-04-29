@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../../../index.html#04b9fdf3733e033461bbd7a8ed473f54">library/cpp/string/suffix_array/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/suffix_array/codes/suffix_array.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -282,6 +282,7 @@ signed main() {
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 

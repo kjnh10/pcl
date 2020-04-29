@@ -31,23 +31,23 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bellman_ford.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 14:52:46+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :question: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :question: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/bellman_ford.test.cpp.html">library/cpp/graph/bellman_ford.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 
 
 ## Code
@@ -60,11 +60,11 @@ layout: default
 
 //%snippet.set('bellman_ford')%
 //%snippet.include('Graph')%
+//%snippet.fold()%
 
-// 負閉路検出
-auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
     vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
-    dist[s] = 0;  // 開始点の距離は0
+    dist[start] = g.zerocost;
     for (int i = 0; i < g.n; i++) {
         each(edge, g.edges){
             if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {
@@ -88,6 +88,7 @@ auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂�
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 
@@ -169,82 +170,81 @@ void check_input() {
 
 //%snippet.set('segment_tree')%
 //%snippet.config({'alias':'rmq'})%
+//%snippet.fold()%
 
-template <typename T>
-struct SegmentTree {  // {{{
-   private:
-    using F = function<T(T, T)>;
-    int n;  // 元の配列のサイズ
-    int N;  // n以上の最小の2冪
-    vector<T> node;
-    F merge;
-    T identity;
+template <typename T> struct SegmentTree {  // {{{
+    private:
+        using F = function<T(T, T)>;
+        int n;  // 元の配列のサイズ
+        int N;  // n以上の最小の2冪
+        vector<T> node;
+        F merge;
+        T identity;
 
-   public:
-    SegmentTree() {}
-    SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
-        n = a.size();
-        N = 1;
-        while (N < n) N *= 2;
-        node.resize(2 * N - 1, identity);
-        for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
-        for (int i = N - 2; i >= 0; i--)
-            node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-    }
-    SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
-
-    T& operator[](int i) { return node[i + N - 1]; }
-
-    void update(int x, T val) {
-        x += (N - 1);
-        node[x] = val;
-        while (x > 0) {
-            x = (x - 1) / 2;
-            node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+    public:
+        SegmentTree() {}
+        SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+            n = a.size();
+            N = 1;
+            while (N < n) N *= 2;
+            node.resize(2 * N - 1, identity);
+            for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+            for (int i = N - 2; i >= 0; i--)
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
         }
-    }
+        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
 
-    void add(int x, T val) {
-        x += (N - 1);
-        node[x] += val;
-        while (x > 0) {
-            x = (x - 1) / 2;
-            node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+        T& operator[](int i) { return node[i + N - 1]; }
+
+        void update(int i, T val) {
+            i += (N - 1);
+            node[i] = val;
+            while (i > 0) {
+                i = (i - 1) / 2;
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+            }
         }
-    }
 
-    // query for [l, r)
-    T query(int a, int b, int k = 0, int l = 0, int r = -1) {
-        if (r < 0) r = N;
-        if (r <= a || b <= l) return identity;
-        if (a <= l && r <= b) return node[k];
-
-        T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-        T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-        return merge(vl, vr);
-    }
-
-#if defined(PCM) || defined(LOCAL)
-    friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
-        os << "[";
-        for (int i = 0; i < sg.n; i++) {
-            os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+        void add(int i, T val) {
+            i += (N - 1);
+            node[i] += val;
+            while (i > 0) {
+                i = (i - 1) / 2;
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+            }
         }
-        return os;
-    }
-#endif
-};
-// }}}
-// Sample:
+
+        // query for [l, r)
+        T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+            if (r < 0) r = N;
+            if (r <= a || b <= l) return identity;
+            if (a <= l && r <= b) return node[k];
+
+            T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+            return merge(vl, vr);
+        }
+
+        #if defined(PCM) || defined(LOCAL)
+        friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+            os << "[";
+            for (int i = 0; i < sg.n; i++) {
+                os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+            }
+            return os;
+        }
+        #endif
+};/*}}}*/
+// sample of initialize SegmentTree:
 // -----------------------------------------------
 // auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+// SegmentTree<ll> seg(a, mymin, 1e18);
 
 // auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+// SegmentTree<ll> seg(a, mymax, -1e18);
 
 // auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+// SegmentTree<ll> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%
@@ -254,8 +254,9 @@ struct SegmentTree {  // {{{
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+//%snippet.fold()%
 template<class Cost=ll>
-struct tree { /*{{{*/
+struct tree { 
     int n;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
@@ -265,7 +266,6 @@ struct tree { /*{{{*/
     vector<int> psize;  // psize[u]: uのpartial tree size
     // uの部分木は[ord[u], end[u])
     // ordとdfstrvは逆変換
-
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
     vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
     vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
@@ -275,10 +275,9 @@ struct tree { /*{{{*/
     vector<int> et_fpos;    // euler_tour first occurence position
     SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
     vector<int> head_of_comp;
-
     int _counter = 0;
 
-    tree(){};
+    tree(){};/*{{{*/
     tree(int n)
         : n(n),
           par(n),
@@ -292,8 +291,7 @@ struct tree { /*{{{*/
           adj(n),
           children(n),
           et_fpos(n),
-          head_of_comp(n){};
-
+          head_of_comp(n){};/*}}}*/
     void add_edge(int u, int v, Cost cost) { /*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
@@ -437,13 +435,14 @@ struct tree { /*{{{*/
         return os;
     }
 #endif /*}}}*/
-
-}; /*}}}*/
+}; 
 
 //%snippet.end()%
 #line 3 "library/cpp/graph/unionfind.hpp"
 
 //%snippet.set('UnionFind')%
+//%snippet.fold()%
+
 struct UnionFind {
     vector<int> data;  // size defined only for root node
     int count;         // count of groups
@@ -475,14 +474,17 @@ struct UnionFind {
     }
 #endif  // }}}
 };
+
 //%snippet.end()%
 #line 5 "library/cpp/graph/graph.hpp"
 
 //%snippet.set('Graph')%
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
+//%snippet.fold()%
 
-template<class Cost=ll> struct Graph {/*{{{*/
+template<class Cost=ll>
+struct Graph {
     using Pos = int;  // int以外には対応しない。
     struct Edge {/*{{{*/
         Pos from, to;
@@ -651,18 +653,18 @@ template<class Cost=ll> struct Graph {/*{{{*/
         vector<Pos> starts = {start};
         return dijkstra(starts);
     };/*}}}*/
-};/*}}}*/
+};
 
 //%snippet.end()%
 #line 3 "library/cpp/graph/bellman_ford.hpp"
 
 //%snippet.set('bellman_ford')%
 //%snippet.include('Graph')%
+//%snippet.fold()%
 
-// 負閉路検出
-auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
     vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
-    dist[s] = 0;  // 開始点の距離は0
+    dist[start] = g.zerocost;
     for (int i = 0; i < g.n; i++) {
         each(edge, g.edges){
             if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {

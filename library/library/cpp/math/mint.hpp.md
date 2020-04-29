@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/mint.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
@@ -141,6 +141,7 @@ ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 

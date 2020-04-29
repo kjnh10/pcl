@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :warning: <a href="prettyprint.hpp.html">library/cpp/debug/prettyprint.hpp</a>
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -143,12 +143,13 @@ using namespace std;
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 
 // template version 2.0
 using namespace std;
-#line 10 "library/cpp/header.hpp"
+#line 11 "library/cpp/header.hpp"
 
 // varibable settings
 #define int long long

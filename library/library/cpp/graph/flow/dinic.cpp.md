@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../../index.html#08be9a8a45b2e811a312f82c2e412c8c">library/cpp/graph/flow</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/flow/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -182,6 +182,7 @@ signed main() {
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 

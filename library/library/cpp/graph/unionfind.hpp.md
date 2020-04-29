@@ -25,40 +25,42 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/unionfind.hpp
+# :question: library/cpp/graph/unionfind.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/unionfind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
 
 * :heavy_check_mark: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :question: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :warning: <a href="test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
+* :x: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/bellman_ford.test.cpp.html">library/cpp/graph/bellman_ford.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.2dcost.test.cpp.html">library/cpp/graph/graph.2dcost.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.bridge.test.cpp.html">library/cpp/graph/graph.bridge.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.dijkstra.test.cpp.html">library/cpp/graph/graph.dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.kruskal.test.cpp.html">library/cpp/graph/graph.kruskal.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/graph.lowlink.test.cpp.html">library/cpp/graph/graph.lowlink.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/scc.test.cpp.html">library/cpp/graph/scc.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
+* :x: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
 
 
 ## Code
@@ -70,6 +72,8 @@ layout: default
 #include "../header.hpp"
 
 //%snippet.set('UnionFind')%
+//%snippet.fold()%
+
 struct UnionFind {
     vector<int> data;  // size defined only for root node
     int count;         // count of groups
@@ -101,6 +105,7 @@ struct UnionFind {
     }
 #endif  // }}}
 };
+
 //%snippet.end()%
 
 ```
@@ -112,6 +117,7 @@ struct UnionFind {
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 
@@ -191,6 +197,8 @@ void check_input() {
 #line 3 "library/cpp/graph/unionfind.hpp"
 
 //%snippet.set('UnionFind')%
+//%snippet.fold()%
+
 struct UnionFind {
     vector<int> data;  // size defined only for root node
     int count;         // count of groups
@@ -222,6 +230,7 @@ struct UnionFind {
     }
 #endif  // }}}
 };
+
 //%snippet.end()%
 
 ```

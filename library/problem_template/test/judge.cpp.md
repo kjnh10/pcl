@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#76c92c32675513a9b45b3a525f3ad871">problem_template/test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/test/judge.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -109,6 +109,7 @@ signed main() {
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 

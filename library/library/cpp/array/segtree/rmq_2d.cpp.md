@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/rmq_2d.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 20:02:36+09:00
+    - Last commit date: 2020-04-29 15:54:00+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -104,6 +104,7 @@ struct segtree {
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 

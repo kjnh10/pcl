@@ -21,30 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/scc.test.cpp
+# :x: library/cpp/graph/tests/topological_sort.test.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/scc.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 14:52:46+09:00
+* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/topological_sort.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-29 18:03:41+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :x: <a href="../../../../../library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -52,46 +51,21 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp"
-#include "scc.hpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=jp"
+#define IGNORE
+#include "../topological_sort.hpp"
 
 signed main() {
-    int n, m;
-    cin >> n >> m;
+    int n,m;cin>>n>>m;
     Graph g(n);
-    rep(i, m) {
-        int from, to;
-        cin >> from >> to;
-        g.add_edge(from, to);
+    rep(i, m){
+        int s,t;
+        cin>>s>>t;
+        g.add_edge(s, t);
     }
-    StronglyConnectedComponents scc(g);
-    scc.build();
-    dump(scc.comp);
-    rep(i, sz(scc.dag.adj_list)){
-        dump(scc.dag.adj_list[i]);
-    }
-    dump(scc._order);
+    auto [is_valid, ans, max_len] = topological_sort(g);
+    rep(i, sz(ans)) cout << ans[i] << endl;
 
-    // 01_small_01.in
-    // scc.comp:[0, 0, 2, 1, 0, 0, 4, 3, 3, 3, 3, 4, 4, 4] in [15:main]
-    // scc.dag.adj_list[i]:[(0,2), (0,1), (0,4), (0,4)] in [17:main]
-    // scc.dag.adj_list[i]:[(1,3), (1,3)] in [17:main]
-    // scc.dag.adj_list[i]:[(2,3)] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc._order:[0, 3, 2, 7, 8, 9, 10, 1, 5, 11, 12, 13, 6, 4] in [19:main]
-
-    int q;
-    cin >> q;
-    rep(_, q) {
-        int x, y;
-        cin >> x >> y;
-        if (scc[x] == scc[y]) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
-        }
-    }
     return 0;
 }
 
@@ -101,11 +75,13 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/scc.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp"
+#line 1 "library/cpp/graph/tests/topological_sort.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=jp"
+#define IGNORE
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
+//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 
@@ -187,82 +163,81 @@ void check_input() {
 
 //%snippet.set('segment_tree')%
 //%snippet.config({'alias':'rmq'})%
+//%snippet.fold()%
 
-template <typename T>
-struct SegmentTree {  // {{{
-   private:
-    using F = function<T(T, T)>;
-    int n;  // 元の配列のサイズ
-    int N;  // n以上の最小の2冪
-    vector<T> node;
-    F merge;
-    T identity;
+template <typename T> struct SegmentTree {  // {{{
+    private:
+        using F = function<T(T, T)>;
+        int n;  // 元の配列のサイズ
+        int N;  // n以上の最小の2冪
+        vector<T> node;
+        F merge;
+        T identity;
 
-   public:
-    SegmentTree() {}
-    SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
-        n = a.size();
-        N = 1;
-        while (N < n) N *= 2;
-        node.resize(2 * N - 1, identity);
-        for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
-        for (int i = N - 2; i >= 0; i--)
-            node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-    }
-    SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
-
-    T& operator[](int i) { return node[i + N - 1]; }
-
-    void update(int x, T val) {
-        x += (N - 1);
-        node[x] = val;
-        while (x > 0) {
-            x = (x - 1) / 2;
-            node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+    public:
+        SegmentTree() {}
+        SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+            n = a.size();
+            N = 1;
+            while (N < n) N *= 2;
+            node.resize(2 * N - 1, identity);
+            for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+            for (int i = N - 2; i >= 0; i--)
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
         }
-    }
+        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
 
-    void add(int x, T val) {
-        x += (N - 1);
-        node[x] += val;
-        while (x > 0) {
-            x = (x - 1) / 2;
-            node[x] = merge(node[2 * x + 1], node[2 * x + 2]);
+        T& operator[](int i) { return node[i + N - 1]; }
+
+        void update(int i, T val) {
+            i += (N - 1);
+            node[i] = val;
+            while (i > 0) {
+                i = (i - 1) / 2;
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+            }
         }
-    }
 
-    // query for [l, r)
-    T query(int a, int b, int k = 0, int l = 0, int r = -1) {
-        if (r < 0) r = N;
-        if (r <= a || b <= l) return identity;
-        if (a <= l && r <= b) return node[k];
-
-        T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-        T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-        return merge(vl, vr);
-    }
-
-#if defined(PCM) || defined(LOCAL)
-    friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
-        os << "[";
-        for (int i = 0; i < sg.n; i++) {
-            os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+        void add(int i, T val) {
+            i += (N - 1);
+            node[i] += val;
+            while (i > 0) {
+                i = (i - 1) / 2;
+                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+            }
         }
-        return os;
-    }
-#endif
-};
-// }}}
-// Sample:
+
+        // query for [l, r)
+        T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+            if (r < 0) r = N;
+            if (r <= a || b <= l) return identity;
+            if (a <= l && r <= b) return node[k];
+
+            T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+            return merge(vl, vr);
+        }
+
+        #if defined(PCM) || defined(LOCAL)
+        friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+            os << "[";
+            for (int i = 0; i < sg.n; i++) {
+                os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+            }
+            return os;
+        }
+        #endif
+};/*}}}*/
+// sample of initialize SegmentTree:
 // -----------------------------------------------
 // auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<int> seg(a, mymin, 1e18);
+// SegmentTree<ll> seg(a, mymin, 1e18);
 
 // auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<int> seg(a, mymax, -1e18);
+// SegmentTree<ll> seg(a, mymax, -1e18);
 
 // auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<int> seg(a, add, 0);
+// SegmentTree<ll> seg(a, add, 0);
 // -----------------------------------------------
 
 //%snippet.end()%
@@ -272,8 +247,9 @@ struct SegmentTree {  // {{{
 
 //%snippet.set('tree')%
 //%snippet.include('segment_tree')%
+//%snippet.fold()%
 template<class Cost=ll>
-struct tree { /*{{{*/
+struct tree { 
     int n;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
@@ -283,7 +259,6 @@ struct tree { /*{{{*/
     vector<int> psize;  // psize[u]: uのpartial tree size
     // uの部分木は[ord[u], end[u])
     // ordとdfstrvは逆変換
-
     vector<int> depth;   // depth[i]: dfs木でのiの深さ
     vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
     vector<vector<pair<int, Cost>>> g;  // 辺(隣接リスト)
@@ -293,10 +268,9 @@ struct tree { /*{{{*/
     vector<int> et_fpos;    // euler_tour first occurence position
     SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
     vector<int> head_of_comp;
-
     int _counter = 0;
 
-    tree(){};
+    tree(){};/*{{{*/
     tree(int n)
         : n(n),
           par(n),
@@ -310,8 +284,7 @@ struct tree { /*{{{*/
           adj(n),
           children(n),
           et_fpos(n),
-          head_of_comp(n){};
-
+          head_of_comp(n){};/*}}}*/
     void add_edge(int u, int v, Cost cost) { /*{{{*/
         g[u].emplace_back(v, cost);
         g[v].emplace_back(u, cost);
@@ -455,13 +428,14 @@ struct tree { /*{{{*/
         return os;
     }
 #endif /*}}}*/
-
-}; /*}}}*/
+}; 
 
 //%snippet.end()%
 #line 3 "library/cpp/graph/unionfind.hpp"
 
 //%snippet.set('UnionFind')%
+//%snippet.fold()%
+
 struct UnionFind {
     vector<int> data;  // size defined only for root node
     int count;         // count of groups
@@ -493,14 +467,17 @@ struct UnionFind {
     }
 #endif  // }}}
 };
+
 //%snippet.end()%
 #line 5 "library/cpp/graph/graph.hpp"
 
 //%snippet.set('Graph')%
 //%snippet.include('UnionFind')%
 //%snippet.include('tree')%
+//%snippet.fold()%
 
-template<class Cost=ll> struct Graph {/*{{{*/
+template<class Cost=ll>
+struct Graph {
     using Pos = int;  // int以外には対応しない。
     struct Edge {/*{{{*/
         Pos from, to;
@@ -669,115 +646,77 @@ template<class Cost=ll> struct Graph {/*{{{*/
         vector<Pos> starts = {start};
         return dijkstra(starts);
     };/*}}}*/
-};/*}}}*/
-
-//%snippet.end()%
-#line 3 "library/cpp/graph/scc.hpp"
-
-//%snippet.set('StronglyConnectedComponents')%
-//%snippet.config({'alias':'scc'})%
-//%snippet.include('Graph')%
-
-struct StronglyConnectedComponents {
-    const Graph<> &g;  //{{{
-    vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-    Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
-    Graph<> _rg;  // reversed graph
-    vector<int> _order;  // order[i]: 帰りがけ順
-    vector<int> _used;
-
-    StronglyConnectedComponents(Graph<> &_g)
-        : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
-        for (int i = 0; i < g.n; i++) {
-            for (auto e : g[i]) {
-                _rg.add_edge(e.to, e.from, e.cost, e.idx);
-            }
-        }
-    }
-
-    int operator[](int k) { return comp[k]; }
-
-    void build() {
-        for (int i = 0; i < g.n; i++) _dfs(i);
-        reverse(begin(_order), end(_order));
-        int cnt = 0;
-        for (int u : _order)
-            if (comp[u] == -1) _rdfs(u, cnt), cnt++;
-
-        dag = Graph(cnt);
-        for (int u = 0; u < g.n; u++) {
-            for (auto &e : g[u]) {
-                if (comp[u] == comp[e.to]) continue;
-                dag.add_edge(comp[u], comp[e.to]);
-            }
-        }
-    }
-
-    void _dfs(int idx) {
-        if (_used[idx]) return;
-        _used[idx] = true;
-        for (auto &e : g[idx]) _dfs(e.to);
-        _order.push_back(idx);
-    }
-
-    void _rdfs(int idx, int cnt) {
-        if (comp[idx] != -1) return;
-        comp[idx] = cnt;
-        for (auto e : _rg[idx]) _rdfs(e.to, cnt);
-    }  //}}}
 };
-// how to use
-// StronglyConnectedComponents scc(g); // g: Graph
-// scc.build();
-// dump(scc.comp, scc.dag);
 
 //%snippet.end()%
+#line 3 "library/cpp/graph/topological_sort.hpp"
 
+//%snippet.set('topological_sort')%
+//%snippet.config({'alias':'tps'})%
+//%snippet.fold()%
 
-#line 3 "library/cpp/graph/scc.test.cpp"
+using Pos = int;
+tuple<bool, vector<Pos>, int> topological_sort(const Graph<>& g) {
+    vector<Pos> res;  // sort後の結果を格納
+    vector<int> h(g.n);  // 頂点ごとの入次数
+    stack<Pos> st;    // 入次数が0になっている頂点の集合
+    int max_len = 0;   // 最長経路の長さ
+
+    // 入次数を計算する。
+    rep(u, g.n) {
+        for (const auto& edge : g[u]) {
+            h[edge.to]++;
+        }
+    }
+
+    // 最初に入次数0になっている頂点を集める。
+    rep(u, g.n) {
+        if (h[u] == 0) {
+            st.push(u);
+            res.push_back(u);
+        }
+    }
+
+    // 入次数0の頂点をresに追加しそこから出て行く辺は削除していく。O(g.n+E)
+    while (!st.empty()) {
+        stack<Pos> nex_st;
+        while (!st.empty()) {
+            Pos u = st.top(); st.pop();
+            for (const auto& edge : g[u]) {
+                h[edge.to]--;
+                if (h[edge.to] == 0) {
+                    res.push_back(edge.to);
+                    nex_st.push(edge.to);
+                }
+            }
+        }
+        max_len++;
+        st = nex_st;
+    }
+    
+    bool is_valid = (sz(res)==g.n ? true : false);
+    return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+}
+//%snippet.end()%
+
+#line 4 "library/cpp/graph/tests/topological_sort.test.cpp"
 
 signed main() {
-    int n, m;
-    cin >> n >> m;
+    int n,m;cin>>n>>m;
     Graph g(n);
-    rep(i, m) {
-        int from, to;
-        cin >> from >> to;
-        g.add_edge(from, to);
+    rep(i, m){
+        int s,t;
+        cin>>s>>t;
+        g.add_edge(s, t);
     }
-    StronglyConnectedComponents scc(g);
-    scc.build();
-    dump(scc.comp);
-    rep(i, sz(scc.dag.adj_list)){
-        dump(scc.dag.adj_list[i]);
-    }
-    dump(scc._order);
+    auto [is_valid, ans, max_len] = topological_sort(g);
+    rep(i, sz(ans)) cout << ans[i] << endl;
 
-    // 01_small_01.in
-    // scc.comp:[0, 0, 2, 1, 0, 0, 4, 3, 3, 3, 3, 4, 4, 4] in [15:main]
-    // scc.dag.adj_list[i]:[(0,2), (0,1), (0,4), (0,4)] in [17:main]
-    // scc.dag.adj_list[i]:[(1,3), (1,3)] in [17:main]
-    // scc.dag.adj_list[i]:[(2,3)] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc._order:[0, 3, 2, 7, 8, 9, 10, 1, 5, 11, 12, 13, 6, 4] in [19:main]
-
-    int q;
-    cin >> q;
-    rep(_, q) {
-        int x, y;
-        cin >> x >> y;
-        if (scc[x] == scc[y]) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
-        }
-    }
     return 0;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
