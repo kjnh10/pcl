@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/gridgraph.cpp
+# :heavy_check_mark: library/cpp/graph/bellman_ford.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 03:54:04+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bellman_ford.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-29 12:05:01+09:00
 
 
 
@@ -45,6 +45,11 @@ layout: default
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/bellman_ford.test.cpp.html">library/cpp/graph/bellman_ford.test.cpp</a>
+
+
 ## Code
 
 <a id="unbundled"></a>
@@ -53,57 +58,26 @@ layout: default
 #include "../header.hpp"
 #include "graph.hpp"
 
-signed main() {
-    //%snippet.set('gridgraph')%
+//%snippet.set('bellman_ford')%
+//%snippet.include('Graph')%
 
-    // grid graphを通常のグラフに格納する。
-    int h, w;
-    cin >> h >> w;
-    int n = h * w;  // 頂点数
-    vvi block(h, vi(w));
-    rep(i, h) {
-        string s;
-        cin >> s;
-        rep(j, w) { block[i][j] = (s[j] == '#' ? 1 : 0); }
-    }
-
-    Graph g(n);
-
-    auto nid = [&](int i, int j){return (i*w + j);};
-    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
-    // int u = nid(i, j);
-    // auto [i,j] = pos(u);
-
-    int di[] = {1, -1, 0, 0};
-    int dj[] = {0, 0, 1, -1};
-
-    // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
-    // int di[] = {1, 0};
-    // int dj[] = {0, 1};
-    rep(i, h) rep(j, w) {
-        if (block[i][j]) continue;  // blockから出る辺はない
-        rep(k, 4) {
-            int ni = i + di[k];
-            int nj = j + dj[k];
-            if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-                if (block[ni][nj]) continue;  // blockに入る辺はない
-                g.add_edge(nid(i, j), nid(ni, nj));
-                // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+// 負閉路検出
+auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+    vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
+    dist[s] = 0;  // 開始点の距離は0
+    for (int i = 0; i < g.n; i++) {
+        each(edge, g.edges){
+            if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {
+                dist[edge.to] = dist[edge.from] + edge.cost;
+                if (i == g.n - 1)
+                    return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在
             }
         }
     }
-
-    // https://atcoder.jp/contests/abc151/submissions/12467532
-    // (language updateが終わるまでは未veriyf)
-    int ans = 0;
-    rep(s, n){
-        auto d = g.dijkstra(s);
-        rep(i, sz(d)) if (d[i]<INF) chmax(ans, d[i]);
-    }
-    cout << ans << endl;
-
-    //%snippet.end()%
+    return make_pair(false, dist);
 }
+
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -689,59 +663,28 @@ template<class Cost=ll> struct Graph {/*{{{*/
 };/*}}}*/
 
 //%snippet.end()%
-#line 3 "library/cpp/graph/gridgraph.cpp"
+#line 3 "library/cpp/graph/bellman_ford.hpp"
 
-signed main() {
-    //%snippet.set('gridgraph')%
+//%snippet.set('bellman_ford')%
+//%snippet.include('Graph')%
 
-    // grid graphを通常のグラフに格納する。
-    int h, w;
-    cin >> h >> w;
-    int n = h * w;  // 頂点数
-    vvi block(h, vi(w));
-    rep(i, h) {
-        string s;
-        cin >> s;
-        rep(j, w) { block[i][j] = (s[j] == '#' ? 1 : 0); }
-    }
-
-    Graph g(n);
-
-    auto nid = [&](int i, int j){return (i*w + j);};
-    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
-    // int u = nid(i, j);
-    // auto [i,j] = pos(u);
-
-    int di[] = {1, -1, 0, 0};
-    int dj[] = {0, 0, 1, -1};
-
-    // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
-    // int di[] = {1, 0};
-    // int dj[] = {0, 1};
-    rep(i, h) rep(j, w) {
-        if (block[i][j]) continue;  // blockから出る辺はない
-        rep(k, 4) {
-            int ni = i + di[k];
-            int nj = j + dj[k];
-            if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-                if (block[ni][nj]) continue;  // blockに入る辺はない
-                g.add_edge(nid(i, j), nid(ni, nj));
-                // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
+// 負閉路検出
+auto bellman_ford(const Graph<>& g, int s) {  // nは頂点数、sは開始頂点
+    vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
+    dist[s] = 0;  // 開始点の距離は0
+    for (int i = 0; i < g.n; i++) {
+        each(edge, g.edges){
+            if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {
+                dist[edge.to] = dist[edge.from] + edge.cost;
+                if (i == g.n - 1)
+                    return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在
             }
         }
     }
-
-    // https://atcoder.jp/contests/abc151/submissions/12467532
-    // (language updateが終わるまでは未veriyf)
-    int ans = 0;
-    rep(s, n){
-        auto d = g.dijkstra(s);
-        rep(i, sz(d)) if (d[i]<INF) chmax(ans, d[i]);
-    }
-    cout << ans << endl;
-
-    //%snippet.end()%
+    return make_pair(false, dist);
 }
+
+//%snippet.end()%
 
 ```
 {% endraw %}

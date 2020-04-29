@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-27 15:38:28+09:00
+    - Last commit date: 2020-04-29 11:43:38+09:00
 
 
 
@@ -271,7 +271,6 @@ int dy[]={0, 0, 1, -1};
 
 
 //%snippet.set('ostream')%
-//%snippet.config({'alias':'<<'})%
 ostream& operator<<(ostream& os, const ${1:type}& ${2}){
     os << ${3};
     return os;
@@ -643,7 +642,6 @@ int dy[]={0, 0, 1, -1};
 
 
 //%snippet.set('ostream')%
-//%snippet.config({'alias':'<<'})%
 ostream& operator<<(ostream& os, const ${1:type}& ${2}){
     os << ${3};
     return os;
