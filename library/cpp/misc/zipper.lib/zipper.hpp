@@ -31,25 +31,25 @@ struct zipper {                             /*{{{*/
         rep(i, n) { zip_map[_unzipper[i]] = i; }
         _is_build = true;
     }                              /*}}}*/
-    int get_zipped(long long lv) { /*{{{*/
-        if (!_is_build) assert(false);
-        return zip_map[lv];
-    }                                               /*}}}*/
-    vector<int> get_zipped(vector<long long> lvs) { /*{{{*/
+    vector<int> zip(vector<long long> lvs) { /*{{{*/
         if (!_is_build) assert(false);
         int n = sz(lvs);
         vector<int> res(n);
         rep(i, n) res[i] = zip_map[lvs[i]];
         return res;
     }                              /*}}}*/
-    int operator()(long long lv) { /*{{{*/
+    int zip(long long lv) { /*{{{*/
         if (!_is_build) assert(false);
         return zip_map[lv];
-    }                         /*}}}*/
+    }                                               /*}}}*/
+    int operator()(long long lv) { return zip(lv); }
+
     long long unzip(int sv) { /*{{{*/
         if (!_is_build) assert(false);
         return _unzipper[sv];
     }                              /*}}}*/
+    int operator[](int sv) { return unzip(sv); }
+
     int size() {return n;}
 
 #if defined(PCM) || defined(LOCAL) /*{{{*/
