@@ -1,15 +1,16 @@
-#include "../../graph.hpp"
+#define PROBLEM "https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c"
+#include "../graph.hpp"
 
 signed main() {
     int n, m;
     cin >> n >> m;
-    Graph<int, int> g(n);
+    Graph<ll> g(n);
     rep(i, m) {
         int a, b;
         cin >> a >> b;
         a--;
         b--;
-        g.add_edge(a, b, 1);
+        g.add_edge(a, b);
     }
 
     auto res = g.make_bipartite();
