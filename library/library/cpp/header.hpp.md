@@ -51,7 +51,6 @@ layout: default
 * :question: <a href="graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :warning: <a href="graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :x: <a href="graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 * :warning: <a href="graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :question: <a href="graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
@@ -81,6 +80,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :x: <a href="../../../verify/library/cpp/graph/tests/graph.bipartie.test.cpp.html">library/cpp/graph/tests/graph.bipartie.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
@@ -91,6 +91,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 
 
 ## Code

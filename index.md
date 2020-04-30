@@ -91,13 +91,6 @@ layout: default
 * :warning: <a href="library/library/cpp/graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
 
 
-<div id="705d3ed53d77dbb4f313b001665c2a66"></div>
-
-### library/cpp/graph/test.make_bipartie/codes
-
-* :warning: <a href="library/library/cpp/graph/test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
-
-
 <div id="eaeee77e776a943cad05fb3e3b603f65"></div>
 
 ### library/cpp/graph/tree.lib
@@ -201,6 +194,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.bipartie.test.cpp.html">library/cpp/graph/tests/graph.bipartie.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
@@ -211,5 +205,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 
 

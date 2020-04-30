@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 15:54:00+09:00
+    - Last commit date: 2020-05-01 00:11:52+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -67,11 +67,12 @@ signed main() {
     z3.build();
     dump(z3);
 
+    dump(z1);
     dump(z1(5));
     assert(z1(5) == 2);
     assert(z1.unzip(4) == (int)1e12);
-    dump(z1.get_zipped(x));
-    assert(z1.get_zipped(x) == vector<int>({1, 3, 2, 4}));
+    dump(z1.zip(x));
+    assert(z1.zip(x) == vector<int>({1, 3, 2, 4}));
 
     cout << "Hello World" << endl;
     return 0;
@@ -171,18 +172,19 @@ void check_input() {
 //%snippet.set('zipper')%
 
 struct zipper {                             /*{{{*/
-    unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
+    // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
+    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
     vector<long long> _unzipper;            // [2, 3, 5, 10]
     bool _is_build = false;
+    int n = 0;
 
     zipper(long long inf_value = INF) { /*{{{*/
         _unzipper.push_back(-inf_value);
         _unzipper.push_back(inf_value);
     }                                                        /*}}}*/
     zipper(vector<long long> a, long long inf_value = INF) { /*{{{*/
-        int n = sz(a);
-        _unzipper = vector<long long>(n);
-        rep(i, n) { _unzipper[i] = a[i]; }
+        _unzipper = vector<long long>(sz(a));
+        rep(i, sz(a)) { _unzipper[i] = a[i]; }
         _unzipper.push_back(-inf_value);
         _unzipper.push_back(inf_value);
         build();
@@ -194,33 +196,37 @@ struct zipper {                             /*{{{*/
     void build() { /*{{{*/
         uni(_unzipper);
         zip_map.clear();
-        rep(i, sz(_unzipper)) { zip_map[_unzipper[i]] = i; }
+        n = sz(_unzipper);
+        rep(i, n) { zip_map[_unzipper[i]] = i; }
         _is_build = true;
     }                              /*}}}*/
-    int get_zipped(long long lv) { /*{{{*/
-        if (!_is_build) assert(false);
-        return zip_map[lv];
-    }                                               /*}}}*/
-    vector<int> get_zipped(vector<long long> lvs) { /*{{{*/
+    vector<int> zip(vector<long long> lvs) { /*{{{*/
         if (!_is_build) assert(false);
         int n = sz(lvs);
         vector<int> res(n);
         rep(i, n) res[i] = zip_map[lvs[i]];
         return res;
     }                              /*}}}*/
-    int operator()(long long lv) { /*{{{*/
+    int zip(long long lv) { /*{{{*/
         if (!_is_build) assert(false);
         return zip_map[lv];
-    }                         /*}}}*/
+    }                                               /*}}}*/
+    int operator()(long long lv) { return zip(lv); }
+
     long long unzip(int sv) { /*{{{*/
         if (!_is_build) assert(false);
         return _unzipper[sv];
     }                              /*}}}*/
+    int operator[](int sv) { return unzip(sv); }
+
+    int size() {return n;}
+
 #if defined(PCM) || defined(LOCAL) /*{{{*/
     friend ostream& operator<<(ostream& os, const zipper& zp) {
         os << endl;
         os << "_is_build: " << zp._is_build << endl;
         os << "zip_map:   " << zp.zip_map << endl;
+        os << "_unzipper:   " << zp._unzipper << endl;
         return os;
     }
 #endif /*}}}*/
@@ -262,11 +268,12 @@ signed main() {
     z3.build();
     dump(z3);
 
+    dump(z1);
     dump(z1(5));
     assert(z1(5) == 2);
     assert(z1.unzip(4) == (int)1e12);
-    dump(z1.get_zipped(x));
-    assert(z1.get_zipped(x) == vector<int>({1, 3, 2, 4}));
+    dump(z1.zip(x));
+    assert(z1.zip(x) == vector<int>({1, 3, 2, 4}));
 
     cout << "Hello World" << endl;
     return 0;

@@ -21,29 +21,30 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/test.make_bipartie/codes/solve.cpp
+# :x: library/cpp/graph/tests/graph.bipartie.test.cpp
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../../index.html#705d3ed53d77dbb4f313b001665c2a66">library/cpp/graph/test.make_bipartie/codes</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/test.make_bipartie/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 19:35:46+09:00
+* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.bipartie.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-30 22:19:59+09:00
 
 
+* see: <a href="https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c">https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c</a>
 
 
 ## Depends on
 
-* :question: <a href="../../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :question: <a href="../../edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :question: <a href="../../graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :question: <a href="../../tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :question: <a href="../../unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :question: <a href="../../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -51,18 +52,19 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../graph.hpp"
+#define PROBLEM "https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c"
+#include "../graph.hpp"
 
 signed main() {
     int n, m;
     cin >> n >> m;
-    Graph<int, int> g(n);
+    Graph<ll> g(n);
     rep(i, m) {
         int a, b;
         cin >> a >> b;
         a--;
         b--;
-        g.add_edge(a, b, 1);
+        g.add_edge(a, b);
     }
 
     auto res = g.make_bipartite();
@@ -83,6 +85,8 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/graph/tests/graph.bipartie.test.cpp"
+#define PROBLEM "https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -656,18 +660,18 @@ struct Graph {
 };
 
 //%snippet.end()%
-#line 2 "library/cpp/graph/test.make_bipartie/codes/solve.cpp"
+#line 3 "library/cpp/graph/tests/graph.bipartie.test.cpp"
 
 signed main() {
     int n, m;
     cin >> n >> m;
-    Graph<int, int> g(n);
+    Graph<ll> g(n);
     rep(i, m) {
         int a, b;
         cin >> a >> b;
         a--;
         b--;
-        g.add_edge(a, b, 1);
+        g.add_edge(a, b);
     }
 
     auto res = g.make_bipartite();
@@ -685,5 +689,5 @@ signed main() {
 ```
 {% endraw %}
 
-<a href="../../../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

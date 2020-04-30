@@ -47,7 +47,6 @@ layout: default
 * :question: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :warning: <a href="test.make_bipartie/codes/solve.cpp.html">library/cpp/graph/test.make_bipartie/codes/solve.cpp</a>
 * :x: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 * :warning: <a href="tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :question: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
@@ -57,6 +56,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.bipartie.test.cpp.html">library/cpp/graph/tests/graph.bipartie.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>

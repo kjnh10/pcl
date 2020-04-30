@@ -25,26 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/misc/zipper.lib/zipper.hpp
+# :heavy_check_mark: library/cpp/misc/zipper.lib/zipper2.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper.hpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper2.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-05-01 00:11:52+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja</a>
 
 
 ## Depends on
 
-* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
+* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
 
 
 ## Code
@@ -52,90 +48,55 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../header.hpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja"
+#include "zipper.hpp"
 
-//%snippet.set('zipper')%
+signed main() {
+    int n;cin>>n;
 
-struct zipper {                             /*{{{*/
-    // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
-    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
-    vector<long long> _unzipper;            // [2, 3, 5, 10]
-    bool _is_build = false;
-    int n = 0;
-
-    zipper(long long inf_value = INF) { /*{{{*/
-        _unzipper.push_back(-inf_value);
-        _unzipper.push_back(inf_value);
-    }                                                        /*}}}*/
-    zipper(vector<long long> a, long long inf_value = INF) { /*{{{*/
-        _unzipper = vector<long long>(sz(a));
-        rep(i, sz(a)) { _unzipper[i] = a[i]; }
-        _unzipper.push_back(-inf_value);
-        _unzipper.push_back(inf_value);
-        build();
-    }                              /*}}}*/
-    void add_value(long long lv) { /*{{{*/
-        _unzipper.push_back(lv);
-        _is_build = false;
-    }              /*}}}*/
-    void build() { /*{{{*/
-        uni(_unzipper);
-        zip_map.clear();
-        n = sz(_unzipper);
-        rep(i, n) { zip_map[_unzipper[i]] = i; }
-        _is_build = true;
-    }                              /*}}}*/
-    vector<int> zip(vector<long long> lvs) { /*{{{*/
-        if (!_is_build) assert(false);
-        int n = sz(lvs);
-        vector<int> res(n);
-        rep(i, n) res[i] = zip_map[lvs[i]];
-        return res;
-    }                              /*}}}*/
-    int zip(long long lv) { /*{{{*/
-        if (!_is_build) assert(false);
-        return zip_map[lv];
-    }                                               /*}}}*/
-    int operator()(long long lv) { return zip(lv); }
-
-    long long unzip(int sv) { /*{{{*/
-        if (!_is_build) assert(false);
-        return _unzipper[sv];
-    }                              /*}}}*/
-    int operator[](int sv) { return unzip(sv); }
-
-    int size() {return n;}
-
-#if defined(PCM) || defined(LOCAL) /*{{{*/
-    friend ostream& operator<<(ostream& os, const zipper& zp) {
-        os << endl;
-        os << "_is_build: " << zp._is_build << endl;
-        os << "zip_map:   " << zp.zip_map << endl;
-        os << "_unzipper:   " << zp._unzipper << endl;
-        return os;
+    vi x1(n), x2(n), y1(n), y2(n);
+    zipper zx, zy;
+    rep(i, n){
+        cin>>x1[i]>>y1[i];
+        cin>>x2[i]>>y2[i];
+        zx.add_value(x1[i]);
+        zx.add_value(x2[i]);
+        zy.add_value(y1[i]);
+        zy.add_value(y2[i]);
     }
-#endif /*}}}*/
-};     /*}}}*/
-// How to use {{{
-// construct
-// auto z = zipper(x); // x: vector<long long>;
-// auto z = zipper(x, 30*INF);
+    zx.build();
+    zy.build();
+    vvi e(sz(zx), vi(sz(zy)));
+    rep(i, n){
+        e[zx(x1[i])][zy(y1[i])]++;
+        e[zx(x1[i])][zy(y2[i])]--;
+        e[zx(x2[i])][zy(y1[i])]--;
+        e[zx(x2[i])][zy(y2[i])]++;
+    }
 
-// auto z = zipper();
-// auto z = zipper();
-// z.add_value(3);
-// z.add_value(5);
-// z.add_value(10);
-// z.add_value(100000000);
-// z.build();
+    rep(i, 0, sz(zx)){
+        rep(j, 1, sz(zy)){
+            e[i][j] += e[i][j-1];
+        }
+    }
+    rep(j, 0, sz(zy)){
+        rep(i, 1, sz(zx)){
+            e[i][j] += e[i-1][j];
+        }
+    }
 
-// other method
-// z(x[i]); -> zipped x[i]
-// z.unzip(z(x[i])) -> x[i];
-// z.get_zipped(x) -> zipped x
-// }}}
+    int ans = 0;
+    rep(i, 1, sz(zx)-2){
+        rep(j, 1, sz(zy)-2){
+            int dx = (zx.unzip(i+1) - zx.unzip(i));
+            int dy = (zy.unzip(j+1) - zy.unzip(j));
+            if (e[i][j]>0 )ans += dx*dy;
+        }
+    }
+    cout << ans << endl;
 
-//%snippet.end()%
+    return 0;
+}
 
 ```
 {% endraw %}
@@ -143,6 +104,8 @@ struct zipper {                             /*{{{*/
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/misc/zipper.lib/zipper2.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -307,6 +270,54 @@ struct zipper {                             /*{{{*/
 // }}}
 
 //%snippet.end()%
+#line 3 "library/cpp/misc/zipper.lib/zipper2.test.cpp"
+
+signed main() {
+    int n;cin>>n;
+
+    vi x1(n), x2(n), y1(n), y2(n);
+    zipper zx, zy;
+    rep(i, n){
+        cin>>x1[i]>>y1[i];
+        cin>>x2[i]>>y2[i];
+        zx.add_value(x1[i]);
+        zx.add_value(x2[i]);
+        zy.add_value(y1[i]);
+        zy.add_value(y2[i]);
+    }
+    zx.build();
+    zy.build();
+    vvi e(sz(zx), vi(sz(zy)));
+    rep(i, n){
+        e[zx(x1[i])][zy(y1[i])]++;
+        e[zx(x1[i])][zy(y2[i])]--;
+        e[zx(x2[i])][zy(y1[i])]--;
+        e[zx(x2[i])][zy(y2[i])]++;
+    }
+
+    rep(i, 0, sz(zx)){
+        rep(j, 1, sz(zy)){
+            e[i][j] += e[i][j-1];
+        }
+    }
+    rep(j, 0, sz(zy)){
+        rep(i, 1, sz(zx)){
+            e[i][j] += e[i-1][j];
+        }
+    }
+
+    int ans = 0;
+    rep(i, 1, sz(zx)-2){
+        rep(j, 1, sz(zy)-2){
+            int dx = (zx.unzip(i+1) - zx.unzip(i));
+            int dy = (zy.unzip(j+1) - zy.unzip(j));
+            if (e[i][j]>0 )ans += dx*dy;
+        }
+    }
+    cout << ans << endl;
+
+    return 0;
+}
 
 ```
 {% endraw %}
