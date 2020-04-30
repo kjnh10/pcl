@@ -31,10 +31,9 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.bipartie.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-30 22:19:59+09:00
+    - Last commit date: 2020-05-01 00:22:57+09:00
 
 
-* see: <a href="https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c">https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c</a>
 
 
 ## Depends on
@@ -53,6 +52,7 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c"
+#define IGNORE
 #include "../graph.hpp"
 
 signed main() {
@@ -87,6 +87,7 @@ signed main() {
 ```cpp
 #line 1 "library/cpp/graph/tests/graph.bipartie.test.cpp"
 #define PROBLEM "https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_c"
+#define IGNORE
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -660,7 +661,7 @@ struct Graph {
 };
 
 //%snippet.end()%
-#line 3 "library/cpp/graph/tests/graph.bipartie.test.cpp"
+#line 4 "library/cpp/graph/tests/graph.bipartie.test.cpp"
 
 signed main() {
     int n, m;
