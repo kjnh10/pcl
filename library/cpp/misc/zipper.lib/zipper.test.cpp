@@ -17,6 +17,7 @@ signed main() {
     z3.build();
     dump(z3);
 
+    dump(z1);
     dump(z1(5));
     assert(z1(5) == 2);
     assert(z1.unzip(4) == (int)1e12);
