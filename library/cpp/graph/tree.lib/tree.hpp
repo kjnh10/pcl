@@ -152,8 +152,8 @@ struct tree {
         }
         return mp(u, v);
     }                                                /*}}}*/
-    vector<pair<int, int>> hld_path(int u, int v) {  //{{{
-        // 閉区間をvectorで返す
+    vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
+        // 閉区間をvectorで返す。for_edge=trueでlcaは除いて返すことに注意。
         vector<pair<int, int>> res;
         while (head_of_comp[u] != head_of_comp[v]) {
             if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
@@ -164,7 +164,7 @@ struct tree {
                 u = par[head_of_comp[u]];
             }
         }
-        res.push_back({min(ord[u], ord[v]), max(ord[u], ord[v])});
+        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])});
         return res;
     }                              //}}}
 #if defined(PCM) || defined(LOCAL) /*{{{*/
@@ -184,5 +184,4 @@ struct tree {
     }
 #endif /*}}}*/
 }; 
-
 //%snippet.end()%
