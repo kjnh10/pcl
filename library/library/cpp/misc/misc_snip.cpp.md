@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 11:43:38+09:00
+    - Last commit date: 2020-05-03 10:01:09+09:00
 
 
 
@@ -180,16 +180,6 @@ rep(i, 1, n+1){  //桁数
 }
 
 
-//%snippet.set('rangesum')%
-int rangesum(int l, int r){
-    // a[]: accumulative sum
-    l = max(0, l);
-    // r = min(0, n-1);
-    if (l > r) return 0;
-    return a[r] - (l-1>=0 ? a[l-1] : 0);
-}
-
-
 //%snippet.set('asv')%
 // acumulative sum vector {{{
 template<typename T>
@@ -225,7 +215,7 @@ struct asvector {
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 
 
-operator//%snippet.set('pow2')%
+//%snippet.set('pow2')%
 int p[500001];  // power of 2 {{{
 p[0] = 1;
 rep(i, 1, 500002){
@@ -253,7 +243,7 @@ auto f = [&](){
 };
 
 
-//%snippet.set('dfs_lambda')%
+//%snippet.set('dfs_lambda_graph')%
 vector<int> used(n);
 auto dfs = [&](const auto& dfs, int u) -> void {
     used[u] = 1;
@@ -263,6 +253,11 @@ auto dfs = [&](const auto& dfs, int u) -> void {
     }
 };
 dfs(dfs, 0);
+
+
+//%snippet.set('dfs_lambda')%
+auto dfs = [&](const auto& dfs, int u) -> int {
+};
 
 
 //%snippet.set('dxdy')%
@@ -302,12 +297,8 @@ uint64_t rng() {
 
 //%snippet.set('bitall')%
 rep(mask, 1<<n){
-    vi vmask(n);
-    rep(i, n){
-        if (mask&(1<<i)) vmask[i] = 1;
-    }
     cerrendl;
-    dump(vmask);
+    vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
     rep(i, n){
         if (vmask[i]){
         }
@@ -317,7 +308,7 @@ rep(mask, 1<<n){
 }
 
 
-//%snippet.set('printf')%
+//%snippet.set('print_float')%
 printf("%.12f\n", ${1});
 
 
@@ -551,16 +542,6 @@ rep(i, 1, n+1){  //桁数
 }
 
 
-//%snippet.set('rangesum')%
-int rangesum(int l, int r){
-    // a[]: accumulative sum
-    l = max(0, l);
-    // r = min(0, n-1);
-    if (l > r) return 0;
-    return a[r] - (l-1>=0 ? a[l-1] : 0);
-}
-
-
 //%snippet.set('asv')%
 // acumulative sum vector {{{
 template<typename T>
@@ -596,7 +577,7 @@ struct asvector {
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 
 
-operator//%snippet.set('pow2')%
+//%snippet.set('pow2')%
 int p[500001];  // power of 2 {{{
 p[0] = 1;
 rep(i, 1, 500002){
@@ -624,7 +605,7 @@ auto f = [&](){
 };
 
 
-//%snippet.set('dfs_lambda')%
+//%snippet.set('dfs_lambda_graph')%
 vector<int> used(n);
 auto dfs = [&](const auto& dfs, int u) -> void {
     used[u] = 1;
@@ -634,6 +615,11 @@ auto dfs = [&](const auto& dfs, int u) -> void {
     }
 };
 dfs(dfs, 0);
+
+
+//%snippet.set('dfs_lambda')%
+auto dfs = [&](const auto& dfs, int u) -> int {
+};
 
 
 //%snippet.set('dxdy')%
@@ -673,12 +659,8 @@ uint64_t rng() {
 
 //%snippet.set('bitall')%
 rep(mask, 1<<n){
-    vi vmask(n);
-    rep(i, n){
-        if (mask&(1<<i)) vmask[i] = 1;
-    }
     cerrendl;
-    dump(vmask);
+    vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
     rep(i, n){
         if (vmask[i]){
         }
@@ -688,7 +670,7 @@ rep(mask, 1<<n){
 }
 
 
-//%snippet.set('printf')%
+//%snippet.set('print_float')%
 printf("%.12f\n", ${1});
 
 
