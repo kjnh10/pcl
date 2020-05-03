@@ -94,48 +94,74 @@ def randprime(l: int = 2, r: int = 1000000007): # [l, r]
         if cnt>=1000:
             assert False
 
-def print_tree(n: int, one_index=True, header=False):
-    if header: print(n, n-1)
+class randtree(object):
+    def __init__(self, n: int, root: int = 0):
+        assert root < n
+        self.edges = []
+        self.n = n
+        s = set([x for x in range(n) if x!=root])
+        joined = [root]
+        self.edges = []
+        for _ in range(n-1):
+            a = sample(s, 1)[0]
+            b = choice(joined)
+            self.edges.append((b, a))  # この向きにするとgraphvizの表示が木らしくなる。
+            s.remove(a)
+            joined.append(a)
 
-    s = set(range(1, n))
-    joined = [0]
-    edges = []
-    for _ in range(n-1):
-        a = sample(s, 1)[0]
-        b = choice(joined)
-        edges.append((a, b))
-        s.remove(a)
-        joined.append(a)
-    for edge in edges:
-        print(edge[0]+one_index, edge[1]+one_index)
-def print_connected_graph(n: int, one_index=True, tree_ok=True):
-    if tree_ok:
-        # 10%くらいは木が生成されるように
-        r = randint(1, 10)
-        if (r<=2):
-            print_tree(n, one_index=one_index)
-            return 0
+    def __str__(self, one_index=True, header=False):
+        res = []
+        if header:
+            res.append(f"{self.n} {self.n-1}")
 
-    uf = UnionFind(n)
-    edges = set()
-    while(uf.group_count()>1 and (tree_ok or len(edges)>=n)):
-        u = randint(0, n-1)
-        v = randint(0, n-1)
-        if (u==v): continue
+        for edge in self.edges:
+            res.append(f"{edge[0]+one_index} {edge[1]+one_index}")
+        return '\n'.join(res)
 
-        if (u>v): u,v=v,u
-        edges.add((u, v))
-        uf.union(u, v)
+class randgraph(object):  # undirected
+    def __init__(self, n:int, lb:int=1, ub:int=float('inf'), tree_ok=True):
+        self.n = n
+        if ub == float('inf'):
+            ub = n*(n-1)/2
 
-    print(n, len(edges))
-    for edge in edges:
-        print(edge[0]+one_index, edge[1]+one_index)
+        while True:
+            if tree_ok:  # tree graph
+                # 10%くらいは木が生成されるように
+                r = randint(1, 10)
+                if (r<=2):
+                    self.edges = randtree(n).edges
+                    return
+
+            # TODO: [line graph, star graph, complete graph]
+
+            uf = UnionFind(n)
+            self.edges = set()
+            while(uf.group_count()>1 or len(self.edges)<lb):
+                u = randint(0, n-1)
+                v = randint(0, n-1)
+                if (u==v): continue
+
+                if (u>v): u,v=v,u
+                self.edges.add((u, v))
+                uf.union(u, v)
+            self.edges = list(self.edges)
+            if len(self.edges) <= ub:
+                return
+
+    def __str__(self, one_index=True, header=True):
+        res = []
+        if header:
+            res.append(f"{self.n} {len(self.edges)}")
+        for edge in self.edges:
+            res.append(f"{edge[0]+one_index} {edge[1]+one_index}")
+        return '\n'.join(res)
 
 def pl(x: List):
     print(' '.join(map(str, x)))
 
 # write down here
 # ---------------------------------------------
-n = randint(1, 10)
+n = randint(2, 10)
 print(n)
-pl(randseq(n, 1, 100))
+# print(randgraph(n))
+print(randtree(n))
