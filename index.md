@@ -47,7 +47,7 @@ layout: default
 
 * :warning: <a href="library/library/cpp/array/bit.cpp.html">library/cpp/array/bit.cpp</a>
 * :warning: <a href="library/library/cpp/array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
-* :warning: <a href="library/library/cpp/array/lis.cpp.html">library/cpp/array/lis.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
 * :warning: <a href="library/library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
 * :warning: <a href="library/library/cpp/array/syakutori.cpp.html">library/cpp/array/syakutori.cpp</a>
 
@@ -97,6 +97,13 @@ layout: default
 
 * :warning: <a href="library/library/cpp/graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :question: <a href="library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+
+
+<div id="f26d869aac3cecf6d2cdb6a58871fbf9"></div>
+
+### library/cpp/graph/tree.lib/hld.test.past2-o/test
+
+* :warning: <a href="library/library/cpp/graph/tree.lib/hld.test.past2-o/test/judge.cpp.html">library/cpp/graph/tree.lib/hld.test.past2-o/test/judge.cpp</a>
 
 
 <div id="38e8a99339d0d505d14feb619e0537d8"></div>
@@ -191,6 +198,7 @@ layout: default
 
 ## Verify Files
 
+* :heavy_check_mark: <a href="verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
@@ -202,6 +210,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
 * :x: <a href="verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp.html">library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>

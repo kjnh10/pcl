@@ -21,28 +21,28 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/tree.lib/hld.test.cpp
+# :x: library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/hld.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../../../../index.html#2d62f9d289fabdca47c0394f0c109682">library/cpp/graph/tree.lib/hld.test.past2-o/codes</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp">View this file on GitHub</a>
     - Last commit date: 2020-05-03 09:03:12+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
 
 
 ## Depends on
 
-* :question: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="../../../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :question: <a href="../../../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :question: <a href="../../../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :question: <a href="../../../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -50,28 +50,88 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
-#include "tree.hpp"
+#define IGNORE
+#define PCMTEST
+#include "../../../unionfind.hpp"
+#include "../../../../array/segtree/segment_tree.hpp"
+#include "../../tree.hpp"
+
+template<class T>
+void pairsort(vector<T>& x, vector<T>& y, vector<T>& z, vector<T>& p){
+    int n = sz(x);
+    vector<tuple<T, T, T, T>> t(n);
+    rep(i, n){
+        t[i] = make_tuple(x[i], y[i], z[i], p[i]);
+    }
+    sort(all(t));
+    rep(i, n){
+        x[i] = get<0>(t[i]);
+        y[i] = get<1>(t[i]);
+        z[i] = get<2>(t[i]);
+        p[i] = get<3>(t[i]);
+    }
+}
 
 signed main() {
-    tree tr(12);
-    tr.add_edge(9, 6, 1);
-    tr.add_edge(0, 9, 1);
-    tr.add_edge(0, 3, 1);
-    tr.add_edge(9, 5, 1);
-    tr.add_edge(6, 8, 1);
-    tr.add_edge(0, 10, 1);
-    tr.add_edge(10, 2, 1);
-    tr.add_edge(3, 7, 1);
-    tr.add_edge(6, 11, 1);
-    tr.add_edge(2, 4, 1);
-    tr.add_edge(2, 1, 1);
+    int n,m;cin>>n>>m;
+
+    vi a(m), b(m), c(m), idx(m);
+    rep(i, m){
+        cin>>a[i]>>b[i]>>c[i];
+        idx[i] = i;
+        a[i]--;b[i]--;
+    }
+    pairsort(c, a, b, idx);
+    dump(c);
+    dump(a);
+    dump(b);
+    dump(idx);  // idxを使うのは最後の最後にする
+
+    UnionFind uf(n);
+    int cost = 0;
+    vector<int> used(m);
+    rep(i, m){
+        if (!uf.same(a[i], b[i])){
+            used[i] = 1;
+            uf.merge(a[i], b[i]);
+            cost += c[i];
+        }
+    }
+    dump(used);
+    dump(cost);
+
+    tree tr(n);
+    rep(i, m){
+        if (used[i]){
+            tr.add_edge(a[i], b[i], c[i]);
+        }
+    }
     tr.build(0);
     dump(tr);
-    dump(tr.hld_path(1, 0));
 
-    cout << "Hello World" << endl;
+    vi ans(m);
+    auto mymax=[](auto a, auto b){return max(a,b);};
+    SegmentTree<int> seg(n, mymax, -1e18);
+    rep(i, n) seg.update(i, tr.cost[tr.dfstrv[i]]);
+
+    rep(i, m){
+        if (used[i]){
+            ans[idx[i]] = cost;
+        }
+        else{
+            int max_cost = -INF;
+            each(p, tr.hld_path(a[i], b[i])){
+                dump(idx[i], p);
+                chmax(max_cost, seg.query(p.first, p.second+1));
+            }
+            dump(idx[i], c[i], max_cost);
+            ans[idx[i]] = cost + c[i] - max_cost;
+        }
+    }
+    rep(i, m){
+        cout << ans[i] << endl;
+    }
+
     return 0;
 }
 
@@ -81,9 +141,9 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/tree.lib/hld.test.cpp"
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
+#line 1 "library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp"
+#define IGNORE
+#define PCMTEST
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -163,6 +223,44 @@ void check_input() {
 #endif
 
 #endif /* HEADER_H */
+//%snippet.end()%
+#line 3 "library/cpp/graph/unionfind.hpp"
+
+//%snippet.set('UnionFind')%
+//%snippet.fold()%
+
+struct UnionFind {
+    vector<int> data;  // size defined only for root node
+    int count;         // count of groups
+
+    UnionFind() {}
+    UnionFind(int size) : data(size, -1), count(size) {}
+    bool merge(int x, int y) { /*{{{*/
+        x = root(x);
+        y = root(y);
+        if (x != y) {
+            if (data[y] < data[x]) swap(x, y);
+            data[x] += data[y];
+            data[y] = x;
+            count--;
+        }
+        return x != y;
+    } /*}}}*/
+    int root(int x) { return (data[x] < 0 ? x : data[x] = root(data[x])); }
+    bool same(int x, int y) { return root(x) == root(y); }
+    int size(int x) { return -data[root(x)]; }
+
+#if defined(PCM) || defined(LOCAL)  // {{{
+    friend ostream& operator<<(ostream& os, UnionFind& uf) {
+        map<int, vector<int>> group;
+        rep(i, sz(uf.data)) { group[uf.root(i)].pb(i); }
+        os << endl;
+        each(g, group) { os << g << endl; }
+        return os;
+    }
+#endif  // }}}
+};
+
 //%snippet.end()%
 #line 3 "library/cpp/array/segtree/segment_tree.hpp"
 // http://tsutaj.hatenablog.com/entry/2017/03/29/204841
@@ -451,31 +549,89 @@ struct tree {
 #endif /*}}}*/
 }; 
 //%snippet.end()%
-#line 4 "library/cpp/graph/tree.lib/hld.test.cpp"
+#line 6 "library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp"
+
+template<class T>
+void pairsort(vector<T>& x, vector<T>& y, vector<T>& z, vector<T>& p){
+    int n = sz(x);
+    vector<tuple<T, T, T, T>> t(n);
+    rep(i, n){
+        t[i] = make_tuple(x[i], y[i], z[i], p[i]);
+    }
+    sort(all(t));
+    rep(i, n){
+        x[i] = get<0>(t[i]);
+        y[i] = get<1>(t[i]);
+        z[i] = get<2>(t[i]);
+        p[i] = get<3>(t[i]);
+    }
+}
 
 signed main() {
-    tree tr(12);
-    tr.add_edge(9, 6, 1);
-    tr.add_edge(0, 9, 1);
-    tr.add_edge(0, 3, 1);
-    tr.add_edge(9, 5, 1);
-    tr.add_edge(6, 8, 1);
-    tr.add_edge(0, 10, 1);
-    tr.add_edge(10, 2, 1);
-    tr.add_edge(3, 7, 1);
-    tr.add_edge(6, 11, 1);
-    tr.add_edge(2, 4, 1);
-    tr.add_edge(2, 1, 1);
+    int n,m;cin>>n>>m;
+
+    vi a(m), b(m), c(m), idx(m);
+    rep(i, m){
+        cin>>a[i]>>b[i]>>c[i];
+        idx[i] = i;
+        a[i]--;b[i]--;
+    }
+    pairsort(c, a, b, idx);
+    dump(c);
+    dump(a);
+    dump(b);
+    dump(idx);  // idxを使うのは最後の最後にする
+
+    UnionFind uf(n);
+    int cost = 0;
+    vector<int> used(m);
+    rep(i, m){
+        if (!uf.same(a[i], b[i])){
+            used[i] = 1;
+            uf.merge(a[i], b[i]);
+            cost += c[i];
+        }
+    }
+    dump(used);
+    dump(cost);
+
+    tree tr(n);
+    rep(i, m){
+        if (used[i]){
+            tr.add_edge(a[i], b[i], c[i]);
+        }
+    }
     tr.build(0);
     dump(tr);
-    dump(tr.hld_path(1, 0));
 
-    cout << "Hello World" << endl;
+    vi ans(m);
+    auto mymax=[](auto a, auto b){return max(a,b);};
+    SegmentTree<int> seg(n, mymax, -1e18);
+    rep(i, n) seg.update(i, tr.cost[tr.dfstrv[i]]);
+
+    rep(i, m){
+        if (used[i]){
+            ans[idx[i]] = cost;
+        }
+        else{
+            int max_cost = -INF;
+            each(p, tr.hld_path(a[i], b[i])){
+                dump(idx[i], p);
+                chmax(max_cost, seg.query(p.first, p.second+1));
+            }
+            dump(idx[i], c[i], max_cost);
+            ans[idx[i]] = cost + c[i] - max_cost;
+        }
+    }
+    rep(i, m){
+        cout << ans[i] << endl;
+    }
+
     return 0;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../../../../index.html">Back to top page</a>
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/scc.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 19:35:46+09:00
+    - Last commit date: 2020-05-03 09:03:12+09:00
 
 
 
@@ -461,8 +461,8 @@ struct tree {
         }
         return mp(u, v);
     }                                                /*}}}*/
-    vector<pair<int, int>> hld_path(int u, int v) {  //{{{
-        // 閉区間をvectorで返す
+    vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
+        // 閉区間をvectorで返す。for_edge=trueでlcaは除いて返すことに注意。
         vector<pair<int, int>> res;
         while (head_of_comp[u] != head_of_comp[v]) {
             if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
@@ -473,7 +473,7 @@ struct tree {
                 u = par[head_of_comp[u]];
             }
         }
-        res.push_back({min(ord[u], ord[v]), max(ord[u], ord[v])});
+        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])});
         return res;
     }                              //}}}
 #if defined(PCM) || defined(LOCAL) /*{{{*/
@@ -493,7 +493,6 @@ struct tree {
     }
 #endif /*}}}*/
 }; 
-
 //%snippet.end()%
 #line 3 "library/cpp/graph/unionfind.hpp"
 

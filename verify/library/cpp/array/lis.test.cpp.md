@@ -25,20 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/array/lis.cpp
+# :heavy_check_mark: library/cpp/array/lis.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/lis.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 15:54:00+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/lis.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-03 09:02:32+09:00
 
 
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp</a>
 
 
 ## Depends on
 
-* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
+* :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,29 +48,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../header.hpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp"
+#include "lis.hpp"
 
-//%snippet.set('lis')%
-
-int lis(vector<int>& x) { /*{{{*/
-    int n = sz(x);
-    vector<int> dp(n, INF);
-    int res = 0;
+signed main(){
+    int n;cin>>n;
+    vector<int> a(n);
     rep(i, n) {
-        int j = lb(all(dp), x[i]) - dp.begin();
-        chmax(res, j + 1);
-        dp[j] = x[i];
+        cin>>a[i];
     }
-    // dump(dp);
-    return res;
-} /*}}}*/
+    dump(a);
 
-//%snippet.end()%
-
-signed main() {
-    vi x({1, 5, 4, 2, 3, 7});
-    auto res = lis(x);
-    dump(res);
+    cout << lis(a) << endl;
     return 0;
 }
 
@@ -78,6 +69,8 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/array/lis.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -158,29 +151,67 @@ void check_input() {
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/array/lis.cpp"
+#line 2 "library/cpp/array/lis.hpp"
 
 //%snippet.set('lis')%
 
-int lis(vector<int>& x) { /*{{{*/
+int lis(const vector<int>& x, bool strict=true) { /*{{{*/
     int n = sz(x);
-    vector<int> dp(n, INF);
+    vector<int> dp(n+1, INF);
+    vector<pair<int, int>> update_info(n);
+    dp[0] = -INF;  // xの任意の要素より小さければ何でも良い。
     int res = 0;
     rep(i, n) {
-        int j = lb(all(dp), x[i]) - dp.begin();
-        chmax(res, j + 1);
+        int j;
+        if (strict) j = lb(all(dp), x[i]) - dp.begin();
+        else        j = ub(all(dp), x[i]) - dp.begin();
+        chmax(res, j);
+        update_info[i] = make_pair(j, dp[j]);
         dp[j] = x[i];
     }
-    // dump(dp);
+    dump(dp);
+
+    // 復元
+    int now_len = res;
+    vector<int> lis;
+    r_rep(i, n){
+        auto [j, pre] = update_info[i];
+        if (j==now_len) {
+            now_len--;
+            lis.push_back(x[i]);
+        }
+        dp[j] = pre;
+    }
+    assert(now_len==0);
+    reverse(all(lis));
+    dump(lis);
+
     return res;
 } /*}}}*/
 
+
 //%snippet.end()%
 
-signed main() {
-    vi x({1, 5, 4, 2, 3, 7});
-    auto res = lis(x);
-    dump(res);
+// lisにはBITを使ったmethodもある。
+// signed main() {
+//     vi x({1, 5, 4, 2, 3, 3, 7});
+//     auto res = lis(x);
+//     auto res_not_strict = lis(x, false);
+//     dump(res);
+//     dump(res_not_strict);
+//     return 0;
+// }
+#line 3 "library/cpp/array/lis.test.cpp"
+
+signed main(){
+    int n;cin>>n;
+    vector<int> a(n);
+    rep(i, n) {
+        cin>>a[i];
+    }
+    dump(a);
+
+    cout << lis(a) << endl;
     return 0;
 }
 
