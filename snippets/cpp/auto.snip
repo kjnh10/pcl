@@ -586,17 +586,6 @@ snippet digitdp
   
 
 
-snippet rangesum
-  int rangesum(int l, int r){
-      // a[]: accumulative sum
-      l = max(0, l);
-      // r = min(0, n-1);
-      if (l > r) return 0;
-      return a[r] - (l-1>=0 ? a[l-1] : 0);
-  }
-  
-
-
 snippet asv
   // acumulative sum vector {{{
   template<typename T>
@@ -666,7 +655,7 @@ alias f
   
 
 
-snippet dfs_lambda
+snippet dfs_lambda_graph
   vector<int> used(n);
   auto dfs = [&](const auto& dfs, int u) -> void {
       used[u] = 1;
@@ -676,6 +665,12 @@ snippet dfs_lambda
       }
   };
   dfs(dfs, 0);
+  
+
+
+snippet dfs_lambda
+  auto dfs = [&](const auto& dfs, int u) -> int {
+  };
   
 
 
@@ -721,12 +716,8 @@ snippet random_generator
 
 snippet bitall
   rep(mask, 1<<n){
-      vi vmask(n);
-      rep(i, n){
-          if (mask&(1<<i)) vmask[i] = 1;
-      }
       cerrendl;
-      dump(vmask);
+      vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
       rep(i, n){
           if (vmask[i]){
           }
@@ -737,7 +728,7 @@ snippet bitall
   
 
 
-snippet printf
+snippet print_float
   printf("%.12f\n", ${1});
   
 
