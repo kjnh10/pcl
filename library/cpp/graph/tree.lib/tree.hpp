@@ -63,7 +63,7 @@ struct tree {
         vector<int> ini(2 * n - 1);
         rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
         _seg = SegmentTree<int>(
-            ini, [](auto a, auto b) { return min(a, b); }, 1e18);
+            ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
     }                                /*}}}*/
     int _dfs_psize(int u, int pre) { /*{{{*/
         psize[u] = 1;

@@ -74,7 +74,7 @@ struct Graph {
     }/*}}}*/
 
     void _make_lowlink() {/*{{{*/
-        lowlink = vector<Pos>(n, INF);
+        lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
         r_rep(i, n) {
             Pos u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);

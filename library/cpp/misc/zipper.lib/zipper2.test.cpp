@@ -4,7 +4,7 @@
 signed main() {
     int n;cin>>n;
 
-    vi x1(n), x2(n), y1(n), y2(n);
+    vector<ll> x1(n), x2(n), y1(n), y2(n);
     zipper zx, zy;
     rep(i, n){
         cin>>x1[i]>>y1[i];
@@ -35,11 +35,11 @@ signed main() {
         }
     }
 
-    int ans = 0;
+    ll ans = 0;
     rep(i, 1, sz(zx)-2){
         rep(j, 1, sz(zy)-2){
-            int dx = (zx.unzip(i+1) - zx.unzip(i));
-            int dy = (zy.unzip(j+1) - zy.unzip(j));
+            ll dx = (zx.unzip(i+1) - zx.unzip(i));
+            ll dy = (zy.unzip(j+1) - zy.unzip(j));
             if (e[i][j]>0 )ans += dx*dy;
         }
     }

@@ -2,11 +2,12 @@
 
 //%snippet.set('lis')%
 
-int lis(const vector<int>& x, bool strict=true) { /*{{{*/
+template<class T>
+int lis(const vector<T>& x, bool strict=true) { /*{{{*/
     int n = sz(x);
-    vector<int> dp(n+1, INF);
-    vector<pair<int, int>> update_info(n);
-    dp[0] = -INF;  // xの任意の要素より小さければ何でも良い。
+    vector<T> dp(n+1, numeric_limits<T>().max());
+    vector<pair<int, T>> update_info(n);
+    dp[0] = numeric_limits<T>().min();
     int res = 0;
     rep(i, n) {
         int j;
@@ -20,7 +21,7 @@ int lis(const vector<int>& x, bool strict=true) { /*{{{*/
 
     // 復元
     int now_len = res;
-    vector<int> lis;
+    vector<ll> lis;
     r_rep(i, n){
         auto [j, pre] = update_info[i];
         if (j==now_len) {

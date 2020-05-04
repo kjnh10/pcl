@@ -3,7 +3,7 @@
 
 signed main(){
     int n;cin>>n;
-    vector<int> a(n);
+    vector<ll> a(n);
     rep(i, n) {
         cin>>a[i];
     }

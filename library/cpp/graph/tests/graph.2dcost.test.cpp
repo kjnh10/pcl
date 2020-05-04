@@ -7,8 +7,7 @@
 signed main() {
     int n;
     cin >> n;
-    // int n = 10;
-    Graph g(n, P2(0LL, 0LL), P2(INF, INF));
+    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
     rep(i, n) {
         int u;
         cin >> u;
@@ -17,7 +16,7 @@ signed main() {
         rep(j, k) {
             int to, cost;
             cin >> to >> cost;
-            g.add_edge(u, to, P2(cost, 0LL), i);
+            g.add_edge(u, to, P2<ll>(cost, 0LL), i);
         }
     }
     auto d = g.dijkstra(0);
