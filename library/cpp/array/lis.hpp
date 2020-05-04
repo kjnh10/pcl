@@ -21,7 +21,7 @@ int lis(const vector<T>& x, bool strict=true) { /*{{{*/
 
     // 復元
     int now_len = res;
-    vector<ll> lis;
+    vector<T> lis;
     r_rep(i, n){
         auto [j, pre] = update_info[i];
         if (j==now_len) {
