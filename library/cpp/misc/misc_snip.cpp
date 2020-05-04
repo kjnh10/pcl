@@ -172,28 +172,6 @@ struct asvector {
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 
 
-//%snippet.set('pow2')%
-int p[500001];  // power of 2 {{{
-p[0] = 1;
-rep(i, 1, 500002){
-    p[i] = p[i-1]*2;
-    p[i] %= MOD;
-}
-// }}}
-
-//%snippet.set('pow')%
-int pow_(int b, int x){ //{{{
-    if (x==1) return b%M;
-    if (x%2==0){
-        int t = pow_(b, x/2);
-        return (t*t)%M;
-    }
-    else{
-        return pow_(b, x-1)*b%M;
-    }
-} //}}}
-
-
 //%snippet.set('lambda')%
 //%snippet.config({'alias':'f'})%
 auto f = [&](){
