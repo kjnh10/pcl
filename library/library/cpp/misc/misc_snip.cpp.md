@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-03 10:01:09+09:00
+    - Last commit date: 2020-05-04 13:34:07+09:00
 
 
 
@@ -213,28 +213,6 @@ struct asvector {
 
 //%snippet.set('remove_leading_zeros')%
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
-
-
-//%snippet.set('pow2')%
-int p[500001];  // power of 2 {{{
-p[0] = 1;
-rep(i, 1, 500002){
-    p[i] = p[i-1]*2;
-    p[i] %= MOD;
-}
-// }}}
-
-//%snippet.set('pow')%
-int pow_(int b, int x){ //{{{
-    if (x==1) return b%M;
-    if (x%2==0){
-        int t = pow_(b, x/2);
-        return (t*t)%M;
-    }
-    else{
-        return pow_(b, x-1)*b%M;
-    }
-} //}}}
 
 
 //%snippet.set('lambda')%
@@ -575,28 +553,6 @@ struct asvector {
 
 //%snippet.set('remove_leading_zeros')%
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
-
-
-//%snippet.set('pow2')%
-int p[500001];  // power of 2 {{{
-p[0] = 1;
-rep(i, 1, 500002){
-    p[i] = p[i-1]*2;
-    p[i] %= MOD;
-}
-// }}}
-
-//%snippet.set('pow')%
-int pow_(int b, int x){ //{{{
-    if (x==1) return b%M;
-    if (x%2==0){
-        int t = pow_(b, x/2);
-        return (t*t)%M;
-    }
-    else{
-        return pow_(b, x-1)*b%M;
-    }
-} //}}}
 
 
 //%snippet.set('lambda')%

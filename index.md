@@ -115,6 +115,7 @@ layout: default
 * :warning: <a href="library/library/cpp/math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
 * :warning: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
+* :warning: <a href="library/library/cpp/math/pow.hpp.html">library/cpp/math/pow.hpp</a>
 
 
 <div id="51139f4eb77e81dbd61f182500602d94"></div>

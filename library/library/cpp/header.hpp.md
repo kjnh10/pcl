@@ -65,6 +65,7 @@ layout: default
 * :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
 * :warning: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
+* :warning: <a href="math/pow.hpp.html">library/cpp/math/pow.hpp</a>
 * :warning: <a href="misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
 * :heavy_check_mark: <a href="misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
 * :warning: <a href="string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
