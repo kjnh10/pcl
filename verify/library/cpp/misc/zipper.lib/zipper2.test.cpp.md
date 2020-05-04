@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-01 00:11:52+09:00
+    - Last commit date: 2020-05-04 15:20:30+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja</a>
@@ -54,7 +54,7 @@ layout: default
 signed main() {
     int n;cin>>n;
 
-    vi x1(n), x2(n), y1(n), y2(n);
+    vector<ll> x1(n), x2(n), y1(n), y2(n);
     zipper zx, zy;
     rep(i, n){
         cin>>x1[i]>>y1[i];
@@ -85,11 +85,11 @@ signed main() {
         }
     }
 
-    int ans = 0;
+    ll ans = 0;
     rep(i, 1, sz(zx)-2){
         rep(j, 1, sz(zy)-2){
-            int dx = (zx.unzip(i+1) - zx.unzip(i));
-            int dy = (zy.unzip(j+1) - zy.unzip(j));
+            ll dx = (zx.unzip(i+1) - zx.unzip(i));
+            ll dy = (zy.unzip(j+1) - zy.unzip(j));
             if (e[i][j]>0 )ans += dx*dy;
         }
     }
@@ -118,15 +118,14 @@ using namespace std;
 #include <bits/stdc++.h>
 
 // varibable settings
-#define int long long
-const int INF = 1e18;
+const long long INF = 1e18;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 #define _rrep(i, n) rrepi(i, 0, n)
-#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)
 #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
 #define each(i, a) for (auto &&i : a)
 #define all(x) (x).begin(), (x).end()
@@ -155,11 +154,11 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> iii;
+typedef pair<ll, ll> pii;
+typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
@@ -275,7 +274,7 @@ struct zipper {                             /*{{{*/
 signed main() {
     int n;cin>>n;
 
-    vi x1(n), x2(n), y1(n), y2(n);
+    vector<ll> x1(n), x2(n), y1(n), y2(n);
     zipper zx, zy;
     rep(i, n){
         cin>>x1[i]>>y1[i];
@@ -306,11 +305,11 @@ signed main() {
         }
     }
 
-    int ans = 0;
+    ll ans = 0;
     rep(i, 1, sz(zx)-2){
         rep(j, 1, sz(zy)-2){
-            int dx = (zx.unzip(i+1) - zx.unzip(i));
-            int dy = (zy.unzip(j+1) - zy.unzip(j));
+            ll dx = (zx.unzip(i+1) - zx.unzip(i));
+            ll dy = (zy.unzip(j+1) - zy.unzip(j));
             if (e[i][j]>0 )ans += dx*dy;
         }
     }

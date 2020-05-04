@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#04b9fdf3733e033461bbd7a8ed473f54">library/cpp/string/suffix_array/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/suffix_array/codes/suffix_array.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-29 15:54:00+09:00
+    - Last commit date: 2020-05-04 15:20:30+09:00
 
 
 
@@ -291,15 +291,14 @@ using namespace std;
 #include <bits/stdc++.h>
 
 // varibable settings
-#define int long long
-const int INF = 1e18;
+const long long INF = 1e18;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 #define _rrep(i, n) rrepi(i, 0, n)
-#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)
 #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
 #define each(i, a) for (auto &&i : a)
 #define all(x) (x).begin(), (x).end()
@@ -328,11 +327,11 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> iii;
+typedef pair<ll, ll> pii;
+typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

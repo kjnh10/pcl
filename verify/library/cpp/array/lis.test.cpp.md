@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/lis.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-03 09:02:32+09:00
+    - Last commit date: 2020-05-04 15:23:55+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_1_D&lang=jp</a>
@@ -53,7 +53,7 @@ layout: default
 
 signed main(){
     int n;cin>>n;
-    vector<int> a(n);
+    vector<ll> a(n);
     rep(i, n) {
         cin>>a[i];
     }
@@ -83,15 +83,14 @@ using namespace std;
 #include <bits/stdc++.h>
 
 // varibable settings
-#define int long long
-const int INF = 1e18;
+const long long INF = 1e18;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 #define _rrep(i, n) rrepi(i, 0, n)
-#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)
 #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
 #define each(i, a) for (auto &&i : a)
 #define all(x) (x).begin(), (x).end()
@@ -120,11 +119,11 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> iii;
+typedef pair<ll, ll> pii;
+typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
@@ -155,11 +154,12 @@ void check_input() {
 
 //%snippet.set('lis')%
 
-int lis(const vector<int>& x, bool strict=true) { /*{{{*/
+template<class T>
+int lis(const vector<T>& x, bool strict=true) { /*{{{*/
     int n = sz(x);
-    vector<int> dp(n+1, INF);
-    vector<pair<int, int>> update_info(n);
-    dp[0] = -INF;  // xの任意の要素より小さければ何でも良い。
+    vector<T> dp(n+1, numeric_limits<T>().max());
+    vector<pair<int, T>> update_info(n);
+    dp[0] = numeric_limits<T>().min();
     int res = 0;
     rep(i, n) {
         int j;
@@ -173,7 +173,7 @@ int lis(const vector<int>& x, bool strict=true) { /*{{{*/
 
     // 復元
     int now_len = res;
-    vector<int> lis;
+    vector<T> lis;
     r_rep(i, n){
         auto [j, pre] = update_info[i];
         if (j==now_len) {
@@ -205,7 +205,7 @@ int lis(const vector<int>& x, bool strict=true) { /*{{{*/
 
 signed main(){
     int n;cin>>n;
-    vector<int> a(n);
+    vector<ll> a(n);
     rep(i, n) {
         cin>>a[i];
     }

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-03 09:03:12+09:00
+    - Last commit date: 2020-05-04 15:20:30+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -101,15 +101,14 @@ using namespace std;
 #include <bits/stdc++.h>
 
 // varibable settings
-#define int long long
-const int INF = 1e18;
+const long long INF = 1e18;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
-#define repi(i, a, b) for (int i = (int)(a); i < (int)(b); ++i)
+#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)
 #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)
 #define _rrep(i, n) rrepi(i, 0, n)
-#define rrepi(i, a, b) for (int i = (int)((b)-1); i >= (int)(a); --i)
+#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)
 #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)
 #define each(i, a) for (auto &&i : a)
 #define all(x) (x).begin(), (x).end()
@@ -138,11 +137,11 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<int> vi;
+typedef vector<ll> vi;
 typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> iii;
+typedef pair<ll, ll> pii;
+typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
@@ -334,7 +333,7 @@ struct tree {
         vector<int> ini(2 * n - 1);
         rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
         _seg = SegmentTree<int>(
-            ini, [](auto a, auto b) { return min(a, b); }, 1e18);
+            ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
     }                                /*}}}*/
     int _dfs_psize(int u, int pre) { /*{{{*/
         psize[u] = 1;
@@ -566,7 +565,7 @@ struct Graph {
     }/*}}}*/
 
     void _make_lowlink() {/*{{{*/
-        lowlink = vector<Pos>(n, INF);
+        lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
         r_rep(i, n) {
             Pos u = tr.dfstrv[i];
             chmin(lowlink[u], tr.ord[u]);
