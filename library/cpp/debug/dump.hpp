@@ -22,11 +22,14 @@ stack<int> varidx;
             vector<string> res;                                              \
             string tmp = "";                                                 \
             int parlevel = 0;                                                \
+            int angle_level = 0;                                             \
             for (int i = 0; i < n; i++) {                                    \
                 if (s[i] == '(') parlevel++;                                 \
                 if (s[i] == ')') parlevel--;                                 \
+                if (s[i] == '<') angle_level++;                              \
+                if (s[i] == '>') angle_level--;                              \
                 if (s[i] == ' ') continue;                                   \
-                if (s[i] == ',' && parlevel == 0) {                          \
+                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {      \
                     res.push_back(tmp);                                      \
                     tmp = "";                                                \
                 } else {                                                     \
