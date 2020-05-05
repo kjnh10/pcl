@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#dbefae66adc6b6e178b4020d7ee0c756">library/cpp/debug</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/debug/dump.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-05 12:03:37+09:00
 
 
 
@@ -71,11 +71,14 @@ stack<int> varidx;
             vector<string> res;                                              \
             string tmp = "";                                                 \
             int parlevel = 0;                                                \
+            int angle_level = 0;                                             \
             for (int i = 0; i < n; i++) {                                    \
                 if (s[i] == '(') parlevel++;                                 \
                 if (s[i] == ')') parlevel--;                                 \
+                if (s[i] == '<') angle_level++;                              \
+                if (s[i] == '>') angle_level--;                              \
                 if (s[i] == ' ') continue;                                   \
-                if (s[i] == ',' && parlevel == 0) {                          \
+                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {      \
                     res.push_back(tmp);                                      \
                     tmp = "";                                                \
                 } else {                                                     \
@@ -237,11 +240,14 @@ stack<int> varidx;
             vector<string> res;                                              \
             string tmp = "";                                                 \
             int parlevel = 0;                                                \
+            int angle_level = 0;                                             \
             for (int i = 0; i < n; i++) {                                    \
                 if (s[i] == '(') parlevel++;                                 \
                 if (s[i] == ')') parlevel--;                                 \
+                if (s[i] == '<') angle_level++;                              \
+                if (s[i] == '>') angle_level--;                              \
                 if (s[i] == ' ') continue;                                   \
-                if (s[i] == ',' && parlevel == 0) {                          \
+                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {      \
                     res.push_back(tmp);                                      \
                     tmp = "";                                                \
                 } else {                                                     \
@@ -782,7 +788,7 @@ operator<<(basic_ostream<TChar, TCharTraits> &stream, const T &container) {
 }  // namespace std
 
 #endif  // H_PRETTY_PRINT
-#line 81 "library/cpp/debug/dump.hpp"
+#line 84 "library/cpp/debug/dump.hpp"
 
 ```
 {% endraw %}

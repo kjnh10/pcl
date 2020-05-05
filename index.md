@@ -146,6 +146,7 @@ layout: default
 
 ### library/cpp/misc
 
+* :warning: <a href="library/library/cpp/misc/constant.cpp.html">library/cpp/misc/constant.cpp</a>
 * :warning: <a href="library/library/cpp/misc/dfs.cpp.html">library/cpp/misc/dfs.cpp</a>
 * :warning: <a href="library/library/cpp/misc/event_sort.cpp.html">library/cpp/misc/event_sort.cpp</a>
 * :warning: <a href="library/library/cpp/misc/misc_snip.cpp.html">library/cpp/misc/misc_snip.cpp</a>
