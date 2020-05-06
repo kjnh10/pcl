@@ -46,7 +46,6 @@ layout: default
 * :warning: <a href="bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
 * :warning: <a href="combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
-* :warning: <a href="../string/rollinghash.cpp.html">library/cpp/string/rollinghash.cpp</a>
 
 
 ## Code

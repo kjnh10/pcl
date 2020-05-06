@@ -72,7 +72,7 @@ layout: default
 * :warning: <a href="string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
 * :warning: <a href="string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
 * :warning: <a href="string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
-* :warning: <a href="string/rollinghash.cpp.html">library/cpp/string/rollinghash.cpp</a>
+* :heavy_check_mark: <a href="string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
 * :warning: <a href="string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
 * :warning: <a href="../../problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
 * :warning: <a href="../../problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>
@@ -97,6 +97,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
 
 
 ## Code
