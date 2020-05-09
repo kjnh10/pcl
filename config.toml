@@ -14,7 +14,7 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
   py = '4047'
 
   [submit.default_lang.Codeforces]
-  cpp = '50'  # GNU G++14 6.4.0
+  cpp = '54'  # GNU G++14 6.4.0
   py = '41'   # pypy if you prefer python3, use '31'
 
   [submit.language.AtCoder]
@@ -24,8 +24,8 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
   pypy = '4047' # pypy3
 
   [submit.language.Codeforces]
-  gcc = '50'
-  clang = '52'
+  gcc = '54'    # GNU G++17 7.3.0
+  clang = '52'  # Clang++17 Diagnostics
   py = '31'
   py3 = '31'
   pypy = '41'

@@ -1,11 +1,13 @@
 #include "header.hpp"
-// #define int long long
 
-signed main() {
-    //input
-    check_input();
 
-    //solve
-
+int solve() {
     return 0; 
 }
+
+
+int main(){/*{{{*/
+    solve();
+    check_input();
+    return 0;
+}/*}}}*/
