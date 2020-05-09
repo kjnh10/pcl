@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-09 13:42:43+09:00
 
 
 
@@ -47,16 +47,18 @@ layout: default
 {% raw %}
 ```cpp
 #include "header.hpp"
-// #define int long long
 
-signed main() {
-    //input
-    check_input();
 
-    //solve
-
+int solve() {
     return 0; 
 }
+
+
+int main(){/*{{{*/
+    solve();
+    check_input();
+    return 0;
+}/*}}}*/
 
 ```
 {% endraw %}
@@ -144,16 +146,18 @@ void check_input() {
 #endif /* HEADER_H */
 //%snippet.end()%
 #line 2 "problem_template/codes/solve.cpp"
-// #define int long long
 
-signed main() {
-    //input
-    check_input();
 
-    //solve
-
+int solve() {
     return 0; 
 }
+
+
+int main(){/*{{{*/
+    solve();
+    check_input();
+    return 0;
+}/*}}}*/
 
 ```
 {% endraw %}
