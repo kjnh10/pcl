@@ -10,6 +10,7 @@
 "library/cpp/graph/tests/scc.test.cpp": "2020-05-04 15:20:30 +0900",
 "library/cpp/graph/tree.lib/hld.test.cpp": "2020-05-04 15:20:30 +0900",
 "library/cpp/graph/tree.lib/lca.test.cpp": "2020-05-04 15:20:30 +0900",
+"library/cpp/math/combination.test.cpp": "2020-05-11 15:44:10 +0900",
 "library/cpp/math/geoemtry/p2.test.cpp": "2020-05-04 15:20:30 +0900",
 "library/cpp/misc/zipper.lib/zipper.test.cpp": "2020-05-04 15:20:30 +0900",
 "library/cpp/misc/zipper.lib/zipper2.test.cpp": "2020-05-04 15:20:30 +0900",
