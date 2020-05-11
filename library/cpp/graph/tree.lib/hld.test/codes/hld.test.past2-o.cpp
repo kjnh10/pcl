@@ -1,3 +1,4 @@
+// @ignore
 #define IGNORE
 #define PCMTEST
 #include "../../../unionfind.hpp"

@@ -1,3 +1,4 @@
+// @ignore
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_4_B&lang=jp"
 #define IGNORE
 #include "../topological_sort.hpp"
