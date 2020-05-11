@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :question: library/cpp/graph/unionfind.hpp
+# :heavy_check_mark: library/cpp/graph/unionfind.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -38,30 +38,27 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
 
 * :heavy_check_mark: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :question: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :x: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :warning: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.bipartie.test.cpp.html">library/cpp/graph/tests/graph.bipartie.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp.html">library/cpp/graph/tree.lib/hld.test.past2-o/codes/hld.test.past2-o.cpp</a>
 
 
 ## Code
