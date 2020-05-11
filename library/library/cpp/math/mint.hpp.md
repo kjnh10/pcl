@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/mint.hpp
+# :heavy_check_mark: library/cpp/math/mint.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/mint.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-11 15:44:10+09:00
 
 
 
@@ -44,8 +44,13 @@ layout: default
 ## Required by
 
 * :warning: <a href="bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
-* :warning: <a href="combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :heavy_check_mark: <a href="combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
 
 
 ## Code
@@ -60,8 +65,8 @@ layout: default
 int mod = 1e9 + 7;
 // int mod = 998244353;
 struct mint {  //{{{
-    int x;
-    mint(int x = 0) : x((x % mod + mod) % mod) {}
+    ll x;
+    mint(ll x = 0) : x((x % mod + mod) % mod) {}
 
     // ?= operator
     mint& operator+=(const mint a) {
@@ -222,8 +227,8 @@ void check_input() {
 int mod = 1e9 + 7;
 // int mod = 998244353;
 struct mint {  //{{{
-    int x;
-    mint(int x = 0) : x((x % mod + mod) % mod) {}
+    ll x;
+    mint(ll x = 0) : x((x % mod + mod) % mod) {}
 
     // ?= operator
     mint& operator+=(const mint a) {

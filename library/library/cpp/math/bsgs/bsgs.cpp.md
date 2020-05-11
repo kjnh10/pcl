@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#51139f4eb77e81dbd61f182500602d94">library/cpp/math/bsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/bsgs/bsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-11 15:44:10+09:00
 
 
 
@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-* :warning: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :heavy_check_mark: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Code
@@ -183,8 +183,8 @@ void check_input() {
 int mod = 1e9 + 7;
 // int mod = 998244353;
 struct mint {  //{{{
-    int x;
-    mint(int x = 0) : x((x % mod + mod) % mod) {}
+    ll x;
+    mint(ll x = 0) : x((x % mod + mod) % mod) {}
 
     // ?= operator
     mint& operator+=(const mint a) {

@@ -21,25 +21,27 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/gbsgs/gbsgs.cpp
+# :heavy_check_mark: library/cpp/math/combination.test.cpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#9d994c49b3b2b338ab838471a698a660">library/cpp/math/gbsgs</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/gbsgs/gbsgs.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/combination.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-05-11 15:44:10+09:00
 
 
+* see: <a href="https://yukicoder.me/problems/no/1035">https://yukicoder.me/problems/no/1035</a>
 
 
 ## Depends on
 
-* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Code
@@ -47,53 +49,20 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../header.hpp"
-#include "../mint.hpp"
-// %snippet.set('generalized_baybe_step_giant_step')%
-// %snippet.config({'alias':'gbsgs'})%
-// %snippet.include('mint')%
+#define PROBLEM "https://yukicoder.me/problems/no/1035"
 
-int bsgs(int a, int b) {  //{{{
-    // find x s.t a^x = b in (mod)
+#include "combination.hpp"
 
-    if (b >= mod) return -1;
-    if (1 % mod == b) return 0;
+int main(){
+    int n,m;cin>>n>>m;
 
-    int h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)
+    mint ans = mint(m).pow(n);
 
-    unordered_map<int, vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v
-    mint bar = b;
-    rep(r, 0, h) {
-        rs[bar.x].pb(r);
-        bar *= a;
-    }
-    bool looped = false;
-    each(el, rs) if (sz(el.second) > 1) looped = true;
-
-    mint ah = mint(a).pow(h);
-    rep(p, 1, h + 1) {
-        int aph = ah.pow(p).x;
-        if (rs.find(aph) != rs.end()) {
-            reverse(all(rs[aph]));
-            each(r, rs[aph]) {
-                if ((p * h - r) >= 0 && mint(a).pow(p * h - r) == b)
-                    return p * h - r;
-            }
-        }
-        if (looped) return -1;
+    rep(x, 1, m){  // x: 使わない色の数
+        ans += mint(-1).pow(x) * com(m, x) * mint(m-x).pow(n);
     }
 
-    return -1;
-}  //}}}
-
-// %snippet.end()%
-
-signed main() {
-    int a, b, p;
-    cin >> a >> b >> p;
-    mod = p;
-    cout << bsgs(a, b) << endl;
-    return 0;
+    cout << ans << endl;
 }
 
 ```
@@ -102,6 +71,9 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/math/combination.test.cpp"
+#define PROBLEM "https://yukicoder.me/problems/no/1035"
+
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -257,56 +229,42 @@ struct mint {  //{{{
 istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
 ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
 //}}}
-#line 3 "library/cpp/math/gbsgs/gbsgs.cpp"
-// %snippet.set('generalized_baybe_step_giant_step')%
-// %snippet.config({'alias':'gbsgs'})%
+#line 4 "library/cpp/math/combination.hpp"
+
+//%snippet.set('combination')%
 // %snippet.include('mint')%
-
-int bsgs(int a, int b) {  //{{{
-    // find x s.t a^x = b in (mod)
-
-    if (b >= mod) return -1;
-    if (1 % mod == b) return 0;
-
-    int h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)
-
-    unordered_map<int, vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v
-    mint bar = b;
-    rep(r, 0, h) {
-        rs[bar.x].pb(r);
-        bar *= a;
+struct combination {  // {{{
+    vector<mint> fact, ifact;
+    combination(int n) : fact(n + 1), ifact(n + 1) {
+        assert(n < mod);
+        fact[0] = 1;
+        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
+        ifact[n] = fact[n].inv();
+        for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
     }
-    bool looped = false;
-    each(el, rs) if (sz(el.second) > 1) looped = true;
+    mint operator()(int n, int k) {
+        if (k < 0 || k > n) return 0;
+        return fact[n] * ifact[k] * ifact[n - k];
+    }
+}  // }}}
+com(500001);
+//%snippet.end()%
+#line 4 "library/cpp/math/combination.test.cpp"
 
-    mint ah = mint(a).pow(h);
-    rep(p, 1, h + 1) {
-        int aph = ah.pow(p).x;
-        if (rs.find(aph) != rs.end()) {
-            reverse(all(rs[aph]));
-            each(r, rs[aph]) {
-                if ((p * h - r) >= 0 && mint(a).pow(p * h - r) == b)
-                    return p * h - r;
-            }
-        }
-        if (looped) return -1;
+int main(){
+    int n,m;cin>>n>>m;
+
+    mint ans = mint(m).pow(n);
+
+    rep(x, 1, m){  // x: 使わない色の数
+        ans += mint(-1).pow(x) * com(m, x) * mint(m-x).pow(n);
     }
 
-    return -1;
-}  //}}}
-
-// %snippet.end()%
-
-signed main() {
-    int a, b, p;
-    cin >> a >> b >> p;
-    mod = p;
-    cout << bsgs(a, b) << endl;
-    return 0;
+    cout << ans << endl;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
