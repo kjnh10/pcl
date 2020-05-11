@@ -5,8 +5,8 @@
 int mod = 1e9 + 7;
 // int mod = 998244353;
 struct mint {  //{{{
-    int x;
-    mint(int x = 0) : x((x % mod + mod) % mod) {}
+    ll x;
+    mint(ll x = 0) : x((x % mod + mod) % mod) {}
 
     // ?= operator
     mint& operator+=(const mint a) {
