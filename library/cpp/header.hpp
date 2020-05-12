@@ -46,11 +46,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

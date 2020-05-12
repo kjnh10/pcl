@@ -17,7 +17,7 @@ signed main() {
     dump(g.tr);
 
     auto res = g.get_bridges();
-    vector<pii> ans;
+    vector<pair<int, int>> ans;
     for(auto&&el: res){
         int s = el.from;
         int t = el.to;

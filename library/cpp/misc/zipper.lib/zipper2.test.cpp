@@ -16,7 +16,7 @@ signed main() {
     }
     zx.build();
     zy.build();
-    vvi e(sz(zx), vi(sz(zy)));
+    vector<vector<int>> e(sz(zx), vector<int>(sz(zy)));
     rep(i, n){
         e[zx(x1[i])][zy(y1[i])]++;
         e[zx(x1[i])][zy(y2[i])]--;

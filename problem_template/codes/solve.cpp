@@ -1,4 +1,5 @@
 #include "header.hpp"
+template<class T=ll> using vec = vector<T>;
 
 
 int solve() {
