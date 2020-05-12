@@ -1,11 +1,13 @@
 #include "../header.hpp"
 
+
+//%snippet.set('rolling_hash')%
+//%snippet.fold()%
+
 template<class Z> Z rng(Z a, Z b) {
     auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());
     return uniform_int_distribution<Z>(a, b - 1)(tmp);
 }
-
-//%snippet.set('rolling_hash')%
 
 struct rolling_hash {
     // static constexpr uint64_t P0 = 4111144441, P1 = 4111444111;
@@ -13,18 +15,21 @@ struct rolling_hash {
     static uint64_t B0, B1;
     vector<ll> hash0, hash1, _bpow0, _bpow1;  // 1-index
     rolling_hash() {}
-    rolling_hash(vector<ll> &vs) {
+
+    template<class T = vector<int>>
+    rolling_hash(T &vs) {
         init(vs, hash0, B0, P0, _bpow0); 
         init(vs, hash1, B1, P1, _bpow1); 
     }
     rolling_hash(string &s) {
-        vector<ll> vs;
+        vector<int> vs;
         for (char c : s) vs.emplace_back(c);
         init(vs, hash0, B0, P0, _bpow0); 
         init(vs, hash1, B1, P1, _bpow1); 
     }
 
-    void init(vector<ll>& vs, vector<ll>& hash, ll B, ll P, vector<ll>& _bpow) {
+    template<class T>
+    void init(T& vs, vector<ll>& hash, ll B, ll P, vector<ll>& _bpow) {
         int n = vs.size();
         hash.assign(n + 1, 0);
         _bpow.assign(n + 1, 1);
@@ -49,4 +54,5 @@ struct rolling_hash {
 uint64_t rolling_hash::B0 = rng<ll>(1000000, rolling_hash::P0);
 uint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);
 
+//%snippet.end()%
 
