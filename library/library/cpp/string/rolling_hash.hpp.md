@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/rolling_hash.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-06 23:31:56+09:00
+    - Last commit date: 2020-05-12 10:29:48+09:00
 
 
 
@@ -140,11 +140,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

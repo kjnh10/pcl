@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/syakutori.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-12 10:29:48+09:00
 
 
 
@@ -137,11 +137,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

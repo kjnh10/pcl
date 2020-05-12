@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#08be9a8a45b2e811a312f82c2e412c8c">library/cpp/graph/flow</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/flow/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-12 10:29:48+09:00
 
 
 
@@ -227,11 +227,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

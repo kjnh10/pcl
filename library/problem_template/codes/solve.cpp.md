@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-09 13:42:43+09:00
+    - Last commit date: 2020-05-12 10:29:48+09:00
 
 
 
@@ -47,6 +47,7 @@ layout: default
 {% raw %}
 ```cpp
 #include "header.hpp"
+template<class T=ll> using vec = vector<T>;
 
 
 int solve() {
@@ -114,11 +115,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
@@ -146,6 +143,7 @@ void check_input() {
 #endif /* HEADER_H */
 //%snippet.end()%
 #line 2 "problem_template/codes/solve.cpp"
+template<class T=ll> using vec = vector<T>;
 
 
 int solve() {

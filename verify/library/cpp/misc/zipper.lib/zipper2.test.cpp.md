@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-04 15:20:30+09:00
+    - Last commit date: 2020-05-12 10:29:48+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja</a>
@@ -66,7 +66,7 @@ signed main() {
     }
     zx.build();
     zy.build();
-    vvi e(sz(zx), vi(sz(zy)));
+    vector<vector<int>> e(sz(zx), vector<int>(sz(zy)));
     rep(i, n){
         e[zx(x1[i])][zy(y1[i])]++;
         e[zx(x1[i])][zy(y2[i])]--;
@@ -154,11 +154,7 @@ inline void chmin(T &a, const T &b) {
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
-typedef vector<ll> vi;
-typedef vector<vi> vvi;
 typedef long double ld;
-typedef pair<ll, ll> pii;
-typedef tuple<ll, ll, ll> iii;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
@@ -286,7 +282,7 @@ signed main() {
     }
     zx.build();
     zy.build();
-    vvi e(sz(zx), vi(sz(zy)));
+    vector<vector<int>> e(sz(zx), vector<int>(sz(zy)));
     rep(i, n){
         e[zx(x1[i])][zy(y1[i])]++;
         e[zx(x1[i])][zy(y2[i])]--;
