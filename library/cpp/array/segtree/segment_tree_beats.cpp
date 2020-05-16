@@ -356,7 +356,7 @@ signed main() {
     int n;
     cin >> n;
     vector<int> m(n);
-    vector<pii> mi(n);
+    vector<pair<int, int>> mi(n);
     int mv = -INF;
     rep(i, n) {
         cin >> m[i];

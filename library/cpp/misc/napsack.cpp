@@ -8,7 +8,7 @@ int nampsack01all(int n, const vector<int>& v, const vector<int>& w) {
         int n1 = n / 2;
 
         auto f = [&](int l, int r) {
-            vector<pii> res;
+            vector<pair<int, int>> res;
             int n = r - l;
             rep(mask, 1 << n) {
                 int sv = 0;

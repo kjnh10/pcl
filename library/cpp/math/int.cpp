@@ -122,10 +122,10 @@ struct Sieve {
         return res;  // [2, 3, 3, 5, 5, 5.....]
     }                /*}}}*/
 
-    vector<pii> factor(int x) { /*{{{*/
+    vector<pair<int, int>> factor(int x) { /*{{{*/
         vector<int> fl = factor_list(x);
         if (fl.size() == 0) return {};
-        vector<pii> res(1, mp(fl[0], 0));
+        vector<pair<int, int>> res(1, mp(fl[0], 0));
         for (int p : fl) {
             if (res.back().first == p) {
                 res.back().second++;
