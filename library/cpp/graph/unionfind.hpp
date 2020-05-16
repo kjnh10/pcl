@@ -5,30 +5,39 @@
 //%snippet.fold()%
 
 struct UnionFind {
-    vector<int> data;  // size defined only for root node
+    vector<int> par;   // par[x]: parent of x. if root, -size.
     int count;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : data(size, -1), count(size) {}
-    bool merge(int x, int y) { /*{{{*/
+    UnionFind(int size) : par(size, -1), count(size) {}
+    bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
         if (x != y) {
-            if (data[y] < data[x]) swap(x, y);
-            data[x] += data[y];
-            data[y] = x;
+            if (par[y] < par[x]) swap(x, y);
+            par[x] += par[y];
+            par[y] = x;
             count--;
         }
         return x != y;
-    } /*}}}*/
-    int root(int x) { return (data[x] < 0 ? x : data[x] = root(data[x])); }
+    } 
+    int root(int x) {
+        if (is_root(x)){
+            return x;
+        }
+        else{
+            return par[x] = root(par[x]);  // 経路圧縮
+            // return root(par[x]);         // 経路圧縮なし
+        }
+    }
+    bool is_root(int x) { return par[x] < 0; }
     bool same(int x, int y) { return root(x) == root(y); }
-    int size(int x) { return -data[root(x)]; }
+    int size(int x) { return -par[root(x)]; }
 
 #if defined(PCM) || defined(LOCAL)  // {{{
     friend ostream& operator<<(ostream& os, UnionFind& uf) {
         map<int, vector<int>> group;
-        rep(i, sz(uf.data)) { group[uf.root(i)].pb(i); }
+        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
         os << endl;
         each(g, group) { os << g << endl; }
         return os;

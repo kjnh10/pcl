@@ -11,6 +11,7 @@ using namespace std;
 
 // varibable settings
 const long long INF = 1e18;
+template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
