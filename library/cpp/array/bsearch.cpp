@@ -1,7 +1,7 @@
 //%snippet.set('bsearch')%
-int left = 0;
-int right = 1000000001;
-auto isright = [&](int x) {
+ll left = 0;
+ll right = 1000000001;
+auto isright = [&](ll x) {
     cerrendl;
     //
     bool ans = (cond ? true : false);
@@ -9,7 +9,7 @@ auto isright = [&](int x) {
     return ans;
 };
 while (right - left > 1) {
-    int mid = (right + left) / 2;
+    ll mid = (right + left) / 2;
     if (isright(mid)) {
         right = mid;
     } else {

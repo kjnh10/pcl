@@ -8,14 +8,14 @@ rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
 (${1} ? ${2} : ${3})
 
 //%snippet.set('inv')%
-vector<int> ${1}(n);
+vector<ll> ${1}(n);
 rep(i, n) {
     cin>>$1[i];
 }
 dump($1);${0}
 
 //%snippet.set('invv')%
-vector<vector<int>> ${1}(h, vector<int>(w));
+vector<vector<ll>> ${1}(h, vector<ll>(w));
 rep(i, h){
     rep(j,w){
         cin>>$1[i][j];
@@ -23,7 +23,7 @@ rep(i, h){
 }
 
 //%snippet.set('invvs')%
-vector<vector<int>> ${1}(h, vector<int>(w));
+vector<vector<ll>> ${1}(h, vector<ll>(w));
 rep(i, h){
     string tmp;cin>>tmp;
     rep(j,w){
@@ -41,7 +41,7 @@ r_rep(${0}){
 }
 
 //%snippet.set('for')%
-for(int i=0; i<n; i++){${0}
+for(ll i=0; i<n; i++){${0}
 }
 
 //%snippet.set('for_iter')%
@@ -93,18 +93,18 @@ do{
 
 //%snippet.set('to_bin')%
 #define N 61
-string to_bin(int n, int d){
+string to_bin(ll n, ll d){
     // nをd桁の2進数で表示する。
     stringstream ss;
     ss << bitset<N>(n);
     return ss.str().substr(N-d, d);
 }
-// int d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
-// int f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
+// ll d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
+// ll f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
 
 //%snippet.set('warsharll')%
 // init
-vector<vector<int>> d(n, vector<int>(n, INF));
+vector<vector<ll>> d(n, vector<ll>(n, INF));
 rep(i, n)rep(j, n){
     if (i==j) d[i][j] = 0;
 }
@@ -124,12 +124,12 @@ dump_2d(d, n, n);
 
 
 //%snippet.set('digitdp')%
-int n = sz(s);
-vector<vector<int>> dp(2, vector<int>(n));
+ll n = sz(s);
+vector<vector<ll>> dp(2, vector<ll>(n));
 dp[0][0] = 1;
 rep(i, 1, n+1){  //桁数
     rep(leq, 2){  //未満確定フラグ
-        int lim = leq ? 9 : s[i-1]-'0';
+        ll lim = leq ? 9 : s[i-1]-'0';
         rep(d, lim+1){
             dp[leq || d<lim][i] += dp[leq][i-1];
         }
@@ -146,7 +146,7 @@ struct asvector {
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
     } // }}}
 
-    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+    T sum(ll l, ll r) {  // return sum of [l, r) of data.  {{{
         l = max(0LL, l);
         r = min(r, sz(cum));
         if (l<r){
@@ -157,7 +157,7 @@ struct asvector {
         }
     } // }}}
 
-    T& operator[](int i) { // {{{
+    T& operator[](ll i) { // {{{
         return cum[i]; 
     } // }}}
 
@@ -179,8 +179,8 @@ auto f = [&](){
 
 
 //%snippet.set('dfs_lambda_graph')%
-vector<int> used(n);
-auto dfs = [&](const auto& dfs, int u) -> void {
+vector<ll> used(n);
+auto dfs = [&](const auto& dfs, ll u) -> void {
     used[u] = 1;
     each(e, g[u]){
         if (used[e.to]) continue;
@@ -191,13 +191,13 @@ dfs(dfs, 0);
 
 
 //%snippet.set('dfs_lambda')%
-auto dfs = [&](const auto& dfs, int u) -> int {
+auto dfs = [&](const auto& dfs, ll u) -> ll {
 };
 
 
 //%snippet.set('dxdy')%
-int dx[]={1, -1, 0, 0};
-int dy[]={0, 0, 1, -1};
+ll dx[]={1, -1, 0, 0};
+ll dy[]={0, 0, 1, -1};
 
 
 //%snippet.set('ostream')%
@@ -207,14 +207,14 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
 }
 
 //%snippet.set('query')%
-int query(){
+ll query(){
     cerrendl;
 
     return 0;
 }
 
 signed main(){
-    int Q;cin>>Q;
+    ll Q;cin>>Q;
     rep(_, Q){
         query();
     }
@@ -253,8 +253,8 @@ printf("%.12f\n", ${1});
 
 
 //%snippet.set('interactive')%
-int counter = 0;
-int query(int u, int v){/*{{{*/
+ll counter = 0;
+ll query(ll u, ll v){/*{{{*/
     dump('q', u+1, v+1);
     counter++;
     if (counter>n/2) assert(false);
@@ -262,13 +262,13 @@ int query(int u, int v){/*{{{*/
     cout << "?" << " " << u << " " << v << endl;
     fflush(stdout);
 
-    // int res = tr.lca(u, v);
-    int res; cin>>res;
+    // ll res = tr.lca(u, v);
+    ll res; cin>>res;
 
     return res;
 }/*}}}*/
 
-void ans(int u){/*{{{*/
+void ans(ll u){/*{{{*/
     cout << "!" << " " << u+1 << endl;
 }/*}}}*/
 
@@ -276,7 +276,7 @@ void ans(int u){/*{{{*/
 //%snippet.set('pairsort')%
 template<class T>
 void pairsort(vector<T>& x, vector<T>& y){
-    int n = sz(x);
+    ll n = sz(x);
     vector<tuple<T, T>> t(n);
     rep(i, n){
         t[i] = make_tuple(x[i], y[i]);
@@ -290,16 +290,16 @@ void pairsort(vector<T>& x, vector<T>& y){
 
 
 //%snippet.set('make_vector')%
-template<class T> vector<vector<vector<T>>> make_vector_2d(int n1, int n2, T init_value){
+template<class T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){
     return vector<vector<T>>(n1, vector<T>(n2, init_value));
 }
 
 
-template<class T> vector<vector<vector<T>>> make_vector_3d(int n1, int n2, int n3, T init_value){
+template<class T> vector<vector<vector<T>>> make_vector_3d(ll n1, ll n2, ll n3, T init_value){
     return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3, init_value)));
 }
-// auto dp = make_vector_2d<mint>(n, k, 0);  // like int dp[n][k];
-// auto dp = make_vector_3d<mint>(n, k, m, 0);  // like int dp[n][k][m];
+// auto dp = make_vector_2d<mint>(n, k, 0);  // like ll dp[n][k];
+// auto dp = make_vector_3d<mint>(n, k, m, 0);  // like ll dp[n][k][m];
 
 
 //%snippet.set('erase_loop')%
