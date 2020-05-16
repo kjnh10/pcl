@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-12 10:29:48+09:00
+    - Last commit date: 2020-05-16 20:29:09+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -102,6 +102,7 @@ using namespace std;
 
 // varibable settings
 const long long INF = 1e18;
+template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -120,20 +121,14 @@ const long long INF = 1e18;
 #define lb lower_bound
 #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T>
-inline void chmax(T &a, const T &b) {
-    if ((a) < (b)) (a) = (b);
-}
-template <class T>
-inline void chmin(T &a, const T &b) {
-    if ((a) > (b)) (a) = (b);
-}
+template <class T> inline void chmax(T &a, const T &b) { if ((a) < (b)) (a) = (b); }
+template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b); }
+template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
+template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
 #define divceil(a, b) ((a) + (b)-1) / (b)
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
-#define uni(x)    \
-    sort(all(x)); \
-    x.erase(unique(all(x)), x.end())
+#define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
@@ -141,18 +136,8 @@ typedef long double ld;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast {
-    Fast() {
-        std::cin.tie(0);
-        ios::sync_with_stdio(false);
-    }
-} fast;
-void check_input() {
-    assert(cin.eof() == 0);
-    int tmp;
-    cin >> tmp;
-    assert(cin.eof() == 1);
-}
+struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
 
 #if defined(PCM) || defined(LOCAL)
 #else
@@ -457,30 +442,39 @@ struct tree {
 //%snippet.fold()%
 
 struct UnionFind {
-    vector<int> data;  // size defined only for root node
+    vector<int> par;   // par[x]: parent of x. if root, -size.
     int count;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : data(size, -1), count(size) {}
-    bool merge(int x, int y) { /*{{{*/
+    UnionFind(int size) : par(size, -1), count(size) {}
+    bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
         if (x != y) {
-            if (data[y] < data[x]) swap(x, y);
-            data[x] += data[y];
-            data[y] = x;
+            if (par[y] < par[x]) swap(x, y);
+            par[x] += par[y];
+            par[y] = x;
             count--;
         }
         return x != y;
-    } /*}}}*/
-    int root(int x) { return (data[x] < 0 ? x : data[x] = root(data[x])); }
+    } 
+    int root(int x) {
+        if (is_root(x)){
+            return x;
+        }
+        else{
+            return par[x] = root(par[x]);  // 経路圧縮
+            // return root(par[x]);         // 経路圧縮なし
+        }
+    }
+    bool is_root(int x) { return par[x] < 0; }
     bool same(int x, int y) { return root(x) == root(y); }
-    int size(int x) { return -data[root(x)]; }
+    int size(int x) { return -par[root(x)]; }
 
 #if defined(PCM) || defined(LOCAL)  // {{{
     friend ostream& operator<<(ostream& os, UnionFind& uf) {
         map<int, vector<int>> group;
-        rep(i, sz(uf.data)) { group[uf.root(i)].pb(i); }
+        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
         os << endl;
         each(g, group) { os << g << endl; }
         return os;

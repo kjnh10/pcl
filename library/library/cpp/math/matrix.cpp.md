@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-12 10:29:48+09:00
+    - Last commit date: 2020-05-16 20:29:09+09:00
 
 
 
@@ -122,6 +122,7 @@ using namespace std;
 
 // varibable settings
 const long long INF = 1e18;
+template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 #define _overload3(_1, _2, _3, name, ...) name
 #define _rep(i, n) repi(i, 0, n)
@@ -140,20 +141,14 @@ const long long INF = 1e18;
 #define lb lower_bound
 #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T>
-inline void chmax(T &a, const T &b) {
-    if ((a) < (b)) (a) = (b);
-}
-template <class T>
-inline void chmin(T &a, const T &b) {
-    if ((a) > (b)) (a) = (b);
-}
+template <class T> inline void chmax(T &a, const T &b) { if ((a) < (b)) (a) = (b); }
+template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b); }
+template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
+template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
 #define divceil(a, b) ((a) + (b)-1) / (b)
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
-#define uni(x)    \
-    sort(all(x)); \
-    x.erase(unique(all(x)), x.end())
+#define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
 
 typedef long long ll;
@@ -161,18 +156,8 @@ typedef long double ld;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast {
-    Fast() {
-        std::cin.tie(0);
-        ios::sync_with_stdio(false);
-    }
-} fast;
-void check_input() {
-    assert(cin.eof() == 0);
-    int tmp;
-    cin >> tmp;
-    assert(cin.eof() == 1);
-}
+struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
+void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
 
 #if defined(PCM) || defined(LOCAL)
 #else
