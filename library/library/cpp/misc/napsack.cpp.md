@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/napsack.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-16 22:41:29+09:00
 
 
 
@@ -56,7 +56,7 @@ int nampsack01all(int n, const vector<int>& v, const vector<int>& w) {
         int n1 = n / 2;
 
         auto f = [&](int l, int r) {
-            vector<pii> res;
+            vector<pair<int, int>> res;
             int n = r - l;
             rep(mask, 1 << n) {
                 int sv = 0;
@@ -217,7 +217,7 @@ int nampsack01all(int n, const vector<int>& v, const vector<int>& w) {
         int n1 = n / 2;
 
         auto f = [&](int l, int r) {
-            vector<pii> res;
+            vector<pair<int, int>> res;
             int n = r - l;
             rep(mask, 1 << n) {
                 int sv = 0;

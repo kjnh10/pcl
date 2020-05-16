@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/int.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-05-16 22:41:29+09:00
 
 
 
@@ -165,10 +165,10 @@ struct Sieve {
         return res;  // [2, 3, 3, 5, 5, 5.....]
     }                /*}}}*/
 
-    vector<pii> factor(int x) { /*{{{*/
+    vector<pair<int, int>> factor(int x) { /*{{{*/
         vector<int> fl = factor_list(x);
         if (fl.size() == 0) return {};
-        vector<pii> res(1, mp(fl[0], 0));
+        vector<pair<int, int>> res(1, mp(fl[0], 0));
         for (int p : fl) {
             if (res.back().first == p) {
                 res.back().second++;
@@ -314,10 +314,10 @@ struct Sieve {
         return res;  // [2, 3, 3, 5, 5, 5.....]
     }                /*}}}*/
 
-    vector<pii> factor(int x) { /*{{{*/
+    vector<pair<int, int>> factor(int x) { /*{{{*/
         vector<int> fl = factor_list(x);
         if (fl.size() == 0) return {};
-        vector<pii> res(1, mp(fl[0], 0));
+        vector<pair<int, int>> res(1, mp(fl[0], 0));
         for (int p : fl) {
             if (res.back().first == p) {
                 res.back().second++;

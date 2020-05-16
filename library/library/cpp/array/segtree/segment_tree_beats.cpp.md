@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree_beats.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-16 22:41:29+09:00
 
 
 
@@ -404,7 +404,7 @@ signed main() {
     int n;
     cin >> n;
     vector<int> m(n);
-    vector<pii> mi(n);
+    vector<pair<int, int>> mi(n);
     int mv = -INF;
     rep(i, n) {
         cin >> m[i];
@@ -904,7 +904,7 @@ signed main() {
     int n;
     cin >> n;
     vector<int> m(n);
-    vector<pii> mi(n);
+    vector<pair<int, int>> mi(n);
     int mv = -INF;
     rep(i, n) {
         cin >> m[i];

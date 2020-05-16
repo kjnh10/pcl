@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bsearch.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-05-17 02:27:28+09:00
 
 
 
@@ -42,9 +42,9 @@ layout: default
 {% raw %}
 ```cpp
 //%snippet.set('bsearch')%
-int left = 0;
-int right = 1000000001;
-auto isright = [&](int x) {
+ll left = 0;
+ll right = 1000000001;
+auto isright = [&](ll x) {
     cerrendl;
     //
     bool ans = (cond ? true : false);
@@ -52,7 +52,7 @@ auto isright = [&](int x) {
     return ans;
 };
 while (right - left > 1) {
-    int mid = (right + left) / 2;
+    ll mid = (right + left) / 2;
     if (isright(mid)) {
         right = mid;
     } else {
@@ -69,9 +69,9 @@ dump(right);
 ```cpp
 #line 1 "library/cpp/array/bsearch.cpp"
 //%snippet.set('bsearch')%
-int left = 0;
-int right = 1000000001;
-auto isright = [&](int x) {
+ll left = 0;
+ll right = 1000000001;
+auto isright = [&](ll x) {
     cerrendl;
     //
     bool ans = (cond ? true : false);
@@ -79,7 +79,7 @@ auto isright = [&](int x) {
     return ans;
 };
 while (right - left > 1) {
-    int mid = (right + left) / 2;
+    ll mid = (right + left) / 2;
     if (isright(mid)) {
         right = mid;
     } else {
