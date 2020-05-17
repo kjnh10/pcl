@@ -120,6 +120,7 @@ struct segment_tree_lazy {  //{{{
 // Sample:
 // -----------------------------------------------
 // init
+// * このコードはRSQに対応していないのでRSQをする場合は別のものを使用するように注意
 // auto f=[](int ta,int tb){return max(ta,tb);};  // how to merge
 // auto g=[](int t,int e){return t+e;};  // how to update
 // int ti=0,ei=0;
