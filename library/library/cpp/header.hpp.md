@@ -61,10 +61,10 @@ layout: default
 * :heavy_check_mark: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
-* :warning: <a href="math/geoemtry/dist_between_line_and_point.cpp.html">library/cpp/math/geoemtry/dist_between_line_and_point.cpp</a>
-* :heavy_check_mark: <a href="math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
-* :warning: <a href="math/geoemtry/二点を通る円の中心.cpp.html">library/cpp/math/geoemtry/二点を通る円の中心.cpp</a>
-* :warning: <a href="math/geoemtry/線分と線分の交差判定.cpp.html">library/cpp/math/geoemtry/線分と線分の交差判定.cpp</a>
+* :warning: <a href="math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
+* :heavy_check_mark: <a href="math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :warning: <a href="math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
+* :warning: <a href="math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
 * :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
 * :heavy_check_mark: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
@@ -97,7 +97,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/library/cpp/math/geoemtry/p2.test.cpp.html">library/cpp/math/geoemtry/p2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>

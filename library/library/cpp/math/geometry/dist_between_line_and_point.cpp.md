@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geoemtry/dist_between_line_and_point.cpp
+# :warning: library/cpp/math/geometry/dist_between_line_and_point.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#cef394f212ede05bd80525fdb8bcaf21">library/cpp/math/geoemtry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geoemtry/dist_between_line_and_point.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:50:00+09:00
+* category: <a href="../../../../../index.html#fc16e9fb7f40757e9b21d2e083b6a084">library/cpp/math/geometry</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/dist_between_line_and_point.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-18 02:54:43+09:00
 
 
 
@@ -122,7 +122,7 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/geoemtry/dist_between_line_and_point.cpp"
+#line 2 "library/cpp/math/geometry/dist_between_line_and_point.cpp"
 
 double dist_line_and_point(double x1, double y1, double x2, double y2, double px, double py) {
     double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));

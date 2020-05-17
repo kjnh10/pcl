@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/rational.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:47:38+09:00
+    - Last commit date: 2020-05-18 02:55:21+09:00
 
 
 
@@ -39,6 +39,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -47,25 +48,24 @@ layout: default
 {% raw %}
 ```cpp
 #include "../header.hpp"
+#include "geometry/p2.hpp"
 
 //%snippet.set('rational')%
 //%snippet.config({'alias':'fraction'})%
 //%snippet.fold()%
 
 template<class T=ll> 
-pair<T, T> rational(T x, T y){
-    // 有理数をユニークな表現にして返す。
-    // 0 <= theta < 180で返しているイメージ
-    T g = gcd(x, y);
-    x /= g; y /= g;
-    if (y<0) {
-        x *= -1; y *= -1;
+struct rational : public P2<T> {
+    rational(){}
+    rational(T _x, T _y) : P2<T>(_x, _y) {
+        T g = gcd(this->x, this->y);
+        this->x /= g; this->y /= g;
+        if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
     }
-    else if (y==0 && x==-1){
-        x *= -1; y *= -1;
-    }
-    return {x, y};
-}
+};
+// rational(3, 5);
+// assert(rational(3, 5) == rational(-6, -10));
+// map<rational<ll>, int> cnt;  // keyにもできる。
 
 //%snippet.end()%
 
@@ -137,26 +137,101 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/rational.hpp"
+#line 2 "library/cpp/math/geometry/p2.hpp"
+
+//%snippet.set('P2')%
+
+template<class T=ll>/*{{{*/
+struct P2 {
+    T x, y;
+    P2(T _x, T _y) : x(_x), y(_y) {}
+    P2() {
+        x = 0;
+        y = 0;
+    }
+    bool operator<(const P2 &r) const {
+        return (x != r.x ? x < r.x : y < r.y);
+    }
+    bool operator>(const P2 &r) const {
+        return (x != r.x ? x > r.x : y > r.y);
+    }
+    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+
+    friend ostream &operator<<(ostream &stream, P2 p) {
+        stream << "(" << p.x << "," << p.y << ")";
+        return stream;
+    }
+
+    P2 operator-() const {  // 単項演算子
+        return P2(-x, -y);
+    }
+
+    P2& operator+=(const P2& r){
+        x += r.x;
+        y += r.y;
+        return *this;
+    }
+    P2& operator-=(const P2& r){
+        x -= r.x;
+        y -= r.y;
+        return *this;
+    }
+
+    P2 operator+(const P2& r) const {
+        P2 res(*this);
+        return res += r;
+    }
+    P2 operator-(const P2& r) const {
+        P2 res(*this);
+        return res -= r;
+    }
+
+    template<class U=ll>
+    P2 operator*(U v) const {
+        P2 res(*this);
+        res.x *= v;
+        res.y *= v;
+        return res;
+    }
+    template<class U=ll>
+    P2 operator/(U v) const {
+        P2 res(*this);
+        res.x /= v;
+        res.y /= v;
+        return res;
+    }
+
+    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
+        if (a <= x && x < b && c <= y && y < d)
+            return true;
+        else
+            return false;
+    }
+
+};/*}}}*/
+
+//%snippet.config({'alias':'pos'})%
+//%snippet.config({'alias':'point'})%
+//%snippet.config({'alias':'pair'})%
+//%snippet.end%
+#line 3 "library/cpp/math/rational.hpp"
 
 //%snippet.set('rational')%
 //%snippet.config({'alias':'fraction'})%
 //%snippet.fold()%
 
 template<class T=ll> 
-pair<T, T> rational(T x, T y){
-    // 有理数をユニークな表現にして返す。
-    // 0 <= theta < 180で返しているイメージ
-    T g = gcd(x, y);
-    x /= g; y /= g;
-    if (y<0) {
-        x *= -1; y *= -1;
+struct rational : public P2<T> {
+    rational(){}
+    rational(T _x, T _y) : P2<T>(_x, _y) {
+        T g = gcd(this->x, this->y);
+        this->x /= g; this->y /= g;
+        if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
     }
-    else if (y==0 && x==-1){
-        x *= -1; y *= -1;
-    }
-    return {x, y};
-}
+};
+// rational(3, 5);
+// assert(rational(3, 5) == rational(-6, -10));
+// map<rational<ll>, int> cnt;  // keyにもできる。
 
 //%snippet.end()%
 

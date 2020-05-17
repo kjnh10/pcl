@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geoemtry/basic.cpp
+# :warning: library/cpp/math/geometry/basic.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#cef394f212ede05bd80525fdb8bcaf21">library/cpp/math/geoemtry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geoemtry/basic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:50:00+09:00
+* category: <a href="../../../../../index.html#fc16e9fb7f40757e9b21d2e083b6a084">library/cpp/math/geometry</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/basic.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-18 02:54:43+09:00
 
 
 
@@ -50,7 +50,7 @@ template<class T> T rad(T x){ return x * M_PI / 180.0; }
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/math/geoemtry/basic.cpp"
+#line 1 "library/cpp/math/geometry/basic.cpp"
 template<class T> T dist(T x1, T y1, T x2, T y2){ return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)); }
 template<class T> T rad(T x){ return x * M_PI / 180.0; }
 

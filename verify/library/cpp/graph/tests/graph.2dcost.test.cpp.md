@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:50:00+09:00
+    - Last commit date: 2020-05-18 02:54:43+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -45,7 +45,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -57,7 +57,7 @@ layout: default
 
 #include "../../header.hpp"
 #include "../graph.hpp"
-#include "../../math/geoemtry/p2.hpp"
+#include "../../math/geometry/p2.hpp"
 
 signed main() {
     int n;
@@ -650,7 +650,7 @@ struct Graph {
 };
 
 //%snippet.end()%
-#line 2 "library/cpp/math/geoemtry/p2.hpp"
+#line 2 "library/cpp/math/geometry/p2.hpp"
 
 //%snippet.set('P2')%
 
