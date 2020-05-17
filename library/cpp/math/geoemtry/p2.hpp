@@ -2,7 +2,7 @@
 
 //%snippet.set('P2')%
 
-template<class T>/*{{{*/
+template<class T=ll>/*{{{*/
 struct P2 {
     T x, y;
     P2(T _x, T _y) : x(_x), y(_y) {}
