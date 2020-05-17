@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree_lazy.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-05-18 01:48:58+09:00
 
 
 
@@ -163,6 +163,7 @@ struct segment_tree_lazy {  //{{{
 // Sample:
 // -----------------------------------------------
 // init
+// * このコードはRSQに対応していないのでRSQをする場合は別のものを使用するように注意
 // auto f=[](int ta,int tb){return max(ta,tb);};  // how to merge
 // auto g=[](int t,int e){return t+e;};  // how to update
 // int ti=0,ei=0;
@@ -364,6 +365,7 @@ struct segment_tree_lazy {  //{{{
 // Sample:
 // -----------------------------------------------
 // init
+// * このコードはRSQに対応していないのでRSQをする場合は別のものを使用するように注意
 // auto f=[](int ta,int tb){return max(ta,tb);};  // how to merge
 // auto g=[](int t,int e){return t+e;};  // how to update
 // int ti=0,ei=0;

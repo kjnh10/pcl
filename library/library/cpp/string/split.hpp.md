@@ -21,24 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geoemtry/dist_between_line_and_point.cpp
+# :warning: library/cpp/string/split.hpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#cef394f212ede05bd80525fdb8bcaf21">library/cpp/math/geoemtry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geoemtry/dist_between_line_and_point.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:50:00+09:00
+* category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/split.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-18 01:48:43+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,15 +46,22 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../header.hpp"
+#include "../header.hpp"
 
-double dist_line_and_point(double x1, double y1, double x2, double y2, double px, double py) {
-    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
-    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    return num / den;
+//%snippet.set('split')%
+//%snippet.fold()%
+
+vector<string> split(const string& s){
+    ll n = sz(s);
+    vector<string> res = {""};
+    rep(i, n){
+        if (s[i]==' '){ res.push_back(""); }
+        else{ res.back() += s[i]; }
+    }
+    return res;
 }
 
-
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -122,18 +129,25 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/geoemtry/dist_between_line_and_point.cpp"
+#line 2 "library/cpp/string/split.hpp"
 
-double dist_line_and_point(double x1, double y1, double x2, double y2, double px, double py) {
-    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
-    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    return num / den;
+//%snippet.set('split')%
+//%snippet.fold()%
+
+vector<string> split(const string& s){
+    ll n = sz(s);
+    vector<string> res = {""};
+    rep(i, n){
+        if (s[i]==' '){ res.push_back(""); }
+        else{ res.back() += s[i]; }
+    }
+    return res;
 }
 
-
+//%snippet.end()%
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

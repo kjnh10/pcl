@@ -61,11 +61,15 @@ layout: default
 * :heavy_check_mark: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
+* :warning: <a href="math/geoemtry/dist_between_line_and_point.cpp.html">library/cpp/math/geoemtry/dist_between_line_and_point.cpp</a>
 * :heavy_check_mark: <a href="math/geoemtry/p2.hpp.html">library/cpp/math/geoemtry/p2.hpp</a>
+* :warning: <a href="math/geoemtry/二点を通る円の中心.cpp.html">library/cpp/math/geoemtry/二点を通る円の中心.cpp</a>
+* :warning: <a href="math/geoemtry/線分と線分の交差判定.cpp.html">library/cpp/math/geoemtry/線分と線分の交差判定.cpp</a>
 * :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
 * :heavy_check_mark: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 * :warning: <a href="math/pow.hpp.html">library/cpp/math/pow.hpp</a>
+* :warning: <a href="math/rational.hpp.html">library/cpp/math/rational.hpp</a>
 * :warning: <a href="misc/constant.cpp.html">library/cpp/misc/constant.cpp</a>
 * :warning: <a href="misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
 * :heavy_check_mark: <a href="misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
@@ -73,6 +77,7 @@ layout: default
 * :warning: <a href="string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
 * :warning: <a href="string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
 * :heavy_check_mark: <a href="string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
+* :warning: <a href="string/split.hpp.html">library/cpp/string/split.hpp</a>
 * :warning: <a href="string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
 * :warning: <a href="../../problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
 * :warning: <a href="../../problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>

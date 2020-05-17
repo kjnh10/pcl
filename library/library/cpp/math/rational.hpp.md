@@ -21,24 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geoemtry/dist_between_line_and_point.cpp
+# :warning: library/cpp/math/rational.hpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#cef394f212ede05bd80525fdb8bcaf21">library/cpp/math/geoemtry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geoemtry/dist_between_line_and_point.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-18 01:50:00+09:00
+* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/rational.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-18 01:47:38+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,15 +46,30 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../header.hpp"
+#include "../header.hpp"
 
-double dist_line_and_point(double x1, double y1, double x2, double y2, double px, double py) {
-    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
-    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    return num / den;
+//%snippet.set('rational')%
+//%snippet.config({'alias':'fraction'})%
+//%snippet.fold()%
+
+template<class T=ll> 
+pair<T, T> rational(T x, T y){
+    // 有理数をユニークな表現にして返す。
+    // 0 <= theta < 180で返しているイメージ
+    T g = gcd(x, y);
+    x /= g; y /= g;
+    if (y<0) {
+        x *= -1; y *= -1;
+    }
+    else if (y==0 && x==-1){
+        x *= -1; y *= -1;
+    }
+    return {x, y};
 }
 
+//%snippet.end()%
 
+// verified by https://atcoder.jp/contests/abc168/tasks/abc168_e
 
 ```
 {% endraw %}
@@ -122,18 +137,33 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/geoemtry/dist_between_line_and_point.cpp"
+#line 2 "library/cpp/math/rational.hpp"
 
-double dist_line_and_point(double x1, double y1, double x2, double y2, double px, double py) {
-    double num = abs((py - y1) * (x2 - x1) - (y2 - y1) * (px - x1));
-    double den = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    return num / den;
+//%snippet.set('rational')%
+//%snippet.config({'alias':'fraction'})%
+//%snippet.fold()%
+
+template<class T=ll> 
+pair<T, T> rational(T x, T y){
+    // 有理数をユニークな表現にして返す。
+    // 0 <= theta < 180で返しているイメージ
+    T g = gcd(x, y);
+    x /= g; y /= g;
+    if (y<0) {
+        x *= -1; y *= -1;
+    }
+    else if (y==0 && x==-1){
+        x *= -1; y *= -1;
+    }
+    return {x, y};
 }
 
+//%snippet.end()%
 
+// verified by https://atcoder.jp/contests/abc168/tasks/abc168_e
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
