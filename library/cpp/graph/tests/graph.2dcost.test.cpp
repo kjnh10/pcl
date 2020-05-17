@@ -2,7 +2,7 @@
 
 #include "../../header.hpp"
 #include "../graph.hpp"
-#include "../../math/geoemtry/p2.hpp"
+#include "../../math/geometry/p2.hpp"
 
 signed main() {
     int n;
