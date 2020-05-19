@@ -42,10 +42,12 @@ template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X 
 
 typedef long long ll;
 typedef long double ld;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using pll = pair<ll, ll>;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
 
 #if defined(PCM) || defined(LOCAL)
