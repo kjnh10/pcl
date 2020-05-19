@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#76c92c32675513a9b45b3a525f3ad871">problem_template/test</a>
 * <a href="{{ site.github.repository_url }}/blob/master/problem_template/test/judge.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-20 00:15:11+09:00
 
 
 
@@ -48,55 +48,72 @@ layout: default
 ```cpp
 #include "../codes/header.hpp"
 
-int T;
-int b;
+enum JudgeResult {/*{{{*/
+    AC = 0,
+    WA = 1,
+    RE = 2,
+    CE = 3,
+    TLE = -2,
+    MLE = 4,
+    QLE = 5,  // Query limit exceeded
+    AIE = 6,  // Additional input error
+    NOEXP = 98,
+    TLENAIVE = 99,
+    YET = 100,
+};/*}}}*/
 
-template <class T>
+template <class T>/*{{{*/
 void tell(T x) {
-    dump(x);
     cout << x << endl;
     fflush(stdout);
-}
+}/*}}}*/
 
-int judge_case(string a) {
-    dump(a);
-    for (int cnt = 1; cnt <= 150; cnt++) {
-        if (cnt % 10 == 1) {
-            reverse(all(a));
-        }
+bool check_AIE(){/*{{{*/
+    ll tmp;cin>>tmp;
+    if (cin.eof()==0) exit(AIE);  // check needles user-output does not exist
+}/*}}}*/
 
+int judge_case(ll x) {
+    ll num = 22;  // TODO: update query number limit
+    while(num--){
         string query;
         cin >> query;
-        if (sz(query) != b) {
-            tell(a[stoi(query) - 1]);
-        } else {
-            if (query == a) {
-                tell("Y");
+        if (query=="?"){ // query
+            ll solver_ans;cin>>solver_ans;
+            tell(gcd(solver_ans, x));
+        }
+        if (query=="!"){ // ans
+            ll solver_ans;cin>>solver_ans;
+            if (abs(solver_ans-x)<=7 || (solver_ans<=2*x && x<=2*solver_ans)){
                 return 0;
-            } else {
-                tell("N");
-                dump("judge-ans", a);
-                dump("contestant-ans", query);
-                throw("WA");
+            }
+            else{
+                cerr << "WA: ";
+                dump(x, solver_ans);
+                exit(WA);
             }
         }
-        cnt += 1;
     }
-    throw("query's limit exceeded");
+    exit(QLE);
 }
 
-signed main() {
+int main() {
     // input case
-    cin >> T >> b;
-    tell(T);
-    tell(b);
-    vector<string> A(T);
-    rep(t, T) { cin >> A[t]; }
+    int Q;
+    cin >> Q;
+    // Q = 1; if single case
+    vector<ll> x(Q);
+    rep(q, Q){ cin>>x[q]; }
 
     // judge
-    rep(i, T) { judge_case(A[i]); }
+    tell(Q);  // off if single case
+    rep(q, Q) {
+        cerr << "start judge for: " << x[q] << " [judge]" << endl;;
+        judge_case(x[q]); 
+    }
 
-    // TODO: check contestant code is continuing to needles queries.
+    // check_AIE(); // これは何故か動かない。無限待機になってしまう。
+    exit(AC);
     return 0;
 }
 
@@ -150,10 +167,12 @@ template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X 
 
 typedef long long ll;
 typedef long double ld;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using pll = pair<ll, ll>;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
 
 #if defined(PCM) || defined(LOCAL)
@@ -168,55 +187,72 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 //%snippet.end()%
 #line 2 "problem_template/test/judge.cpp"
 
-int T;
-int b;
+enum JudgeResult {/*{{{*/
+    AC = 0,
+    WA = 1,
+    RE = 2,
+    CE = 3,
+    TLE = -2,
+    MLE = 4,
+    QLE = 5,  // Query limit exceeded
+    AIE = 6,  // Additional input error
+    NOEXP = 98,
+    TLENAIVE = 99,
+    YET = 100,
+};/*}}}*/
 
-template <class T>
+template <class T>/*{{{*/
 void tell(T x) {
-    dump(x);
     cout << x << endl;
     fflush(stdout);
-}
+}/*}}}*/
 
-int judge_case(string a) {
-    dump(a);
-    for (int cnt = 1; cnt <= 150; cnt++) {
-        if (cnt % 10 == 1) {
-            reverse(all(a));
-        }
+bool check_AIE(){/*{{{*/
+    ll tmp;cin>>tmp;
+    if (cin.eof()==0) exit(AIE);  // check needles user-output does not exist
+}/*}}}*/
 
+int judge_case(ll x) {
+    ll num = 22;  // TODO: update query number limit
+    while(num--){
         string query;
         cin >> query;
-        if (sz(query) != b) {
-            tell(a[stoi(query) - 1]);
-        } else {
-            if (query == a) {
-                tell("Y");
+        if (query=="?"){ // query
+            ll solver_ans;cin>>solver_ans;
+            tell(gcd(solver_ans, x));
+        }
+        if (query=="!"){ // ans
+            ll solver_ans;cin>>solver_ans;
+            if (abs(solver_ans-x)<=7 || (solver_ans<=2*x && x<=2*solver_ans)){
                 return 0;
-            } else {
-                tell("N");
-                dump("judge-ans", a);
-                dump("contestant-ans", query);
-                throw("WA");
+            }
+            else{
+                cerr << "WA: ";
+                dump(x, solver_ans);
+                exit(WA);
             }
         }
-        cnt += 1;
     }
-    throw("query's limit exceeded");
+    exit(QLE);
 }
 
-signed main() {
+int main() {
     // input case
-    cin >> T >> b;
-    tell(T);
-    tell(b);
-    vector<string> A(T);
-    rep(t, T) { cin >> A[t]; }
+    int Q;
+    cin >> Q;
+    // Q = 1; if single case
+    vector<ll> x(Q);
+    rep(q, Q){ cin>>x[q]; }
 
     // judge
-    rep(i, T) { judge_case(A[i]); }
+    tell(Q);  // off if single case
+    rep(q, Q) {
+        cerr << "start judge for: " << x[q] << " [judge]" << endl;;
+        judge_case(x[q]); 
+    }
 
-    // TODO: check contestant code is continuing to needles queries.
+    // check_AIE(); // これは何故か動かない。無限待機になってしまう。
+    exit(AC);
     return 0;
 }
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#08be9a8a45b2e811a312f82c2e412c8c">library/cpp/graph/flow</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/flow/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-19 13:03:27+09:00
+    - Last commit date: 2020-05-20 00:15:11+09:00
 
 
 
@@ -223,10 +223,12 @@ template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X 
 
 typedef long long ll;
 typedef long double ld;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using pll = pair<ll, ll>;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;
-struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
 void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
 
 #if defined(PCM) || defined(LOCAL)
