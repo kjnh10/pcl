@@ -21,29 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/array/lis.hpp
+# :warning: problem_template/codes/interactive.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/lis.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-19 13:03:27+09:00
+* category: <a href="../../../index.html#dd26a324a0aa66900316935adc80e31b">problem_template/codes</a>
+* <a href="{{ site.github.repository_url }}/blob/master/problem_template/codes/interactive.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-19 13:02:02+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
+* :heavy_check_mark: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -51,57 +46,46 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../header.hpp"
+#include "header.hpp"
+template<class T=ll> using vec = vector<T>;
+// TODO: struct flushを切ってあげないといけない？
 
-//%snippet.set('lis')%
+template<class T, class R>
+R query(T q){/*{{{*/
+    cout << "?" << " " << q << endl;
+    fflush(stdout);
+
+    R res; cin>>res;
+    if (cin.eof()==1) exit(1);  // judgeがWAで止まった時などに終了するためのコード
+    return res;
+}/*}}}*/
 
 template<class T>
-int lis(const vector<T>& x, bool strict=true) { /*{{{*/
-    int n = sz(x);
-    vector<T> dp(n+1, numeric_limits<T>().max());
-    vector<pair<int, T>> update_info(n);
-    dp[0] = numeric_limits<T>().min();
-    int res = 0;
-    rep(i, n) {
-        int j;
-        if (strict) j = lb(all(dp), x[i]) - dp.begin();
-        else        j = ub(all(dp), x[i]) - dp.begin();
-        chmax(res, j);
-        update_info[i] = make_pair(j, dp[j]);
-        dp[j] = x[i];
+void answer(T u){/*{{{*/
+    cout << "!" << " " << u << endl;
+    fflush(stdout);
+}/*}}}*/
+
+void solve(){
+    ll res = 1;
+    ll num = 22;
+    rep(i, num-1){
+        // ll g = query(3);
+        // res += g;
+        // dump(g, res);
     }
-    dump(dp);
+    answer(res);
 
-    // 復元
-    int now_len = res;
-    vector<T> lis;
-    r_rep(i, n){
-        auto [j, pre] = update_info[i];
-        if (j==now_len) {
-            now_len--;
-            lis.push_back(x[i]);
-        }
-        dp[j] = pre;
+    return 0;
+}
+
+int main(){/*{{{*/
+    ll Q;cin>>Q;
+    rep(_, Q){
+        solve();
     }
-    assert(now_len==0);
-    reverse(all(lis));
-    dump(lis);
-
-    return res;
-} /*}}}*/
-
-
-//%snippet.end()%
-
-// lisにはBITを使ったmethodもある。
-// signed main() {
-//     vector<ll> x({1, 5, 4, 2, 3, 3, 7});
-//     auto res = lis(x);
-//     auto res_not_strict = lis(x, false);
-//     dump(res);
-//     dump(res_not_strict);
-//     return 0;
-// }
+    return 0;
+}/*}}}*/
 
 ```
 {% endraw %}
@@ -169,60 +153,49 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/array/lis.hpp"
+#line 2 "problem_template/codes/interactive.cpp"
+template<class T=ll> using vec = vector<T>;
+// TODO: struct flushを切ってあげないといけない？
 
-//%snippet.set('lis')%
+template<class T, class R>
+R query(T q){/*{{{*/
+    cout << "?" << " " << q << endl;
+    fflush(stdout);
+
+    R res; cin>>res;
+    if (cin.eof()==1) exit(1);  // judgeがWAで止まった時などに終了するためのコード
+    return res;
+}/*}}}*/
 
 template<class T>
-int lis(const vector<T>& x, bool strict=true) { /*{{{*/
-    int n = sz(x);
-    vector<T> dp(n+1, numeric_limits<T>().max());
-    vector<pair<int, T>> update_info(n);
-    dp[0] = numeric_limits<T>().min();
-    int res = 0;
-    rep(i, n) {
-        int j;
-        if (strict) j = lb(all(dp), x[i]) - dp.begin();
-        else        j = ub(all(dp), x[i]) - dp.begin();
-        chmax(res, j);
-        update_info[i] = make_pair(j, dp[j]);
-        dp[j] = x[i];
+void answer(T u){/*{{{*/
+    cout << "!" << " " << u << endl;
+    fflush(stdout);
+}/*}}}*/
+
+void solve(){
+    ll res = 1;
+    ll num = 22;
+    rep(i, num-1){
+        // ll g = query(3);
+        // res += g;
+        // dump(g, res);
     }
-    dump(dp);
+    answer(res);
 
-    // 復元
-    int now_len = res;
-    vector<T> lis;
-    r_rep(i, n){
-        auto [j, pre] = update_info[i];
-        if (j==now_len) {
-            now_len--;
-            lis.push_back(x[i]);
-        }
-        dp[j] = pre;
+    return 0;
+}
+
+int main(){/*{{{*/
+    ll Q;cin>>Q;
+    rep(_, Q){
+        solve();
     }
-    assert(now_len==0);
-    reverse(all(lis));
-    dump(lis);
-
-    return res;
-} /*}}}*/
-
-
-//%snippet.end()%
-
-// lisにはBITを使ったmethodもある。
-// signed main() {
-//     vector<ll> x({1, 5, 4, 2, 3, 3, 7});
-//     auto res = lis(x);
-//     auto res_not_strict = lis(x, false);
-//     dump(res);
-//     dump(res_not_strict);
-//     return 0;
-// }
+    return 0;
+}/*}}}*/
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

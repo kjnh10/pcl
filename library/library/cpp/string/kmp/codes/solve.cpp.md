@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#c4edc97866360646965a77b5500cc883">library/cpp/string/kmp/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/kmp/codes/solve.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -109,7 +109,7 @@ signed main() {
 
     KMP<vector<int>> kmp(xa);
     dump("hello");
-    vi wxb;
+    vector<ll> wxb;
     wxb.insert(wxb.end(), xb.begin(), xb.end());
     wxb.insert(wxb.end(), xb.begin(), xb.end());
 
@@ -254,7 +254,7 @@ signed main() {
 
     KMP<vector<int>> kmp(xa);
     dump("hello");
-    vi wxb;
+    vector<ll> wxb;
     wxb.insert(wxb.end(), xb.begin(), xb.end());
     wxb.insert(wxb.end(), xb.begin(), xb.end());
 

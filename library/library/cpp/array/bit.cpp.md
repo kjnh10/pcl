@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bit.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -119,7 +119,7 @@ struct bit {  //{{{
 //%snippet.end()%
 
 signed main() {
-    // vi x = {1, 2, 3, 4, 5};
+    // vector<ll> x = {1, 2, 3, 4, 5};
     // bit<int> b(x);
     bit<int> b(5);
     b.add(0, 1);
@@ -278,7 +278,7 @@ struct bit {  //{{{
 //%snippet.end()%
 
 signed main() {
-    // vi x = {1, 2, 3, 4, 5};
+    // vector<ll> x = {1, 2, 3, 4, 5};
     // bit<int> b(x);
     bit<int> b(5);
     b.add(0, 1);

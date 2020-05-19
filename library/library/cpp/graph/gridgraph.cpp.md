@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -61,7 +61,7 @@ signed main() {
     int h, w;
     cin >> h >> w;
     int n = h * w;  // 頂点数
-    vvi block(h, vi(w));
+    vector<vector<ll>> block(h, vector<ll>(w));
     rep(i, h) {
         string s;
         cin >> s;
@@ -71,8 +71,8 @@ signed main() {
     Graph g(n);
 
     auto nid = [&](int i, int j){return (i*w + j);};
-    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // int u = nid(i, j);
+    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // auto [i,j] = pos(u);
 
     int di[] = {1, -1, 0, 0};
@@ -682,7 +682,7 @@ signed main() {
     int h, w;
     cin >> h >> w;
     int n = h * w;  // 頂点数
-    vvi block(h, vi(w));
+    vector<vector<ll>> block(h, vector<ll>(w));
     rep(i, h) {
         string s;
         cin >> s;
@@ -692,8 +692,8 @@ signed main() {
     Graph g(n);
 
     auto nid = [&](int i, int j){return (i*w + j);};
-    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // int u = nid(i, j);
+    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // auto [i,j] = pos(u);
 
     int di[] = {1, -1, 0, 0};

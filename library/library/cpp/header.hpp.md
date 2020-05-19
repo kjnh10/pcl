@@ -79,6 +79,7 @@ layout: default
 * :heavy_check_mark: <a href="string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
 * :warning: <a href="string/split.hpp.html">library/cpp/string/split.hpp</a>
 * :warning: <a href="string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
+* :warning: <a href="../../problem_template/codes/interactive.cpp.html">problem_template/codes/interactive.cpp</a>
 * :warning: <a href="../../problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
 * :warning: <a href="../../problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>
 

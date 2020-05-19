@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -83,7 +83,7 @@ int solve() {
     int n, m;
     cin >> n >> m;
 
-    mat A(m, vi(m, 0));  // m==0だと落ちるので注意。
+    mat A(m, vector<ll>(m, 0));  // m==0だと落ちるので注意。
     A[0][0] = 1;
     A[0][m - 1] = 1;
     rep(i, 1, m) { A[i][i - 1] = 1; }
@@ -206,7 +206,7 @@ int solve() {
     int n, m;
     cin >> n >> m;
 
-    mat A(m, vi(m, 0));  // m==0だと落ちるので注意。
+    mat A(m, vector<ll>(m, 0));  // m==0だと落ちるので注意。
     A[0][0] = 1;
     A[0][m - 1] = 1;
     rep(i, 1, m) { A[i][i - 1] = 1; }

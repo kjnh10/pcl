@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#08be9a8a45b2e811a312f82c2e412c8c">library/cpp/graph/flow</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/flow/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-16 20:29:09+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -135,7 +135,7 @@ signed main() {
     cin >> n;
 
     Graph g(2 * (n + 1));
-    vi x(n), y(n), r(n);
+    vector<ll> x(n), y(n), r(n);
     rep(i, n) {
         cin >> x[i] >> y[i] >> r[i];
         // 2*i: 入頂点
@@ -328,7 +328,7 @@ signed main() {
     cin >> n;
 
     Graph g(2 * (n + 1));
-    vi x(n), y(n), r(n);
+    vector<ll> x(n), y(n), r(n);
     rep(i, n) {
         cin >> x[i] >> y[i] >> r[i];
         // 2*i: 入頂点

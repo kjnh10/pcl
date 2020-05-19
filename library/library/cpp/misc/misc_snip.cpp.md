@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-17 02:27:28+09:00
+    - Last commit date: 2020-05-19 13:03:27+09:00
 
 
 
@@ -125,11 +125,11 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
-vi p(n);
+vector<ll> p(n);
 iota(all(p), 0LL);
 do{
     dump(p);
-    vi ma(a);
+    vector<ll> ma(a);
     rep(i, n) ma[i] = a[p[i]];
     dump(ma);
 } while (next_permutation(all(p)));
@@ -274,11 +274,9 @@ uint64_t rng() {
 
 
 //%snippet.set('bitall')%
-rep(mask, 1<<n){
-    cerrendl;
-    vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
+rep(s, 1<<n){
     rep(i, n){
-        if (vmask[i]){
+        if(s>>i&1){
         }
         else{
         }
@@ -465,11 +463,11 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
-vi p(n);
+vector<ll> p(n);
 iota(all(p), 0LL);
 do{
     dump(p);
-    vi ma(a);
+    vector<ll> ma(a);
     rep(i, n) ma[i] = a[p[i]];
     dump(ma);
 } while (next_permutation(all(p)));
@@ -614,11 +612,9 @@ uint64_t rng() {
 
 
 //%snippet.set('bitall')%
-rep(mask, 1<<n){
-    cerrendl;
-    vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
+rep(s, 1<<n){
     rep(i, n){
-        if (vmask[i]){
+        if(s>>i&1){
         }
         else{
         }
