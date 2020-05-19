@@ -8,7 +8,7 @@ signed main() {
     int h, w;
     cin >> h >> w;
     int n = h * w;  // 頂点数
-    vvi block(h, vi(w));
+    vector<vector<ll>> block(h, vector<ll>(w));
     rep(i, h) {
         string s;
         cin >> s;
@@ -18,8 +18,8 @@ signed main() {
     Graph g(n);
 
     auto nid = [&](int i, int j){return (i*w + j);};
-    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // int u = nid(i, j);
+    auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // auto [i,j] = pos(u);
 
     int di[] = {1, -1, 0, 0};

@@ -61,7 +61,7 @@ signed main() {
 
     KMP<vector<int>> kmp(xa);
     dump("hello");
-    vi wxb;
+    vector<ll> wxb;
     wxb.insert(wxb.end(), xb.begin(), xb.end());
     wxb.insert(wxb.end(), xb.begin(), xb.end());
 

@@ -82,11 +82,11 @@ assert(false);
 sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
 
 //%snippet.set('perm')%
-vi p(n);
+vector<ll> p(n);
 iota(all(p), 0LL);
 do{
     dump(p);
-    vi ma(a);
+    vector<ll> ma(a);
     rep(i, n) ma[i] = a[p[i]];
     dump(ma);
 } while (next_permutation(all(p)));
@@ -231,11 +231,9 @@ uint64_t rng() {
 
 
 //%snippet.set('bitall')%
-rep(mask, 1<<n){
-    cerrendl;
-    vi vmask(n); rep(i, n){ if (mask&(1<<i)) vmask[i] = 1; } dump(vmask);
+rep(s, 1<<n){
     rep(i, n){
-        if (vmask[i]){
+        if(s>>i&1){
         }
         else{
         }

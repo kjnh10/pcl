@@ -71,7 +71,7 @@ struct bit {  //{{{
 //%snippet.end()%
 
 signed main() {
-    // vi x = {1, 2, 3, 4, 5};
+    // vector<ll> x = {1, 2, 3, 4, 5};
     // bit<int> b(x);
     bit<int> b(5);
     b.add(0, 1);

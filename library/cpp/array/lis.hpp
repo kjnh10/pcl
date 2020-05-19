@@ -42,7 +42,7 @@ int lis(const vector<T>& x, bool strict=true) { /*{{{*/
 
 // lisにはBITを使ったmethodもある。
 // signed main() {
-//     vi x({1, 5, 4, 2, 3, 3, 7});
+//     vector<ll> x({1, 5, 4, 2, 3, 3, 7});
 //     auto res = lis(x);
 //     auto res_not_strict = lis(x, false);
 //     dump(res);

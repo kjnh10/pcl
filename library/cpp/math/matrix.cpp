@@ -35,7 +35,7 @@ int solve() {
     int n, m;
     cin >> n >> m;
 
-    mat A(m, vi(m, 0));  // m==0だと落ちるので注意。
+    mat A(m, vector<ll>(m, 0));  // m==0だと落ちるので注意。
     A[0][0] = 1;
     A[0][m - 1] = 1;
     rep(i, 1, m) { A[i][i - 1] = 1; }

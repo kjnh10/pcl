@@ -87,7 +87,7 @@ signed main() {
     cin >> n;
 
     Graph g(2 * (n + 1));
-    vi x(n), y(n), r(n);
+    vector<ll> x(n), y(n), r(n);
     rep(i, n) {
         cin >> x[i] >> y[i] >> r[i];
         // 2*i: 入頂点
