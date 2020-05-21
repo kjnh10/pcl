@@ -90,18 +90,18 @@ snippet bit
 
 
 snippet syakutori
-      int sum = 0;
+      ll sum = 0;
   
-      auto isok = [&](int next_r) {  // check [l, next_r) is ok?
+      auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
           if (sum + x[next_r - 1] <= k)
               return true;
           else
               return false;
       };
   
-      int res = 0;
-      int r = 0;
-      for (int l = 0; l < n; ++l) {
+      ll res = 0;
+      ll r = 0;
+      for (ll l = 0; l < n; ++l) {
           // [l, r)を限界まで広げる。
           while (r < n && isok(r + 1)) {
               sum += x[r];
@@ -110,10 +110,12 @@ snippet syakutori
           chmax(res, (r - l));
   
           // leftをincrementする準備
-          if (r == l)
+          if (r == l){
               ++r;  // 空区間から空区間への変動なので何もしない。
-          else
+          }
+          else{
               sum -= x[l];
+          }
       }
   
 
@@ -562,15 +564,16 @@ snippet perm
 
 
 snippet to_bin
-  #define N 61
-  string to_bin(ll n, ll d){
+  // snippet:to_bin {{{
+  string to_bin(ll n, ll d = 10){
       // nをd桁の2進数で表示する。
       stringstream ss;
-      ss << bitset<N>(n);
-      return ss.str().substr(N-d, d);
+      ss << bitset<64>(n);
+      return ss.str().substr(64-d, d);
   }
   // ll d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
   // ll f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
+  // snippet:to_bin }}}
   
 
 
@@ -818,6 +821,27 @@ snippet erase_loop_reverse
       else{
           riter++;
       }
+  }
+  
+
+
+snippet get_rank
+alias rank
+  vector<ll> get_rank(vector<ll>& score){
+      ll n = sz(score);
+      vector<pair<ll, ll>> tmp(n);
+      rep(i, n) tmp[i] = mp(score[i], i);
+      sort(all(tmp));
+  
+      vector<ll> rank(n);
+      ll now = -1, last = -1;
+      rep(i, n){
+          auto [dist, idx] = tmp[i];
+          if (last < dist) now = i;
+          rank[idx] = now;
+          last = dist;
+      }
+      return rank;
   }
   
 
@@ -1239,17 +1263,17 @@ snippet gridgraph
       auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
       // auto [i,j] = pos(u);
   
-      int di[] = {1, -1, 0, 0};
-      int dj[] = {0, 0, 1, -1};
+      int dx[] = {1, -1, 0, 0};
+      int dx[] = {0, 0, 1, -1};
   
       // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
-      // int di[] = {1, 0};
-      // int dj[] = {0, 1};
+      // int dx[] = {1, 0};
+      // int dy[] = {0, 1};
       rep(i, h) rep(j, w) {
           if (block[i][j]) continue;  // blockから出る辺はない
-          rep(k, 4) {
-              int ni = i + di[k];
-              int nj = j + dj[k];
+          rep(dir, 4) {
+              int ni = i + dx[dir];
+              int nj = j + dy[dir];
               if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
                   if (block[ni][nj]) continue;  // blockに入る辺はない
                   g.add_edge(nid(i, j), nid(ni, nj));
@@ -1630,10 +1654,12 @@ snippet header
   
   typedef long long ll;
   typedef long double ld;
+  using vl = vector<ll>;
+  using vvl = vector<vl>;
+  using pll = pair<ll, ll>;
   
   template <typename T>
   using PQ = priority_queue<T, vector<T>, greater<T>>;
-  struct Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;
   void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }
   
   #if defined(PCM) || defined(LOCAL)
@@ -2058,7 +2084,7 @@ alias prime_factor_by_sieve
               }
           }
       } /*}}}*/
-      bool isPrime(int x) { return f[x] == x; }
+      bool is_prime(int x) { return f[x] == x; }
   
       vector<int> factor_list(int x) { /*{{{*/
           // n**2くらいまでは計算できるはず
@@ -2170,15 +2196,15 @@ alias pair
       template<class U=ll>
       P2 operator*(U v) const {
           P2 res(*this);
-          res.x *= v;
-          res.y *= v;
+          res.x *= v.x;
+          res.y *= v.y;
           return res;
       }
       template<class U=ll>
       P2 operator/(U v) const {
           P2 res(*this);
-          res.x /= v;
-          res.y /= v;
+          res.x /= v.x;
+          res.y /= v.y;
           return res;
       }
   
@@ -2190,6 +2216,7 @@ alias pair
       }
   
   };/*}}}*/
+  using P = P2<ll>;
   
 
 
@@ -2796,6 +2823,72 @@ alias scc
   // scc.build();
   // dump(scc.comp, scc.dag);
   // snippet:StronglyConnectedComponents }}}
+  
+
+
+snippet unionfind_with_potential
+  // snippet:unionfind_with_potential {{{
+  template<class Pot = ll>  // Pot: Abel
+  struct UnionFind {
+      vector<int> par;   // par[x]: parent of x. if root, -size.
+      int gcount;         // count of groups
+      vector<Pot>  diff;
+  
+      UnionFind() {}
+      UnionFind(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}
+  
+      bool merge(int x, int y, Pot d) { 
+          // d:= y - x
+          int rx = root(x);
+          int ry = root(y);
+          if (rx != ry) {
+              if (par[ry] >= par[rx]) {
+                  par[rx] += par[ry];
+                  par[ry] = rx;
+                  diff[ry] = diff[x] + d + (-diff[y]);
+              }
+              else{
+                  par[ry] += par[rx];
+                  par[rx] = ry;
+                  diff[rx] = (-diff[x]) + (-d) + diff[y];
+              }
+              gcount--;
+          }
+          return rx != ry;
+      } 
+  
+      int root(int x) {
+          if (is_root(x)){
+              return x;
+          }
+          else{
+              int r = root(par[x]);
+              par[x] = r;
+              diff[x] += diff[r];
+              return par[x];
+          }
+      }
+  
+      Pot weight(int x){
+          root(x); // 経路圧縮
+          return diff[x];
+      }
+  
+      bool is_root(int x) { return par[x] < 0; }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -par[root(x)]; }
+  
+  #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, UnionFind& uf) {
+          map<int, vector<int>> group;
+          rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+  #endif  // }}}
+  };
+  // snippet:unionfind_with_potential }}}
   
 
 
