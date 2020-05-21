@@ -50,15 +50,15 @@ struct P2 {
     template<class U=ll>
     P2 operator*(U v) const {
         P2 res(*this);
-        res.x *= v;
-        res.y *= v;
+        res.x *= v.x;
+        res.y *= v.y;
         return res;
     }
     template<class U=ll>
     P2 operator/(U v) const {
         P2 res(*this);
-        res.x /= v;
-        res.y /= v;
+        res.x /= v.x;
+        res.y /= v.y;
         return res;
     }
 
@@ -70,6 +70,7 @@ struct P2 {
     }
 
 };/*}}}*/
+using P = P2<ll>;
 
 //%snippet.config({'alias':'pos'})%
 //%snippet.config({'alias':'point'})%
