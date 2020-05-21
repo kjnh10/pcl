@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/gridgraph.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-22 02:07:51+09:00
 
 
 
@@ -43,7 +43,7 @@ layout: default
 * :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -75,17 +75,17 @@ signed main() {
     auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // auto [i,j] = pos(u);
 
-    int di[] = {1, -1, 0, 0};
-    int dj[] = {0, 0, 1, -1};
+    int dx[] = {1, -1, 0, 0};
+    int dx[] = {0, 0, 1, -1};
 
     // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
-    // int di[] = {1, 0};
-    // int dj[] = {0, 1};
+    // int dx[] = {1, 0};
+    // int dy[] = {0, 1};
     rep(i, h) rep(j, w) {
         if (block[i][j]) continue;  // blockから出る辺はない
-        rep(k, 4) {
-            int ni = i + di[k];
-            int nj = j + dj[k];
+        rep(dir, 4) {
+            int ni = i + dx[dir];
+            int nj = j + dy[dir];
             if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
                 if (block[ni][nj]) continue;  // blockに入る辺はない
                 g.add_edge(nid(i, j), nid(ni, nj));
@@ -698,17 +698,17 @@ signed main() {
     auto pos = [&](int u) -> pair<int, int> { return {u/w, u%w}; };
     // auto [i,j] = pos(u);
 
-    int di[] = {1, -1, 0, 0};
-    int dj[] = {0, 0, 1, -1};
+    int dx[] = {1, -1, 0, 0};
+    int dx[] = {0, 0, 1, -1};
 
     // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
-    // int di[] = {1, 0};
-    // int dj[] = {0, 1};
+    // int dx[] = {1, 0};
+    // int dy[] = {0, 1};
     rep(i, h) rep(j, w) {
         if (block[i][j]) continue;  // blockから出る辺はない
-        rep(k, 4) {
-            int ni = i + di[k];
-            int nj = j + dj[k];
+        rep(dir, 4) {
+            int ni = i + dx[dir];
+            int nj = j + dy[dir];
             if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
                 if (block[ni][nj]) continue;  // blockに入る辺はない
                 g.add_edge(nid(i, j), nid(ni, nj));

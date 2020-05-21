@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 * :heavy_check_mark: <a href="../../../../library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
 
 

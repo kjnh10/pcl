@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-22 02:08:41+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -44,8 +44,8 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -704,15 +704,15 @@ struct P2 {
     template<class U=ll>
     P2 operator*(U v) const {
         P2 res(*this);
-        res.x *= v;
-        res.y *= v;
+        res.x *= v.x;
+        res.y *= v.y;
         return res;
     }
     template<class U=ll>
     P2 operator/(U v) const {
         P2 res(*this);
-        res.x /= v;
-        res.y /= v;
+        res.x /= v.x;
+        res.y /= v.y;
         return res;
     }
 
@@ -724,6 +724,7 @@ struct P2 {
     }
 
 };/*}}}*/
+using P = P2<ll>;
 
 //%snippet.config({'alias':'pos'})%
 //%snippet.config({'alias':'point'})%

@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/rational.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-22 02:08:41+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -191,15 +191,15 @@ struct P2 {
     template<class U=ll>
     P2 operator*(U v) const {
         P2 res(*this);
-        res.x *= v;
-        res.y *= v;
+        res.x *= v.x;
+        res.y *= v.y;
         return res;
     }
     template<class U=ll>
     P2 operator/(U v) const {
         P2 res(*this);
-        res.x /= v;
-        res.y /= v;
+        res.x /= v.x;
+        res.y /= v.y;
         return res;
     }
 
@@ -211,6 +211,7 @@ struct P2 {
     }
 
 };/*}}}*/
+using P = P2<ll>;
 
 //%snippet.config({'alias':'pos'})%
 //%snippet.config({'alias':'point'})%

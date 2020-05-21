@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/syakutori.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-22 02:07:51+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -55,18 +55,18 @@ int n;
 signed main(){
 //%snippet.set('syakutori')%
 //%snippet.config({'abbr':'syakutori-hou-[l,r)', 'indent':True})%
-    int sum = 0;
+    ll sum = 0;
 
-    auto isok = [&](int next_r) {  // check [l, next_r) is ok?
+    auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
         if (sum + x[next_r - 1] <= k)
             return true;
         else
             return false;
     };
 
-    int res = 0;
-    int r = 0;
-    for (int l = 0; l < n; ++l) {
+    ll res = 0;
+    ll r = 0;
+    for (ll l = 0; l < n; ++l) {
         // [l, r)を限界まで広げる。
         while (r < n && isok(r + 1)) {
             sum += x[r];
@@ -75,10 +75,12 @@ signed main(){
         chmax(res, (r - l));
 
         // leftをincrementする準備
-        if (r == l)
+        if (r == l){
             ++r;  // 空区間から空区間への変動なので何もしない。
-        else
+        }
+        else{
             sum -= x[l];
+        }
     }
 //%snippet.end()%
 }
@@ -160,18 +162,18 @@ int n;
 signed main(){
 //%snippet.set('syakutori')%
 //%snippet.config({'abbr':'syakutori-hou-[l,r)', 'indent':True})%
-    int sum = 0;
+    ll sum = 0;
 
-    auto isok = [&](int next_r) {  // check [l, next_r) is ok?
+    auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
         if (sum + x[next_r - 1] <= k)
             return true;
         else
             return false;
     };
 
-    int res = 0;
-    int r = 0;
-    for (int l = 0; l < n; ++l) {
+    ll res = 0;
+    ll r = 0;
+    for (ll l = 0; l < n; ++l) {
         // [l, r)を限界まで広げる。
         while (r < n && isok(r + 1)) {
             sum += x[r];
@@ -180,10 +182,12 @@ signed main(){
         chmax(res, (r - l));
 
         // leftをincrementする準備
-        if (r == l)
+        if (r == l){
             ++r;  // 空区間から空区間への変動なので何もしない。
-        else
+        }
+        else{
             sum -= x[l];
+        }
     }
 //%snippet.end()%
 }

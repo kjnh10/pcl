@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/sieve.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-19 13:04:08+09:00
+    - Last commit date: 2020-05-22 02:07:51+09:00
 
 
 
@@ -62,7 +62,7 @@ struct Sieve {/*{{{*/
             }
         }
     } /*}}}*/
-    bool isPrime(int x) { return f[x] == x; }
+    bool is_prime(int x) { return f[x] == x; }
 
     vector<int> factor_list(int x) { /*{{{*/
         // n**2くらいまでは計算できるはず
@@ -135,7 +135,7 @@ struct Sieve {/*{{{*/
             }
         }
     } /*}}}*/
-    bool isPrime(int x) { return f[x] == x; }
+    bool is_prime(int x) { return f[x] == x; }
 
     vector<int> factor_list(int x) { /*{{{*/
         // n**2くらいまでは計算できるはず
