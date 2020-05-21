@@ -92,12 +92,12 @@ do{
 } while (next_permutation(all(p)));
 
 //%snippet.set('to_bin')%
-#define N 61
-string to_bin(ll n, ll d){
+//%snippet.fold()%
+string to_bin(ll n, ll d = 10){
     // nをd桁の2進数で表示する。
     stringstream ss;
-    ss << bitset<N>(n);
-    return ss.str().substr(N-d, d);
+    ss << bitset<64>(n);
+    return ss.str().substr(64-d, d);
 }
 // ll d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
 // ll f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
@@ -327,4 +327,24 @@ for(auto riter=rbegin(s); riter!=rend(s);){
     else{
         riter++;
     }
+}
+
+
+//%snippet.set('get_rank')%
+//%snippet.config({'alias':'rank'})%
+vector<ll> get_rank(vector<ll>& score){
+    ll n = sz(score);
+    vector<pair<ll, ll>> tmp(n);
+    rep(i, n) tmp[i] = mp(score[i], i);
+    sort(all(tmp));
+
+    vector<ll> rank(n);
+    ll now = -1, last = -1;
+    rep(i, n){
+        auto [dist, idx] = tmp[i];
+        if (last < dist) now = i;
+        rank[idx] = now;
+        last = dist;
+    }
+    return rank;
 }

@@ -19,7 +19,7 @@ struct Sieve {/*{{{*/
             }
         }
     } /*}}}*/
-    bool isPrime(int x) { return f[x] == x; }
+    bool is_prime(int x) { return f[x] == x; }
 
     vector<int> factor_list(int x) { /*{{{*/
         // n**2くらいまでは計算できるはず
