@@ -37,8 +37,8 @@ struct UnionFind {
         }
         else{
             int r = root(par[x]);
+            diff[x] += diff[par[x]];
             par[x] = r;
-            diff[x] += diff[r];
             return par[x];
         }
     }
