@@ -1,22 +1,22 @@
 snippet bsearch
-  ll left = 0;
-  ll right = 1000000001;
-  auto isright = [&](ll x) {
-      cerrendl;
-      //
-      bool ans = (cond ? true : false);
-      dump(x, ans);
-      return ans;
-  };
-  while (right - left > 1) {
-      ll mid = (right + left) / 2;
-      if (isright(mid)) {
-          right = mid;
-      } else {
-          left = mid;
+      ll left = 0;
+      ll right = 1e9 + 1;
+      auto isright = [&](ll x) {
+          cerrendl;
+          bool is_r = true;
+  
+          dump(x, is_r);
+          return is_r;
+      };
+      while (right - left > 1) {
+          ll mid = (right + left) / 2;
+          if (isright(mid)) {
+              right = mid;
+          } else {
+              left = mid;
+          }
       }
-  }
-  dump(right);
+      dump(right);
   
 
 
@@ -698,14 +698,14 @@ snippet query
       return 0;
   }
   
-  signed main(){
+  signed main(){/*{{{*/
       ll Q;cin>>Q;
       rep(_, Q){
           query();
       }
       check_input();
       return 0;
-  }
+  }/*}}}*/
   
 
 
@@ -2173,46 +2173,73 @@ alias pair
           return P2(-x, -y);
       }
   
-      P2& operator+=(const P2& r){
+      P2& operator+=(const P2<T>& r){
           x += r.x;
           y += r.y;
           return *this;
       }
-      P2& operator-=(const P2& r){
+      P2& operator-=(const P2<T>& r){
           x -= r.x;
           y -= r.y;
           return *this;
       }
+      P2& operator+=(const T& r){
+          x += r;
+          y += r;
+          return *this;
+      }
+      P2& operator-=(const T& r){
+          x -= r;
+          y -= r;
+          return *this;
+      }
+      P2& operator*=(const P2<T>& r){
+          x *= r.x;
+          y *= r.y;
+          return *this;
+      }
+      P2& operator/=(const P2<T>& r){
+          x /= r.x;
+          y /= r.y;
+          return *this;
+      }
+      P2& operator*=(const T& r){
+          x *= r;
+          y *= r;
+          return *this;
+      }
+      P2& operator/=(const T& r){
+          x /= r;
+          y /= r;
+          return *this;
+      }
   
-      P2 operator+(const P2& r) const {
+      template<class U>
+      P2 operator+(const U& r) const {
           P2 res(*this);
           return res += r;
       }
-      P2 operator-(const P2& r) const {
+      template<class U>
+      P2 operator-(const U& r) const {
           P2 res(*this);
           return res -= r;
       }
   
-      template<class U=ll>
-      P2 operator*(U v) const {
+      template<class U>
+      P2 operator*(const U& r) const {
           P2 res(*this);
-          res.x *= v.x;
-          res.y *= v.y;
-          return res;
+          return res *= r;
       }
-      template<class U=ll>
-      P2 operator/(U v) const {
+      template<class U>
+      P2 operator/(const U& r) const {
           P2 res(*this);
-          res.x /= v.x;
-          res.y /= v.y;
-          return res;
+          return res /= r;
       }
   
+  
       bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-          if (a <= x && x < b && c <= y && y < d)
-              return true;
-          else
-              return false;
+          if (a <= x && x < b && c <= y && y < d) return true;
+          else return false;
       }
   
   };/*}}}*/
@@ -2390,10 +2417,10 @@ alias scc
   // snippet:UnionFind {{{
   struct UnionFind {
       vector<int> par;   // par[x]: parent of x. if root, -size.
-      int count;         // count of groups
+      int gcount;         // count of groups
   
       UnionFind() {}
-      UnionFind(int size) : par(size, -1), count(size) {}
+      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
       bool merge(int x, int y) { 
           x = root(x);
           y = root(y);
@@ -2401,7 +2428,7 @@ alias scc
               if (par[y] < par[x]) swap(x, y);
               par[x] += par[y];
               par[y] = x;
-              count--;
+              gcount--;
           }
           return x != y;
       } 
@@ -2904,10 +2931,10 @@ snippet UnionFind
   // snippet:UnionFind {{{
   struct UnionFind {
       vector<int> par;   // par[x]: parent of x. if root, -size.
-      int count;         // count of groups
+      int gcount;         // count of groups
   
       UnionFind() {}
-      UnionFind(int size) : par(size, -1), count(size) {}
+      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
       bool merge(int x, int y) { 
           x = root(x);
           y = root(y);
@@ -2915,7 +2942,7 @@ snippet UnionFind
               if (par[y] < par[x]) swap(x, y);
               par[x] += par[y];
               par[y] = x;
-              count--;
+              gcount--;
           }
           return x != y;
       } 
@@ -3045,10 +3072,10 @@ snippet Graph
   // snippet:UnionFind {{{
   struct UnionFind {
       vector<int> par;   // par[x]: parent of x. if root, -size.
-      int count;         // count of groups
+      int gcount;         // count of groups
   
       UnionFind() {}
-      UnionFind(int size) : par(size, -1), count(size) {}
+      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
       bool merge(int x, int y) { 
           x = root(x);
           y = root(y);
@@ -3056,7 +3083,7 @@ snippet Graph
               if (par[y] < par[x]) swap(x, y);
               par[x] += par[y];
               par[y] = x;
-              count--;
+              gcount--;
           }
           return x != y;
       } 
@@ -3525,10 +3552,10 @@ snippet bellman_ford
   // snippet:UnionFind {{{
   struct UnionFind {
       vector<int> par;   // par[x]: parent of x. if root, -size.
-      int count;         // count of groups
+      int gcount;         // count of groups
   
       UnionFind() {}
-      UnionFind(int size) : par(size, -1), count(size) {}
+      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
       bool merge(int x, int y) { 
           x = root(x);
           y = root(y);
@@ -3536,7 +3563,7 @@ snippet bellman_ford
               if (par[y] < par[x]) swap(x, y);
               par[x] += par[y];
               par[y] = x;
-              count--;
+              gcount--;
           }
           return x != y;
       } 

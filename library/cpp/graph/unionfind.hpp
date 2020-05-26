@@ -6,10 +6,10 @@
 
 struct UnionFind {
     vector<int> par;   // par[x]: parent of x. if root, -size.
-    int count;         // count of groups
+    int gcount;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : par(size, -1), count(size) {}
+    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -17,7 +17,7 @@ struct UnionFind {
             if (par[y] < par[x]) swap(x, y);
             par[x] += par[y];
             par[y] = x;
-            count--;
+            gcount--;
         }
         return x != y;
     } 

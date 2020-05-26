@@ -213,14 +213,14 @@ ll query(){
     return 0;
 }
 
-signed main(){
+signed main(){/*{{{*/
     ll Q;cin>>Q;
     rep(_, Q){
         query();
     }
     check_input();
     return 0;
-}
+}/*}}}*/
 
 
 //%snippet.set('random_generator')%
