@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-22 02:07:51+09:00
+    - Last commit date: 2020-05-27 03:29:28+09:00
 
 
 
@@ -256,14 +256,14 @@ ll query(){
     return 0;
 }
 
-signed main(){
+signed main(){/*{{{*/
     ll Q;cin>>Q;
     rep(_, Q){
         query();
     }
     check_input();
     return 0;
-}
+}/*}}}*/
 
 
 //%snippet.set('random_generator')%
@@ -614,14 +614,14 @@ ll query(){
     return 0;
 }
 
-signed main(){
+signed main(){/*{{{*/
     ll Q;cin>>Q;
     rep(_, Q){
         query();
     }
     check_input();
     return 0;
-}
+}/*}}}*/
 
 
 //%snippet.set('random_generator')%

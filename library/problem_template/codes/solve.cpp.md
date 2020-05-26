@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code

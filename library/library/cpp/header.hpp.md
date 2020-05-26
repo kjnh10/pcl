@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: library/cpp/header.hpp
+# :heavy_check_mark: library/cpp/header.hpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -39,6 +39,7 @@ layout: default
 ## Required by
 
 * :warning: <a href="array/bit.cpp.html">library/cpp/array/bit.cpp</a>
+* :warning: <a href="array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
 * :heavy_check_mark: <a href="array/lis.hpp.html">library/cpp/array/lis.hpp</a>
 * :warning: <a href="array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
 * :heavy_check_mark: <a href="array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
@@ -56,13 +57,14 @@ layout: default
 * :warning: <a href="graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :warning: <a href="graph/unionfind_with_potential.hpp.html">library/cpp/graph/unionfind_with_potential.hpp</a>
 * :warning: <a href="math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
 * :warning: <a href="math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
 * :heavy_check_mark: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
 * :warning: <a href="math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
-* :question: <a href="math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :heavy_check_mark: <a href="math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 * :warning: <a href="math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
 * :warning: <a href="math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
 * :warning: <a href="math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
@@ -98,7 +100,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
-* :x: <a href="../../../verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>

@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/unionfind.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-27 03:29:28+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
@@ -74,10 +74,10 @@ layout: default
 
 struct UnionFind {
     vector<int> par;   // par[x]: parent of x. if root, -size.
-    int count;         // count of groups
+    int gcount;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : par(size, -1), count(size) {}
+    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -85,7 +85,7 @@ struct UnionFind {
             if (par[y] < par[x]) swap(x, y);
             par[x] += par[y];
             par[y] = x;
-            count--;
+            gcount--;
         }
         return x != y;
     } 
@@ -190,10 +190,10 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 struct UnionFind {
     vector<int> par;   // par[x]: parent of x. if root, -size.
-    int count;         // count of groups
+    int gcount;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : par(size, -1), count(size) {}
+    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -201,7 +201,7 @@ struct UnionFind {
             if (par[y] < par[x]) swap(x, y);
             par[x] += par[y];
             par[y] = x;
-            count--;
+            gcount--;
         }
         return x != y;
     } 

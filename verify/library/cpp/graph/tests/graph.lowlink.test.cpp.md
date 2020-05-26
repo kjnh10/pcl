@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.lowlink.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-27 03:29:28+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A&lang=jp</a>
@@ -44,7 +44,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -442,10 +442,10 @@ struct tree {
 
 struct UnionFind {
     vector<int> par;   // par[x]: parent of x. if root, -size.
-    int count;         // count of groups
+    int gcount;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : par(size, -1), count(size) {}
+    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -453,7 +453,7 @@ struct UnionFind {
             if (par[y] < par[x]) swap(x, y);
             par[x] += par[y];
             par[y] = x;
-            count--;
+            gcount--;
         }
         return x != y;
     } 

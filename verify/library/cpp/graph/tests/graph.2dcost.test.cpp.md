@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-22 02:08:41+09:00
+    - Last commit date: 2020-05-27 03:29:28+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -44,8 +44,8 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -445,10 +445,10 @@ struct tree {
 
 struct UnionFind {
     vector<int> par;   // par[x]: parent of x. if root, -size.
-    int count;         // count of groups
+    int gcount;         // count of groups
 
     UnionFind() {}
-    UnionFind(int size) : par(size, -1), count(size) {}
+    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -456,7 +456,7 @@ struct UnionFind {
             if (par[y] < par[x]) swap(x, y);
             par[x] += par[y];
             par[y] = x;
-            count--;
+            gcount--;
         }
         return x != y;
     } 
@@ -655,6 +655,9 @@ struct Graph {
 #line 2 "library/cpp/math/geometry/p2.hpp"
 
 //%snippet.set('P2')%
+//%snippet.config({'alias':'pos'})%
+//%snippet.config({'alias':'point'})%
+//%snippet.config({'alias':'pair'})%
 
 template<class T=ll>/*{{{*/
 struct P2 {
@@ -681,54 +684,78 @@ struct P2 {
         return P2(-x, -y);
     }
 
-    P2& operator+=(const P2& r){
+    P2& operator+=(const P2<T>& r){
         x += r.x;
         y += r.y;
         return *this;
     }
-    P2& operator-=(const P2& r){
+    P2& operator-=(const P2<T>& r){
         x -= r.x;
         y -= r.y;
         return *this;
     }
+    P2& operator+=(const T& r){
+        x += r;
+        y += r;
+        return *this;
+    }
+    P2& operator-=(const T& r){
+        x -= r;
+        y -= r;
+        return *this;
+    }
+    P2& operator*=(const P2<T>& r){
+        x *= r.x;
+        y *= r.y;
+        return *this;
+    }
+    P2& operator/=(const P2<T>& r){
+        x /= r.x;
+        y /= r.y;
+        return *this;
+    }
+    P2& operator*=(const T& r){
+        x *= r;
+        y *= r;
+        return *this;
+    }
+    P2& operator/=(const T& r){
+        x /= r;
+        y /= r;
+        return *this;
+    }
 
-    P2 operator+(const P2& r) const {
+    template<class U>
+    P2 operator+(const U& r) const {
         P2 res(*this);
         return res += r;
     }
-    P2 operator-(const P2& r) const {
+    template<class U>
+    P2 operator-(const U& r) const {
         P2 res(*this);
         return res -= r;
     }
 
-    template<class U=ll>
-    P2 operator*(U v) const {
+    template<class U>
+    P2 operator*(const U& r) const {
         P2 res(*this);
-        res.x *= v.x;
-        res.y *= v.y;
-        return res;
+        return res *= r;
     }
-    template<class U=ll>
-    P2 operator/(U v) const {
+    template<class U>
+    P2 operator/(const U& r) const {
         P2 res(*this);
-        res.x /= v.x;
-        res.y /= v.y;
-        return res;
+        return res /= r;
     }
 
+
     bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d)
-            return true;
-        else
-            return false;
+        if (a <= x && x < b && c <= y && y < d) return true;
+        else return false;
     }
 
 };/*}}}*/
 using P = P2<ll>;
 
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
 //%snippet.end%
 #line 6 "library/cpp/graph/tests/graph.2dcost.test.cpp"
 
