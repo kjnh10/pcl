@@ -1,6 +1,9 @@
 #include "../../header.hpp"
 
 //%snippet.set('P2')%
+//%snippet.config({'alias':'pos'})%
+//%snippet.config({'alias':'point'})%
+//%snippet.config({'alias':'pair'})%
 
 template<class T=ll>/*{{{*/
 struct P2 {
@@ -27,52 +30,76 @@ struct P2 {
         return P2(-x, -y);
     }
 
-    P2& operator+=(const P2& r){
+    P2& operator+=(const P2<T>& r){
         x += r.x;
         y += r.y;
         return *this;
     }
-    P2& operator-=(const P2& r){
+    P2& operator-=(const P2<T>& r){
         x -= r.x;
         y -= r.y;
         return *this;
     }
+    P2& operator+=(const T& r){
+        x += r;
+        y += r;
+        return *this;
+    }
+    P2& operator-=(const T& r){
+        x -= r;
+        y -= r;
+        return *this;
+    }
+    P2& operator*=(const P2<T>& r){
+        x *= r.x;
+        y *= r.y;
+        return *this;
+    }
+    P2& operator/=(const P2<T>& r){
+        x /= r.x;
+        y /= r.y;
+        return *this;
+    }
+    P2& operator*=(const T& r){
+        x *= r;
+        y *= r;
+        return *this;
+    }
+    P2& operator/=(const T& r){
+        x /= r;
+        y /= r;
+        return *this;
+    }
 
-    P2 operator+(const P2& r) const {
+    template<class U>
+    P2 operator+(const U& r) const {
         P2 res(*this);
         return res += r;
     }
-    P2 operator-(const P2& r) const {
+    template<class U>
+    P2 operator-(const U& r) const {
         P2 res(*this);
         return res -= r;
     }
 
-    template<class U=ll>
-    P2 operator*(U v) const {
+    template<class U>
+    P2 operator*(const U& r) const {
         P2 res(*this);
-        res.x *= v.x;
-        res.y *= v.y;
-        return res;
+        return res *= r;
     }
-    template<class U=ll>
-    P2 operator/(U v) const {
+    template<class U>
+    P2 operator/(const U& r) const {
         P2 res(*this);
-        res.x /= v.x;
-        res.y /= v.y;
-        return res;
+        return res /= r;
     }
 
+
     bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d)
-            return true;
-        else
-            return false;
+        if (a <= x && x < b && c <= y && y < d) return true;
+        else return false;
     }
 
 };/*}}}*/
 using P = P2<ll>;
 
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
 //%snippet.end%
