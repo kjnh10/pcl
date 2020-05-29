@@ -49,8 +49,8 @@ int test(){
 }
 
 int main(){
-    int nums = 100;
+    int nums = 1000;
     while(nums--){ test(); }
-    // test();
+    cout << "Hello World" << endl;
     return 0;
 }
