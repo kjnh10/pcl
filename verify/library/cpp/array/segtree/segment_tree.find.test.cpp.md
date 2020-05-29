@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-30 01:23:46+09:00
+    - Last commit date: 2020-05-30 01:33:06+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -61,28 +61,27 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int nr = -1;
+    int right = -1;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
-            nr = j;
+            right = j;
             break;
         }
     }
-    int nl = -1;
+    int left = -1;
     r_rep(j, 0, i){
         if (a[j] < a[i]) {
-            nl = j;
+            left = j;
             break;
         }
     }
-    return {nl, nr};
+    return {left, right};
 }
 
-pair<int, int> by_seg_find(int i){
-    // a[i]より小さくて左側で一番近いもののindex
-    auto nl = seg.find_mr(0, i, [&](auto x){return x < a[i];});
-    auto nr = seg.find_ml(i, n, [&](auto x){return x < a[i];});
-    return {nl, nr};
+pair<int, int> get_nearest_index_of_smaller_element(int i){
+    auto left = seg.find_mr(0, i, [&](auto x){return x < a[i];});
+    auto right = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    return {left, right};
 }
 
 int test(){
@@ -93,7 +92,7 @@ int test(){
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == by_seg_find(i));
+        assert(naive(i) == get_nearest_index_of_smaller_element(i));
     }
     return 0;
 }
@@ -293,28 +292,27 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int nr = -1;
+    int right = -1;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
-            nr = j;
+            right = j;
             break;
         }
     }
-    int nl = -1;
+    int left = -1;
     r_rep(j, 0, i){
         if (a[j] < a[i]) {
-            nl = j;
+            left = j;
             break;
         }
     }
-    return {nl, nr};
+    return {left, right};
 }
 
-pair<int, int> by_seg_find(int i){
-    // a[i]より小さくて左側で一番近いもののindex
-    auto nl = seg.find_mr(0, i, [&](auto x){return x < a[i];});
-    auto nr = seg.find_ml(i, n, [&](auto x){return x < a[i];});
-    return {nl, nr};
+pair<int, int> get_nearest_index_of_smaller_element(int i){
+    auto left = seg.find_mr(0, i, [&](auto x){return x < a[i];});
+    auto right = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    return {left, right};
 }
 
 int test(){
@@ -325,7 +323,7 @@ int test(){
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == by_seg_find(i));
+        assert(naive(i) == get_nearest_index_of_smaller_element(i));
     }
     return 0;
 }
