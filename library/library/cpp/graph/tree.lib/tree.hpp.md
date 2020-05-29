@@ -31,16 +31,16 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-30 00:50:36+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
 * :heavy_check_mark: <a href="../edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
@@ -386,6 +386,29 @@ template <typename T> struct SegmentTree {  // {{{
             T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
             return merge(vl, vr);
         }
+
+        int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+            // find most right
+            if (r < 0) r = N;
+            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (k >= N-1) return k - (N-1);  // leaf
+
+            T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            return (vr != -1 ? vr : vl);
+        }
+
+        int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+            // find most left
+            if (r < 0) r = N;
+            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (k >= N-1) return k - (N-1);  // leaf
+
+            T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            return (vl != -1 ? vl : vr);
+        }
+
 
         #if defined(PCM) || defined(LOCAL)
         friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //

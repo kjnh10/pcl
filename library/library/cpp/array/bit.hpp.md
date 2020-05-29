@@ -25,20 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/array/bit.cpp
+# :heavy_check_mark: library/cpp/array/bit.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bit.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bit.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-30 00:20:21+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/array/bit.test.cpp.html">library/cpp/array/bit.test.cpp</a>
 
 
 ## Code
@@ -50,7 +55,7 @@ layout: default
 
 //%snippet.set('bit')%
 
-template <typename T = int>
+template <typename T = ll>
 struct bit {  //{{{
     int n;
     vector<T> dat;
@@ -81,7 +86,7 @@ struct bit {  //{{{
         return s;
     }  //}}}
 
-    T sum(int l, int r) {  //{{{  [l, r)
+    T query(int l, int r) {  //{{{  [l, r)
         if (l > r - 1) return 0;
         return _rsum(r - 1) - _rsum(l - 1);
     }  //}}}
@@ -107,6 +112,7 @@ struct bit {  //{{{
         return ret + 1;
     }  //}}}
 
+    #if defined(PCM) || defined(LOCAL)
     friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
         os << endl << "  raw:" << b.raw << endl;
         vector<T> acum;
@@ -114,30 +120,10 @@ struct bit {  //{{{
         os << "  acm:" << acum << endl;
         return os;
     }  //}}}
+    #endif
 };     //}}}
 
 //%snippet.end()%
-
-signed main() {
-    // vector<ll> x = {1, 2, 3, 4, 5};
-    // bit<int> b(x);
-    bit<int> b(5);
-    b.add(0, 1);
-    b.add(1, 2);
-    b.add(2, 4);
-    b.add(3, 8);
-    b.add(4, 16);
-    rep(i, 5) { cout << b.raw[i] << (i != 5 - 1 ? " " : "\n"); }
-    // cout << b << endl;  // dump.hppをimportしないと使えない。
-    cout << b._rsum(0) << endl;   // 1
-    cout << b._rsum(1) << endl;   // 3
-    cout << b._rsum(2) << endl;   // 7
-    cout << b._rsum(3) << endl;   // 15
-    cout << b._rsum(4) << endl;   // 31
-    cout << b.sum(2, 4) << endl;  // 12
-
-    return 0;
-}
 
 ```
 {% endraw %}
@@ -207,11 +193,11 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/array/bit.cpp"
+#line 2 "library/cpp/array/bit.hpp"
 
 //%snippet.set('bit')%
 
-template <typename T = int>
+template <typename T = ll>
 struct bit {  //{{{
     int n;
     vector<T> dat;
@@ -242,7 +228,7 @@ struct bit {  //{{{
         return s;
     }  //}}}
 
-    T sum(int l, int r) {  //{{{  [l, r)
+    T query(int l, int r) {  //{{{  [l, r)
         if (l > r - 1) return 0;
         return _rsum(r - 1) - _rsum(l - 1);
     }  //}}}
@@ -268,6 +254,7 @@ struct bit {  //{{{
         return ret + 1;
     }  //}}}
 
+    #if defined(PCM) || defined(LOCAL)
     friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
         os << endl << "  raw:" << b.raw << endl;
         vector<T> acum;
@@ -275,30 +262,10 @@ struct bit {  //{{{
         os << "  acm:" << acum << endl;
         return os;
     }  //}}}
+    #endif
 };     //}}}
 
 //%snippet.end()%
-
-signed main() {
-    // vector<ll> x = {1, 2, 3, 4, 5};
-    // bit<int> b(x);
-    bit<int> b(5);
-    b.add(0, 1);
-    b.add(1, 2);
-    b.add(2, 4);
-    b.add(3, 8);
-    b.add(4, 16);
-    rep(i, 5) { cout << b.raw[i] << (i != 5 - 1 ? " " : "\n"); }
-    // cout << b << endl;  // dump.hppをimportしないと使えない。
-    cout << b._rsum(0) << endl;   // 1
-    cout << b._rsum(1) << endl;   // 3
-    cout << b._rsum(2) << endl;   // 7
-    cout << b._rsum(3) << endl;   // 15
-    cout << b._rsum(4) << endl;   // 31
-    cout << b.sum(2, 4) << endl;  // 12
-
-    return 0;
-}
 
 ```
 {% endraw %}

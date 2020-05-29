@@ -25,20 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/pascal.cpp
+# :heavy_check_mark: library/cpp/array/bit.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/pascal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+* category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bit.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-30 00:20:21+09:00
 
 
+* see: <a href="https://judge.yosupo.jp/problem/point_add_range_sum">https://judge.yosupo.jp/problem/point_add_range_sum</a>
 
 
 ## Depends on
 
-* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/array/bit.hpp.html">library/cpp/array/bit.hpp</a>
+* :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,27 +48,31 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../header.hpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
 
-//%snippet.set('pascal')%
+#include "bit.hpp"
 
-template <class T>
-vector<vector<T>> pascal(int N) {  // {{{
-    vector<vector<T>> com(N + 1, vector<T>(N + 1));
-    com[0][0] = 1;
-    rep(i, 1, N + 1) {
-        // パスカルの三角形は0-indexdで段を数えるとよい。
-        // com[i]を計算。
-        rep(j, 0, i + 1) {
-            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
-            com[i][j] += com[i - 1][j];
-            // com[i][j] /= 2.0;  // probability version
+int main(){
+    ll N,Q;cin>>N>>Q;
+    vector<ll> a(N);
+    rep(i, N) {
+        cin>>a[i];
+    }
+
+    bit<ll> b(a);
+    rep(q, Q){
+        int t;cin>>t;
+        if (t==0){
+            int i;cin>>i;
+            ll x;cin>>x;
+            b.add(i, x);
+        }
+        if (t==1){
+            int l,r;cin>>l>>r;
+            cout << b.query(l, r) << endl;
         }
     }
-    return com;
-}  // }}}
-
-//%snippet.end()%
+}
 
 ```
 {% endraw %}
@@ -74,6 +80,9 @@ vector<vector<T>> pascal(int N) {  // {{{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/array/bit.test.cpp"
+#define PROBLEM "https://judge.yosupo.jp/problem/point_add_range_sum"
+
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -136,27 +145,102 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/pascal.cpp"
+#line 2 "library/cpp/array/bit.hpp"
 
-//%snippet.set('pascal')%
+//%snippet.set('bit')%
 
-template <class T>
-vector<vector<T>> pascal(int N) {  // {{{
-    vector<vector<T>> com(N + 1, vector<T>(N + 1));
-    com[0][0] = 1;
-    rep(i, 1, N + 1) {
-        // パスカルの三角形は0-indexdで段を数えるとよい。
-        // com[i]を計算。
-        rep(j, 0, i + 1) {
-            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
-            com[i][j] += com[i - 1][j];
-            // com[i][j] /= 2.0;  // probability version
+template <typename T = ll>
+struct bit {  //{{{
+    int n;
+    vector<T> dat;
+    vector<T> raw;
+
+    bit(int _n = 0) {  //{{{
+        n = _n;
+        dat = vector<T>(n);
+        raw = vector<T>(n);
+    }  //}}}
+
+    bit(vector<T> a) {  // {{{
+        n = (int)a.size();
+        dat = vector<T>(n);
+        raw = vector<T>(n);
+        for (int i = 0; i < n; i++) {
+            add(i, a[i]);
+            raw[i] = a[i];
         }
-    }
-    return com;
-}  // }}}
+    }  //}}}
+
+    T _rsum(int i) {  //{{{ [0, i]
+        T s = 0;
+        while (i >= 0) {
+            s += dat[i];
+            i = (i & (i + 1)) - 1;
+        }
+        return s;
+    }  //}}}
+
+    T query(int l, int r) {  //{{{  [l, r)
+        if (l > r - 1) return 0;
+        return _rsum(r - 1) - _rsum(l - 1);
+    }  //}}}
+
+    void add(int i, T x) {  //{{{
+        raw[i] += x;
+        while (i < n) {
+            dat[i] += x;
+            i |= i + 1;
+        }
+    }  //}}}
+
+    int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{
+        int ret = -1;
+        int k = 1;
+        while (2 * k <= n) k <<= 1;
+        for (; k > 0; k >>= 1) {
+            if (ret + k < n && dat[ret + k] < x) {
+                x -= dat[ret + k];
+                ret += k;
+            }
+        }
+        return ret + 1;
+    }  //}}}
+
+    #if defined(PCM) || defined(LOCAL)
+    friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
+        os << endl << "  raw:" << b.raw << endl;
+        vector<T> acum;
+        rep(i, b.n) { acum.pb(b.sum(i)); }
+        os << "  acm:" << acum << endl;
+        return os;
+    }  //}}}
+    #endif
+};     //}}}
 
 //%snippet.end()%
+#line 4 "library/cpp/array/bit.test.cpp"
+
+int main(){
+    ll N,Q;cin>>N>>Q;
+    vector<ll> a(N);
+    rep(i, N) {
+        cin>>a[i];
+    }
+
+    bit<ll> b(a);
+    rep(q, Q){
+        int t;cin>>t;
+        if (t==0){
+            int i;cin>>i;
+            ll x;cin>>x;
+            b.add(i, x);
+        }
+        if (t==1){
+            int l,r;cin>>l>>r;
+            cout << b.query(l, r) << endl;
+        }
+    }
+}
 
 ```
 {% endraw %}

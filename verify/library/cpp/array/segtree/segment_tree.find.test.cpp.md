@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/array/segtree/segment_tree.test.cpp
+# :x: library/cpp/array/segtree/segment_tree.find.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.find.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-05-30 00:50:36+09:00
 
 
@@ -48,37 +48,61 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #include "segment_tree.hpp"
 
-signed main() {
-    vector<int> a = {1, 4, -2, 3, 6, 7};
-    auto f = [&](auto a, auto b) { return max(a, b); };
-    SegmentTree<int> seg(a, f, -1e9);
+SegmentTree<ll> seg;
+vector<ll> a;
+int n;
 
-    assert(seg.query(0, 8) == 7);
-    dump(seg.query(0, 8));
-    dump(seg.query(0, 10));
-    dump(seg.query(-3, 10));
-    dump(seg[0]);
-    dump(seg[1]);
-    dump(seg[2]);
-    dump(seg);
-    seg.update(2, 10);
-    dump(seg.query(0, 8));
+int64_t rng() {
+    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
+    return uniform_int_distribution<int64_t>(-100, 100)(x);
+}
 
-    // doubleなど他の型でも動くかチェック
-    auto mymax = [&](auto a, auto b) { return max(a, b); };
-    vector<double> p(6);
-    SegmentTree<double> segd(p, mymax, -1e18);
-    segd.update(0, 1.2);
-    segd.update(1, 1.4);
-    segd.update(2, 1.6);
-    double v = segd.query(0, 6);
-    dump(v);
+pair<int, int> naive(int i){
+    int nr = -1;
+    rep(j, i+1, sz(a)){
+        if (a[j] < a[i]) {
+            nr = j;
+            break;
+        }
+    }
+    int nl = -1;
+    r_rep(j, 0, i){
+        if (a[j] < a[i]) {
+            nl = j;
+            break;
+        }
+    }
+    return {nl, nr};
+}
 
-    cout << "Hello World" << endl;
+pair<int, int> by_seg_find(int i){
+    // a[i]より小さくて左側で一番近いもののindex
+    auto nl = seg.find_mr(0, i, [&](auto x){return x < a[i];});
+    auto nr = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    return {nl, nr};
+}
+
+int test(){
+    n = abs(rng());
+    a.clear();
+    rep(i, n){ a.pb(rng()%10); }
+    dump(a);
+
+    seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
+    rep(i, sz(a)){
+        assert(naive(i) == by_seg_find(i));
+    }
+    return 0;
+}
+
+int main(){
+    int nums = 100;
+    while(nums--){ test(); }
+    // test();
+    return 0;
 }
 
 ```
@@ -87,9 +111,8 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/array/segtree/segment_tree.test.cpp"
-#define PROBLEM \
-    "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
+#line 1 "library/cpp/array/segtree/segment_tree.find.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -258,35 +281,60 @@ template <typename T> struct SegmentTree {  // {{{
 // -----------------------------------------------
 
 //%snippet.end()%
-#line 4 "library/cpp/array/segtree/segment_tree.test.cpp"
+#line 3 "library/cpp/array/segtree/segment_tree.find.test.cpp"
 
-signed main() {
-    vector<int> a = {1, 4, -2, 3, 6, 7};
-    auto f = [&](auto a, auto b) { return max(a, b); };
-    SegmentTree<int> seg(a, f, -1e9);
+SegmentTree<ll> seg;
+vector<ll> a;
+int n;
 
-    assert(seg.query(0, 8) == 7);
-    dump(seg.query(0, 8));
-    dump(seg.query(0, 10));
-    dump(seg.query(-3, 10));
-    dump(seg[0]);
-    dump(seg[1]);
-    dump(seg[2]);
-    dump(seg);
-    seg.update(2, 10);
-    dump(seg.query(0, 8));
+int64_t rng() {
+    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
+    return uniform_int_distribution<int64_t>(-100, 100)(x);
+}
 
-    // doubleなど他の型でも動くかチェック
-    auto mymax = [&](auto a, auto b) { return max(a, b); };
-    vector<double> p(6);
-    SegmentTree<double> segd(p, mymax, -1e18);
-    segd.update(0, 1.2);
-    segd.update(1, 1.4);
-    segd.update(2, 1.6);
-    double v = segd.query(0, 6);
-    dump(v);
+pair<int, int> naive(int i){
+    int nr = -1;
+    rep(j, i+1, sz(a)){
+        if (a[j] < a[i]) {
+            nr = j;
+            break;
+        }
+    }
+    int nl = -1;
+    r_rep(j, 0, i){
+        if (a[j] < a[i]) {
+            nl = j;
+            break;
+        }
+    }
+    return {nl, nr};
+}
 
-    cout << "Hello World" << endl;
+pair<int, int> by_seg_find(int i){
+    // a[i]より小さくて左側で一番近いもののindex
+    auto nl = seg.find_mr(0, i, [&](auto x){return x < a[i];});
+    auto nr = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    return {nl, nr};
+}
+
+int test(){
+    n = abs(rng());
+    a.clear();
+    rep(i, n){ a.pb(rng()%10); }
+    dump(a);
+
+    seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
+    rep(i, sz(a)){
+        assert(naive(i) == by_seg_find(i));
+    }
+    return 0;
+}
+
+int main(){
+    int nums = 100;
+    while(nums--){ test(); }
+    // test();
+    return 0;
 }
 
 ```

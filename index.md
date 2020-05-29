@@ -38,17 +38,18 @@ layout: default
 
 ### library/cpp
 
-* :heavy_check_mark: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 <div id="0e902850ca3e9230d87c81984f25b3bb"></div>
 
 ### library/cpp/array
 
-* :warning: <a href="library/library/cpp/array/bit.cpp.html">library/cpp/array/bit.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/array/bit.hpp.html">library/cpp/array/bit.hpp</a>
 * :warning: <a href="library/library/cpp/array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
 * :warning: <a href="library/library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/array/sparse_table.hpp.html">library/cpp/array/sparse_table.hpp</a>
 * :warning: <a href="library/library/cpp/array/syakutori.cpp.html">library/cpp/array/syakutori.cpp</a>
 * :warning: <a href="library/library/cpp/array/ternary_search.cpp.html">library/cpp/array/ternary_search.cpp</a>
 
@@ -58,7 +59,7 @@ layout: default
 ### library/cpp/array/segtree
 
 * :warning: <a href="library/library/cpp/array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :question: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/segment_tree_lazy.cpp.html">library/cpp/array/segtree/segment_tree_lazy.cpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/yuki.cpp.html">library/cpp/array/segtree/yuki.cpp</a>
@@ -209,8 +210,11 @@ layout: default
 
 ## Verify Files
 
+* :heavy_check_mark: <a href="verify/library/cpp/array/bit.test.cpp.html">library/cpp/array/bit.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
+* :x: <a href="verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/pascal.cpp
+# :heavy_check_mark: library/cpp/array/sparse_table.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/pascal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+* category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/sparse_table.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-30 01:10:12+09:00
 
 
 
@@ -41,6 +41,11 @@ layout: default
 * :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
+
+
 ## Code
 
 <a id="unbundled"></a>
@@ -48,23 +53,37 @@ layout: default
 ```cpp
 #include "../header.hpp"
 
-//%snippet.set('pascal')%
+//%snippet.set('sparse_table')%
+//%snippet.fold()%
 
-template <class T>
-vector<vector<T>> pascal(int N) {  // {{{
-    vector<vector<T>> com(N + 1, vector<T>(N + 1));
-    com[0][0] = 1;
-    rep(i, 1, N + 1) {
-        // パスカルの三角形は0-indexdで段を数えるとよい。
-        // com[i]を計算。
-        rep(j, 0, i + 1) {
-            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
-            com[i][j] += com[i - 1][j];
-            // com[i][j] /= 2.0;  // probability version
+template< class T = ll >
+struct sparse_table {
+    vector< vector< T > > st;
+    vector< int > lookup;
+
+    sparse_table(const vector< T > &v) {
+        int b = 0;
+        while((1 << b) <= sz(v)) ++b;
+        st.assign(b, vector< T >(1 << b));
+        for(int i = 0; i < sz(v); i++) {
+            st[0][i] = v[i];
+        }
+        for(int i = 1; i < b; i++) {
+            for(int j = 0; j + (1 << i) <= (1 << b); j++) {
+                st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+            }
+        }
+        lookup.resize(v.size() + 1);
+        for(int i = 2; i < sz(lookup); i++) {
+            lookup[i] = lookup[i >> 1] + 1;
         }
     }
-    return com;
-}  // }}}
+
+    inline T query(int l, int r) {  // [l, r)
+        int b = lookup[r - l];
+        return min(st[b][l], st[b][r - (1 << b)]);
+    }
+};
 
 //%snippet.end()%
 
@@ -136,25 +155,39 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/pascal.cpp"
+#line 2 "library/cpp/array/sparse_table.hpp"
 
-//%snippet.set('pascal')%
+//%snippet.set('sparse_table')%
+//%snippet.fold()%
 
-template <class T>
-vector<vector<T>> pascal(int N) {  // {{{
-    vector<vector<T>> com(N + 1, vector<T>(N + 1));
-    com[0][0] = 1;
-    rep(i, 1, N + 1) {
-        // パスカルの三角形は0-indexdで段を数えるとよい。
-        // com[i]を計算。
-        rep(j, 0, i + 1) {
-            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
-            com[i][j] += com[i - 1][j];
-            // com[i][j] /= 2.0;  // probability version
+template< class T = ll >
+struct sparse_table {
+    vector< vector< T > > st;
+    vector< int > lookup;
+
+    sparse_table(const vector< T > &v) {
+        int b = 0;
+        while((1 << b) <= sz(v)) ++b;
+        st.assign(b, vector< T >(1 << b));
+        for(int i = 0; i < sz(v); i++) {
+            st[0][i] = v[i];
+        }
+        for(int i = 1; i < b; i++) {
+            for(int j = 0; j + (1 << i) <= (1 << b); j++) {
+                st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+            }
+        }
+        lookup.resize(v.size() + 1);
+        for(int i = 2; i < sz(lookup); i++) {
+            lookup[i] = lookup[i >> 1] + 1;
         }
     }
-    return com;
-}  // }}}
+
+    inline T query(int l, int r) {  // [l, r)
+        int b = lookup[r - l];
+        return min(st[b][l], st[b][r - (1 << b)]);
+    }
+};
 
 //%snippet.end()%
 
