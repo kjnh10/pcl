@@ -23,7 +23,7 @@ signed main() {
     // auto [i,j] = pos(u);
 
     int dx[] = {1, -1, 0, 0};
-    int dx[] = {0, 0, 1, -1};
+    int dy[] = {0, 0, 1, -1};
 
     // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
     // int dx[] = {1, 0};
@@ -44,7 +44,7 @@ signed main() {
 
     // https://atcoder.jp/contests/abc151/submissions/12467532
     // (language updateが終わるまでは未veriyf)
-    int ans = 0;
+    ll ans = 0;
     rep(s, n){
         auto d = g.dijkstra(s);
         rep(i, sz(d)) if (d[i]<INF) chmax(ans, d[i]);

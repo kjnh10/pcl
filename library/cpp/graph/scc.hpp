@@ -57,7 +57,7 @@ struct StronglyConnectedComponents {
 // how to use
 // StronglyConnectedComponents scc(g); // g: Graph
 // scc.build();
-// dump(scc.comp, scc.dag);
+// dump(scc.comp, scc.dag.adj_list);
 
 //%snippet.end()%
 
