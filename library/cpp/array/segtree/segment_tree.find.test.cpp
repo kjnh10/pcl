@@ -11,28 +11,27 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int nr = -1;
+    int right = -1;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
-            nr = j;
+            right = j;
             break;
         }
     }
-    int nl = -1;
+    int left = -1;
     r_rep(j, 0, i){
         if (a[j] < a[i]) {
-            nl = j;
+            left = j;
             break;
         }
     }
-    return {nl, nr};
+    return {left, right};
 }
 
-pair<int, int> by_seg_find(int i){
-    // a[i]より小さくて左側で一番近いもののindex
-    auto nl = seg.find_mr(0, i, [&](auto x){return x < a[i];});
-    auto nr = seg.find_ml(i, n, [&](auto x){return x < a[i];});
-    return {nl, nr};
+pair<int, int> get_nearest_index_of_smaller_element(int i){
+    auto left = seg.find_mr(0, i, [&](auto x){return x < a[i];});
+    auto right = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    return {left, right};
 }
 
 int test(){
@@ -43,7 +42,7 @@ int test(){
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == by_seg_find(i));
+        assert(naive(i) == get_nearest_index_of_smaller_element(i));
     }
     return 0;
 }
