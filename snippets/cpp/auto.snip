@@ -20,75 +20,6 @@ snippet bsearch
   
 
 
-snippet bit
-  template <typename T = int>
-  struct bit {  //{{{
-      int n;
-      vector<T> dat;
-      vector<T> raw;
-  
-      bit(int _n = 0) {  //{{{
-          n = _n;
-          dat = vector<T>(n);
-          raw = vector<T>(n);
-      }  //}}}
-  
-      bit(vector<T> a) {  // {{{
-          n = (int)a.size();
-          dat = vector<T>(n);
-          raw = vector<T>(n);
-          for (int i = 0; i < n; i++) {
-              add(i, a[i]);
-              raw[i] = a[i];
-          }
-      }  //}}}
-  
-      T _rsum(int i) {  //{{{ [0, i]
-          T s = 0;
-          while (i >= 0) {
-              s += dat[i];
-              i = (i & (i + 1)) - 1;
-          }
-          return s;
-      }  //}}}
-  
-      T sum(int l, int r) {  //{{{  [l, r)
-          if (l > r - 1) return 0;
-          return _rsum(r - 1) - _rsum(l - 1);
-      }  //}}}
-  
-      void add(int i, T x) {  //{{{
-          raw[i] += x;
-          while (i < n) {
-              dat[i] += x;
-              i |= i + 1;
-          }
-      }  //}}}
-  
-      int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{
-          int ret = -1;
-          int k = 1;
-          while (2 * k <= n) k <<= 1;
-          for (; k > 0; k >>= 1) {
-              if (ret + k < n && dat[ret + k] < x) {
-                  x -= dat[ret + k];
-                  ret += k;
-              }
-          }
-          return ret + 1;
-      }  //}}}
-  
-      friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
-          os << endl << "  raw:" << b.raw << endl;
-          vector<T> acum;
-          rep(i, b.n) { acum.pb(b.sum(i)); }
-          os << "  acm:" << acum << endl;
-          return os;
-      }  //}}}
-  };     //}}}
-  
-
-
 snippet syakutori
       ll sum = 0;
   
@@ -1264,7 +1195,7 @@ snippet gridgraph
       // auto [i,j] = pos(u);
   
       int dx[] = {1, -1, 0, 0};
-      int dx[] = {0, 0, 1, -1};
+      int dy[] = {0, 0, 1, -1};
   
       // 下と右のみ. rep(k, 4)をrep(k, 2)に変更するのも忘れない。
       // int dx[] = {1, 0};
@@ -1713,6 +1644,111 @@ snippet lis
   
 
 
+snippet sparse_table
+  // snippet:sparse_table {{{
+  template< class T = ll >
+  struct sparse_table {
+      vector< vector< T > > st;
+      vector< int > lookup;
+  
+      sparse_table(const vector< T > &v) {
+          int b = 0;
+          while((1 << b) <= v.size()) ++b;
+          st.assign(b, vector< T >(1 << b));
+          for(int i = 0; i < v.size(); i++) {
+              st[0][i] = v[i];
+          }
+          for(int i = 1; i < b; i++) {
+              for(int j = 0; j + (1 << i) <= (1 << b); j++) {
+                  st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+              }
+          }
+          lookup.resize(v.size() + 1);
+          for(int i = 2; i < lookup.size(); i++) {
+              lookup[i] = lookup[i >> 1] + 1;
+          }
+      }
+  
+      inline T query(int l, int r) {
+          int b = lookup[r - l];
+          return min(st[b][l], st[b][r - (1 << b)]);
+      }
+  };
+  // snippet:sparse_table }}}
+  
+
+
+snippet bit
+  template <typename T = ll>
+  struct bit {  //{{{
+      int n;
+      vector<T> dat;
+      vector<T> raw;
+  
+      bit(int _n = 0) {  //{{{
+          n = _n;
+          dat = vector<T>(n);
+          raw = vector<T>(n);
+      }  //}}}
+  
+      bit(vector<T> a) {  // {{{
+          n = (int)a.size();
+          dat = vector<T>(n);
+          raw = vector<T>(n);
+          for (int i = 0; i < n; i++) {
+              add(i, a[i]);
+              raw[i] = a[i];
+          }
+      }  //}}}
+  
+      T _rsum(int i) {  //{{{ [0, i]
+          T s = 0;
+          while (i >= 0) {
+              s += dat[i];
+              i = (i & (i + 1)) - 1;
+          }
+          return s;
+      }  //}}}
+  
+      T query(int l, int r) {  //{{{  [l, r)
+          if (l > r - 1) return 0;
+          return _rsum(r - 1) - _rsum(l - 1);
+      }  //}}}
+  
+      void add(int i, T x) {  //{{{
+          raw[i] += x;
+          while (i < n) {
+              dat[i] += x;
+              i |= i + 1;
+          }
+      }  //}}}
+  
+      int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{
+          int ret = -1;
+          int k = 1;
+          while (2 * k <= n) k <<= 1;
+          for (; k > 0; k >>= 1) {
+              if (ret + k < n && dat[ret + k] < x) {
+                  x -= dat[ret + k];
+                  ret += k;
+              }
+          }
+          return ret + 1;
+      }  //}}}
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
+          os << endl << "  raw:" << b.raw << endl;
+          vector<T> acum;
+          rep(i, b.n) { acum.pb(b.sum(i)); }
+          os << "  acm:" << acum << endl;
+          return os;
+      }  //}}}
+      #endif
+  };     //}}}
+  
+
+
 snippet segment_tree
 alias rmq
   // snippet:segment_tree {{{
@@ -1768,6 +1804,29 @@ alias rmq
               T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
+  
+          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most right
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vr != -1 ? vr : vl);
+          }
+  
+          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most left
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vl != -1 ? vl : vr);
+          }
+  
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -2373,6 +2432,29 @@ alias scc
               return merge(vl, vr);
           }
   
+          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most right
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vr != -1 ? vr : vl);
+          }
+  
+          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most left
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vl != -1 ? vl : vr);
+          }
+  
+  
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
               os << "[";
@@ -2848,7 +2930,7 @@ alias scc
   // how to use
   // StronglyConnectedComponents scc(g); // g: Graph
   // scc.build();
-  // dump(scc.comp, scc.dag);
+  // dump(scc.comp, scc.dag.adj_list);
   // snippet:StronglyConnectedComponents }}}
   
 
@@ -3027,6 +3109,29 @@ snippet Graph
               T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
+  
+          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most right
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vr != -1 ? vr : vl);
+          }
+  
+          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most left
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vl != -1 ? vl : vr);
+          }
+  
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -3507,6 +3612,29 @@ snippet bellman_ford
               T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
+  
+          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most right
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vr != -1 ? vr : vl);
+          }
+  
+          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most left
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vl != -1 ? vl : vr);
+          }
+  
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -4004,6 +4132,29 @@ snippet tree
               T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
+  
+          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most right
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vr != -1 ? vr : vl);
+          }
+  
+          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+              // find most left
+              if (r < 0) r = N;
+              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (k >= N-1) return k - (N-1);  // leaf
+  
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+              return (vl != -1 ? vl : vr);
+          }
+  
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
