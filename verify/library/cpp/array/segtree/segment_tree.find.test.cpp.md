@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/array/segtree/segment_tree.find.test.cpp
+# :heavy_check_mark: library/cpp/array/segtree/segment_tree.find.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-30 00:50:36+09:00
+    - Last commit date: 2020-05-30 01:23:46+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -99,9 +99,9 @@ int test(){
 }
 
 int main(){
-    int nums = 100;
+    int nums = 1000;
     while(nums--){ test(); }
-    // test();
+    cout << "Hello World" << endl;
     return 0;
 }
 
@@ -331,9 +331,9 @@ int test(){
 }
 
 int main(){
-    int nums = 100;
+    int nums = 1000;
     while(nums--){ test(); }
-    // test();
+    cout << "Hello World" << endl;
     return 0;
 }
 

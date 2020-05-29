@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: library/cpp/header.hpp
+# :heavy_check_mark: library/cpp/header.hpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -42,7 +42,7 @@ layout: default
 * :warning: <a href="array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
 * :heavy_check_mark: <a href="array/lis.hpp.html">library/cpp/array/lis.hpp</a>
 * :warning: <a href="array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
-* :question: <a href="array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
 * :warning: <a href="array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
 * :heavy_check_mark: <a href="array/sparse_table.hpp.html">library/cpp/array/sparse_table.hpp</a>
@@ -91,7 +91,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/bit.test.cpp.html">library/cpp/array/bit.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
-* :x: <a href="../../../verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>

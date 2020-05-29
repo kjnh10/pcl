@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :question: library/cpp/array/segtree/segment_tree.hpp
+# :heavy_check_mark: library/cpp/array/segtree/segment_tree.hpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Required by
@@ -54,7 +54,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../../../verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
