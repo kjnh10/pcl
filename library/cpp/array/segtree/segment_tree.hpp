@@ -59,6 +59,29 @@ template <typename T> struct SegmentTree {  // {{{
             return merge(vl, vr);
         }
 
+        int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+            // find most right
+            if (r < 0) r = N;
+            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (k >= N-1) return k - (N-1);  // leaf
+
+            T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            return (vr != -1 ? vr : vl);
+        }
+
+        int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+            // find most left
+            if (r < 0) r = N;
+            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (k >= N-1) return k - (N-1);  // leaf
+
+            T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            return (vl != -1 ? vl : vr);
+        }
+
+
         #if defined(PCM) || defined(LOCAL)
         friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
             os << "[";
