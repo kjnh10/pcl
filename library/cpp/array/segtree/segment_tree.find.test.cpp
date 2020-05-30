@@ -11,7 +11,7 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int right = -1;
+    int right = n;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
             right = j;
@@ -34,22 +34,28 @@ pair<int, int> get_nearest_index_of_smaller_element(int i){
     return {left, right};
 }
 
-int test(){
-    n = abs(rng());
+int test(int _n, bool compare = true){
+    n = _n;
     a.clear();
     rep(i, n){ a.pb(rng()%10); }
     dump(a);
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == get_nearest_index_of_smaller_element(i));
+        auto res = get_nearest_index_of_smaller_element(i);
+        if (compare){
+            assert(naive(i) == res);
+        }
     }
     return 0;
 }
 
 int main(){
-    int nums = 1000;
-    while(nums--){ test(); }
+    int nums = 10;
+    while(nums--){
+        test(abs(rng())); 
+        test(1000000, false); 
+    }
     cout << "Hello World" << endl;
     return 0;
 }

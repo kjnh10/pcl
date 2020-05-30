@@ -1653,9 +1653,9 @@ snippet sparse_table
   
       sparse_table(const vector< T > &v) {
           int b = 0;
-          while((1 << b) <= v.size()) ++b;
+          while((1 << b) <= sz(v)) ++b;
           st.assign(b, vector< T >(1 << b));
-          for(int i = 0; i < v.size(); i++) {
+          for(int i = 0; i < sz(v); i++) {
               st[0][i] = v[i];
           }
           for(int i = 1; i < b; i++) {
@@ -1664,12 +1664,12 @@ snippet sparse_table
               }
           }
           lookup.resize(v.size() + 1);
-          for(int i = 2; i < lookup.size(); i++) {
+          for(int i = 2; i < sz(lookup); i++) {
               lookup[i] = lookup[i >> 1] + 1;
           }
       }
   
-      inline T query(int l, int r) {
+      inline T query(int l, int r) {  // [l, r)
           int b = lookup[r - l];
           return min(st[b][l], st[b][r - (1 << b)]);
       }
@@ -1794,7 +1794,7 @@ alias rmq
               }
           }
   
-          // query for [l, r)
+          // query for [a, b)
           T query(int a, int b, int k = 0, int l = 0, int r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
@@ -1805,28 +1805,32 @@ alias rmq
               return merge(vl, vr);
           }
   
+          // find most right element for [a, b)
           int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-              // find most right
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
   
               T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              if (vr != a-1) return vr;
+  
               T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vr != -1 ? vr : vl);
+              return vl;
           }
   
+          // find most left element for [a, b)
           int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return b;
               if (k >= N-1) return k - (N-1);  // leaf
   
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
               T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vl != -1 ? vl : vr);
-          }
+              if (vl != b) return vl;
   
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              return vr;
+          }
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -2421,7 +2425,7 @@ alias scc
               }
           }
   
-          // query for [l, r)
+          // query for [a, b)
           T query(int a, int b, int k = 0, int l = 0, int r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
@@ -2432,28 +2436,32 @@ alias scc
               return merge(vl, vr);
           }
   
+          // find most right element for [a, b)
           int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-              // find most right
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
   
               T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              if (vr != a-1) return vr;
+  
               T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vr != -1 ? vr : vl);
+              return vl;
           }
   
+          // find most left element for [a, b)
           int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return b;
               if (k >= N-1) return k - (N-1);  // leaf
   
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
               T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vl != -1 ? vl : vr);
-          }
+              if (vl != b) return vl;
   
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              return vr;
+          }
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -3099,7 +3107,7 @@ snippet Graph
               }
           }
   
-          // query for [l, r)
+          // query for [a, b)
           T query(int a, int b, int k = 0, int l = 0, int r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
@@ -3110,28 +3118,32 @@ snippet Graph
               return merge(vl, vr);
           }
   
+          // find most right element for [a, b)
           int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-              // find most right
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
   
               T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              if (vr != a-1) return vr;
+  
               T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vr != -1 ? vr : vl);
+              return vl;
           }
   
+          // find most left element for [a, b)
           int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return b;
               if (k >= N-1) return k - (N-1);  // leaf
   
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
               T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vl != -1 ? vl : vr);
-          }
+              if (vl != b) return vl;
   
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              return vr;
+          }
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -3602,7 +3614,7 @@ snippet bellman_ford
               }
           }
   
-          // query for [l, r)
+          // query for [a, b)
           T query(int a, int b, int k = 0, int l = 0, int r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
@@ -3613,28 +3625,32 @@ snippet bellman_ford
               return merge(vl, vr);
           }
   
+          // find most right element for [a, b)
           int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-              // find most right
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
   
               T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              if (vr != a-1) return vr;
+  
               T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vr != -1 ? vr : vl);
+              return vl;
           }
   
+          // find most left element for [a, b)
           int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return b;
               if (k >= N-1) return k - (N-1);  // leaf
   
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
               T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vl != -1 ? vl : vr);
-          }
+              if (vl != b) return vl;
   
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              return vr;
+          }
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -4122,7 +4138,7 @@ snippet tree
               }
           }
   
-          // query for [l, r)
+          // query for [a, b)
           T query(int a, int b, int k = 0, int l = 0, int r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
@@ -4133,28 +4149,32 @@ snippet tree
               return merge(vl, vr);
           }
   
+          // find most right element for [a, b)
           int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-              // find most right
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
   
               T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              if (vr != a-1) return vr;
+  
               T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vr != -1 ? vr : vl);
+              return vl;
           }
   
+          // find most left element for [a, b)
           int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return -1;
+              if (r <= a || b <= l || !is_ok(node[k])) return b;
               if (k >= N-1) return k - (N-1);  // leaf
   
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
               T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return (vl != -1 ? vl : vr);
-          }
+              if (vl != b) return vl;
   
+              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+              return vr;
+          }
   
           #if defined(PCM) || defined(LOCAL)
           friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
