@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#ebc279bbe94c10384fe9898d1a2c958d">library/cpp/array/segtree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/segtree/segment_tree.find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-30 01:33:06+09:00
+    - Last commit date: 2020-05-30 14:55:42+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A</a>
@@ -61,7 +61,7 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int right = -1;
+    int right = n;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
             right = j;
@@ -84,22 +84,28 @@ pair<int, int> get_nearest_index_of_smaller_element(int i){
     return {left, right};
 }
 
-int test(){
-    n = abs(rng());
+int test(int _n, bool compare = true){
+    n = _n;
     a.clear();
     rep(i, n){ a.pb(rng()%10); }
     dump(a);
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == get_nearest_index_of_smaller_element(i));
+        auto res = get_nearest_index_of_smaller_element(i);
+        if (compare){
+            assert(naive(i) == res);
+        }
     }
     return 0;
 }
 
 int main(){
-    int nums = 1000;
-    while(nums--){ test(); }
+    int nums = 10;
+    while(nums--){
+        test(abs(rng())); 
+        test(1000000, false); 
+    }
     cout << "Hello World" << endl;
     return 0;
 }
@@ -223,7 +229,7 @@ template <typename T> struct SegmentTree {  // {{{
             }
         }
 
-        // query for [l, r)
+        // query for [a, b)
         T query(int a, int b, int k = 0, int l = 0, int r = -1) {
             if (r < 0) r = N;
             if (r <= a || b <= l) return identity;
@@ -234,28 +240,32 @@ template <typename T> struct SegmentTree {  // {{{
             return merge(vl, vr);
         }
 
+        // find most right element for [a, b)
         int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
-            // find most right
             if (r < 0) r = N;
-            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (r <= a || b <= l || !is_ok(node[k])) return a-1;
             if (k >= N-1) return k - (N-1);  // leaf
 
             T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            if (vr != a-1) return vr;
+
             T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-            return (vr != -1 ? vr : vl);
+            return vl;
         }
 
+        // find most left element for [a, b)
         int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
             // find most left
             if (r < 0) r = N;
-            if (r <= a || b <= l || !is_ok(node[k])) return -1;
+            if (r <= a || b <= l || !is_ok(node[k])) return b;
             if (k >= N-1) return k - (N-1);  // leaf
 
-            T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
             T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-            return (vl != -1 ? vl : vr);
-        }
+            if (vl != b) return vl;
 
+            T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            return vr;
+        }
 
         #if defined(PCM) || defined(LOCAL)
         friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
@@ -292,7 +302,7 @@ int64_t rng() {
 }
 
 pair<int, int> naive(int i){
-    int right = -1;
+    int right = n;
     rep(j, i+1, sz(a)){
         if (a[j] < a[i]) {
             right = j;
@@ -315,22 +325,28 @@ pair<int, int> get_nearest_index_of_smaller_element(int i){
     return {left, right};
 }
 
-int test(){
-    n = abs(rng());
+int test(int _n, bool compare = true){
+    n = _n;
     a.clear();
     rep(i, n){ a.pb(rng()%10); }
     dump(a);
 
     seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
     rep(i, sz(a)){
-        assert(naive(i) == get_nearest_index_of_smaller_element(i));
+        auto res = get_nearest_index_of_smaller_element(i);
+        if (compare){
+            assert(naive(i) == res);
+        }
     }
     return 0;
 }
 
 int main(){
-    int nums = 1000;
-    while(nums--){ test(); }
+    int nums = 10;
+    while(nums--){
+        test(abs(rng())); 
+        test(1000000, false); 
+    }
     cout << "Hello World" << endl;
     return 0;
 }
