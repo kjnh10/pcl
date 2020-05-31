@@ -21,16 +21,16 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/rational.hpp
+# :warning: library/cpp/math/geometry/angle.hpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/rational.hpp">View this file on GitHub</a>
+* category: <a href="../../../../../index.html#fc16e9fb7f40757e9b21d2e083b6a084">library/cpp/math/geometry</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/angle.hpp">View this file on GitHub</a>
     - Last commit date: 2020-05-31 19:37:19+09:00
 
 
@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -47,29 +47,53 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../header.hpp"
-#include "geometry/p2.hpp"
+#include "p2.hpp"
 
-//%snippet.set('rational')%
-//%snippet.config({'alias':'fraction'})%
-//%snippet.fold()%
+//%snippet.set('angle')%
 
-template<class T=ll> 
-struct rational : public P2<T> {
-    rational(){}
-    rational(T _x, T _y) : P2<T>(_x, _y) {
-        T g = gcd(this->x, this->y);
-        this->x /= g; this->y /= g;
-        if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
+struct Angle{
+    ll x, y; // 実際には10^9くらいまでしか入れられない。
+    int _orthant;  // 象限
+    Angle(){};
+    Angle(ll _x, ll _y): x(_x), y(_y){
+        assert(x != 0 || y != 0);
+        ll g = gcd(abs(x), abs(y));
+        x /= g;
+        y /= g;
+        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);
+        else _orthant = (x >= 0 ? 3 : 2);
+    }
+
+    bool operator<(const Angle &r) const {
+        return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y * r.x > 0);
+    }
+
+    bool operator==(const Angle &r) const { return (x == r.x && y == r.y); }
+
+    long double operator-(const Angle& r) const {
+        // rを起点に見て何度進んでいるかradianで返す
+        return rad() - r.rad();
+    }
+
+    long double rad() const {
+        long double r = atan2(y, x); 
+        return (r<0 ? (r + M_PI*2.0) : r);
+    }
+    long double const deg(){ return rad() * 180.0/ M_PI; }
+
+    Angle rot_90() const { return Angle(-y, x); }
+
+    Angle rot_r90() const { return Angle(y, -x); }
+
+    friend ostream &operator<<(ostream &stream, Angle p) {
+        stream << "(" << p.x << "," << p.y << ")";
+        return stream;
     }
 };
-// rational(3, 5);
-// assert(rational(3, 5) == rational(-6, -10));
-// map<rational<ll>, int> cnt;  // keyにもできる。
 
-//%snippet.end()%
+//%snippet.end%
 
-// verified by https://atcoder.jp/contests/abc168/tasks/abc168_e
+// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244
 
 ```
 {% endraw %}
@@ -250,31 +274,56 @@ long double dist(const P2<T>& p, const P2<T>& q){
 using P = P2<ll>;
 
 //%snippet.end%
-#line 3 "library/cpp/math/rational.hpp"
+#line 2 "library/cpp/math/geometry/angle.hpp"
 
-//%snippet.set('rational')%
-//%snippet.config({'alias':'fraction'})%
-//%snippet.fold()%
+//%snippet.set('angle')%
 
-template<class T=ll> 
-struct rational : public P2<T> {
-    rational(){}
-    rational(T _x, T _y) : P2<T>(_x, _y) {
-        T g = gcd(this->x, this->y);
-        this->x /= g; this->y /= g;
-        if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
+struct Angle{
+    ll x, y; // 実際には10^9くらいまでしか入れられない。
+    int _orthant;  // 象限
+    Angle(){};
+    Angle(ll _x, ll _y): x(_x), y(_y){
+        assert(x != 0 || y != 0);
+        ll g = gcd(abs(x), abs(y));
+        x /= g;
+        y /= g;
+        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);
+        else _orthant = (x >= 0 ? 3 : 2);
+    }
+
+    bool operator<(const Angle &r) const {
+        return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y * r.x > 0);
+    }
+
+    bool operator==(const Angle &r) const { return (x == r.x && y == r.y); }
+
+    long double operator-(const Angle& r) const {
+        // rを起点に見て何度進んでいるかradianで返す
+        return rad() - r.rad();
+    }
+
+    long double rad() const {
+        long double r = atan2(y, x); 
+        return (r<0 ? (r + M_PI*2.0) : r);
+    }
+    long double const deg(){ return rad() * 180.0/ M_PI; }
+
+    Angle rot_90() const { return Angle(-y, x); }
+
+    Angle rot_r90() const { return Angle(y, -x); }
+
+    friend ostream &operator<<(ostream &stream, Angle p) {
+        stream << "(" << p.x << "," << p.y << ")";
+        return stream;
     }
 };
-// rational(3, 5);
-// assert(rational(3, 5) == rational(-6, -10));
-// map<rational<ll>, int> cnt;  // keyにもできる。
 
-//%snippet.end()%
+//%snippet.end%
 
-// verified by https://atcoder.jp/contests/abc168/tasks/abc168_e
+// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

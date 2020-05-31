@@ -21,24 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/array/bsearch.cpp
+# :warning: library/cpp/misc/zipper.lib/shifter.hpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/bsearch.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 19:37:19+09:00
+* category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/shifter.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-05-31 19:36:57+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,25 +46,24 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../header.hpp"
+#include "../../header.hpp"
 
-int main(){
-    //%snippet.set('bsearch')%
-    ll left = 0, right = 1e9 + 1;
-    auto isright = [&](ll y) {
-        bool is_r = true;
+//%snippet.set('shifter')%
 
-        return is_r;
-    };
-    while (right - left > 1) {/*{{{*/
-        ll mid = (right + left) / 2;
-        if (isright(mid)) right = mid;
-        else left = mid;
-    }/*}}}*/
+struct shifter{
+    ll n, min_v;
+    shifter(ll _min_v, ll _max_v): min_v(_min_v){
+        n = _max_v - min_v;
+    }
+    ll operator()(ll x) { return x - min_v; }
+    ll unshift(ll sx) { return sx + min_v; }
+};
+// How to use
+    // auto sh = shifter(-10000, 10000);
+    // vl x(sh.n);
+    // x[sh(-3)];
 
-    dump(right);
-    //%snippet.end()%
-}
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -134,28 +133,27 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/array/bsearch.cpp"
+#line 2 "library/cpp/misc/zipper.lib/shifter.hpp"
 
-int main(){
-    //%snippet.set('bsearch')%
-    ll left = 0, right = 1e9 + 1;
-    auto isright = [&](ll y) {
-        bool is_r = true;
+//%snippet.set('shifter')%
 
-        return is_r;
-    };
-    while (right - left > 1) {/*{{{*/
-        ll mid = (right + left) / 2;
-        if (isright(mid)) right = mid;
-        else left = mid;
-    }/*}}}*/
+struct shifter{
+    ll n, min_v;
+    shifter(ll _min_v, ll _max_v): min_v(_min_v){
+        n = _max_v - min_v;
+    }
+    ll operator()(ll x) { return x - min_v; }
+    ll unshift(ll sx) { return sx + min_v; }
+};
+// How to use
+    // auto sh = shifter(-10000, 10000);
+    // vl x(sh.n);
+    // x[sh(-3)];
 
-    dump(right);
-    //%snippet.end()%
-}
+//%snippet.end()%
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geometry/線分と線分の交差判定.cpp
+# :warning: library/cpp/math/geometry/misc.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#fc16e9fb7f40757e9b21d2e083b6a084">library/cpp/math/geometry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/線分と線分の交差判定.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/misc.cpp">View this file on GitHub</a>
     - Last commit date: 2020-05-31 19:37:19+09:00
 
 
@@ -39,7 +39,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 
 
 ## Code
@@ -48,23 +47,21 @@ layout: default
 {% raw %}
 ```cpp
 #include "../../header.hpp"
-#include "p2.hpp"
 
-using P = P2<ll>;
-
-bool is_cross_1(P& a, P& b, P& p1, P& p2){
-    // abの両サイドにp1, p2が存在しているか。
-    auto f = [&](ll x, ll y){
-        return (a.y - b.y) * (x - b.x) - (a.x - b.x) * (y - b.y);
-    };
-    if (f(p1.x, p1.y) * f(p2.x, p2. y) < 0) return true;
-    else return false;
+//%snippet.set('rad')%
+template<class T>
+long double rad(T d){
+    return d * M_PI / 180.0;
 }
+//%snippet.end%
 
-bool is_cross(P& a, P& b, P& p1, P& p2){
-    // 線分としてクロスしているか
-    return is_cross_1(a, b, p1, p2) && is_cross_1(p1, p2, a, b);
+//%snippet.set('degree')%
+//%snippet.config({'alias':'deg'})%
+template<class T>
+long double deg(T r){
+    return r / M_PI * 180.0;
 }
+//%snippet.end%
 
 ```
 {% endraw %}
@@ -134,134 +131,22 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/geometry/p2.hpp"
+#line 2 "library/cpp/math/geometry/misc.cpp"
 
-//%snippet.set('P2')%
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
-
-template<class T=ll>/*{{{*/
-struct P2 {
-    T x, y;
-    P2(T _x, T _y) : x(_x), y(_y) {}
-    P2() {
-        x = 0;
-        y = 0;
-    }
-    bool operator<(const P2 &r) const {
-        return (x != r.x ? x < r.x : y < r.y);
-    }
-    bool operator>(const P2 &r) const {
-        return (x != r.x ? x > r.x : y > r.y);
-    }
-    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
-
-    friend ostream &operator<<(ostream &stream, P2 p) {
-        stream << "(" << p.x << "," << p.y << ")";
-        return stream;
-    }
-
-    P2 operator-() const {  // 単項演算子
-        return P2(-x, -y);
-    }
-
-    P2& operator+=(const P2<T>& r){
-        x += r.x;
-        y += r.y;
-        return *this;
-    }
-    P2& operator-=(const P2<T>& r){
-        x -= r.x;
-        y -= r.y;
-        return *this;
-    }
-    P2& operator+=(const T& r){
-        x += r;
-        y += r;
-        return *this;
-    }
-    P2& operator-=(const T& r){
-        x -= r;
-        y -= r;
-        return *this;
-    }
-    P2& operator*=(const P2<T>& r){
-        x *= r.x;
-        y *= r.y;
-        return *this;
-    }
-    P2& operator/=(const P2<T>& r){
-        x /= r.x;
-        y /= r.y;
-        return *this;
-    }
-    P2& operator*=(const T& r){
-        x *= r;
-        y *= r;
-        return *this;
-    }
-    P2& operator/=(const T& r){
-        x /= r;
-        y /= r;
-        return *this;
-    }
-
-    template<class U>
-    P2 operator+(const U& r) const {
-        P2 res(*this);
-        return res += r;
-    }
-    template<class U>
-    P2 operator-(const U& r) const {
-        P2 res(*this);
-        return res -= r;
-    }
-
-    template<class U>
-    P2 operator*(const U& r) const {
-        P2 res(*this);
-        return res *= r;
-    }
-    template<class U>
-    P2 operator/(const U& r) const {
-        P2 res(*this);
-        return res /= r;
-    }
-
-
-    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d) return true;
-        else return false;
-    }
-
-};
+//%snippet.set('rad')%
 template<class T>
-long double dist(const P2<T>& p, const P2<T>& q){
-    return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+long double rad(T d){
+    return d * M_PI / 180.0;
 }
-
-/*}}}*/
-using P = P2<ll>;
-
 //%snippet.end%
-#line 3 "library/cpp/math/geometry/線分と線分の交差判定.cpp"
 
-using P = P2<ll>;
-
-bool is_cross_1(P& a, P& b, P& p1, P& p2){
-    // abの両サイドにp1, p2が存在しているか。
-    auto f = [&](ll x, ll y){
-        return (a.y - b.y) * (x - b.x) - (a.x - b.x) * (y - b.y);
-    };
-    if (f(p1.x, p1.y) * f(p2.x, p2. y) < 0) return true;
-    else return false;
+//%snippet.set('degree')%
+//%snippet.config({'alias':'deg'})%
+template<class T>
+long double deg(T r){
+    return r / M_PI * 180.0;
 }
-
-bool is_cross(P& a, P& b, P& p1, P& p2){
-    // 線分としてクロスしているか
-    return is_cross_1(a, b, p1, p2) && is_cross_1(p1, p2, a, b);
-}
+//%snippet.end%
 
 ```
 {% endraw %}

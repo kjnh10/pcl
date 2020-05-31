@@ -143,8 +143,10 @@ layout: default
 
 ### library/cpp/math/geometry
 
+* :warning: <a href="library/library/cpp/math/geometry/angle.hpp.html">library/cpp/math/geometry/angle.hpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/basic.cpp.html">library/cpp/math/geometry/basic.cpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
+* :warning: <a href="library/library/cpp/math/geometry/misc.cpp.html">library/cpp/math/geometry/misc.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
@@ -166,6 +168,7 @@ layout: default
 
 ### library/cpp/misc/zipper.lib
 
+* :warning: <a href="library/library/cpp/misc/zipper.lib/shifter.hpp.html">library/cpp/misc/zipper.lib/shifter.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
 
 

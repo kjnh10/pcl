@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-30 14:55:42+09:00
+    - Last commit date: 2020-05-31 19:37:19+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
@@ -780,7 +780,13 @@ struct P2 {
         else return false;
     }
 
-};/*}}}*/
+};
+template<class T>
+long double dist(const P2<T>& p, const P2<T>& q){
+    return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+}
+
+/*}}}*/
 using P = P2<ll>;
 
 //%snippet.end%
