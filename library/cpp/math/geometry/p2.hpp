@@ -99,7 +99,13 @@ struct P2 {
         else return false;
     }
 
-};/*}}}*/
+};
+template<class T>
+long double dist(const P2<T>& p, const P2<T>& q){
+    return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+}
+
+/*}}}*/
 using P = P2<ll>;
 
 //%snippet.end%

@@ -1,21 +1,16 @@
 snippet bsearch
-      ll left = 0;
-      ll right = 1e9 + 1;
-      auto isright = [&](ll x) {
-          cerrendl;
+      ll left = 0, right = 1e9 + 1;
+      auto isright = [&](ll y) {
           bool is_r = true;
   
-          dump(x, is_r);
           return is_r;
       };
-      while (right - left > 1) {
+      while (right - left > 1) {/*{{{*/
           ll mid = (right + left) / 2;
-          if (isright(mid)) {
-              right = mid;
-          } else {
-              left = mid;
-          }
-      }
+          if (isright(mid)) right = mid;
+          else left = mid;
+      }/*}}}*/
+  
       dump(right);
   
 
@@ -1068,6 +1063,23 @@ alias gbsgs
   
 
 
+snippet rad
+  template<class T>
+  long double rad(T d){
+      return d * M_PI / 180.0;
+  }
+  
+
+
+snippet degree
+alias deg
+  template<class T>
+  long double deg(T r){
+      return r / M_PI * 180.0;
+  }
+  
+
+
 snippet baybe_step_giant_step
 alias bsgs
   int mod = 1e9 + 7;
@@ -1857,6 +1869,22 @@ alias rmq
   
 
 
+snippet shifter
+  struct shifter{
+      ll n, min_v;
+      shifter(ll _min_v, ll _max_v): min_v(_min_v){
+          n = _max_v - min_v;
+      }
+      ll operator()(ll x) { return x - min_v; }
+      ll unshift(ll sx) { return sx + min_v; }
+  };
+  // How to use
+      // auto sh = shifter(-10000, 10000);
+      // vl x(sh.n);
+      // x[sh(-3)];
+  
+
+
 snippet zipper
   struct zipper {                             /*{{{*/
       // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
@@ -2305,8 +2333,57 @@ alias pair
           else return false;
       }
   
-  };/*}}}*/
+  };
+  template<class T>
+  long double dist(const P2<T>& p, const P2<T>& q){
+      return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+  }
+  
+  /*}}}*/
   using P = P2<ll>;
+  
+
+
+snippet angle
+  struct Angle{
+      ll x, y; // 実際には10^9くらいまでしか入れられない。
+      int _orthant;  // 象限
+      Angle(){};
+      Angle(ll _x, ll _y): x(_x), y(_y){
+          assert(x != 0 || y != 0);
+          ll g = gcd(abs(x), abs(y));
+          x /= g;
+          y /= g;
+          if(y >= 0) _orthant = (x >= 0 ? 0 : 1);
+          else _orthant = (x >= 0 ? 3 : 2);
+      }
+  
+      bool operator<(const Angle &r) const {
+          return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y * r.x > 0);
+      }
+  
+      bool operator==(const Angle &r) const { return (x == r.x && y == r.y); }
+  
+      long double operator-(const Angle& r) const {
+          // rを起点に見て何度進んでいるかradianで返す
+          return rad() - r.rad();
+      }
+  
+      long double rad() const {
+          long double r = atan2(y, x); 
+          return (r<0 ? (r + M_PI*2.0) : r);
+      }
+      long double const deg(){ return rad() * 180.0/ M_PI; }
+  
+      Angle rot_90() const { return Angle(-y, x); }
+  
+      Angle rot_r90() const { return Angle(y, -x); }
+  
+      friend ostream &operator<<(ostream &stream, Angle p) {
+          stream << "(" << p.x << "," << p.y << ")";
+          return stream;
+      }
+  };
   
 
 
