@@ -832,7 +832,7 @@ snippet 01bfs
 
 
 snippet gcd
-  int gcd(int a, int b) {
+  ll gcd(ll a, ll b) {
       if (b > a) swap(a, b);
       if (b == 0) return a;
       return gcd(b, a % b);
@@ -841,31 +841,31 @@ snippet gcd
 
 
 snippet lcm
-  int gcd(int a, int b) {
+  ll gcd(ll a, ll b) {
       if (b > a) swap(a, b);
       if (b == 0) return a;
       return gcd(b, a % b);
   }
   
-  int lcm(int a, int b) {
+  ll lcm(ll a, ll b) {
       return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
   }
   
 
 
 snippet reverse_int
-  int gcd(int a, int b) {
+  ll gcd(ll a, ll b) {
       if (b > a) swap(a, b);
       if (b == 0) return a;
       return gcd(b, a % b);
   }
   
-  int lcm(int a, int b) {
+  ll lcm(ll a, ll b) {
       return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
   }
   
-  int reverse_int(int number) {
-      int reverse = 0;
+  ll reverse_int(ll number) {
+      ll reverse = 0;
       while (number > 0) {
           reverse = reverse * 10 + number % 10;
           number /= 10;
@@ -876,7 +876,7 @@ snippet reverse_int
 
 
 snippet digitSum
-  int digitSum(int x) { /*{{{*/
+  int digitSum(ll x) { /*{{{*/
       int res = 0;
       while (true) {
           res += x % 10;
@@ -891,8 +891,8 @@ snippet digitSum
 
 
 snippet is_prime
-  bool is_prime(int n) { /*{{{*/
-      for (int i = 2; i * i <= n; i++) {
+  bool is_prime(ll n) { /*{{{*/
+      for (ll i = 2; i * i <= n; i++) {
           if (n % i == 0) return false;
       }
       return n != 1;
@@ -901,9 +901,9 @@ snippet is_prime
 
 
 snippet prime_factor
-  map<int, int> prime_factor(int n) {  // 素因数分解 (o(√N)){{{
-      map<int, int> res;  // vectorで持つことも考えられる。
-      for (int i = 2; i * i <= n; i++) {
+  map<ll, ll> prime_factor(ll n) {  // 素因数分解 (o(√N)){{{
+      map<ll, ll> res;  // vectorで持つことも考えられる。
+      for (ll i = 2; i * i <= n; i++) {
           while (n % i == 0) {
               ++res[i];
               n /= i;
@@ -1590,7 +1590,7 @@ snippet header
   template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
   template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
   
-  #define divceil(a, b) ((a) + (b)-1) / (b)
+  #define cdiv(a, b) (((a) + (b)-1) / (b))
   #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
   #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
   #define slice(l, r) substr(l, r - l)

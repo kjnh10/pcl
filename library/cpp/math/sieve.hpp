@@ -1,3 +1,4 @@
+#include "../header.hpp"
 
 //%snippet.set('sieve')%
 //%snippet.config({'alias':'prime_factor_by_sieve'})%
@@ -5,10 +6,10 @@
 
 struct Sieve {/*{{{*/
     // エラトステネスのふるい O(NloglogN)
-    int n;                              // n
-    vector<int> f;                      // [1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
-    vector<int> primes;                 // [2, 3, 5, .......]
-    Sieve(int n = 1) : n(n), f(n + 1) { /*{{{*/
+    ll n;                              // n: max number for defined f and primes
+    vector<ll> f;                      // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
+    vector<ll> primes;                 // [2, 3, 5, .......]
+    Sieve(ll n = 1) : n(n), f(n + 1) { /*{{{*/
         f[0] = f[1] = -1;
         for (ll i = 2; i <= n; ++i) {
             if (f[i]) continue;
@@ -19,19 +20,23 @@ struct Sieve {/*{{{*/
             }
         }
     } /*}}}*/
-    bool is_prime(int x) { return f[x] == x; }
+    bool is_prime(ll x) {
+        if (x <= n) return f[x] == x; 
+        return sz(factor_list(x)) == 1;
+    }
 
-    vector<int> factor_list(int x) { /*{{{*/
-        // n**2くらいまでは計算できるはず
-        vector<int> res;
-        if (x < n) {
+    vector<ll> factor_list(ll x) { /*{{{*/
+        assert(x <= n*n); // これが満たされないと正しく計算されない可能性がある。
+
+        vector<ll> res;
+        if (x <= n) {
             while (x != 1) {
                 res.push_back(f[x]);
                 x /= f[x];
             }
         }
         else {
-            for (int i = 0; primes[i] * primes[i] <= x; i++) {
+            for (ll i = 0; primes[i] * primes[i] <= x; i++) {
                 while (x % primes[i] == 0) {
                     res.pb(primes[i]);
                     x /= primes[i];
@@ -43,11 +48,12 @@ struct Sieve {/*{{{*/
         return res;  // [2, 3, 3, 5, 5, 5.....]
     }                /*}}}*/
 
-    vector<pair<int, int>> factor(int x) { /*{{{*/
-        vector<int> fl = factor_list(x);
+    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/
+        // just change fl vector to map form
+        vector<ll> fl = factor_list(x);
         if (fl.size() == 0) return {};
-        vector<pair<int, int>> res(1, mp(fl[0], 0));
-        for (int p : fl) {
+        vector<pair<ll, ll>> res = {mp(fl[0], 0)};
+        for (ll p : fl) {
             if (res.back().first == p) {
                 res.back().second++;
             } else {
@@ -59,7 +65,7 @@ struct Sieve {/*{{{*/
 };/*}}}*/
 Sieve sv(1e6);
 // How to use
-    // sv.primes      // 素数のリスト
-    // sv.factor(x);  // 素因数分解
+    // sv.primes            // 素数のリスト
+    // sv.prime_factor(x);  // 素因数分解
 
 //%snippet.end()%

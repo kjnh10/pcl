@@ -4,7 +4,7 @@ using namespace std;
 // {{{ gcd, lcm
 // %snippet.set('gcd')%
 // %snippet.config({'abbr':'great common divisor', 'indent':True})%
-int gcd(int a, int b) {
+ll gcd(ll a, ll b) {
     if (b > a) swap(a, b);
     if (b == 0) return a;
     return gcd(b, a % b);
@@ -13,7 +13,7 @@ int gcd(int a, int b) {
 
 // %snippet.set('lcm')%
 // %snippet.include('gcd')%
-int lcm(int a, int b) {
+ll lcm(ll a, ll b) {
     return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
 }
 // %snippet.end()%
@@ -22,8 +22,8 @@ int lcm(int a, int b) {
 
 //%snippet.set('reverse_int')%
 //%snippet.include('lcm')%  //再帰のテスト {{{
-int reverse_int(int number) {
-    int reverse = 0;
+ll reverse_int(ll number) {
+    ll reverse = 0;
     while (number > 0) {
         reverse = reverse * 10 + number % 10;
         number /= 10;
@@ -33,7 +33,7 @@ int reverse_int(int number) {
 // %snippet.end()% }}}
 
 //%snippet.set('digitSum')%
-int digitSum(int x) { /*{{{*/
+int digitSum(ll x) { /*{{{*/
     int res = 0;
     while (true) {
         res += x % 10;
@@ -46,17 +46,17 @@ int digitSum(int x) { /*{{{*/
 } /*}}}*/
 
 //%snippet.set('is_prime')%
-bool is_prime(int n) { /*{{{*/
-    for (int i = 2; i * i <= n; i++) {
+bool is_prime(ll n) { /*{{{*/
+    for (ll i = 2; i * i <= n; i++) {
         if (n % i == 0) return false;
     }
     return n != 1;
 } /*}}}*/
 
 //%snippet.set('prime_factor')%
-map<int, int> prime_factor(int n) {  // 素因数分解 (o(√N)){{{
-    map<int, int> res;  // vectorで持つことも考えられる。
-    for (int i = 2; i * i <= n; i++) {
+map<ll, ll> prime_factor(ll n) {  // 素因数分解 (o(√N)){{{
+    map<ll, ll> res;  // vectorで持つことも考えられる。
+    for (ll i = 2; i * i <= n; i++) {
         while (n % i == 0) {
             ++res[i];
             n /= i;
