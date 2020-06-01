@@ -25,23 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/math/combination.test.cpp
+# :heavy_check_mark: library/cpp/math/sieve.aoj.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/combination.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/sieve.aoj.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-06-01 23:57:45+09:00
 
 
-* see: <a href="https://yukicoder.me/problems/no/1035">https://yukicoder.me/problems/no/1035</a>
+* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
-* :heavy_check_mark: <a href="../../../../library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 
 
 ## Code
@@ -49,20 +48,22 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://yukicoder.me/problems/no/1035"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja"
 
-#include "combination.hpp"
+#include "sieve.hpp"
 
 int main(){
-    int n,m;cin>>n>>m;
+    ll n;cin>>n;
+    auto ps = sv.prime_factor(n);
 
-    mint ans = mint(m).pow(n);
-
-    rep(x, 1, m){  // x: 使わない色の数
-        ans += mint(-1).pow(x) * com(m, x) * mint(m-x).pow(n);
+    vl ans;
+    each(el, ps){
+        auto [p, c] = el;
+        rep(_, c) ans.pb(p);
     }
 
-    cout << ans << endl;
+    cout << n << ": ";
+    rep(i, sz(ans)) cout << ans[i] << (i!=sz(ans)-1 ? " " : "\n");
 }
 
 ```
@@ -71,8 +72,8 @@ int main(){
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/math/combination.test.cpp"
-#define PROBLEM "https://yukicoder.me/problems/no/1035"
+#line 1 "library/cpp/math/sieve.aoj.test.cpp"
+#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja"
 
 #line 2 "library/cpp/header.hpp"
 
@@ -136,114 +137,91 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 3 "library/cpp/math/mint.hpp"
+#line 2 "library/cpp/math/sieve.hpp"
 
-//%snippet.set('mint')%
-int mod = 1e9 + 7;
-// int mod = 998244353;
-struct mint {  //{{{
-    ll x;
-    mint(ll x = 0) : x((x % mod + mod) % mod) {}
+//%snippet.set('sieve')%
+//%snippet.config({'alias':'prime_factor_by_sieve'})%
+//%snippet.fold()%
 
-    // ?= operator
-    mint& operator+=(const mint a) {
-        (x += a.x) %= mod;
-        return *this;
-    }
-    mint& operator-=(const mint a) {
-        (x += mod - a.x) %= mod;
-        return *this;
-    }
-    mint& operator*=(const mint a) {
-        (x *= a.x) %= mod;
-        return *this;
-    }
-    mint& operator/=(const mint& rhs) {
-        if (rhs.x == 0) throw runtime_error("mint zero division");
-        return *this *= rhs.inv();
-    }
-
-    mint operator+(const mint a) const {
-        mint res(*this);
-        return res += a;
-    }
-    mint operator-(const mint a) const {
-        mint res(*this);
-        return res -= a;
-    }
-    mint operator*(const mint a) const {
-        mint res(*this);
-        return res *= a;
-    }
-    mint operator/(const mint a) const {
-        mint res(*this);
-        return res /= a;
-    }
-
-    mint pow(int n) const {
-        mint res(1), x(*this);
-        if (n < 0) {
-            n = -n;
-            x = (*this).inv();
+struct Sieve {/*{{{*/
+    // エラトステネスのふるい O(NloglogN)
+    ll n;                              // n: max number for defined f and primes
+    vector<ll> f;                      // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
+    vector<ll> primes;                 // [2, 3, 5, .......]
+    Sieve(ll n = 1) : n(n), f(n + 1) { /*{{{*/
+        f[0] = f[1] = -1;
+        for (ll i = 2; i <= n; ++i) {
+            if (f[i]) continue;
+            primes.push_back(i);
+            f[i] = i;
+            for (ll j = i * i; j <= n; j += i) {
+                if (!f[j]) f[j] = i;
+            }
         }
-        while (n) {
-            if (n & 1) res *= x;
-            x *= x;
-            n >>= 1;
+    } /*}}}*/
+    bool is_prime(ll x) {
+        if (x <= n) return f[x] == x; 
+        return sz(factor_list(x)) == 1;
+    }
+
+    vector<ll> factor_list(ll x) { /*{{{*/
+        assert(x <= n*n); // これが満たされないと正しく計算されない可能性がある。
+
+        vector<ll> res;
+        if (x <= n) {
+            while (x != 1) {
+                res.push_back(f[x]);
+                x /= f[x];
+            }
         }
-        return res;
-    }
+        else {
+            for (ll i = 0; primes[i] * primes[i] <= x; i++) {
+                while (x % primes[i] == 0) {
+                    res.pb(primes[i]);
+                    x /= primes[i];
+                }
+            }
+            if (x != 1) res.pb(x);
+        }
 
-    mint inv() const {
-        if (x == 0) throw runtime_error("inv does not exist");
-        return pow(mod - 2);
-    }
-    // mint inv()const{
-    //     int x,y;
-    //     int g=extgcd(v,mod,x,y);
-    //     assert(g==1);
-    //     if(x<0)x+=mod;
-    //     return mint(x);
-    // }
+        return res;  // [2, 3, 3, 5, 5, 5.....]
+    }                /*}}}*/
 
-    bool operator<(const mint& r) const { return x < r.x; }
-    bool operator==(const mint& r) const { return x == r.x; }
-};
-istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
-//}}}
-#line 4 "library/cpp/math/combination.hpp"
+    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/
+        // just change fl vector to map form
+        vector<ll> fl = factor_list(x);
+        if (fl.size() == 0) return {};
+        vector<pair<ll, ll>> res = {mp(fl[0], 0)};
+        for (ll p : fl) {
+            if (res.back().first == p) {
+                res.back().second++;
+            } else {
+                res.emplace_back(p, 1);
+            }
+        }
+        return res;  // [(2,1), (3,2), (5,3), .....]
+    }                /*}}}*/
+};/*}}}*/
+Sieve sv(1e6);
+// How to use
+    // sv.primes            // 素数のリスト
+    // sv.prime_factor(x);  // 素因数分解
 
-//%snippet.set('combination')%
-// %snippet.include('mint')%
-struct combination {  // {{{
-    vector<mint> fact, ifact;
-    combination(int n) : fact(n + 1), ifact(n + 1) {
-        assert(n < mod);
-        fact[0] = 1;
-        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
-        ifact[n] = fact[n].inv();
-        for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
-    }
-    mint operator()(int n, int k) {
-        if (k < 0 || k > n) return 0;
-        return fact[n] * ifact[k] * ifact[n - k];
-    }
-}  // }}}
-com(500001);
 //%snippet.end()%
-#line 4 "library/cpp/math/combination.test.cpp"
+#line 4 "library/cpp/math/sieve.aoj.test.cpp"
 
 int main(){
-    int n,m;cin>>n>>m;
+    ll n;cin>>n;
+    auto ps = sv.prime_factor(n);
 
-    mint ans = mint(m).pow(n);
-
-    rep(x, 1, m){  // x: 使わない色の数
-        ans += mint(-1).pow(x) * com(m, x) * mint(m-x).pow(n);
+    vl ans;
+    each(el, ps){
+        auto [p, c] = el;
+        rep(_, c) ans.pb(p);
     }
 
-    cout << ans << endl;
+    cout << n << ": ";
+    rep(i, sz(ans)) cout << ans[i] << (i!=sz(ans)-1 ? " " : "\n");
 }
 
 ```

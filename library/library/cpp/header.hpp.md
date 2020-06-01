@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#b74e03aadbcf5e719ddbe48ef08361fd">library/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/header.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-31 23:26:41+09:00
 
 
 
@@ -75,6 +75,7 @@ layout: default
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 * :warning: <a href="math/pow.hpp.html">library/cpp/math/pow.hpp</a>
 * :warning: <a href="math/rational.hpp.html">library/cpp/math/rational.hpp</a>
+* :heavy_check_mark: <a href="math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 * :warning: <a href="misc/constant.cpp.html">library/cpp/misc/constant.cpp</a>
 * :warning: <a href="misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
 * :warning: <a href="misc/zipper.lib/shifter.hpp.html">library/cpp/misc/zipper.lib/shifter.hpp</a>
@@ -108,6 +109,8 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
@@ -155,7 +158,7 @@ template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
-#define divceil(a, b) ((a) + (b)-1) / (b)
+#define cdiv(a, b) (((a) + (b)-1) / (b))
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
@@ -224,7 +227,7 @@ template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
-#define divceil(a, b) ((a) + (b)-1) / (b)
+#define cdiv(a, b) (((a) + (b)-1) / (b))
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)

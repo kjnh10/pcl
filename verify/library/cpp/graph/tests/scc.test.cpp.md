@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/scc.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-30 14:55:42+09:00
+    - Last commit date: 2020-05-31 23:26:41+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp</a>
@@ -141,7 +141,7 @@ template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
-#define divceil(a, b) ((a) + (b)-1) / (b)
+#define cdiv(a, b) (((a) + (b)-1) / (b))
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)

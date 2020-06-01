@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../../index.html#04b9fdf3733e033461bbd7a8ed473f54">library/cpp/string/suffix_array/codes</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/suffix_array/codes/suffix_array.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-20 00:15:11+09:00
+    - Last commit date: 2020-05-31 23:26:41+09:00
 
 
 
@@ -316,7 +316,7 @@ template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
-#define divceil(a, b) ((a) + (b)-1) / (b)
+#define cdiv(a, b) (((a) + (b)-1) / (b))
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
