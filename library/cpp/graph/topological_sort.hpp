@@ -2,6 +2,7 @@
 #include "graph.hpp"
 
 //%snippet.set('topological_sort')%
+//%snippet.include('Graph')%
 //%snippet.config({'alias':'tps'})%
 //%snippet.fold()%
 
