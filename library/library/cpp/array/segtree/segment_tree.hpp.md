@@ -47,7 +47,7 @@ layout: default
 * :heavy_check_mark: <a href="../../graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="../../graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :heavy_check_mark: <a href="../../graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :warning: <a href="../../graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="../../graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 * :warning: <a href="../../graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="../../graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 
@@ -63,6 +63,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 

@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/graph/topological_sort.hpp
+# :heavy_check_mark: library/cpp/graph/topological_sort.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/topological_sort.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-06-03 01:21:51+09:00
 
 
 
@@ -46,6 +46,11 @@ layout: default
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+
+
 ## Code
 
 <a id="unbundled"></a>
@@ -55,6 +60,7 @@ layout: default
 #include "graph.hpp"
 
 //%snippet.set('topological_sort')%
+//%snippet.include('Graph')%
 //%snippet.config({'alias':'tps'})%
 //%snippet.fold()%
 
@@ -702,6 +708,7 @@ struct Graph {
 #line 3 "library/cpp/graph/topological_sort.hpp"
 
 //%snippet.set('topological_sort')%
+//%snippet.include('Graph')%
 //%snippet.config({'alias':'tps'})%
 //%snippet.fold()%
 

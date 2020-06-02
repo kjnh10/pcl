@@ -21,48 +21,31 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/graph.hpp
+# :heavy_check_mark: library/cpp/graph/tests/topological_sort.test.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/graph.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/topological_sort.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-06-03 01:21:51+09:00
 
 
+* see: <a href="https://yukicoder.me/problems/no/30">https://yukicoder.me/problems/no/30</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-
-
-## Required by
-
-* :heavy_check_mark: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
-* :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -70,177 +53,32 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
-#include "../header.hpp"
-#include "edge.hpp"
-#include "tree.lib/tree.hpp"
-#include "unionfind.hpp"
+#define PROBLEM "https://yukicoder.me/problems/no/30"
+#include "../topological_sort.hpp"
 
-//%snippet.set('Graph')%
-//%snippet.include('UnionFind')%
-//%snippet.include('tree')%
-//%snippet.fold()%
 
-template<class Cost=ll>
-struct Graph {
-    using Pos = int;  // int以外には対応しない。
+int main() {
+    ll n;cin>>n;
+    ll m;cin>>m;
 
-    int n;  // 頂点数
-    vector<vector<Edge<Cost>>> adj_list;
-    auto operator[](Pos pos) const { return adj_list[pos]; }
-    vector<Edge<Cost>> edges;
-    tree<Cost> tr;
-    Pos root;
-    vector<int> _used_in_dfs;
-    vector<int> lowlink;
-    Cost zerocost;
-    Cost infcost;
-
-    Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
-    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
-
-    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
-        adj_list[from].emplace_back(from, to, cost, idx);
-        edges.emplace_back(from, to, cost, idx);
+    Graph<ll> g(n);
+    rep(i, m){
+        ll a,c,b;cin>>a>>c>>b;
+        a--;b--;
+        g.add_edge(b, a, c);
     }
-    void add_edge(Pos from, Pos to) {  // for ll
-        adj_list[from].emplace_back(from, to, 1, -1);
-        edges.emplace_back(from, to, 1, -1);
-    }/*}}}*/
+    auto tp = get<1>(topological_sort(g));
 
-    void build_tree(Pos _root) {/*{{{*/
-        root = _root;
-        _dfs_tree(root);
-        tr.build(root);
-        _make_lowlink();
-    }/*}}}*/
-
-    vector<int> make_bipartite() {/*{{{*/
-        UnionFind buf(2 * n);
-        rep(u, n) {
-            each(e, adj_list[u]) {
-                buf.merge(u, e.to + n);
-                buf.merge(e.to, u + n);
-            }
-        }
-
-        vector<int> res(n, -1);
-        rep(u, n) {
-            if (buf.same(u, u + n)) return res;
-        }
-        rep(u, n) {
-            if (buf.same(0, u)) res[u] = 0;
-            else res[u] = 1;
-        }
-        return res;
-    }/*}}}*/
-
-    void _dfs_tree(Pos u) {/*{{{*/
-        _used_in_dfs[u] = 1;
-        each(e, adj_list[u]) {
-            if (_used_in_dfs[e.to]) continue;
-            tr.add_edge(u, e.to, e.cost);
-            _dfs_tree(e.to);
-        }
-    }/*}}}*/
-
-    void _make_lowlink() {/*{{{*/
-        lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
-        r_rep(i, n) {
-            Pos u = tr.dfstrv[i];
-            chmin(lowlink[u], tr.ord[u]);
-
-            each(e, adj_list[u]) {
-                if (e.to == tr.par[u])
-                    continue;
-                else if (tr.ord[e.to] < tr.ord[u]) {
-                    chmin(lowlink[u], tr.ord[e.to]);
-                } else {
-                    chmin(lowlink[u], lowlink[e.to]);
-                }
-            }
-        }
-    }/*}}}*/
-
-    vector<Pos> get_articulation_points() {/*{{{*/
-        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-
-        vector<Pos> res;
-        if (sz(tr.children[root]) > 1) {
-            res.push_back(root);
-        }
-        rep(u, 0, n) {
-            if (u == root) continue;
-            bool is_kan = false;
-            each(v, tr.children[u]) {
-                if (tr.ord[u] <= lowlink[v]) {
-                    is_kan = true;
-                }
-            }
-            if (is_kan) res.push_back(u);
-        }
-        return res;
-    }/*}}}*/
-
-    vector<Edge<Cost>> get_bridges() {/*{{{*/
-        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-        vector<Edge<Cost>> res;
-        each(edge, edges){
-            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
-        }
-        return res;
-    }/*}}}*/
-
-    vector<Edge<Cost>> kruskal_tree() {/*{{{*/
-        // 使用される辺のvectorを返す
-        vector<Edge<Cost>> res(n - 1);
-        sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
-        UnionFind uf(n);
-
-        Cost total_cost = zerocost;
-        int idx = 0;
-        each(e, edges) {
-            if (uf.same(e.from, e.to)) continue;
-            uf.merge(e.from, e.to);
-            total_cost = total_cost + e.cost;
-            res[idx] = e;
-            idx++;
-        }
-        assert(idx == n - 1);
-
-        return res;
-    }/*}}}*/
-
-    vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
-        vector<Cost> dist(n, infcost);           // 最短距離
-        PQ<pair<Cost, Pos>> pq;
-        each(start, starts) {
-            dist[start] = zerocost;
-            pq.push(make_pair(zerocost, start));
-        }
-        while (!pq.empty()) {
-            auto cp = pq.top();
-            pq.pop();
-            auto [cost, u] = cp;
-            for (const auto& edge : adj_list[u]) {
-                Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
-                if (new_cost < dist[edge.to]) {
-                    dist[edge.to] = new_cost;
-                    pq.push(make_pair(new_cost, edge.to));
-                }
-            }
-        }
-        return dist;
-    };/*}}}*/
-
-    vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
-        vector<Pos> starts = {start};
-        return dijkstra(starts);
-    };/*}}}*/
-};
-
-//%snippet.end()%
+    vl ans(n-1);
+    vl cnt(n);
+    cnt[n-1] = 1;
+    each(u, tp){
+        each(edge, g.adj_list[u]) cnt[edge.to] += cnt[u] * edge.cost;
+        if (g.adj_list[u].empty()) ans[u] += cnt[u];
+    }
+    rep(i, n-1) cout << ans[i] << endl;
+    return 0; 
+}
 
 ```
 {% endraw %}
@@ -248,6 +86,8 @@ struct Graph {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/graph/tests/topological_sort.test.cpp"
+#define PROBLEM "https://yukicoder.me/problems/no/30"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -838,9 +678,85 @@ struct Graph {
 };
 
 //%snippet.end()%
+#line 3 "library/cpp/graph/topological_sort.hpp"
+
+//%snippet.set('topological_sort')%
+//%snippet.include('Graph')%
+//%snippet.config({'alias':'tps'})%
+//%snippet.fold()%
+
+using Pos = int;
+tuple<bool, vector<Pos>, int> topological_sort(const Graph<>& g) {
+    vector<Pos> res;  // sort後の結果を格納
+    vector<int> h(g.n);  // 頂点ごとの入次数
+    stack<Pos> st;    // 入次数が0になっている頂点の集合
+    int max_len = 0;   // 最長経路の長さ
+
+    // 入次数を計算する。
+    rep(u, g.n) {
+        for (const auto& edge : g[u]) {
+            h[edge.to]++;
+        }
+    }
+
+    // 最初に入次数0になっている頂点を集める。
+    rep(u, g.n) {
+        if (h[u] == 0) {
+            st.push(u);
+            res.push_back(u);
+        }
+    }
+
+    // 入次数0の頂点をresに追加しそこから出て行く辺は削除していく。O(g.n+E)
+    while (!st.empty()) {
+        stack<Pos> nex_st;
+        while (!st.empty()) {
+            Pos u = st.top(); st.pop();
+            for (const auto& edge : g[u]) {
+                h[edge.to]--;
+                if (h[edge.to] == 0) {
+                    res.push_back(edge.to);
+                    nex_st.push(edge.to);
+                }
+            }
+        }
+        max_len++;
+        st = nex_st;
+    }
+    
+    bool is_valid = (sz(res)==g.n ? true : false);
+    return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+}
+//%snippet.end()%
+
+#line 3 "library/cpp/graph/tests/topological_sort.test.cpp"
+
+
+int main() {
+    ll n;cin>>n;
+    ll m;cin>>m;
+
+    Graph<ll> g(n);
+    rep(i, m){
+        ll a,c,b;cin>>a>>c>>b;
+        a--;b--;
+        g.add_edge(b, a, c);
+    }
+    auto tp = get<1>(topological_sort(g));
+
+    vl ans(n-1);
+    vl cnt(n);
+    cnt[n-1] = 1;
+    each(u, tp){
+        each(edge, g.adj_list[u]) cnt[edge.to] += cnt[u] * edge.cost;
+        if (g.adj_list[u].empty()) ans[u] += cnt[u];
+    }
+    rep(i, n-1) cout << ans[i] << endl;
+    return 0; 
+}
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
