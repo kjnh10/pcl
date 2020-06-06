@@ -115,7 +115,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="library/library/cpp/math/int.cpp.html">library/cpp/math/int.cpp</a>
-* :warning: <a href="library/library/cpp/math/matrix.cpp.html">library/cpp/math/matrix.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 * :warning: <a href="library/library/cpp/math/pow.hpp.html">library/cpp/math/pow.hpp</a>
@@ -230,6 +230,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
