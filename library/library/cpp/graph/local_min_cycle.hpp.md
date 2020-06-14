@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/local_min_cycle.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-14 12:52:25+09:00
+    - Last commit date: 2020-06-14 16:15:33+09:00
 
 
 
@@ -55,6 +55,12 @@ layout: default
 
 // verified by https://codeforces.com/contest/1364/problem/D
 
+// 無向グラフにしか対応していないので有向グラフの場合は以下
+// 有向グラフの極小閉路の見つけ方（線形✕logくらい）
+// ・dfsでひとつ閉路をみつける（けんちょんさんのdfsの記事）
+// ・全辺を走査してショートカットの辺があれば不要なノードを削除していく。サイクルは(index, node-num)のsetで管理しておくと各ノードの削除はlog
+// でできるかな？
+
 //%snippet.set('local_min_cycle')%
 //%snippet.config({'alias':'cycle'})%
 //%snippet.include('Graph')%
@@ -62,6 +68,7 @@ layout: default
 
 template<class T>
 vector<int> local_min_cycle(Graph<T>& g){
+    // 無向グラフにしか対応していないので注意
     pair<int, int> loop = mp(-1, -1);  // start, end
     vector<int> loop_path;
     vector<bool> used(g.n);
@@ -359,7 +366,7 @@ struct tree {
     void build(int _root) { /*{{{*/
         root = _root;
         _counter = 0;
-        // par[root] = -1;
+        par[root] = -1;
         // cost[root] = -1;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
@@ -707,6 +714,12 @@ struct Graph {
 
 // verified by https://codeforces.com/contest/1364/problem/D
 
+// 無向グラフにしか対応していないので有向グラフの場合は以下
+// 有向グラフの極小閉路の見つけ方（線形✕logくらい）
+// ・dfsでひとつ閉路をみつける（けんちょんさんのdfsの記事）
+// ・全辺を走査してショートカットの辺があれば不要なノードを削除していく。サイクルは(index, node-num)のsetで管理しておくと各ノードの削除はlog
+// でできるかな？
+
 //%snippet.set('local_min_cycle')%
 //%snippet.config({'alias':'cycle'})%
 //%snippet.include('Graph')%
@@ -714,6 +727,7 @@ struct Graph {
 
 template<class T>
 vector<int> local_min_cycle(Graph<T>& g){
+    // 無向グラフにしか対応していないので注意
     pair<int, int> loop = mp(-1, -1);  // start, end
     vector<int> loop_path;
     vector<bool> used(g.n);

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/bellman_ford.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-14 12:52:09+09:00
+    - Last commit date: 2020-06-14 16:15:22+09:00
 
 
 
@@ -334,7 +334,7 @@ struct tree {
     void build(int _root) { /*{{{*/
         root = _root;
         _counter = 0;
-        // par[root] = -1;
+        par[root] = -1;
         // cost[root] = -1;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
