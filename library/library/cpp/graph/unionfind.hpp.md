@@ -46,6 +46,7 @@ layout: default
 * :heavy_check_mark: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
 * :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
+* :warning: <a href="local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
 * :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 

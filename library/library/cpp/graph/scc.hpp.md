@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/scc.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-06-14 12:52:09+09:00
 
 
 
@@ -330,6 +330,7 @@ template <typename T> struct SegmentTree {  // {{{
 template<class Cost=ll>
 struct tree { 
     int n;
+    int root;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
@@ -371,7 +372,8 @@ struct tree {
         adj_list[u].emplace_back(u, v, 1, -1);
         adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
-    void build(int root) { /*{{{*/
+    void build(int _root) { /*{{{*/
+        root = _root;
         _counter = 0;
         // par[root] = -1;
         // cost[root] = -1;

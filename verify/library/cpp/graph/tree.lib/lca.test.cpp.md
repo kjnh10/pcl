@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/lca.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-06-14 12:52:09+09:00
 
 
 * see: <a href="https://judge.yosupo.jp/problem/lca">https://judge.yosupo.jp/problem/lca</a>
@@ -53,7 +53,7 @@ layout: default
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
 #include "tree.hpp"
 
-signed main() {
+int main() {
     int n, q;
     cin >> n >> q;
     tree tr(n);
@@ -281,6 +281,7 @@ struct Edge {
 template<class Cost=ll>
 struct tree { 
     int n;
+    int root;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
@@ -322,7 +323,8 @@ struct tree {
         adj_list[u].emplace_back(u, v, 1, -1);
         adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
-    void build(int root) { /*{{{*/
+    void build(int _root) { /*{{{*/
+        root = _root;
         _counter = 0;
         // par[root] = -1;
         // cost[root] = -1;
@@ -456,7 +458,7 @@ struct tree {
 //%snippet.end()%
 #line 3 "library/cpp/graph/tree.lib/lca.test.cpp"
 
-signed main() {
+int main() {
     int n, q;
     cin >> n >> q;
     tree tr(n);

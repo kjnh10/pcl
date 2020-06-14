@@ -21,31 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/tests/graph.2dcost.test.cpp
+# :warning: library/cpp/graph/local_min_cycle.hpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-14 12:52:09+09:00
+* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/local_min_cycle.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-06-14 12:52:25+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -53,32 +51,59 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
+#include "graph.hpp"
 
-#include "../../header.hpp"
-#include "../graph.hpp"
-#include "../../math/geometry/p2.hpp"
+// verified by https://codeforces.com/contest/1364/problem/D
 
-signed main() {
-    int n;
-    cin >> n;
-    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2<ll>(cost, 0LL), i);
+//%snippet.set('local_min_cycle')%
+//%snippet.config({'alias':'cycle'})%
+//%snippet.include('Graph')%
+//%snippet.fold()%
+
+template<class T>
+vector<int> local_min_cycle(Graph<T>& g){
+    pair<int, int> loop = mp(-1, -1);  // start, end
+    vector<int> loop_path;
+    vector<bool> used(g.n);
+    bool loop_found = false;
+    auto dfs = [&](const auto& dfs, int u, int pre) -> int {
+        used[u] = 1;
+        int max_depth = -1;
+        each(e, g.adj_list[u]){
+            if (e.to == pre) continue;
+            else if (used[e.to]){  // back-track-edge
+                loop_found = true;
+                if (g.tr.depth[e.to] > max_depth) {
+                    max_depth = g.tr.depth[e.to];
+                    loop = mp(e.to, u);
+                }
+            }
         }
-    }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
+        if (loop_found){
+            // generate path
+            loop_path.pb(loop.first);
+            int cur = loop.second;
+            while(cur != loop.first){
+                loop_path.pb(cur);
+                cur = g.tr.par[cur];
+            }
+            // loop_path.pb(loop.first);
+        }
 
-    return 0;
+        // if no back-tarck edge exists, the continue to dfs
+        each(e, g.tr.adj_list[u]){
+            if (e.to == pre) continue;
+            if (!loop_found) dfs(dfs, e.to, u);
+        }
+
+        return 0;
+    };
+
+    dfs(dfs, 0, -1);
+    return loop_path;  // if tree, loop_path = {};
 }
+
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -86,9 +111,6 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/tests/graph.2dcost.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
-
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -681,142 +703,62 @@ struct Graph {
 };
 
 //%snippet.end()%
-#line 2 "library/cpp/math/geometry/p2.hpp"
+#line 2 "library/cpp/graph/local_min_cycle.hpp"
 
-//%snippet.set('P2')%
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
+// verified by https://codeforces.com/contest/1364/problem/D
 
-template<class T=ll>/*{{{*/
-struct P2 {
-    T x, y;
-    P2(T _x, T _y) : x(_x), y(_y) {}
-    P2() {
-        x = 0;
-        y = 0;
-    }
-    bool operator<(const P2 &r) const {
-        return (x != r.x ? x < r.x : y < r.y);
-    }
-    bool operator>(const P2 &r) const {
-        return (x != r.x ? x > r.x : y > r.y);
-    }
-    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+//%snippet.set('local_min_cycle')%
+//%snippet.config({'alias':'cycle'})%
+//%snippet.include('Graph')%
+//%snippet.fold()%
 
-    friend ostream &operator<<(ostream &stream, P2 p) {
-        stream << "(" << p.x << "," << p.y << ")";
-        return stream;
-    }
-
-    P2 operator-() const {  // 単項演算子
-        return P2(-x, -y);
-    }
-
-    P2& operator+=(const P2<T>& r){
-        x += r.x;
-        y += r.y;
-        return *this;
-    }
-    P2& operator-=(const P2<T>& r){
-        x -= r.x;
-        y -= r.y;
-        return *this;
-    }
-    P2& operator+=(const T& r){
-        x += r;
-        y += r;
-        return *this;
-    }
-    P2& operator-=(const T& r){
-        x -= r;
-        y -= r;
-        return *this;
-    }
-    P2& operator*=(const P2<T>& r){
-        x *= r.x;
-        y *= r.y;
-        return *this;
-    }
-    P2& operator/=(const P2<T>& r){
-        x /= r.x;
-        y /= r.y;
-        return *this;
-    }
-    P2& operator*=(const T& r){
-        x *= r;
-        y *= r;
-        return *this;
-    }
-    P2& operator/=(const T& r){
-        x /= r;
-        y /= r;
-        return *this;
-    }
-
-    template<class U>
-    P2 operator+(const U& r) const {
-        P2 res(*this);
-        return res += r;
-    }
-    template<class U>
-    P2 operator-(const U& r) const {
-        P2 res(*this);
-        return res -= r;
-    }
-
-    template<class U>
-    P2 operator*(const U& r) const {
-        P2 res(*this);
-        return res *= r;
-    }
-    template<class U>
-    P2 operator/(const U& r) const {
-        P2 res(*this);
-        return res /= r;
-    }
-
-
-    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d) return true;
-        else return false;
-    }
-
-};
 template<class T>
-long double dist(const P2<T>& p, const P2<T>& q){
-    return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
-}
-
-/*}}}*/
-using P = P2<ll>;
-
-//%snippet.end%
-#line 6 "library/cpp/graph/tests/graph.2dcost.test.cpp"
-
-signed main() {
-    int n;
-    cin >> n;
-    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2<ll>(cost, 0LL), i);
+vector<int> local_min_cycle(Graph<T>& g){
+    pair<int, int> loop = mp(-1, -1);  // start, end
+    vector<int> loop_path;
+    vector<bool> used(g.n);
+    bool loop_found = false;
+    auto dfs = [&](const auto& dfs, int u, int pre) -> int {
+        used[u] = 1;
+        int max_depth = -1;
+        each(e, g.adj_list[u]){
+            if (e.to == pre) continue;
+            else if (used[e.to]){  // back-track-edge
+                loop_found = true;
+                if (g.tr.depth[e.to] > max_depth) {
+                    max_depth = g.tr.depth[e.to];
+                    loop = mp(e.to, u);
+                }
+            }
         }
-    }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
+        if (loop_found){
+            // generate path
+            loop_path.pb(loop.first);
+            int cur = loop.second;
+            while(cur != loop.first){
+                loop_path.pb(cur);
+                cur = g.tr.par[cur];
+            }
+            // loop_path.pb(loop.first);
+        }
 
-    return 0;
+        // if no back-tarck edge exists, the continue to dfs
+        each(e, g.tr.adj_list[u]){
+            if (e.to == pre) continue;
+            if (!loop_found) dfs(dfs, e.to, u);
+        }
+
+        return 0;
+    };
+
+    dfs(dfs, 0, -1);
+    return loop_path;  // if tree, loop_path = {};
 }
+
+//%snippet.end()%
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

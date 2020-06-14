@@ -25,27 +25,28 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/tests/graph.2dcost.test.cpp
+# :heavy_check_mark: library/cpp/graph/tree.lib/kth_root.hpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/graph.2dcost.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/kth_root.hpp">View this file on GitHub</a>
     - Last commit date: 2020-06-14 12:52:09+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :heavy_check_mark: <a href="../../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
 
 
 ## Code
@@ -53,32 +54,58 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
+#include "tree.hpp"
 
-#include "../../header.hpp"
-#include "../graph.hpp"
-#include "../../math/geometry/p2.hpp"
+class kth_root {
+public:
+    int N; // 2**N >= max_depthとなる最小のべき + 1
+    const tree<>& tr;
+    vector<vector<int>> db;
+    kth_root(tree<>& _tr) : tr(_tr) {
+        int max_depth = *max_element(all(tr.depth));
+        N = 0;
+        int mul = 1;
+        while(mul < max_depth){
+            mul <<= 1;
+            N++;
+        }
+        N++;
 
-signed main() {
-    int n;
-    cin >> n;
-    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2<ll>(cost, 0LL), i);
+        db = make_table(N, tr.n, -1);
+        db[0] = tr.par; db[0][tr.root] = -1;
+        rep(d, 1, N){
+            rep(j, tr.n){
+                if (db[d-1][j] == -1) db[d][j] = -1;
+                else db[d][j] = db[d-1][db[d-1][j]];
+            }
         }
     }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
+    
+    int query(int node, int k) {
+        int cur = node;
+        for(int d = 0; d < N ; d++) {
+            if (k>>d&1) {
+                if (db[d][cur]==-1) return -1;
+                else cur = db[d][cur];
+            }
+        }
+        return cur;
+    }
 
-    return 0;
-}
+    int lca(int u, int v) {
+        if (tr.depth[u] > tr.depth[v]) swap(u, v);
+        v = query(v, tr.depth[v] - tr.depth[u]);
+        if (u==v) return u;
+
+        for (int d = N-1; d >= 0; d--) {
+            if (db[d][u] != db[d][v]) {
+                u = db[d][u];
+                v = db[d][v];
+            }
+        }
+        return tr.par[u];
+    }
+};
 
 ```
 {% endraw %}
@@ -86,9 +113,6 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/tests/graph.2dcost.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C"
-
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -150,26 +174,6 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 #endif
 
 #endif /* HEADER_H */
-//%snippet.end()%
-#line 3 "library/cpp/graph/edge.hpp"
-
-//%snippet.set('edge')%
-//%snippet.fold()%
-template<class Cost=ll>
-struct Edge {
-    int from, to;
-    Cost cost;
-    int idx;
-    Edge(){};
-    Edge(int from, int to, Cost cost, int idx)
-        : from(from), to(to), cost(cost), idx(idx) {}
-
-    friend ostream& operator<<(ostream& os, const Edge& e) {
-        // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
-        os << "(" << e.from << "," << e.to << ")";
-        return os;
-    }
-};
 //%snippet.end()%
 #line 3 "library/cpp/array/segtree/segment_tree.hpp"
 // http://tsutaj.hatenablog.com/entry/2017/03/29/204841
@@ -280,6 +284,26 @@ template <typename T> struct SegmentTree {  // {{{
 // SegmentTree<ll> seg(a, add, 0);
 // -----------------------------------------------
 
+//%snippet.end()%
+#line 3 "library/cpp/graph/edge.hpp"
+
+//%snippet.set('edge')%
+//%snippet.fold()%
+template<class Cost=ll>
+struct Edge {
+    int from, to;
+    Cost cost;
+    int idx;
+    Edge(){};
+    Edge(int from, int to, Cost cost, int idx)
+        : from(from), to(to), cost(cost), idx(idx) {}
+
+    friend ostream& operator<<(ostream& os, const Edge& e) {
+        // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+        os << "(" << e.from << "," << e.to << ")";
+        return os;
+    }
+};
 //%snippet.end()%
 #line 5 "library/cpp/graph/tree.lib/tree.hpp"
 // (ref) https://www.slideshare.net/Proktmr/ss-138534092
@@ -467,353 +491,58 @@ struct tree {
 #endif /*}}}*/
 }; 
 //%snippet.end()%
-#line 3 "library/cpp/graph/unionfind.hpp"
+#line 2 "library/cpp/graph/tree.lib/kth_root.hpp"
 
-//%snippet.set('UnionFind')%
-//%snippet.fold()%
-
-struct UnionFind {
-    vector<int> par;   // par[x]: parent of x. if root, -size.
-    int gcount;         // count of groups
-
-    UnionFind() {}
-    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
-    bool merge(int x, int y) { 
-        x = root(x);
-        y = root(y);
-        if (x != y) {
-            if (par[y] < par[x]) swap(x, y);
-            par[x] += par[y];
-            par[y] = x;
-            gcount--;
+class kth_root {
+public:
+    int N; // 2**N >= max_depthとなる最小のべき + 1
+    const tree<>& tr;
+    vector<vector<int>> db;
+    kth_root(tree<>& _tr) : tr(_tr) {
+        int max_depth = *max_element(all(tr.depth));
+        N = 0;
+        int mul = 1;
+        while(mul < max_depth){
+            mul <<= 1;
+            N++;
         }
-        return x != y;
-    } 
-    int root(int x) {
-        if (is_root(x)){
-            return x;
-        }
-        else{
-            return par[x] = root(par[x]);  // 経路圧縮
-            // return root(par[x]);         // 経路圧縮なし
+        N++;
+
+        db = make_table(N, tr.n, -1);
+        db[0] = tr.par; db[0][tr.root] = -1;
+        rep(d, 1, N){
+            rep(j, tr.n){
+                if (db[d-1][j] == -1) db[d][j] = -1;
+                else db[d][j] = db[d-1][db[d-1][j]];
+            }
         }
     }
-    bool is_root(int x) { return par[x] < 0; }
-    bool same(int x, int y) { return root(x) == root(y); }
-    int size(int x) { return -par[root(x)]; }
-
-#if defined(PCM) || defined(LOCAL)  // {{{
-    friend ostream& operator<<(ostream& os, UnionFind& uf) {
-        map<int, vector<int>> group;
-        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
-        os << endl;
-        each(g, group) { os << g << endl; }
-        return os;
+    
+    int query(int node, int k) {
+        int cur = node;
+        for(int d = 0; d < N ; d++) {
+            if (k>>d&1) {
+                if (db[d][cur]==-1) return -1;
+                else cur = db[d][cur];
+            }
+        }
+        return cur;
     }
-#endif  // }}}
+
+    int lca(int u, int v) {
+        if (tr.depth[u] > tr.depth[v]) swap(u, v);
+        v = query(v, tr.depth[v] - tr.depth[u]);
+        if (u==v) return u;
+
+        for (int d = N-1; d >= 0; d--) {
+            if (db[d][u] != db[d][v]) {
+                u = db[d][u];
+                v = db[d][v];
+            }
+        }
+        return tr.par[u];
+    }
 };
-
-//%snippet.end()%
-#line 6 "library/cpp/graph/graph.hpp"
-
-//%snippet.set('Graph')%
-//%snippet.include('UnionFind')%
-//%snippet.include('tree')%
-//%snippet.fold()%
-
-template<class Cost=ll>
-struct Graph {
-    using Pos = int;  // int以外には対応しない。
-
-    int n;  // 頂点数
-    vector<vector<Edge<Cost>>> adj_list;
-    auto operator[](Pos pos) const { return adj_list[pos]; }
-    vector<Edge<Cost>> edges;
-    tree<Cost> tr;
-    Pos root;
-    vector<int> _used_in_dfs;
-    vector<int> lowlink;
-    Cost zerocost;
-    Cost infcost;
-
-    Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
-    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
-
-    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
-        adj_list[from].emplace_back(from, to, cost, idx);
-        edges.emplace_back(from, to, cost, idx);
-    }
-    void add_edge(Pos from, Pos to) {  // for ll
-        adj_list[from].emplace_back(from, to, 1, -1);
-        edges.emplace_back(from, to, 1, -1);
-    }/*}}}*/
-
-    void build_tree(Pos _root) {/*{{{*/
-        root = _root;
-        _dfs_tree(root);
-        tr.build(root);
-        _make_lowlink();
-    }/*}}}*/
-
-    vector<int> make_bipartite() {/*{{{*/
-        UnionFind buf(2 * n);
-        rep(u, n) {
-            each(e, adj_list[u]) {
-                buf.merge(u, e.to + n);
-                buf.merge(e.to, u + n);
-            }
-        }
-
-        vector<int> res(n, -1);
-        rep(u, n) {
-            if (buf.same(u, u + n)) return res;
-        }
-        rep(u, n) {
-            if (buf.same(0, u)) res[u] = 0;
-            else res[u] = 1;
-        }
-        return res;
-    }/*}}}*/
-
-    void _dfs_tree(Pos u) {/*{{{*/
-        _used_in_dfs[u] = 1;
-        each(e, adj_list[u]) {
-            if (_used_in_dfs[e.to]) continue;
-            tr.add_edge(u, e.to, e.cost);
-            _dfs_tree(e.to);
-        }
-    }/*}}}*/
-
-    void _make_lowlink() {/*{{{*/
-        lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
-        r_rep(i, n) {
-            Pos u = tr.dfstrv[i];
-            chmin(lowlink[u], tr.ord[u]);
-
-            each(e, adj_list[u]) {
-                if (e.to == tr.par[u])
-                    continue;
-                else if (tr.ord[e.to] < tr.ord[u]) {
-                    chmin(lowlink[u], tr.ord[e.to]);
-                } else {
-                    chmin(lowlink[u], lowlink[e.to]);
-                }
-            }
-        }
-    }/*}}}*/
-
-    vector<Pos> get_articulation_points() {/*{{{*/
-        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-
-        vector<Pos> res;
-        if (sz(tr.children[root]) > 1) {
-            res.push_back(root);
-        }
-        rep(u, 0, n) {
-            if (u == root) continue;
-            bool is_kan = false;
-            each(v, tr.children[u]) {
-                if (tr.ord[u] <= lowlink[v]) {
-                    is_kan = true;
-                }
-            }
-            if (is_kan) res.push_back(u);
-        }
-        return res;
-    }/*}}}*/
-
-    vector<Edge<Cost>> get_bridges() {/*{{{*/
-        if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-        vector<Edge<Cost>> res;
-        each(edge, edges){
-            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
-        }
-        return res;
-    }/*}}}*/
-
-    vector<Edge<Cost>> kruskal_tree() {/*{{{*/
-        // 使用される辺のvectorを返す
-        vector<Edge<Cost>> res(n - 1);
-        sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
-        UnionFind uf(n);
-
-        Cost total_cost = zerocost;
-        int idx = 0;
-        each(e, edges) {
-            if (uf.same(e.from, e.to)) continue;
-            uf.merge(e.from, e.to);
-            total_cost = total_cost + e.cost;
-            res[idx] = e;
-            idx++;
-        }
-        assert(idx == n - 1);
-
-        return res;
-    }/*}}}*/
-
-    vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
-        vector<Cost> dist(n, infcost);           // 最短距離
-        PQ<pair<Cost, Pos>> pq;
-        each(start, starts) {
-            dist[start] = zerocost;
-            pq.push(make_pair(zerocost, start));
-        }
-        while (!pq.empty()) {
-            auto cp = pq.top();
-            pq.pop();
-            auto [cost, u] = cp;
-            for (const auto& edge : adj_list[u]) {
-                Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
-                if (new_cost < dist[edge.to]) {
-                    dist[edge.to] = new_cost;
-                    pq.push(make_pair(new_cost, edge.to));
-                }
-            }
-        }
-        return dist;
-    };/*}}}*/
-
-    vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
-        vector<Pos> starts = {start};
-        return dijkstra(starts);
-    };/*}}}*/
-};
-
-//%snippet.end()%
-#line 2 "library/cpp/math/geometry/p2.hpp"
-
-//%snippet.set('P2')%
-//%snippet.config({'alias':'pos'})%
-//%snippet.config({'alias':'point'})%
-//%snippet.config({'alias':'pair'})%
-
-template<class T=ll>/*{{{*/
-struct P2 {
-    T x, y;
-    P2(T _x, T _y) : x(_x), y(_y) {}
-    P2() {
-        x = 0;
-        y = 0;
-    }
-    bool operator<(const P2 &r) const {
-        return (x != r.x ? x < r.x : y < r.y);
-    }
-    bool operator>(const P2 &r) const {
-        return (x != r.x ? x > r.x : y > r.y);
-    }
-    bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
-
-    friend ostream &operator<<(ostream &stream, P2 p) {
-        stream << "(" << p.x << "," << p.y << ")";
-        return stream;
-    }
-
-    P2 operator-() const {  // 単項演算子
-        return P2(-x, -y);
-    }
-
-    P2& operator+=(const P2<T>& r){
-        x += r.x;
-        y += r.y;
-        return *this;
-    }
-    P2& operator-=(const P2<T>& r){
-        x -= r.x;
-        y -= r.y;
-        return *this;
-    }
-    P2& operator+=(const T& r){
-        x += r;
-        y += r;
-        return *this;
-    }
-    P2& operator-=(const T& r){
-        x -= r;
-        y -= r;
-        return *this;
-    }
-    P2& operator*=(const P2<T>& r){
-        x *= r.x;
-        y *= r.y;
-        return *this;
-    }
-    P2& operator/=(const P2<T>& r){
-        x /= r.x;
-        y /= r.y;
-        return *this;
-    }
-    P2& operator*=(const T& r){
-        x *= r;
-        y *= r;
-        return *this;
-    }
-    P2& operator/=(const T& r){
-        x /= r;
-        y /= r;
-        return *this;
-    }
-
-    template<class U>
-    P2 operator+(const U& r) const {
-        P2 res(*this);
-        return res += r;
-    }
-    template<class U>
-    P2 operator-(const U& r) const {
-        P2 res(*this);
-        return res -= r;
-    }
-
-    template<class U>
-    P2 operator*(const U& r) const {
-        P2 res(*this);
-        return res *= r;
-    }
-    template<class U>
-    P2 operator/(const U& r) const {
-        P2 res(*this);
-        return res /= r;
-    }
-
-
-    bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-        if (a <= x && x < b && c <= y && y < d) return true;
-        else return false;
-    }
-
-};
-template<class T>
-long double dist(const P2<T>& p, const P2<T>& q){
-    return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
-}
-
-/*}}}*/
-using P = P2<ll>;
-
-//%snippet.end%
-#line 6 "library/cpp/graph/tests/graph.2dcost.test.cpp"
-
-signed main() {
-    int n;
-    cin >> n;
-    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
-    rep(i, n) {
-        int u;
-        cin >> u;
-        int k;
-        cin >> k;
-        rep(j, k) {
-            int to, cost;
-            cin >> to >> cost;
-            g.add_edge(u, to, P2<ll>(cost, 0LL), i);
-        }
-    }
-    auto d = g.dijkstra(0);
-    rep(i, n) { cout << i << " " << d[i].x << endl; }
-
-    return 0;
-}
 
 ```
 {% endraw %}

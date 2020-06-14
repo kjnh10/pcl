@@ -46,8 +46,10 @@ layout: default
 * :heavy_check_mark: <a href="../../graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
 * :heavy_check_mark: <a href="../../graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="../../graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
+* :warning: <a href="../../graph/local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
 * :heavy_check_mark: <a href="../../graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :heavy_check_mark: <a href="../../graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="../../graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="../../graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="../../graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 
@@ -65,6 +67,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 
 

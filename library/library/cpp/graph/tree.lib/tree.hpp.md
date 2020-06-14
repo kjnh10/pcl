@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#eaeee77e776a943cad05fb3e3b603f65">library/cpp/graph/tree.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tree.lib/tree.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-06-14 12:52:09+09:00
 
 
 
@@ -48,8 +48,10 @@ layout: default
 * :heavy_check_mark: <a href="../bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
 * :heavy_check_mark: <a href="../graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="../gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
+* :warning: <a href="../local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
 * :heavy_check_mark: <a href="../scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :heavy_check_mark: <a href="../topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 
 
@@ -64,6 +66,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 
 
@@ -86,6 +89,7 @@ layout: default
 template<class Cost=ll>
 struct tree { 
     int n;
+    int root;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
@@ -127,7 +131,8 @@ struct tree {
         adj_list[u].emplace_back(u, v, 1, -1);
         adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
-    void build(int root) { /*{{{*/
+    void build(int _root) { /*{{{*/
+        root = _root;
         _counter = 0;
         // par[root] = -1;
         // cost[root] = -1;
@@ -469,6 +474,7 @@ struct Edge {
 template<class Cost=ll>
 struct tree { 
     int n;
+    int root;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
@@ -510,7 +516,8 @@ struct tree {
         adj_list[u].emplace_back(u, v, 1, -1);
         adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
-    void build(int root) { /*{{{*/
+    void build(int _root) { /*{{{*/
+        root = _root;
         _counter = 0;
         // par[root] = -1;
         // cost[root] = -1;
