@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
-#include "tree.hpp"
+#include "kth_root.hpp"
 
 int main() {
     int n, q;
@@ -11,9 +11,12 @@ int main() {
         tr.add_edge(p, u);
     }
     tr.build(0);
+
+    auto ta = kth_root(tr);
+
     rep(_, q) {
         int u, v;
         cin >> u >> v;
-        cout << tr.lca(u, v) << endl;
+        cout << ta.lca(u, v) << endl;
     }
 }

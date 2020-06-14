@@ -12,6 +12,7 @@
 template<class Cost=ll>
 struct tree { 
     int n;
+    int root;
     vector<int> par;   // par[i]: dfs木における親
     vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
@@ -53,7 +54,8 @@ struct tree {
         adj_list[u].emplace_back(u, v, 1, -1);
         adj_list[v].emplace_back(v, u, 1, -1);
     }                      /*}}}*/
-    void build(int root) { /*{{{*/
+    void build(int _root) { /*{{{*/
+        root = _root;
         _counter = 0;
         // par[root] = -1;
         // cost[root] = -1;
