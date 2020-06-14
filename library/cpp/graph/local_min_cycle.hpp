@@ -2,6 +2,12 @@
 
 // verified by https://codeforces.com/contest/1364/problem/D
 
+// 無向グラフにしか対応していないので有向グラフの場合は以下
+// 有向グラフの極小閉路の見つけ方（線形✕logくらい）
+// ・dfsでひとつ閉路をみつける（けんちょんさんのdfsの記事）
+// ・全辺を走査してショートカットの辺があれば不要なノードを削除していく。サイクルは(index, node-num)のsetで管理しておくと各ノードの削除はlog
+// でできるかな？
+
 //%snippet.set('local_min_cycle')%
 //%snippet.config({'alias':'cycle'})%
 //%snippet.include('Graph')%
@@ -9,6 +15,7 @@
 
 template<class T>
 vector<int> local_min_cycle(Graph<T>& g){
+    // 無向グラフにしか対応していないので注意
     pair<int, int> loop = mp(-1, -1);  // start, end
     vector<int> loop_path;
     vector<bool> used(g.n);
