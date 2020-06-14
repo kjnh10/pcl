@@ -57,7 +57,7 @@ struct tree {
     void build(int _root) { /*{{{*/
         root = _root;
         _counter = 0;
-        // par[root] = -1;
+        par[root] = -1;
         // cost[root] = -1;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
