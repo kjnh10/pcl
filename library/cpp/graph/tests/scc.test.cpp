@@ -11,7 +11,6 @@ signed main() {
         g.add_edge(from, to);
     }
     StronglyConnectedComponents scc(g);
-    scc.build();
     dump(scc.comp);
     rep(i, sz(scc.dag.adj_list)){
         dump(scc.dag.adj_list[i]);
