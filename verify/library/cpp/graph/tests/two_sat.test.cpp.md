@@ -21,36 +21,33 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/two_sat.hpp
+# :heavy_check_mark: library/cpp/graph/tests/two_sat.test.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/two_sat.hpp">View this file on GitHub</a>
+* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/two_sat.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-06-16 22:51:44+09:00
 
 
+* see: <a href="https://yukicoder.me/problems/no/274">https://yukicoder.me/problems/no/274</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -58,65 +55,40 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "scc.hpp"
-#include "topological_sort.hpp"
+#define PROBLEM "https://yukicoder.me/problems/no/274"
+#include "../two_sat.hpp"
 
-//%snippet.set('two_sat')%
-//%snippet.include('scc')%
-//%snippet.include('topological_sort')%
-//%snippet.fold()%
-
-struct two_sat{
-    using Pos = int;
-    using Size = int;
-    Size orig_n;
-    Graph<bool> g;
-    vector<int> assigned;
-
-    two_sat(Size _orig_n): orig_n(_orig_n){
-        g = Graph<bool>(orig_n * 2);  // 頂点倍加
-    };
-
-    Pos toid(Pos u, bool is_u) {
-        return u * 2 + is_u;
+int main() {
+    int n,m;cin>>n>>m;
+    vector<int> l(n), r(n);
+    rep(i, n){
+        cin>>l[i]>>r[i];
     }
 
-    void add_condition(Pos u, bool is_u, Pos v, bool is_v) {
-        // add condition (u == is_u or v == is_v)
-        g.add_edge(toid(u, is_u^1), toid(v, is_v));
-        g.add_edge(toid(v, is_v^1), toid(u, is_u));
-    }
+    two_sat ts(n);
 
-    bool build(){
-        // if successed to assigne valiables, return true, else return false。
-        StronglyConnectedComponents scc(g);
-        auto ts = get<1>(topological_sort(scc.dag));
-        vector<Size> ord(sz(ts));
-        rep(i, sz(ts)) ord[ts[i]] = i;
+    rep(i, n){
+        rep(j, i+1, n){
+            if (r[j] < l[i] || r[i] < l[j]) {
+            }
+            else{
+                ts.add_condition(i, 0, j, 0);
+                ts.add_condition(i, 1, j, 1);
+            }
 
-        // check valid
-        rep(u, orig_n){
-            if (scc.comp[toid(u, 0)] == scc.comp[toid(u, 1)]) {
-                return false;
+            if (r[j] < m-1-r[i] || m-1-l[i] < l[j]) {
+            }
+            else{
+                ts.add_condition(i, 0, j, 1);
+                ts.add_condition(i, 1, j, 0);
             }
         }
-
-        assigned = vector<int>(orig_n, -1);
-        rep(u, orig_n){
-            assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);
-        }
-        return true;
     }
-};
-// how to use
-// two_sat ts(n); // n変数
-// ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)
-// ......
-// ......
-// auto valid = ts.build();
-// if (valid) dump(ts.assigned);
+    auto valid = ts.build();
+    cout << (valid ? "YES" : "NO") << endl;
 
-//%snippet.end()%
+    return 0; 
+}
 
 ```
 {% endraw %}
@@ -124,6 +96,8 @@ struct two_sat{
 <a id="bundled"></a>
 {% raw %}
 ```cpp
+#line 1 "library/cpp/graph/tests/two_sat.test.cpp"
+#define PROBLEM "https://yukicoder.me/problems/no/274"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -889,9 +863,42 @@ struct two_sat{
 // if (valid) dump(ts.assigned);
 
 //%snippet.end()%
+#line 3 "library/cpp/graph/tests/two_sat.test.cpp"
+
+int main() {
+    int n,m;cin>>n>>m;
+    vector<int> l(n), r(n);
+    rep(i, n){
+        cin>>l[i]>>r[i];
+    }
+
+    two_sat ts(n);
+
+    rep(i, n){
+        rep(j, i+1, n){
+            if (r[j] < l[i] || r[i] < l[j]) {
+            }
+            else{
+                ts.add_condition(i, 0, j, 0);
+                ts.add_condition(i, 1, j, 1);
+            }
+
+            if (r[j] < m-1-r[i] || m-1-l[i] < l[j]) {
+            }
+            else{
+                ts.add_condition(i, 0, j, 1);
+                ts.add_condition(i, 1, j, 0);
+            }
+        }
+    }
+    auto valid = ts.build();
+    cout << (valid ? "YES" : "NO") << endl;
+
+    return 0; 
+}
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../../../index.html">Back to top page</a>
 

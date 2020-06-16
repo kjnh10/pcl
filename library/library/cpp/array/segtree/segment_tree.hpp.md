@@ -52,7 +52,7 @@ layout: default
 * :heavy_check_mark: <a href="../../graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="../../graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="../../graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :warning: <a href="../../graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :heavy_check_mark: <a href="../../graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with
@@ -67,6 +67,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
 * :heavy_check_mark: <a href="../../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>

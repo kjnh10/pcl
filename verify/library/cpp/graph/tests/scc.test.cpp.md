@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/scc.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-16 19:57:23+09:00
+    - Last commit date: 2020-06-16 22:51:44+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp</a>
@@ -702,19 +702,20 @@ struct Graph {
 //%snippet.include('Graph')%
 //%snippet.fold()%
 
+template<class T = ll>
 struct StronglyConnectedComponents {
-    const Graph<> &g;  //{{{
+    const Graph<T> &g;  //{{{
     vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
     Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
     Graph<> _rg;  // reversed graph
     vector<int> _order;  // order[i]: 帰りがけ順
     vector<int> _used;
 
-    StronglyConnectedComponents(Graph<> &_g)
+    StronglyConnectedComponents(Graph<T> &_g)
         : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
         for (int i = 0; i < g.n; i++) {
             for (auto e : g[i]) {
-                _rg.add_edge(e.to, e.from, e.cost, e.idx);
+                _rg.add_edge(e.to, e.from);
             }
         }
         _build();

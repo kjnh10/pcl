@@ -48,12 +48,13 @@ layout: default
 
 ## Required by
 
-* :warning: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :heavy_check_mark: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
 
 
 ## Code

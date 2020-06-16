@@ -84,7 +84,7 @@ layout: default
 * :warning: <a href="library/library/cpp/graph/local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-* :warning: <a href="library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :warning: <a href="library/library/cpp/graph/unionfind_with_potential.hpp.html">library/cpp/graph/unionfind_with_potential.hpp</a>
 
@@ -230,6 +230,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
