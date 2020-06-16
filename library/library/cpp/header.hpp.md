@@ -59,6 +59,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :warning: <a href="graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 * :heavy_check_mark: <a href="graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :warning: <a href="graph/unionfind_with_potential.hpp.html">library/cpp/graph/unionfind_with_potential.hpp</a>
 * :warning: <a href="math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>

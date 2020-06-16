@@ -52,6 +52,7 @@ layout: default
 * :heavy_check_mark: <a href="../../graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="../../graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
 * :heavy_check_mark: <a href="../../graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :warning: <a href="../../graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with

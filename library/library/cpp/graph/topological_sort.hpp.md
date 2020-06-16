@@ -46,6 +46,11 @@ layout: default
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
+## Required by
+
+* :warning: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+
+
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>

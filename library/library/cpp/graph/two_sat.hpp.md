@@ -21,31 +21,31 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/graph/tests/scc.test.cpp
+# :warning: library/cpp/graph/two_sat.hpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#5cfe5baf3670d8b3119d43c381f15ee8">library/cpp/graph/tests</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/tests/scc.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/two_sat.hpp">View this file on GitHub</a>
     - Last commit date: 2020-06-16 19:57:23+09:00
 
 
-* see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :heavy_check_mark: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
+* :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -53,47 +53,65 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp"
-#include "../scc.hpp"
+#include "scc.hpp"
+#include "topological_sort.hpp"
 
-signed main() {
-    int n, m;
-    cin >> n >> m;
-    Graph g(n);
-    rep(i, m) {
-        int from, to;
-        cin >> from >> to;
-        g.add_edge(from, to);
+//%snippet.set('two_sat')%
+//%snippet.include('scc')%
+//%snippet.include('topological_sort')%
+//%snippet.fold()%
+
+struct two_sat{
+    using Pos = ll;
+    using Size = ll;
+    Size orig_n;
+    Graph<> g;
+    vector<int> assigned;
+
+    two_sat(Size _orig_n): orig_n(_orig_n){
+        g = Graph<>(orig_n * 2);  // 頂点倍加
+    };
+
+    Pos toid(Pos u, bool is_u) {
+        return u * 2 + is_u;
     }
-    StronglyConnectedComponents scc(g);
-    dump(scc.comp);
-    rep(i, sz(scc.dag.adj_list)){
-        dump(scc.dag.adj_list[i]);
+
+    void add_condition(Pos u, bool is_u, Pos v, bool is_v) {
+        // add condition (u == is_u or v == is_v)
+        g.add_edge(toid(u, is_u^1), toid(v, is_v));
+        g.add_edge(toid(v, is_v^1), toid(u, is_u));
     }
-    dump(scc._order);
 
-    // 01_small_01.in
-    // scc.comp:[0, 0, 2, 1, 0, 0, 4, 3, 3, 3, 3, 4, 4, 4] in [15:main]
-    // scc.dag.adj_list[i]:[(0,2), (0,1), (0,4), (0,4)] in [17:main]
-    // scc.dag.adj_list[i]:[(1,3), (1,3)] in [17:main]
-    // scc.dag.adj_list[i]:[(2,3)] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc._order:[0, 3, 2, 7, 8, 9, 10, 1, 5, 11, 12, 13, 6, 4] in [19:main]
+    bool build(){
+        // if successed to assigne valiables, return true, else return false。
+        StronglyConnectedComponents scc(g);
+        auto ts = get<1>(topological_sort(scc.dag));
+        vector<Size> ord(sz(ts));
+        rep(i, sz(ts)) ord[ts[i]] = i;
 
-    int q;
-    cin >> q;
-    rep(_, q) {
-        int x, y;
-        cin >> x >> y;
-        if (scc[x] == scc[y]) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
+        // check valid
+        rep(u, orig_n){
+            if (scc.comp[toid(u, 0)] == scc.comp[toid(u, 1)]) {
+                return false;
+            }
         }
+
+        assigned = vector<int>(orig_n, -1);
+        rep(u, orig_n){
+            assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);
+        }
+        return true;
     }
-    return 0;
-}
+};
+// how to use
+// two_sat ts(n); // n変数
+// ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)
+// ......
+// ......
+// auto valid = ts.build();
+// if (valid) dump(ts.assigned);
+
+//%snippet.end()%
 
 ```
 {% endraw %}
@@ -101,8 +119,6 @@ signed main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "library/cpp/graph/tests/scc.test.cpp"
-#define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp"
 #line 2 "library/cpp/header.hpp"
 
 //%snippet.set('header')%
@@ -758,49 +774,118 @@ struct StronglyConnectedComponents {
 //%snippet.end()%
 
 
-#line 3 "library/cpp/graph/tests/scc.test.cpp"
+#line 3 "library/cpp/graph/topological_sort.hpp"
 
-signed main() {
-    int n, m;
-    cin >> n >> m;
-    Graph g(n);
-    rep(i, m) {
-        int from, to;
-        cin >> from >> to;
-        g.add_edge(from, to);
-    }
-    StronglyConnectedComponents scc(g);
-    dump(scc.comp);
-    rep(i, sz(scc.dag.adj_list)){
-        dump(scc.dag.adj_list[i]);
-    }
-    dump(scc._order);
+//%snippet.set('topological_sort')%
+//%snippet.include('Graph')%
+//%snippet.config({'alias':'tps'})%
+//%snippet.fold()%
 
-    // 01_small_01.in
-    // scc.comp:[0, 0, 2, 1, 0, 0, 4, 3, 3, 3, 3, 4, 4, 4] in [15:main]
-    // scc.dag.adj_list[i]:[(0,2), (0,1), (0,4), (0,4)] in [17:main]
-    // scc.dag.adj_list[i]:[(1,3), (1,3)] in [17:main]
-    // scc.dag.adj_list[i]:[(2,3)] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc.dag.adj_list[i]:[] in [17:main]
-    // scc._order:[0, 3, 2, 7, 8, 9, 10, 1, 5, 11, 12, 13, 6, 4] in [19:main]
+using Pos = int;
+tuple<bool, vector<Pos>, int> topological_sort(const Graph<>& g) {
+    vector<Pos> res;  // sort後の結果を格納
+    vector<int> h(g.n);  // 頂点ごとの入次数
+    stack<Pos> st;    // 入次数が0になっている頂点の集合
+    int max_len = 0;   // 最長経路の長さ
 
-    int q;
-    cin >> q;
-    rep(_, q) {
-        int x, y;
-        cin >> x >> y;
-        if (scc[x] == scc[y]) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
+    // 入次数を計算する。
+    rep(u, g.n) {
+        for (const auto& edge : g[u]) {
+            h[edge.to]++;
         }
     }
-    return 0;
+
+    // 最初に入次数0になっている頂点を集める。
+    rep(u, g.n) {
+        if (h[u] == 0) {
+            st.push(u);
+            res.push_back(u);
+        }
+    }
+
+    // 入次数0の頂点をresに追加しそこから出て行く辺は削除していく。O(g.n+E)
+    while (!st.empty()) {
+        stack<Pos> nex_st;
+        while (!st.empty()) {
+            Pos u = st.top(); st.pop();
+            for (const auto& edge : g[u]) {
+                h[edge.to]--;
+                if (h[edge.to] == 0) {
+                    res.push_back(edge.to);
+                    nex_st.push(edge.to);
+                }
+            }
+        }
+        max_len++;
+        st = nex_st;
+    }
+    
+    bool is_valid = (sz(res)==g.n ? true : false);
+    return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
 }
+//%snippet.end()%
+
+#line 3 "library/cpp/graph/two_sat.hpp"
+
+//%snippet.set('two_sat')%
+//%snippet.include('scc')%
+//%snippet.include('topological_sort')%
+//%snippet.fold()%
+
+struct two_sat{
+    using Pos = ll;
+    using Size = ll;
+    Size orig_n;
+    Graph<> g;
+    vector<int> assigned;
+
+    two_sat(Size _orig_n): orig_n(_orig_n){
+        g = Graph<>(orig_n * 2);  // 頂点倍加
+    };
+
+    Pos toid(Pos u, bool is_u) {
+        return u * 2 + is_u;
+    }
+
+    void add_condition(Pos u, bool is_u, Pos v, bool is_v) {
+        // add condition (u == is_u or v == is_v)
+        g.add_edge(toid(u, is_u^1), toid(v, is_v));
+        g.add_edge(toid(v, is_v^1), toid(u, is_u));
+    }
+
+    bool build(){
+        // if successed to assigne valiables, return true, else return false。
+        StronglyConnectedComponents scc(g);
+        auto ts = get<1>(topological_sort(scc.dag));
+        vector<Size> ord(sz(ts));
+        rep(i, sz(ts)) ord[ts[i]] = i;
+
+        // check valid
+        rep(u, orig_n){
+            if (scc.comp[toid(u, 0)] == scc.comp[toid(u, 1)]) {
+                return false;
+            }
+        }
+
+        assigned = vector<int>(orig_n, -1);
+        rep(u, orig_n){
+            assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);
+        }
+        return true;
+    }
+};
+// how to use
+// two_sat ts(n); // n変数
+// ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)
+// ......
+// ......
+// auto valid = ts.build();
+// if (valid) dump(ts.assigned);
+
+//%snippet.end()%
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

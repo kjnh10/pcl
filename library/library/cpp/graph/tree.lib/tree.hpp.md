@@ -53,6 +53,7 @@ layout: default
 * :heavy_check_mark: <a href="../topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
 * :heavy_check_mark: <a href="kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
+* :warning: <a href="../two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with

@@ -52,6 +52,7 @@ layout: default
 * :warning: <a href="local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
 * :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
 * :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :warning: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with

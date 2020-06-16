@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df01edd2bf6d13defce1efe9440d670c">library/cpp/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/graph/scc.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-14 16:15:22+09:00
+    - Last commit date: 2020-06-16 19:57:23+09:00
 
 
 
@@ -44,6 +44,11 @@ layout: default
 * :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 * :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+
+
+## Required by
+
+* :warning: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with
@@ -59,8 +64,8 @@ layout: default
 #include "../header.hpp"
 #include "graph.hpp"
 
-//%snippet.set('StronglyConnectedComponents')%
-//%snippet.config({'alias':'scc'})%
+//%snippet.set('scc')%
+//%snippet.config({'alias':'StronglyConnectedComponents'})%
 //%snippet.include('Graph')%
 //%snippet.fold()%
 
@@ -79,11 +84,12 @@ struct StronglyConnectedComponents {
                 _rg.add_edge(e.to, e.from, e.cost, e.idx);
             }
         }
+        _build();
     }
 
     int operator[](int k) { return comp[k]; }
 
-    void build() {
+    void _build() {
         for (int i = 0; i < g.n; i++) _dfs(i);
         reverse(begin(_order), end(_order));
         int cnt = 0;
@@ -114,7 +120,6 @@ struct StronglyConnectedComponents {
 };
 // how to use
 // StronglyConnectedComponents scc(g); // g: Graph
-// scc.build();
 // dump(scc.comp, scc.dag.adj_list);
 
 //%snippet.end()%
@@ -721,8 +726,8 @@ struct Graph {
 //%snippet.end()%
 #line 3 "library/cpp/graph/scc.hpp"
 
-//%snippet.set('StronglyConnectedComponents')%
-//%snippet.config({'alias':'scc'})%
+//%snippet.set('scc')%
+//%snippet.config({'alias':'StronglyConnectedComponents'})%
 //%snippet.include('Graph')%
 //%snippet.fold()%
 
@@ -741,11 +746,12 @@ struct StronglyConnectedComponents {
                 _rg.add_edge(e.to, e.from, e.cost, e.idx);
             }
         }
+        _build();
     }
 
     int operator[](int k) { return comp[k]; }
 
-    void build() {
+    void _build() {
         for (int i = 0; i < g.n; i++) _dfs(i);
         reverse(begin(_order), end(_order));
         int cnt = 0;
@@ -776,7 +782,6 @@ struct StronglyConnectedComponents {
 };
 // how to use
 // StronglyConnectedComponents scc(g); // g: Graph
-// scc.build();
 // dump(scc.comp, scc.dag.adj_list);
 
 //%snippet.end()%
