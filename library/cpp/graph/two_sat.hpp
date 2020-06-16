@@ -7,14 +7,14 @@
 //%snippet.fold()%
 
 struct two_sat{
-    using Pos = ll;
-    using Size = ll;
+    using Pos = int;
+    using Size = int;
     Size orig_n;
-    Graph<> g;
+    Graph<bool> g;
     vector<int> assigned;
 
     two_sat(Size _orig_n): orig_n(_orig_n){
-        g = Graph<>(orig_n * 2);  // 頂点倍加
+        g = Graph<bool>(orig_n * 2);  // 頂点倍加
     };
 
     Pos toid(Pos u, bool is_u) {

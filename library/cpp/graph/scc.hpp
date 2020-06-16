@@ -6,19 +6,20 @@
 //%snippet.include('Graph')%
 //%snippet.fold()%
 
+template<class T = ll>
 struct StronglyConnectedComponents {
-    const Graph<> &g;  //{{{
+    const Graph<T> &g;  //{{{
     vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
     Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
     Graph<> _rg;  // reversed graph
     vector<int> _order;  // order[i]: 帰りがけ順
     vector<int> _used;
 
-    StronglyConnectedComponents(Graph<> &_g)
+    StronglyConnectedComponents(Graph<T> &_g)
         : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
         for (int i = 0; i < g.n; i++) {
             for (auto e : g[i]) {
-                _rg.add_edge(e.to, e.from, e.cost, e.idx);
+                _rg.add_edge(e.to, e.from);
             }
         }
         _build();
