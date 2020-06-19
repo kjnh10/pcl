@@ -1,5 +1,5 @@
 //%snippet.set('cout')%
-cout << ${0:TARGET} << endl;
+cout << ${0} << endl;
 
 //%snippet.set('couts')%
 rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
