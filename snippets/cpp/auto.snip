@@ -12,7 +12,6 @@ snippet bsearch
       }/*}}}*/
   
       dump(right);
-  
 
 
 snippet syakutori
@@ -43,7 +42,6 @@ snippet syakutori
               sum -= x[l];
           }
       }
-  
 
 
 snippet tsearch
@@ -66,7 +64,6 @@ snippet tsearch
   dump(l, r);
   ll ans = INF;
   rep(i, l, r+1) chmin(ans, score(i));
-  
 
 
 snippet slide_min
@@ -87,7 +84,6 @@ snippet slide_min
       }
       return ret;  // sz(res) == m-k+1, last index is m-k
   }  //}}}
-  
 
 
 snippet SegmentTree2DRMQ
@@ -135,7 +131,6 @@ alias 2drmq
                      minimum_w(lj, rj, mj, tj, i, 2 * k + 2));
       }
   };
-  
 
 
 snippet segment_tree_lazy
@@ -267,7 +262,6 @@ alias lazy
   // lseg.update(l, r, x); // [l, r)
   // lseg.query(l, r); // [l, r)
   // -----------------------------------------------
-  
 
 
 snippet event_sort
@@ -306,7 +300,6 @@ snippet event_sort
           }
       }
   }
-  
 
 
 snippet RectangleSum
@@ -337,7 +330,6 @@ snippet RectangleSum
           }
       } /*}}}*/
   };
-  
 
 
 snippet napsack
@@ -353,22 +345,18 @@ snippet napsack
           chmin(dp[min(j + v[i], h)], dp[j] + w[i]);  // jから配る
       }
       cout << dp[h] << endl;
-  
 
 
 snippet cout
   cout << ${0} << endl;
-  
 
 
 snippet couts
   rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
-  
 
 
 snippet ?
   (${1} ? ${2} : ${3})
-  
 
 
 snippet inv
@@ -377,7 +365,6 @@ snippet inv
       cin>>$1[i];
   }
   dump($1);${0}
-  
 
 
 snippet invv
@@ -387,7 +374,6 @@ snippet invv
           cin>>$1[i][j];
       }
   }
-  
 
 
 snippet invvs
@@ -399,82 +385,68 @@ snippet invvs
           else             $1[i][j]=0; 
       }
   }
-  
 
 
 snippet rep
   rep(${0}){
   }
-  
 
 
 snippet r_rep
   r_rep(${0}){
   }
-  
 
 
 snippet for
   for(ll i=0; i<n; i++){${0}
   }
-  
 
 
 snippet for_iter
   for(auto iter=begin(${1}); iter!=end($1); ++iter){${0}
   }
-  
 
 
 snippet for_riter
   for(auto riter=rbegin(${1}); riter!=rend($1); ++riter){${0}
   }
-  
 
 
 snippet if
   if (${0}) {
   }
-  
 
 
 snippet else
   else{${0}
   }
-  
 
 
 snippet elif
   else if(${0}){
   }
-  
 
 
 snippet while
   while(${0}){
   }
-  
 
 
 snippet reprep
   rep(${1}) rep(${2}){${0}
   }
-  
 
 
 snippet d
   dump(${0});
-  
 
 
 snippet af
   assert(false);
-  
 
 
 snippet sortkey
   sort(all(${0}), [&](auto &l, auto &r){return l.second < r.second;});
-  
 
 
 snippet perm
@@ -486,7 +458,6 @@ snippet perm
       rep(i, n) ma[i] = a[p[i]];
       dump(ma);
   } while (next_permutation(all(p)));
-  
 
 
 snippet to_bin
@@ -500,7 +471,6 @@ snippet to_bin
   // ll d = (32 - __builtin_clz(n));  // 最大桁のd: (2^d)
   // ll f = N - d; to_bin()で返ってきた文字列で最初に1が立っているindex
   // snippet:to_bin }}}
-  
 
 
 snippet warsharll
@@ -522,7 +492,6 @@ snippet warsharll
       }
   }
   dump_2d(d, n, n);
-  
 
 
 snippet digitdp
@@ -537,7 +506,6 @@ snippet digitdp
           }
       }
   }
-  
 
 
 snippet asv
@@ -569,19 +537,16 @@ snippet asv
       } //}}}
   };
   //}}}
-  
 
 
 snippet remove_leading_zeros
   str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
-  
 
 
 snippet lambda
 alias f
   auto f = [&](){
   };
-  
 
 
 snippet dfs_lambda_graph
@@ -594,19 +559,16 @@ snippet dfs_lambda_graph
       }
   };
   dfs(dfs, 0);
-  
 
 
 snippet dfs_lambda
   auto dfs = [&](const auto& dfs, ll u) -> ll {
   };
-  
 
 
 snippet dxdy
   ll dx[]={1, -1, 0, 0};
   ll dy[]={0, 0, 1, -1};
-  
 
 
 snippet ostream
@@ -614,7 +576,6 @@ snippet ostream
       os << ${3};
       return os;
   }
-  
 
 
 snippet query
@@ -632,7 +593,6 @@ snippet query
       check_input();
       return 0;
   }/*}}}*/
-  
 
 
 snippet random_generator
@@ -640,7 +600,6 @@ snippet random_generator
       static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
       return uniform_int_distribution<uint64_t>(0, -1)(x);
   }
-  
 
 
 snippet bitall
@@ -652,18 +611,15 @@ snippet bitall
           }
       }
   }
-  
 
 
 snippet print_float
   printf("%.12f\n", ${1});
-  
 
 
 snippet sep
 alias <<
   << " " << ${1}
-  
 
 
 snippet interactive
@@ -685,7 +641,6 @@ snippet interactive
   void ans(ll u){/*{{{*/
       cout << "!" << " " << u+1 << endl;
   }/*}}}*/
-  
 
 
 snippet pairsort
@@ -702,7 +657,6 @@ snippet pairsort
           y[i] = get<1>(t[i]);
       }
   }
-  
 
 
 snippet make_vector
@@ -716,7 +670,6 @@ snippet make_vector
   }
   // auto dp = make_vector_2d<mint>(n, k, 0);  // like ll dp[n][k];
   // auto dp = make_vector_3d<mint>(n, k, m, 0);  // like ll dp[n][k][m];
-  
 
 
 snippet erase_loop
@@ -731,7 +684,6 @@ snippet erase_loop
           ++iter;
       }
   }
-  
 
 
 snippet erase_loop_reverse
@@ -748,7 +700,6 @@ snippet erase_loop_reverse
           riter++;
       }
   }
-  
 
 
 snippet get_rank
@@ -769,7 +720,6 @@ alias rank
       }
       return rank;
   }
-  
 
 
 snippet dfs
@@ -790,7 +740,6 @@ snippet dfs
           st.push(v);
       }
   }
-  
 
 
 snippet bfs
@@ -809,7 +758,6 @@ snippet bfs
           q.push(v);
       }
   }
-  
 
 
 snippet 01bfs
@@ -828,7 +776,6 @@ snippet 01bfs
           q.push_back(v);
       }
   }
-  
 
 
 snippet gcd
@@ -837,7 +784,6 @@ snippet gcd
       if (b == 0) return a;
       return gcd(b, a % b);
   }
-  
 
 
 snippet lcm
@@ -850,7 +796,6 @@ snippet lcm
   ll lcm(ll a, ll b) {
       return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
   }
-  
 
 
 snippet reverse_int
@@ -872,7 +817,6 @@ snippet reverse_int
       }
       return reverse;
   }
-  
 
 
 snippet digitSum
@@ -887,7 +831,6 @@ snippet digitSum
       }
       return res;
   } /*}}}*/
-  
 
 
 snippet is_prime
@@ -897,7 +840,6 @@ snippet is_prime
       }
       return n != 1;
   } /*}}}*/
-  
 
 
 snippet prime_factor
@@ -914,7 +856,6 @@ snippet prime_factor
   }
   // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
   //}}}
-  
 
 
 snippet divisor
@@ -930,7 +871,6 @@ snippet divisor
       p.insert(p.end(), all(q));
       return p;
   }  //}}}
-  
 
 
 snippet pascal
@@ -949,7 +889,6 @@ snippet pascal
       }
       return com;
   }  // }}}
-  
 
 
 snippet generalized_baybe_step_giant_step
@@ -1060,7 +999,6 @@ alias gbsgs
   
       return -1;
   }  //}}}
-  
 
 
 snippet rad
@@ -1068,7 +1006,6 @@ snippet rad
   long double rad(T d){
       return d * M_PI / 180.0;
   }
-  
 
 
 snippet degree
@@ -1077,7 +1014,6 @@ alias deg
   long double deg(T r){
       return r / M_PI * 180.0;
   }
-  
 
 
 snippet baybe_step_giant_step
@@ -1184,7 +1120,6 @@ alias bsgs
   
       return -1;
   }  //}}}
-  
 
 
 snippet gridgraph
@@ -1224,7 +1159,6 @@ snippet gridgraph
               }
           }
       }
-  
 
 
 snippet reroot
@@ -1301,7 +1235,6 @@ snippet reroot
           ans.push_back(res);
       }
       rep(i, sz(ans)) cout << ans[i] << (i != sz(ans) - 1 ? " " : "\n");
-  
 
 
 snippet lcs
@@ -1324,7 +1257,6 @@ snippet lcs
       }
       return dp[n][m];
   }
-  
 
 
 snippet suffix_array
@@ -1512,7 +1444,6 @@ snippet suffix_array
   //   chmax(ans, min(j-i, sa.lcp(i, j)));
   // }
   // cout << ans << endl;
-  
 
 
 snippet kmp
@@ -1552,7 +1483,6 @@ snippet kmp
   
   // KMP<vector<int>> kmp({1,2,3});
   // KMP<string> kmp("abc");
-  
 
 
 snippet header
@@ -1615,7 +1545,6 @@ snippet header
   
   #endif /* HEADER_H */
   // snippet:header }}}
-  
 
 
 snippet lis
@@ -1653,7 +1582,6 @@ snippet lis
   
       return res;
   } /*}}}*/
-  
 
 
 snippet sparse_table
@@ -1687,7 +1615,6 @@ snippet sparse_table
       }
   };
   // snippet:sparse_table }}}
-  
 
 
 snippet bit
@@ -1758,7 +1685,6 @@ snippet bit
       }  //}}}
       #endif
   };     //}}}
-  
 
 
 snippet segment_tree
@@ -1866,7 +1792,6 @@ alias rmq
   // SegmentTree<ll> seg(a, add, 0);
   // -----------------------------------------------
   // snippet:segment_tree }}}
-  
 
 
 snippet shifter
@@ -1882,7 +1807,6 @@ snippet shifter
       // auto sh = shifter(-10000, 10000);
       // vl x(sh.n);
       // x[sh(-3)];
-  
 
 
 snippet zipper
@@ -1964,7 +1888,6 @@ snippet zipper
   // z.unzip(z(x[i])) -> x[i];
   // z.get_zipped(x) -> zipped x
   // }}}
-  
 
 
 snippet combination
@@ -2057,7 +1980,6 @@ snippet combination
       }
   }  // }}}
   com(500001);
-  
 
 
 snippet matrix_pow
@@ -2092,7 +2014,6 @@ snippet matrix_pow
       return B;
   }
   // snippet:matrix_pow }}}
-  
 
 
 snippet mint
@@ -2169,7 +2090,6 @@ snippet mint
   istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
   ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
   //}}}
-  
 
 
 snippet rational
@@ -2188,7 +2108,6 @@ alias fraction
   // assert(rational(3, 5) == rational(-6, -10));
   // map<rational<ll>, int> cnt;  // keyにもできる。
   // snippet:rational }}}
-  
 
 
 snippet sieve
@@ -2258,7 +2177,6 @@ alias prime_factor_by_sieve
       // sv.primes            // 素数のリスト
       // sv.prime_factor(x);  // 素因数分解
   // snippet:sieve }}}
-  
 
 
 snippet mypow
@@ -2274,7 +2192,6 @@ alias pow
       }
       return res;
   }
-  
 
 
 snippet P2
@@ -2381,7 +2298,6 @@ alias pair
   
   /*}}}*/
   using P = P2<ll>;
-  
 
 
 snippet angle
@@ -2424,7 +2340,6 @@ snippet angle
           return stream;
       }
   };
-  
 
 
 snippet AreaRect
@@ -2455,7 +2370,6 @@ snippet AreaRect
   	}
   };
   // snippet:AreaRect }}}
-  
 
 
 snippet topological_sort
@@ -3010,7 +2924,6 @@ alias tps
       return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
   }
   // snippet:topological_sort }}}
-  
 
 
 snippet edge
@@ -3031,7 +2944,6 @@ snippet edge
       }
   };
   // snippet:edge }}}
-  
 
 
 snippet two_sat
@@ -3693,7 +3605,6 @@ snippet two_sat
   // auto valid = ts.build();
   // if (valid) dump(ts.assigned);
   // snippet:two_sat }}}
-  
 
 
 snippet scc
@@ -4259,7 +4170,6 @@ alias StronglyConnectedComponents
   // StronglyConnectedComponents scc(g); // g: Graph
   // dump(scc.comp, scc.dag.adj_list);
   // snippet:scc }}}
-  
 
 
 snippet local_min_cycle
@@ -4815,7 +4725,6 @@ alias cycle
       return loop_path;  // if tree, loop_path = {};
   }
   // snippet:local_min_cycle }}}
-  
 
 
 snippet unionfind_with_potential
@@ -4889,7 +4798,6 @@ snippet unionfind_with_potential
   #endif  // }}}
   };
   // snippet:unionfind_with_potential }}}
-  
 
 
 snippet UnionFind
@@ -4935,7 +4843,6 @@ snippet UnionFind
   #endif  // }}}
   };
   // snippet:UnionFind }}}
-  
 
 
 snippet Graph
@@ -5444,7 +5351,6 @@ snippet Graph
       };/*}}}*/
   };
   // snippet:Graph }}}
-  
 
 
 snippet bellman_ford
@@ -5970,7 +5876,6 @@ snippet bellman_ford
       return make_pair(false, dist);
   }
   // snippet:bellman_ford }}}
-  
 
 
 snippet tree
@@ -6275,7 +6180,6 @@ snippet tree
   #endif /*}}}*/
   }; 
   // snippet:tree }}}
-  
 
 
 snippet split
@@ -6290,7 +6194,6 @@ snippet split
       return res;
   }
   // snippet:split }}}
-  
 
 
 snippet rolling_hash
@@ -6345,6 +6248,5 @@ snippet rolling_hash
   uint64_t rolling_hash::B0 = rng<ll>(1000000, rolling_hash::P0);
   uint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);
   // snippet:rolling_hash }}}
-  
 
 

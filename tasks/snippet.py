@@ -42,7 +42,6 @@ class Snippet(object):
         if self.fold_flag:
             self.code.insert(0, f"{comment_string[self.extension]} snippet:{self.name}" + ' {{{\n')
             self.append_line(f"{comment_string[self.extension]} snippet:{self.name}" + ' }}}\n')
-        self.code.append('\n')
 
 
 class Dag(object):
@@ -164,6 +163,9 @@ class Snippets(Dag):
             code_to_write = []
             for didx in resolve_path:
                 code_to_write += self.nodes[didx].code
+                code_to_write += ["\n"]  # snippetのsnippetの間は見やすく空白行をいれる。
+            # 最後の改行はいらない。vscodeで１行snippetとかに改行が入ってしまうので
+            code_to_write.pop()
 
             with snip_file.open(mode='a') as out:
                 if format == 'neosnippet':
