@@ -168,5 +168,14 @@ class rgraph(object):  # undirected
 
 # write down here
 # ---------------------------------------------
-n = rint(2, 10)
-print(n)
+a = rint(2, 10)
+b = rint(2, 10)
+print(a, b)
+
+# if you want to test some specified ranges,
+# def generator():  # you should implement as generator
+#     for a in range(1, 5):
+#         for b in range(1, 5):
+#             # single case
+#             print(a, b)
+#             yield 0

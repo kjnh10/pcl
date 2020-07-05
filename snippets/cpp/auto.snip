@@ -517,8 +517,8 @@ snippet asv
           rep(i, 1, sz(a))  cum[i]+=cum[i-1];
       } // }}}
   
-      T sum(ll l, ll r) {  // return sum of [l, r) of data.  {{{
-          l = max(0LL, l);
+      T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+          l = max(0, l);
           r = min(r, sz(cum));
           if (l<r){
               return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
@@ -528,7 +528,7 @@ snippet asv
           }
       } // }}}
   
-      T& operator[](ll i) { // {{{
+      T& operator[](int i) { // {{{
           return cum[i]; 
       } // }}}
   
@@ -1890,6 +1890,31 @@ snippet zipper
   // }}}
 
 
+snippet hakidasi_xor
+  vector<ll> hakidasi_xor(vector<ll>& a){
+      int r = 0;
+      int n = sz(a);
+      r_rep(d, 0, 64){
+          int p = -1;
+          rep(i, r, n) {
+              if (a[i]>>d&1) {
+                  p = i;
+              }
+          }
+          if (p == -1) continue;
+  
+          swap(a[r], a[p]);
+          rep(i, n){
+              if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
+          }
+          r++;
+      }
+      vector<ll> res;
+      rep(i, r) res.pb(a[i]);
+      return res;
+  }
+
+
 snippet combination
   int mod = 1e9 + 7;
   // int mod = 998244353;
@@ -1979,7 +2004,7 @@ snippet combination
           return fact[n] * ifact[k] * ifact[n - k];
       }
   }  // }}}
-  com(500001);
+  com(500001);  // check this is enough
 
 
 snippet matrix_pow

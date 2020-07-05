@@ -18,5 +18,5 @@ struct combination {  // {{{
         return fact[n] * ifact[k] * ifact[n - k];
     }
 }  // }}}
-com(500001);
+com(500001);  // check this is enough
 //%snippet.end()%

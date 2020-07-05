@@ -146,8 +146,8 @@ struct asvector {
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
     } // }}}
 
-    T sum(ll l, ll r) {  // return sum of [l, r) of data.  {{{
-        l = max(0LL, l);
+    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+        l = max(0, l);
         r = min(r, sz(cum));
         if (l<r){
             return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
@@ -157,7 +157,7 @@ struct asvector {
         }
     } // }}}
 
-    T& operator[](ll i) { // {{{
+    T& operator[](int i) { // {{{
         return cum[i]; 
     } // }}}
 
