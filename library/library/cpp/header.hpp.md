@@ -74,6 +74,7 @@ layout: default
 * :heavy_check_mark: <a href="math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 * :warning: <a href="math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
 * :warning: <a href="math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
+* :warning: <a href="math/hakidashi_xor.hpp.html">library/cpp/math/hakidashi_xor.hpp</a>
 * :heavy_check_mark: <a href="math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
 * :heavy_check_mark: <a href="math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>

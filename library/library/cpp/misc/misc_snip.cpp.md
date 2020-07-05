@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-27 03:29:28+09:00
+    - Last commit date: 2020-07-05 18:16:42+09:00
 
 
 
@@ -42,7 +42,7 @@ layout: default
 {% raw %}
 ```cpp
 //%snippet.set('cout')%
-cout << ${0:TARGET} << endl;
+cout << ${0} << endl;
 
 //%snippet.set('couts')%
 rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
@@ -189,8 +189,8 @@ struct asvector {
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
     } // }}}
 
-    T sum(ll l, ll r) {  // return sum of [l, r) of data.  {{{
-        l = max(0LL, l);
+    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+        l = max(0, l);
         r = min(r, sz(cum));
         if (l<r){
             return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
@@ -200,7 +200,7 @@ struct asvector {
         }
     } // }}}
 
-    T& operator[](ll i) { // {{{
+    T& operator[](int i) { // {{{
         return cum[i]; 
     } // }}}
 
@@ -400,7 +400,7 @@ vector<ll> get_rank(vector<ll>& score){
 ```cpp
 #line 1 "library/cpp/misc/misc_snip.cpp"
 //%snippet.set('cout')%
-cout << ${0:TARGET} << endl;
+cout << ${0} << endl;
 
 //%snippet.set('couts')%
 rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
@@ -547,8 +547,8 @@ struct asvector {
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
     } // }}}
 
-    T sum(ll l, ll r) {  // return sum of [l, r) of data.  {{{
-        l = max(0LL, l);
+    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+        l = max(0, l);
         r = min(r, sz(cum));
         if (l<r){
             return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
@@ -558,7 +558,7 @@ struct asvector {
         }
     } // }}}
 
-    T& operator[](ll i) { // {{{
+    T& operator[](int i) { // {{{
         return cum[i]; 
     } // }}}
 

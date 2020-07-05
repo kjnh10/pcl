@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/combination.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-07-05 18:16:42+09:00
 
 
 * see: <a href="https://yukicoder.me/problems/no/1035">https://yukicoder.me/problems/no/1035</a>
@@ -230,7 +230,7 @@ struct combination {  // {{{
         return fact[n] * ifact[k] * ifact[n - k];
     }
 }  // }}}
-com(500001);
+com(500001);  // check this is enough
 //%snippet.end()%
 #line 4 "library/cpp/math/combination.test.cpp"
 

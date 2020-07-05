@@ -117,6 +117,7 @@ layout: default
 ### library/cpp/math
 
 * :heavy_check_mark: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :warning: <a href="library/library/cpp/math/hakidashi_xor.hpp.html">library/cpp/math/hakidashi_xor.hpp</a>
 * :warning: <a href="library/library/cpp/math/int.cpp.html">library/cpp/math/int.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>

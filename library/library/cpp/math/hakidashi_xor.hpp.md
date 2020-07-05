@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/math/combination.hpp
+# :warning: library/cpp/math/hakidashi_xor.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/combination.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-05 18:16:42+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/hakidashi_xor.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-07-05 18:15:51+09:00
 
 
 
@@ -39,12 +39,6 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="mint.hpp.html">library/cpp/math/mint.hpp</a>
-
-
-## Verified with
-
-* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
 
 
 ## Code
@@ -52,28 +46,34 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#pragma once
 #include "../header.hpp"
-#include "mint.hpp"
 
-//%snippet.set('combination')%
-// %snippet.include('mint')%
-struct combination {  // {{{
-    vector<mint> fact, ifact;
-    combination(int n) : fact(n + 1), ifact(n + 1) {
-        assert(n < mod);
-        fact[0] = 1;
-        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
-        ifact[n] = fact[n].inv();
-        for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
+//%snippet.set('hakidasi_xor')%
+vector<ll> hakidasi_xor(vector<ll>& a){
+    int r = 0;
+    int n = sz(a);
+    r_rep(d, 0, 64){
+        int p = -1;
+        rep(i, r, n) {
+            if (a[i]>>d&1) {
+                p = i;
+            }
+        }
+        if (p == -1) continue;
+
+        swap(a[r], a[p]);
+        rep(i, n){
+            if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
+        }
+        r++;
     }
-    mint operator()(int n, int k) {
-        if (k < 0 || k > n) return 0;
-        return fact[n] * ifact[k] * ifact[n - k];
-    }
-}  // }}}
-com(500001);  // check this is enough
+    vector<ll> res;
+    rep(i, r) res.pb(a[i]);
+    return res;
+}
 //%snippet.end()%
+
+// verified by https://atcoder.jp/contests/agc045/tasks/agc045_a
 
 ```
 {% endraw %}
@@ -143,102 +143,34 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 3 "library/cpp/math/mint.hpp"
+#line 2 "library/cpp/math/hakidashi_xor.hpp"
 
-//%snippet.set('mint')%
-int mod = 1e9 + 7;
-// int mod = 998244353;
-struct mint {  //{{{
-    ll x;
-    mint(ll x = 0) : x((x % mod + mod) % mod) {}
-
-    // ?= operator
-    mint& operator+=(const mint a) {
-        (x += a.x) %= mod;
-        return *this;
-    }
-    mint& operator-=(const mint a) {
-        (x += mod - a.x) %= mod;
-        return *this;
-    }
-    mint& operator*=(const mint a) {
-        (x *= a.x) %= mod;
-        return *this;
-    }
-    mint& operator/=(const mint& rhs) {
-        if (rhs.x == 0) throw runtime_error("mint zero division");
-        return *this *= rhs.inv();
-    }
-
-    mint operator+(const mint a) const {
-        mint res(*this);
-        return res += a;
-    }
-    mint operator-(const mint a) const {
-        mint res(*this);
-        return res -= a;
-    }
-    mint operator*(const mint a) const {
-        mint res(*this);
-        return res *= a;
-    }
-    mint operator/(const mint a) const {
-        mint res(*this);
-        return res /= a;
-    }
-
-    mint pow(int n) const {
-        mint res(1), x(*this);
-        if (n < 0) {
-            n = -n;
-            x = (*this).inv();
+//%snippet.set('hakidasi_xor')%
+vector<ll> hakidasi_xor(vector<ll>& a){
+    int r = 0;
+    int n = sz(a);
+    r_rep(d, 0, 64){
+        int p = -1;
+        rep(i, r, n) {
+            if (a[i]>>d&1) {
+                p = i;
+            }
         }
-        while (n) {
-            if (n & 1) res *= x;
-            x *= x;
-            n >>= 1;
+        if (p == -1) continue;
+
+        swap(a[r], a[p]);
+        rep(i, n){
+            if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
         }
-        return res;
+        r++;
     }
-
-    mint inv() const {
-        if (x == 0) throw runtime_error("inv does not exist");
-        return pow(mod - 2);
-    }
-    // mint inv()const{
-    //     int x,y;
-    //     int g=extgcd(v,mod,x,y);
-    //     assert(g==1);
-    //     if(x<0)x+=mod;
-    //     return mint(x);
-    // }
-
-    bool operator<(const mint& r) const { return x < r.x; }
-    bool operator==(const mint& r) const { return x == r.x; }
-};
-istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
-//}}}
-#line 4 "library/cpp/math/combination.hpp"
-
-//%snippet.set('combination')%
-// %snippet.include('mint')%
-struct combination {  // {{{
-    vector<mint> fact, ifact;
-    combination(int n) : fact(n + 1), ifact(n + 1) {
-        assert(n < mod);
-        fact[0] = 1;
-        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
-        ifact[n] = fact[n].inv();
-        for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
-    }
-    mint operator()(int n, int k) {
-        if (k < 0 || k > n) return 0;
-        return fact[n] * ifact[k] * ifact[n - k];
-    }
-}  // }}}
-com(500001);  // check this is enough
+    vector<ll> res;
+    rep(i, r) res.pb(a[i]);
+    return res;
+}
 //%snippet.end()%
+
+// verified by https://atcoder.jp/contests/agc045/tasks/agc045_a
 
 ```
 {% endraw %}
