@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#6e84951d1d0c19ce3fef1705f200b877">library/cpp/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/string/rolling_hash.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-08-10 01:21:51+09:00
 
 
 
@@ -92,7 +92,7 @@ struct rolling_hash {
         }
     }
 
-    pair<ll, ll> get_hash(int l, int r) {
+    pair<ll, ll> get_hash(int l, int r) { // [l, r)
         ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
         ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
         return {h0, h1};
@@ -219,7 +219,7 @@ struct rolling_hash {
         }
     }
 
-    pair<ll, ll> get_hash(int l, int r) {
+    pair<ll, ll> get_hash(int l, int r) { // [l, r)
         ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
         ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
         return {h0, h1};

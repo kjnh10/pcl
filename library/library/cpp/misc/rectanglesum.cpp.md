@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/rectanglesum.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-26 09:08:25+09:00
+    - Last commit date: 2020-08-10 01:21:51+09:00
 
 
 
@@ -49,11 +49,11 @@ using namespace std;
 template <typename T>
 struct RectangleSum {
     vector<vector<T>> sum;
-    T GetSum(int left, int right, int top,
-             int bottom) {  //[left, right], [top, bottom]{{{
-        T res = sum[bottom][right];
-        if (left > 0) res -= sum[bottom][left - 1];
-        if (top > 0) res -= sum[top - 1][right];
+    T GetSum(int top, int bottom, int left, int right){ // {{{
+        // [left, right), [top, bottom)
+        T res = sum[bottom-1][right-1];
+        if (left > 0) res -= sum[bottom-1][left - 1];
+        if (top > 0) res -= sum[top - 1][right-1];
         if (left > 0 && top > 0) res += sum[top - 1][left - 1];
         return res;
     } /*}}}*/
@@ -91,11 +91,11 @@ using namespace std;
 template <typename T>
 struct RectangleSum {
     vector<vector<T>> sum;
-    T GetSum(int left, int right, int top,
-             int bottom) {  //[left, right], [top, bottom]{{{
-        T res = sum[bottom][right];
-        if (left > 0) res -= sum[bottom][left - 1];
-        if (top > 0) res -= sum[top - 1][right];
+    T GetSum(int top, int bottom, int left, int right){ // {{{
+        // [left, right), [top, bottom)
+        T res = sum[bottom-1][right-1];
+        if (left > 0) res -= sum[bottom-1][left - 1];
+        if (top > 0) res -= sum[top - 1][right-1];
         if (left > 0 && top > 0) res += sum[top - 1][left - 1];
         return res;
     } /*}}}*/
