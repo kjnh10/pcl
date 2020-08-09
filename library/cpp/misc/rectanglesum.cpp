@@ -6,11 +6,11 @@ using namespace std;
 template <typename T>
 struct RectangleSum {
     vector<vector<T>> sum;
-    T GetSum(int left, int right, int top,
-             int bottom) {  //[left, right], [top, bottom]{{{
-        T res = sum[bottom][right];
-        if (left > 0) res -= sum[bottom][left - 1];
-        if (top > 0) res -= sum[top - 1][right];
+    T GetSum(int top, int bottom, int left, int right){ // {{{
+        // [left, right), [top, bottom)
+        T res = sum[bottom-1][right-1];
+        if (left > 0) res -= sum[bottom-1][left - 1];
+        if (top > 0) res -= sum[top - 1][right-1];
         if (left > 0 && top > 0) res += sum[top - 1][left - 1];
         return res;
     } /*}}}*/

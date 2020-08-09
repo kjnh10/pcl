@@ -39,7 +39,7 @@ struct rolling_hash {
         }
     }
 
-    pair<ll, ll> get_hash(int l, int r) {
+    pair<ll, ll> get_hash(int l, int r) { // [l, r)
         ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
         ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
         return {h0, h1};
