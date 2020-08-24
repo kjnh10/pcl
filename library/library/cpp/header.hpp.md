@@ -50,7 +50,7 @@ layout: default
 * :warning: <a href="debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
 * :heavy_check_mark: <a href="graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
 * :heavy_check_mark: <a href="graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :warning: <a href="graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
+* :heavy_check_mark: <a href="graph/flow/dinic.hpp.html">library/cpp/graph/flow/dinic.hpp</a>
 * :heavy_check_mark: <a href="graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :warning: <a href="graph/local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
@@ -104,6 +104,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/library/cpp/graph/flow/dinic.test.cpp.html">library/cpp/graph/flow/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>

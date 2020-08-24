@@ -93,7 +93,7 @@ layout: default
 
 ### library/cpp/graph/flow
 
-* :warning: <a href="library/library/cpp/graph/flow/dinic.cpp.html">library/cpp/graph/flow/dinic.cpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/graph/flow/dinic.hpp.html">library/cpp/graph/flow/dinic.hpp</a>
 
 
 <div id="eaeee77e776a943cad05fb3e3b603f65"></div>
@@ -269,6 +269,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/graph/flow/dinic.test.cpp.html">library/cpp/graph/flow/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
