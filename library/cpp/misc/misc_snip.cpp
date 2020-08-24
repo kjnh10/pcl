@@ -144,7 +144,9 @@ struct asvector {
     vector<T> cum; //accumulative sum
     asvector(vector<T> a): cum(a){  // {{{  // constructor
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-    } // }}}
+    }
+    asvector(){};
+    // }}}
 
     T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
         l = max(0, l);

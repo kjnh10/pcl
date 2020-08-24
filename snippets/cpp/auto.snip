@@ -515,7 +515,9 @@ snippet asv
       vector<T> cum; //accumulative sum
       asvector(vector<T> a): cum(a){  // {{{  // constructor
           rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-      } // }}}
+      }
+      asvector(){};
+      // }}}
   
       T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
           l = max(0, l);
@@ -1001,19 +1003,17 @@ alias gbsgs
   }  //}}}
 
 
+snippet dist
+  template<class T> T dist(T x1, T y1, T x2, T y2){ return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)); }
+
+
 snippet rad
-  template<class T>
-  long double rad(T d){
-      return d * M_PI / 180.0;
-  }
+  template<class T> T rad(T x){ return x * M_PI / 180.0; }
 
 
 snippet degree
 alias deg
-  template<class T>
-  long double deg(T r){
-      return r / M_PI * 180.0;
-  }
+  template<class T> T deg(T r){ return r / M_PI * 180.0; }
 
 
 snippet baybe_step_giant_step
@@ -2133,6 +2133,46 @@ alias fraction
   // assert(rational(3, 5) == rational(-6, -10));
   // map<rational<ll>, int> cnt;  // keyにもできる。
   // snippet:rational }}}
+
+
+snippet fft
+  template<typename T> class fft {
+  private:
+      using mycomplex = std::complex<T>;
+      static void dft(vector<mycomplex>& func, int inverse) {
+          int sz = func.size();
+          if (sz == 1)return;
+          vector<mycomplex> veca, vecb;
+          rep(i, sz / 2) {
+              veca.push_back(func[2 * i]);
+              vecb.push_back(func[2 * i + 1]);
+          }
+          dft(veca, inverse); dft(vecb, inverse);
+          mycomplex now = 1, zeta = polar(1.0, inverse * 2.0 * acos(-1) / sz);
+          rep(i, sz) {
+              func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
+              now *= zeta;
+          }
+      }
+  public:
+      static vector<double> multiply(vector<T> f, vector<T> g) {
+          vector<mycomplex> nf, ng;
+          int sz = 1;
+          while (sz < f.size() + g.size())sz *= 2;
+          nf.resize(sz); ng.resize(sz);
+          rep(i, f.size()) {
+              nf[i] = f[i];
+              ng[i] = g[i];
+          }
+          dft(nf, 1);
+          dft(ng, 1);
+          rep(i, sz)nf[i] *= ng[i];
+          dft(nf, -1);
+          vector<double> res;
+          rep(i, sz)res.push_back(nf[i].real() / sz);
+          return res;
+      }
+  };
 
 
 snippet sieve
