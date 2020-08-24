@@ -1,5 +1,9 @@
 #include "../../header.hpp"
 
+//%snippet.set('dinic')%
+//%snippet.config({'alias':'flow'})%
+//%snippet.fold()%
+
 // Dinic: https://tubo28.me/compprog/algorithm/dinic/
 using Capacity = int;
 struct Edge {
@@ -17,7 +21,7 @@ struct dinic {
     vector<vector<Flow>> cap, flow;
     vector<vector<int>> g;
     Flow inf;
-    dinic(const Graph &graph)
+    dinic(const Graph &graph)/*{{{*/
         : n(graph.size()),
           cap(n, vector<Flow>(n)),
           flow(n, vector<Flow>(n)),
@@ -34,10 +38,8 @@ struct dinic {
                 g[v].push_back(u);
             }
         }
-    }
-    inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v]; }
-
-    Flow solve(int s_, int t_) {
+    }/*}}}*/
+    Flow solve(int s_, int t_) {/*{{{*/
         this->t = t_, this->s = s_;
         que.resize(n + 1);
         Flow res = 0;
@@ -46,8 +48,11 @@ struct dinic {
             res += augment(s, inf);
         }
         return res;
-    }
-    bool levelize() {
+    }/*}}}*/
+
+private:
+    inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v]; }
+    bool levelize() {/*{{{*/
         int l = 0, r = 0;
         level.assign(n, -1);
         level[s] = 0;
@@ -62,8 +67,8 @@ struct dinic {
                 }
         }
         return level[t] != -1;
-    }
-    Flow augment(int v, Flow lim) {
+    }/*}}}*/
+    Flow augment(int v, Flow lim) {/*{{{*/
         Flow res = 0;
         if (v == t) return lim;
         for (int &i = prog[v]; i < (int)g[v].size(); i++) {
@@ -77,50 +82,11 @@ struct dinic {
             if (lim == 0) break;
         }
         return res;
-    }
+    }/*}}}*/
 };
+// Graph g(n);
+// ll a,b;cin>>a>>b;
+// g[a].emplace_back(a, b, 1);
+// g[b].emplace_back(b, a, 1);
 
-signed main() {
-    int L, D;
-    cin >> L >> D;
-    int n;
-    cin >> n;
-
-    Graph g(2 * (n + 1));
-    vector<ll> x(n), y(n), r(n);
-    rep(i, n) {
-        cin >> x[i] >> y[i] >> r[i];
-        // 2*i: 入頂点
-        // 2*i+1: 出頂点
-        g[2 * i].emplace_back(2 * i, 2 * i + 1, 1);  // 頂点を２つに分ける。
-    }
-    dump(x);
-    dump(y);
-    dump(r);
-
-    rep(i, n) rep(j, n) {
-        if ((x[i] - x[j]) * (x[i] - x[j]) + (y[i] - y[j]) * (y[i] - y[j]) <=
-            (r[i] + r[j]) * (r[i] + r[j])) {
-            g[2 * i + 1].emplace_back(2 * i + 1, 2 * j, 1);
-            g[2 * j + 1].emplace_back(2 * j + 1, 2 * i, 1);
-        }
-    }
-
-    rep(i, n) {
-        // 2*n:   y = D
-        // 2*n+1: y = -D
-        if (y[i] + r[i] >= D) {
-            g[2 * n].emplace_back(2 * n, 2 * i, 1);
-        }
-        if (y[i] - r[i] <= -D) {
-            // g[2*n+1].emplace_back(2*n+1, 2*i, 1);
-            g[2 * i + 1].emplace_back(2 * i + 1, 2 * n + 1, 1);
-        }
-    }
-
-    dinic<int> din(g);
-    int mincut = din.solve(2 * n, 2 * n + 1);
-    cout << mincut << endl;
-
-    return 0;
-}
+//%snippet.end()%
