@@ -295,7 +295,16 @@ void dump_func(Head&& head, Tail&&... tail) {
 #ifndef H_PRETTY_PRINT
 #define H_PRETTY_PRINT
 
-#line 24 "library/cpp/debug/prettyprint.hpp"
+#include <cstddef>
+#include <iterator>
+#include <memory>
+#include <ostream>
+#include <set>
+#include <tuple>
+#include <type_traits>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
 
 namespace pretty_print {
 namespace detail {

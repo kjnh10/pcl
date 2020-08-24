@@ -21,24 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :warning: library/cpp/math/geometry/misc.cpp
+# :warning: library/cpp/math/fft.hpp
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../../index.html#fc16e9fb7f40757e9b21d2e083b6a084">library/cpp/math/geometry</a>
-* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/geometry/misc.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+* category: <a href="../../../../index.html#38e8a99339d0d505d14feb619e0537d8">library/cpp/math</a>
+* <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/fft.hpp">View this file on GitHub</a>
+    - Last commit date: 2020-08-24 13:31:40+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Code
@@ -46,21 +46,46 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../../header.hpp"
+#include "../header.hpp"
 
-//%snippet.set('rad')%
-template<class T>
-long double rad(T d){
-    return d * M_PI / 180.0;
-}
-//%snippet.end%
-
-//%snippet.set('degree')%
-//%snippet.config({'alias':'deg'})%
-template<class T>
-long double deg(T r){
-    return r / M_PI * 180.0;
-}
+//%snippet.set('fft')%
+template<typename T> class fft {
+private:
+    using mycomplex = std::complex<T>;
+    static void dft(vector<mycomplex>& func, int inverse) {
+        int sz = func.size();
+        if (sz == 1)return;
+        vector<mycomplex> veca, vecb;
+        rep(i, sz / 2) {
+            veca.push_back(func[2 * i]);
+            vecb.push_back(func[2 * i + 1]);
+        }
+        dft(veca, inverse); dft(vecb, inverse);
+        mycomplex now = 1, zeta = polar(1.0, inverse * 2.0 * acos(-1) / sz);
+        rep(i, sz) {
+            func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
+            now *= zeta;
+        }
+    }
+public:
+    static vector<double> multiply(vector<T> f, vector<T> g) {
+        vector<mycomplex> nf, ng;
+        int sz = 1;
+        while (sz < f.size() + g.size())sz *= 2;
+        nf.resize(sz); ng.resize(sz);
+        rep(i, f.size()) {
+            nf[i] = f[i];
+            ng[i] = g[i];
+        }
+        dft(nf, 1);
+        dft(ng, 1);
+        rep(i, sz)nf[i] *= ng[i];
+        dft(nf, -1);
+        vector<double> res;
+        rep(i, sz)res.push_back(nf[i].real() / sz);
+        return res;
+    }
+};
 //%snippet.end%
 
 ```
@@ -131,25 +156,50 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 
 #endif /* HEADER_H */
 //%snippet.end()%
-#line 2 "library/cpp/math/geometry/misc.cpp"
+#line 2 "library/cpp/math/fft.hpp"
 
-//%snippet.set('rad')%
-template<class T>
-long double rad(T d){
-    return d * M_PI / 180.0;
-}
-//%snippet.end%
-
-//%snippet.set('degree')%
-//%snippet.config({'alias':'deg'})%
-template<class T>
-long double deg(T r){
-    return r / M_PI * 180.0;
-}
+//%snippet.set('fft')%
+template<typename T> class fft {
+private:
+    using mycomplex = std::complex<T>;
+    static void dft(vector<mycomplex>& func, int inverse) {
+        int sz = func.size();
+        if (sz == 1)return;
+        vector<mycomplex> veca, vecb;
+        rep(i, sz / 2) {
+            veca.push_back(func[2 * i]);
+            vecb.push_back(func[2 * i + 1]);
+        }
+        dft(veca, inverse); dft(vecb, inverse);
+        mycomplex now = 1, zeta = polar(1.0, inverse * 2.0 * acos(-1) / sz);
+        rep(i, sz) {
+            func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
+            now *= zeta;
+        }
+    }
+public:
+    static vector<double> multiply(vector<T> f, vector<T> g) {
+        vector<mycomplex> nf, ng;
+        int sz = 1;
+        while (sz < f.size() + g.size())sz *= 2;
+        nf.resize(sz); ng.resize(sz);
+        rep(i, f.size()) {
+            nf[i] = f[i];
+            ng[i] = g[i];
+        }
+        dft(nf, 1);
+        dft(ng, 1);
+        rep(i, sz)nf[i] *= ng[i];
+        dft(nf, -1);
+        vector<double> res;
+        rep(i, sz)res.push_back(nf[i].real() / sz);
+        return res;
+    }
+};
 //%snippet.end%
 
 ```
 {% endraw %}
 
-<a href="../../../../../index.html">Back to top page</a>
+<a href="../../../../index.html">Back to top page</a>
 

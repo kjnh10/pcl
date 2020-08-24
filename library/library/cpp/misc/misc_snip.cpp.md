@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b4c52cffc478acefbc1ee6a9d0578055">library/cpp/misc</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/misc_snip.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-07-05 18:16:42+09:00
+    - Last commit date: 2020-08-24 13:32:09+09:00
 
 
 
@@ -187,7 +187,9 @@ struct asvector {
     vector<T> cum; //accumulative sum
     asvector(vector<T> a): cum(a){  // {{{  // constructor
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-    } // }}}
+    }
+    asvector(){};
+    // }}}
 
     T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
         l = max(0, l);
@@ -545,7 +547,9 @@ struct asvector {
     vector<T> cum; //accumulative sum
     asvector(vector<T> a): cum(a){  // {{{  // constructor
         rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-    } // }}}
+    }
+    asvector(){};
+    // }}}
 
     T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
         l = max(0, l);

@@ -65,12 +65,13 @@ layout: default
 * :warning: <a href="math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
 * :warning: <a href="math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
 * :heavy_check_mark: <a href="math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :warning: <a href="math/fft.hpp.html">library/cpp/math/fft.hpp</a>
 * :warning: <a href="math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 * :warning: <a href="math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
 * :warning: <a href="math/geometry/angle.hpp.html">library/cpp/math/geometry/angle.hpp</a>
 * :heavy_check_mark: <a href="math/geometry/area_rect.hpp.html">library/cpp/math/geometry/area_rect.hpp</a>
+* :warning: <a href="math/geometry/basic.cpp.html">library/cpp/math/geometry/basic.cpp</a>
 * :warning: <a href="math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
-* :warning: <a href="math/geometry/misc.cpp.html">library/cpp/math/geometry/misc.cpp</a>
 * :heavy_check_mark: <a href="math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 * :warning: <a href="math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
 * :warning: <a href="math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
