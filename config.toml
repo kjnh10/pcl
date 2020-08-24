@@ -2,11 +2,13 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
 [prepare]
   [prepare.custom_hook_command]
-  after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" -c ""'
+  after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" +6'
 
 [ppp]
   [ppp.custom_hook_command]
-  after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" -c ""'
+  # after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" +6'
+  after = 'nvr --remote-tab {dirname}/codes/solve.cpp {dirname}/test/gen.py'
+  # after = 'code "{dirname}" -g {dirname}/codes/solve.cpp:6 {dirname}/test/gen.py -r'
 
 [submit]
   [submit.default_lang.AtCoder]
@@ -32,7 +34,8 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
 [test]
   timeout_sec=2
-  max_memory=256
+  # max_memory=256
+  max_memory=1024
 
   [test.compile_command]
   configname = 'standard_17'  # specify the profile used by default for tt and sb
