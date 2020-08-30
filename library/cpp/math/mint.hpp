@@ -43,7 +43,7 @@ struct mint {  //{{{
         return res /= a;
     }
 
-    mint pow(int n) const {
+    mint pow(ll n) const {
         mint res(1), x(*this);
         if (n < 0) {
             n = -n;
