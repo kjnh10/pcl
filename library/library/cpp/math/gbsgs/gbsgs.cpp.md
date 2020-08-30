@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../../index.html#9d994c49b3b2b338ab838471a698a660">library/cpp/math/gbsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/gbsgs/gbsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-08-30 14:57:58+09:00
 
 
 
@@ -208,7 +208,7 @@ struct mint {  //{{{
         return res /= a;
     }
 
-    mint pow(int n) const {
+    mint pow(ll n) const {
         mint res(1), x(*this);
         if (n < 0) {
             n = -n;
