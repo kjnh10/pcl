@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../../index.html#0e902850ca3e9230d87c81984f25b3bb">library/cpp/array</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/array/sparse_table.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-09-05 21:34:55+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Verified with
@@ -125,8 +125,8 @@ template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 #define lb lower_bound
 #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T> inline void chmax(T &a, const T &b) { if ((a) < (b)) (a) = (b); }
-template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b); }
+template <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }
+template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a) = (b); }
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 

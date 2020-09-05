@@ -25,26 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: library/cpp/misc/zipper.lib/zipper.hpp
+# :x: library/cpp/misc/zipper.lib/zipper.hpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../../index.html#04045c664907c0ef027b886794febe26">library/cpp/misc/zipper.lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/misc/zipper.lib/zipper.hpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-31 23:26:41+09:00
+    - Last commit date: 2020-09-05 21:34:55+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
-* :heavy_check_mark: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
+* :x: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :x: <a href="../../../../../verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
 
 
 ## Code
@@ -175,8 +175,8 @@ template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 #define lb lower_bound
 #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T> inline void chmax(T &a, const T &b) { if ((a) < (b)) (a) = (b); }
-template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b); }
+template <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }
+template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a) = (b); }
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 

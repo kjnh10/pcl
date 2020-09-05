@@ -38,7 +38,7 @@ layout: default
 
 ### library/cpp
 
-* :heavy_check_mark: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :question: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 <div id="0e902850ca3e9230d87c81984f25b3bb"></div>
@@ -47,7 +47,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/library/cpp/array/bit.hpp.html">library/cpp/array/bit.hpp</a>
 * :warning: <a href="library/library/cpp/array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
+* :x: <a href="library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
 * :warning: <a href="library/library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
 * :heavy_check_mark: <a href="library/library/cpp/array/sparse_table.hpp.html">library/cpp/array/sparse_table.hpp</a>
 * :warning: <a href="library/library/cpp/array/syakutori.cpp.html">library/cpp/array/syakutori.cpp</a>
@@ -59,7 +59,7 @@ layout: default
 ### library/cpp/array/segtree
 
 * :warning: <a href="library/library/cpp/array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :x: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/segment_tree_lazy.cpp.html">library/cpp/array/segtree/segment_tree_lazy.cpp</a>
 * :warning: <a href="library/library/cpp/array/segtree/yuki.cpp.html">library/cpp/array/segtree/yuki.cpp</a>
@@ -77,15 +77,15 @@ layout: default
 
 ### library/cpp/graph
 
-* :heavy_check_mark: <a href="library/library/cpp/graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :x: <a href="library/library/cpp/graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
+* :x: <a href="library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :x: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :warning: <a href="library/library/cpp/graph/local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :x: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
+* :x: <a href="library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :x: <a href="library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :x: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :warning: <a href="library/library/cpp/graph/unionfind_with_potential.hpp.html">library/cpp/graph/unionfind_with_potential.hpp</a>
 
 
@@ -93,16 +93,16 @@ layout: default
 
 ### library/cpp/graph/flow
 
-* :heavy_check_mark: <a href="library/library/cpp/graph/flow/dinic.hpp.html">library/cpp/graph/flow/dinic.hpp</a>
+* :x: <a href="library/library/cpp/graph/flow/dinic.hpp.html">library/cpp/graph/flow/dinic.hpp</a>
 
 
 <div id="eaeee77e776a943cad05fb3e3b603f65"></div>
 
 ### library/cpp/graph/tree.lib
 
-* :heavy_check_mark: <a href="library/library/cpp/graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
+* :x: <a href="library/library/cpp/graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="library/library/cpp/graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :x: <a href="library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
 
 
 <div id="6625f7d848c2ba1574f90ce7248a2c37"></div>
@@ -117,16 +117,16 @@ layout: default
 
 ### library/cpp/math
 
-* :heavy_check_mark: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :x: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="library/library/cpp/math/fft.hpp.html">library/cpp/math/fft.hpp</a>
 * :warning: <a href="library/library/cpp/math/hakidashi_xor.hpp.html">library/cpp/math/hakidashi_xor.hpp</a>
 * :warning: <a href="library/library/cpp/math/int.cpp.html">library/cpp/math/int.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :x: <a href="library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
+* :x: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 * :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 * :warning: <a href="library/library/cpp/math/pow.hpp.html">library/cpp/math/pow.hpp</a>
 * :warning: <a href="library/library/cpp/math/rational.hpp.html">library/cpp/math/rational.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
+* :x: <a href="library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 
 
 <div id="51139f4eb77e81dbd61f182500602d94"></div>
@@ -164,10 +164,10 @@ layout: default
 ### library/cpp/math/geometry
 
 * :warning: <a href="library/library/cpp/math/geometry/angle.hpp.html">library/cpp/math/geometry/angle.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/geometry/area_rect.hpp.html">library/cpp/math/geometry/area_rect.hpp</a>
+* :x: <a href="library/library/cpp/math/geometry/area_rect.hpp.html">library/cpp/math/geometry/area_rect.hpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/basic.cpp.html">library/cpp/math/geometry/basic.cpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
+* :x: <a href="library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
 * :warning: <a href="library/library/cpp/math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
 
@@ -189,7 +189,7 @@ layout: default
 ### library/cpp/misc/zipper.lib
 
 * :warning: <a href="library/library/cpp/misc/zipper.lib/shifter.hpp.html">library/cpp/misc/zipper.lib/shifter.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
+* :x: <a href="library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
 
 
 <div id="6e84951d1d0c19ce3fef1705f200b877"></div>
@@ -197,7 +197,7 @@ layout: default
 ### library/cpp/string
 
 * :warning: <a href="library/library/cpp/string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
+* :x: <a href="library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
 * :warning: <a href="library/library/cpp/string/split.hpp.html">library/cpp/string/split.hpp</a>
 
 
@@ -265,31 +265,31 @@ layout: default
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/library/cpp/array/bit.test.cpp.html">library/cpp/array/bit.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
+* :x: <a href="verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
+* :x: <a href="verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
+* :x: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/flow/dinic.test.cpp.html">library/cpp/graph/flow/dinic.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/geometry/area_rect.test.cpp.html">library/cpp/math/geometry/area_rect.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/flow/dinic.test.cpp.html">library/cpp/graph/flow/dinic.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
+* :x: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/geometry/area_rect.test.cpp.html">library/cpp/math/geometry/area_rect.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
+* :x: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
+* :x: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
+* :x: <a href="verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
+* :x: <a href="verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
 
 

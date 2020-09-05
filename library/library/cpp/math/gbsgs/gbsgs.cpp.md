@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../../../../index.html#9d994c49b3b2b338ab838471a698a660">library/cpp/math/gbsgs</a>
 * <a href="{{ site.github.repository_url }}/blob/master/library/cpp/math/gbsgs/gbsgs.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-08-30 14:57:58+09:00
+    - Last commit date: 2020-09-05 21:34:55+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-* :heavy_check_mark: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
+* :x: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Code
@@ -134,8 +134,8 @@ template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 #define lb lower_bound
 #define lpos(A, x) (lower_bound(all(A), x) - A.begin())
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
-template <class T> inline void chmax(T &a, const T &b) { if ((a) < (b)) (a) = (b); }
-template <class T> inline void chmin(T &a, const T &b) { if ((a) > (b)) (a) = (b); }
+template <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }
+template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a) = (b); }
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
