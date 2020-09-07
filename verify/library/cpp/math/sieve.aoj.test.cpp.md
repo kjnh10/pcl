@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :question: <a href="../../../../library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 
 
 ## Code

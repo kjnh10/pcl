@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :question: library/cpp/math/sieve.hpp
+# :heavy_check_mark: library/cpp/math/sieve.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -38,13 +38,13 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../../verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
 
 
 ## Code

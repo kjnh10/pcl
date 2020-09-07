@@ -38,7 +38,7 @@ layout: default
 
 ### library/cpp
 
-* :question: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
 <div id="0e902850ca3e9230d87c81984f25b3bb"></div>
@@ -126,7 +126,7 @@ layout: default
 * :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
 * :warning: <a href="library/library/cpp/math/pow.hpp.html">library/cpp/math/pow.hpp</a>
 * :warning: <a href="library/library/cpp/math/rational.hpp.html">library/cpp/math/rational.hpp</a>
-* :question: <a href="library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 
 
 <div id="51139f4eb77e81dbd61f182500602d94"></div>
@@ -197,7 +197,7 @@ layout: default
 ### library/cpp/string
 
 * :warning: <a href="library/library/cpp/string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
-* :x: <a href="library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
+* :heavy_check_mark: <a href="library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
 * :warning: <a href="library/library/cpp/string/split.hpp.html">library/cpp/string/split.hpp</a>
 
 
@@ -287,9 +287,9 @@ layout: default
 * :heavy_check_mark: <a href="verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
-* :x: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
 * :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
-* :x: <a href="verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
 
 
