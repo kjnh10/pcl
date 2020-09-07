@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/math/matrix_pow.test.cpp
+# :heavy_check_mark: library/cpp/math/matrix_pow.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -40,8 +40,8 @@ layout: default
 ## Depends on
 
 * :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :x: <a href="../../../../library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
-* :x: <a href="../../../../library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
+* :heavy_check_mark: <a href="../../../../library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Code

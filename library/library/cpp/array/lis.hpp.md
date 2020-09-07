@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/array/lis.hpp
+# :heavy_check_mark: library/cpp/array/lis.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -43,7 +43,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../../verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/graph/edge.hpp
+# :heavy_check_mark: library/cpp/graph/edge.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -43,32 +43,32 @@ layout: default
 
 ## Required by
 
-* :x: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :x: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
 * :warning: <a href="gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
 * :warning: <a href="local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
-* :x: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :x: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-* :x: <a href="tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
+* :heavy_check_mark: <a href="scc.hpp.html">library/cpp/graph/scc.hpp</a>
+* :heavy_check_mark: <a href="topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
 * :warning: <a href="tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
-* :x: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :x: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
 
 
 ## Code

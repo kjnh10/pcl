@@ -39,7 +39,7 @@ layout: default
 ## Depends on
 
 * :question: <a href="../../header.hpp.html">library/cpp/header.hpp</a>
-* :x: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :heavy_check_mark: <a href="../mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/math/combination.hpp
+# :heavy_check_mark: library/cpp/math/combination.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -39,12 +39,12 @@ layout: default
 ## Depends on
 
 * :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
-* :x: <a href="mint.hpp.html">library/cpp/math/mint.hpp</a>
+* :heavy_check_mark: <a href="mint.hpp.html">library/cpp/math/mint.hpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
 
 
 ## Code

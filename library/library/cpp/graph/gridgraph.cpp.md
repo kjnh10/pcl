@@ -38,11 +38,11 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :x: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :x: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :x: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :x: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :question: <a href="../header.hpp.html">library/cpp/header.hpp</a>
 
 

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/math/geometry/area_rect.hpp
+# :heavy_check_mark: library/cpp/math/geometry/area_rect.hpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
@@ -43,7 +43,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../../../verify/library/cpp/math/geometry/area_rect.test.cpp.html">library/cpp/math/geometry/area_rect.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../../verify/library/cpp/math/geometry/area_rect.test.cpp.html">library/cpp/math/geometry/area_rect.test.cpp</a>
 
 
 ## Code

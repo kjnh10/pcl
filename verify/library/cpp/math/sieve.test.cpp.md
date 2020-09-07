@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :question: <a href="../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-* :x: <a href="../../../../library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
+* :question: <a href="../../../../library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
 
 
 ## Code

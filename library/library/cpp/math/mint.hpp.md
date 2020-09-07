@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/math/mint.hpp
+# :heavy_check_mark: library/cpp/math/mint.hpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -44,14 +44,14 @@ layout: default
 ## Required by
 
 * :warning: <a href="bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
-* :x: <a href="combination.hpp.html">library/cpp/math/combination.hpp</a>
+* :heavy_check_mark: <a href="combination.hpp.html">library/cpp/math/combination.hpp</a>
 * :warning: <a href="gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
-* :x: <a href="../../../../verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
+* :heavy_check_mark: <a href="../../../../verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
 
 
 ## Code

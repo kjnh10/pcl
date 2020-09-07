@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../../assets/css/copy-button.css" />
 
 
-# :x: library/cpp/graph/tests/graph.bridge.test.cpp
+# :heavy_check_mark: library/cpp/graph/tests/graph.bridge.test.cpp
 
 <a href="../../../../../index.html">Back to top page</a>
 
@@ -39,11 +39,11 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :x: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :x: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :x: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-* :x: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
+* :heavy_check_mark: <a href="../../../../../library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
 * :question: <a href="../../../../../library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
 
 
