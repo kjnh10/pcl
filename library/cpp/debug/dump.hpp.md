@@ -1,0 +1,381 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
+  - icon: ':warning:'
+    path: library/cpp/debug/prettyprint.hpp
+    title: library/cpp/debug/prettyprint.hpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith: []
+  _pathExtension: hpp
+  _verificationStatusIcon: ':warning:'
+  attributes:
+    '*NOT_SPECIAL_COMMENTS*': ''
+    links:
+    - http://www.creativ.xyz/dump-cpp-652
+  bundledCode: "#line 2 \"library/cpp/debug/dump.hpp\"\n\n// http://www.creativ.xyz/dump-cpp-652\n\
+    using namespace std;\n#include <bits/stdc++.h>\n\n#line 2 \"library/cpp/header.hpp\"\
+    \n\n//%snippet.set('header')%\n//%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\
+    \n// template version 2.0\nusing namespace std;\n#line 11 \"library/cpp/header.hpp\"\
+    \n\n// varibable settings\nconst long long INF = 1e18;\ntemplate <class T> constexpr\
+    \ T inf = numeric_limits<T>::max() / 2.1;\n\n#define _overload3(_1, _2, _3, name,\
+    \ ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define repi(i, a, b) for (ll i\
+    \ = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__, repi,\
+    \ _rep, )(__VA_ARGS__)\n#define _rrep(i, n) rrepi(i, 0, n)\n#define rrepi(i, a,\
+    \ b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)\n#define r_rep(...) _overload3(__VA_ARGS__,\
+    \ rrepi, _rrep, )(__VA_ARGS__)\n#define each(i, a) for (auto &&i : a)\n#define\
+    \ all(x) (x).begin(), (x).end()\n#define sz(x) ((int)(x).size())\n#define pb(a)\
+    \ push_back(a)\n#define mp(a, b) make_pair(a, b)\n#define mt(...) make_tuple(__VA_ARGS__)\n\
+    #define ub upper_bound\n#define lb lower_bound\n#define lpos(A, x) (lower_bound(all(A),\
+    \ x) - A.begin())\n#define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate\
+    \ <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a)\
+    \ = (b); }\ntemplate <class T, class U> inline void chmin(T &a, const U &b) {\
+    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto make_table(X\
+    \ x, T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
+    \ Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y,\
+    \ z, zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
+    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
+    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
+    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
+    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
+    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
+    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
+    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
+    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
+    #line 8 \"library/cpp/debug/dump.hpp\"\n\n#define DUMPOUT cerr  // where to dump.\
+    \ cout or cerr\n\n#define cerrendl cerr << endl\n\nnamespace dump_macro {\nstack<vector<string>>\
+    \ varnames;\nstack<int> varidx;\n}  // namespace dump_macro\n\n#define dump(...)\
+    \                                                            \\\n    {       \
+    \                                                                 \\\n       \
+    \ dump_macro::varnames.push([](string s) -> vector<string> {           \\\n  \
+    \          int n = s.size();                                                \\\
+    \n            vector<string> res;                                            \
+    \  \\\n            string tmp = \"\";                                        \
+    \         \\\n            int parlevel = 0;                                  \
+    \              \\\n            int angle_level = 0;                          \
+    \                   \\\n            for (int i = 0; i < n; i++) {            \
+    \                        \\\n                if (s[i] == '(') parlevel++;    \
+    \                             \\\n                if (s[i] == ')') parlevel--;\
+    \                                 \\\n                if (s[i] == '<') angle_level++;\
+    \                              \\\n                if (s[i] == '>') angle_level--;\
+    \                              \\\n                if (s[i] == ' ') continue;\
+    \                                   \\\n                if (s[i] == ',' && parlevel\
+    \ == 0 && angle_level == 0) {      \\\n                    res.push_back(tmp);\
+    \                                      \\\n                    tmp = \"\";   \
+    \                                             \\\n                } else {   \
+    \                                                  \\\n                    tmp\
+    \ += s[i];                                             \\\n                } \
+    \                                                           \\\n            }\
+    \                                                                \\\n        \
+    \    res.push_back(tmp);                                              \\\n   \
+    \         return res;                                                      \\\n\
+    \        }(#__VA_ARGS__));                                                   \
+    \ \\\n        dump_macro::varidx.push(0);                                    \
+    \      \\\n        dump_func(__VA_ARGS__);                                   \
+    \           \\\n        DUMPOUT << \"in [\" << __LINE__ << \":\" << __FUNCTION__\
+    \ << \"]\" << endl; \\\n        dump_macro::varnames.pop();                  \
+    \                        \\\n        dump_macro::varidx.pop();               \
+    \                             \\\n    }\n\n#define dump_1d(x, n)             \
+    \                                        \\\n    {                           \
+    \                                          \\\n        DUMPOUT << \"  \" << #x\
+    \ << \"[\" << #n << \"]\"                         \\\n                << \":=>\
+    \ {\";                                               \\\n        rep(i, n) { DUMPOUT\
+    \ << x[i] << (((i) == (n - 1)) ? \"}\" : \", \"); } \\\n        DUMPOUT << \"\
+    \ in [\" << __LINE__ << \"]\" << endl;                    \\\n    }\n\n#define\
+    \ dump_2d(x, n, m)                                      \\\n    {            \
+    \                                             \\\n        DUMPOUT << \"  \" <<\
+    \ #x << \"[\" << #n << \"]\"             \\\n                << \"[\" << #m <<\
+    \ \"]\"                           \\\n                << \":=> \\n\";        \
+    \                          \\\n        rep(i, n) rep(j, m) {                 \
+    \                \\\n            DUMPOUT << ((j == 0) ? \"     |\" : \" \") <<\
+    \ x[i][j] \\\n                    << (((j) == (m - 1)) ? \"|\\n\" : \" \");  \
+    \    \\\n        }                                                     \\\n  \
+    \      DUMPOUT << \"  in [\" << __LINE__ << \"]\" << endl;       \\\n    }\n\n\
+    void dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
+    \ head, Tail&&... tail) {\n    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()]\
+    \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
+    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dump_macro::varidx.top();\n\
+    \    dump_func(std::move(tail)...);\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\
+    \n//          Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the\
+    \ Boost Software License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt\
+    \ or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty\
+    \ printing library for C++\n//\n// Usage:\n// Include this header, and operator<<\
+    \ will \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include\
+    \ <cstddef>\n#include <iterator>\n#include <memory>\n#include <ostream>\n#include\
+    \ <set>\n#include <tuple>\n#include <type_traits>\n#include <unordered_set>\n\
+    #include <utility>\n#include <valarray>\n\nnamespace pretty_print {\nnamespace\
+    \ detail {\n// SFINAE type trait to detect whether T::const_iterator exists.\n\
+    \nstruct sfinae_base {\n    using yes = char;\n    using no = yes[2];\n};\n\n\
+    template <typename T>\nstruct has_const_iterator : private sfinae_base {\n   private:\n\
+    \    template <typename C>\n    static yes &test(typename C::const_iterator *);\n\
+    \    template <typename C>\n    static no &test(...);\n\n   public:\n    static\
+    \ const bool value = sizeof(test<T>(nullptr)) == sizeof(yes);\n    using type\
+    \ = T;\n};\n\ntemplate <typename T>\nstruct has_begin_end : private sfinae_base\
+    \ {\n   private:\n    template <typename C>\n    static yes &f(\n        typename\
+    \ std::enable_if<std::is_same<\n            decltype(static_cast<typename C::const_iterator\
+    \ (C::*)() const>(\n                &C::begin)),\n            typename C::const_iterator\
+    \ (C::*)() const>::value>::type *);\n\n    template <typename C>\n    static no\
+    \ &f(...);\n\n    template <typename C>\n    static yes &\n    g(typename std::enable_if<\n\
+    \        std::is_same<decltype(static_cast<typename C::const_iterator (C::*)()\n\
+    \                                              const>(&C::end)),\n           \
+    \          typename C::const_iterator (C::*)() const>::value,\n        void>::type\
+    \ *);\n\n    template <typename C>\n    static no &g(...);\n\n   public:\n   \
+    \ static bool const beg_value = sizeof(f<T>(nullptr)) == sizeof(yes);\n    static\
+    \ bool const end_value = sizeof(g<T>(nullptr)) == sizeof(yes);\n};\n\n}  // namespace\
+    \ detail\n\n// Holds the delimiter values for a specific character type\n\ntemplate\
+    \ <typename TChar>\nstruct delimiters_values {\n    using char_type = TChar;\n\
+    \    const char_type *prefix;\n    const char_type *delimiter;\n    const char_type\
+    \ *postfix;\n};\n\n// Defines the delimiter values for a specific container and\
+    \ character type\n\ntemplate <typename T, typename TChar>\nstruct delimiters {\n\
+    \    using type = delimiters_values<TChar>;\n    static const type values;\n};\n\
+    \n// Functor to print containers. You can use this directly if you want\n// to\
+    \ specificy a non-default delimiters type. The printing logic can\n// be customized\
+    \ by specializing the nested template.\n\ntemplate <typename T, typename TChar\
+    \ = char,\n          typename TCharTraits = ::std::char_traits<TChar>,\n     \
+    \     typename TDelimiters = delimiters<T, TChar>>\nstruct print_container_helper\
+    \ {\n    using delimiters_type = TDelimiters;\n    using ostream_type = std::basic_ostream<TChar,\
+    \ TCharTraits>;\n\n    template <typename U>\n    struct printer {\n        static\
+    \ void print_body(const U &c, ostream_type &stream) {\n            using std::begin;\n\
+    \            using std::end;\n\n            auto it = begin(c);\n            const\
+    \ auto the_end = end(c);\n\n            if (it != the_end) {\n               \
+    \ for (;;) {\n                    stream << *it;\n\n                    if (++it\
+    \ == the_end) break;\n\n                    if (delimiters_type::values.delimiter\
+    \ != NULL)\n                        stream << delimiters_type::values.delimiter;\n\
+    \                }\n            }\n        }\n    };\n\n    print_container_helper(const\
+    \ T &container) : container_(container) {}\n\n    inline void operator()(ostream_type\
+    \ &stream) const {\n        if (delimiters_type::values.prefix != NULL)\n    \
+    \        stream << delimiters_type::values.prefix;\n\n        printer<T>::print_body(container_,\
+    \ stream);\n\n        if (delimiters_type::values.postfix != NULL)\n         \
+    \   stream << delimiters_type::values.postfix;\n    }\n\n   private:\n    const\
+    \ T &container_;\n};\n\n// Specialization for pairs\n\ntemplate <typename T, typename\
+    \ TChar, typename TCharTraits,\n          typename TDelimiters>\ntemplate <typename\
+    \ T1, typename T2>\nstruct print_container_helper<T, TChar, TCharTraits,\n   \
+    \                           TDelimiters>::printer<std::pair<T1, T2>> {\n    using\
+    \ ostream_type =\n        typename print_container_helper<T, TChar, TCharTraits,\n\
+    \                                        TDelimiters>::ostream_type;\n\n    static\
+    \ void print_body(const std::pair<T1, T2> &c, ostream_type &stream) {\n      \
+    \  stream << c.first;\n        if (print_container_helper<T, TChar, TCharTraits,\n\
+    \                                   TDelimiters>::delimiters_type::values\n  \
+    \              .delimiter != NULL)\n            stream\n                << print_container_helper<T,\
+    \ TChar, TCharTraits,\n                                          TDelimiters>::delimiters_type::values\n\
+    \                       .delimiter;\n        stream << c.second;\n    }\n};\n\n\
+    // Specialization for tuples\n\ntemplate <typename T, typename TChar, typename\
+    \ TCharTraits,\n          typename TDelimiters>\ntemplate <typename... Args>\n\
+    struct print_container_helper<T, TChar, TCharTraits,\n                       \
+    \       TDelimiters>::printer<std::tuple<Args...>> {\n    using ostream_type =\n\
+    \        typename print_container_helper<T, TChar, TCharTraits,\n            \
+    \                            TDelimiters>::ostream_type;\n    using element_type\
+    \ = std::tuple<Args...>;\n\n    template <std::size_t I>\n    struct Int {};\n\
+    \n    static void print_body(const element_type &c, ostream_type &stream) {\n\
+    \        tuple_print(c, stream, Int<0>());\n    }\n\n    static void tuple_print(const\
+    \ element_type &, ostream_type &,\n                            Int<sizeof...(Args)>)\
+    \ {}\n\n    static void tuple_print(\n        const element_type &c, ostream_type\
+    \ &stream,\n        typename std::conditional<sizeof...(Args) != 0, Int<0>,\n\
+    \                                  std::nullptr_t>::type) {\n        stream <<\
+    \ std::get<0>(c);\n        tuple_print(c, stream, Int<1>());\n    }\n\n    template\
+    \ <std::size_t N>\n    static void tuple_print(const element_type &c, ostream_type\
+    \ &stream,\n                            Int<N>) {\n        if (print_container_helper<T,\
+    \ TChar, TCharTraits,\n                                   TDelimiters>::delimiters_type::values\n\
+    \                .delimiter != NULL)\n            stream\n                << print_container_helper<T,\
+    \ TChar, TCharTraits,\n                                          TDelimiters>::delimiters_type::values\n\
+    \                       .delimiter;\n\n        stream << std::get<N>(c);\n\n \
+    \       tuple_print(c, stream, Int<N + 1>());\n    }\n};\n\n// Prints a print_container_helper\
+    \ to the specified stream.\n\ntemplate <typename T, typename TChar, typename TCharTraits,\n\
+    \          typename TDelimiters>\ninline std::basic_ostream<TChar, TCharTraits>\
+    \ &operator<<(\n    std::basic_ostream<TChar, TCharTraits> &stream,\n    const\
+    \ print_container_helper<T, TChar, TCharTraits, TDelimiters> &helper) {\n    helper(stream);\n\
+    \    return stream;\n}\n\n// Basic is_container template; specialize to derive\
+    \ from std::true_type for all\n// desired container types\n\ntemplate <typename\
+    \ T>\nstruct is_container\n    : public std::integral_constant<bool,\n       \
+    \                             detail::has_const_iterator<T>::value &&\n      \
+    \                                  detail::has_begin_end<T>::beg_value &&\n  \
+    \                                      detail::has_begin_end<T>::end_value> {};\n\
+    \ntemplate <typename T, std::size_t N>\nstruct is_container<T[N]> : std::true_type\
+    \ {};\n\ntemplate <std::size_t N>\nstruct is_container<char[N]> : std::false_type\
+    \ {};\n\ntemplate <typename T>\nstruct is_container<std::valarray<T>> : std::true_type\
+    \ {};\n\ntemplate <typename T1, typename T2>\nstruct is_container<std::pair<T1,\
+    \ T2>> : std::true_type {};\n\ntemplate <typename... Args>\nstruct is_container<std::tuple<Args...>>\
+    \ : std::true_type {};\n\n// Default delimiters\n\ntemplate <typename T>\nstruct\
+    \ delimiters<T, char> {\n    static const delimiters_values<char> values;\n};\n\
+    template <typename T>\nconst delimiters_values<char> delimiters<T, char>::values\
+    \ = {\"[\", \", \", \"]\"};\ntemplate <typename T>\nstruct delimiters<T, wchar_t>\
+    \ {\n    static const delimiters_values<wchar_t> values;\n};\ntemplate <typename\
+    \ T>\nconst delimiters_values<wchar_t> delimiters<T, wchar_t>::values = {L\"[\"\
+    , L\", \",\n                                                                 \
+    \  L\"]\"};\n\n// Delimiters for (multi)set and unordered_(multi)set\n\ntemplate\
+    \ <typename T, typename TComp, typename TAllocator>\nstruct delimiters<::std::set<T,\
+    \ TComp, TAllocator>, char> {\n    static const delimiters_values<char> values;\n\
+    };\n\ntemplate <typename T, typename TComp, typename TAllocator>\nconst delimiters_values<char>\n\
+    \    delimiters<::std::set<T, TComp, TAllocator>, char>::values = {\"{\", \",\
+    \ \",\n                                                                  \"}\"\
+    };\n\ntemplate <typename T, typename TComp, typename TAllocator>\nstruct delimiters<::std::set<T,\
+    \ TComp, TAllocator>, wchar_t> {\n    static const delimiters_values<wchar_t>\
+    \ values;\n};\n\ntemplate <typename T, typename TComp, typename TAllocator>\n\
+    const delimiters_values<wchar_t>\n    delimiters<::std::set<T, TComp, TAllocator>,\
+    \ wchar_t>::values = {\n        L\"{\", L\", \", L\"}\"};\n\ntemplate <typename\
+    \ T, typename TComp, typename TAllocator>\nstruct delimiters<::std::multiset<T,\
+    \ TComp, TAllocator>, char> {\n    static const delimiters_values<char> values;\n\
+    };\n\ntemplate <typename T, typename TComp, typename TAllocator>\nconst delimiters_values<char>\n\
+    \    delimiters<::std::multiset<T, TComp, TAllocator>, char>::values = {\n   \
+    \     \"{\", \", \", \"}\"};\n\ntemplate <typename T, typename TComp, typename\
+    \ TAllocator>\nstruct delimiters<::std::multiset<T, TComp, TAllocator>, wchar_t>\
+    \ {\n    static const delimiters_values<wchar_t> values;\n};\n\ntemplate <typename\
+    \ T, typename TComp, typename TAllocator>\nconst delimiters_values<wchar_t>\n\
+    \    delimiters<::std::multiset<T, TComp, TAllocator>, wchar_t>::values = {\n\
+    \        L\"{\", L\", \", L\"}\"};\n\ntemplate <typename T, typename THash, typename\
+    \ TEqual, typename TAllocator>\nstruct delimiters<::std::unordered_set<T, THash,\
+    \ TEqual, TAllocator>, char> {\n    static const delimiters_values<char> values;\n\
+    };\n\ntemplate <typename T, typename THash, typename TEqual, typename TAllocator>\n\
+    const delimiters_values<char> delimiters<\n    ::std::unordered_set<T, THash,\
+    \ TEqual, TAllocator>, char>::values = {\n    \"{\", \", \", \"}\"};\n\ntemplate\
+    \ <typename T, typename THash, typename TEqual, typename TAllocator>\nstruct delimiters<::std::unordered_set<T,\
+    \ THash, TEqual, TAllocator>, wchar_t> {\n    static const delimiters_values<wchar_t>\
+    \ values;\n};\n\ntemplate <typename T, typename THash, typename TEqual, typename\
+    \ TAllocator>\nconst delimiters_values<wchar_t> delimiters<\n    ::std::unordered_set<T,\
+    \ THash, TEqual, TAllocator>, wchar_t>::values = {\n    L\"{\", L\", \", L\"}\"\
+    };\n\ntemplate <typename T, typename THash, typename TEqual, typename TAllocator>\n\
+    struct delimiters<::std::unordered_multiset<T, THash, TEqual, TAllocator>,\n \
+    \                 char> {\n    static const delimiters_values<char> values;\n\
+    };\n\ntemplate <typename T, typename THash, typename TEqual, typename TAllocator>\n\
+    const delimiters_values<char> delimiters<\n    ::std::unordered_multiset<T, THash,\
+    \ TEqual, TAllocator>, char>::values = {\n    \"{\", \", \", \"}\"};\n\ntemplate\
+    \ <typename T, typename THash, typename TEqual, typename TAllocator>\nstruct delimiters<::std::unordered_multiset<T,\
+    \ THash, TEqual, TAllocator>,\n                  wchar_t> {\n    static const\
+    \ delimiters_values<wchar_t> values;\n};\n\ntemplate <typename T, typename THash,\
+    \ typename TEqual, typename TAllocator>\nconst delimiters_values<wchar_t>\n  \
+    \  delimiters<::std::unordered_multiset<T, THash, TEqual, TAllocator>,\n     \
+    \          wchar_t>::values = {L\"{\", L\", \", L\"}\"};\n\n// Delimiters for\
+    \ pair and tuple\n\ntemplate <typename T1, typename T2>\nstruct delimiters<std::pair<T1,\
+    \ T2>, char> {\n    static const delimiters_values<char> values;\n};\ntemplate\
+    \ <typename T1, typename T2>\nconst delimiters_values<char> delimiters<std::pair<T1,\
+    \ T2>, char>::values = {\n    \"(\", \", \", \")\"};\ntemplate <typename T1, typename\
+    \ T2>\nstruct delimiters<::std::pair<T1, T2>, wchar_t> {\n    static const delimiters_values<wchar_t>\
+    \ values;\n};\ntemplate <typename T1, typename T2>\nconst delimiters_values<wchar_t>\n\
+    \    delimiters<::std::pair<T1, T2>, wchar_t>::values = {L\"(\", L\", \", L\"\
+    )\"};\n\ntemplate <typename... Args>\nstruct delimiters<std::tuple<Args...>, char>\
+    \ {\n    static const delimiters_values<char> values;\n};\ntemplate <typename...\
+    \ Args>\nconst delimiters_values<char> delimiters<std::tuple<Args...>, char>::values\
+    \ = {\n    \"(\", \", \", \")\"};\ntemplate <typename... Args>\nstruct delimiters<::std::tuple<Args...>,\
+    \ wchar_t> {\n    static const delimiters_values<wchar_t> values;\n};\ntemplate\
+    \ <typename... Args>\nconst delimiters_values<wchar_t>\n    delimiters<::std::tuple<Args...>,\
+    \ wchar_t>::values = {L\"(\", L\", \", L\")\"};\n\n// Type-erasing helper class\
+    \ for easy use of custom delimiters.\n// Requires TCharTraits = std::char_traits<TChar>\
+    \ and TChar = char or wchar_t,\n// and MyDelims needs to be defined for TChar.\
+    \ Usage: \"cout <<\n// pretty_print::custom_delims<MyDelims>(x)\".\n\nstruct custom_delims_base\
+    \ {\n    virtual ~custom_delims_base() {}\n    virtual std::ostream &stream(::std::ostream\
+    \ &) = 0;\n    virtual std::wostream &stream(::std::wostream &) = 0;\n};\n\ntemplate\
+    \ <typename T, typename Delims>\nstruct custom_delims_wrapper : custom_delims_base\
+    \ {\n    custom_delims_wrapper(const T &t_) : t(t_) {}\n\n    std::ostream &stream(std::ostream\
+    \ &s) {\n        return s << print_container_helper<T, char, std::char_traits<char>,\n\
+    \                                           Delims>(t);\n    }\n\n    std::wostream\
+    \ &stream(std::wostream &s) {\n        return s << print_container_helper<T, wchar_t,\n\
+    \                                           std::char_traits<wchar_t>, Delims>(\n\
+    \                   t);\n    }\n\n   private:\n    const T &t;\n};\n\ntemplate\
+    \ <typename Delims>\nstruct custom_delims {\n    template <typename Container>\n\
+    \    custom_delims(const Container &c)\n        : base(new custom_delims_wrapper<Container,\
+    \ Delims>(c)) {}\n\n    std::unique_ptr<custom_delims_base> base;\n};\n\ntemplate\
+    \ <typename TChar, typename TCharTraits, typename Delims>\ninline std::basic_ostream<TChar,\
+    \ TCharTraits> &operator<<(\n    std::basic_ostream<TChar, TCharTraits> &s, const\
+    \ custom_delims<Delims> &p) {\n    return p.base->stream(s);\n}\n\n// A wrapper\
+    \ for a C-style array given as pointer-plus-size.\n// Usage: std::cout << pretty_print_array(arr,\
+    \ n) << std::endl;\n\ntemplate <typename T>\nstruct array_wrapper_n {\n    typedef\
+    \ const T *const_iterator;\n    typedef T value_type;\n\n    array_wrapper_n(const\
+    \ T *const a, size_t n) : _array(a), _n(n) {}\n    inline const_iterator begin()\
+    \ const { return _array; }\n    inline const_iterator end() const { return _array\
+    \ + _n; }\n\n   private:\n    const T *const _array;\n    size_t _n;\n};\n\n//\
+    \ A wrapper for hash-table based containers that offer local iterators to each\n\
+    // bucket. Usage: std::cout << bucket_print(m, 4) << std::endl;  (Prints bucket\n\
+    // 5 of container m.)\n\ntemplate <typename T>\nstruct bucket_print_wrapper {\n\
+    \    typedef typename T::const_local_iterator const_iterator;\n    typedef typename\
+    \ T::size_type size_type;\n\n    const_iterator begin() const { return m_map.cbegin(n);\
+    \ }\n\n    const_iterator end() const { return m_map.cend(n); }\n\n    bucket_print_wrapper(const\
+    \ T &m, size_type bucket) : m_map(m), n(bucket) {}\n\n   private:\n    const T\
+    \ &m_map;\n    const size_type n;\n};\n\n}  // namespace pretty_print\n\n// Global\
+    \ accessor functions for the convenience wrappers\n\ntemplate <typename T>\ninline\
+    \ pretty_print::array_wrapper_n<T> pretty_print_array(const T *const a,\n    \
+    \                                                       size_t n) {\n    return\
+    \ pretty_print::array_wrapper_n<T>(a, n);\n}\n\ntemplate <typename T>\npretty_print::bucket_print_wrapper<T>\
+    \ bucket_print(const T &m,\n                                                 \
+    \  typename T::size_type n) {\n    return pretty_print::bucket_print_wrapper<T>(m,\
+    \ n);\n}\n\n// Main magic entry point: An overload snuck into namespace std.\n\
+    // Can we do better?\n\nnamespace std {\n// Prints a container to the stream using\
+    \ default delimiters\n\ntemplate <typename T, typename TChar, typename TCharTraits>\n\
+    inline typename enable_if<::pretty_print::is_container<T>::value,\n          \
+    \                basic_ostream<TChar, TCharTraits> &>::type\noperator<<(basic_ostream<TChar,\
+    \ TCharTraits> &stream, const T &container) {\n    return stream\n           <<\
+    \ ::pretty_print::print_container_helper<T, TChar, TCharTraits>(\n           \
+    \       container);\n}\n}  // namespace std\n\n#endif  // H_PRETTY_PRINT\n#line\
+    \ 84 \"library/cpp/debug/dump.hpp\"\n"
+  code: "#pragma once\n\n// http://www.creativ.xyz/dump-cpp-652\nusing namespace std;\n\
+    #include <bits/stdc++.h>\n\n#include \"../header.hpp\"\n\n#define DUMPOUT cerr\
+    \  // where to dump. cout or cerr\n\n#define cerrendl cerr << endl\n\nnamespace\
+    \ dump_macro {\nstack<vector<string>> varnames;\nstack<int> varidx;\n}  // namespace\
+    \ dump_macro\n\n#define dump(...)                                            \
+    \                \\\n    {                                                   \
+    \                     \\\n        dump_macro::varnames.push([](string s) -> vector<string>\
+    \ {           \\\n            int n = s.size();                              \
+    \                  \\\n            vector<string> res;                       \
+    \                       \\\n            string tmp = \"\";                   \
+    \                              \\\n            int parlevel = 0;             \
+    \                                   \\\n            int angle_level = 0;     \
+    \                                        \\\n            for (int i = 0; i < n;\
+    \ i++) {                                    \\\n                if (s[i] == '(')\
+    \ parlevel++;                                 \\\n                if (s[i] ==\
+    \ ')') parlevel--;                                 \\\n                if (s[i]\
+    \ == '<') angle_level++;                              \\\n                if (s[i]\
+    \ == '>') angle_level--;                              \\\n                if (s[i]\
+    \ == ' ') continue;                                   \\\n                if (s[i]\
+    \ == ',' && parlevel == 0 && angle_level == 0) {      \\\n                   \
+    \ res.push_back(tmp);                                      \\\n              \
+    \      tmp = \"\";                                                \\\n       \
+    \         } else {                                                     \\\n  \
+    \                  tmp += s[i];                                             \\\
+    \n                }                                                          \
+    \  \\\n            }                                                         \
+    \       \\\n            res.push_back(tmp);                                  \
+    \            \\\n            return res;                                     \
+    \                 \\\n        }(#__VA_ARGS__));                              \
+    \                      \\\n        dump_macro::varidx.push(0);               \
+    \                           \\\n        dump_func(__VA_ARGS__);              \
+    \                                \\\n        DUMPOUT << \"in [\" << __LINE__ <<\
+    \ \":\" << __FUNCTION__ << \"]\" << endl; \\\n        dump_macro::varnames.pop();\
+    \                                          \\\n        dump_macro::varidx.pop();\
+    \                                            \\\n    }\n\n#define dump_1d(x, n)\
+    \                                                     \\\n    {              \
+    \                                                       \\\n        DUMPOUT <<\
+    \ \"  \" << #x << \"[\" << #n << \"]\"                         \\\n          \
+    \      << \":=> {\";                                               \\\n      \
+    \  rep(i, n) { DUMPOUT << x[i] << (((i) == (n - 1)) ? \"}\" : \", \"); } \\\n\
+    \        DUMPOUT << \" in [\" << __LINE__ << \"]\" << endl;                  \
+    \  \\\n    }\n\n#define dump_2d(x, n, m)                                     \
+    \ \\\n    {                                                         \\\n     \
+    \   DUMPOUT << \"  \" << #x << \"[\" << #n << \"]\"             \\\n         \
+    \       << \"[\" << #m << \"]\"                           \\\n               \
+    \ << \":=> \\n\";                                  \\\n        rep(i, n) rep(j,\
+    \ m) {                                 \\\n            DUMPOUT << ((j == 0) ?\
+    \ \"     |\" : \" \") << x[i][j] \\\n                    << (((j) == (m - 1))\
+    \ ? \"|\\n\" : \" \");      \\\n        }                                    \
+    \                 \\\n        DUMPOUT << \"  in [\" << __LINE__ << \"]\" << endl;\
+    \       \\\n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\n\
+    void dump_func(Head&& head, Tail&&... tail) {\n    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()]\
+    \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
+    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dump_macro::varidx.top();\n\
+    \    dump_func(std::move(tail)...);\n}\n\n#include \"prettyprint.hpp\"\n"
+  dependsOn:
+  - library/cpp/header.hpp
+  - library/cpp/debug/prettyprint.hpp
+  isVerificationFile: false
+  path: library/cpp/debug/dump.hpp
+  requiredBy: []
+  timestamp: '2020-09-05 21:34:55+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
+documentation_of: library/cpp/debug/dump.hpp
+layout: document
+redirect_from:
+- /library/library/cpp/debug/dump.hpp
+- /library/library/cpp/debug/dump.hpp.html
+title: library/cpp/debug/dump.hpp
+---

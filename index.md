@@ -1,295 +1,420 @@
 ---
-layout: default
+data:
+  libraryCategories:
+  - name: library/cpp/array
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/bit.hpp
+      title: library/cpp/array/bit.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/bsearch.cpp
+      title: library/cpp/array/bsearch.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/lis.hpp
+      title: library/cpp/array/lis.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/slide_min.cpp
+      title: library/cpp/array/slide_min.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/sparse_table.hpp
+      title: library/cpp/array/sparse_table.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/syakutori.cpp
+      title: library/cpp/array/syakutori.cpp
+    - icon: ':warning:'
+      path: library/cpp/array/ternary_search.cpp
+      title: library/cpp/array/ternary_search.cpp
+  - name: library/cpp/array/segtree
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/rmq_2d.cpp
+      title: library/cpp/array/segtree/rmq_2d.cpp
+    - icon: ':question:'
+      path: library/cpp/array/segtree/segment_tree.hpp
+      title: library/cpp/array/segtree/segment_tree.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/segment_tree_beats.cpp
+      title: library/cpp/array/segtree/segment_tree_beats.cpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/segment_tree_lazy.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.cpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/yuki.cpp
+      title: library/cpp/array/segtree/yuki.cpp
+  - name: library/cpp/debug
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/debug/dump.hpp
+      title: library/cpp/debug/dump.hpp
+    - icon: ':warning:'
+      path: library/cpp/debug/prettyprint.hpp
+      title: library/cpp/debug/prettyprint.hpp
+  - name: library/cpp/graph
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/bellman_ford.hpp
+      title: library/cpp/graph/bellman_ford.hpp
+    - icon: ':question:'
+      path: library/cpp/graph/edge.hpp
+      title: library/cpp/graph/edge.hpp
+    - icon: ':question:'
+      path: library/cpp/graph/graph.hpp
+      title: library/cpp/graph/graph.hpp
+    - icon: ':warning:'
+      path: library/cpp/graph/gridgraph.cpp
+      title: library/cpp/graph/gridgraph.cpp
+    - icon: ':warning:'
+      path: library/cpp/graph/local_min_cycle.hpp
+      title: library/cpp/graph/local_min_cycle.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/scc.hpp
+      title: library/cpp/graph/scc.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/topological_sort.hpp
+      title: library/cpp/graph/topological_sort.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/two_sat.hpp
+      title: library/cpp/graph/two_sat.hpp
+    - icon: ':question:'
+      path: library/cpp/graph/unionfind.hpp
+      title: library/cpp/graph/unionfind.hpp
+    - icon: ':warning:'
+      path: library/cpp/graph/unionfind_with_potential.hpp
+      title: library/cpp/graph/unionfind_with_potential.hpp
+  - name: library/cpp/graph/flow
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/flow/dinic.hpp
+      title: library/cpp/graph/flow/dinic.hpp
+  - name: library/cpp/graph/tree.lib/hld.test/test
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/graph/tree.lib/hld.test/test/gen.py
+      title: library/cpp/graph/tree.lib/hld.test/test/gen.py
+    - icon: ':warning:'
+      path: library/cpp/graph/tree.lib/hld.test/test/judge.cpp
+      title: library/cpp/graph/tree.lib/hld.test/test/judge.cpp
+  - name: library/cpp/graph/tree.lib
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/kth_root.hpp
+      title: library/cpp/graph/tree.lib/kth_root.hpp
+    - icon: ':warning:'
+      path: library/cpp/graph/tree.lib/reroot.cpp
+      title: library/cpp/graph/tree.lib/reroot.cpp
+    - icon: ':question:'
+      path: library/cpp/graph/tree.lib/tree.hpp
+      title: library/cpp/graph/tree.lib/tree.hpp
+  - name: library/cpp
+    pages:
+    - icon: ':question:'
+      path: library/cpp/header.hpp
+      title: library/cpp/header.hpp
+    - icon: ':question:'
+      path: library/cpp/header.hpp
+      title: library/cpp/header.hpp
+  - name: library/cpp/math/bsgs
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/math/bsgs/bsgs.cpp
+      title: library/cpp/math/bsgs/bsgs.cpp
+    - icon: ':warning:'
+      path: library/cpp/math/bsgs/naive.cpp
+      title: library/cpp/math/bsgs/naive.cpp
+  - name: library/cpp/math/bsgs/test
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/math/bsgs/test/gen.py
+      title: library/cpp/math/bsgs/test/gen.py
+  - name: library/cpp/math
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/combination.hpp
+      title: library/cpp/math/combination.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/fft.hpp
+      title: library/cpp/math/fft.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/hakidashi_xor.hpp
+      title: library/cpp/math/hakidashi_xor.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/int.cpp
+      title: library/cpp/math/int.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/matrix_pow.hpp
+      title: library/cpp/math/matrix_pow.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/mint.hpp
+      title: library/cpp/math/mint.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/pascal.cpp
+      title: library/cpp/math/pascal.cpp
+    - icon: ':warning:'
+      path: library/cpp/math/pow.hpp
+      title: library/cpp/math/pow.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/rational.hpp
+      title: library/cpp/math/rational.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/sieve.hpp
+      title: library/cpp/math/sieve.hpp
+  - name: library/cpp/math/gbsgs
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/math/gbsgs/gbsgs.cpp
+      title: library/cpp/math/gbsgs/gbsgs.cpp
+    - icon: ':warning:'
+      path: library/cpp/math/gbsgs/naive.cpp
+      title: library/cpp/math/gbsgs/naive.cpp
+  - name: library/cpp/math/gbsgs/test
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/math/gbsgs/test/gen.py
+      title: library/cpp/math/gbsgs/test/gen.py
+  - name: library/cpp/math/geometry
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/math/geometry/angle.hpp
+      title: library/cpp/math/geometry/angle.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/geometry/area_rect.hpp
+      title: library/cpp/math/geometry/area_rect.hpp
+    - icon: ':warning:'
+      path: library/cpp/math/geometry/basic.cpp
+      title: library/cpp/math/geometry/basic.cpp
+    - icon: ':warning:'
+      path: library/cpp/math/geometry/dist_between_line_and_point.cpp
+      title: library/cpp/math/geometry/dist_between_line_and_point.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/geometry/p2.hpp
+      title: library/cpp/math/geometry/p2.hpp
+    - icon: ':warning:'
+      path: "library/cpp/math/geometry/\u4E8C\u70B9\u3092\u901A\u308B\u5186\u306E\u4E2D\
+        \u5FC3.cpp"
+      title: "library/cpp/math/geometry/\u4E8C\u70B9\u3092\u901A\u308B\u5186\u306E\
+        \u4E2D\u5FC3.cpp"
+    - icon: ':warning:'
+      path: "library/cpp/math/geometry/\u7DDA\u5206\u3068\u7DDA\u5206\u306E\u4EA4\u5DEE\
+        \u5224\u5B9A.cpp"
+      title: "library/cpp/math/geometry/\u7DDA\u5206\u3068\u7DDA\u5206\u306E\u4EA4\
+        \u5DEE\u5224\u5B9A.cpp"
+  - name: library/cpp/misc
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/misc/constant.cpp
+      title: library/cpp/misc/constant.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/dfs.cpp
+      title: library/cpp/misc/dfs.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/event_sort.cpp
+      title: library/cpp/misc/event_sort.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/misc_snip.cpp
+      title: library/cpp/misc/misc_snip.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/napsack.cpp
+      title: library/cpp/misc/napsack.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/rectanglesum.cpp
+      title: library/cpp/misc/rectanglesum.cpp
+  - name: library/cpp/misc/zipper.lib
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/misc/zipper.lib/shifter.hpp
+      title: library/cpp/misc/zipper.lib/shifter.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/misc/zipper.lib/zipper.hpp
+      title: library/cpp/misc/zipper.lib/zipper.hpp
+  - name: library/cpp/string/kmp/codes
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/string/kmp/codes/naive.cpp
+      title: library/cpp/string/kmp/codes/naive.cpp
+    - icon: ':warning:'
+      path: library/cpp/string/kmp/codes/naive.py
+      title: library/cpp/string/kmp/codes/naive.py
+    - icon: ':warning:'
+      path: library/cpp/string/kmp/codes/solve.cpp
+      title: library/cpp/string/kmp/codes/solve.cpp
+    - icon: ':warning:'
+      path: library/cpp/string/kmp/codes/solve.py
+      title: library/cpp/string/kmp/codes/solve.py
+  - name: library/cpp/string
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/string/lcs.cpp
+      title: library/cpp/string/lcs.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/string/rolling_hash.hpp
+      title: library/cpp/string/rolling_hash.hpp
+    - icon: ':warning:'
+      path: library/cpp/string/split.hpp
+      title: library/cpp/string/split.hpp
+  - name: library/cpp/string/suffix_array/codes
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/string/suffix_array/codes/suffix_array.cpp
+      title: library/cpp/string/suffix_array/codes/suffix_array.cpp
+  - name: library/cpp/string/suffix_array/test
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/string/suffix_array/test/gen.py
+      title: library/cpp/string/suffix_array/test/gen.py
+  - name: library/python
+    pages:
+    - icon: ':warning:'
+      path: library/python/bit.py
+      title: library/python/bit.py
+    - icon: ':warning:'
+      path: library/python/btree.py
+      title: library/python/btree.py
+    - icon: ':warning:'
+      path: library/python/seisu.py
+      title: library/python/seisu.py
+    - icon: ':warning:'
+      path: library/python/tsp.py
+      title: library/python/tsp.py
+    - icon: ':warning:'
+      path: library/python/unionfind.py
+      title: library/python/unionfind.py
+  - name: problem_template/codes
+    pages:
+    - icon: ':warning:'
+      path: problem_template/codes/interactive.cpp
+      title: problem_template/codes/interactive.cpp
+    - icon: ':warning:'
+      path: problem_template/codes/solve.cpp
+      title: problem_template/codes/solve.cpp
+    - icon: ':warning:'
+      path: problem_template/codes/solve.py
+      title: problem_template/codes/solve.py
+  - name: problem_template/test
+    pages:
+    - icon: ':warning:'
+      path: problem_template/test/gen.py
+      title: problem_template/test/gen.py
+    - icon: ':warning:'
+      path: problem_template/test/judge.cpp
+      title: problem_template/test/judge.cpp
+    - icon: ':warning:'
+      path: problem_template/test/judge.py
+      title: problem_template/test/judge.py
+  - name: tasks
+    pages:
+    - icon: ':warning:'
+      path: tasks/__init__.py
+      title: tasks/__init__.py
+    - icon: ':warning:'
+      path: tasks/snippet.py
+      title: tasks/snippet.py
+  verificationCategories:
+  - name: library/cpp/array
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/bit.test.cpp
+      title: library/cpp/array/bit.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/lis.test.cpp
+      title: library/cpp/array/lis.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/sparse_table.test.cpp
+      title: library/cpp/array/sparse_table.test.cpp
+  - name: library/cpp/array/segtree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree.find.test.cpp
+      title: library/cpp/array/segtree/segment_tree.find.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree.test.cpp
+      title: library/cpp/array/segtree/segment_tree.test.cpp
+  - name: library/cpp/graph/flow
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/flow/dinic.test.cpp
+      title: library/cpp/graph/flow/dinic.test.cpp
+  - name: library/cpp/graph/tests
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/bellman_ford.test.cpp
+      title: library/cpp/graph/tests/bellman_ford.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/graph.2dcost.test.cpp
+      title: library/cpp/graph/tests/graph.2dcost.test.cpp
+    - icon: ':x:'
+      path: library/cpp/graph/tests/graph.bipartie.test.cpp
+      title: library/cpp/graph/tests/graph.bipartie.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/graph.bridge.test.cpp
+      title: library/cpp/graph/tests/graph.bridge.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/graph.dijkstra.test.cpp
+      title: library/cpp/graph/tests/graph.dijkstra.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/graph.kruskal.test.cpp
+      title: library/cpp/graph/tests/graph.kruskal.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/graph.lowlink.test.cpp
+      title: library/cpp/graph/tests/graph.lowlink.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/scc.test.cpp
+      title: library/cpp/graph/tests/scc.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/topological_sort.test.cpp
+      title: library/cpp/graph/tests/topological_sort.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tests/two_sat.test.cpp
+      title: library/cpp/graph/tests/two_sat.test.cpp
+  - name: library/cpp/graph/tree.lib/hld.test/codes
+    pages:
+    - icon: ':x:'
+      path: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
+      title: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
+  - name: library/cpp/graph/tree.lib
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/hld.test.cpp
+      title: library/cpp/graph/tree.lib/hld.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/kth_root.test.cpp
+      title: library/cpp/graph/tree.lib/kth_root.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/lca.test.cpp
+      title: library/cpp/graph/tree.lib/lca.test.cpp
+  - name: library/cpp/math
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/combination.test.cpp
+      title: library/cpp/math/combination.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/matrix_pow.test.cpp
+      title: library/cpp/math/matrix_pow.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/sieve.aoj.test.cpp
+      title: library/cpp/math/sieve.aoj.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/sieve.test.cpp
+      title: library/cpp/math/sieve.test.cpp
+  - name: library/cpp/math/geometry
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/geometry/area_rect.test.cpp
+      title: library/cpp/math/geometry/area_rect.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/geometry/p2.test.cpp
+      title: library/cpp/math/geometry/p2.test.cpp
+  - name: library/cpp/misc/zipper.lib
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/misc/zipper.lib/zipper.test.cpp
+      title: library/cpp/misc/zipper.lib/zipper.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/misc/zipper.lib/zipper2.test.cpp
+      title: library/cpp/misc/zipper.lib/zipper2.test.cpp
+  - name: library/cpp/string
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/string/rolling_hash.test.cpp
+      title: library/cpp/string/rolling_hash.test.cpp
+layout: toppage
 ---
-
-<!-- mathjax config similar to math.stackexchange -->
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    TeX: { equationNumbers: { autoNumber: "AMS" }},
-    tex2jax: {
-      inlineMath: [ ['$','$'] ],
-      processEscapes: true
-    },
-    "HTML-CSS": { matchFontHeight: false },
-    displayAlign: "left",
-    displayIndent: "2em"
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="assets/css/copy-button.css" />
-
-
-# {{ site.title }}
-
-[![Actions Status]({{ site.github.repository_url }}/workflows/verify/badge.svg)]({{ site.github.repository_url }}/actions)
-<a href="{{ site.github.repository_url }}"><img src="https://img.shields.io/github/last-commit/{{ site.github.owner_name }}/{{ site.github.repository_name }}" /></a>
-
-{% if site.github.project_tagline %}{{ site.github.project_tagline }}{% else %}This documentation is automatically generated by <a href="https://github.com/online-judge-tools/verification-helper">online-judge-tools/verification-helper</a>.{% endif %}
-
-## Library Files
-
-<div id="b74e03aadbcf5e719ddbe48ef08361fd"></div>
-
-### library/cpp
-
-* :heavy_check_mark: <a href="library/library/cpp/header.hpp.html">library/cpp/header.hpp</a>
-
-
-<div id="0e902850ca3e9230d87c81984f25b3bb"></div>
-
-### library/cpp/array
-
-* :heavy_check_mark: <a href="library/library/cpp/array/bit.hpp.html">library/cpp/array/bit.hpp</a>
-* :warning: <a href="library/library/cpp/array/bsearch.cpp.html">library/cpp/array/bsearch.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/lis.hpp.html">library/cpp/array/lis.hpp</a>
-* :warning: <a href="library/library/cpp/array/slide_min.cpp.html">library/cpp/array/slide_min.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/sparse_table.hpp.html">library/cpp/array/sparse_table.hpp</a>
-* :warning: <a href="library/library/cpp/array/syakutori.cpp.html">library/cpp/array/syakutori.cpp</a>
-* :warning: <a href="library/library/cpp/array/ternary_search.cpp.html">library/cpp/array/ternary_search.cpp</a>
-
-
-<div id="ebc279bbe94c10384fe9898d1a2c958d"></div>
-
-### library/cpp/array/segtree
-
-* :warning: <a href="library/library/cpp/array/segtree/rmq_2d.cpp.html">library/cpp/array/segtree/rmq_2d.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/array/segtree/segment_tree.hpp.html">library/cpp/array/segtree/segment_tree.hpp</a>
-* :warning: <a href="library/library/cpp/array/segtree/segment_tree_beats.cpp.html">library/cpp/array/segtree/segment_tree_beats.cpp</a>
-* :warning: <a href="library/library/cpp/array/segtree/segment_tree_lazy.cpp.html">library/cpp/array/segtree/segment_tree_lazy.cpp</a>
-* :warning: <a href="library/library/cpp/array/segtree/yuki.cpp.html">library/cpp/array/segtree/yuki.cpp</a>
-
-
-<div id="dbefae66adc6b6e178b4020d7ee0c756"></div>
-
-### library/cpp/debug
-
-* :warning: <a href="library/library/cpp/debug/dump.hpp.html">library/cpp/debug/dump.hpp</a>
-* :warning: <a href="library/library/cpp/debug/prettyprint.hpp.html">library/cpp/debug/prettyprint.hpp</a>
-
-
-<div id="df01edd2bf6d13defce1efe9440d670c"></div>
-
-### library/cpp/graph
-
-* :heavy_check_mark: <a href="library/library/cpp/graph/bellman_ford.hpp.html">library/cpp/graph/bellman_ford.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/edge.hpp.html">library/cpp/graph/edge.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/graph.hpp.html">library/cpp/graph/graph.hpp</a>
-* :warning: <a href="library/library/cpp/graph/gridgraph.cpp.html">library/cpp/graph/gridgraph.cpp</a>
-* :warning: <a href="library/library/cpp/graph/local_min_cycle.hpp.html">library/cpp/graph/local_min_cycle.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/scc.hpp.html">library/cpp/graph/scc.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/topological_sort.hpp.html">library/cpp/graph/topological_sort.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/two_sat.hpp.html">library/cpp/graph/two_sat.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/unionfind.hpp.html">library/cpp/graph/unionfind.hpp</a>
-* :warning: <a href="library/library/cpp/graph/unionfind_with_potential.hpp.html">library/cpp/graph/unionfind_with_potential.hpp</a>
-
-
-<div id="08be9a8a45b2e811a312f82c2e412c8c"></div>
-
-### library/cpp/graph/flow
-
-* :heavy_check_mark: <a href="library/library/cpp/graph/flow/dinic.hpp.html">library/cpp/graph/flow/dinic.hpp</a>
-
-
-<div id="eaeee77e776a943cad05fb3e3b603f65"></div>
-
-### library/cpp/graph/tree.lib
-
-* :heavy_check_mark: <a href="library/library/cpp/graph/tree.lib/kth_root.hpp.html">library/cpp/graph/tree.lib/kth_root.hpp</a>
-* :warning: <a href="library/library/cpp/graph/tree.lib/reroot.cpp.html">library/cpp/graph/tree.lib/reroot.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/graph/tree.lib/tree.hpp.html">library/cpp/graph/tree.lib/tree.hpp</a>
-
-
-<div id="6625f7d848c2ba1574f90ce7248a2c37"></div>
-
-### library/cpp/graph/tree.lib/hld.test/test
-
-* :warning: <a href="library/library/cpp/graph/tree.lib/hld.test/test/gen.py.html">library/cpp/graph/tree.lib/hld.test/test/gen.py</a>
-* :warning: <a href="library/library/cpp/graph/tree.lib/hld.test/test/judge.cpp.html">library/cpp/graph/tree.lib/hld.test/test/judge.cpp</a>
-
-
-<div id="38e8a99339d0d505d14feb619e0537d8"></div>
-
-### library/cpp/math
-
-* :heavy_check_mark: <a href="library/library/cpp/math/combination.hpp.html">library/cpp/math/combination.hpp</a>
-* :warning: <a href="library/library/cpp/math/fft.hpp.html">library/cpp/math/fft.hpp</a>
-* :warning: <a href="library/library/cpp/math/hakidashi_xor.hpp.html">library/cpp/math/hakidashi_xor.hpp</a>
-* :warning: <a href="library/library/cpp/math/int.cpp.html">library/cpp/math/int.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/matrix_pow.hpp.html">library/cpp/math/matrix_pow.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/mint.hpp.html">library/cpp/math/mint.hpp</a>
-* :warning: <a href="library/library/cpp/math/pascal.cpp.html">library/cpp/math/pascal.cpp</a>
-* :warning: <a href="library/library/cpp/math/pow.hpp.html">library/cpp/math/pow.hpp</a>
-* :warning: <a href="library/library/cpp/math/rational.hpp.html">library/cpp/math/rational.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/sieve.hpp.html">library/cpp/math/sieve.hpp</a>
-
-
-<div id="51139f4eb77e81dbd61f182500602d94"></div>
-
-### library/cpp/math/bsgs
-
-* :warning: <a href="library/library/cpp/math/bsgs/bsgs.cpp.html">library/cpp/math/bsgs/bsgs.cpp</a>
-* :warning: <a href="library/library/cpp/math/bsgs/naive.cpp.html">library/cpp/math/bsgs/naive.cpp</a>
-
-
-<div id="09912b019734122c0fb6e1c53d1f8569"></div>
-
-### library/cpp/math/bsgs/test
-
-* :warning: <a href="library/library/cpp/math/bsgs/test/gen.py.html">library/cpp/math/bsgs/test/gen.py</a>
-
-
-<div id="9d994c49b3b2b338ab838471a698a660"></div>
-
-### library/cpp/math/gbsgs
-
-* :warning: <a href="library/library/cpp/math/gbsgs/gbsgs.cpp.html">library/cpp/math/gbsgs/gbsgs.cpp</a>
-* :warning: <a href="library/library/cpp/math/gbsgs/naive.cpp.html">library/cpp/math/gbsgs/naive.cpp</a>
-
-
-<div id="b56b2b4e7d078f2c23c623d57c0b229e"></div>
-
-### library/cpp/math/gbsgs/test
-
-* :warning: <a href="library/library/cpp/math/gbsgs/test/gen.py.html">library/cpp/math/gbsgs/test/gen.py</a>
-
-
-<div id="fc16e9fb7f40757e9b21d2e083b6a084"></div>
-
-### library/cpp/math/geometry
-
-* :warning: <a href="library/library/cpp/math/geometry/angle.hpp.html">library/cpp/math/geometry/angle.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/geometry/area_rect.hpp.html">library/cpp/math/geometry/area_rect.hpp</a>
-* :warning: <a href="library/library/cpp/math/geometry/basic.cpp.html">library/cpp/math/geometry/basic.cpp</a>
-* :warning: <a href="library/library/cpp/math/geometry/dist_between_line_and_point.cpp.html">library/cpp/math/geometry/dist_between_line_and_point.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/math/geometry/p2.hpp.html">library/cpp/math/geometry/p2.hpp</a>
-* :warning: <a href="library/library/cpp/math/geometry/二点を通る円の中心.cpp.html">library/cpp/math/geometry/二点を通る円の中心.cpp</a>
-* :warning: <a href="library/library/cpp/math/geometry/線分と線分の交差判定.cpp.html">library/cpp/math/geometry/線分と線分の交差判定.cpp</a>
-
-
-<div id="b4c52cffc478acefbc1ee6a9d0578055"></div>
-
-### library/cpp/misc
-
-* :warning: <a href="library/library/cpp/misc/constant.cpp.html">library/cpp/misc/constant.cpp</a>
-* :warning: <a href="library/library/cpp/misc/dfs.cpp.html">library/cpp/misc/dfs.cpp</a>
-* :warning: <a href="library/library/cpp/misc/event_sort.cpp.html">library/cpp/misc/event_sort.cpp</a>
-* :warning: <a href="library/library/cpp/misc/misc_snip.cpp.html">library/cpp/misc/misc_snip.cpp</a>
-* :warning: <a href="library/library/cpp/misc/napsack.cpp.html">library/cpp/misc/napsack.cpp</a>
-* :warning: <a href="library/library/cpp/misc/rectanglesum.cpp.html">library/cpp/misc/rectanglesum.cpp</a>
-
-
-<div id="04045c664907c0ef027b886794febe26"></div>
-
-### library/cpp/misc/zipper.lib
-
-* :warning: <a href="library/library/cpp/misc/zipper.lib/shifter.hpp.html">library/cpp/misc/zipper.lib/shifter.hpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/misc/zipper.lib/zipper.hpp.html">library/cpp/misc/zipper.lib/zipper.hpp</a>
-
-
-<div id="6e84951d1d0c19ce3fef1705f200b877"></div>
-
-### library/cpp/string
-
-* :warning: <a href="library/library/cpp/string/lcs.cpp.html">library/cpp/string/lcs.cpp</a>
-* :heavy_check_mark: <a href="library/library/cpp/string/rolling_hash.hpp.html">library/cpp/string/rolling_hash.hpp</a>
-* :warning: <a href="library/library/cpp/string/split.hpp.html">library/cpp/string/split.hpp</a>
-
-
-<div id="c4edc97866360646965a77b5500cc883"></div>
-
-### library/cpp/string/kmp/codes
-
-* :warning: <a href="library/library/cpp/string/kmp/codes/naive.cpp.html">library/cpp/string/kmp/codes/naive.cpp</a>
-* :warning: <a href="library/library/cpp/string/kmp/codes/naive.py.html">library/cpp/string/kmp/codes/naive.py</a>
-* :warning: <a href="library/library/cpp/string/kmp/codes/solve.cpp.html">library/cpp/string/kmp/codes/solve.cpp</a>
-* :warning: <a href="library/library/cpp/string/kmp/codes/solve.py.html">library/cpp/string/kmp/codes/solve.py</a>
-
-
-<div id="04b9fdf3733e033461bbd7a8ed473f54"></div>
-
-### library/cpp/string/suffix_array/codes
-
-* :warning: <a href="library/library/cpp/string/suffix_array/codes/suffix_array.cpp.html">library/cpp/string/suffix_array/codes/suffix_array.cpp</a>
-
-
-<div id="bc0d468ae7d171bfd708aa3d24de637c"></div>
-
-### library/cpp/string/suffix_array/test
-
-* :warning: <a href="library/library/cpp/string/suffix_array/test/gen.py.html">library/cpp/string/suffix_array/test/gen.py</a>
-
-
-<div id="051bb6df61b6c6e7f8c1868985011b07"></div>
-
-### library/python
-
-* :warning: <a href="library/library/python/bit.py.html">library/python/bit.py</a>
-* :warning: <a href="library/library/python/btree.py.html">library/python/btree.py</a>
-* :warning: <a href="library/library/python/seisu.py.html">library/python/seisu.py</a>
-* :warning: <a href="library/library/python/tsp.py.html">library/python/tsp.py</a>
-* :warning: <a href="library/library/python/unionfind.py.html">library/python/unionfind.py</a>
-
-
-<div id="dd26a324a0aa66900316935adc80e31b"></div>
-
-### problem_template/codes
-
-* :warning: <a href="library/problem_template/codes/interactive.cpp.html">problem_template/codes/interactive.cpp</a>
-* :warning: <a href="library/problem_template/codes/solve.cpp.html">problem_template/codes/solve.cpp</a>
-* :warning: <a href="library/problem_template/codes/solve.py.html">problem_template/codes/solve.py</a>
-
-
-<div id="76c92c32675513a9b45b3a525f3ad871"></div>
-
-### problem_template/test
-
-* :warning: <a href="library/problem_template/test/gen.py.html">problem_template/test/gen.py</a>
-* :warning: <a href="library/problem_template/test/judge.cpp.html">problem_template/test/judge.cpp</a>
-* :warning: <a href="library/problem_template/test/judge.py.html">problem_template/test/judge.py</a>
-
-
-<div id="2cb1ad4f3eb0ea704c74a73689ad1654"></div>
-
-### tasks
-
-* :warning: <a href="library/tasks/__init__.py.html">tasks/__init__.py</a>
-* :warning: <a href="library/tasks/snippet.py.html">tasks/snippet.py</a>
-
-
-## Verify Files
-
-* :heavy_check_mark: <a href="verify/library/cpp/array/bit.test.cpp.html">library/cpp/array/bit.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/lis.test.cpp.html">library/cpp/array/lis.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.find.test.cpp.html">library/cpp/array/segtree/segment_tree.find.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/segtree/segment_tree.test.cpp.html">library/cpp/array/segtree/segment_tree.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/array/sparse_table.test.cpp.html">library/cpp/array/sparse_table.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/flow/dinic.test.cpp.html">library/cpp/graph/flow/dinic.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/bellman_ford.test.cpp.html">library/cpp/graph/tests/bellman_ford.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.2dcost.test.cpp.html">library/cpp/graph/tests/graph.2dcost.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.bridge.test.cpp.html">library/cpp/graph/tests/graph.bridge.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.dijkstra.test.cpp.html">library/cpp/graph/tests/graph.dijkstra.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.kruskal.test.cpp.html">library/cpp/graph/tests/graph.kruskal.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/graph.lowlink.test.cpp.html">library/cpp/graph/tests/graph.lowlink.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/scc.test.cpp.html">library/cpp/graph/tests/scc.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/topological_sort.test.cpp.html">library/cpp/graph/tests/topological_sort.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tests/two_sat.test.cpp.html">library/cpp/graph/tests/two_sat.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/hld.test.cpp.html">library/cpp/graph/tree.lib/hld.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/kth_root.test.cpp.html">library/cpp/graph/tree.lib/kth_root.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/graph/tree.lib/lca.test.cpp.html">library/cpp/graph/tree.lib/lca.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/combination.test.cpp.html">library/cpp/math/combination.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/geometry/area_rect.test.cpp.html">library/cpp/math/geometry/area_rect.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/geometry/p2.test.cpp.html">library/cpp/math/geometry/p2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/matrix_pow.test.cpp.html">library/cpp/math/matrix_pow.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/sieve.aoj.test.cpp.html">library/cpp/math/sieve.aoj.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/math/sieve.test.cpp.html">library/cpp/math/sieve.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper.test.cpp.html">library/cpp/misc/zipper.lib/zipper.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/misc/zipper.lib/zipper2.test.cpp.html">library/cpp/misc/zipper.lib/zipper2.test.cpp</a>
-* :heavy_check_mark: <a href="verify/library/cpp/string/rolling_hash.test.cpp.html">library/cpp/string/rolling_hash.test.cpp</a>
-
-
