@@ -7,7 +7,8 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 [ppp]
   [ppp.custom_hook_command]
   # after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" +6'
-  after = 'nvr --remote-tab {dirname}/codes/solve.cpp {dirname}/test/gen.py'
+  # after = 'nvr --remote-tab {dirname}/codes/solve.cpp {dirname}/test/gen.py'
+  after = 'nvr --remote-tab {dirname}/codes/solve.cpp'
   # after = 'code "{dirname}" -g {dirname}/codes/solve.cpp:6 {dirname}/test/gen.py -r'
 
 [submit]
@@ -21,7 +22,9 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
   [submit.language.AtCoder]
   gcc = '4003' # C++17 (GCC 9.2.1)
+  gcc_acl = '4101' # GCC 9.2.1 with AC Library v1.1
   clang = '4004' # C++17 (Glang 10.0.0)
+  clang_acl = '4102' # Clang 10.0.0 with AC Library v1.1
   py = '4006' # python 3.8.2
   pypy = '4047' # pypy3
 
@@ -47,16 +50,17 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
                -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
             """
 
+  with_acl = """g++ {srcpath} -o {outpath} \
+               -std=c++17 \
+               -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
+               -I /home/koji0708/go/src/github.com/atcoder/ac-library \
+               -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
+            """
+
   standard_14 = """g++ {srcpath} -o {outpath} \
                -std=c++14 \
                -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
                -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
-            """
-
-  nd           = """g++ {srcpath} -o {outpath} \
-               -std=c++17 \
-               -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/header.hpp \
-               -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
             """
 
   debug = """g++ {srcpath} -o {outpath} \
