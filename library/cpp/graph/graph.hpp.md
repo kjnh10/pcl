@@ -60,9 +60,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/graph.kruskal.test.cpp
     title: library/cpp/graph/tests/graph.kruskal.test.cpp
-  - icon: ':x:'
-    path: library/cpp/graph/tests/graph.bipartie.test.cpp
-    title: library/cpp/graph/tests/graph.bipartie.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/two_sat.test.cpp
     title: library/cpp/graph/tests/two_sat.test.cpp
@@ -422,7 +419,6 @@ data:
   - library/cpp/graph/tests/graph.dijkstra.test.cpp
   - library/cpp/graph/tests/topological_sort.test.cpp
   - library/cpp/graph/tests/graph.kruskal.test.cpp
-  - library/cpp/graph/tests/graph.bipartie.test.cpp
   - library/cpp/graph/tests/two_sat.test.cpp
 documentation_of: library/cpp/graph/graph.hpp
 layout: document

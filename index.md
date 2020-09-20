@@ -341,9 +341,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.2dcost.test.cpp
       title: library/cpp/graph/tests/graph.2dcost.test.cpp
-    - icon: ':x:'
-      path: library/cpp/graph/tests/graph.bipartie.test.cpp
-      title: library/cpp/graph/tests/graph.bipartie.test.cpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.bridge.test.cpp
       title: library/cpp/graph/tests/graph.bridge.test.cpp
