@@ -45,9 +45,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':x:'
-    path: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
-    title: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/graph.lowlink.test.cpp
     title: library/cpp/graph/tests/graph.lowlink.test.cpp
@@ -145,7 +142,6 @@ data:
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
   - library/cpp/graph/tree.lib/lca.test.cpp
-  - library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - library/cpp/graph/tests/graph.lowlink.test.cpp
   - library/cpp/graph/tests/graph.bridge.test.cpp
   - library/cpp/graph/tests/bellman_ford.test.cpp

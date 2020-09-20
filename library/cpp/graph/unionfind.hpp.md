@@ -27,9 +27,6 @@ data:
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
-    path: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
-    title: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/graph.lowlink.test.cpp
     title: library/cpp/graph/tests/graph.lowlink.test.cpp
@@ -139,7 +136,6 @@ data:
   timestamp: '2020-09-05 21:34:55+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - library/cpp/graph/tests/graph.lowlink.test.cpp
   - library/cpp/graph/tests/graph.bridge.test.cpp
   - library/cpp/graph/tests/bellman_ford.test.cpp

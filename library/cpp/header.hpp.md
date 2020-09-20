@@ -42,9 +42,6 @@ data:
     path: library/cpp/array/segtree/rmq_2d.cpp
     title: library/cpp/array/segtree/rmq_2d.cpp
   - icon: ':warning:'
-    path: library/cpp/array/segtree/segment_tree_beats.cpp
-    title: library/cpp/array/segtree/segment_tree_beats.cpp
-  - icon: ':warning:'
     path: library/cpp/math/rational.hpp
     title: library/cpp/math/rational.hpp
   - icon: ':heavy_check_mark:'
@@ -229,9 +226,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':x:'
-    path: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
-    title: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/flow/dinic.test.cpp
     title: library/cpp/graph/flow/dinic.test.cpp
@@ -528,7 +522,6 @@ data:
   - library/cpp/array/bsearch.cpp
   - library/cpp/array/segtree/segment_tree.hpp
   - library/cpp/array/segtree/rmq_2d.cpp
-  - library/cpp/array/segtree/segment_tree_beats.cpp
   - library/cpp/math/rational.hpp
   - library/cpp/math/combination.hpp
   - library/cpp/math/hakidashi_xor.hpp
@@ -594,7 +587,6 @@ data:
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
   - library/cpp/graph/tree.lib/lca.test.cpp
-  - library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - library/cpp/graph/flow/dinic.test.cpp
   - library/cpp/graph/tests/graph.lowlink.test.cpp
   - library/cpp/graph/tests/graph.bridge.test.cpp

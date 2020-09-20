@@ -362,11 +362,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/two_sat.test.cpp
       title: library/cpp/graph/tests/two_sat.test.cpp
-  - name: library/cpp/graph/tree.lib/hld.test/codes
-    pages:
-    - icon: ':x:'
-      path: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
-      title: library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp
   - name: library/cpp/graph/tree.lib
     pages:
     - icon: ':heavy_check_mark:'
