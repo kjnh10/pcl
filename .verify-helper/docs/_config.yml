@@ -1,4 +1,4 @@
 exclude: [
     "library/cpp/graph/tests/graph.bipartie.test.cpp",
-    "library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp ",
+    "library/cpp/graph/tree.lib/hld.test/codes/hld.test.past2-o.cpp",
     ]
