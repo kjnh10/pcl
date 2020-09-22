@@ -65,31 +65,31 @@ data:
     \ = N - 2; i >= 0; i--)\n                node[i] = merge(node[2 * i + 1], node[2\
     \ * i + 2]);\n        }\n        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n,\
     \ id), f, id) {}\n\n        T& operator[](int i) { return node[i + N - 1]; }\n\
-    \n        void update(int i, T val) {\n            i += (N - 1);\n           \
-    \ node[i] = val;\n            while (i > 0) {\n                i = (i - 1) / 2;\n\
-    \                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n        \
-    \    }\n        }\n\n        void add(int i, T val) {\n            i += (N - 1);\n\
-    \            node[i] += val;\n            while (i > 0) {\n                i =\
-    \ (i - 1) / 2;\n                node[i] = merge(node[2 * i + 1], node[2 * i +\
-    \ 2]);\n            }\n        }\n\n        // query for [a, b)\n        T query(int\
+    \n        void set(int i, T val) {\n            i += (N - 1);\n            node[i]\
+    \ = val;\n            while (i > 0) {\n                i = (i - 1) / 2;\n    \
+    \            node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n            }\n\
+    \        }\n\n        void add(int i, T val) {\n            i += (N - 1);\n  \
+    \          node[i] += val;\n            while (i > 0) {\n                i = (i\
+    \ - 1) / 2;\n                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n\
+    \            }\n        }\n\n        // query for [a, b)\n        T query(int\
     \ a, int b, int k = 0, int l = 0, int r = -1) {\n            if (r < 0) r = N;\n\
     \            if (r <= a || b <= l) return identity;\n            if (a <= l &&\
     \ r <= b) return node[k];\n\n            T vl = query(a, b, 2 * k + 1, l, (l +\
     \ r) / 2);\n            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);\n     \
     \       return merge(vl, vr);\n        }\n\n        // find most right element\
-    \ for [a, b)\n        int find_mr(int a, int b, function<bool(T)> is_ok, int k\
-    \ = 0, int l = 0, int r = -1){\n            if (r < 0) r = N;\n            if\
-    \ (r <= a || b <= l || !is_ok(node[k])) return a-1;\n            if (k >= N-1)\
-    \ return k - (N-1);  // leaf\n\n            T vr = find_mr(a, b, is_ok, 2 * k\
-    \ + 2, (l + r) / 2, r);\n            if (vr != a-1) return vr;\n\n           \
-    \ T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);\n            return\
+    \ for [a, b)\n        int find_mr(int a, int b, const function<bool(T)>& is_ok,\
+    \ int k = 0, int l = 0, int r = -1){\n            if (r < 0) r = N;\n        \
+    \    if (r <= a || b <= l || !is_ok(node[k])) return a-1;\n            if (k >=\
+    \ N-1) return k - (N-1);  // leaf\n\n            T vr = find_mr(a, b, is_ok, 2\
+    \ * k + 2, (l + r) / 2, r);\n            if (vr != a-1) return vr;\n\n       \
+    \     T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);\n            return\
     \ vl;\n        }\n\n        // find most left element for [a, b)\n        int\
-    \ find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r =\
-    \ -1){\n            // find most left\n            if (r < 0) r = N;\n       \
-    \     if (r <= a || b <= l || !is_ok(node[k])) return b;\n            if (k >=\
-    \ N-1) return k - (N-1);  // leaf\n\n            T vl = find_ml(a, b, is_ok, 2\
-    \ * k + 1, l, (l + r) / 2);\n            if (vl != b) return vl;\n\n         \
-    \   T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);\n            return\
+    \ find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0,\
+    \ int r = -1){\n            // find most left\n            if (r < 0) r = N;\n\
+    \            if (r <= a || b <= l || !is_ok(node[k])) return b;\n            if\
+    \ (k >= N-1) return k - (N-1);  // leaf\n\n            T vl = find_ml(a, b, is_ok,\
+    \ 2 * k + 1, l, (l + r) / 2);\n            if (vl != b) return vl;\n\n       \
+    \     T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);\n            return\
     \ vr;\n        }\n\n        #if defined(PCM) || defined(LOCAL)\n        friend\
     \ ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //\n            os <<\
     \ \"[\";\n            for (int i = 0; i < sg.n; i++) {\n                os <<\
@@ -219,7 +219,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tree.lib/hld.test.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-09-23 01:02:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/hld.test.cpp

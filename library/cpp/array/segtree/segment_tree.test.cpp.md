@@ -59,31 +59,31 @@ data:
     \ = N - 2; i >= 0; i--)\n                node[i] = merge(node[2 * i + 1], node[2\
     \ * i + 2]);\n        }\n        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n,\
     \ id), f, id) {}\n\n        T& operator[](int i) { return node[i + N - 1]; }\n\
-    \n        void update(int i, T val) {\n            i += (N - 1);\n           \
-    \ node[i] = val;\n            while (i > 0) {\n                i = (i - 1) / 2;\n\
-    \                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n        \
-    \    }\n        }\n\n        void add(int i, T val) {\n            i += (N - 1);\n\
-    \            node[i] += val;\n            while (i > 0) {\n                i =\
-    \ (i - 1) / 2;\n                node[i] = merge(node[2 * i + 1], node[2 * i +\
-    \ 2]);\n            }\n        }\n\n        // query for [a, b)\n        T query(int\
+    \n        void set(int i, T val) {\n            i += (N - 1);\n            node[i]\
+    \ = val;\n            while (i > 0) {\n                i = (i - 1) / 2;\n    \
+    \            node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n            }\n\
+    \        }\n\n        void add(int i, T val) {\n            i += (N - 1);\n  \
+    \          node[i] += val;\n            while (i > 0) {\n                i = (i\
+    \ - 1) / 2;\n                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n\
+    \            }\n        }\n\n        // query for [a, b)\n        T query(int\
     \ a, int b, int k = 0, int l = 0, int r = -1) {\n            if (r < 0) r = N;\n\
     \            if (r <= a || b <= l) return identity;\n            if (a <= l &&\
     \ r <= b) return node[k];\n\n            T vl = query(a, b, 2 * k + 1, l, (l +\
     \ r) / 2);\n            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);\n     \
     \       return merge(vl, vr);\n        }\n\n        // find most right element\
-    \ for [a, b)\n        int find_mr(int a, int b, function<bool(T)> is_ok, int k\
-    \ = 0, int l = 0, int r = -1){\n            if (r < 0) r = N;\n            if\
-    \ (r <= a || b <= l || !is_ok(node[k])) return a-1;\n            if (k >= N-1)\
-    \ return k - (N-1);  // leaf\n\n            T vr = find_mr(a, b, is_ok, 2 * k\
-    \ + 2, (l + r) / 2, r);\n            if (vr != a-1) return vr;\n\n           \
-    \ T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);\n            return\
+    \ for [a, b)\n        int find_mr(int a, int b, const function<bool(T)>& is_ok,\
+    \ int k = 0, int l = 0, int r = -1){\n            if (r < 0) r = N;\n        \
+    \    if (r <= a || b <= l || !is_ok(node[k])) return a-1;\n            if (k >=\
+    \ N-1) return k - (N-1);  // leaf\n\n            T vr = find_mr(a, b, is_ok, 2\
+    \ * k + 2, (l + r) / 2, r);\n            if (vr != a-1) return vr;\n\n       \
+    \     T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);\n            return\
     \ vl;\n        }\n\n        // find most left element for [a, b)\n        int\
-    \ find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r =\
-    \ -1){\n            // find most left\n            if (r < 0) r = N;\n       \
-    \     if (r <= a || b <= l || !is_ok(node[k])) return b;\n            if (k >=\
-    \ N-1) return k - (N-1);  // leaf\n\n            T vl = find_ml(a, b, is_ok, 2\
-    \ * k + 1, l, (l + r) / 2);\n            if (vl != b) return vl;\n\n         \
-    \   T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);\n            return\
+    \ find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0,\
+    \ int r = -1){\n            // find most left\n            if (r < 0) r = N;\n\
+    \            if (r <= a || b <= l || !is_ok(node[k])) return b;\n            if\
+    \ (k >= N-1) return k - (N-1);  // leaf\n\n            T vl = find_ml(a, b, is_ok,\
+    \ 2 * k + 1, l, (l + r) / 2);\n            if (vl != b) return vl;\n\n       \
+    \     T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);\n            return\
     \ vr;\n        }\n\n        #if defined(PCM) || defined(LOCAL)\n        friend\
     \ ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //\n            os <<\
     \ \"[\";\n            for (int i = 0; i < sg.n; i++) {\n                os <<\
@@ -99,31 +99,31 @@ data:
     \ max(a, b); };\n    SegmentTree<int> seg(a, f, -1e9);\n\n    assert(seg.query(0,\
     \ 8) == 7);\n    dump(seg.query(0, 8));\n    dump(seg.query(0, 10));\n    dump(seg.query(-3,\
     \ 10));\n    dump(seg[0]);\n    dump(seg[1]);\n    dump(seg[2]);\n    dump(seg);\n\
-    \    seg.update(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\
-    \u4ED6\u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n   \
-    \ auto mymax = [&](auto a, auto b) { return max(a, b); };\n    vector<double>\
-    \ p(6);\n    SegmentTree<double> segd(p, mymax, -1e18);\n    segd.update(0, 1.2);\n\
-    \    segd.update(1, 1.4);\n    segd.update(2, 1.6);\n    double v = segd.query(0,\
-    \ 6);\n    dump(v);\n\n    cout << \"Hello World\" << endl;\n}\n"
+    \    seg.set(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\u4ED6\
+    \u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n    auto mymax\
+    \ = [&](auto a, auto b) { return max(a, b); };\n    vector<double> p(6);\n   \
+    \ SegmentTree<double> segd(p, mymax, -1e18);\n    segd.set(0, 1.2);\n    segd.set(1,\
+    \ 1.4);\n    segd.set(2, 1.6);\n    double v = segd.query(0, 6);\n    dump(v);\n\
+    \n    cout << \"Hello World\" << endl;\n}\n"
   code: "#define PROBLEM \\\n    \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
     \n#include \"segment_tree.hpp\"\n\nsigned main() {\n    vector<int> a = {1, 4,\
     \ -2, 3, 6, 7};\n    auto f = [&](auto a, auto b) { return max(a, b); };\n   \
     \ SegmentTree<int> seg(a, f, -1e9);\n\n    assert(seg.query(0, 8) == 7);\n   \
     \ dump(seg.query(0, 8));\n    dump(seg.query(0, 10));\n    dump(seg.query(-3,\
     \ 10));\n    dump(seg[0]);\n    dump(seg[1]);\n    dump(seg[2]);\n    dump(seg);\n\
-    \    seg.update(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\
-    \u4ED6\u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n   \
-    \ auto mymax = [&](auto a, auto b) { return max(a, b); };\n    vector<double>\
-    \ p(6);\n    SegmentTree<double> segd(p, mymax, -1e18);\n    segd.update(0, 1.2);\n\
-    \    segd.update(1, 1.4);\n    segd.update(2, 1.6);\n    double v = segd.query(0,\
-    \ 6);\n    dump(v);\n\n    cout << \"Hello World\" << endl;\n}\n"
+    \    seg.set(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\u4ED6\
+    \u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n    auto mymax\
+    \ = [&](auto a, auto b) { return max(a, b); };\n    vector<double> p(6);\n   \
+    \ SegmentTree<double> segd(p, mymax, -1e18);\n    segd.set(0, 1.2);\n    segd.set(1,\
+    \ 1.4);\n    segd.set(2, 1.6);\n    double v = segd.query(0, 6);\n    dump(v);\n\
+    \n    cout << \"Hello World\" << endl;\n}\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree.hpp
   - library/cpp/header.hpp
   isVerificationFile: true
   path: library/cpp/array/segtree/segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-09-23 01:02:42+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/segment_tree.test.cpp

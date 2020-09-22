@@ -35,9 +35,12 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/segtree/segment_tree_beats.cpp
       title: library/cpp/array/segtree/segment_tree_beats.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree_lazy.hpp
+      title: library/cpp/array/segtree/segment_tree_lazy.hpp
     - icon: ':warning:'
-      path: library/cpp/array/segtree/segment_tree_lazy.cpp
-      title: library/cpp/array/segtree/segment_tree_lazy.cpp
+      path: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
     - icon: ':warning:'
       path: library/cpp/array/segtree/yuki.cpp
       title: library/cpp/array/segtree/yuki.cpp
@@ -328,6 +331,18 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/segment_tree.test.cpp
       title: library/cpp/array/segtree/segment_tree.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp
+      title: library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp
   - name: library/cpp/graph/flow
     pages:
     - icon: ':heavy_check_mark:'
