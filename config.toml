@@ -13,12 +13,12 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
 [submit]
   [submit.default_lang.AtCoder]
-  cpp = 'gcc'
+  cpp = 'gcc_acl'
   py  = 'py'
 
   [submit.default_lang.Codeforces]
-  cpp = 'gcc'  # GNU G++14 6.4.0
-  py  = 'py'    # pypy if you prefer python3, use '31'
+  cpp = 'gcc'
+  py  = 'py'
 
   [submit.default_lang.yukicoder]
   cpp = 'cpp17'
@@ -26,35 +26,23 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
 [test]
   timeout_sec=2
-  # max_memory=256
   max_memory=1024
 
-  [test.compile_command]
-  configname = 'standard_17'  # specify the profile used by default for tt and sb
+  [test.compile_command] # specify the profile used by default for tt and sb
+  configname = 'default'
 
   [test.compile_command.cpp]  # for tt command, you can change the compile command by --cc option. like 'pcm tt -c 1 --cc v5'
-  standard_17 = """g++ {srcpath} -o {outpath} \
+  default = """g++ {srcpath} -o {outpath} \
                -std=c++17 \
                -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
-               -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
-            """
-
-  with_acl = """g++ {srcpath} -o {outpath} \
-               -std=c++17 \
-               -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
-               -I /home/koji0708/go/src/github.com/atcoder/ac-library \
-               -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
-            """
-
-  standard_14 = """g++ {srcpath} -o {outpath} \
-               -std=c++14 \
-               -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
+               -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
                -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
             """
 
   debug = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
+            -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
             -DPCM -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -fuse-ld=gold \
             -g
             """
@@ -65,12 +53,14 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
           -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
           -I/usr/include/x86_64-linux-gnu/c++/9 \
           -I/usr/include/c++/9 \
+          -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
           -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=lld
           """
 
   detail = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
+            -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
             -DPCM\
             -Wall -Wextra -pedantic -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector \
   """

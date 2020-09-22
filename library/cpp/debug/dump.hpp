@@ -4,8 +4,6 @@
 using namespace std;
 #include <bits/stdc++.h>
 
-#include "../header.hpp"
-
 #define DUMPOUT cerr  // where to dump. cout or cerr
 
 #define cerrendl cerr << endl
