@@ -133,135 +133,163 @@ alias 2drmq
   };
 
 
-snippet segment_tree_lazy
-alias lazy
-  template <typename T, typename E>
-  struct segment_tree_lazy {  //{{{
-      // T: 値の型
-      // E: update作用素
-      using F = function<T(T, T)>;
-      using G = function<T(T, E)>;
-      using H = function<E(E, E)>;
-      int n, height;
-      F f;   // 区間のマージ
-      G g;   // 更新をどのように行うか
-      H h;   // 複数の更新のまとめ方
-      T ti;  // 値の単位元
-      E ei;  // 恒等置換
-      vector<T> dat;
-      vector<E> laz;
-      segment_tree_lazy() {}
-      segment_tree_lazy(F f, G g, H h, T ti, E ei)
-          : f(f), g(g), h(h), ti(ti), ei(ei) {}
+snippet make_lseg_rmq_ruq
+alias rmq_ruq
+  // snippet:make_lseg_rmq_ruq {{{
+  using X = ll; // (X, merge) is monoid
+  using M = ll; // (M, composition) is monoid
+  auto make_lseg_rmq_ruq(){
+      auto merge = [](X x1, X x2){return min(x1,x2);};
+      X ex = numeric_limits<X>::max();  // s.t merge(x, ex) = x
+      M em = numeric_limits<M>::max();
+      // s.t composition(m, em) = m && s.t composition(em, m) = m && apply(x, em) = x
+      auto composition = [=](M m1, M m2){ 
+          if (m1 == em) return m2;
+          if (m2 == em) return m1;
+          return m2;
+      };
+      auto apply = [=](X x, M m){return (m==em ? x : m);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // snippet:make_lseg_rmq_ruq }}}
+
+
+snippet make_lseg_rmq_raq
+alias rmq_raq
+  // snippet:make_lseg_rmq_raq {{{
+  using X = ll; // (X, merge) is monoid
+  using M = ll; // (M, composition) is monoid
+  auto make_lseg_rmq_raq(){
+      auto merge = [](X x1, X x2){return min(x1,x2);};
+      X ex = numeric_limits<X>::max();
+      auto composition = [](M m1, M m2){return m1 + m2;};
+      M em = 0;
+      auto apply = [](X x, M m){return x + m;};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // snippet:make_lseg_rmq_raq }}}
+
+
+snippet monoid_with_len
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
+  };
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
+
+
+snippet monoid_affin_transformation
+  // snippet:monoid_affin_transformation {{{
+  struct monoid_affin_transformation {
+      mint a, b;
+      monoid_affin_transformation(){};
+      monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};
+  };
+  monoid_affin_transformation operator+(monoid_affin_transformation x, monoid_affin_transformation y){
+      return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);
+  }
+  bool operator==(monoid_affin_transformation m1, monoid_affin_transformation m2) {
+      return m1.a == m2.a && m1.b == m2.b;
+  }
+  // snippet:monoid_affin_transformation }}}
+
+
+snippet make_lseg_rsq_raffinq
+alias rsq_raffinq
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
+  };
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
   
-      void init(int n_) { /*{{{*/
-          n = 1;
-          height = 0;
-          while (n < n_) n <<= 1, height++;
-          dat.assign(2 * n, ti);
-          laz.assign(2 * n, ei);
-      } /*}}}*/
+  // snippet:monoid_affin_transformation {{{
+  struct monoid_affin_transformation {
+      mint a, b;
+      monoid_affin_transformation(){};
+      monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};
+  };
+  monoid_affin_transformation operator+(monoid_affin_transformation x, monoid_affin_transformation y){
+      return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);
+  }
+  bool operator==(monoid_affin_transformation m1, monoid_affin_transformation m2) {
+      return m1.a == m2.a && m1.b == m2.b;
+  }
+  // snippet:monoid_affin_transformation }}}
   
-      void build(const vector<T> &v) { /*{{{*/
-          int n_ = v.size();
-          init(n_);
-          for (int i = 0; i < n_; i++) dat[n + i] = v[i];
-          for (int i = n - 1; i; i--)
-              dat[i] = f(dat[(i << 1) | 0], dat[(i << 1) | 1]);
-      } /*}}}*/
+  // snippet:make_lseg_rsq_raffinq {{{
+  using X = monoid_with_len<mint>; // (X, merge) is monoid
+  using M = monoid_affin_transformation; // (M, composition) is monoid
+  auto make_lseg_rsq_raffinq(){
+      auto merge = [](X x1, X x2){return x1 + x2;};
+      X ex = X(0, 0);
+      M em = M(1, 0);
+      auto composition = [](M m1, M m2){ return m1 + m2; };
+      auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // snippet:make_lseg_rsq_raffinq }}}
+
+
+snippet make_lseg_rsq_raq
+alias rsq_raq
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
+  };
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
   
-      inline T reflect(int k) { /*{{{*/
-          return laz[k] == ei ? dat[k] : g(dat[k], laz[k]);
-      } /*}}}*/
-  
-      inline void propagate(int k) { /*{{{*/
-          if (laz[k] == ei) return;
-          laz[(k << 1) | 0] = h(laz[(k << 1) | 0], laz[k]);
-          laz[(k << 1) | 1] = h(laz[(k << 1) | 1], laz[k]);
-          dat[k] = reflect(k);
-          laz[k] = ei;
-      } /*}}}*/
-  
-      inline void thrust(int k) { /*{{{*/
-          for (int i = height; i; i--) propagate(k >> i);
-      } /*}}}*/
-  
-      inline void recalc(int k) { /*{{{*/
-          while (k >>= 1)
-              dat[k] = f(reflect((k << 1) | 0), reflect((k << 1) | 1));
-      } /*}}}*/
-  
-      void update(int a, int b, E x) { /*{{{*/
-          if (a >= b) return;
-          thrust(a += n);
-          thrust(b += n - 1);
-          for (int l = a, r = b + 1; l < r; l >>= 1, r >>= 1) {
-              if (l & 1) laz[l] = h(laz[l], x), l++;
-              if (r & 1) --r, laz[r] = h(laz[r], x);
-          }
-          recalc(a);
-          recalc(b);
-      } /*}}}*/
-  
-      void set_val(int a, T x) { /*{{{*/
-          thrust(a += n);
-          dat[a] = x;
-          laz[a] = ei;
-          recalc(a);
-      } /*}}}*/
-  
-      T query(int a, int b) { /*{{{*/
-          if (a >= b) return ti;
-          thrust(a += n);
-          thrust(b += n - 1);
-          T vl = ti, vr = ti;
-          for (int l = a, r = b + 1; l < r; l >>= 1, r >>= 1) {
-              if (l & 1) vl = f(vl, reflect(l++));
-              if (r & 1) vr = f(reflect(--r), vr);
-          }
-          return f(vl, vr);
-      } /*}}}*/
-  
-      template <typename C>
-      int find(int st, C &check, T &acc, int k, int l, int r) { /*{{{*/
-          if (l + 1 == r) {
-              acc = f(acc, reflect(k));
-              return check(acc) ? k - n : -1;
-          }
-          propagate(k);
-          int m = (l + r) >> 1;
-          if (m <= st) return find(st, check, acc, (k << 1) | 1, m, r);
-          if (st <= l && !check(f(acc, dat[k]))) {
-              acc = f(acc, dat[k]);
-              return -1;
-          }
-          int vl = find(st, check, acc, (k << 1) | 0, l, m);
-          if (~vl) return vl;
-          return find(st, check, acc, (k << 1) | 1, m, r);
-      } /*}}}*/
-  
-      template <typename C>
-      int find(int st, C &check) { /*{{{*/
-          T acc = ti;
-          return find(st, check, acc, 1, 0, n);
-      } /*}}}*/
-  };    //}}}
-  // Sample:
-  // -----------------------------------------------
-  // init
-  // * このコードはRSQに対応していないのでRSQをする場合は別のものを使用するように注意
-  // auto f=[](int ta,int tb){return max(ta,tb);};  // how to merge
-  // auto g=[](int t,int e){return t+e;};  // how to update
-  // int ti=0,ei=0;
-  // segment_tree_lazy<int, int> lseg(f,g,g,ti,ei);
-  // const int sz = 1<<20;
-  // lseg.build(vector<int>(sz,0));
-  
-  // how to use
-  // rep(i, n) lseg.set_val(i, a[i]);
-  // lseg.update(l, r, x); // [l, r)
-  // lseg.query(l, r); // [l, r)
-  // -----------------------------------------------
+  // snippet:make_lseg_rsq_raq {{{
+  using X = monoid_with_len<ll>; // (X, merge) is monoid
+  using M = ll; // (M, composition) is monoid
+  auto make_lseg_rsq_raq(){
+      auto merge = [](X x1, X x2){return x1 + x2;};
+      X ex = X(0, 0);
+      M em = 0;
+      auto composition = [](M m1, M m2){ return m1 + m2; };
+      auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // snippet:make_lseg_rsq_raq }}}
+
+
+snippet make_lseg_getone_chmin
+alias getone_chmin
+  // snippet:make_lseg_getone_chmin {{{
+  using X = ll; // (X, merge) is monoid // 双対セグメント木として使う時は適当なモノイドを入れておけば良い。
+  using M = ll; // (M, composition) is monoid
+  auto make_lseg_getone_chmin(){
+      auto merge = [](X x1, X x2){return min(x1,x2);};
+      X ex = numeric_limits<X>::max();
+      M em = numeric_limits<M>::max();
+      auto composition = [](M m1, M m2){return min(m1, m2);};
+      auto apply = [](X x, M m){return min(x, m);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // snippet:make_lseg_getone_chmin }}}
 
 
 snippet event_sort
@@ -1687,6 +1715,107 @@ snippet bit
   };     //}}}
 
 
+snippet segment_tree_lazy
+alias lazy
+  // snippet:segment_tree_lazy {{{
+  template <typename X, typename M>
+  struct segment_tree_lazy {
+      using FX = function<X(X, X)>;
+      using FA = function<X(X, M)>;
+      using FM = function<M(M, M)>;
+      using index = int;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
+      FX merge;
+      FA apply;
+      FM composite;
+      const X ex;
+      const M em;
+      vector<X> dat;
+      vector<M> lazy;
+      segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
+          : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
+      }
+  
+      void set(index i, X x) { dat[i + n - 1] = x; }
+      void init(index n_) { 
+          N = 1;
+          n = n_;
+          while (N < n_) N <<= 1;
+          dat.assign(2 * N, ex);
+          lazy.assign(2 * N, em);
+      } 
+  
+      void build(const vector<X> &v) { 
+          int n_ = v.size();
+          init(n_);
+          for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
+          for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
+      } 
+  
+      /* lazy eval */
+      void eval(int k) {
+          if (lazy[k] == em) return;  // 更新するものが無ければ終了
+          if (k < N - 1) {            // 葉でなければ子に伝搬
+              lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
+              lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);
+          }
+          // 自身を更新
+          dat[k] = apply(dat[k], lazy[k]);
+          lazy[k] = em;
+      }
+  
+      void update(index a, index b, M x, int k, index l, index r) {
+          eval(k);
+          if (a <= l && r <= b) {  // 完全に内側の時
+              lazy[k] = composite(lazy[k], x);
+              eval(k);
+          } else if (a < r && l < b) {                     // 一部区間が被る時
+              update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
+              update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
+              dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
+          }
+      }
+      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+  
+      X query_sub(index a, index b, int k, index l, index r) {
+          eval(k);
+          if (r <= a || b <= l) {  // 完全に外側の時
+              return ex;
+          } else if (a <= l && r <= b) {  // 完全に内側の時
+              return dat[k];
+          } else {  // 一部区間が被る時
+              X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
+              X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
+              return merge(lv, rv);
+          }
+      }
+      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+  
+      // TODO implement binary search 
+  
+      /* debug */
+      inline X operator[](int i) { return query(i, i + 1); }
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //
+          os << "[";
+          for (int i = 0; i < sg.n; i++) {
+              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+          }
+          return os;
+      }
+      #endif
+  };
+  
+  /* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em): モノイド(集合X, 二項演算fx,fa,fm,p 単位元ex,em)についてサイズnで構築
+      set(int i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
+      update(i,x): i 番目の要素を x に更新。O(log(n))
+      query(a,b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
+  */
+  // snippet:segment_tree_lazy }}}
+
+
 snippet segment_tree
 alias rmq
   // snippet:segment_tree {{{
@@ -1714,7 +1843,7 @@ alias rmq
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -1744,7 +1873,7 @@ alias rmq
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -1757,7 +1886,7 @@ alias rmq
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -2464,7 +2593,7 @@ alias tps
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -2494,7 +2623,7 @@ alias tps
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -2507,7 +2636,7 @@ alias tps
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -3037,7 +3166,7 @@ snippet two_sat
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -3067,7 +3196,7 @@ snippet two_sat
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -3080,7 +3209,7 @@ snippet two_sat
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -3699,7 +3828,7 @@ alias StronglyConnectedComponents
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -3729,7 +3858,7 @@ alias StronglyConnectedComponents
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -3742,7 +3871,7 @@ alias StronglyConnectedComponents
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -4264,7 +4393,7 @@ alias cycle
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -4294,7 +4423,7 @@ alias cycle
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -4307,7 +4436,7 @@ alias cycle
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -4820,7 +4949,7 @@ snippet local_min_cycle_directed
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -4850,7 +4979,7 @@ snippet local_min_cycle_directed
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -4863,7 +4992,7 @@ snippet local_min_cycle_directed
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -5530,7 +5659,7 @@ snippet Graph
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -5560,7 +5689,7 @@ snippet Graph
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -5573,7 +5702,7 @@ snippet Graph
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -6038,7 +6167,7 @@ snippet bellman_ford
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -6068,7 +6197,7 @@ snippet bellman_ford
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -6081,7 +6210,7 @@ snippet bellman_ford
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;
@@ -6563,7 +6692,7 @@ snippet tree
   
           T& operator[](int i) { return node[i + N - 1]; }
   
-          void update(int i, T val) {
+          void set(int i, T val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -6593,7 +6722,7 @@ snippet tree
           }
   
           // find most right element for [a, b)
-          int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return a-1;
               if (k >= N-1) return k - (N-1);  // leaf
@@ -6606,7 +6735,7 @@ snippet tree
           }
   
           // find most left element for [a, b)
-          int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
               // find most left
               if (r < 0) r = N;
               if (r <= a || b <= l || !is_ok(node[k])) return b;

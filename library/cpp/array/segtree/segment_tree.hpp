@@ -30,7 +30,7 @@ template <typename T> struct SegmentTree {  // {{{
 
         T& operator[](int i) { return node[i + N - 1]; }
 
-        void update(int i, T val) {
+        void set(int i, T val) {
             i += (N - 1);
             node[i] = val;
             while (i > 0) {
@@ -60,7 +60,7 @@ template <typename T> struct SegmentTree {  // {{{
         }
 
         // find most right element for [a, b)
-        int find_mr(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+        int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
             if (r < 0) r = N;
             if (r <= a || b <= l || !is_ok(node[k])) return a-1;
             if (k >= N-1) return k - (N-1);  // leaf
@@ -73,7 +73,7 @@ template <typename T> struct SegmentTree {  // {{{
         }
 
         // find most left element for [a, b)
-        int find_ml(int a, int b, function<bool(T)> is_ok, int k = 0, int l = 0, int r = -1){
+        int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
             // find most left
             if (r < 0) r = N;
             if (r <= a || b <= l || !is_ok(node[k])) return b;
