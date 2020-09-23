@@ -66,44 +66,69 @@ data:
     //%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree.hpp\"\n//\
     \ http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\n//%snippet.set('segment_tree')%\n\
     //%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\ntemplate <typename\
-    \ T> struct SegmentTree {  // {{{\n    private:\n        using F = function<T(T,\
-    \ T)>;\n        int n;  // \u5143\u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\n\
-    \        int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E2\u51AA\n        vector<T>\
-    \ node;\n        F merge;\n        T identity;\n\n    public:\n        SegmentTree()\
-    \ {}\n        SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {\n\
-    \            n = a.size();\n            N = 1;\n            while (N < n) N *=\
-    \ 2;\n            node.resize(2 * N - 1, identity);\n            for (int i =\
-    \ 0; i < n; i++) node[i + N - 1] = a[i];\n            for (int i = N - 2; i >=\
-    \ 0; i--)\n                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n\
-    \        }\n        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id),\
-    \ f, id) {}\n\n        T& operator[](int i) { return node[i + N - 1]; }\n\n  \
-    \      void set(int i, T val) {\n            i += (N - 1);\n            node[i]\
-    \ = val;\n            while (i > 0) {\n                i = (i - 1) / 2;\n    \
-    \            node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n            }\n\
-    \        }\n\n        void add(int i, T val) {\n            i += (N - 1);\n  \
-    \          node[i] += val;\n            while (i > 0) {\n                i = (i\
-    \ - 1) / 2;\n                node[i] = merge(node[2 * i + 1], node[2 * i + 2]);\n\
-    \            }\n        }\n\n        // query for [a, b)\n        T query(int\
-    \ a, int b, int k = 0, int l = 0, int r = -1) {\n            if (r < 0) r = N;\n\
-    \            if (r <= a || b <= l) return identity;\n            if (a <= l &&\
-    \ r <= b) return node[k];\n\n            T vl = query(a, b, 2 * k + 1, l, (l +\
-    \ r) / 2);\n            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);\n     \
-    \       return merge(vl, vr);\n        }\n\n        // find most right element\
-    \ for [a, b)\n        int find_mr(int a, int b, const function<bool(T)>& is_ok,\
-    \ int k = 0, int l = 0, int r = -1){\n            if (r < 0) r = N;\n        \
-    \    if (r <= a || b <= l || !is_ok(node[k])) return a-1;\n            if (k >=\
-    \ N-1) return k - (N-1);  // leaf\n\n            T vr = find_mr(a, b, is_ok, 2\
-    \ * k + 2, (l + r) / 2, r);\n            if (vr != a-1) return vr;\n\n       \
-    \     T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);\n            return\
-    \ vl;\n        }\n\n        // find most left element for [a, b)\n        int\
-    \ find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0,\
-    \ int r = -1){\n            // find most left\n            if (r < 0) r = N;\n\
-    \            if (r <= a || b <= l || !is_ok(node[k])) return b;\n            if\
-    \ (k >= N-1) return k - (N-1);  // leaf\n\n            T vl = find_ml(a, b, is_ok,\
-    \ 2 * k + 1, l, (l + r) / 2);\n            if (vl != b) return vl;\n\n       \
-    \     T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);\n            return\
-    \ vr;\n        }\n\n        #if defined(PCM) || defined(LOCAL)\n        friend\
-    \ ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //\n            os <<\
+    \ X> struct SegmentTree {  // {{{\n    private:\n        using F = function<X(X,\
+    \ X)>;\n        using index = int;\n        int n;  // \u5143\u306E\u914D\u5217\
+    \u306E\u30B5\u30A4\u30BA\n        int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
+    2\u51AA\n        vector<X> node;\n        F merge;\n        X identity;\n\n  \
+    \  public:\n        SegmentTree() {}\n        SegmentTree(vector<X> a, F f, X\
+    \ id) : merge(f), identity(id) {\n            n = a.size();\n            N = 1;\n\
+    \            while (N < n) N *= 2;\n            node.resize(2 * N - 1, identity);\n\
+    \            for (int i = 0; i < n; i++) node[i + N - 1] = a[i];\n           \
+    \ for (int i = N - 2; i >= 0; i--)\n                node[i] = merge(node[2 * i\
+    \ + 1], node[2 * i + 2]);\n        }\n        SegmentTree(int sz, F f, X id) :\
+    \ SegmentTree(vector<X>(sz, id), f, id) {}\n\n        X& operator[](index i) {\
+    \ return node[i + N - 1]; }\n\n        void set(index i, X val) {\n          \
+    \  i += (N - 1);\n            node[i] = val;\n            while (i > 0) {\n  \
+    \              i = (i - 1) / 2;\n                node[i] = merge(node[2 * i +\
+    \ 1], node[2 * i + 2]);\n            }\n        }\n\n        void add(index i,\
+    \ X val) {\n            i += (N - 1);\n            node[i] += val;\n         \
+    \   while (i > 0) {\n                i = (i - 1) / 2;\n                node[i]\
+    \ = merge(node[2 * i + 1], node[2 * i + 2]);\n            }\n        }\n\n   \
+    \     // query for [a, b)\n        X query(index a, index b, int k = 0, index\
+    \ l = 0, index r = -1) {\n            if (r < 0) r = N;\n            if (r <=\
+    \ a || b <= l) return identity;\n            if (a <= l && r <= b) return node[k];\n\
+    \n            X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);\n            X vr\
+    \ = query(a, b, 2 * k + 2, (l + r) / 2, r);\n            return merge(vl, vr);\n\
+    \        }\n\n        index find_most_left(index l, const function<bool(X)>& is_ok){\n\
+    \            // l\u304B\u3089\u53F3\u306B\u63A2\u3057\u3066\u3044\u3063\u3066\
+    is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\u3046\u306Aindex\u3092\
+    \u8FD4\u3059\u3002\n            // assume query(l, *) has monotonity\n       \
+    \     // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l,\
+    \ i+1)) does.\n            // if such i does not exist, return n\n           \
+    \ index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;\n          \
+    \  assert(l <= res);\n            return res;\n        }\n        pair<index,\
+    \ X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l,\
+    \ index r, X left_value){\n            // params:\n                // left_value\
+    \ = (a < l ? query(a, l) : ex)\n            // return (index i, X v)\n       \
+    \         // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a,\
+    \ i) isn't ok. if such i does not exist, i = n\n                // v is the value\
+    \ s.t query(a, r)\n\n            if (r <= a) return {n, identity};  // \u533A\u9593\
+    \u304C\u5168\u304F\u88AB\u3063\u3066\u3044\u306A\u3044\n            else if (a\
+    \ <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};\n\
+    \            else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};\n\
+    \            else{\n                auto [vl, xl] = _find_most_left(a, is_ok,\
+    \ 2 * k + 1, l, (l + r) / 2, left_value);\n                if (vl != n) return\
+    \ {vl, xl};\n                auto [vr, xr] = _find_most_left(a, is_ok, 2 * k +\
+    \ 2, (l + r) / 2, r, xl);\n                return {vr, xr};\n            }\n \
+    \       }\n\n        index find_most_right(index r, const function<bool(X)>& is_ok){\n\
+    \            // r\u304B\u3089\u5DE6\u306B\u63A2\u3057\u3066\u3044\u3063\u3066\
+    is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\u3046\u306Aindex\u3092\
+    \u8FD4\u3059\u3002\n            // assume query(*, r) has monotonity\n       \
+    \     // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i,\
+    \ r+1)) does.\n            // if such i does not exist, return -1\n          \
+    \  index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;\n      \
+    \      assert(res <= r);\n            return res;\n        }\n        pair<index,\
+    \ X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l,\
+    \ index r, X right_value){\n            if (b <= l) return {-1, identity};  //\
+    \ \u533A\u9593\u304C\u5168\u304F\u88AB\u3063\u3066\u3044\u306A\u3044\n       \
+    \     else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k],\
+    \ right_value)};\n            else if (k >= N-1) return {k - (N-1), merge(node[k],\
+    \ right_value)};\n            else{\n                auto [vr, xr] = _find_most_right(b,\
+    \ is_ok, 2 * k + 2, (l + r) / 2, r, right_value);\n                if (vr != -1)\
+    \ return {vr, xr};\n                auto [vl, xl] = _find_most_right(b, is_ok,\
+    \ 2 * k + 1, l, (l + r) / 2, xr);\n                return {vl, xl};\n        \
+    \    }\n        }\n\n        #if defined(PCM) || defined(LOCAL)\n        friend\
+    \ ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //\n            os <<\
     \ \"[\";\n            for (int i = 0; i < sg.n; i++) {\n                os <<\
     \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n            }\n            return\
     \ os;\n        }\n        #endif\n};/*}}}*/\n// sample of initialize SegmentTree:\n\
@@ -111,8 +136,11 @@ data:
     \ b){return min(a,b);};\n// SegmentTree<ll> seg(a, mymin, 1e18);\n\n// auto mymax=[](auto\
     \ a, auto b){return max(a,b);};\n// SegmentTree<ll> seg(a, mymax, -1e18);\n\n\
     // auto add=[](auto a, auto b){return a+b;};\n// SegmentTree<ll> seg(a, add, 0);\n\
-    // -----------------------------------------------\n\n//%snippet.end()%\n#line\
-    \ 5 \"library/cpp/graph/tree.lib/tree.hpp\"\n// (ref) https://www.slideshare.net/Proktmr/ss-138534092\n\
+    \n// pair<int, int> get_nearest_index_of_smaller_element(int i){\n//     auto\
+    \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
+    \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
+    \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n\
+    #line 5 \"library/cpp/graph/tree.lib/tree.hpp\"\n// (ref) https://www.slideshare.net/Proktmr/ss-138534092\n\
     // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3\n\
     \n//%snippet.set('tree')%\n//%snippet.include('segment_tree')%\n//%snippet.include('edge')%\n\
     //%snippet.fold()%\ntemplate<class Cost=ll>\nstruct tree { \n    int n;\n    int\
@@ -418,7 +446,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/local_min_cycle.hpp
   requiredBy: []
-  timestamp: '2020-09-23 01:02:42+09:00'
+  timestamp: '2020-09-23 22:16:02+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/local_min_cycle.hpp

@@ -16,8 +16,8 @@ data:
     PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A
     links:
     - http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A
-  bundledCode: "#line 1 \"library/cpp/array/segtree/segment_tree.test.cpp\"\n#define\
-    \ PROBLEM \\\n    \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
+  bundledCode: "#line 1 \"library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp\"\
+    \n#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
     \n#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n//%snippet.fold()%\n\
     #ifndef HEADER_H\n#define HEADER_H\n\n// template version 2.0\nusing namespace\
     \ std;\n#include <bits/stdc++.h>\n\n// varibable settings\nconst long long INF\
@@ -122,42 +122,54 @@ data:
     \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
     \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
     \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n\
-    #line 4 \"library/cpp/array/segtree/segment_tree.test.cpp\"\n\nsigned main() {\n\
-    \    vector<int> a = {1, 4, -2, 3, 6, 7};\n    auto f = [&](auto a, auto b) {\
-    \ return max(a, b); };\n    SegmentTree<int> seg(a, f, -1e9);\n\n    assert(seg.query(0,\
-    \ 8) == 7);\n    dump(seg.query(0, 8));\n    dump(seg.query(0, 10));\n    dump(seg.query(-3,\
-    \ 10));\n    dump(seg[0]);\n    dump(seg[1]);\n    dump(seg[2]);\n    dump(seg);\n\
-    \    seg.set(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\u4ED6\
-    \u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n    auto mymax\
-    \ = [&](auto a, auto b) { return max(a, b); };\n    vector<double> p(6);\n   \
-    \ SegmentTree<double> segd(p, mymax, -1e18);\n    segd.set(0, 1.2);\n    segd.set(1,\
-    \ 1.4);\n    segd.set(2, 1.6);\n    double v = segd.query(0, 6);\n    dump(v);\n\
-    \n    cout << \"Hello World\" << endl;\n}\n"
-  code: "#define PROBLEM \\\n    \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
-    \n#include \"segment_tree.hpp\"\n\nsigned main() {\n    vector<int> a = {1, 4,\
-    \ -2, 3, 6, 7};\n    auto f = [&](auto a, auto b) { return max(a, b); };\n   \
-    \ SegmentTree<int> seg(a, f, -1e9);\n\n    assert(seg.query(0, 8) == 7);\n   \
-    \ dump(seg.query(0, 8));\n    dump(seg.query(0, 10));\n    dump(seg.query(-3,\
-    \ 10));\n    dump(seg[0]);\n    dump(seg[1]);\n    dump(seg[2]);\n    dump(seg);\n\
-    \    seg.set(2, 10);\n    dump(seg.query(0, 8));\n\n    // double\u306A\u3069\u4ED6\
-    \u306E\u578B\u3067\u3082\u52D5\u304F\u304B\u30C1\u30A7\u30C3\u30AF\n    auto mymax\
-    \ = [&](auto a, auto b) { return max(a, b); };\n    vector<double> p(6);\n   \
-    \ SegmentTree<double> segd(p, mymax, -1e18);\n    segd.set(0, 1.2);\n    segd.set(1,\
-    \ 1.4);\n    segd.set(2, 1.6);\n    double v = segd.query(0, 6);\n    dump(v);\n\
-    \n    cout << \"Hello World\" << endl;\n}\n"
+    #line 3 \"library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp\"\n\nSegmentTree<ll>\
+    \ seg;\nvector<ll> a;\nint n;\n\nint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \    return uniform_int_distribution<int64_t>(-100, 100)(x);\n}\n\npair<int, int>\
+    \ naive(int i){\n    int right = n;\n    rep(j, i+1, sz(a)){\n        if (a[j]\
+    \ < a[i]) {\n            right = j;\n            break;\n        }\n    }\n  \
+    \  int left = -1;\n    r_rep(j, 0, i){\n        if (a[j] < a[i]) {\n         \
+    \   left = j;\n            break;\n        }\n    }\n    return {left, right};\n\
+    }\n\npair<int, int> get_nearest_index_of_smaller_element(int i){\n    auto left\
+    \ = seg.find_most_right(i, [&](auto x){return x < a[i];});\n    auto right = seg.find_most_left(i,\
+    \ [&](auto x){return x < a[i];});\n    return {left, right};\n}\n\nint test(int\
+    \ _n, bool compare = true){\n    n = _n;\n    a.clear();\n    rep(i, n){ a.pb(rng()%10);\
+    \ }\n    dump(a);\n\n    seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);},\
+    \ 1e18);\n    rep(i, sz(a)){\n        auto res = get_nearest_index_of_smaller_element(i);\n\
+    \        if (compare){\n            // dump(naive(i), res);\n            assert(naive(i)\
+    \ == res);\n        }\n    }\n    return 0;\n}\n\nint main(){\n    int nums =\
+    \ 10;\n    while(nums--){\n        test(abs(rng())); \n        // test(1000000,\
+    \ false); \n    }\n    cout << \"Hello World\" << endl;\n    return 0;\n}\n"
+  code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
+    \n#include \"segment_tree.hpp\"\n\nSegmentTree<ll> seg;\nvector<ll> a;\nint n;\n\
+    \nint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \    return uniform_int_distribution<int64_t>(-100, 100)(x);\n}\n\npair<int, int>\
+    \ naive(int i){\n    int right = n;\n    rep(j, i+1, sz(a)){\n        if (a[j]\
+    \ < a[i]) {\n            right = j;\n            break;\n        }\n    }\n  \
+    \  int left = -1;\n    r_rep(j, 0, i){\n        if (a[j] < a[i]) {\n         \
+    \   left = j;\n            break;\n        }\n    }\n    return {left, right};\n\
+    }\n\npair<int, int> get_nearest_index_of_smaller_element(int i){\n    auto left\
+    \ = seg.find_most_right(i, [&](auto x){return x < a[i];});\n    auto right = seg.find_most_left(i,\
+    \ [&](auto x){return x < a[i];});\n    return {left, right};\n}\n\nint test(int\
+    \ _n, bool compare = true){\n    n = _n;\n    a.clear();\n    rep(i, n){ a.pb(rng()%10);\
+    \ }\n    dump(a);\n\n    seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);},\
+    \ 1e18);\n    rep(i, sz(a)){\n        auto res = get_nearest_index_of_smaller_element(i);\n\
+    \        if (compare){\n            // dump(naive(i), res);\n            assert(naive(i)\
+    \ == res);\n        }\n    }\n    return 0;\n}\n\nint main(){\n    int nums =\
+    \ 10;\n    while(nums--){\n        test(abs(rng())); \n        // test(1000000,\
+    \ false); \n    }\n    cout << \"Hello World\" << endl;\n    return 0;\n}\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree.hpp
   - library/cpp/header.hpp
   isVerificationFile: true
-  path: library/cpp/array/segtree/segment_tree.test.cpp
+  path: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   requiredBy: []
   timestamp: '2020-09-23 22:16:02+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: library/cpp/array/segtree/segment_tree.test.cpp
+documentation_of: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
 layout: document
 redirect_from:
-- /verify/library/cpp/array/segtree/segment_tree.test.cpp
-- /verify/library/cpp/array/segtree/segment_tree.test.cpp.html
-title: library/cpp/array/segtree/segment_tree.test.cpp
+- /verify/library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
+- /verify/library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp.html
+title: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
 ---

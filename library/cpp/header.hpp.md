@@ -197,8 +197,8 @@ data:
     path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/segment_tree.find.test.cpp
-    title: library/cpp/array/segtree/segment_tree.find.test.cpp
+    path: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
+    title: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
     title: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
@@ -208,6 +208,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.test.cpp
     title: library/cpp/array/segtree/segment_tree.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
+    title: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
     title: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
@@ -592,10 +595,11 @@ data:
   - library/cpp/array/lis.test.cpp
   - library/cpp/array/sparse_table.test.cpp
   - library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
-  - library/cpp/array/segtree/segment_tree.find.test.cpp
+  - library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   - library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
   - library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp
   - library/cpp/array/segtree/segment_tree.test.cpp
+  - library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
   - library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
   - library/cpp/math/geometry/area_rect.test.cpp
   - library/cpp/math/geometry/p2.test.cpp

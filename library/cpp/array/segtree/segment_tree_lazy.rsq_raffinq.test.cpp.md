@@ -64,35 +64,36 @@ data:
     \ em);\n    } \n\n    void build(const vector<X> &v) { \n        int n_ = v.size();\n\
     \        init(n_);\n        for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];\n\
     \        for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2\
-    \ * k + 2]);\n    } \n\n    /* lazy eval */\n    void eval(int k) {\n        if\
-    \ (lazy[k] == em) return;  // \u66F4\u65B0\u3059\u308B\u3082\u306E\u304C\u7121\
-    \u3051\u308C\u3070\u7D42\u4E86\n        if (k < N - 1) {            // \u8449\u3067\
-    \u306A\u3051\u308C\u3070\u5B50\u306B\u4F1D\u642C\n            lazy[k * 2 + 1]\
-    \ = composite(lazy[k * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k\
+    \ * k + 2]);\n    } \n\n    /* lazy propagate */\n    void propagate(int k) {\n\
+    \        if (lazy[k] == em) return;  // \u66F4\u65B0\u3059\u308B\u3082\u306E\u304C\
+    \u7121\u3051\u308C\u3070\u7D42\u4E86\n        if (k < N - 1) {            // \u8449\
+    \u3067\u306A\u3051\u308C\u3070\u5B50\u306B\u4F1D\u642C\n            lazy[k * 2\
+    \ + 1] = composite(lazy[k * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k\
     \ * 2 + 2], lazy[k]);\n        }\n        // \u81EA\u8EAB\u3092\u66F4\u65B0\n\
     \        dat[k] = apply(dat[k], lazy[k]);\n        lazy[k] = em;\n    }\n\n  \
-    \  void update(index a, index b, M x, int k, index l, index r) {\n        eval(k);\n\
-    \        if (a <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\
-    \n            lazy[k] = composite(lazy[k], x);\n            eval(k);\n       \
-    \ } else if (a < r && l < b) {                     // \u4E00\u90E8\u533A\u9593\
-    \u304C\u88AB\u308B\u6642\n            update(a, b, x, k * 2 + 1, l, (l + r) /\
-    \ 2);  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 + 2, (l + r) /\
-    \ 2, r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k * 2 + 1], dat[k\
-    \ * 2 + 2]);\n        }\n    }\n    void update(index a, index b, M x) { update(a,\
-    \ b, x, 0, 0, N); }\n\n    X query_sub(index a, index b, int k, index l, index\
-    \ r) {\n        eval(k);\n        if (r <= a || b <= l) {  // \u5B8C\u5168\u306B\
-    \u5916\u5074\u306E\u6642\n            return ex;\n        } else if (a <= l &&\
-    \ r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            return\
-    \ dat[k];\n        } else {  // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\u6642\
-    \n            X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);\n           \
-    \ X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);\n            return merge(lv,\
-    \ rv);\n        }\n    }\n    X query(index a, index b) { return query_sub(a,\
-    \ b, 0, 0, N); }\n\n    // TODO implement binary search \n\n    /* debug */\n\
-    \    inline X operator[](int i) { return query(i, i + 1); }\n\n    #if defined(PCM)\
-    \ || defined(LOCAL)\n    friend ostream& operator<<(ostream& os, segment_tree_lazy&\
-    \ sg) {  //\n        os << \"[\";\n        for (int i = 0; i < sg.n; i++) {\n\
-    \            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n        }\n\
-    \        return os;\n    }\n    #endif\n};\n\n/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em):\
+    \  void update(index a, index b, M x, int k, index l, index r) {\n        if (a\
+    \ <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n         \
+    \   lazy[k] = composite(lazy[k], x);\n            propagate(k);\n        }\n \
+    \       else if (a < r && l < b) {                     // \u4E00\u90E8\u533A\u9593\
+    \u304C\u88AB\u308B\u6642\n            propagate(k);\n            update(a, b,\
+    \ x, k * 2 + 1, l, (l + r) / 2);  // \u5DE6\u306E\u5B50\n            update(a,\
+    \ b, x, k * 2 + 2, (l + r) / 2, r);  // \u53F3\u306E\u5B50\n            dat[k]\
+    \ = merge(dat[k * 2 + 1], dat[k * 2 + 2]);\n        }\n        else{\n       \
+    \     propagate(k);\n        }\n    }\n    void update(index a, index b, M x)\
+    \ { update(a, b, x, 0, 0, N); }\n\n    X query_sub(index a, index b, int k, index\
+    \ l, index r) {\n        propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\
+    \u5168\u306B\u5916\u5074\u306E\u6642\n            return ex;\n        }\n    \
+    \    else if (a <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\
+    \n            return dat[k];\n        }\n        else {  // \u4E00\u90E8\u533A\
+    \u9593\u304C\u88AB\u308B\u6642\n            X lv = query_sub(a, b, k * 2 + 1,\
+    \ l, (l + r) / 2);\n            X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2,\
+    \ r);\n            return merge(lv, rv);\n        }\n    }\n    X query(index\
+    \ a, index b) { return query_sub(a, b, 0, 0, N); }\n\n    // TODO implement binary\
+    \ search \n\n    /* debug */\n    inline X operator[](int i) { return query(i,\
+    \ i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
+    \ os, segment_tree_lazy& sg) {  //\n        os << \"[\";\n        for (int i =\
+    \ 0; i < sg.n; i++) {\n            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" :\
+    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n\n/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em):\
     \ \u30E2\u30CE\u30A4\u30C9(\u96C6\u5408X, \u4E8C\u9805\u6F14\u7B97fx,fa,fm,p \u5358\
     \u4F4D\u5143ex,em)\u306B\u3064\u3044\u3066\u30B5\u30A4\u30BAn\u3067\u69CB\u7BC9\
     \n    set(int i, X x), build(): i\u756A\u76EE\u306E\u8981\u7D20\u3092x\u306B\u30BB\
@@ -186,7 +187,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 01:02:42+09:00'
+  timestamp: '2020-09-23 17:16:48+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp

@@ -326,8 +326,11 @@ data:
   - name: library/cpp/array/segtree
     pages:
     - icon: ':heavy_check_mark:'
-      path: library/cpp/array/segtree/segment_tree.find.test.cpp
-      title: library/cpp/array/segtree/segment_tree.find.test.cpp
+      path: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
+      title: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
+      title: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/segment_tree.test.cpp
       title: library/cpp/array/segtree/segment_tree.test.cpp
