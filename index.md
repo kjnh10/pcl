@@ -24,6 +24,25 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/ternary_search.cpp
       title: library/cpp/array/ternary_search.cpp
+  - name: library/cpp/array/segtree/lazy_seg_test/codes
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+      title: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
+      title: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
+      title: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
+  - name: library/cpp/array/segtree/lazy_seg_test/test
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/lazy_seg_test/test/gen.py
+      title: library/cpp/array/segtree/lazy_seg_test/test/gen.py
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/lazy_seg_test/test/gen_stress.py
+      title: library/cpp/array/segtree/lazy_seg_test/test/gen_stress.py
   - name: library/cpp/array/segtree
     pages:
     - icon: ':warning:'
