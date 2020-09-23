@@ -7,20 +7,26 @@ int n;
 
 int64_t rng() {
     static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
-    return uniform_int_distribution<int64_t>(-100, 100)(x);
+    return uniform_int_distribution<int64_t>(0, 20)(x);
 }
+
+int target;
 
 pair<int, int> naive(int i){
     int right = n;
-    rep(j, i+1, sz(a)){
-        if (a[j] < a[i]) {
+    int sum = 0;
+    rep(j, i, sz(a)){
+        sum += a[j];
+        if (sum >= target) {
             right = j;
             break;
         }
     }
     int left = -1;
-    r_rep(j, 0, i){
-        if (a[j] < a[i]) {
+    sum = 0;
+    r_rep(j, 0, i+1){
+        sum += a[j];
+        if (sum >= target) {
             left = j;
             break;
         }
@@ -28,22 +34,24 @@ pair<int, int> naive(int i){
     return {left, right};
 }
 
-pair<int, int> get_nearest_index_of_smaller_element(int i){
-    auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
-    auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+pair<int, int> get_first_index_got_target(int i){
+    auto left = seg.find_most_right(i, [&](auto x){return x >= target;});
+    auto right = seg.find_most_left(i, [&](auto x){return x >= target;});
     return {left, right};
 }
 
 int test(int _n, bool compare = true){
     n = _n;
     a.clear();
+    target = rng()%100000;
     rep(i, n){ a.pb(rng()%10); }
     dump(a);
 
-    seg = SegmentTree<ll>(a, [](auto a, auto b){return min(a,b);}, 1e18);
+    seg = SegmentTree<ll>(a, [](auto a, auto b){return a + b;}, 0);
     rep(i, sz(a)){
-        auto res = get_nearest_index_of_smaller_element(i);
+        auto res = get_first_index_got_target(i);
         if (compare){
+            // dump(i, naive(i), res);
             assert(naive(i) == res);
         }
     }

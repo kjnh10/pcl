@@ -70,17 +70,21 @@ template <typename X> struct SegmentTree {  // {{{
             return res;
         }
         pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+            // params:
+                // left_value = (a < l ? query(a, l) : ex)
             // return (index i, X v)
-            // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
-            // v is the value s.t query([a, n)^[l, r))
-            if ((r <= a || n <= l) || !is_ok(merge(left_value, node[k]))) return {n, identity};
-            if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};  // leaf
+                // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                // v is the value s.t query(a, r)
 
-            auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-            if (vl != n) return {vl, xl};
-
-            auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, merge(left_value, xl));
-            return {vr, xr};
+            if (r <= a) return {n, identity};  // 区間が全く被っていない
+            else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+            else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+            else{
+                auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                if (vl != n) return {vl, xl};
+                auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                return {vr, xr};
+            }
         }
 
         index find_most_right(index r, const function<bool(X)>& is_ok){
@@ -93,13 +97,15 @@ template <typename X> struct SegmentTree {  // {{{
             return res;
         }
         pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
-            if ((r <= 0 || b <= l) || !is_ok(merge(node[k], right_value))) return {-1, identity};
-            if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};  // leaf
-            auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-            if (vr != -1) return {vr, xr};
-
-            auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, merge(xr, right_value));
-            return {vl, xl};
+            if (b <= l) return {-1, identity};  // 区間が全く被っていない
+            else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+            else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+            else{
+                auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                if (vr != -1) return {vr, xr};
+                auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                return {vl, xl};
+            }
         }
 
         #if defined(PCM) || defined(LOCAL)
@@ -122,6 +128,12 @@ template <typename X> struct SegmentTree {  // {{{
 
 // auto add=[](auto a, auto b){return a+b;};
 // SegmentTree<ll> seg(a, add, 0);
+
+// pair<int, int> get_nearest_index_of_smaller_element(int i){
+//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+//     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+//     return {left, right};
+// }
 // -----------------------------------------------
 
 //%snippet.end()%
