@@ -29,8 +29,8 @@ pair<int, int> naive(int i){
 }
 
 pair<int, int> get_nearest_index_of_smaller_element(int i){
-    auto left = seg.find_mr(0, i, [&](auto x){return x < a[i];});
-    auto right = seg.find_ml(i, n, [&](auto x){return x < a[i];});
+    auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+    auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
     return {left, right};
 }
 

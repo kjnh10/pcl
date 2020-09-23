@@ -60,31 +60,46 @@ template <typename X> struct SegmentTree {  // {{{
             return merge(vl, vr);
         }
 
-        // find most right element for [a, b)
-        index find_mr(index a, index b, const function<bool(X)>& is_ok, int k = 0, index l = 0, index r = -1){
-            if (r < 0) r = N;
-            if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-            if (k >= N-1) return k - (N-1);  // leaf
+        index find_most_left(index l, const function<bool(X)>& is_ok){
+            // lから右に探していってis_okが初めて成り立つようなindexを返す。
+            // assume query(l, *) has monotonity
+            // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+            // if such i does not exist, return n
+            index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+            assert(l <= res);
+            return res;
+        }
+        pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+            // return (index i, X v)
+            // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+            // v is the value s.t query([a, n)^[l, r))
+            if ((r <= a || n <= l) || !is_ok(merge(left_value, node[k]))) return {n, identity};
+            if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};  // leaf
 
-            index vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-            if (vr != a-1) return vr;
+            auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+            if (vl != n) return {vl, xl};
 
-            index vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-            return vl;
+            auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, merge(left_value, xl));
+            return {vr, xr};
         }
 
-        // find most left element for [a, b)
-        index find_ml(index a, index b, const function<bool(X)>& is_ok, int k = 0, index l = 0, index r = -1){
-            // find most left
-            if (r < 0) r = N;
-            if (r <= a || b <= l || !is_ok(node[k])) return b;
-            if (k >= N-1) return k - (N-1);  // leaf
+        index find_most_right(index r, const function<bool(X)>& is_ok){
+            // rから左に探していってis_okが初めて成り立つようなindexを返す。
+            // assume query(*, r) has monotonity
+            // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+            // if such i does not exist, return -1
+            index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+            assert(res <= r);
+            return res;
+        }
+        pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+            if ((r <= 0 || b <= l) || !is_ok(merge(node[k], right_value))) return {-1, identity};
+            if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};  // leaf
+            auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+            if (vr != -1) return {vr, xr};
 
-            index vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-            if (vl != b) return vl;
-
-            index vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-            return vr;
+            auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, merge(xr, right_value));
+            return {vl, xl};
         }
 
         #if defined(PCM) || defined(LOCAL)
