@@ -6,18 +6,19 @@
 //%snippet.config({'alias':'rmq'})%
 //%snippet.fold()%
 
-template <typename T> struct SegmentTree {  // {{{
+template <typename X> struct SegmentTree {  // {{{
     private:
-        using F = function<T(T, T)>;
+        using F = function<X(X, X)>;
+        using index = int;
         int n;  // 元の配列のサイズ
         int N;  // n以上の最小の2冪
-        vector<T> node;
+        vector<X> node;
         F merge;
-        T identity;
+        X identity;
 
     public:
         SegmentTree() {}
-        SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+        SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
             n = a.size();
             N = 1;
             while (N < n) N *= 2;
@@ -26,11 +27,11 @@ template <typename T> struct SegmentTree {  // {{{
             for (int i = N - 2; i >= 0; i--)
                 node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
         }
-        SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+        SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
 
-        T& operator[](int i) { return node[i + N - 1]; }
+        X& operator[](index i) { return node[i + N - 1]; }
 
-        void set(int i, T val) {
+        void set(index i, X val) {
             i += (N - 1);
             node[i] = val;
             while (i > 0) {
@@ -39,7 +40,7 @@ template <typename T> struct SegmentTree {  // {{{
             }
         }
 
-        void add(int i, T val) {
+        void add(index i, X val) {
             i += (N - 1);
             node[i] += val;
             while (i > 0) {
@@ -49,45 +50,45 @@ template <typename T> struct SegmentTree {  // {{{
         }
 
         // query for [a, b)
-        T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+        X query(index a, index b, int k = 0, index l = 0, index r = -1) {
             if (r < 0) r = N;
             if (r <= a || b <= l) return identity;
             if (a <= l && r <= b) return node[k];
 
-            T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-            T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+            X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+            X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
             return merge(vl, vr);
         }
 
         // find most right element for [a, b)
-        int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
+        index find_mr(index a, index b, const function<bool(X)>& is_ok, int k = 0, index l = 0, index r = -1){
             if (r < 0) r = N;
             if (r <= a || b <= l || !is_ok(node[k])) return a-1;
             if (k >= N-1) return k - (N-1);  // leaf
 
-            T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            index vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
             if (vr != a-1) return vr;
 
-            T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            index vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
             return vl;
         }
 
         // find most left element for [a, b)
-        int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
+        index find_ml(index a, index b, const function<bool(X)>& is_ok, int k = 0, index l = 0, index r = -1){
             // find most left
             if (r < 0) r = N;
             if (r <= a || b <= l || !is_ok(node[k])) return b;
             if (k >= N-1) return k - (N-1);  // leaf
 
-            T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
+            index vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
             if (vl != b) return vl;
 
-            T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
+            index vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
             return vr;
         }
 
         #if defined(PCM) || defined(LOCAL)
-        friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+        friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
             os << "[";
             for (int i = 0; i < sg.n; i++) {
                 os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");

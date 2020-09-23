@@ -40,8 +40,8 @@ struct segment_tree_lazy {
         for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
     } 
 
-    /* lazy eval */
-    void eval(int k) {
+    /* lazy propagate */
+    void propagate(int k) {
         if (lazy[k] == em) return;  // 更新するものが無ければ終了
         if (k < N - 1) {            // 葉でなければ子に伝搬
             lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
@@ -53,25 +53,31 @@ struct segment_tree_lazy {
     }
 
     void update(index a, index b, M x, int k, index l, index r) {
-        eval(k);
         if (a <= l && r <= b) {  // 完全に内側の時
             lazy[k] = composite(lazy[k], x);
-            eval(k);
-        } else if (a < r && l < b) {                     // 一部区間が被る時
+            propagate(k);
+        }
+        else if (a < r && l < b) {                     // 一部区間が被る時
+            propagate(k);
             update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
             update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
             dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
+        }
+        else{
+            propagate(k);
         }
     }
     void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
 
     X query_sub(index a, index b, int k, index l, index r) {
-        eval(k);
+        propagate(k);
         if (r <= a || b <= l) {  // 完全に外側の時
             return ex;
-        } else if (a <= l && r <= b) {  // 完全に内側の時
+        }
+        else if (a <= l && r <= b) {  // 完全に内側の時
             return dat[k];
-        } else {  // 一部区間が被る時
+        }
+        else {  // 一部区間が被る時
             X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
             X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
             return merge(lv, rv);
