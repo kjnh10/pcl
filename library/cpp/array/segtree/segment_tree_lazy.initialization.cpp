@@ -108,6 +108,7 @@ auto make_lseg_rsq_raq(){
     auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
     return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
 }
+// 初期値X(*, 1)を入れないといけないことに注意する。
 //%snippet.end()%
 
 
