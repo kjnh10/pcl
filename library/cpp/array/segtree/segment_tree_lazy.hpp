@@ -52,6 +52,7 @@ struct segment_tree_lazy {
         lazy[k] = em;
     }
 
+    void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
     void update(index a, index b, M x, int k, index l, index r) {
         if (a <= l && r <= b) {  // 完全に内側の時
             lazy[k] = composite(lazy[k], x);
@@ -67,8 +68,8 @@ struct segment_tree_lazy {
             propagate(k);
         }
     }
-    void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
 
+    X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
     X query_sub(index a, index b, int k, index l, index r) {
         propagate(k);
         if (r <= a || b <= l) {  // 完全に外側の時
@@ -83,9 +84,56 @@ struct segment_tree_lazy {
             return merge(lv, rv);
         }
     }
-    X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
 
-    // TODO implement binary search 
+    index find_most_left(index l, const function<bool(X)>& is_ok){
+        // lから右に探していってis_okが初めて成り立つようなindexを返す。
+        // assume query(l, *) has monotonity
+        // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+        // if such i does not exist, return n
+        index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
+        assert(l <= res);
+        return res;
+    }
+    pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+        // params:
+            // left_value = (a < l ? query(a, l) : ex)
+        // return (index i, X v)
+            // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+            // v is the value s.t query(a, r)
+
+        propagate(k);
+        if (r <= a) return {n, ex};  // 区間が全く被っていない
+        else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
+        else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
+        else{
+            auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+            if (vl != n) return {vl, xl};
+            auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+            return {vr, xr};
+        }
+    }
+
+    index find_most_right(index r, const function<bool(X)>& is_ok){
+        // rから左に探していってis_okが初めて成り立つようなindexを返す。
+        // assume query(*, r) has monotonity
+        // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+        // if such i does not exist, return -1
+        index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
+        assert(res <= r);
+        return res;
+    }
+    pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+        propagate(k);
+        if (b <= l) return {-1, ex};  // 区間が全く被っていない
+        else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
+        else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
+        else{
+            auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+            if (vr != -1) return {vr, xr};
+            auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+            return {vl, xl};
+        }
+    }
 
     /* debug */
     inline X operator[](int i) { return query(i, i + 1); }
@@ -102,9 +150,9 @@ struct segment_tree_lazy {
 };
 
 /* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em): モノイド(集合X, 二項演算fx,fa,fm,p 単位元ex,em)についてサイズnで構築
-    set(int i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
-    update(i,x): i 番目の要素を x に更新。O(log(n))
-    query(a,b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
+    set(index i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
+    update(index a, index b, M m): [a, b)の要素にmをapply。O(log(n))
+    query(index a, index b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
 */
 
 //%snippet.end()%
