@@ -1,4 +1,4 @@
-#include "scc.hpp"
+#include "strongly_connected_components.hpp"
 #include "topological_sort.hpp"
 
 //%snippet.set('two_sat')%

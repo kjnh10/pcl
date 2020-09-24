@@ -18,10 +18,11 @@ def modpath(c):
     for p in CODE_DIR.rglob("*.hpp"):
         print(p)
         if p.name in headers.keys():
+            print(p.name, "dupulicated")
             raise Exception("header dupulication")
         headers[p.name] = p.resolve()
 
-    print("---------------------------------------------------")
+    print("---------------check headers-------------------------")
     for p in CODE_DIR.rglob("*.[ch]pp"):
         if (p.is_dir()):
             continue
