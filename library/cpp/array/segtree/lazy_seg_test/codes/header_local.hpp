@@ -1,7 +1,5 @@
 #pragma once  // need to be first line for oj-bundle
 
-//%snippet.set('header')%
-//%snippet.fold()%
 #ifndef HEADER_H
 #define HEADER_H
 
@@ -59,4 +57,3 @@ void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof
 #endif
 
 #endif /* HEADER_H */
-//%snippet.end()%

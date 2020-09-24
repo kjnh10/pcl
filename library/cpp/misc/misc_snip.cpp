@@ -274,6 +274,7 @@ void ans(ll u){/*{{{*/
 
 
 //%snippet.set('pairsort')%
+//%snippet.fold()%
 template<class T>
 void pairsort(vector<T>& x, vector<T>& y){
     ll n = sz(x);
@@ -350,3 +351,13 @@ vector<ll> get_rank(vector<ll>& score){
     }
     return rank;
 }
+
+
+//%snippet.set('encode')%
+//%snippet.config({'alias':'id'})%
+//%snippet.config({'alias':'nid'})%
+auto nid = [&](int i, int j){return (i*w + j);}; // int u = nid(i, j);
+auto pos = [&](int idx) -> pair<int, int> { return {idx/w, idx%w}; }; // auto [i,j] = pos(u);
+// auto nid = [&](int i, int j, int k){return (i*(y*z) + j*(z) + k);};
+// auto pos = [&](int idx) -> pair<int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };
+

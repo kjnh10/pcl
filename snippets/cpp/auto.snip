@@ -273,6 +273,7 @@ alias rsq_raq
       auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
       return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
   }
+  // 初期値X(*, 1)を入れないといけないことに注意する。
   // snippet:make_lseg_rsq_raq }}}
 
 
@@ -674,6 +675,7 @@ snippet interactive
 
 
 snippet pairsort
+  // snippet:pairsort {{{
   template<class T>
   void pairsort(vector<T>& x, vector<T>& y){
       ll n = sz(x);
@@ -687,6 +689,7 @@ snippet pairsort
           y[i] = get<1>(t[i]);
       }
   }
+  // snippet:pairsort }}}
 
 
 snippet make_vector
@@ -750,6 +753,14 @@ alias rank
       }
       return rank;
   }
+
+
+snippet encode
+alias nid
+  auto nid = [&](int i, int j){return (i*w + j);}; // int u = nid(i, j);
+  auto pos = [&](int idx) -> pair<int, int> { return {idx/w, idx%w}; }; // auto [i,j] = pos(u);
+  // auto nid = [&](int i, int j, int k){return (i*(y*z) + j*(z) + k);};
+  // auto pos = [&](int idx) -> pair<int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };
 
 
 snippet dfs
@@ -1753,8 +1764,8 @@ alias lazy
           for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
       } 
   
-      /* lazy eval */
-      void eval(int k) {
+      /* lazy propagate */
+      void propagate(int k) {
           if (lazy[k] == em) return;  // 更新するものが無ければ終了
           if (k < N - 1) {            // 葉でなければ子に伝搬
               lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
@@ -1765,34 +1776,88 @@ alias lazy
           lazy[k] = em;
       }
   
+      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
       void update(index a, index b, M x, int k, index l, index r) {
-          eval(k);
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
-              eval(k);
-          } else if (a < r && l < b) {                     // 一部区間が被る時
+              propagate(k);
+          }
+          else if (a < r && l < b) {                     // 一部区間が被る時
+              propagate(k);
               update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
               update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
               dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
           }
+          else{
+              propagate(k);
+          }
       }
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
   
+      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
       X query_sub(index a, index b, int k, index l, index r) {
-          eval(k);
+          propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
               return ex;
-          } else if (a <= l && r <= b) {  // 完全に内側の時
+          }
+          else if (a <= l && r <= b) {  // 完全に内側の時
               return dat[k];
-          } else {  // 一部区間が被る時
+          }
+          else {  // 一部区間が被る時
               X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
               X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
               return merge(lv, rv);
           }
       }
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
   
-      // TODO implement binary search 
+      index find_most_left(index l, const function<bool(X)>& is_ok){
+          // lから右に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(l, *) has monotonity
+          // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+          // if such i does not exist, return n
+          index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
+          assert(l <= res);
+          return res;
+      }
+      pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+          // params:
+              // left_value = (a < l ? query(a, l) : ex)
+          // return (index i, X v)
+              // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+              // v is the value s.t query(a, r)
+  
+          propagate(k);
+          if (r <= a) return {n, ex};  // 区間が全く被っていない
+          else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
+          else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
+          else{
+              auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+              if (vl != n) return {vl, xl};
+              auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+              return {vr, xr};
+          }
+      }
+  
+      index find_most_right(index r, const function<bool(X)>& is_ok){
+          // rから左に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(*, r) has monotonity
+          // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+          // if such i does not exist, return -1
+          index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
+          assert(res <= r);
+          return res;
+      }
+      pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+          propagate(k);
+          if (b <= l) return {-1, ex};  // 区間が全く被っていない
+          else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
+          else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
+          else{
+              auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+              if (vr != -1) return {vr, xr};
+              auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+              return {vl, xl};
+          }
+      }
   
       /* debug */
       inline X operator[](int i) { return query(i, i + 1); }
@@ -1809,9 +1874,9 @@ alias lazy
   };
   
   /* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em): モノイド(集合X, 二項演算fx,fa,fm,p 単位元ex,em)についてサイズnで構築
-      set(int i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
-      update(i,x): i 番目の要素を x に更新。O(log(n))
-      query(a,b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
+      set(index i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
+      update(index a, index b, M m): [a, b)の要素にmをapply。O(log(n))
+      query(index a, index b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
   */
   // snippet:segment_tree_lazy }}}
 
@@ -1819,18 +1884,19 @@ alias lazy
 snippet segment_tree
 alias rmq
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -1839,11 +1905,11 @@ alias rmq
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -1852,7 +1918,7 @@ alias rmq
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -1862,45 +1928,66 @@ alias rmq
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -1919,6 +2006,12 @@ alias rmq
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
 
@@ -2569,18 +2662,19 @@ snippet AreaRect
 snippet topological_sort
 alias tps
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -2589,11 +2683,11 @@ alias tps
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -2602,7 +2696,7 @@ alias tps
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -2612,45 +2706,66 @@ alias tps
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -2669,6 +2784,12 @@ alias tps
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -3142,18 +3263,19 @@ snippet edge
 
 snippet two_sat
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -3162,11 +3284,11 @@ snippet two_sat
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -3175,7 +3297,7 @@ snippet two_sat
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -3185,45 +3307,66 @@ snippet two_sat
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -3242,6 +3385,12 @@ snippet two_sat
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -3801,586 +3950,22 @@ snippet two_sat
   // snippet:two_sat }}}
 
 
-snippet scc
-alias StronglyConnectedComponents
-  // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
-      private:
-          using F = function<T(T, T)>;
-          int n;  // 元の配列のサイズ
-          int N;  // n以上の最小の2冪
-          vector<T> node;
-          F merge;
-          T identity;
-  
-      public:
-          SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
-              n = a.size();
-              N = 1;
-              while (N < n) N *= 2;
-              node.resize(2 * N - 1, identity);
-              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
-              for (int i = N - 2; i >= 0; i--)
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-          }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
-  
-          T& operator[](int i) { return node[i + N - 1]; }
-  
-          void set(int i, T val) {
-              i += (N - 1);
-              node[i] = val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          void add(int i, T val) {
-              i += (N - 1);
-              node[i] += val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
-              if (r < 0) r = N;
-              if (r <= a || b <= l) return identity;
-              if (a <= l && r <= b) return node[k];
-  
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
-          }
-  
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
-          }
-  
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
-          }
-  
-          #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
-              os << "[";
-              for (int i = 0; i < sg.n; i++) {
-                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
-              }
-              return os;
-          }
-          #endif
-  };/*}}}*/
-  // sample of initialize SegmentTree:
-  // -----------------------------------------------
-  // auto mymin=[](auto a, auto b){return min(a,b);};
-  // SegmentTree<ll> seg(a, mymin, 1e18);
-  
-  // auto mymax=[](auto a, auto b){return max(a,b);};
-  // SegmentTree<ll> seg(a, mymax, -1e18);
-  
-  // auto add=[](auto a, auto b){return a+b;};
-  // SegmentTree<ll> seg(a, add, 0);
-  // -----------------------------------------------
-  // snippet:segment_tree }}}
-  
-  // snippet:edge {{{
-  template<class Cost=ll>
-  struct Edge {
-      int from, to;
-      Cost cost;
-      int idx;
-      Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
-  
-      friend ostream& operator<<(ostream& os, const Edge& e) {
-          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
-          os << "(" << e.from << "," << e.to << ")";
-          return os;
-      }
-  };
-  // snippet:edge }}}
-  
-  // snippet:UnionFind {{{
-  struct UnionFind {
-      vector<int> par;   // par[x]: parent of x. if root, -size.
-      int gcount;         // count of groups
-  
-      UnionFind() {}
-      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
-      bool merge(int x, int y) { 
-          x = root(x);
-          y = root(y);
-          if (x != y) {
-              if (par[y] < par[x]) swap(x, y);
-              par[x] += par[y];
-              par[y] = x;
-              gcount--;
-          }
-          return x != y;
-      } 
-      int root(int x) {
-          if (is_root(x)){
-              return x;
-          }
-          else{
-              return par[x] = root(par[x]);  // 経路圧縮
-              // return root(par[x]);         // 経路圧縮なし
-          }
-      }
-      bool is_root(int x) { return par[x] < 0; }
-      bool same(int x, int y) { return root(x) == root(y); }
-      int size(int x) { return -par[root(x)]; }
-  
-  #if defined(PCM) || defined(LOCAL)  // {{{
-      friend ostream& operator<<(ostream& os, UnionFind& uf) {
-          map<int, vector<int>> group;
-          rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
-          os << endl;
-          each(g, group) { os << g << endl; }
-          return os;
-      }
-  #endif  // }}}
-  };
-  // snippet:UnionFind }}}
-  
-  // snippet:tree {{{
-  template<class Cost=ll>
-  struct tree { 
-      int n;
-      int root;
-      vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
-      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
-      vector<int> ord;    // ord[u]: uのdfs木における訪問順
-      vector<int> end;    // end[u]: uのdfs終了時のカウンター
-      vector<int> psize;  // psize[u]: uのpartial tree size
-      // uの部分木は[ord[u], end[u])
-      // ordとdfstrvは逆変換
-      vector<int> depth;   // depth[i]: dfs木でのiの深さ
-      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-      vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
-      auto operator[](int pos) const { return adj_list[pos]; }
-      vector<vector<int>> children;
-      vector<int> euler_tour;
-      vector<int> et_fpos;    // euler_tour first occurence position
-      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
-      vector<int> head_of_comp;
-      int _counter = 0;
-  
-      tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            cost(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
-      void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
-          adj_list[u].emplace_back(u, v, cost, idx);
-          adj_list[v].emplace_back(v, u, cost, idx);
-      }                             /*}}}*/
-      void add_edge(int u, int v) { /*{{{*/
-          adj_list[u].emplace_back(u, v, 1, -1);
-          adj_list[v].emplace_back(v, u, 1, -1);
-      }                      /*}}}*/
-      void build(int _root) { /*{{{*/
-          root = _root;
-          _counter = 0;
-          par[root] = -1;
-          // cost[root] = -1;
-          _dfs_psize(root, -1);
-          _dfs_tree(root, -1, root);
-          _dfs_et(root);
-          vector<int> ini(2 * n - 1);
-          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
-          _seg = SegmentTree<int>(
-              ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
-      }                                /*}}}*/
-      int _dfs_psize(int u, int pre) { /*{{{*/
-          psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
-          }
-          return psize[u];
-      }                                               /*}}}*/
-      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
-          dfstrv.pb(u);
-          ord[u] = _counter;
-          if (pre != -1) {
-              depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
-          }
-  
-          _counter++;
-          {
-              // set most heavy child to top
-              int max_psize = 0;
-              int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
-                  if (adj_list[u][i].to == pre) continue;
-                  if (psize[adj_list[u][i].to] > max_psize) {
-                      most_heavy_i = i;
-                      max_psize = psize[adj_list[u][i].to];
-                  }
-              }
-              if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
-          }
-  
-          head_of_comp[u] = head_node;
-          rep(i, sz(adj_list[u])) {
-              int v = adj_list[u][i].to;
-              if (v == pre) continue;
-  
-              children[u].pb(v);
-              par[v] = u;
-              cost[v] = adj_list[u][i].cost;
-  
-              if (i == 0)
-                  _dfs_tree(v, u, head_node);  // continue components
-              else
-                  _dfs_tree(v, u, v);  // new
-          }
-          end[u] = _counter;
-      }                     /*}}}*/
-      void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
-          euler_tour.pb(u);
-          each(v, children[u]) {
-              _dfs_et(v);
-              euler_tour.pb(u);
-          }
-      }                       /*}}}*/
-      int lca(int u, int v) { /*{{{*/
-          if (u == v) return u;
-          if (et_fpos[u] > et_fpos[v]) swap(u, v);
-          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
-      }                        /*}}}*/
-      int dist(int u, int v) { /*{{{*/
-          int p = lca(u, v);
-          return depth[u] + depth[v] - 2 * depth[p];
-      }                          /*}}}*/
-      Cost ldist(int u, int v) {  // length dist{{{
-          int p = lca(u, v);
-          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
-      }                           /*}}}*/
-      pair<int, int> diameter() { /*{{{*/
-          int u, v;
-          Cost max_len = *max_element(all(ldepth));
-          rep(i, n) {
-              if (ldepth[i] == max_len) {
-                  u = i;
-                  break;
-              }
-          }
-          Cost md = -1;
-          rep(i, n) {
-              Cost d = ldist(u, i);
-              if (d > md) {
-                  v = i;
-                  md = d;
-              }
-          }
-          return mp(u, v);
-      }                                                /*}}}*/
-      vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
-          // 閉区間をvectorで返す。for_edge=trueでlcaは除いて返すことに注意。
-          vector<pair<int, int>> res;
-          while (head_of_comp[u] != head_of_comp[v]) {
-              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
-                  res.push_back({ord[head_of_comp[v]], ord[v]});
-                  v = par[head_of_comp[v]];
-              } else {
-                  res.push_back({ord[head_of_comp[u]], ord[u]});
-                  u = par[head_of_comp[u]];
-              }
-          }
-          res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])});
-          return res;
-      }                              //}}}
-  #if defined(PCM) || defined(LOCAL) /*{{{*/
-      friend ostream& operator<<(ostream& os, const tree& tr) {
-          os << endl;
-          os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
-          os << "dfstrv:      " << tr.dfstrv << endl;
-          os << "ord:         " << tr.ord << endl;
-          os << "end:         " << tr.end << endl;
-          os << "depth:       " << tr.depth << endl;
-          os << "children:    " << tr.children << endl;
-          os << "euler_tour:  " << tr.euler_tour << endl;
-          os << "et_fpos:     " << tr.et_fpos << endl;
-          os << "head_of_comp:" << tr.head_of_comp << endl;
-          return os;
-      }
-  #endif /*}}}*/
-  }; 
-  // snippet:tree }}}
-  
-  // snippet:Graph {{{
-  template<class Cost=ll>
-  struct Graph {
-      using Pos = int;  // int以外には対応しない。
-  
-      int n;  // 頂点数
-      vector<vector<Edge<Cost>>> adj_list;
-      auto operator[](Pos pos) const { return adj_list[pos]; }
-      vector<Edge<Cost>> edges;
-      tree<Cost> tr;
-      Pos root;
-      vector<int> _used_in_dfs;
-      vector<int> lowlink;
-      Cost zerocost;
-      Cost infcost;
-  
-      Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
-      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
-  
-      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
-          adj_list[from].emplace_back(from, to, cost, idx);
-          edges.emplace_back(from, to, cost, idx);
-      }
-      void add_edge(Pos from, Pos to) {  // for ll
-          adj_list[from].emplace_back(from, to, 1, -1);
-          edges.emplace_back(from, to, 1, -1);
-      }/*}}}*/
-  
-      void build_tree(Pos _root) {/*{{{*/
-          root = _root;
-          _dfs_tree(root);
-          tr.build(root);
-          _make_lowlink();
-      }/*}}}*/
-  
-      vector<int> make_bipartite() {/*{{{*/
-          UnionFind buf(2 * n);
-          rep(u, n) {
-              each(e, adj_list[u]) {
-                  buf.merge(u, e.to + n);
-                  buf.merge(e.to, u + n);
-              }
-          }
-  
-          vector<int> res(n, -1);
-          rep(u, n) {
-              if (buf.same(u, u + n)) return res;
-          }
-          rep(u, n) {
-              if (buf.same(0, u)) res[u] = 0;
-              else res[u] = 1;
-          }
-          return res;
-      }/*}}}*/
-  
-      void _dfs_tree(Pos u) {/*{{{*/
-          _used_in_dfs[u] = 1;
-          each(e, adj_list[u]) {
-              if (_used_in_dfs[e.to]) continue;
-              tr.add_edge(u, e.to, e.cost);
-              _dfs_tree(e.to);
-          }
-      }/*}}}*/
-  
-      void _make_lowlink() {/*{{{*/
-          lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
-          r_rep(i, n) {
-              Pos u = tr.dfstrv[i];
-              chmin(lowlink[u], tr.ord[u]);
-  
-              each(e, adj_list[u]) {
-                  if (e.to == tr.par[u])
-                      continue;
-                  else if (tr.ord[e.to] < tr.ord[u]) {
-                      chmin(lowlink[u], tr.ord[e.to]);
-                  } else {
-                      chmin(lowlink[u], lowlink[e.to]);
-                  }
-              }
-          }
-      }/*}}}*/
-  
-      vector<Pos> get_articulation_points() {/*{{{*/
-          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-  
-          vector<Pos> res;
-          if (sz(tr.children[root]) > 1) {
-              res.push_back(root);
-          }
-          rep(u, 0, n) {
-              if (u == root) continue;
-              bool is_kan = false;
-              each(v, tr.children[u]) {
-                  if (tr.ord[u] <= lowlink[v]) {
-                      is_kan = true;
-                  }
-              }
-              if (is_kan) res.push_back(u);
-          }
-          return res;
-      }/*}}}*/
-  
-      vector<Edge<Cost>> get_bridges() {/*{{{*/
-          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-          vector<Edge<Cost>> res;
-          each(edge, edges){
-              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
-          }
-          return res;
-      }/*}}}*/
-  
-      vector<Edge<Cost>> kruskal_tree() {/*{{{*/
-          // 使用される辺のvectorを返す
-          vector<Edge<Cost>> res(n - 1);
-          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
-          UnionFind uf(n);
-  
-          Cost total_cost = zerocost;
-          int idx = 0;
-          each(e, edges) {
-              if (uf.same(e.from, e.to)) continue;
-              uf.merge(e.from, e.to);
-              total_cost = total_cost + e.cost;
-              res[idx] = e;
-              idx++;
-          }
-          assert(idx == n - 1);
-  
-          return res;
-      }/*}}}*/
-  
-      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
-          vector<Cost> dist(n, infcost);           // 最短距離
-          PQ<pair<Cost, Pos>> pq;
-          each(start, starts) {
-              dist[start] = zerocost;
-              pq.push(make_pair(zerocost, start));
-          }
-          while (!pq.empty()) {
-              auto cp = pq.top();
-              pq.pop();
-              auto [cost, u] = cp;
-              for (const auto& edge : adj_list[u]) {
-                  Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
-                  if (new_cost < dist[edge.to]) {
-                      dist[edge.to] = new_cost;
-                      pq.push(make_pair(new_cost, edge.to));
-                  }
-              }
-          }
-          return dist;
-      };/*}}}*/
-  
-      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
-          vector<Pos> starts = {start};
-          return dijkstra(starts);
-      };/*}}}*/
-  };
-  // snippet:Graph }}}
-  
-  // snippet:scc {{{
-  template<class T = ll>
-  struct StronglyConnectedComponents {
-      const Graph<T> &g;  //{{{
-      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-      Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
-      Graph<> _rg;  // reversed graph
-      vector<int> _order;  // order[i]: 帰りがけ順
-      vector<int> _used;
-  
-      StronglyConnectedComponents(Graph<T> &_g)
-          : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
-          for (int i = 0; i < g.n; i++) {
-              for (auto e : g[i]) {
-                  _rg.add_edge(e.to, e.from);
-              }
-          }
-          _build();
-      }
-  
-      int operator[](int k) { return comp[k]; }
-  
-      void _build() {
-          for (int i = 0; i < g.n; i++) _dfs(i);
-          reverse(begin(_order), end(_order));
-          int cnt = 0;
-          for (int u : _order)
-              if (comp[u] == -1) _rdfs(u, cnt), cnt++;
-  
-          dag = Graph(cnt);
-          for (int u = 0; u < g.n; u++) {
-              for (auto &e : g[u]) {
-                  if (comp[u] == comp[e.to]) continue;
-                  dag.add_edge(comp[u], comp[e.to]);
-              }
-          }
-      }
-  
-      void _dfs(int idx) {
-          if (_used[idx]) return;
-          _used[idx] = true;
-          for (auto &e : g[idx]) _dfs(e.to);
-          _order.push_back(idx);
-      }
-  
-      void _rdfs(int idx, int cnt) {
-          if (comp[idx] != -1) return;
-          comp[idx] = cnt;
-          for (auto e : _rg[idx]) _rdfs(e.to, cnt);
-      }  //}}}
-  };
-  // how to use
-  // StronglyConnectedComponents scc(g); // g: Graph
-  // dump(scc.comp, scc.dag.adj_list);
-  // snippet:scc }}}
-
-
 snippet local_min_cycle_undirected
 alias cycle
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -4389,11 +3974,11 @@ alias cycle
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -4402,7 +3987,7 @@ alias cycle
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -4412,45 +3997,66 @@ alias cycle
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -4469,6 +4075,12 @@ alias cycle
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -4925,18 +4537,19 @@ alias cycle
 
 snippet local_min_cycle_directed
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -4945,11 +4558,11 @@ snippet local_min_cycle_directed
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -4958,7 +4571,7 @@ snippet local_min_cycle_directed
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -4968,45 +4581,66 @@ snippet local_min_cycle_directed
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -5025,6 +4659,12 @@ snippet local_min_cycle_directed
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -5635,18 +5275,19 @@ snippet UnionFind
 
 snippet Graph
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -5655,11 +5296,11 @@ snippet Graph
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -5668,7 +5309,7 @@ snippet Graph
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -5678,45 +5319,66 @@ snippet Graph
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -5735,6 +5397,12 @@ snippet Graph
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -6141,20 +5809,22 @@ snippet Graph
   // snippet:Graph }}}
 
 
-snippet bellman_ford
+snippet scc
+alias StronglyConnectedComponents
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -6163,11 +5833,11 @@ snippet bellman_ford
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -6176,7 +5846,7 @@ snippet bellman_ford
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -6186,45 +5856,66 @@ snippet bellman_ford
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -6243,6 +5934,604 @@ snippet bellman_ford
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
+  // -----------------------------------------------
+  // snippet:segment_tree }}}
+  
+  // snippet:edge {{{
+  template<class Cost=ll>
+  struct Edge {
+      int from, to;
+      Cost cost;
+      int idx;
+      Edge(){};
+      Edge(int from, int to, Cost cost, int idx)
+          : from(from), to(to), cost(cost), idx(idx) {}
+  
+      friend ostream& operator<<(ostream& os, const Edge& e) {
+          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+          os << "(" << e.from << "," << e.to << ")";
+          return os;
+      }
+  };
+  // snippet:edge }}}
+  
+  // snippet:UnionFind {{{
+  struct UnionFind {
+      vector<int> par;   // par[x]: parent of x. if root, -size.
+      int gcount;         // count of groups
+  
+      UnionFind() {}
+      UnionFind(int _n) : par(_n, -1), gcount(_n) {}
+      bool merge(int x, int y) { 
+          x = root(x);
+          y = root(y);
+          if (x != y) {
+              if (par[y] < par[x]) swap(x, y);
+              par[x] += par[y];
+              par[y] = x;
+              gcount--;
+          }
+          return x != y;
+      } 
+      int root(int x) {
+          if (is_root(x)){
+              return x;
+          }
+          else{
+              return par[x] = root(par[x]);  // 経路圧縮
+              // return root(par[x]);         // 経路圧縮なし
+          }
+      }
+      bool is_root(int x) { return par[x] < 0; }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -par[root(x)]; }
+  
+  #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, UnionFind& uf) {
+          map<int, vector<int>> group;
+          rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+  #endif  // }}}
+  };
+  // snippet:UnionFind }}}
+  
+  // snippet:tree {{{
+  template<class Cost=ll>
+  struct tree { 
+      int n;
+      int root;
+      vector<int> par;   // par[i]: dfs木における親
+      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+      vector<int> ord;    // ord[u]: uのdfs木における訪問順
+      vector<int> end;    // end[u]: uのdfs終了時のカウンター
+      vector<int> psize;  // psize[u]: uのpartial tree size
+      // uの部分木は[ord[u], end[u])
+      // ordとdfstrvは逆変換
+      vector<int> depth;   // depth[i]: dfs木でのiの深さ
+      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+      vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
+      auto operator[](int pos) const { return adj_list[pos]; }
+      vector<vector<int>> children;
+      vector<int> euler_tour;
+      vector<int> et_fpos;    // euler_tour first occurence position
+      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
+      vector<int> head_of_comp;
+      int _counter = 0;
+  
+      tree(){};/*{{{*/
+      tree(int n)
+          : n(n),
+            par(n),
+            cost(n),
+            ord(n),
+            end(n),
+            psize(n),
+            depth(n),
+            ldepth(n),
+            adj_list(n),
+            children(n),
+            et_fpos(n),
+            head_of_comp(n){};/*}}}*/
+      void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
+          adj_list[u].emplace_back(u, v, cost, idx);
+          adj_list[v].emplace_back(v, u, cost, idx);
+      }                             /*}}}*/
+      void add_edge(int u, int v) { /*{{{*/
+          adj_list[u].emplace_back(u, v, 1, -1);
+          adj_list[v].emplace_back(v, u, 1, -1);
+      }                      /*}}}*/
+      void build(int _root) { /*{{{*/
+          root = _root;
+          _counter = 0;
+          par[root] = -1;
+          // cost[root] = -1;
+          _dfs_psize(root, -1);
+          _dfs_tree(root, -1, root);
+          _dfs_et(root);
+          vector<int> ini(2 * n - 1);
+          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
+          _seg = SegmentTree<int>(
+              ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
+      }                                /*}}}*/
+      int _dfs_psize(int u, int pre) { /*{{{*/
+          psize[u] = 1;
+          each(edge, adj_list[u]) {
+              if (edge.to == pre) continue;
+              psize[u] += _dfs_psize(edge.to, u);
+          }
+          return psize[u];
+      }                                               /*}}}*/
+      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
+          dfstrv.pb(u);
+          ord[u] = _counter;
+          if (pre != -1) {
+              depth[u] = depth[pre] + 1;
+              ldepth[u] = ldepth[pre] + cost[u];
+          }
+  
+          _counter++;
+          {
+              // set most heavy child to top
+              int max_psize = 0;
+              int most_heavy_i = -1;
+              rep(i, sz(adj_list[u])) {
+                  if (adj_list[u][i].to == pre) continue;
+                  if (psize[adj_list[u][i].to] > max_psize) {
+                      most_heavy_i = i;
+                      max_psize = psize[adj_list[u][i].to];
+                  }
+              }
+              if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
+          }
+  
+          head_of_comp[u] = head_node;
+          rep(i, sz(adj_list[u])) {
+              int v = adj_list[u][i].to;
+              if (v == pre) continue;
+  
+              children[u].pb(v);
+              par[v] = u;
+              cost[v] = adj_list[u][i].cost;
+  
+              if (i == 0)
+                  _dfs_tree(v, u, head_node);  // continue components
+              else
+                  _dfs_tree(v, u, v);  // new
+          }
+          end[u] = _counter;
+      }                     /*}}}*/
+      void _dfs_et(int u) { /*{{{*/
+          et_fpos[u] = euler_tour.size();
+          euler_tour.pb(u);
+          each(v, children[u]) {
+              _dfs_et(v);
+              euler_tour.pb(u);
+          }
+      }                       /*}}}*/
+      int lca(int u, int v) { /*{{{*/
+          if (u == v) return u;
+          if (et_fpos[u] > et_fpos[v]) swap(u, v);
+          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
+      }                        /*}}}*/
+      int dist(int u, int v) { /*{{{*/
+          int p = lca(u, v);
+          return depth[u] + depth[v] - 2 * depth[p];
+      }                          /*}}}*/
+      Cost ldist(int u, int v) {  // length dist{{{
+          int p = lca(u, v);
+          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
+      }                           /*}}}*/
+      pair<int, int> diameter() { /*{{{*/
+          int u, v;
+          Cost max_len = *max_element(all(ldepth));
+          rep(i, n) {
+              if (ldepth[i] == max_len) {
+                  u = i;
+                  break;
+              }
+          }
+          Cost md = -1;
+          rep(i, n) {
+              Cost d = ldist(u, i);
+              if (d > md) {
+                  v = i;
+                  md = d;
+              }
+          }
+          return mp(u, v);
+      }                                                /*}}}*/
+      vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
+          // 閉区間をvectorで返す。for_edge=trueでlcaは除いて返すことに注意。
+          vector<pair<int, int>> res;
+          while (head_of_comp[u] != head_of_comp[v]) {
+              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
+                  res.push_back({ord[head_of_comp[v]], ord[v]});
+                  v = par[head_of_comp[v]];
+              } else {
+                  res.push_back({ord[head_of_comp[u]], ord[u]});
+                  u = par[head_of_comp[u]];
+              }
+          }
+          res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])});
+          return res;
+      }                              //}}}
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const tree& tr) {
+          os << endl;
+          os << "par:         " << tr.par << endl;
+          os << "cost:        " << tr.cost << endl;
+          os << "dfstrv:      " << tr.dfstrv << endl;
+          os << "ord:         " << tr.ord << endl;
+          os << "end:         " << tr.end << endl;
+          os << "depth:       " << tr.depth << endl;
+          os << "children:    " << tr.children << endl;
+          os << "euler_tour:  " << tr.euler_tour << endl;
+          os << "et_fpos:     " << tr.et_fpos << endl;
+          os << "head_of_comp:" << tr.head_of_comp << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  }; 
+  // snippet:tree }}}
+  
+  // snippet:Graph {{{
+  template<class Cost=ll>
+  struct Graph {
+      using Pos = int;  // int以外には対応しない。
+  
+      int n;  // 頂点数
+      vector<vector<Edge<Cost>>> adj_list;
+      auto operator[](Pos pos) const { return adj_list[pos]; }
+      vector<Edge<Cost>> edges;
+      tree<Cost> tr;
+      Pos root;
+      vector<int> _used_in_dfs;
+      vector<int> lowlink;
+      Cost zerocost;
+      Cost infcost;
+  
+      Graph() {}
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
+  
+      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
+          adj_list[from].emplace_back(from, to, cost, idx);
+          edges.emplace_back(from, to, cost, idx);
+      }
+      void add_edge(Pos from, Pos to) {  // for ll
+          adj_list[from].emplace_back(from, to, 1, -1);
+          edges.emplace_back(from, to, 1, -1);
+      }/*}}}*/
+  
+      void build_tree(Pos _root) {/*{{{*/
+          root = _root;
+          _dfs_tree(root);
+          tr.build(root);
+          _make_lowlink();
+      }/*}}}*/
+  
+      vector<int> make_bipartite() {/*{{{*/
+          UnionFind buf(2 * n);
+          rep(u, n) {
+              each(e, adj_list[u]) {
+                  buf.merge(u, e.to + n);
+                  buf.merge(e.to, u + n);
+              }
+          }
+  
+          vector<int> res(n, -1);
+          rep(u, n) {
+              if (buf.same(u, u + n)) return res;
+          }
+          rep(u, n) {
+              if (buf.same(0, u)) res[u] = 0;
+              else res[u] = 1;
+          }
+          return res;
+      }/*}}}*/
+  
+      void _dfs_tree(Pos u) {/*{{{*/
+          _used_in_dfs[u] = 1;
+          each(e, adj_list[u]) {
+              if (_used_in_dfs[e.to]) continue;
+              tr.add_edge(u, e.to, e.cost);
+              _dfs_tree(e.to);
+          }
+      }/*}}}*/
+  
+      void _make_lowlink() {/*{{{*/
+          lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
+          r_rep(i, n) {
+              Pos u = tr.dfstrv[i];
+              chmin(lowlink[u], tr.ord[u]);
+  
+              each(e, adj_list[u]) {
+                  if (e.to == tr.par[u])
+                      continue;
+                  else if (tr.ord[e.to] < tr.ord[u]) {
+                      chmin(lowlink[u], tr.ord[e.to]);
+                  } else {
+                      chmin(lowlink[u], lowlink[e.to]);
+                  }
+              }
+          }
+      }/*}}}*/
+  
+      vector<Pos> get_articulation_points() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+  
+          vector<Pos> res;
+          if (sz(tr.children[root]) > 1) {
+              res.push_back(root);
+          }
+          rep(u, 0, n) {
+              if (u == root) continue;
+              bool is_kan = false;
+              each(v, tr.children[u]) {
+                  if (tr.ord[u] <= lowlink[v]) {
+                      is_kan = true;
+                  }
+              }
+              if (is_kan) res.push_back(u);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge<Cost>> get_bridges() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+          vector<Edge<Cost>> res;
+          each(edge, edges){
+              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge<Cost>> kruskal_tree() {/*{{{*/
+          // 使用される辺のvectorを返す
+          vector<Edge<Cost>> res(n - 1);
+          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
+          UnionFind uf(n);
+  
+          Cost total_cost = zerocost;
+          int idx = 0;
+          each(e, edges) {
+              if (uf.same(e.from, e.to)) continue;
+              uf.merge(e.from, e.to);
+              total_cost = total_cost + e.cost;
+              res[idx] = e;
+              idx++;
+          }
+          assert(idx == n - 1);
+  
+          return res;
+      }/*}}}*/
+  
+      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
+          vector<Cost> dist(n, infcost);           // 最短距離
+          PQ<pair<Cost, Pos>> pq;
+          each(start, starts) {
+              dist[start] = zerocost;
+              pq.push(make_pair(zerocost, start));
+          }
+          while (!pq.empty()) {
+              auto cp = pq.top();
+              pq.pop();
+              auto [cost, u] = cp;
+              for (const auto& edge : adj_list[u]) {
+                  Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
+                  if (new_cost < dist[edge.to]) {
+                      dist[edge.to] = new_cost;
+                      pq.push(make_pair(new_cost, edge.to));
+                  }
+              }
+          }
+          return dist;
+      };/*}}}*/
+  
+      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
+          vector<Pos> starts = {start};
+          return dijkstra(starts);
+      };/*}}}*/
+  };
+  // snippet:Graph }}}
+  
+  // snippet:scc {{{
+  template<class T = ll>
+  struct StronglyConnectedComponents {
+      const Graph<T> &g;  //{{{
+      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+      Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
+      Graph<> _rg;  // reversed graph
+      vector<int> _order;  // order[i]: 帰りがけ順
+      vector<int> _used;
+  
+      StronglyConnectedComponents(Graph<T> &_g)
+          : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
+          for (int i = 0; i < g.n; i++) {
+              for (auto e : g[i]) {
+                  _rg.add_edge(e.to, e.from);
+              }
+          }
+          _build();
+      }
+  
+      int operator[](int k) { return comp[k]; }
+  
+      void _build() {
+          for (int i = 0; i < g.n; i++) _dfs(i);
+          reverse(begin(_order), end(_order));
+          int cnt = 0;
+          for (int u : _order)
+              if (comp[u] == -1) _rdfs(u, cnt), cnt++;
+  
+          dag = Graph(cnt);
+          for (int u = 0; u < g.n; u++) {
+              for (auto &e : g[u]) {
+                  if (comp[u] == comp[e.to]) continue;
+                  dag.add_edge(comp[u], comp[e.to]);
+              }
+          }
+      }
+  
+      void _dfs(int idx) {
+          if (_used[idx]) return;
+          _used[idx] = true;
+          for (auto &e : g[idx]) _dfs(e.to);
+          _order.push_back(idx);
+      }
+  
+      void _rdfs(int idx, int cnt) {
+          if (comp[idx] != -1) return;
+          comp[idx] = cnt;
+          for (auto e : _rg[idx]) _rdfs(e.to, cnt);
+      }  //}}}
+  };
+  // how to use
+  // StronglyConnectedComponents scc(g); // g: Graph
+  // dump(scc.comp, scc.dag.adj_list);
+  // snippet:scc }}}
+
+
+snippet bellman_ford
+  // snippet:segment_tree {{{
+  template <typename X> struct SegmentTree {  // {{{
+      private:
+          using F = function<X(X, X)>;
+          using index = int;
+          int n;  // 元の配列のサイズ
+          int N;  // n以上の最小の2冪
+          vector<X> node;
+          F merge;
+          X identity;
+  
+      public:
+          SegmentTree() {}
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
+              n = a.size();
+              N = 1;
+              while (N < n) N *= 2;
+              node.resize(2 * N - 1, identity);
+              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+              for (int i = N - 2; i >= 0; i--)
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+          }
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
+  
+          X& operator[](index i) { return node[i + N - 1]; }
+  
+          void set(index i, X val) {
+              i += (N - 1);
+              node[i] = val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          void add(index i, X val) {
+              i += (N - 1);
+              node[i] += val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          // query for [a, b)
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
+              if (r < 0) r = N;
+              if (r <= a || b <= l) return identity;
+              if (a <= l && r <= b) return node[k];
+  
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(vl, vr);
+          }
+  
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
+  
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
+          }
+  
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
+          }
+  
+          #if defined(PCM) || defined(LOCAL)
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
+              os << "[";
+              for (int i = 0; i < sg.n; i++) {
+                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+              }
+              return os;
+          }
+          #endif
+  };/*}}}*/
+  // sample of initialize SegmentTree:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // SegmentTree<ll> seg(a, mymin, 1e18);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // SegmentTree<ll> seg(a, mymax, -1e18);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   
@@ -6668,18 +6957,19 @@ snippet bellman_ford
 
 snippet tree
   // snippet:segment_tree {{{
-  template <typename T> struct SegmentTree {  // {{{
+  template <typename X> struct SegmentTree {  // {{{
       private:
-          using F = function<T(T, T)>;
+          using F = function<X(X, X)>;
+          using index = int;
           int n;  // 元の配列のサイズ
           int N;  // n以上の最小の2冪
-          vector<T> node;
+          vector<X> node;
           F merge;
-          T identity;
+          X identity;
   
       public:
           SegmentTree() {}
-          SegmentTree(vector<T> a, F f, T id) : merge(f), identity(id) {
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
               n = a.size();
               N = 1;
               while (N < n) N *= 2;
@@ -6688,11 +6978,11 @@ snippet tree
               for (int i = N - 2; i >= 0; i--)
                   node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
           }
-          SegmentTree(int n, F f, T id) : SegmentTree(vector<T>(n, id), f, id) {}
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
   
-          T& operator[](int i) { return node[i + N - 1]; }
+          X& operator[](index i) { return node[i + N - 1]; }
   
-          void set(int i, T val) {
+          void set(index i, X val) {
               i += (N - 1);
               node[i] = val;
               while (i > 0) {
@@ -6701,7 +6991,7 @@ snippet tree
               }
           }
   
-          void add(int i, T val) {
+          void add(index i, X val) {
               i += (N - 1);
               node[i] += val;
               while (i > 0) {
@@ -6711,45 +7001,66 @@ snippet tree
           }
   
           // query for [a, b)
-          T query(int a, int b, int k = 0, int l = 0, int r = -1) {
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
               if (r < 0) r = N;
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              T vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              T vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
               return merge(vl, vr);
           }
   
-          // find most right element for [a, b)
-          int find_mr(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return a-1;
-              if (k >= N-1) return k - (N-1);  // leaf
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
   
-              T vr = find_mr(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              if (vr != a-1) return vr;
-  
-              T vl = find_mr(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              return vl;
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
           }
   
-          // find most left element for [a, b)
-          int find_ml(int a, int b, const function<bool(T)>& is_ok, int k = 0, int l = 0, int r = -1){
-              // find most left
-              if (r < 0) r = N;
-              if (r <= a || b <= l || !is_ok(node[k])) return b;
-              if (k >= N-1) return k - (N-1);  // leaf
-  
-              T vl = find_ml(a, b, is_ok, 2 * k + 1, l, (l + r) / 2);
-              if (vl != b) return vl;
-  
-              T vr = find_ml(a, b, is_ok, 2 * k + 2, (l + r) / 2, r);
-              return vr;
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
           }
   
           #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<T>& sg) {  //
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
               os << "[";
               for (int i = 0; i < sg.n; i++) {
                   os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
@@ -6768,6 +7079,12 @@ snippet tree
   
   // auto add=[](auto a, auto b){return a+b;};
   // SegmentTree<ll> seg(a, add, 0);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
   // -----------------------------------------------
   // snippet:segment_tree }}}
   

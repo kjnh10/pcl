@@ -114,6 +114,7 @@ class Snippets(Dag):
 
         def check(name):
             if name in self._names_and_aliases:
+                print(name)
                 raise Exception(f"{name} declaration dupulicated.")
             self._names_and_aliases.add(name)
 
