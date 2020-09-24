@@ -11,6 +11,9 @@ data:
     path: library/cpp/graph/edge.hpp
     title: library/cpp/graph/edge.hpp
   _extendedRequiredBy:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
   - icon: ':question:'
     path: library/cpp/graph/graph.hpp
     title: library/cpp/graph/graph.hpp
@@ -29,9 +32,6 @@ data:
   - icon: ':warning:'
     path: library/cpp/graph/gridgraph.cpp
     title: library/cpp/graph/gridgraph.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/scc.hpp
-    title: library/cpp/graph/scc.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
@@ -383,13 +383,13 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/tree.hpp
   requiredBy:
+  - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
   - library/cpp/graph/tree.lib/reroot.cpp
   - library/cpp/graph/bellman_ford.hpp
   - library/cpp/graph/local_min_cycle.hpp
   - library/cpp/graph/gridgraph.cpp
-  - library/cpp/graph/scc.hpp
   - library/cpp/graph/topological_sort.hpp
   - library/cpp/graph/two_sat.hpp
   timestamp: '2020-09-23 22:16:02+09:00'

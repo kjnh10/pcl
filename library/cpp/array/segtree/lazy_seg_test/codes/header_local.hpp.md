@@ -14,12 +14,8 @@ data:
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
-  bundledCode: '#line 2 "library/cpp/array/segtree/lazy_seg_test/codes/header.hpp"
+  bundledCode: '#line 2 "library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp"
 
-
-    //%snippet.set(''header'')%
-
-    //%snippet.fold()%
 
     #ifndef HEADER_H
 
@@ -132,17 +128,11 @@ data:
 
 
     #endif /* HEADER_H */
-
-    //%snippet.end()%
 
     '
   code: '#pragma once  // need to be first line for oj-bundle
 
 
-    //%snippet.set(''header'')%
-
-    //%snippet.fold()%
-
     #ifndef HEADER_H
 
     #define HEADER_H
@@ -255,22 +245,20 @@ data:
 
     #endif /* HEADER_H */
 
-    //%snippet.end()%
-
     '
   dependsOn: []
   isVerificationFile: false
-  path: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+  path: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
   requiredBy:
   - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
   - library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
-  timestamp: '2020-09-24 01:13:25+09:00'
+  timestamp: '2020-09-24 23:26:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+documentation_of: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
-- /library/library/cpp/array/segtree/lazy_seg_test/codes/header.hpp.html
-title: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+- /library/library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
+- /library/library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp.html
+title: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
 ---

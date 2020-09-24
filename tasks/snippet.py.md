@@ -56,10 +56,10 @@ data:
     \    def __init__(self):\n        super().__init__()\n        self._names_and_aliases\
     \ = set()\n\n    def add_node(self, node):\n        super().add_node(node)\n\n\
     \        def check(name):\n            if name in self._names_and_aliases:\n \
-    \               raise Exception(f\"{name} declaration dupulicated.\")\n      \
-    \      self._names_and_aliases.add(name)\n\n        check(node.name)\n\n     \
-    \   if ('alias' in node.option):\n            if type(node.option['alias']) is\
-    \ str:\n                check(node.option['alias'])\n            elif type(node.option['alias'])\
+    \               print(name)\n                raise Exception(f\"{name} declaration\
+    \ dupulicated.\")\n            self._names_and_aliases.add(name)\n\n        check(node.name)\n\
+    \n        if ('alias' in node.option):\n            if type(node.option['alias'])\
+    \ is str:\n                check(node.option['alias'])\n            elif type(node.option['alias'])\
     \ is list:\n                [check(alias) for alias in node.option['alias']]\n\
     \n    def extract_snips(self, f: Path, extension: str) -> list:\n        def get_command_from(line)\
     \ -> str:\n            s = line.find('%')\f\n            e = line.find('%', s+1)\n\

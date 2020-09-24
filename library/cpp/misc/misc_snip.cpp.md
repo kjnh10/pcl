@@ -72,13 +72,13 @@ data:
     \ assert(false);\n\n    cout << \"?\" << \" \" << u << \" \" << v << endl;\n \
     \   fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n    ll res; cin>>res;\n\n\
     \    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n    cout << \"!\" << \"\
-    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\ntemplate<class\
-    \ T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n    vector<tuple<T,\
-    \ T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i], y[i]);\n    }\n \
-    \   sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n        y[i]\
-    \ = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\ntemplate<class\
-    \ T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n \
-    \   return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
+    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n//%snippet.fold()%\n\
+    template<class T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n\
+    \    vector<tuple<T, T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i],\
+    \ y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n\
+    \        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
+    template<class T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n\
+    \    return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
     \ T> vector<vector<vector<T>>> make_vector_3d(ll n1, ll n2, ll n3, T init_value){\n\
     \    return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3,\
     \ init_value)));\n}\n// auto dp = make_vector_2d<mint>(n, k, 0);  // like ll dp[n][k];\n\
@@ -100,7 +100,12 @@ data:
     \ = mp(score[i], i);\n    sort(all(tmp));\n\n    vector<ll> rank(n);\n    ll now\
     \ = -1, last = -1;\n    rep(i, n){\n        auto [dist, idx] = tmp[i];\n     \
     \   if (last < dist) now = i;\n        rank[idx] = now;\n        last = dist;\n\
-    \    }\n    return rank;\n}\n"
+    \    }\n    return rank;\n}\n\n\n//%snippet.set('encode')%\n//%snippet.config({'alias':'id'})%\n\
+    //%snippet.config({'alias':'nid'})%\nauto nid = [&](int i, int j){return (i*w\
+    \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
+    \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
+    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
+    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n"
   code: "//%snippet.set('cout')%\ncout << ${0} << endl;\n\n//%snippet.set('couts')%\n\
     rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n\
     (${1} ? ${2} : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n)\
@@ -165,13 +170,13 @@ data:
     \ assert(false);\n\n    cout << \"?\" << \" \" << u << \" \" << v << endl;\n \
     \   fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n    ll res; cin>>res;\n\n\
     \    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n    cout << \"!\" << \"\
-    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\ntemplate<class\
-    \ T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n    vector<tuple<T,\
-    \ T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i], y[i]);\n    }\n \
-    \   sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n        y[i]\
-    \ = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\ntemplate<class\
-    \ T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n \
-    \   return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
+    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n//%snippet.fold()%\n\
+    template<class T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n\
+    \    vector<tuple<T, T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i],\
+    \ y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n\
+    \        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
+    template<class T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n\
+    \    return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
     \ T> vector<vector<vector<T>>> make_vector_3d(ll n1, ll n2, ll n3, T init_value){\n\
     \    return vector<vector<vector<T>>>(n1, vector<vector<T>>(n2, vector<T>(n3,\
     \ init_value)));\n}\n// auto dp = make_vector_2d<mint>(n, k, 0);  // like ll dp[n][k];\n\
@@ -193,12 +198,17 @@ data:
     \ = mp(score[i], i);\n    sort(all(tmp));\n\n    vector<ll> rank(n);\n    ll now\
     \ = -1, last = -1;\n    rep(i, n){\n        auto [dist, idx] = tmp[i];\n     \
     \   if (last < dist) now = i;\n        rank[idx] = now;\n        last = dist;\n\
-    \    }\n    return rank;\n}\n"
+    \    }\n    return rank;\n}\n\n\n//%snippet.set('encode')%\n//%snippet.config({'alias':'id'})%\n\
+    //%snippet.config({'alias':'nid'})%\nauto nid = [&](int i, int j){return (i*w\
+    \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
+    \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
+    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
+    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n"
   dependsOn: []
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-08-24 13:32:09+09:00'
+  timestamp: '2020-09-24 23:26:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

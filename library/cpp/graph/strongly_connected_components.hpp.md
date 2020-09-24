@@ -319,8 +319,8 @@ data:
     \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
     \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
     \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/scc.hpp\"\n\n\
-    //%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
+    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
     \ comp;  // comp[i]: i\u304C\u5C5E\u3059\u308B\u5F37\u9023\u7D50\u6210\u5206\u304C\
@@ -378,18 +378,18 @@ data:
   - library/cpp/array/segtree/segment_tree.hpp
   - library/cpp/graph/unionfind.hpp
   isVerificationFile: false
-  path: library/cpp/graph/scc.hpp
+  path: library/cpp/graph/strongly_connected_components.hpp
   requiredBy:
   - library/cpp/graph/two_sat.hpp
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-09-24 20:20:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/scc.test.cpp
   - library/cpp/graph/tests/two_sat.test.cpp
-documentation_of: library/cpp/graph/scc.hpp
+documentation_of: library/cpp/graph/strongly_connected_components.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/graph/scc.hpp
-- /library/library/cpp/graph/scc.hpp.html
-title: library/cpp/graph/scc.hpp
+- /library/library/cpp/graph/strongly_connected_components.hpp
+- /library/library/cpp/graph/strongly_connected_components.hpp.html
+title: library/cpp/graph/strongly_connected_components.hpp
 ---

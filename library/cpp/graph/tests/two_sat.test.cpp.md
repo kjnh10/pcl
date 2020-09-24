@@ -5,8 +5,8 @@ data:
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/scc.hpp
-    title: library/cpp/graph/scc.hpp
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
@@ -322,8 +322,8 @@ data:
     \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
     \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
     \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/scc.hpp\"\n\n\
-    //%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
+    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
     \ comp;  // comp[i]: i\u304C\u5C5E\u3059\u308B\u5F37\u9023\u7D50\u6210\u5206\u304C\
@@ -412,7 +412,7 @@ data:
     \   cout << (valid ? \"YES\" : \"NO\") << endl;\n\n    return 0; \n}\n"
   dependsOn:
   - library/cpp/graph/two_sat.hpp
-  - library/cpp/graph/scc.hpp
+  - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/header.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/edge.hpp
@@ -423,7 +423,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/two_sat.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-09-24 20:20:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/two_sat.test.cpp

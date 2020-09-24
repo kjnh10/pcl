@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/scc.hpp
-    title: library/cpp/graph/scc.hpp
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
@@ -317,8 +317,8 @@ data:
     \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
     \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
     \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/scc.hpp\"\n\n\
-    //%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
+    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
     \ comp;  // comp[i]: i\u304C\u5C5E\u3059\u308B\u5F37\u9023\u7D50\u6210\u5206\u304C\
@@ -356,9 +356,9 @@ data:
     \ (scc[x] == scc[y]) {\n            cout << 1 << endl;\n        } else {\n   \
     \         cout << 0 << endl;\n        }\n    }\n    return 0;\n}\n"
   code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_C&lang=jp\"\
-    \n#include \"../scc.hpp\"\n\nsigned main() {\n    int n, m;\n    cin >> n >> m;\n\
-    \    Graph g(n);\n    rep(i, m) {\n        int from, to;\n        cin >> from\
-    \ >> to;\n        g.add_edge(from, to);\n    }\n    StronglyConnectedComponents\
+    \n#include \"../strongly_connected_components.hpp\"\n\nsigned main() {\n    int\
+    \ n, m;\n    cin >> n >> m;\n    Graph g(n);\n    rep(i, m) {\n        int from,\
+    \ to;\n        cin >> from >> to;\n        g.add_edge(from, to);\n    }\n    StronglyConnectedComponents\
     \ scc(g);\n    dump(scc.comp);\n    rep(i, sz(scc.dag.adj_list)){\n        dump(scc.dag.adj_list[i]);\n\
     \    }\n    dump(scc._order);\n\n    // 01_small_01.in\n    // scc.comp:[0, 0,\
     \ 2, 1, 0, 0, 4, 3, 3, 3, 3, 4, 4, 4] in [15:main]\n    // scc.dag.adj_list[i]:[(0,2),\
@@ -370,7 +370,7 @@ data:
     \ (scc[x] == scc[y]) {\n            cout << 1 << endl;\n        } else {\n   \
     \         cout << 0 << endl;\n        }\n    }\n    return 0;\n}\n"
   dependsOn:
-  - library/cpp/graph/scc.hpp
+  - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/header.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/edge.hpp
@@ -380,7 +380,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/scc.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-09-24 20:20:45+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/scc.test.cpp

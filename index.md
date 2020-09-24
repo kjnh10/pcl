@@ -27,8 +27,8 @@ data:
   - name: library/cpp/array/segtree/lazy_seg_test/codes
     pages:
     - icon: ':warning:'
-      path: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
-      title: library/cpp/array/segtree/lazy_seg_test/codes/header.hpp
+      path: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
+      title: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
     - icon: ':warning:'
       path: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
       title: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
@@ -89,8 +89,8 @@ data:
       path: library/cpp/graph/local_min_cycle.hpp
       title: library/cpp/graph/local_min_cycle.hpp
     - icon: ':heavy_check_mark:'
-      path: library/cpp/graph/scc.hpp
-      title: library/cpp/graph/scc.hpp
+      path: library/cpp/graph/strongly_connected_components.hpp
+      title: library/cpp/graph/strongly_connected_components.hpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/topological_sort.hpp
       title: library/cpp/graph/topological_sort.hpp

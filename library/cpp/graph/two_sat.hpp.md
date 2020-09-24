@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/scc.hpp
-    title: library/cpp/graph/scc.hpp
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
@@ -319,8 +319,8 @@ data:
     \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
     \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
     \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/scc.hpp\"\n\n\
-    //%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
+    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
     \ comp;  // comp[i]: i\u304C\u5C5E\u3059\u308B\u5F37\u9023\u7D50\u6210\u5206\u304C\
@@ -388,28 +388,28 @@ data:
     \ ts(n); // n\u5909\u6570\n// ts.add_condition(x, 1, y, 0);  // represents (x==1\
     \ or y==0)\n// ......\n// ......\n// auto valid = ts.build();\n// if (valid) dump(ts.assigned);\n\
     \n//%snippet.end()%\n"
-  code: "#include \"scc.hpp\"\n#include \"topological_sort.hpp\"\n\n//%snippet.set('two_sat')%\n\
-    //%snippet.include('scc')%\n//%snippet.include('topological_sort')%\n//%snippet.fold()%\n\
-    \nstruct two_sat{\n    using Pos = int;\n    using Size = int;\n    Size orig_n;\n\
-    \    Graph<bool> g;\n    vector<int> assigned;\n\n    two_sat(Size _orig_n): orig_n(_orig_n){\n\
-    \        g = Graph<bool>(orig_n * 2);  // \u9802\u70B9\u500D\u52A0\n    };\n\n\
-    \    Pos toid(Pos u, bool is_u) {\n        return u * 2 + is_u;\n    }\n\n   \
-    \ void add_condition(Pos u, bool is_u, Pos v, bool is_v) {\n        // add condition\
-    \ (u == is_u or v == is_v)\n        g.add_edge(toid(u, is_u^1), toid(v, is_v));\n\
-    \        g.add_edge(toid(v, is_v^1), toid(u, is_u));\n    }\n\n    bool build(){\n\
-    \        // if successed to assigne valiables, return true, else return false\u3002\
-    \n        StronglyConnectedComponents scc(g);\n        auto ts = get<1>(topological_sort(scc.dag));\n\
-    \        vector<Size> ord(sz(ts));\n        rep(i, sz(ts)) ord[ts[i]] = i;\n\n\
-    \        // check valid\n        rep(u, orig_n){\n            if (scc.comp[toid(u,\
-    \ 0)] == scc.comp[toid(u, 1)]) {\n                return false;\n            }\n\
-    \        }\n\n        assigned = vector<int>(orig_n, -1);\n        rep(u, orig_n){\n\
-    \            assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]]\
-    \ ? 1 : 0);\n        }\n        return true;\n    }\n};\n// how to use\n// two_sat\
-    \ ts(n); // n\u5909\u6570\n// ts.add_condition(x, 1, y, 0);  // represents (x==1\
-    \ or y==0)\n// ......\n// ......\n// auto valid = ts.build();\n// if (valid) dump(ts.assigned);\n\
-    \n//%snippet.end()%\n"
+  code: "#include \"strongly_connected_components.hpp\"\n#include \"topological_sort.hpp\"\
+    \n\n//%snippet.set('two_sat')%\n//%snippet.include('scc')%\n//%snippet.include('topological_sort')%\n\
+    //%snippet.fold()%\n\nstruct two_sat{\n    using Pos = int;\n    using Size =\
+    \ int;\n    Size orig_n;\n    Graph<bool> g;\n    vector<int> assigned;\n\n  \
+    \  two_sat(Size _orig_n): orig_n(_orig_n){\n        g = Graph<bool>(orig_n * 2);\
+    \  // \u9802\u70B9\u500D\u52A0\n    };\n\n    Pos toid(Pos u, bool is_u) {\n \
+    \       return u * 2 + is_u;\n    }\n\n    void add_condition(Pos u, bool is_u,\
+    \ Pos v, bool is_v) {\n        // add condition (u == is_u or v == is_v)\n   \
+    \     g.add_edge(toid(u, is_u^1), toid(v, is_v));\n        g.add_edge(toid(v,\
+    \ is_v^1), toid(u, is_u));\n    }\n\n    bool build(){\n        // if successed\
+    \ to assigne valiables, return true, else return false\u3002\n        StronglyConnectedComponents\
+    \ scc(g);\n        auto ts = get<1>(topological_sort(scc.dag));\n        vector<Size>\
+    \ ord(sz(ts));\n        rep(i, sz(ts)) ord[ts[i]] = i;\n\n        // check valid\n\
+    \        rep(u, orig_n){\n            if (scc.comp[toid(u, 0)] == scc.comp[toid(u,\
+    \ 1)]) {\n                return false;\n            }\n        }\n\n        assigned\
+    \ = vector<int>(orig_n, -1);\n        rep(u, orig_n){\n            assigned[u]\
+    \ = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);\n       \
+    \ }\n        return true;\n    }\n};\n// how to use\n// two_sat ts(n); // n\u5909\
+    \u6570\n// ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)\n// ......\n\
+    // ......\n// auto valid = ts.build();\n// if (valid) dump(ts.assigned);\n\n//%snippet.end()%\n"
   dependsOn:
-  - library/cpp/graph/scc.hpp
+  - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/header.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/edge.hpp
@@ -420,7 +420,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/two_sat.hpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-09-24 20:20:45+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/two_sat.test.cpp
