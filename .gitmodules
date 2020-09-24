@@ -1,0 +1,3 @@
+[submodule "library/cpp/ac-library"]
+	path = library/cpp/ac-library
+	url = https://github.com/kjnh10/ac-library.git
