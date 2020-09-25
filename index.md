@@ -105,6 +105,9 @@ data:
       title: library/cpp/graph/unionfind_with_potential.hpp
   - name: library/cpp/graph/flow
     pages:
+    - icon: ':warning:'
+      path: library/cpp/graph/flow/acl_micost_application.cpp
+      title: library/cpp/graph/flow/acl_micost_application.cpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/flow/dinic.hpp
       title: library/cpp/graph/flow/dinic.hpp
