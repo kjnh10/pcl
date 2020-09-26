@@ -5,6 +5,9 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
+  - icon: ':x:'
+    path: library/cpp/string/suffix_array.hpp
+    title: library/cpp/string/suffix_array.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/strongly_connected_components.hpp
     title: library/cpp/graph/strongly_connected_components.hpp
@@ -45,6 +48,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
     title: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
+  - icon: ':x:'
+    path: library/cpp/string/suffix_array.test.cpp
+    title: library/cpp/string/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/hld.test.cpp
     title: library/cpp/graph/tree.lib/hld.test.cpp
@@ -272,6 +278,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/segment_tree.hpp
   requiredBy:
+  - library/cpp/string/suffix_array.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
@@ -288,6 +295,7 @@ data:
   - library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   - library/cpp/array/segtree/segment_tree.test.cpp
   - library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
+  - library/cpp/string/suffix_array.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
   - library/cpp/graph/tree.lib/lca.test.cpp

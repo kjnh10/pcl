@@ -20,7 +20,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/syakutori.cpp
     title: library/cpp/array/syakutori.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   - icon: ':heavy_check_mark:'
@@ -108,9 +108,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.hpp
     title: library/cpp/math/sieve.hpp
-  - icon: ':warning:'
-    path: library/cpp/string/suffix_array/codes/suffix_array.cpp
-    title: library/cpp/string/suffix_array/codes/suffix_array.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/string/rolling_hash.hpp
     title: library/cpp/string/rolling_hash.hpp
@@ -126,6 +123,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/string/lcs.cpp
     title: library/cpp/string/lcs.cpp
+  - icon: ':x:'
+    path: library/cpp/string/suffix_array.hpp
+    title: library/cpp/string/suffix_array.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/strongly_connected_components.hpp
     title: library/cpp/graph/strongly_connected_components.hpp
@@ -232,6 +232,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
+  - icon: ':x:'
+    path: library/cpp/string/suffix_array.test.cpp
+    title: library/cpp/string/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/string/rolling_hash.test.cpp
     title: library/cpp/string/rolling_hash.test.cpp
@@ -563,12 +566,12 @@ data:
   - "library/cpp/math/geometry/\u7DDA\u5206\u3068\u7DDA\u5206\u306E\u4EA4\u5DEE\u5224\
     \u5B9A.cpp"
   - library/cpp/math/sieve.hpp
-  - library/cpp/string/suffix_array/codes/suffix_array.cpp
   - library/cpp/string/rolling_hash.hpp
   - library/cpp/string/kmp/codes/solve.cpp
   - library/cpp/string/kmp/codes/naive.cpp
   - library/cpp/string/split.hpp
   - library/cpp/string/lcs.cpp
+  - library/cpp/string/suffix_array.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/edge.hpp
@@ -607,6 +610,7 @@ data:
   - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp
   - library/cpp/math/sieve.test.cpp
+  - library/cpp/string/suffix_array.test.cpp
   - library/cpp/string/rolling_hash.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
