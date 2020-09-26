@@ -1,7 +1,7 @@
 #include "../segment_tree_lazy.hpp"
 
-//%snippet.set('make_lseg_rmq_ruq')%
-//%snippet.config({'alias':'rmq_ruq'})%
+//%snippet.set('make_lseg_rmq_raq')%
+//%snippet.config({'alias':'rmq_raq'})%
 //%snippet.fold()%
 using X = ll; // (X, merge) is monoid
 using M = ll; // (M, composition) is monoid
