@@ -4,6 +4,6 @@
 int main() {
   string s;cin>>s;
   suffix_array sa(s);
-  rep(i, sz(sa.order)) cout << sa.order[i] << (i!=sz(sa.order)-1 ? " " : "\n");
+  rep(i, sz(sa.pos)) cout << sa.pos[i] << (i!=sz(sa.pos)-1 ? " " : "\n");
   return 0;
 }

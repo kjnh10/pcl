@@ -1394,20 +1394,6 @@ snippet header
   using namespace std;
   #include <bits/stdc++.h>
   
-  // #include <atcoder/fenwicktree>
-  // #include <atcoder/segtree>
-  // #include <atcoder/lazysegtree>
-  // #include <atcoder/string>
-  // #include <atcoder/math>
-  // #include <atcoder/convolution>
-  // #include <atcoder/modint>
-  // #include <atcoder/dsu>
-  // #include <atcoder/maxflow>
-  // #include <atcoder/mincostflow>
-  // #include <atcoder/scc>
-  // #include <atcoder/twosat>
-  // using namespace atcoder;
-  
   // varibable settings
   const long long INF = 1e18;
   template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
@@ -7486,7 +7472,6 @@ alias sa
   // snippet:segment_tree }}}
   
   // snippet:suffix_array {{{
-  template <typename T>
   struct suffix_array { 
       vector<int> a;
       vector<int> pos;   // pos[j]: j位のsumffixはどこから始まるか

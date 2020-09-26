@@ -8,7 +8,6 @@
 //%snippet.include('sparse_table')%
 //%snippet.fold()%
 
-template <typename T>
 struct suffix_array { 
     vector<int> a;
     vector<int> pos;   // pos[j]: j位のsumffixはどこから始まるか
