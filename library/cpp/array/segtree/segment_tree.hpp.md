@@ -5,7 +5,7 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   - icon: ':heavy_check_mark:'
@@ -48,7 +48,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
     title: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'

@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   - icon: ':question:'
@@ -10,13 +10,13 @@ data:
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/suffixarray
@@ -141,29 +141,28 @@ data:
     \ lookup[r - l];\n        return min(st[b][l], st[b][r - (1 << b)]);\n    }\n\
     };\n\n//%snippet.end()%\n#line 4 \"library/cpp/string/suffix_array.hpp\"\n\n//%snippet.set('suffix_array')%\n\
     //%snippet.config({'alias':'sa'})%\n//%snippet.include('segment_tree')%\n//%snippet.include('sparse_table')%\n\
-    //%snippet.fold()%\n\ntemplate <typename T>\nstruct suffix_array { \n    vector<int>\
-    \ a;\n    vector<int> pos;   // pos[j]: j\u4F4D\u306Esumffix\u306F\u3069\u3053\
-    \u304B\u3089\u59CB\u307E\u308B\u304B\n    vector<int> rank;  // rank[i]: s[i:]\u306F\
-    \u4F55\u4F4D\u304B\n    // pos = rank^-1\n    vector<int> lcp_array;         \
-    \  // lcp_arry[j]: s[pos[j]:]\u3068s[pos[j]+1:]\u306Elcp\n    SegmentTree<int>\
-    \ _seg_lcp_array;\n    int n;\n    string s;\n\n    // constructor{{{\n    suffix_array()\
-    \ {}\n    suffix_array(vector<int>& a) : a(a), n(a.size()) { _build(); }\n   \
-    \ suffix_array(string& s_): s(s_) {\n        n = s.size();\n        a.resize(n);\n\
-    \        rep(i, n) a[i] = s[i];\n        _build();\n    } /*}}}*/\n\n    void\
-    \ _build() { /*{{{*/\n        _build_order();\n        _build_lcp_array();\n \
-    \   } /*}}}*/\n\n    void _build_order() { /*{{{*/\n        pos.resize(n);\n \
-    \       iota(all(pos), 0);\n        rank = a;  // a\u3067\u305D\u306E\u307E\u307E\
-    \u30B9\u30B3\u30A2\u5316\n\n        for (int k = 1; k < n; k *= 2) {\n       \
-    \     // k\u3067\u306Erank\u304C\u751F\u6210\u3055\u308C\u3066\u3044\u308B\u524D\
-    \u63D0\u30672*k\u3067\u306Erank\u3092\u751F\u6210\u3059\u308B\n\n            auto\
-    \ _comp = [&](int l, int r) {\n                auto left = mp(rank[l], (l + k\
-    \ < n ? rank[l + k] : -1));\n                auto right = mp(rank[r], (r + k <\
-    \ n ? rank[r + k] : -1));\n                return left < right;\n            };\n\
-    \            sort(all(pos), _comp);\n\n            vector<int> next_rank(n);\n\
-    \            next_rank[pos[0]] = 0;\n            int r = 0;\n            rep(i,\
-    \ 1, n) {\n                if (_comp(pos[i - 1], pos[i])) r++;\n             \
-    \   next_rank[pos[i]] = r;\n            }\n            rank = next_rank;\n   \
-    \     }\n    } /*}}}*/\n\n    void _build_lcp_array() { /*{{{*/\n        lcp_array.resize(n);\n\
+    //%snippet.fold()%\n\nstruct suffix_array { \n    vector<int> a;\n    vector<int>\
+    \ pos;   // pos[j]: j\u4F4D\u306Esumffix\u306F\u3069\u3053\u304B\u3089\u59CB\u307E\
+    \u308B\u304B\n    vector<int> rank;  // rank[i]: s[i:]\u306F\u4F55\u4F4D\u304B\
+    \n    // pos = rank^-1\n    vector<int> lcp_array;           // lcp_arry[j]: s[pos[j]:]\u3068\
+    s[pos[j]+1:]\u306Elcp\n    SegmentTree<int> _seg_lcp_array;\n    int n;\n    string\
+    \ s;\n\n    // constructor{{{\n    suffix_array() {}\n    suffix_array(vector<int>&\
+    \ a) : a(a), n(a.size()) { _build(); }\n    suffix_array(string& s_): s(s_) {\n\
+    \        n = s.size();\n        a.resize(n);\n        rep(i, n) a[i] = s[i];\n\
+    \        _build();\n    } /*}}}*/\n\n    void _build() { /*{{{*/\n        _build_order();\n\
+    \        _build_lcp_array();\n    } /*}}}*/\n\n    void _build_order() { /*{{{*/\n\
+    \        pos.resize(n);\n        iota(all(pos), 0);\n        rank = a;  // a\u3067\
+    \u305D\u306E\u307E\u307E\u30B9\u30B3\u30A2\u5316\n\n        for (int k = 1; k\
+    \ < n; k *= 2) {\n            // k\u3067\u306Erank\u304C\u751F\u6210\u3055\u308C\
+    \u3066\u3044\u308B\u524D\u63D0\u30672*k\u3067\u306Erank\u3092\u751F\u6210\u3059\
+    \u308B\n\n            auto _comp = [&](int l, int r) {\n                auto left\
+    \ = mp(rank[l], (l + k < n ? rank[l + k] : -1));\n                auto right =\
+    \ mp(rank[r], (r + k < n ? rank[r + k] : -1));\n                return left <\
+    \ right;\n            };\n            sort(all(pos), _comp);\n\n            vector<int>\
+    \ next_rank(n);\n            next_rank[pos[0]] = 0;\n            int r = 0;\n\
+    \            rep(i, 1, n) {\n                if (_comp(pos[i - 1], pos[i])) r++;\n\
+    \                next_rank[pos[i]] = r;\n            }\n            rank = next_rank;\n\
+    \        }\n    } /*}}}*/\n\n    void _build_lcp_array() { /*{{{*/\n        lcp_array.resize(n);\n\
     \        int con = 1;\n        rep(l, 0, n) {\n            if (rank[l] + 1 ==\
     \ n) {\n                lcp_array[rank[l]] = -1;\n                con = 1;\n \
     \               continue;\n            }\n\n            if (con > 0) con--;\n\
@@ -188,12 +187,12 @@ data:
     \ : s[i:]\u306F\u4F55\u4F4D\u304B\n    // sa.lcp_arry[j] : return lcp(s[pos[j]:],\
     \ s[pos[j+1]:])\n    // sa.lcp(i, j) :   return lcp(s[i:], s[j:])\n\n//%snippet.end()%\n\
     #line 3 \"library/cpp/string/suffix_array.test.cpp\"\n\nint main() {\n  string\
-    \ s;cin>>s;\n  suffix_array sa(s);\n  rep(i, sz(sa.order)) cout << sa.order[i]\
-    \ << (i!=sz(sa.order)-1 ? \" \" : \"\\n\");\n  return 0;\n}\n"
+    \ s;cin>>s;\n  suffix_array sa(s);\n  rep(i, sz(sa.pos)) cout << sa.pos[i] <<\
+    \ (i!=sz(sa.pos)-1 ? \" \" : \"\\n\");\n  return 0;\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/suffixarray\"\n#include\
     \ \"suffix_array.hpp\"\n\nint main() {\n  string s;cin>>s;\n  suffix_array sa(s);\n\
-    \  rep(i, sz(sa.order)) cout << sa.order[i] << (i!=sz(sa.order)-1 ? \" \" : \"\
-    \\n\");\n  return 0;\n}\n"
+    \  rep(i, sz(sa.pos)) cout << sa.pos[i] << (i!=sz(sa.pos)-1 ? \" \" : \"\\n\"\
+    );\n  return 0;\n}\n"
   dependsOn:
   - library/cpp/string/suffix_array.hpp
   - library/cpp/header.hpp
@@ -202,8 +201,8 @@ data:
   isVerificationFile: true
   path: library/cpp/string/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2020-09-26 17:14:27+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2020-09-26 17:32:41+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/string/suffix_array.test.cpp
 layout: document

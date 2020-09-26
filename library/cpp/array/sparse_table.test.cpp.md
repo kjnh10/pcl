@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   - icon: ':question:'

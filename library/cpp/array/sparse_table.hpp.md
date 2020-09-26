@@ -5,18 +5,18 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.test.cpp
     title: library/cpp/array/sparse_table.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -80,7 +80,7 @@ data:
   requiredBy:
   - library/cpp/string/suffix_array.hpp
   timestamp: '2020-09-05 21:34:55+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/sparse_table.test.cpp
   - library/cpp/string/suffix_array.test.cpp

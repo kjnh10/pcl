@@ -20,7 +20,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/syakutori.cpp
     title: library/cpp/array/syakutori.cpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   - icon: ':heavy_check_mark:'
@@ -123,7 +123,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/string/lcs.cpp
     title: library/cpp/string/lcs.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   - icon: ':heavy_check_mark:'
@@ -232,7 +232,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
   - icon: ':heavy_check_mark:'

@@ -15,7 +15,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/slide_min.cpp
       title: library/cpp/array/slide_min.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/sparse_table.hpp
       title: library/cpp/array/sparse_table.hpp
     - icon: ':warning:'
@@ -276,7 +276,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/string/split.hpp
       title: library/cpp/string/split.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/string/suffix_array.hpp
       title: library/cpp/string/suffix_array.hpp
   - name: library/python
@@ -441,7 +441,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/string/rolling_hash.test.cpp
       title: library/cpp/string/rolling_hash.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/string/suffix_array.test.cpp
       title: library/cpp/string/suffix_array.test.cpp
 layout: toppage
