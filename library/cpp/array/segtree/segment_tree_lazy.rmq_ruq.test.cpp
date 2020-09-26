@@ -1,22 +1,5 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F"
-#include "segment_tree_lazy.hpp"
-
-// snippet:make_lseg_rmq_ruq {{{
-using X = ll; // (X, merge) is monoid
-using M = ll; // (M, composition) is monoid
-auto make_lseg_rmq_ruq(){
-    X ex = numeric_limits<X>::max();  // s.t merge(x, ex) = x
-    M em = numeric_limits<M>::max();
-    auto merge = [](X x1, X x2){return min(x1,x2);};
-    auto composition = [=](M m1, M m2){ 
-        if (m1 == em) return m2;
-        if (m2 == em) return m1;
-        return m2;
-    };
-    auto apply = [=](X x, M m){return (m==em ? x : m);};
-    return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
-}
-// snippet:make_lseg_rmq_ruq }}}
+#include "initialization/segment_tree_lazy.rmq_ruq.hpp"
 
 int main(){
     ll n,q;cin>>n>>q;

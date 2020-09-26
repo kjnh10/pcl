@@ -148,12 +148,10 @@ struct segment_tree_lazy {
     }
     #endif
 };
-
-/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em): モノイド(集合X, 二項演算fx,fa,fm,p 単位元ex,em)についてサイズnで構築
-    set(index i, X x), build(): i番目の要素をxにセット。まとめてセグ木を構築する。O(n)
-    update(index a, index b, M m): [a, b)の要素にmをapply。O(log(n))
-    query(index a, index b):  [a,b) 全てにfxを作用させた値を取得。O(log(n))
-*/
+// Regarding apply and merge, the conditions below should holds.
+// apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))
+// apply(apply(x, m1), m2) = apply(x, composition(m1, m2))
+// composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
 
 //%snippet.end()%
 
