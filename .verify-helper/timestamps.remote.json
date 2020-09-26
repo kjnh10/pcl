@@ -30,5 +30,6 @@
 "library/cpp/math/sieve.test.cpp": "2020-09-05 21:34:55 +0900",
 "library/cpp/misc/zipper.lib/zipper.test.cpp": "2020-09-05 21:34:55 +0900",
 "library/cpp/misc/zipper.lib/zipper2.test.cpp": "2020-09-05 21:34:55 +0900",
-"library/cpp/string/rolling_hash.test.cpp": "2020-09-05 21:34:55 +0900"
+"library/cpp/string/rolling_hash.test.cpp": "2020-09-05 21:34:55 +0900",
+"library/cpp/string/suffix_array.test.cpp": "2020-09-26 17:32:41 +0900"
 }
