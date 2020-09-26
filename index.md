@@ -24,6 +24,29 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/ternary_search.cpp
       title: library/cpp/array/ternary_search.cpp
+  - name: library/cpp/array/segtree/initialization
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+      title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+      title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+      title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
+      title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
+      title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+      title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+    - icon: ':warning:'
+      path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
+      title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
   - name: library/cpp/array/segtree/lazy_seg_test/codes
     pages:
     - icon: ':warning:'
@@ -57,9 +80,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/segment_tree_lazy.hpp
       title: library/cpp/array/segtree/segment_tree_lazy.hpp
-    - icon: ':warning:'
-      path: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
-      title: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
     - icon: ':warning:'
       path: library/cpp/array/segtree/yuki.cpp
       title: library/cpp/array/segtree/yuki.cpp

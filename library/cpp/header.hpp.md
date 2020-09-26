@@ -35,9 +35,27 @@ data:
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
   - icon: ':warning:'
-    path: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
-    title: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - icon: ':warning:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   - icon: ':warning:'
     path: library/cpp/array/segtree/rmq_2d.cpp
     title: library/cpp/array/segtree/rmq_2d.cpp
@@ -541,7 +559,13 @@ data:
   - library/cpp/array/slide_min.cpp
   - library/cpp/array/bsearch.cpp
   - library/cpp/array/segtree/segment_tree.hpp
-  - library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
+  - library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+  - library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   - library/cpp/array/segtree/rmq_2d.cpp
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/math/rational.hpp

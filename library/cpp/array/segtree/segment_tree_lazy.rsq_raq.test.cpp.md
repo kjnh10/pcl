@@ -125,15 +125,11 @@ data:
     \ i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
     \ os, segment_tree_lazy& sg) {  //\n        os << \"[\";\n        for (int i =\
     \ 0; i < sg.n; i++) {\n            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" :\
-    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n\n/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em):\
-    \ \u30E2\u30CE\u30A4\u30C9(\u96C6\u5408X, \u4E8C\u9805\u6F14\u7B97fx,fa,fm,p \u5358\
-    \u4F4D\u5143ex,em)\u306B\u3064\u3044\u3066\u30B5\u30A4\u30BAn\u3067\u69CB\u7BC9\
-    \n    set(index i, X x), build(): i\u756A\u76EE\u306E\u8981\u7D20\u3092x\u306B\
-    \u30BB\u30C3\u30C8\u3002\u307E\u3068\u3081\u3066\u30BB\u30B0\u6728\u3092\u69CB\
-    \u7BC9\u3059\u308B\u3002O(n)\n    update(index a, index b, M m): [a, b)\u306E\u8981\
-    \u7D20\u306Bm\u3092apply\u3002O(log(n))\n    query(index a, index b):  [a,b) \u5168\
-    \u3066\u306Bfx\u3092\u4F5C\u7528\u3055\u305B\u305F\u5024\u3092\u53D6\u5F97\u3002\
-    O(log(n))\n*/\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp\"\
+    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n// Regarding\
+    \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
+    \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
+    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
+    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp\"\
     \n\n// snippet:monoid_with_len {{{\ntemplate<class T>\nstruct monoid_with_len\
     \ {\n    T x;\n    int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_,\
     \ ll len_) : x(x_), len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
@@ -178,7 +174,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 23:33:15+09:00'
+  timestamp: '2020-09-26 18:55:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/segment_tree_lazy.rsq_raq.test.cpp

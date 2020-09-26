@@ -5,9 +5,9 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
-    path: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
-    title: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/mint.hpp
   requiredBy:
-  - library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - library/cpp/math/combination.hpp
   - library/cpp/math/gbsgs/gbsgs.cpp
   - library/cpp/math/bsgs/bsgs.cpp

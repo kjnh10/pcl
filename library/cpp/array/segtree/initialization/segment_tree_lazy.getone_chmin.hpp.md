@@ -2,40 +2,36 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
-    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
-  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _pathExtension: hpp
+  _verificationStatusIcon: ':warning:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja
-    links:
-    - http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja
-  bundledCode: "#line 1 \"library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp\"\
-    \n#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja\"\
-    \n#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n//%snippet.fold()%\n\
-    #ifndef HEADER_H\n#define HEADER_H\n\n// template version 2.0\nusing namespace\
-    \ std;\n#include <bits/stdc++.h>\n\n// varibable settings\nconst long long INF\
-    \ = 1e18;\ntemplate <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;\n\
-    \n#define _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n) repi(i, 0,\
-    \ n)\n#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n#define rep(...)\
-    \ _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)\n#define _rrep(i, n) rrepi(i,\
-    \ 0, n)\n#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)\n\
-    #define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)\n#define\
-    \ each(i, a) for (auto &&i : a)\n#define all(x) (x).begin(), (x).end()\n#define\
-    \ sz(x) ((int)(x).size())\n#define pb(a) push_back(a)\n#define mp(a, b) make_pair(a,\
-    \ b)\n#define mt(...) make_tuple(__VA_ARGS__)\n#define ub upper_bound\n#define\
-    \ lb lower_bound\n#define lpos(A, x) (lower_bound(all(A), x) - A.begin())\n#define\
-    \ upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate <class T, class U>\
-    \ inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }\ntemplate\
+    links: []
+  bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
+    //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\
+    \ 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n// varibable settings\n\
+    const long long INF = 1e18;\ntemplate <class T> constexpr T inf = numeric_limits<T>::max()\
+    \ / 2.1;\n\n#define _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n)\
+    \ repi(i, 0, n)\n#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n\
+    #define rep(...) _overload3(__VA_ARGS__, repi, _rep, )(__VA_ARGS__)\n#define _rrep(i,\
+    \ n) rrepi(i, 0, n)\n#define rrepi(i, a, b) for (ll i = (ll)((b)-1); i >= (ll)(a);\
+    \ --i)\n#define r_rep(...) _overload3(__VA_ARGS__, rrepi, _rrep, )(__VA_ARGS__)\n\
+    #define each(i, a) for (auto &&i : a)\n#define all(x) (x).begin(), (x).end()\n\
+    #define sz(x) ((int)(x).size())\n#define pb(a) push_back(a)\n#define mp(a, b)\
+    \ make_pair(a, b)\n#define mt(...) make_tuple(__VA_ARGS__)\n#define ub upper_bound\n\
+    #define lb lower_bound\n#define lpos(A, x) (lower_bound(all(A), x) - A.begin())\n\
+    #define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate <class T, class\
+    \ U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }\ntemplate\
     \ <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a)\
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
@@ -132,41 +128,46 @@ data:
     \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
     \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
     \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
-    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp\"\
-    \n\n//%snippet.set('make_lseg_rmq_raq')%\n//%snippet.config({'alias':'rmq_raq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_raq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n    auto composition\
-    \ = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto apply = [](X x,\
-    \ M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp\"\
-    \n\nint main(){\n    ll n,q;cin>>n>>q;\n    auto lseg = make_lseg_rmq_raq();\n\
-    \    const int sz = n;\n    lseg.build(vector<X>(sz, 0));\n    rep(i, q){\n  \
-    \      int ty;cin>>ty;\n        if (ty == 0){\n            ll s,t,x;cin>>s>>t>>x;\n\
-    \            lseg.update(s, t+1, x);\n        }\n        if (ty == 1){\n     \
-    \       ll s,t;cin>>s>>t;\n            cout << lseg.query(s, t+1) << endl;\n \
-    \       }\n    }\n}\n"
-  code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_H&lang=ja\"\
-    \n#include \"initialization/segment_tree_lazy.rmq_raq.hpp\"\n\nint main(){\n \
-    \   ll n,q;cin>>n>>q;\n    auto lseg = make_lseg_rmq_raq();\n    const int sz\
-    \ = n;\n    lseg.build(vector<X>(sz, 0));\n    rep(i, q){\n        int ty;cin>>ty;\n\
-    \        if (ty == 0){\n            ll s,t,x;cin>>s>>t>>x;\n            lseg.update(s,\
-    \ t+1, x);\n        }\n        if (ty == 1){\n            ll s,t;cin>>s>>t;\n\
-    \            cout << lseg.query(s, t+1) << endl;\n        }\n    }\n}\n"
+    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\
+    \n\n//%snippet.set('monoid_with_len')%\n//%snippet.fold()%\ntemplate<class T>\n\
+    struct monoid_with_len {\n    T x;\n    int len;\n    monoid_with_len(){};\n \
+    \   monoid_with_len(T x_, ll len_) : x(x_), len(len_){};\n};\ntemplate<class T>\n\
+    monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){\n  \
+    \  return monoid_with_len<T>(a.x + b.x, a.len + b.len);\n}\n//%snippet.end()%\n\
+    \n#line 3 \"library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp\"\
+    \n\n//%snippet.set('make_lseg_getone_chmin')%\n//%snippet.config({'alias':'getone_chmin'})%\n\
+    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid // \u53CC\u5BFE\u30BB\
+    \u30B0\u30E1\u30F3\u30C8\u6728\u3068\u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\
+    \u5F53\u306A\u30E2\u30CE\u30A4\u30C9\u3092\u5165\u308C\u3066\u304A\u3051\u3070\
+    \u826F\u3044\u3002\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n\
+    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
+    \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
+    \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
+    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
+  code: "#include \"../segment_tree_lazy.hpp\"\n#include \"monoid_with_len.hpp\"\n\
+    \n//%snippet.set('make_lseg_getone_chmin')%\n//%snippet.config({'alias':'getone_chmin'})%\n\
+    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid // \u53CC\u5BFE\u30BB\
+    \u30B0\u30E1\u30F3\u30C8\u6728\u3068\u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\
+    \u5F53\u306A\u30E2\u30CE\u30A4\u30C9\u3092\u5165\u308C\u3066\u304A\u3051\u3070\
+    \u826F\u3044\u3002\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n\
+    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
+    \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
+    \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
+    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
   dependsOn:
-  - library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
-  isVerificationFile: true
-  path: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
+  - library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  isVerificationFile: false
+  path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
   requiredBy: []
-  timestamp: '2020-09-26 18:59:17+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-09-26 18:55:54+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
+documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
 layout: document
 redirect_from:
-- /verify/library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
-- /verify/library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp.html
-title: library/cpp/array/segtree/segment_tree_lazy.rmq_raq.test.cpp
+- /library/library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+- /library/library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp.html
+title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
 ---

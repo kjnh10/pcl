@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
@@ -10,6 +13,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -128,20 +137,16 @@ data:
     \ i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
     \ os, segment_tree_lazy& sg) {  //\n        os << \"[\";\n        for (int i =\
     \ 0; i < sg.n; i++) {\n            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" :\
-    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n\n/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em):\
-    \ \u30E2\u30CE\u30A4\u30C9(\u96C6\u5408X, \u4E8C\u9805\u6F14\u7B97fx,fa,fm,p \u5358\
-    \u4F4D\u5143ex,em)\u306B\u3064\u3044\u3066\u30B5\u30A4\u30BAn\u3067\u69CB\u7BC9\
-    \n    set(index i, X x), build(): i\u756A\u76EE\u306E\u8981\u7D20\u3092x\u306B\
-    \u30BB\u30C3\u30C8\u3002\u307E\u3068\u3081\u3066\u30BB\u30B0\u6728\u3092\u69CB\
-    \u7BC9\u3059\u308B\u3002O(n)\n    update(index a, index b, M m): [a, b)\u306E\u8981\
-    \u7D20\u306Bm\u3092apply\u3002O(log(n))\n    query(index a, index b):  [a,b) \u5168\
-    \u3066\u306Bfx\u3092\u4F5C\u7528\u3055\u305B\u305F\u5024\u3092\u53D6\u5F97\u3002\
-    O(log(n))\n*/\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/math/mint.hpp\"\n\n\
-    //%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct mint\
-    \ {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n  \
-    \  // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x) %=\
-    \ mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n \
-    \       (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
+    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n// Regarding\
+    \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
+    \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
+    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
+    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/math/mint.hpp\"\
+    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
+    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
+    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
+    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
+    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
     \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
     \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
     mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
@@ -161,69 +166,55 @@ data:
     \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
     \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
     \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
-    #line 4 \"library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp\"\n\
-    \n// #include <atcoder/modint>\n// using namespace atcoder;\n// using mint = modint998244353;\n\
-    \n// snippet:monoid_with_len {{{\ntemplate<class T>\nstruct monoid_with_len {\n\
-    \    T x;\n    int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_, ll\
-    \ len_) : x(x_), len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
+    #line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\n\n//%snippet.set('monoid_with_len')%\n\
+    //%snippet.fold()%\ntemplate<class T>\nstruct monoid_with_len {\n    T x;\n  \
+    \  int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_, ll len_) : x(x_),\
+    \ len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
     \ a, monoid_with_len<T> b){\n    return monoid_with_len<T>(a.x + b.x, a.len +\
-    \ b.len);\n}\n// snippet:monoid_with_len }}}\n\n// snippet:monoid_affin_transformation\
-    \ {{{\nstruct monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
+    \ b.len);\n}\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
+    \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
+    \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
     \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
     \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
     \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
     \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
-    }\n// snippet:monoid_affin_transformation }}}\n\n// snippet:make_lseg_rsq_raffinq\
-    \ {{{\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\nusing M = monoid_affin_transformation;\
-    \ // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n    auto merge\
-    \ = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);  // s.t merge(x, ex)\
-    \ = x\n    M em = M(1, 0);\n    // s.t composition(m, em) = m && s.t composition(em,\
-    \ m) = m && apply(x, em) = x\n    auto composition = [&](M m1, M m2){ return m1\
-    \ + m2; };\n    auto apply = [&](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n\
-    \    return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//\
-    \ snippet:make_lseg_rsq_raffinq }}}\n\nint main(){\n    ll n,q;cin>>n>>q;\n  \
-    \  vector<ll> a(n);\n    mod = 998244353;\n\n    rep(i, n) { cin>>a[i]; }\n  \
-    \  auto lseg = make_lseg_rsq_raffinq();\n    vector<X> b(n);\n    rep(i, n) b[i]\
-    \ = X(a[i], 1);\n    lseg.build(b);\n\n    rep(i, q){\n        int ty;cin>>ty;\n\
-    \        if (ty == 0){\n            ll l,r,b,c;cin>>l>>r>>b>>c;\n            lseg.update(l,\
-    \ r, M(b, c));\n        }\n        if (ty == 1){\n            ll l,r;cin>>l>>r;\n\
-    \            cout << lseg.query(l, r).x << endl;\n        }\n    }\n}\n\n\n"
+    }\n//%snippet.end()%\n#line 5 \"library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp\"\
+    \n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
+    //%snippet.include('monoid_with_len')%\n//%snippet.include('monoid_affin_transformation')%\n\
+    //%snippet.fold()%\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\n\
+    using M = monoid_affin_transformation; // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n\
+    \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
+    \ em = M(1, 0);\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n \
+    \   auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return\
+    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n\
+    #line 3 \"library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp\"\n\
+    \nint main(){\n    ll n,q;cin>>n>>q;\n    vector<ll> a(n);\n    mod = 998244353;\n\
+    \n    rep(i, n) { cin>>a[i]; }\n    auto lseg = make_lseg_rsq_raffinq();\n   \
+    \ vector<X> b(n);\n    rep(i, n) b[i] = X(a[i], 1);\n    lseg.build(b);\n\n  \
+    \  rep(i, q){\n        int ty;cin>>ty;\n        if (ty == 0){\n            ll\
+    \ l,r,b,c;cin>>l>>r>>b>>c;\n            lseg.update(l, r, M(b, c));\n        }\n\
+    \        if (ty == 1){\n            ll l,r;cin>>l>>r;\n            cout << lseg.query(l,\
+    \ r).x << endl;\n        }\n    }\n}\n\n\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/range_affine_range_sum\"\
-    \n#include \"segment_tree_lazy.hpp\"\n#include \"../../math/mint.hpp\"\n\n// #include\
-    \ <atcoder/modint>\n// using namespace atcoder;\n// using mint = modint998244353;\n\
-    \n// snippet:monoid_with_len {{{\ntemplate<class T>\nstruct monoid_with_len {\n\
-    \    T x;\n    int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_, ll\
-    \ len_) : x(x_), len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
-    \ a, monoid_with_len<T> b){\n    return monoid_with_len<T>(a.x + b.x, a.len +\
-    \ b.len);\n}\n// snippet:monoid_with_len }}}\n\n// snippet:monoid_affin_transformation\
-    \ {{{\nstruct monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
-    \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
-    \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
-    \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
-    \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
-    }\n// snippet:monoid_affin_transformation }}}\n\n// snippet:make_lseg_rsq_raffinq\
-    \ {{{\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\nusing M = monoid_affin_transformation;\
-    \ // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n    auto merge\
-    \ = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);  // s.t merge(x, ex)\
-    \ = x\n    M em = M(1, 0);\n    // s.t composition(m, em) = m && s.t composition(em,\
-    \ m) = m && apply(x, em) = x\n    auto composition = [&](M m1, M m2){ return m1\
-    \ + m2; };\n    auto apply = [&](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n\
-    \    return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//\
-    \ snippet:make_lseg_rsq_raffinq }}}\n\nint main(){\n    ll n,q;cin>>n>>q;\n  \
-    \  vector<ll> a(n);\n    mod = 998244353;\n\n    rep(i, n) { cin>>a[i]; }\n  \
-    \  auto lseg = make_lseg_rsq_raffinq();\n    vector<X> b(n);\n    rep(i, n) b[i]\
-    \ = X(a[i], 1);\n    lseg.build(b);\n\n    rep(i, q){\n        int ty;cin>>ty;\n\
-    \        if (ty == 0){\n            ll l,r,b,c;cin>>l>>r>>b>>c;\n            lseg.update(l,\
-    \ r, M(b, c));\n        }\n        if (ty == 1){\n            ll l,r;cin>>l>>r;\n\
-    \            cout << lseg.query(l, r).x << endl;\n        }\n    }\n}\n\n\n"
+    \n#include \"initialization/segment_tree_lazy.rsq_raffinq.hpp\"\n\nint main(){\n\
+    \    ll n,q;cin>>n>>q;\n    vector<ll> a(n);\n    mod = 998244353;\n\n    rep(i,\
+    \ n) { cin>>a[i]; }\n    auto lseg = make_lseg_rsq_raffinq();\n    vector<X> b(n);\n\
+    \    rep(i, n) b[i] = X(a[i], 1);\n    lseg.build(b);\n\n    rep(i, q){\n    \
+    \    int ty;cin>>ty;\n        if (ty == 0){\n            ll l,r,b,c;cin>>l>>r>>b>>c;\n\
+    \            lseg.update(l, r, M(b, c));\n        }\n        if (ty == 1){\n \
+    \           ll l,r;cin>>l>>r;\n            cout << lseg.query(l, r).x << endl;\n\
+    \        }\n    }\n}\n\n\n"
   dependsOn:
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
   - library/cpp/math/mint.hpp
+  - library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   isVerificationFile: true
   path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 23:33:15+09:00'
+  timestamp: '2020-09-26 18:55:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp

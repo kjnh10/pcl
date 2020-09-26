@@ -10,10 +10,19 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+    title: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+  _pathExtension: hpp
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -124,20 +133,16 @@ data:
     \ i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
     \ os, segment_tree_lazy& sg) {  //\n        os << \"[\";\n        for (int i =\
     \ 0; i < sg.n; i++) {\n            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" :\
-    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n\n/* SegTreeLazyProportional<X,M>(n,fx,fa,fm,ex,em):\
-    \ \u30E2\u30CE\u30A4\u30C9(\u96C6\u5408X, \u4E8C\u9805\u6F14\u7B97fx,fa,fm,p \u5358\
-    \u4F4D\u5143ex,em)\u306B\u3064\u3044\u3066\u30B5\u30A4\u30BAn\u3067\u69CB\u7BC9\
-    \n    set(index i, X x), build(): i\u756A\u76EE\u306E\u8981\u7D20\u3092x\u306B\
-    \u30BB\u30C3\u30C8\u3002\u307E\u3068\u3081\u3066\u30BB\u30B0\u6728\u3092\u69CB\
-    \u7BC9\u3059\u308B\u3002O(n)\n    update(index a, index b, M m): [a, b)\u306E\u8981\
-    \u7D20\u306Bm\u3092apply\u3002O(log(n))\n    query(index a, index b):  [a,b) \u5168\
-    \u3066\u306Bfx\u3092\u4F5C\u7528\u3055\u305B\u305F\u5024\u3092\u53D6\u5F97\u3002\
-    O(log(n))\n*/\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/math/mint.hpp\"\n\n\
-    //%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct mint\
-    \ {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n  \
-    \  // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x) %=\
-    \ mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n \
-    \       (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
+    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n// Regarding\
+    \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
+    \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
+    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
+    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/math/mint.hpp\"\
+    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
+    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
+    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
+    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
+    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
     \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
     \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
     mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
@@ -157,132 +162,54 @@ data:
     \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
     \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
     \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
-    #line 3 \"library/cpp/array/segtree/segment_tree_lazy.initialization.cpp\"\n\n\
-    // Regarding apply and merge, the conditions below should holds.\n// apply(merge(x1,\
-    \ x2), m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
-    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
-    \ apply(x, em) = x\n\n\n//%snippet.set('make_lseg_rmq_ruq')%\n//%snippet.config({'alias':'rmq_ruq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_ruq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();  // s.t merge(x,\
-    \ ex) = x\n    M em = numeric_limits<M>::max();\n    // s.t composition(m, em)\
-    \ = m && s.t composition(em, m) = m && apply(x, em) = x\n    auto composition\
-    \ = [=](M m1, M m2){ \n        if (m1 == em) return m2;\n        if (m2 == em)\
-    \ return m1;\n        return m2;\n    };\n    auto apply = [=](X x, M m){return\
-    \ (m==em ? x : m);};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n\n\n//%snippet.set('make_lseg_rmq_raq')%\n//%snippet.config({'alias':'rmq_raq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_raq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n    auto composition\
-    \ = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto apply = [](X x,\
-    \ M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n\n\n//%snippet.set('monoid_with_len')%\n//%snippet.fold()%\n\
-    template<class T>\nstruct monoid_with_len {\n    T x;\n    int len;\n    monoid_with_len(){};\n\
-    \    monoid_with_len(T x_, ll len_) : x(x_), len(len_){};\n};\ntemplate<class\
-    \ T>\nmonoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){\n\
-    \    return monoid_with_len<T>(a.x + b.x, a.len + b.len);\n}\n//%snippet.end()%\n\
+    #line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\n\n//%snippet.set('monoid_with_len')%\n\
+    //%snippet.fold()%\ntemplate<class T>\nstruct monoid_with_len {\n    T x;\n  \
+    \  int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_, ll len_) : x(x_),\
+    \ len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
+    \ a, monoid_with_len<T> b){\n    return monoid_with_len<T>(a.x + b.x, a.len +\
+    \ b.len);\n}\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
     \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
     \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
     \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
     \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
     \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
     \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
-    }\n//%snippet.end()%\n\n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
+    }\n//%snippet.end()%\n#line 5 \"library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp\"\
+    \n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
     //%snippet.include('monoid_with_len')%\n//%snippet.include('monoid_affin_transformation')%\n\
     //%snippet.fold()%\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\n\
     using M = monoid_affin_transformation; // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n\
     \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
     \ em = M(1, 0);\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n \
     \   auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return\
-    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n\
-    \n\n//%snippet.set('make_lseg_rsq_raq')%\n//%snippet.config({'alias':'rsq_raq'})%\n\
-    //%snippet.include('monoid_with_len')%\n//%snippet.fold()%\nusing X = monoid_with_len<ll>;\
-    \ // (X, merge) is monoid\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_rsq_raq(){\n\
-    \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
-    \ em = 0;\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n    auto\
-    \ apply = [](X x, M m){return X(x.x + m*x.len, x.len);};\n    return segment_tree_lazy<X,\
-    \ M>(merge, apply, composition, ex, em);\n}\n// \u521D\u671F\u5024X(*, 1)\u3092\
-    \u5165\u308C\u306A\u3044\u3068\u3044\u3051\u306A\u3044\u3053\u3068\u306B\u6CE8\
-    \u610F\u3059\u308B\u3002\n//%snippet.end()%\n\n\n\n// dual segment tree\n\n//%snippet.set('make_lseg_getone_chmin')%\n\
-    //%snippet.config({'alias':'getone_chmin'})%\n//%snippet.fold()%\nusing X = ll;\
-    \ // (X, merge) is monoid // \u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\u3068\
-    \u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\u5F53\u306A\u30E2\u30CE\u30A4\u30C9\
-    \u3092\u5165\u308C\u3066\u304A\u3051\u3070\u826F\u3044\u3002\nusing M = ll; //\
-    \ (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n    auto merge =\
-    \ [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
-    \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
-    \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
     \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
-  code: "#include \"segment_tree_lazy.hpp\"\n#include \"../../math/mint.hpp\"\n\n\
-    // Regarding apply and merge, the conditions below should holds.\n// apply(merge(x1,\
-    \ x2), m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
-    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
-    \ apply(x, em) = x\n\n\n//%snippet.set('make_lseg_rmq_ruq')%\n//%snippet.config({'alias':'rmq_ruq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_ruq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();  // s.t merge(x,\
-    \ ex) = x\n    M em = numeric_limits<M>::max();\n    // s.t composition(m, em)\
-    \ = m && s.t composition(em, m) = m && apply(x, em) = x\n    auto composition\
-    \ = [=](M m1, M m2){ \n        if (m1 == em) return m2;\n        if (m2 == em)\
-    \ return m1;\n        return m2;\n    };\n    auto apply = [=](X x, M m){return\
-    \ (m==em ? x : m);};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n\n\n//%snippet.set('make_lseg_rmq_raq')%\n//%snippet.config({'alias':'rmq_raq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_raq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n    auto composition\
-    \ = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto apply = [](X x,\
-    \ M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n\n\n//%snippet.set('monoid_with_len')%\n//%snippet.fold()%\n\
-    template<class T>\nstruct monoid_with_len {\n    T x;\n    int len;\n    monoid_with_len(){};\n\
-    \    monoid_with_len(T x_, ll len_) : x(x_), len(len_){};\n};\ntemplate<class\
-    \ T>\nmonoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){\n\
-    \    return monoid_with_len<T>(a.x + b.x, a.len + b.len);\n}\n//%snippet.end()%\n\
-    \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
-    \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
-    \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
-    \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
-    \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
-    \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
-    }\n//%snippet.end()%\n\n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
+  code: "#include \"../segment_tree_lazy.hpp\"\n#include \"../../../math/mint.hpp\"\
+    \n#include \"monoid_with_len.hpp\"\n#include \"monoid_affin_transformation.hpp\"\
+    \n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
     //%snippet.include('monoid_with_len')%\n//%snippet.include('monoid_affin_transformation')%\n\
     //%snippet.fold()%\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\n\
     using M = monoid_affin_transformation; // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n\
     \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
     \ em = M(1, 0);\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n \
     \   auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return\
-    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n\
-    \n\n//%snippet.set('make_lseg_rsq_raq')%\n//%snippet.config({'alias':'rsq_raq'})%\n\
-    //%snippet.include('monoid_with_len')%\n//%snippet.fold()%\nusing X = monoid_with_len<ll>;\
-    \ // (X, merge) is monoid\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_rsq_raq(){\n\
-    \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
-    \ em = 0;\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n    auto\
-    \ apply = [](X x, M m){return X(x.x + m*x.len, x.len);};\n    return segment_tree_lazy<X,\
-    \ M>(merge, apply, composition, ex, em);\n}\n// \u521D\u671F\u5024X(*, 1)\u3092\
-    \u5165\u308C\u306A\u3044\u3068\u3044\u3051\u306A\u3044\u3053\u3068\u306B\u6CE8\
-    \u610F\u3059\u308B\u3002\n//%snippet.end()%\n\n\n\n// dual segment tree\n\n//%snippet.set('make_lseg_getone_chmin')%\n\
-    //%snippet.config({'alias':'getone_chmin'})%\n//%snippet.fold()%\nusing X = ll;\
-    \ // (X, merge) is monoid // \u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\u3068\
-    \u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\u5F53\u306A\u30E2\u30CE\u30A4\u30C9\
-    \u3092\u5165\u308C\u3066\u304A\u3051\u3070\u826F\u3044\u3002\nusing M = ll; //\
-    \ (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n    auto merge =\
-    \ [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
-    \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
-    \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
     \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
   - library/cpp/math/mint.hpp
+  - library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   isVerificationFile: false
-  path: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+  path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   requiredBy: []
-  timestamp: '2020-09-24 01:13:25+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+  timestamp: '2020-09-26 18:55:54+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
-- /library/library/cpp/array/segtree/segment_tree_lazy.initialization.cpp.html
-title: library/cpp/array/segtree/segment_tree_lazy.initialization.cpp
+- /library/library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+- /library/library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp.html
+title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
 ---
