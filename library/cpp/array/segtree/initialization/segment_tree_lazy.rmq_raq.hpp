@@ -2,7 +2,9 @@
 
 //%snippet.set('make_lseg_rmq_raq')%
 //%snippet.config({'alias':'rmq_raq'})%
+//%snippet.include('segment_tree_lazy')%
 //%snippet.fold()%
+
 using X = ll; // (X, merge) is monoid
 using M = ll; // (M, composition) is monoid
 auto make_lseg_rmq_raq(){
@@ -13,4 +15,9 @@ auto make_lseg_rmq_raq(){
     auto apply = [](X x, M m){return x + m;};
     return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
 }
+// auto lseg = make_lseg_rmq_raq();
+// lseg.build(a);
+//   or
+// lseg.build(vector<X>(n, <初期値>);
+
 //%snippet.end()%

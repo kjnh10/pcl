@@ -3,8 +3,10 @@
 
 //%snippet.set('make_lseg_rsq_raq')%
 //%snippet.config({'alias':'rsq_raq'})%
+//%snippet.include('segment_tree_lazy')%
 //%snippet.include('monoid_with_len')%
 //%snippet.fold()%
+
 using X = monoid_with_len<ll>; // (X, merge) is monoid
 using M = ll; // (M, composition) is monoid
 auto make_lseg_rsq_raq(){
@@ -15,5 +17,7 @@ auto make_lseg_rsq_raq(){
     auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
     return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
 }
-// 初期値X(*, 1)を入れないといけないことに注意する。
+// auto lseg = make_lseg_rsq_raq();
+// lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
+
 //%snippet.end()%

@@ -5,6 +5,7 @@
 
 //%snippet.set('make_lseg_rsq_raffinq')%
 //%snippet.config({'alias':'rsq_raffinq'})%
+//%snippet.include('segment_tree_lazy')%
 //%snippet.include('monoid_with_len')%
 //%snippet.include('monoid_affin_transformation')%
 //%snippet.fold()%
@@ -18,4 +19,7 @@ auto make_lseg_rsq_raffinq(){
     auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};
     return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
 }
+// auto lseg = make_lseg_rsq_raffinq();
+// lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
+
 //%snippet.end()%
