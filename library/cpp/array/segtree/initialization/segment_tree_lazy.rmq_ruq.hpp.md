@@ -1,19 +1,16 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
-    title: library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -130,35 +127,35 @@ data:
     \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
     \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp\"\
     \n\n//%snippet.set('make_lseg_rmq_ruq')%\n//%snippet.config({'alias':'rmq_ruq'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid\nusing M = ll; // (M,\
-    \ composition) is monoid\nauto make_lseg_rmq_ruq(){\n    auto merge = [](X x1,\
-    \ X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();  // s.t merge(x,\
-    \ ex) = x\n    M em = numeric_limits<M>::max();\n    // s.t composition(m, em)\
-    \ = m && s.t composition(em, m) = m && apply(x, em) = x\n    auto composition\
-    \ = [=](M m1, M m2){ \n        if (m1 == em) return m2;\n        if (m2 == em)\
-    \ return m1;\n        return m2;\n    };\n    auto apply = [=](X x, M m){return\
-    \ (m==em ? x : m);};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n"
+    //%snippet.include('segment_tree_lazy')%\n//%snippet.fold()%\n\nusing X = ll;\
+    \ // (X, merge) is monoid\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_rmq_ruq(){\n\
+    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
+    \    M em = numeric_limits<M>::max();\n    auto composition = [em](M m1, M m2){\
+    \ \n        if (m1 == em) return m2;\n        if (m2 == em) return m1;\n     \
+    \   return m2;\n    };\n    auto apply = [em](X x, M m){return (m==em ? x : m);};\n\
+    \    return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//\
+    \ auto lseg = make_lseg_rmq_ruq();\n// lseg.build(a);\n//   or\n// lseg.build(vector<X>(n,\
+    \ <\u521D\u671F\u5024>);\n\n//%snippet.end()%\n"
   code: "#include \"../segment_tree_lazy.hpp\"\n\n//%snippet.set('make_lseg_rmq_ruq')%\n\
-    //%snippet.config({'alias':'rmq_ruq'})%\n//%snippet.fold()%\nusing X = ll; //\
-    \ (X, merge) is monoid\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_rmq_ruq(){\n\
-    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\
-    \  // s.t merge(x, ex) = x\n    M em = numeric_limits<M>::max();\n    // s.t composition(m,\
-    \ em) = m && s.t composition(em, m) = m && apply(x, em) = x\n    auto composition\
-    \ = [=](M m1, M m2){ \n        if (m1 == em) return m2;\n        if (m2 == em)\
-    \ return m1;\n        return m2;\n    };\n    auto apply = [=](X x, M m){return\
-    \ (m==em ? x : m);};\n    return segment_tree_lazy<X, M>(merge, apply, composition,\
-    \ ex, em);\n}\n//%snippet.end()%\n"
+    //%snippet.config({'alias':'rmq_ruq'})%\n//%snippet.include('segment_tree_lazy')%\n\
+    //%snippet.fold()%\n\nusing X = ll; // (X, merge) is monoid\nusing M = ll; //\
+    \ (M, composition) is monoid\nauto make_lseg_rmq_ruq(){\n    auto merge = [](X\
+    \ x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n    M\
+    \ em = numeric_limits<M>::max();\n    auto composition = [em](M m1, M m2){ \n\
+    \        if (m1 == em) return m2;\n        if (m2 == em) return m1;\n        return\
+    \ m2;\n    };\n    auto apply = [em](X x, M m){return (m==em ? x : m);};\n   \
+    \ return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n// auto\
+    \ lseg = make_lseg_rmq_ruq();\n// lseg.build(a);\n//   or\n// lseg.build(vector<X>(n,\
+    \ <\u521D\u671F\u5024>);\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
   requiredBy: []
-  timestamp: '2020-09-26 18:55:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - library/cpp/array/segtree/segment_tree_lazy.rmq_ruq.test.cpp
+  timestamp: '2020-09-27 13:12:48+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
 layout: document
 redirect_from:

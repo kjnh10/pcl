@@ -1,13 +1,13 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   _extendedRequiredBy: []

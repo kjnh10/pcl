@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
@@ -10,19 +10,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':warning:'
     path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
     title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
-    title: library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+  _extendedVerifiedWith: []
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':warning:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -176,23 +173,31 @@ data:
     \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
     }\n//%snippet.end()%\n#line 5 \"library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp\"\
     \n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
-    //%snippet.include('monoid_with_len')%\n//%snippet.include('monoid_affin_transformation')%\n\
-    //%snippet.fold()%\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\n\
-    using M = monoid_affin_transformation; // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n\
-    \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
-    \ em = M(1, 0);\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n \
-    \   auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return\
-    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
+    //%snippet.include('segment_tree_lazy')%\n//%snippet.include('monoid_with_len')%\n\
+    //%snippet.include('monoid_affin_transformation')%\n//%snippet.fold()%\nusing\
+    \ X = monoid_with_len<mint>; // (X, merge) is monoid\nusing M = monoid_affin_transformation;\
+    \ // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n    auto merge\
+    \ = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M em = M(1, 0);\n\
+    \    auto composition = [](M m1, M m2){ return m1 + m2; };\n    auto apply = [](X\
+    \ x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return segment_tree_lazy<X,\
+    \ M>(merge, apply, composition, ex, em);\n}\n// auto lseg = make_lseg_rsq_raffinq();\n\
+    // lseg.build(vector<X>(sz, X(<\u521D\u671F\u5024>, 1))); // X(*, 1)\u3092\u5165\
+    \u308C\u306A\u3044\u3068\u3044\u3051\u306A\u3044\u3053\u3068\u306B\u6CE8\u610F\
+    \u3059\u308B\u3002\n\n//%snippet.end()%\n"
   code: "#include \"../segment_tree_lazy.hpp\"\n#include \"../../../math/mint.hpp\"\
     \n#include \"monoid_with_len.hpp\"\n#include \"monoid_affin_transformation.hpp\"\
     \n\n//%snippet.set('make_lseg_rsq_raffinq')%\n//%snippet.config({'alias':'rsq_raffinq'})%\n\
-    //%snippet.include('monoid_with_len')%\n//%snippet.include('monoid_affin_transformation')%\n\
-    //%snippet.fold()%\nusing X = monoid_with_len<mint>; // (X, merge) is monoid\n\
-    using M = monoid_affin_transformation; // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n\
-    \    auto merge = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M\
-    \ em = M(1, 0);\n    auto composition = [](M m1, M m2){ return m1 + m2; };\n \
-    \   auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return\
-    \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
+    //%snippet.include('segment_tree_lazy')%\n//%snippet.include('monoid_with_len')%\n\
+    //%snippet.include('monoid_affin_transformation')%\n//%snippet.fold()%\nusing\
+    \ X = monoid_with_len<mint>; // (X, merge) is monoid\nusing M = monoid_affin_transformation;\
+    \ // (M, composition) is monoid\nauto make_lseg_rsq_raffinq(){\n    auto merge\
+    \ = [](X x1, X x2){return x1 + x2;};\n    X ex = X(0, 0);\n    M em = M(1, 0);\n\
+    \    auto composition = [](M m1, M m2){ return m1 + m2; };\n    auto apply = [](X\
+    \ x, M m){return X(x.x*m.a + m.b*x.len, x.len);};\n    return segment_tree_lazy<X,\
+    \ M>(merge, apply, composition, ex, em);\n}\n// auto lseg = make_lseg_rsq_raffinq();\n\
+    // lseg.build(vector<X>(sz, X(<\u521D\u671F\u5024>, 1))); // X(*, 1)\u3092\u5165\
+    \u308C\u306A\u3044\u3068\u3044\u3051\u306A\u3044\u3053\u3068\u306B\u6CE8\u610F\
+    \u3059\u308B\u3002\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
@@ -202,10 +207,9 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   requiredBy: []
-  timestamp: '2020-09-26 18:55:54+09:00'
-  verificationStatus: LIBRARY_ALL_AC
-  verifiedWith:
-  - library/cpp/array/segtree/segment_tree_lazy.rsq_raffinq.test.cpp
+  timestamp: '2020-09-27 13:12:48+09:00'
+  verificationStatus: LIBRARY_NO_TESTS
+  verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
 layout: document
 redirect_from:
