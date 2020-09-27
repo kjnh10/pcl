@@ -1,5 +1,5 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_F"
-#include "initialization/segment_tree_lazy.rmq_ruq.hpp"
+#include "../segment_tree_lazy.rmq_ruq.hpp"
 
 int main(){
     ll n,q;cin>>n>>q;

@@ -1,5 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_affine_range_sum"
-#include "initialization/segment_tree_lazy.rsq_raffinq.hpp"
+#include "../segment_tree_lazy.rsq_raffinq.hpp"
 
 int main(){
     ll n,q;cin>>n>>q;
