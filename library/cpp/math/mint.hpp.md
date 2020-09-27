@@ -5,7 +5,7 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
@@ -18,6 +18,9 @@ data:
     path: library/cpp/math/bsgs/bsgs.cpp
     title: library/cpp/math/bsgs/bsgs.cpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
@@ -119,6 +122,7 @@ data:
   timestamp: '2020-09-05 21:34:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp
 documentation_of: library/cpp/math/mint.hpp

@@ -1,19 +1,22 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     links: []
@@ -168,8 +171,9 @@ data:
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
   requiredBy: []
   timestamp: '2020-09-27 13:11:27+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
 documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
 layout: document
 redirect_from:

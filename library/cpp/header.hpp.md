@@ -35,34 +35,34 @@ data:
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':warning:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
     title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   - icon: ':warning:'
     path: library/cpp/array/segtree/rmq_2d.cpp
     title: library/cpp/array/segtree/rmq_2d.cpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':warning:'
@@ -214,6 +214,21 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.test.cpp
     title: library/cpp/array/sparse_table.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
     title: library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
@@ -613,6 +628,11 @@ data:
   - library/cpp/array/bit.test.cpp
   - library/cpp/array/lis.test.cpp
   - library/cpp/array/sparse_table.test.cpp
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp
   - library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   - library/cpp/array/segtree/segment_tree.test.cpp
   - library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp

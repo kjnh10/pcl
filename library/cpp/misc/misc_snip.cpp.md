@@ -105,7 +105,13 @@ data:
     \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
     \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
     \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
-    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n"
+    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
+    //%snippet.config({'alias':'acl'})%\n// {{{ include acl-library\n// #include <atcoder/fenwicktree>\n\
+    // #include <atcoder/segtree>\n// #include <atcoder/lazysegtree>\n// #include\
+    \ <atcoder/string>\n// #include <atcoder/math>\n// #include <atcoder/convolution>\n\
+    // #include <atcoder/modint>\n// #include <atcoder/dsu>\n// #include <atcoder/maxflow>\n\
+    // #include <atcoder/mincostflow>\n// #include <atcoder/scc>\n// #include <atcoder/twosat>\n\
+    // using namespace atcoder;\n// }}}\n"
   code: "//%snippet.set('cout')%\ncout << ${0} << endl;\n\n//%snippet.set('couts')%\n\
     rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n\
     (${1} ? ${2} : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n)\
@@ -203,12 +209,18 @@ data:
     \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
     \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
     \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
-    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n"
+    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
+    //%snippet.config({'alias':'acl'})%\n// {{{ include acl-library\n// #include <atcoder/fenwicktree>\n\
+    // #include <atcoder/segtree>\n// #include <atcoder/lazysegtree>\n// #include\
+    \ <atcoder/string>\n// #include <atcoder/math>\n// #include <atcoder/convolution>\n\
+    // #include <atcoder/modint>\n// #include <atcoder/dsu>\n// #include <atcoder/maxflow>\n\
+    // #include <atcoder/mincostflow>\n// #include <atcoder/scc>\n// #include <atcoder/twosat>\n\
+    // using namespace atcoder;\n// }}}\n"
   dependsOn: []
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-09-24 23:26:52+09:00'
+  timestamp: '2020-09-27 20:38:40+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp
