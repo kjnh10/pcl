@@ -361,3 +361,21 @@ auto pos = [&](int idx) -> pair<int, int> { return {idx/w, idx%w}; }; // auto [i
 // auto nid = [&](int i, int j, int k){return (i*(y*z) + j*(z) + k);};
 // auto pos = [&](int idx) -> pair<int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };
 
+
+//%snippet.set('atcoder')%
+//%snippet.config({'alias':'acl'})%
+// {{{ include acl-library
+// #include <atcoder/fenwicktree>
+// #include <atcoder/segtree>
+// #include <atcoder/lazysegtree>
+// #include <atcoder/string>
+// #include <atcoder/math>
+// #include <atcoder/convolution>
+// #include <atcoder/modint>
+// #include <atcoder/dsu>
+// #include <atcoder/maxflow>
+// #include <atcoder/mincostflow>
+// #include <atcoder/scc>
+// #include <atcoder/twosat>
+// using namespace atcoder;
+// }}}
