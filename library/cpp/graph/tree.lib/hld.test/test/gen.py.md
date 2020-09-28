@@ -8,9 +8,9 @@ data:
   attributes:
     links: []
   bundledCode: "Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/onlinejudge_verify/documentation/build.py\"\
-    , line 70, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
+    , line 71, in _render_source_code_stat\n    bundled_code = language.bundle(stat.path,\
     \ basedir=basedir).decode()\n  File \"/opt/hostedtoolcache/Python/3.8.5/x64/lib/python3.8/site-packages/onlinejudge_verify/languages/python.py\"\
-    , line 84, in bundle\n    raise NotImplementedError\nNotImplementedError\n"
+    , line 85, in bundle\n    raise NotImplementedError\nNotImplementedError\n"
   code: "from random import randint, choice, sample, choices\nfrom typing import TYPE_CHECKING,\
     \ List, Optional, Type\nimport string\nimport math\n# print(choice(a))  # 1\u3064\
     \u9078\u629E\n# print(sample(a, k=2))  # \u975E\u5FA9\u5143\u62BD\u51FA\n# print(sample(a,\

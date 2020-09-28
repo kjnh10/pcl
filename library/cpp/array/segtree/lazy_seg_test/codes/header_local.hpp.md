@@ -3,16 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':warning:'
-    path: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
-    title: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
-  - icon: ':warning:'
     path: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
     title: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
+  - icon: ':warning:'
+    path: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
+    title: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: '#line 2 "library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp"
 

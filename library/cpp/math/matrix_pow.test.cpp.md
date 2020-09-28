@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/math/matrix_pow.hpp
-    title: library/cpp/math/matrix_pow.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/matrix_pow.hpp
+    title: library/cpp/math/matrix_pow.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp

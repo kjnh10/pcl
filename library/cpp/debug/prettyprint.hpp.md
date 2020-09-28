@@ -9,7 +9,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - http://www.boost.org/LICENSE_1_0.txt)
   bundledCode: "#line 1 \"library/cpp/debug/prettyprint.hpp\"\n//          Copyright\

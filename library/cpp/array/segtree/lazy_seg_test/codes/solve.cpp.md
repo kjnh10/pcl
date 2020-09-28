@@ -9,7 +9,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp\"\
     \n\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version 2.0\nusing namespace\

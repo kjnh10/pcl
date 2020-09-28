@@ -126,11 +126,14 @@ data:
   - name: library/cpp/graph/flow
     pages:
     - icon: ':warning:'
-      path: library/cpp/graph/flow/acl_micost_application.cpp
-      title: library/cpp/graph/flow/acl_micost_application.cpp
+      path: library/cpp/graph/flow/acl_mincost_application.cpp
+      title: library/cpp/graph/flow/acl_mincost_application.cpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/flow/dinic.hpp
       title: library/cpp/graph/flow/dinic.hpp
+    - icon: ':warning:'
+      path: library/cpp/graph/flow/misawa_b_flow.hpp
+      title: library/cpp/graph/flow/misawa_b_flow.hpp
   - name: library/cpp/graph/tree.lib/hld.test/test
     pages:
     - icon: ':warning:'
@@ -176,9 +179,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/combination.hpp
       title: library/cpp/math/combination.hpp
-    - icon: ':warning:'
-      path: library/cpp/math/fft.hpp
-      title: library/cpp/math/fft.hpp
     - icon: ':warning:'
       path: library/cpp/math/hakidashi_xor.hpp
       title: library/cpp/math/hakidashi_xor.hpp

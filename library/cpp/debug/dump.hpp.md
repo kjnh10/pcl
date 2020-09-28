@@ -9,7 +9,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - http://www.creativ.xyz/dump-cpp-652
   bundledCode: "#line 2 \"library/cpp/debug/dump.hpp\"\n\n// http://www.creativ.xyz/dump-cpp-652\n\

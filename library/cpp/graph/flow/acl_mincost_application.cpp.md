@@ -5,8 +5,9 @@ data:
   _extendedVerifiedWith: []
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
-  attributes: {}
-  bundledCode: "#line 1 \"library/cpp/graph/flow/acl_micost_application.cpp\"\n//%snippet.set('mincostflow')%\n\
+  attributes:
+    links: []
+  bundledCode: "#line 1 \"library/cpp/graph/flow/acl_mincost_application.cpp\"\n//%snippet.set('mincostflow')%\n\
     //%snippet.config({'alias':'mcf'})%\n//%snippet.fold()%\n\n#include <atcoder/mincostflow>\n\
     using namespace atcoder;\n\nmcf_graph<ll, ll> g(2*n + 4);\n// auto debug = [&](){\n\
     //     auto edges = (g.edges());\n//     for (auto& e : edges){ dump(e.from, e.to,\
@@ -42,15 +43,15 @@ data:
     //%snippet.end()%\n"
   dependsOn: []
   isVerificationFile: false
-  path: library/cpp/graph/flow/acl_micost_application.cpp
+  path: library/cpp/graph/flow/acl_mincost_application.cpp
   requiredBy: []
   timestamp: '1970-01-01 00:00:00+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/graph/flow/acl_micost_application.cpp
+documentation_of: library/cpp/graph/flow/acl_mincost_application.cpp
 layout: document
 redirect_from:
-- /library/library/cpp/graph/flow/acl_micost_application.cpp
-- /library/library/cpp/graph/flow/acl_micost_application.cpp.html
-title: library/cpp/graph/flow/acl_micost_application.cpp
+- /library/library/cpp/graph/flow/acl_mincost_application.cpp
+- /library/library/cpp/graph/flow/acl_mincost_application.cpp.html
+title: library/cpp/graph/flow/acl_mincost_application.cpp
 ---

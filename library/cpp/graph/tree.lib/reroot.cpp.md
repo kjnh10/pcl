@@ -2,23 +2,22 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
-    path: library/cpp/header.hpp
-    title: library/cpp/header.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/tree.lib/tree.hpp
-    title: library/cpp/graph/tree.lib/tree.hpp
-  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
   - icon: ':question:'
     path: library/cpp/graph/edge.hpp
     title: library/cpp/graph/edge.hpp
+  - icon: ':question:'
+    path: library/cpp/graph/tree.lib/tree.hpp
+    title: library/cpp/graph/tree.lib/tree.hpp
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - http://codeforces.com/contest/1324/problem/F
   bundledCode: "#line 1 \"library/cpp/graph/tree.lib/reroot.cpp\"\n// %test('http://codeforces.com/contest/1324/problem/F')%\n\

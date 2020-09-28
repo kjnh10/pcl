@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/math/geometry/area_rect.hpp
-    title: library/cpp/math/geometry/area_rect.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/geometry/area_rect.hpp
+    title: library/cpp/math/geometry/area_rect.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

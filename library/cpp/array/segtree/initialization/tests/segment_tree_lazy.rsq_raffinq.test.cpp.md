@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
@@ -13,12 +19,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

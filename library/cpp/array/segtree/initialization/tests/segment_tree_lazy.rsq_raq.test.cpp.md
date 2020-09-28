@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
   - icon: ':heavy_check_mark:'
@@ -10,9 +13,6 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

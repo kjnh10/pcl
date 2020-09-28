@@ -6,7 +6,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 1 \"library/cpp/misc/event_sort.cpp\"\n\n//%snippet.set('event_sort')%\n\
     \nstruct Event {\n    Event(int t_, int s_, int e_, int isIn_)\n        : t(t_),\

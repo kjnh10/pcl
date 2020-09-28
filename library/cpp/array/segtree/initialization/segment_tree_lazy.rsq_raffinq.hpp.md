@@ -2,6 +2,12 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
@@ -10,12 +16,6 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -24,7 +24,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\

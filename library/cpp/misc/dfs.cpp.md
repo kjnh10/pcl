@@ -6,7 +6,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 1 \"library/cpp/misc/dfs.cpp\"\n\n\n//%snippet.set('dfs')%\n\
     \nstack<int> st;\nvector<int> used(n);\n\nst.push(0);\nwhile (!st.empty()) {\n\

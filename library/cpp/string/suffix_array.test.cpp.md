@@ -1,18 +1,18 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/string/suffix_array.hpp
-    title: library/cpp/string/suffix_array.hpp
-  - icon: ':question:'
-    path: library/cpp/header.hpp
-    title: library/cpp/header.hpp
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/string/suffix_array.hpp
+    title: library/cpp/string/suffix_array.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

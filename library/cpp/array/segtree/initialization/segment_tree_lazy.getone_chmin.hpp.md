@@ -2,20 +2,19 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-    title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\

@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/math/combination.hpp
-    title: library/cpp/math/combination.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/combination.hpp
+    title: library/cpp/math/combination.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp

@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/math/sieve.hpp
-    title: library/cpp/math/sieve.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/sieve.hpp
+    title: library/cpp/math/sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

@@ -15,7 +15,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\
@@ -76,10 +75,10 @@ data:
     \        os << \"_unzipper:   \" << zp._unzipper << endl;\n        return os;\n\
     \    }\n#endif /*}}}*/\n};     /*}}}*/\n// How to use {{{\n// construct\n// auto\
     \ z = zipper(x); // x: vector<long long>;\n// auto z = zipper(x, 30*INF);\n\n\
-    // auto z = zipper();\n// auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n\
-    // z.add_value(10);\n// z.add_value(100000000);\n// z.build();\n\n// other method\n\
-    // z(x[i]); -> zipped x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.get_zipped(x) ->\
-    \ zipped x\n// }}}\n\n//%snippet.end()%\n"
+    // auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n// z.add_value(10);\n\
+    // z.add_value(100000000);\n// z.build();\n\n// other method\n// z(x[i]); -> zipped\
+    \ x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.zip(ll x) -> zipped x\n// z.zip(vl\
+    \ v) -> zipped v\n// }}}\n\n//%snippet.end()%\n"
   code: "#include \"../../header.hpp\"\n\n//%snippet.set('zipper')%\n\nstruct zipper\
     \ {                             /*{{{*/\n    // unordered_map<long long, int>\
     \ zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\u3065\u3089\u3044\n    map<long\
@@ -111,16 +110,16 @@ data:
     \        os << \"_unzipper:   \" << zp._unzipper << endl;\n        return os;\n\
     \    }\n#endif /*}}}*/\n};     /*}}}*/\n// How to use {{{\n// construct\n// auto\
     \ z = zipper(x); // x: vector<long long>;\n// auto z = zipper(x, 30*INF);\n\n\
-    // auto z = zipper();\n// auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n\
-    // z.add_value(10);\n// z.add_value(100000000);\n// z.build();\n\n// other method\n\
-    // z(x[i]); -> zipped x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.get_zipped(x) ->\
-    \ zipped x\n// }}}\n\n//%snippet.end()%\n"
+    // auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n// z.add_value(10);\n\
+    // z.add_value(100000000);\n// z.build();\n\n// other method\n// z(x[i]); -> zipped\
+    \ x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.zip(ll x) -> zipped x\n// z.zip(vl\
+    \ v) -> zipped v\n// }}}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/misc/zipper.lib/zipper.hpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-09-29 00:07:26+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/misc/zipper.lib/zipper.test.cpp

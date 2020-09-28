@@ -1,30 +1,30 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/strongly_connected_components.hpp
-    title: library/cpp/graph/strongly_connected_components.hpp
-  - icon: ':question:'
-    path: library/cpp/header.hpp
-    title: library/cpp/header.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/graph.hpp
-    title: library/cpp/graph/graph.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/edge.hpp
-    title: library/cpp/graph/edge.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/tree.lib/tree.hpp
-    title: library/cpp/graph/tree.lib/tree.hpp
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
   - icon: ':question:'
-    path: library/cpp/graph/unionfind.hpp
-    title: library/cpp/graph/unionfind.hpp
+    path: library/cpp/graph/edge.hpp
+    title: library/cpp/graph/edge.hpp
+  - icon: ':question:'
+    path: library/cpp/graph/graph.hpp
+    title: library/cpp/graph/graph.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
+  - icon: ':question:'
+    path: library/cpp/graph/tree.lib/tree.hpp
+    title: library/cpp/graph/tree.lib/tree.hpp
+  - icon: ':question:'
+    path: library/cpp/graph/unionfind.hpp
+    title: library/cpp/graph/unionfind.hpp
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
@@ -33,7 +33,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\

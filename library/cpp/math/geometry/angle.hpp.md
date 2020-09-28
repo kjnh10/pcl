@@ -1,18 +1,17 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/math/geometry/p2.hpp
-    title: library/cpp/math/geometry/p2.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/geometry/p2.hpp
+    title: library/cpp/math/geometry/p2.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - https://betrue12.hateblo.jp/entry/2020/01/05/151244
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\

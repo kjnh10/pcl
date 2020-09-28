@@ -8,32 +8,31 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-  - icon: ':warning:'
-    path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
-    title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
-    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
+    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\

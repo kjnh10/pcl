@@ -1,6 +1,12 @@
 ---
 data:
   _extendedDependsOn:
+  - icon: ':question:'
+    path: library/cpp/array/segtree/segment_tree.hpp
+    title: library/cpp/array/segtree/segment_tree.hpp
+  - icon: ':question:'
+    path: library/cpp/graph/edge.hpp
+    title: library/cpp/graph/edge.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.hpp
     title: library/cpp/graph/tree.lib/kth_root.hpp
@@ -10,12 +16,6 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':question:'
-    path: library/cpp/array/segtree/segment_tree.hpp
-    title: library/cpp/array/segtree/segment_tree.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/edge.hpp
-    title: library/cpp/graph/edge.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp

@@ -8,15 +8,15 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - icon: ':warning:'
+    path: library/cpp/math/bsgs/bsgs.cpp
+    title: library/cpp/math/bsgs/bsgs.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
   - icon: ':warning:'
     path: library/cpp/math/gbsgs/gbsgs.cpp
     title: library/cpp/math/gbsgs/gbsgs.cpp
-  - icon: ':warning:'
-    path: library/cpp/math/bsgs/bsgs.cpp
-    title: library/cpp/math/bsgs/bsgs.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
@@ -30,7 +30,6 @@ data:
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\

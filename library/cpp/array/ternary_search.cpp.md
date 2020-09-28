@@ -6,7 +6,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 1 \"library/cpp/array/ternary_search.cpp\"\n//%snippet.set('tsearch')%\n\
     ll l = 0;\nll r = 1000000001;\n\n// ll num = 100;\n// while(num--){\nwhile(r-l>2){\n\

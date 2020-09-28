@@ -1,12 +1,12 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/misc/zipper.lib/zipper.hpp
-    title: library/cpp/misc/zipper.lib/zipper.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/misc/zipper.lib/zipper.hpp
+    title: library/cpp/misc/zipper.lib/zipper.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -77,10 +77,10 @@ data:
     \        os << \"_unzipper:   \" << zp._unzipper << endl;\n        return os;\n\
     \    }\n#endif /*}}}*/\n};     /*}}}*/\n// How to use {{{\n// construct\n// auto\
     \ z = zipper(x); // x: vector<long long>;\n// auto z = zipper(x, 30*INF);\n\n\
-    // auto z = zipper();\n// auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n\
-    // z.add_value(10);\n// z.add_value(100000000);\n// z.build();\n\n// other method\n\
-    // z(x[i]); -> zipped x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.get_zipped(x) ->\
-    \ zipped x\n// }}}\n\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/zipper2.test.cpp\"\
+    // auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n// z.add_value(10);\n\
+    // z.add_value(100000000);\n// z.build();\n\n// other method\n// z(x[i]); -> zipped\
+    \ x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.zip(ll x) -> zipped x\n// z.zip(vl\
+    \ v) -> zipped v\n// }}}\n\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/zipper2.test.cpp\"\
     \n\nsigned main() {\n    int n;cin>>n;\n\n    vector<ll> x1(n), x2(n), y1(n),\
     \ y2(n);\n    zipper zx, zy;\n    rep(i, n){\n        cin>>x1[i]>>y1[i];\n   \
     \     cin>>x2[i]>>y2[i];\n        zx.add_value(x1[i]);\n        zx.add_value(x2[i]);\n\
@@ -116,7 +116,7 @@ data:
   isVerificationFile: true
   path: library/cpp/misc/zipper.lib/zipper2.test.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-09-29 00:07:26+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/misc/zipper.lib/zipper2.test.cpp

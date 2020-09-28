@@ -2,21 +2,33 @@
 data:
   _extendedDependsOn:
   - icon: ':question:'
-    path: library/cpp/header.hpp
-    title: library/cpp/header.hpp
-  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
   - icon: ':question:'
     path: library/cpp/graph/edge.hpp
     title: library/cpp/graph/edge.hpp
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/strongly_connected_components.hpp
-    title: library/cpp/graph/strongly_connected_components.hpp
+    path: library/cpp/graph/bellman_ford.hpp
+    title: library/cpp/graph/bellman_ford.hpp
   - icon: ':question:'
     path: library/cpp/graph/graph.hpp
     title: library/cpp/graph/graph.hpp
+  - icon: ':warning:'
+    path: library/cpp/graph/gridgraph.cpp
+    title: library/cpp/graph/gridgraph.cpp
+  - icon: ':warning:'
+    path: library/cpp/graph/local_min_cycle.hpp
+    title: library/cpp/graph/local_min_cycle.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/strongly_connected_components.hpp
+    title: library/cpp/graph/strongly_connected_components.hpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/topological_sort.hpp
+    title: library/cpp/graph/topological_sort.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.hpp
     title: library/cpp/graph/tree.lib/kth_root.hpp
@@ -24,21 +36,36 @@ data:
     path: library/cpp/graph/tree.lib/reroot.cpp
     title: library/cpp/graph/tree.lib/reroot.cpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/bellman_ford.hpp
-    title: library/cpp/graph/bellman_ford.hpp
-  - icon: ':warning:'
-    path: library/cpp/graph/local_min_cycle.hpp
-    title: library/cpp/graph/local_min_cycle.hpp
-  - icon: ':warning:'
-    path: library/cpp/graph/gridgraph.cpp
-    title: library/cpp/graph/gridgraph.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/topological_sort.hpp
-    title: library/cpp/graph/topological_sort.hpp
-  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/bellman_ford.test.cpp
+    title: library/cpp/graph/tests/bellman_ford.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/graph.2dcost.test.cpp
+    title: library/cpp/graph/tests/graph.2dcost.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/graph.bridge.test.cpp
+    title: library/cpp/graph/tests/graph.bridge.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/graph.dijkstra.test.cpp
+    title: library/cpp/graph/tests/graph.dijkstra.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/graph.kruskal.test.cpp
+    title: library/cpp/graph/tests/graph.kruskal.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/graph.lowlink.test.cpp
+    title: library/cpp/graph/tests/graph.lowlink.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/scc.test.cpp
+    title: library/cpp/graph/tests/scc.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/topological_sort.test.cpp
+    title: library/cpp/graph/tests/topological_sort.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tests/two_sat.test.cpp
+    title: library/cpp/graph/tests/two_sat.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/hld.test.cpp
     title: library/cpp/graph/tree.lib/hld.test.cpp
@@ -48,37 +75,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.lowlink.test.cpp
-    title: library/cpp/graph/tests/graph.lowlink.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.bridge.test.cpp
-    title: library/cpp/graph/tests/graph.bridge.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/bellman_ford.test.cpp
-    title: library/cpp/graph/tests/bellman_ford.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/scc.test.cpp
-    title: library/cpp/graph/tests/scc.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.2dcost.test.cpp
-    title: library/cpp/graph/tests/graph.2dcost.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.dijkstra.test.cpp
-    title: library/cpp/graph/tests/graph.dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/topological_sort.test.cpp
-    title: library/cpp/graph/tests/topological_sort.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.kruskal.test.cpp
-    title: library/cpp/graph/tests/graph.kruskal.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/two_sat.test.cpp
-    title: library/cpp/graph/tests/two_sat.test.cpp
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
     - https://www.slideshare.net/Proktmr/ss-138534092

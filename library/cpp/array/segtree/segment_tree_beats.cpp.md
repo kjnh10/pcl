@@ -6,7 +6,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links: []
   bundledCode: "#line 1 \"library/cpp/array/segtree/segment_tree_beats.cpp\"\ntemplate<typename\
     \ T>\nclass SegmentTreeBeats{\n    int n;\n    static const T idm=numeric_limits<T>::min();\n\

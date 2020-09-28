@@ -6,7 +6,6 @@ data:
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
-    '*NOT_SPECIAL_COMMENTS*': ''
     links:
     - http://pakapa104.hatenablog.com/entry/2016/02/09/230443
   bundledCode: "#line 1 \"library/cpp/math/int.cpp\"\n#include <bits/stdc++.h>\nusing\
