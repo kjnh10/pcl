@@ -215,7 +215,7 @@ ll query(){
     return 0;
 }
 
-signed main(){/*{{{*/
+int main(){/*{{{*/
     ll Q;cin>>Q;
     rep(_, Q){
         query();

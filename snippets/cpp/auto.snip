@@ -456,7 +456,7 @@ snippet query
       return 0;
   }
   
-  signed main(){/*{{{*/
+  int main(){/*{{{*/
       ll Q;cin>>Q;
       rep(_, Q){
           query();
@@ -2772,7 +2772,6 @@ snippet zipper
   // auto z = zipper(x, 30*INF);
   
   // auto z = zipper();
-  // auto z = zipper();
   // z.add_value(3);
   // z.add_value(5);
   // z.add_value(10);
@@ -2782,7 +2781,8 @@ snippet zipper
   // other method
   // z(x[i]); -> zipped x[i]
   // z.unzip(z(x[i])) -> x[i];
-  // z.get_zipped(x) -> zipped x
+  // z.zip(ll x) -> zipped x
+  // z.zip(vl v) -> zipped v
   // }}}
 
 
@@ -3029,46 +3029,6 @@ alias fraction
   // assert(rational(3, 5) == rational(-6, -10));
   // map<rational<ll>, int> cnt;  // keyにもできる。
   // snippet:rational }}}
-
-
-snippet fft
-  template<typename T> class fft {
-  private:
-      using mycomplex = std::complex<T>;
-      static void dft(vector<mycomplex>& func, int inverse) {
-          int sz = func.size();
-          if (sz == 1)return;
-          vector<mycomplex> veca, vecb;
-          rep(i, sz / 2) {
-              veca.push_back(func[2 * i]);
-              vecb.push_back(func[2 * i + 1]);
-          }
-          dft(veca, inverse); dft(vecb, inverse);
-          mycomplex now = 1, zeta = polar(1.0, inverse * 2.0 * acos(-1) / sz);
-          rep(i, sz) {
-              func[i] = veca[i % (sz / 2)] + now * vecb[i % (sz / 2)];
-              now *= zeta;
-          }
-      }
-  public:
-      static vector<double> multiply(vector<T> f, vector<T> g) {
-          vector<mycomplex> nf, ng;
-          int sz = 1;
-          while (sz < f.size() + g.size())sz *= 2;
-          nf.resize(sz); ng.resize(sz);
-          rep(i, f.size()) {
-              nf[i] = f[i];
-              ng[i] = g[i];
-          }
-          dft(nf, 1);
-          dft(ng, 1);
-          rep(i, sz)nf[i] *= ng[i];
-          dft(nf, -1);
-          vector<double> res;
-          rep(i, sz)res.push_back(nf[i].real() / sz);
-          return res;
-      }
-  };
 
 
 snippet sieve

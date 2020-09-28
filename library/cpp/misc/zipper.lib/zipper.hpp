@@ -68,7 +68,6 @@ struct zipper {                             /*{{{*/
 // auto z = zipper(x, 30*INF);
 
 // auto z = zipper();
-// auto z = zipper();
 // z.add_value(3);
 // z.add_value(5);
 // z.add_value(10);
@@ -78,7 +77,8 @@ struct zipper {                             /*{{{*/
 // other method
 // z(x[i]); -> zipped x[i]
 // z.unzip(z(x[i])) -> x[i];
-// z.get_zipped(x) -> zipped x
+// z.zip(ll x) -> zipped x
+// z.zip(vl v) -> zipped v
 // }}}
 
 //%snippet.end()%
