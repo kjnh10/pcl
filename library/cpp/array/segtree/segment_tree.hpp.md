@@ -33,6 +33,9 @@ data:
     path: library/cpp/graph/tree.lib/tree.hpp
     title: library/cpp/graph/tree.lib/tree.hpp
   - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
+    title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
   - icon: ':heavy_check_mark:'
@@ -84,6 +87,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
+    title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
@@ -281,6 +287,7 @@ data:
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
+  - library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - library/cpp/graph/tree.lib/reroot.cpp
   - library/cpp/graph/tree.lib/tree.hpp
   - library/cpp/graph/bellman_ford.hpp
@@ -295,6 +302,7 @@ data:
   - library/cpp/array/segtree/segment_tree.test.cpp
   - library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
   - library/cpp/string/suffix_array.test.cpp
+  - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
   - library/cpp/graph/tree.lib/lca.test.cpp

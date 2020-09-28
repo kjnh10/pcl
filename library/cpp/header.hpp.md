@@ -90,6 +90,9 @@ data:
     path: library/cpp/graph/tree.lib/tree.hpp
     title: library/cpp/graph/tree.lib/tree.hpp
   - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
+    title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
   - icon: ':question:'
@@ -271,6 +274,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
+    title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
@@ -606,6 +612,7 @@ data:
   - library/cpp/graph/edge.hpp
   - library/cpp/graph/unionfind.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
+  - library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - library/cpp/graph/tree.lib/reroot.cpp
   - library/cpp/graph/tree.lib/tree.hpp
   - library/cpp/graph/unionfind_with_potential.hpp
@@ -643,6 +650,7 @@ data:
   - library/cpp/math/sieve.test.cpp
   - library/cpp/string/suffix_array.test.cpp
   - library/cpp/string/rolling_hash.test.cpp
+  - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
   - library/cpp/graph/tree.lib/lca.test.cpp

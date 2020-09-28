@@ -153,6 +153,9 @@ data:
     - icon: ':question:'
       path: library/cpp/graph/tree.lib/tree.hpp
       title: library/cpp/graph/tree.lib/tree.hpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
+      title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - name: library/cpp
     pages:
     - icon: ':question:'
@@ -431,6 +434,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca.test.cpp
       title: library/cpp/graph/tree.lib/lca.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
+      title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - name: library/cpp/math
     pages:
     - icon: ':heavy_check_mark:'
