@@ -4,6 +4,7 @@
 //%snippet.config({'alias':'pos'})%
 //%snippet.config({'alias':'point'})%
 //%snippet.config({'alias':'pair'})%
+//%snippet.fold()%
 
 template<class T=ll>/*{{{*/
 struct P2 {
