@@ -319,11 +319,11 @@ data:
     \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
     \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/p2.hpp\"\
     \n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n//%snippet.config({'alias':'point'})%\n\
-    //%snippet.config({'alias':'pair'})%\n\ntemplate<class T=ll>/*{{{*/\nstruct P2\
-    \ {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n        x\
-    \ = 0;\n        y = 0;\n    }\n    bool operator<(const P2 &r) const {\n     \
-    \   return (x != r.x ? x < r.x : y < r.y);\n    }\n    bool operator>(const P2\
-    \ &r) const {\n        return (x != r.x ? x > r.x : y > r.y);\n    }\n    bool\
+    //%snippet.config({'alias':'pair'})%\n//%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\n\
+    struct P2 {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n \
+    \       x = 0;\n        y = 0;\n    }\n    bool operator<(const P2 &r) const {\n\
+    \        return (x != r.x ? x < r.x : y < r.y);\n    }\n    bool operator>(const\
+    \ P2 &r) const {\n        return (x != r.x ? x > r.x : y > r.y);\n    }\n    bool\
     \ operator==(const P2 &r) const { return (x == r.x && y == r.y); }\n\n    friend\
     \ ostream &operator<<(ostream &stream, P2 p) {\n        stream << \"(\" << p.x\
     \ << \",\" << p.y << \")\";\n        return stream;\n    }\n\n    P2 operator-()\
@@ -375,7 +375,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/graph.2dcost.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-09-30 01:05:59+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/graph.2dcost.test.cpp
