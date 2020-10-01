@@ -214,52 +214,52 @@ data:
     \ {\n                v = i;\n                md = d;\n            }\n        }\n\
     \        return mp(u, v);\n    }                                             \
     \   /*}}}*/\n    vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true)\
-    \ {  //{{{\n        // \u9589\u533A\u9593\u3092vector\u3067\u8FD4\u3059\u3002\
-    for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\u306B\u6CE8\
-    \u610F\u3002\n        vector<pair<int, int>> res;\n        while (head_of_comp[u]\
-    \ != head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
-    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]});\n        \
-    \        v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
-    \ ord[u]});\n                u = par[head_of_comp[u]];\n            }\n      \
-    \  }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
-    \ ord[v])});\n        return res;\n    }                              //}}}\n\
-    #if defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream& operator<<(ostream&\
-    \ os, const tree& tr) {\n        os << endl;\n        os << \"par:         \"\
-    \ << tr.par << endl;\n        os << \"cost:        \" << tr.cost << endl;\n  \
-    \      os << \"dfstrv:      \" << tr.dfstrv << endl;\n        os << \"ord:   \
-    \      \" << tr.ord << endl;\n        os << \"end:         \" << tr.end << endl;\n\
-    \        os << \"depth:       \" << tr.depth << endl;\n        os << \"children:\
-    \    \" << tr.children << endl;\n        os << \"euler_tour:  \" << tr.euler_tour\
-    \ << endl;\n        os << \"et_fpos:     \" << tr.et_fpos << endl;\n        os\
-    \ << \"head_of_comp:\" << tr.head_of_comp << endl;\n        return os;\n    }\n\
-    #endif /*}}}*/\n}; \n//%snippet.end()%\n#line 3 \"library/cpp/graph/unionfind.hpp\"\
-    \n\n//%snippet.set('UnionFind')%\n//%snippet.fold()%\n\nstruct UnionFind {\n \
-    \   vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
-    \         // count of groups\n\n    UnionFind() {}\n    UnionFind(int _n) : par(_n,\
-    \ -1), gcount(_n) {}\n    bool merge(int x, int y) { \n        x = root(x);\n\
-    \        y = root(y);\n        if (x != y) {\n            if (par[y] < par[x])\
-    \ swap(x, y);\n            par[x] += par[y];\n            par[y] = x;\n      \
-    \      gcount--;\n        }\n        return x != y;\n    } \n    int root(int\
-    \ x) {\n        if (is_root(x)){\n            return x;\n        }\n        else{\n\
-    \            return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n    \
-    \        // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
-    \n        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
-    \ x, int y) { return root(x) == root(y); }\n    int size(int x) { return -par[root(x)];\
-    \ }\n\n#if defined(PCM) || defined(LOCAL)  // {{{\n    friend ostream& operator<<(ostream&\
-    \ os, UnionFind& uf) {\n        map<int, vector<int>> group;\n        rep(i, sz(uf.par))\
-    \ { group[uf.root(i)].pb(i); }\n        os << endl;\n        each(g, group) {\
-    \ os << g << endl; }\n        return os;\n    }\n#endif  // }}}\n};\n\n//%snippet.end()%\n\
-    #line 6 \"library/cpp/graph/graph.hpp\"\n\n//%snippet.set('Graph')%\n//%snippet.include('UnionFind')%\n\
-    //%snippet.include('tree')%\n//%snippet.fold()%\n\ntemplate<class Cost=ll>\nstruct\
-    \ Graph {\n    using Pos = int;  // int\u4EE5\u5916\u306B\u306F\u5BFE\u5FDC\u3057\
-    \u306A\u3044\u3002\n\n    int n;  // \u9802\u70B9\u6570\n    vector<vector<Edge<Cost>>>\
-    \ adj_list;\n    auto operator[](Pos pos) const { return adj_list[pos]; }\n  \
-    \  vector<Edge<Cost>> edges;\n    tree<Cost> tr;\n    Pos root;\n    vector<int>\
-    \ _used_in_dfs;\n    vector<int> lowlink;\n    Cost zerocost;\n    Cost infcost;\n\
-    \n    Graph() {}\n    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n),\
-    \ zerocost(0LL), infcost(INF) { }\n    Graph(int _n, Cost zc, Cost ic) : n(_n),\
-    \ adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }\n\n    void\
-    \ add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/\n        adj_list[from].emplace_back(from,\
+    \ {  //{{{\n        // return {[l0, r0), [l1, r1), ....} for_edge=true\u3067lca\u306F\
+    \u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\u306B\u6CE8\u610F\u3002\n        vector<pair<int,\
+    \ int>> res;\n        while (head_of_comp[u] != head_of_comp[v]) {\n         \
+    \   if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {\n                res.push_back({ord[head_of_comp[v]],\
+    \ ord[v]+1});\n                v = par[head_of_comp[v]];\n            } else {\n\
+    \                res.push_back({ord[head_of_comp[u]], ord[u]+1});\n          \
+    \      u = par[head_of_comp[u]];\n            }\n        }\n        res.push_back({min(ord[u],\
+    \ ord[v]) + (for_edge?1:0), max(ord[u], ord[v])+1});\n        return res;\n  \
+    \  }                              //}}}\n#if defined(PCM) || defined(LOCAL) /*{{{*/\n\
+    \    friend ostream& operator<<(ostream& os, const tree& tr) {\n        os <<\
+    \ endl;\n        os << \"par:         \" << tr.par << endl;\n        os << \"\
+    cost:        \" << tr.cost << endl;\n        os << \"dfstrv:      \" << tr.dfstrv\
+    \ << endl;\n        os << \"ord:         \" << tr.ord << endl;\n        os <<\
+    \ \"end:         \" << tr.end << endl;\n        os << \"depth:       \" << tr.depth\
+    \ << endl;\n        os << \"children:    \" << tr.children << endl;\n        os\
+    \ << \"euler_tour:  \" << tr.euler_tour << endl;\n        os << \"et_fpos:   \
+    \  \" << tr.et_fpos << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp\
+    \ << endl;\n        return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n\
+    #line 3 \"library/cpp/graph/unionfind.hpp\"\n\n//%snippet.set('UnionFind')%\n\
+    //%snippet.fold()%\n\nstruct UnionFind {\n    vector<int> par;   // par[x]: parent\
+    \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    UnionFind()\
+    \ {}\n    UnionFind(int _n) : par(_n, -1), gcount(_n) {}\n    bool merge(int x,\
+    \ int y) { \n        x = root(x);\n        y = root(y);\n        if (x != y) {\n\
+    \            if (par[y] < par[x]) swap(x, y);\n            par[x] += par[y];\n\
+    \            par[y] = x;\n            gcount--;\n        }\n        return x !=\
+    \ y;\n    } \n    int root(int x) {\n        if (is_root(x)){\n            return\
+    \ x;\n        }\n        else{\n            return par[x] = root(par[x]);  //\
+    \ \u7D4C\u8DEF\u5727\u7E2E\n            // return root(par[x]);         // \u7D4C\
+    \u8DEF\u5727\u7E2E\u306A\u3057\n        }\n    }\n    bool is_root(int x) { return\
+    \ par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y); }\n\
+    \    int size(int x) { return -par[root(x)]; }\n\n#if defined(PCM) || defined(LOCAL)\
+    \  // {{{\n    friend ostream& operator<<(ostream& os, UnionFind& uf) {\n    \
+    \    map<int, vector<int>> group;\n        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i);\
+    \ }\n        os << endl;\n        each(g, group) { os << g << endl; }\n      \
+    \  return os;\n    }\n#endif  // }}}\n};\n\n//%snippet.end()%\n#line 6 \"library/cpp/graph/graph.hpp\"\
+    \n\n//%snippet.set('Graph')%\n//%snippet.include('UnionFind')%\n//%snippet.include('tree')%\n\
+    //%snippet.fold()%\n\ntemplate<class Cost=ll>\nstruct Graph {\n    using Pos =\
+    \ int;  // int\u4EE5\u5916\u306B\u306F\u5BFE\u5FDC\u3057\u306A\u3044\u3002\n\n\
+    \    int n;  // \u9802\u70B9\u6570\n    vector<vector<Edge<Cost>>> adj_list;\n\
+    \    auto operator[](Pos pos) const { return adj_list[pos]; }\n    vector<Edge<Cost>>\
+    \ edges;\n    tree<Cost> tr;\n    Pos root;\n    vector<int> _used_in_dfs;\n \
+    \   vector<int> lowlink;\n    Cost zerocost;\n    Cost infcost;\n\n    Graph()\
+    \ {}\n    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL),\
+    \ infcost(INF) { }\n    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n),\
+    \ tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }\n\n    void add_edge(Pos\
+    \ from, Pos to, Cost cost, int idx=-1) {/*{{{*/\n        adj_list[from].emplace_back(from,\
     \ to, cost, idx);\n        edges.emplace_back(from, to, cost, idx);\n    }\n \
     \   void add_edge(Pos from, Pos to) {  // for ll\n        adj_list[from].emplace_back(from,\
     \ to, 1, -1);\n        edges.emplace_back(from, to, 1, -1);\n    }/*}}}*/\n\n\
@@ -337,7 +337,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/graph.kruskal.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-10-02 00:28:49+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/graph.kruskal.test.cpp

@@ -229,15 +229,15 @@ data:
     \ (d > md) {\n                v = i;\n                md = d;\n            }\n\
     \        }\n        return mp(u, v);\n    }                                  \
     \              /*}}}*/\n    vector<pair<int, int>> hld_path(int u, int v, bool\
-    \ for_edge=true) {  //{{{\n        // \u9589\u533A\u9593\u3092vector\u3067\u8FD4\
-    \u3059\u3002for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\
-    \u306B\u6CE8\u610F\u3002\n        vector<pair<int, int>> res;\n        while (head_of_comp[u]\
-    \ != head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
-    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]});\n        \
-    \        v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
-    \ ord[u]});\n                u = par[head_of_comp[u]];\n            }\n      \
-    \  }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
-    \ ord[v])});\n        return res;\n    }                              //}}}\n\
+    \ for_edge=true) {  //{{{\n        vector<pair<int, int>> res;\n        // return\
+    \ {[l0, r0), [l1, r1), ....} for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\
+    \u3059\u3053\u3068\u306B\u6CE8\u610F\u3002\n        while (head_of_comp[u] !=\
+    \ head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
+    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]+1});\n      \
+    \          v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
+    \ ord[u]+1});\n                u = par[head_of_comp[u]];\n            }\n    \
+    \    }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
+    \ ord[v])+1});\n        return res;\n    }                              //}}}\n\
     #if defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream& operator<<(ostream&\
     \ os, const tree& tr) {\n        os << endl;\n        os << \"psize:       \"\
     \ << tr.psize << endl;\n        os << \"par:         \" << tr.par << endl;\n \
@@ -346,15 +346,15 @@ data:
     \ (d > md) {\n                v = i;\n                md = d;\n            }\n\
     \        }\n        return mp(u, v);\n    }                                  \
     \              /*}}}*/\n    vector<pair<int, int>> hld_path(int u, int v, bool\
-    \ for_edge=true) {  //{{{\n        // \u9589\u533A\u9593\u3092vector\u3067\u8FD4\
-    \u3059\u3002for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\
-    \u306B\u6CE8\u610F\u3002\n        vector<pair<int, int>> res;\n        while (head_of_comp[u]\
-    \ != head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
-    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]});\n        \
-    \        v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
-    \ ord[u]});\n                u = par[head_of_comp[u]];\n            }\n      \
-    \  }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
-    \ ord[v])});\n        return res;\n    }                              //}}}\n\
+    \ for_edge=true) {  //{{{\n        vector<pair<int, int>> res;\n        // return\
+    \ {[l0, r0), [l1, r1), ....} for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\
+    \u3059\u3053\u3068\u306B\u6CE8\u610F\u3002\n        while (head_of_comp[u] !=\
+    \ head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
+    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]+1});\n      \
+    \          v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
+    \ ord[u]+1});\n                u = par[head_of_comp[u]];\n            }\n    \
+    \    }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
+    \ ord[v])+1});\n        return res;\n    }                              //}}}\n\
     #if defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream& operator<<(ostream&\
     \ os, const tree& tr) {\n        os << endl;\n        os << \"psize:       \"\
     \ << tr.psize << endl;\n        os << \"par:         \" << tr.par << endl;\n \
@@ -372,7 +372,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   requiredBy: []
-  timestamp: '2020-09-29 03:26:07+09:00'
+  timestamp: '2020-10-02 00:28:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp

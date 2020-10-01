@@ -205,42 +205,42 @@ data:
     \ {\n                v = i;\n                md = d;\n            }\n        }\n\
     \        return mp(u, v);\n    }                                             \
     \   /*}}}*/\n    vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true)\
-    \ {  //{{{\n        // \u9589\u533A\u9593\u3092vector\u3067\u8FD4\u3059\u3002\
-    for_edge=true\u3067lca\u306F\u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\u306B\u6CE8\
-    \u610F\u3002\n        vector<pair<int, int>> res;\n        while (head_of_comp[u]\
-    \ != head_of_comp[v]) {\n            if (depth[head_of_comp[u]] < depth[head_of_comp[v]])\
-    \ {\n                res.push_back({ord[head_of_comp[v]], ord[v]});\n        \
-    \        v = par[head_of_comp[v]];\n            } else {\n                res.push_back({ord[head_of_comp[u]],\
-    \ ord[u]});\n                u = par[head_of_comp[u]];\n            }\n      \
-    \  }\n        res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u],\
-    \ ord[v])});\n        return res;\n    }                              //}}}\n\
-    #if defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream& operator<<(ostream&\
-    \ os, const tree& tr) {\n        os << endl;\n        os << \"par:         \"\
-    \ << tr.par << endl;\n        os << \"cost:        \" << tr.cost << endl;\n  \
-    \      os << \"dfstrv:      \" << tr.dfstrv << endl;\n        os << \"ord:   \
-    \      \" << tr.ord << endl;\n        os << \"end:         \" << tr.end << endl;\n\
-    \        os << \"depth:       \" << tr.depth << endl;\n        os << \"children:\
-    \    \" << tr.children << endl;\n        os << \"euler_tour:  \" << tr.euler_tour\
-    \ << endl;\n        os << \"et_fpos:     \" << tr.et_fpos << endl;\n        os\
-    \ << \"head_of_comp:\" << tr.head_of_comp << endl;\n        return os;\n    }\n\
-    #endif /*}}}*/\n}; \n//%snippet.end()%\n#line 2 \"library/cpp/graph/tree.lib/kth_root.hpp\"\
-    \n\nclass kth_root {\npublic:\n    int N; // 2**N >= max_depth\u3068\u306A\u308B\
-    \u6700\u5C0F\u306E\u3079\u304D + 1\n    const tree<>& tr;\n    vector<vector<int>>\
-    \ db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n        int max_depth = *max_element(all(tr.depth));\n\
-    \        N = 0;\n        int mul = 1;\n        while(mul < max_depth){\n     \
-    \       mul <<= 1;\n            N++;\n        }\n        N++;\n\n        db =\
-    \ make_table(N, tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n   \
-    \     rep(d, 1, N){\n            rep(j, tr.n){\n                if (db[d-1][j]\
-    \ == -1) db[d][j] = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n\
-    \            }\n        }\n    }\n    \n    int query(int node, int k) {\n   \
-    \     int cur = node;\n        for(int d = 0; d < N ; d++) {\n            if (k>>d&1)\
-    \ {\n                if (db[d][cur]==-1) return -1;\n                else cur\
-    \ = db[d][cur];\n            }\n        }\n        return cur;\n    }\n\n    int\
-    \ lca(int u, int v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n  \
-    \      v = query(v, tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\
-    \n        for (int d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v])\
-    \ {\n                u = db[d][u];\n                v = db[d][v];\n          \
-    \  }\n        }\n        return tr.par[u];\n    }\n};\n"
+    \ {  //{{{\n        // return {[l0, r0), [l1, r1), ....} for_edge=true\u3067lca\u306F\
+    \u9664\u3044\u3066\u8FD4\u3059\u3053\u3068\u306B\u6CE8\u610F\u3002\n        vector<pair<int,\
+    \ int>> res;\n        while (head_of_comp[u] != head_of_comp[v]) {\n         \
+    \   if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {\n                res.push_back({ord[head_of_comp[v]],\
+    \ ord[v]+1});\n                v = par[head_of_comp[v]];\n            } else {\n\
+    \                res.push_back({ord[head_of_comp[u]], ord[u]+1});\n          \
+    \      u = par[head_of_comp[u]];\n            }\n        }\n        res.push_back({min(ord[u],\
+    \ ord[v]) + (for_edge?1:0), max(ord[u], ord[v])+1});\n        return res;\n  \
+    \  }                              //}}}\n#if defined(PCM) || defined(LOCAL) /*{{{*/\n\
+    \    friend ostream& operator<<(ostream& os, const tree& tr) {\n        os <<\
+    \ endl;\n        os << \"par:         \" << tr.par << endl;\n        os << \"\
+    cost:        \" << tr.cost << endl;\n        os << \"dfstrv:      \" << tr.dfstrv\
+    \ << endl;\n        os << \"ord:         \" << tr.ord << endl;\n        os <<\
+    \ \"end:         \" << tr.end << endl;\n        os << \"depth:       \" << tr.depth\
+    \ << endl;\n        os << \"children:    \" << tr.children << endl;\n        os\
+    \ << \"euler_tour:  \" << tr.euler_tour << endl;\n        os << \"et_fpos:   \
+    \  \" << tr.et_fpos << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp\
+    \ << endl;\n        return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n\
+    #line 2 \"library/cpp/graph/tree.lib/kth_root.hpp\"\n\nclass kth_root {\npublic:\n\
+    \    int N; // 2**N >= max_depth\u3068\u306A\u308B\u6700\u5C0F\u306E\u3079\u304D\
+    \ + 1\n    const tree<>& tr;\n    vector<vector<int>> db;\n    kth_root(tree<>&\
+    \ _tr) : tr(_tr) {\n        int max_depth = *max_element(all(tr.depth));\n   \
+    \     N = 0;\n        int mul = 1;\n        while(mul < max_depth){\n        \
+    \    mul <<= 1;\n            N++;\n        }\n        N++;\n\n        db = make_table(N,\
+    \ tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n        rep(d, 1,\
+    \ N){\n            rep(j, tr.n){\n                if (db[d-1][j] == -1) db[d][j]\
+    \ = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n            }\n\
+    \        }\n    }\n    \n    int query(int node, int k) {\n        int cur = node;\n\
+    \        for(int d = 0; d < N ; d++) {\n            if (k>>d&1) {\n          \
+    \      if (db[d][cur]==-1) return -1;\n                else cur = db[d][cur];\n\
+    \            }\n        }\n        return cur;\n    }\n\n    int lca(int u, int\
+    \ v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n        v = query(v,\
+    \ tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\n        for (int\
+    \ d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v]) {\n         \
+    \       u = db[d][u];\n                v = db[d][v];\n            }\n        }\n\
+    \        return tr.par[u];\n    }\n};\n"
   code: "#include \"tree.hpp\"\n\nclass kth_root {\npublic:\n    int N; // 2**N >=\
     \ max_depth\u3068\u306A\u308B\u6700\u5C0F\u306E\u3079\u304D + 1\n    const tree<>&\
     \ tr;\n    vector<vector<int>> db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n  \
@@ -267,7 +267,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/kth_root.hpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-10-02 00:28:49+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/kth_root.test.cpp
