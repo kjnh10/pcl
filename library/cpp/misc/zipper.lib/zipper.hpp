@@ -9,11 +9,14 @@ struct zipper {                             /*{{{*/
     bool _is_build = false;
     int n = 0;
 
-    zipper(long long inf_value = INF) { /*{{{*/
+    zipper(){};
+    zipper(long long inf_value) { /*{{{*/
         _unzipper.push_back(-inf_value);
         _unzipper.push_back(inf_value);
     }                                                        /*}}}*/
-    zipper(vector<long long> a, long long inf_value = INF) { /*{{{*/
+
+    template <class T>
+    zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
         _unzipper = vector<long long>(sz(a));
         rep(i, sz(a)) { _unzipper[i] = a[i]; }
         _unzipper.push_back(-inf_value);
@@ -65,7 +68,7 @@ struct zipper {                             /*{{{*/
 // How to use {{{
 // construct
 // auto z = zipper(x); // x: vector<long long>;
-// auto z = zipper(x, 30*INF);
+// auto z = zipper(x, INF);
 
 // auto z = zipper();
 // z.add_value(3);

@@ -14,6 +14,255 @@ snippet bsearch
       dump(right);
 
 
+snippet reversed_cnt
+alias cnt_reversed
+  // snippet:segment_tree {{{
+  template <typename X> struct SegmentTree {  // {{{
+      private:
+          using F = function<X(X, X)>;
+          using index = int;
+          int n;  // 元の配列のサイズ
+          int N;  // n以上の最小の2冪
+          vector<X> node;
+          F merge;
+          X identity;
+  
+      public:
+          SegmentTree() {}
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
+              n = a.size();
+              N = 1;
+              while (N < n) N *= 2;
+              node.resize(2 * N - 1, identity);
+              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+              for (int i = N - 2; i >= 0; i--)
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+          }
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
+  
+          X& operator[](index i) { return node[i + N - 1]; }
+  
+          void set(index i, X val) {
+              i += (N - 1);
+              node[i] = val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          void add(index i, X val) {
+              i += (N - 1);
+              node[i] += val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          // query for [a, b)
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
+              if (r < 0) r = N;
+              if (r <= a || b <= l) return identity;
+              if (a <= l && r <= b) return node[k];
+  
+              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(vl, vr);
+          }
+  
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
+  
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (vl != n) return {vl, xl};
+                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {vr, xr};
+              }
+          }
+  
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (vr != -1) return {vr, xr};
+                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {vl, xl};
+              }
+          }
+  
+          #if defined(PCM) || defined(LOCAL)
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
+              os << "[";
+              for (int i = 0; i < sg.n; i++) {
+                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+              }
+              return os;
+          }
+          #endif
+  };/*}}}*/
+  // sample of initialize SegmentTree:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // ll e = 1e18;
+  // SegmentTree<ll> seg(a, mymin, e);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // ll e = -1e18;
+  // SegmentTree<ll> seg(a, mymax, e);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // ll e = 0;
+  // SegmentTree<ll> seg(a, add, e);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
+  // -----------------------------------------------
+  // snippet:segment_tree }}}
+  
+  struct zipper {                             /*{{{*/
+      // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
+      map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
+      vector<long long> _unzipper;            // [2, 3, 5, 10]
+      bool _is_build = false;
+      int n = 0;
+  
+      zipper(){};
+      zipper(long long inf_value) { /*{{{*/
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+      }                                                        /*}}}*/
+  
+      template <class T>
+      zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
+          _unzipper = vector<long long>(sz(a));
+          rep(i, sz(a)) { _unzipper[i] = a[i]; }
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+          build();
+      }                              /*}}}*/
+      void add_value(long long lv) { /*{{{*/
+          _unzipper.push_back(lv);
+          _is_build = false;
+      }              /*}}}*/
+      void build() { /*{{{*/
+          uni(_unzipper);
+          zip_map.clear();
+          n = sz(_unzipper);
+          rep(i, n) { zip_map[_unzipper[i]] = i; }
+          _is_build = true;
+      }                              /*}}}*/
+      vector<int> zip(vector<long long> lvs) { /*{{{*/
+          if (!_is_build) assert(false);
+          int n = sz(lvs);
+          vector<int> res(n);
+          rep(i, n) res[i] = zip_map[lvs[i]];
+          return res;
+      }                              /*}}}*/
+      int zip(long long lv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return zip_map[lv];
+      }                                               /*}}}*/
+      int operator()(long long lv) { return zip(lv); }
+  
+      long long unzip(int sv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return _unzipper[sv];
+      }                              /*}}}*/
+      int operator[](int sv) { return unzip(sv); }
+  
+      int size() {return n;}
+  
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const zipper& zp) {
+          os << endl;
+          os << "_is_build: " << zp._is_build << endl;
+          os << "zip_map:   " << zp.zip_map << endl;
+          os << "_unzipper:   " << zp._unzipper << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  };     /*}}}*/
+  // How to use {{{
+  // construct
+  // auto z = zipper(x); // x: vector<long long>;
+  // auto z = zipper(x, INF);
+  
+  // auto z = zipper();
+  // z.add_value(3);
+  // z.add_value(5);
+  // z.add_value(10);
+  // z.add_value(100000000);
+  // z.build();
+  
+  // other method
+  // z(x[i]); -> zipped x[i]
+  // z.unzip(z(x[i])) -> x[i];
+  // z.zip(ll x) -> zipped x
+  // z.zip(vl v) -> zipped v
+  // }}}
+  
+  // snippet:reversed_cnt {{{
+  template<class T>
+  ll reversed_cnt(const vector<T>& v){
+      int n = sz(v);
+      ll max_v = *max_element(all(v));
+      ll min_v = *min_element(all(v));
+  
+      zipper z;
+      bool zipped = false;
+      if (max_v > n-1 || min_v < 0) {
+          z = zipper(v);
+          max_v = z.n - 1;
+          zipped = true;
+      }
+  
+      auto add=[](auto a, auto b){return a+b;};
+      ll e = 0;
+      SegmentTree<ll> seg(max_v + 1, add, e);
+  
+      ll res = 0;
+      rep(i, n){
+          ll w = (zipped ? z(v[i]) : v[i]);
+          res += seg.query(w+1, n+1);
+          seg.add(w, 1);
+      }
+      return res;
+  }
+  // snippet:reversed_cnt }}}
+
+
 snippet syakutori
       ll sum = 0;
   
@@ -450,7 +699,7 @@ snippet ostream
 
 
 snippet query
-  ll query(){
+  int query(){
       cerrendl;
   
       return 0;
@@ -2716,11 +2965,14 @@ snippet zipper
       bool _is_build = false;
       int n = 0;
   
-      zipper(long long inf_value = INF) { /*{{{*/
+      zipper(){};
+      zipper(long long inf_value) { /*{{{*/
           _unzipper.push_back(-inf_value);
           _unzipper.push_back(inf_value);
       }                                                        /*}}}*/
-      zipper(vector<long long> a, long long inf_value = INF) { /*{{{*/
+  
+      template <class T>
+      zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
           _unzipper = vector<long long>(sz(a));
           rep(i, sz(a)) { _unzipper[i] = a[i]; }
           _unzipper.push_back(-inf_value);
@@ -2772,7 +3024,7 @@ snippet zipper
   // How to use {{{
   // construct
   // auto z = zipper(x); // x: vector<long long>;
-  // auto z = zipper(x, 30*INF);
+  // auto z = zipper(x, INF);
   
   // auto z = zipper();
   // z.add_value(3);

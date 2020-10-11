@@ -209,7 +209,7 @@ ostream& operator<<(ostream& os, const ${1:type}& ${2}){
 }
 
 //%snippet.set('query')%
-ll query(){
+int query(){
     cerrendl;
 
     return 0;
