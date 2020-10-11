@@ -121,13 +121,16 @@ template <typename X> struct SegmentTree {  // {{{
 // sample of initialize SegmentTree:
 // -----------------------------------------------
 // auto mymin=[](auto a, auto b){return min(a,b);};
-// SegmentTree<ll> seg(a, mymin, 1e18);
+// ll e = 1e18;
+// SegmentTree<ll> seg(a, mymin, e);
 
 // auto mymax=[](auto a, auto b){return max(a,b);};
-// SegmentTree<ll> seg(a, mymax, -1e18);
+// ll e = -1e18;
+// SegmentTree<ll> seg(a, mymax, e);
 
 // auto add=[](auto a, auto b){return a+b;};
-// SegmentTree<ll> seg(a, add, 0);
+// ll e = 0;
+// SegmentTree<ll> seg(a, add, e);
 
 // pair<int, int> get_nearest_index_of_smaller_element(int i){
 //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
