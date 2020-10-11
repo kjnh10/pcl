@@ -55,7 +55,7 @@ int main(){
     int nums = 10;
     while(nums--){
         test(abs(rng())); 
-        // test(1000000, false); 
+        test(1000000, false); 
     }
     cout << "Hello World" << endl;
     return 0;
