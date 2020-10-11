@@ -927,6 +927,25 @@ snippet 01bfs
   }
 
 
+snippet RLE
+alias run_length_encoding
+  // snippet:RLE {{{
+  template<class T = vector<int>, class U = int>
+  vector<pair<U, int>> RLE(const T& v){
+      vector<pair<U, int>> res;
+      rep(i, sz(v)){
+          if (sz(res) == 0 || res.back().first != v[i]) {
+              res.emplace_back(v[i], 1);
+          }
+          else{
+              res.back().second++;
+          }
+      }
+      return res;
+  }
+  // snippet:RLE }}}
+
+
 snippet gcd
   ll gcd(ll a, ll b) {
       if (b > a) swap(a, b);
