@@ -13,7 +13,7 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
 
 [submit]
   [submit.default_lang.AtCoder]
-  cpp = 'gcc_acl'
+  cpp = 'gcc'
   py  = 'py'
 
   [submit.default_lang.Codeforces]
