@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/lis.hpp
     title: library/cpp/array/lis.hpp
+  - icon: ':warning:'
+    path: library/cpp/array/reversed_cnt.cpp
+    title: library/cpp/array/reversed_cnt.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
     title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
@@ -169,9 +172,12 @@ data:
     path: library/cpp/misc/napsack.cpp
     title: library/cpp/misc/napsack.cpp
   - icon: ':warning:'
+    path: library/cpp/misc/run_length_encoding.cpp
+    title: library/cpp/misc/run_length_encoding.cpp
+  - icon: ':warning:'
     path: library/cpp/misc/zipper.lib/shifter.hpp
     title: library/cpp/misc/zipper.lib/shifter.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/misc/zipper.lib/zipper.hpp
     title: library/cpp/misc/zipper.lib/zipper.hpp
   - icon: ':warning:'
@@ -298,7 +304,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/misc/zipper.lib/zipper.test.cpp
     title: library/cpp/misc/zipper.lib/zipper.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/misc/zipper.lib/zipper2.test.cpp
     title: library/cpp/misc/zipper.lib/zipper2.test.cpp
   - icon: ':heavy_check_mark:'
@@ -576,6 +582,7 @@ data:
   - library/cpp/array/segtree/segment_tree.hpp
   - library/cpp/array/sparse_table.hpp
   - library/cpp/array/lis.hpp
+  - library/cpp/array/reversed_cnt.cpp
   - library/cpp/string/split.hpp
   - library/cpp/string/kmp/codes/naive.cpp
   - library/cpp/string/kmp/codes/solve.cpp
@@ -621,6 +628,7 @@ data:
   - library/cpp/math/mint.hpp
   - library/cpp/misc/constant.cpp
   - library/cpp/misc/napsack.cpp
+  - library/cpp/misc/run_length_encoding.cpp
   - library/cpp/misc/zipper.lib/zipper.hpp
   - library/cpp/misc/zipper.lib/shifter.hpp
   - problem_template/codes/solve.cpp

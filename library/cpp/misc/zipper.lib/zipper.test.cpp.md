@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/misc/zipper.lib/zipper.hpp
     title: library/cpp/misc/zipper.lib/zipper.hpp
   _extendedRequiredBy: []
@@ -51,33 +51,33 @@ data:
     \ long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\u3065\u3089\u3044\n\
     \    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n    vector<long long>\
     \ _unzipper;            // [2, 3, 5, 10]\n    bool _is_build = false;\n    int\
-    \ n = 0;\n\n    zipper(long long inf_value = INF) { /*{{{*/\n        _unzipper.push_back(-inf_value);\n\
-    \        _unzipper.push_back(inf_value);\n    }                              \
-    \                          /*}}}*/\n    zipper(vector<long long> a, long long\
-    \ inf_value = INF) { /*{{{*/\n        _unzipper = vector<long long>(sz(a));\n\
-    \        rep(i, sz(a)) { _unzipper[i] = a[i]; }\n        _unzipper.push_back(-inf_value);\n\
-    \        _unzipper.push_back(inf_value);\n        build();\n    }            \
-    \                  /*}}}*/\n    void add_value(long long lv) { /*{{{*/\n     \
-    \   _unzipper.push_back(lv);\n        _is_build = false;\n    }              /*}}}*/\n\
-    \    void build() { /*{{{*/\n        uni(_unzipper);\n        zip_map.clear();\n\
-    \        n = sz(_unzipper);\n        rep(i, n) { zip_map[_unzipper[i]] = i; }\n\
-    \        _is_build = true;\n    }                              /*}}}*/\n    vector<int>\
-    \ zip(vector<long long> lvs) { /*{{{*/\n        if (!_is_build) assert(false);\n\
-    \        int n = sz(lvs);\n        vector<int> res(n);\n        rep(i, n) res[i]\
-    \ = zip_map[lvs[i]];\n        return res;\n    }                             \
-    \ /*}}}*/\n    int zip(long long lv) { /*{{{*/\n        if (!_is_build) assert(false);\n\
-    \        return zip_map[lv];\n    }                                          \
-    \     /*}}}*/\n    int operator()(long long lv) { return zip(lv); }\n\n    long\
-    \ long unzip(int sv) { /*{{{*/\n        if (!_is_build) assert(false);\n     \
-    \   return _unzipper[sv];\n    }                              /*}}}*/\n    int\
-    \ operator[](int sv) { return unzip(sv); }\n\n    int size() {return n;}\n\n#if\
-    \ defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream& operator<<(ostream&\
-    \ os, const zipper& zp) {\n        os << endl;\n        os << \"_is_build: \"\
-    \ << zp._is_build << endl;\n        os << \"zip_map:   \" << zp.zip_map << endl;\n\
-    \        os << \"_unzipper:   \" << zp._unzipper << endl;\n        return os;\n\
-    \    }\n#endif /*}}}*/\n};     /*}}}*/\n// How to use {{{\n// construct\n// auto\
-    \ z = zipper(x); // x: vector<long long>;\n// auto z = zipper(x, 30*INF);\n\n\
-    // auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n// z.add_value(10);\n\
+    \ n = 0;\n\n    zipper(){};\n    zipper(long long inf_value) { /*{{{*/\n     \
+    \   _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
+    \    }                                                        /*}}}*/\n\n    template\
+    \ <class T>\n    zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/\n\
+    \        _unzipper = vector<long long>(sz(a));\n        rep(i, sz(a)) { _unzipper[i]\
+    \ = a[i]; }\n        _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
+    \        build();\n    }                              /*}}}*/\n    void add_value(long\
+    \ long lv) { /*{{{*/\n        _unzipper.push_back(lv);\n        _is_build = false;\n\
+    \    }              /*}}}*/\n    void build() { /*{{{*/\n        uni(_unzipper);\n\
+    \        zip_map.clear();\n        n = sz(_unzipper);\n        rep(i, n) { zip_map[_unzipper[i]]\
+    \ = i; }\n        _is_build = true;\n    }                              /*}}}*/\n\
+    \    vector<int> zip(vector<long long> lvs) { /*{{{*/\n        if (!_is_build)\
+    \ assert(false);\n        int n = sz(lvs);\n        vector<int> res(n);\n    \
+    \    rep(i, n) res[i] = zip_map[lvs[i]];\n        return res;\n    }         \
+    \                     /*}}}*/\n    int zip(long long lv) { /*{{{*/\n        if\
+    \ (!_is_build) assert(false);\n        return zip_map[lv];\n    }            \
+    \                                   /*}}}*/\n    int operator()(long long lv)\
+    \ { return zip(lv); }\n\n    long long unzip(int sv) { /*{{{*/\n        if (!_is_build)\
+    \ assert(false);\n        return _unzipper[sv];\n    }                       \
+    \       /*}}}*/\n    int operator[](int sv) { return unzip(sv); }\n\n    int size()\
+    \ {return n;}\n\n#if defined(PCM) || defined(LOCAL) /*{{{*/\n    friend ostream&\
+    \ operator<<(ostream& os, const zipper& zp) {\n        os << endl;\n        os\
+    \ << \"_is_build: \" << zp._is_build << endl;\n        os << \"zip_map:   \" <<\
+    \ zp.zip_map << endl;\n        os << \"_unzipper:   \" << zp._unzipper << endl;\n\
+    \        return os;\n    }\n#endif /*}}}*/\n};     /*}}}*/\n// How to use {{{\n\
+    // construct\n// auto z = zipper(x); // x: vector<long long>;\n// auto z = zipper(x,\
+    \ INF);\n\n// auto z = zipper();\n// z.add_value(3);\n// z.add_value(5);\n// z.add_value(10);\n\
     // z.add_value(100000000);\n// z.build();\n\n// other method\n// z(x[i]); -> zipped\
     \ x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.zip(ll x) -> zipped x\n// z.zip(vl\
     \ v) -> zipped v\n// }}}\n\n//%snippet.end()%\n#line 4 \"library/cpp/misc/zipper.lib/zipper.test.cpp\"\
@@ -103,7 +103,7 @@ data:
   isVerificationFile: true
   path: library/cpp/misc/zipper.lib/zipper.test.cpp
   requiredBy: []
-  timestamp: '2020-09-29 00:07:26+09:00'
+  timestamp: '2020-10-11 21:18:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/misc/zipper.lib/zipper.test.cpp

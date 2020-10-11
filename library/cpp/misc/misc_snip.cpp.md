@@ -58,11 +58,11 @@ data:
     \ dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1, -1, 0, 0};\n\
     ll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream& operator<<(ostream&\
     \ os, const ${1:type}& ${2}){\n    os << ${3};\n    return os;\n}\n\n//%snippet.set('query')%\n\
-    ll query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n\
-    \    rep(_, Q){\n        query();\n    }\n    check_input();\n    return 0;\n\
-    }/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng() {\n    static\
-    \ mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n    return\
-    \ uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
+    int query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll\
+    \ Q;cin>>Q;\n    rep(_, Q){\n        query();\n    }\n    check_input();\n   \
+    \ return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng()\
+    \ {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
     rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
     \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
     , ${1});\n\n\n//%snippet.set('sep')%\n//%snippet.config({'alias':'<<'})%\n<< \"\
@@ -162,11 +162,11 @@ data:
     \ dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1, -1, 0, 0};\n\
     ll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream& operator<<(ostream&\
     \ os, const ${1:type}& ${2}){\n    os << ${3};\n    return os;\n}\n\n//%snippet.set('query')%\n\
-    ll query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n\
-    \    rep(_, Q){\n        query();\n    }\n    check_input();\n    return 0;\n\
-    }/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng() {\n    static\
-    \ mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n    return\
-    \ uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
+    int query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll\
+    \ Q;cin>>Q;\n    rep(_, Q){\n        query();\n    }\n    check_input();\n   \
+    \ return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng()\
+    \ {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
     rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
     \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
     , ${1});\n\n\n//%snippet.set('sep')%\n//%snippet.config({'alias':'<<'})%\n<< \"\
@@ -219,7 +219,7 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-09-29 00:07:26+09:00'
+  timestamp: '2020-10-11 21:18:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

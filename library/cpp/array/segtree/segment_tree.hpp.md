@@ -5,6 +5,9 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/array/reversed_cnt.cpp
+    title: library/cpp/array/reversed_cnt.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/bellman_ford.hpp
     title: library/cpp/graph/bellman_ford.hpp
@@ -285,6 +288,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/segment_tree.hpp
   requiredBy:
+  - library/cpp/array/reversed_cnt.cpp
   - library/cpp/string/suffix_array.hpp
   - library/cpp/graph/local_min_cycle.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp

@@ -13,6 +13,9 @@ data:
       path: library/cpp/array/lis.hpp
       title: library/cpp/array/lis.hpp
     - icon: ':warning:'
+      path: library/cpp/array/reversed_cnt.cpp
+      title: library/cpp/array/reversed_cnt.cpp
+    - icon: ':warning:'
       path: library/cpp/array/slide_min.cpp
       title: library/cpp/array/slide_min.cpp
     - icon: ':heavy_check_mark:'
@@ -266,12 +269,15 @@ data:
     - icon: ':warning:'
       path: library/cpp/misc/rectanglesum.cpp
       title: library/cpp/misc/rectanglesum.cpp
+    - icon: ':warning:'
+      path: library/cpp/misc/run_length_encoding.cpp
+      title: library/cpp/misc/run_length_encoding.cpp
   - name: library/cpp/misc/zipper.lib
     pages:
     - icon: ':warning:'
       path: library/cpp/misc/zipper.lib/shifter.hpp
       title: library/cpp/misc/zipper.lib/shifter.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/misc/zipper.lib/zipper.hpp
       title: library/cpp/misc/zipper.lib/zipper.hpp
   - name: library/cpp/string/kmp/codes
@@ -464,7 +470,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/misc/zipper.lib/zipper.test.cpp
       title: library/cpp/misc/zipper.lib/zipper.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper2.test.cpp
       title: library/cpp/misc/zipper.lib/zipper2.test.cpp
   - name: library/cpp/string
