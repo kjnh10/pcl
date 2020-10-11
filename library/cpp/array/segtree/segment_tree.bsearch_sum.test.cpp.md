@@ -115,32 +115,33 @@ data:
     \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n            }\n            return\
     \ os;\n        }\n        #endif\n};/*}}}*/\n// sample of initialize SegmentTree:\n\
     // -----------------------------------------------\n// auto mymin=[](auto a, auto\
-    \ b){return min(a,b);};\n// SegmentTree<ll> seg(a, mymin, 1e18);\n\n// auto mymax=[](auto\
-    \ a, auto b){return max(a,b);};\n// SegmentTree<ll> seg(a, mymax, -1e18);\n\n\
-    // auto add=[](auto a, auto b){return a+b;};\n// SegmentTree<ll> seg(a, add, 0);\n\
-    \n// pair<int, int> get_nearest_index_of_smaller_element(int i){\n//     auto\
-    \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
-    \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
-    \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp\"\n\nSegmentTree<ll>\
-    \ seg;\nvector<ll> a;\nint n;\n\nint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
-    \    return uniform_int_distribution<int64_t>(0, 20)(x);\n}\n\nint target;\n\n\
-    pair<int, int> naive(int i){\n    int right = n;\n    int sum = 0;\n    rep(j,\
-    \ i, sz(a)){\n        sum += a[j];\n        if (sum >= target) {\n           \
-    \ right = j;\n            break;\n        }\n    }\n    int left = -1;\n    sum\
-    \ = 0;\n    r_rep(j, 0, i+1){\n        sum += a[j];\n        if (sum >= target)\
-    \ {\n            left = j;\n            break;\n        }\n    }\n    return {left,\
-    \ right};\n}\n\npair<int, int> get_first_index_got_target(int i){\n    auto left\
-    \ = seg.find_most_right(i, [&](auto x){return x >= target;});\n    auto right\
-    \ = seg.find_most_left(i, [&](auto x){return x >= target;});\n    return {left,\
-    \ right};\n}\n\nint test(int _n, bool compare = true){\n    n = _n;\n    a.clear();\n\
-    \    target = rng()%100000;\n    rep(i, n){ a.pb(rng()%10); }\n    dump(a);\n\n\
-    \    seg = SegmentTree<ll>(a, [](auto a, auto b){return a + b;}, 0);\n    rep(i,\
-    \ sz(a)){\n        auto res = get_first_index_got_target(i);\n        if (compare){\n\
-    \            // dump(i, naive(i), res);\n            assert(naive(i) == res);\n\
-    \        }\n    }\n    return 0;\n}\n\nint main(){\n    int nums = 10;\n    while(nums--){\n\
-    \        test(abs(rng())); \n        test(1000000, false); \n    }\n    cout <<\
-    \ \"Hello World\" << endl;\n    return 0;\n}\n"
+    \ b){return min(a,b);};\n// ll e = 1e18;\n// SegmentTree<ll> seg(a, mymin, e);\n\
+    \n// auto mymax=[](auto a, auto b){return max(a,b);};\n// ll e = -1e18;\n// SegmentTree<ll>\
+    \ seg(a, mymax, e);\n\n// auto add=[](auto a, auto b){return a+b;};\n// ll e =\
+    \ 0;\n// SegmentTree<ll> seg(a, add, e);\n\n// pair<int, int> get_nearest_index_of_smaller_element(int\
+    \ i){\n//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n\
+    //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//\
+    \     return {left, right};\n// }\n// -----------------------------------------------\n\
+    \n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp\"\
+    \n\nSegmentTree<ll> seg;\nvector<ll> a;\nint n;\n\nint64_t rng() {\n    static\
+    \ mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n    return\
+    \ uniform_int_distribution<int64_t>(0, 20)(x);\n}\n\nint target;\n\npair<int,\
+    \ int> naive(int i){\n    int right = n;\n    int sum = 0;\n    rep(j, i, sz(a)){\n\
+    \        sum += a[j];\n        if (sum >= target) {\n            right = j;\n\
+    \            break;\n        }\n    }\n    int left = -1;\n    sum = 0;\n    r_rep(j,\
+    \ 0, i+1){\n        sum += a[j];\n        if (sum >= target) {\n            left\
+    \ = j;\n            break;\n        }\n    }\n    return {left, right};\n}\n\n\
+    pair<int, int> get_first_index_got_target(int i){\n    auto left = seg.find_most_right(i,\
+    \ [&](auto x){return x >= target;});\n    auto right = seg.find_most_left(i, [&](auto\
+    \ x){return x >= target;});\n    return {left, right};\n}\n\nint test(int _n,\
+    \ bool compare = true){\n    n = _n;\n    a.clear();\n    target = rng()%100000;\n\
+    \    rep(i, n){ a.pb(rng()%10); }\n    dump(a);\n\n    seg = SegmentTree<ll>(a,\
+    \ [](auto a, auto b){return a + b;}, 0);\n    rep(i, sz(a)){\n        auto res\
+    \ = get_first_index_got_target(i);\n        if (compare){\n            // dump(i,\
+    \ naive(i), res);\n            assert(naive(i) == res);\n        }\n    }\n  \
+    \  return 0;\n}\n\nint main(){\n    int nums = 10;\n    while(nums--){\n     \
+    \   test(abs(rng())); \n        test(1000000, false); \n    }\n    cout << \"\
+    Hello World\" << endl;\n    return 0;\n}\n"
   code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
     \n#include \"segment_tree.hpp\"\n\nSegmentTree<ll> seg;\nvector<ll> a;\nint n;\n\
     \nint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
@@ -167,7 +168,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
   requiredBy: []
-  timestamp: '2020-09-23 22:16:02+09:00'
+  timestamp: '2020-10-11 16:03:56+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp

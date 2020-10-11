@@ -249,8 +249,8 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
   requiredBy:
-  - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
   - library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
+  - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
   timestamp: '2020-09-24 23:26:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

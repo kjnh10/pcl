@@ -116,14 +116,14 @@ data:
   requiredBy:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - library/cpp/math/combination.hpp
-  - library/cpp/math/gbsgs/gbsgs.cpp
   - library/cpp/math/bsgs/bsgs.cpp
+  - library/cpp/math/gbsgs/gbsgs.cpp
   timestamp: '2020-09-05 21:34:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
-  - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp
+  - library/cpp/math/combination.test.cpp
 documentation_of: library/cpp/math/mint.hpp
 layout: document
 redirect_from:

@@ -164,16 +164,16 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   requiredBy:
-  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
-  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raq.hpp
+  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   timestamp: '2020-09-26 18:55:54+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
-  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raq.test.cpp
 documentation_of: library/cpp/array/segtree/initialization/monoid_with_len.hpp
 layout: document
 redirect_from:

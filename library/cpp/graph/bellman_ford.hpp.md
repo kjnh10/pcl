@@ -133,15 +133,15 @@ data:
     \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n            }\n            return\
     \ os;\n        }\n        #endif\n};/*}}}*/\n// sample of initialize SegmentTree:\n\
     // -----------------------------------------------\n// auto mymin=[](auto a, auto\
-    \ b){return min(a,b);};\n// SegmentTree<ll> seg(a, mymin, 1e18);\n\n// auto mymax=[](auto\
-    \ a, auto b){return max(a,b);};\n// SegmentTree<ll> seg(a, mymax, -1e18);\n\n\
-    // auto add=[](auto a, auto b){return a+b;};\n// SegmentTree<ll> seg(a, add, 0);\n\
-    \n// pair<int, int> get_nearest_index_of_smaller_element(int i){\n//     auto\
-    \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
-    \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
-    \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n\
-    #line 5 \"library/cpp/graph/tree.lib/tree.hpp\"\n// (ref) https://www.slideshare.net/Proktmr/ss-138534092\n\
-    // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3\n\
+    \ b){return min(a,b);};\n// ll e = 1e18;\n// SegmentTree<ll> seg(a, mymin, e);\n\
+    \n// auto mymax=[](auto a, auto b){return max(a,b);};\n// ll e = -1e18;\n// SegmentTree<ll>\
+    \ seg(a, mymax, e);\n\n// auto add=[](auto a, auto b){return a+b;};\n// ll e =\
+    \ 0;\n// SegmentTree<ll> seg(a, add, e);\n\n// pair<int, int> get_nearest_index_of_smaller_element(int\
+    \ i){\n//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n\
+    //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//\
+    \     return {left, right};\n// }\n// -----------------------------------------------\n\
+    \n//%snippet.end()%\n#line 5 \"library/cpp/graph/tree.lib/tree.hpp\"\n// (ref)\
+    \ https://www.slideshare.net/Proktmr/ss-138534092\n// (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3\n\
     \n//%snippet.set('tree')%\n//%snippet.include('segment_tree')%\n//%snippet.include('edge')%\n\
     //%snippet.fold()%\ntemplate<class Cost=ll>\nstruct tree { \n    int n;\n    int\
     \ root;\n    vector<int> par;   // par[i]: dfs\u6728\u306B\u304A\u3051\u308B\u89AA\
@@ -344,7 +344,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2020-10-02 00:28:49+09:00'
+  timestamp: '2020-10-11 16:03:56+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/bellman_ford.test.cpp

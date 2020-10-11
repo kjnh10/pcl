@@ -195,13 +195,14 @@ data:
     \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n            }\n            return\
     \ os;\n        }\n        #endif\n};/*}}}*/\n// sample of initialize SegmentTree:\n\
     // -----------------------------------------------\n// auto mymin=[](auto a, auto\
-    \ b){return min(a,b);};\n// SegmentTree<ll> seg(a, mymin, 1e18);\n\n// auto mymax=[](auto\
-    \ a, auto b){return max(a,b);};\n// SegmentTree<ll> seg(a, mymax, -1e18);\n\n\
-    // auto add=[](auto a, auto b){return a+b;};\n// SegmentTree<ll> seg(a, add, 0);\n\
-    \n// pair<int, int> get_nearest_index_of_smaller_element(int i){\n//     auto\
-    \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
-    \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
-    \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n"
+    \ b){return min(a,b);};\n// ll e = 1e18;\n// SegmentTree<ll> seg(a, mymin, e);\n\
+    \n// auto mymax=[](auto a, auto b){return max(a,b);};\n// ll e = -1e18;\n// SegmentTree<ll>\
+    \ seg(a, mymax, e);\n\n// auto add=[](auto a, auto b){return a+b;};\n// ll e =\
+    \ 0;\n// SegmentTree<ll> seg(a, add, e);\n\n// pair<int, int> get_nearest_index_of_smaller_element(int\
+    \ i){\n//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n\
+    //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//\
+    \     return {left, right};\n// }\n// -----------------------------------------------\n\
+    \n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../../header.hpp\"\n// http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\
     \n//%snippet.set('segment_tree')%\n//%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\
     \ntemplate <typename X> struct SegmentTree {  // {{{\n    private:\n        using\
@@ -271,50 +272,51 @@ data:
     \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n            }\n            return\
     \ os;\n        }\n        #endif\n};/*}}}*/\n// sample of initialize SegmentTree:\n\
     // -----------------------------------------------\n// auto mymin=[](auto a, auto\
-    \ b){return min(a,b);};\n// SegmentTree<ll> seg(a, mymin, 1e18);\n\n// auto mymax=[](auto\
-    \ a, auto b){return max(a,b);};\n// SegmentTree<ll> seg(a, mymax, -1e18);\n\n\
-    // auto add=[](auto a, auto b){return a+b;};\n// SegmentTree<ll> seg(a, add, 0);\n\
-    \n// pair<int, int> get_nearest_index_of_smaller_element(int i){\n//     auto\
-    \ left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n//     auto right\
-    \ = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//     return {left,\
-    \ right};\n// }\n// -----------------------------------------------\n\n//%snippet.end()%\n"
+    \ b){return min(a,b);};\n// ll e = 1e18;\n// SegmentTree<ll> seg(a, mymin, e);\n\
+    \n// auto mymax=[](auto a, auto b){return max(a,b);};\n// ll e = -1e18;\n// SegmentTree<ll>\
+    \ seg(a, mymax, e);\n\n// auto add=[](auto a, auto b){return a+b;};\n// ll e =\
+    \ 0;\n// SegmentTree<ll> seg(a, add, e);\n\n// pair<int, int> get_nearest_index_of_smaller_element(int\
+    \ i){\n//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n\
+    //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//\
+    \     return {left, right};\n// }\n// -----------------------------------------------\n\
+    \n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/segtree/segment_tree.hpp
   requiredBy:
   - library/cpp/string/suffix_array.hpp
-  - library/cpp/graph/strongly_connected_components.hpp
-  - library/cpp/graph/graph.hpp
+  - library/cpp/graph/local_min_cycle.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
-  - library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - library/cpp/graph/tree.lib/reroot.cpp
   - library/cpp/graph/tree.lib/tree.hpp
-  - library/cpp/graph/bellman_ford.hpp
-  - library/cpp/graph/local_min_cycle.hpp
+  - library/cpp/graph/tree.lib/tree_non_recursive.hpp
+  - library/cpp/graph/two_sat.hpp
+  - library/cpp/graph/graph.hpp
   - library/cpp/graph/gridgraph.cpp
   - library/cpp/graph/topological_sort.hpp
-  - library/cpp/graph/two_sat.hpp
-  timestamp: '2020-09-23 22:16:02+09:00'
+  - library/cpp/graph/bellman_ford.hpp
+  - library/cpp/graph/strongly_connected_components.hpp
+  timestamp: '2020-10-11 16:03:56+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
-  - library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
-  - library/cpp/array/segtree/segment_tree.test.cpp
   - library/cpp/array/segtree/segment_tree.bsearch_sum.test.cpp
+  - library/cpp/array/segtree/segment_tree.test.cpp
+  - library/cpp/array/segtree/segment_tree.bsearch_min.test.cpp
   - library/cpp/string/suffix_array.test.cpp
+  - library/cpp/graph/tree.lib/lca.test.cpp
   - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
-  - library/cpp/graph/tree.lib/lca.test.cpp
-  - library/cpp/graph/tests/graph.lowlink.test.cpp
-  - library/cpp/graph/tests/graph.bridge.test.cpp
-  - library/cpp/graph/tests/bellman_ford.test.cpp
-  - library/cpp/graph/tests/scc.test.cpp
-  - library/cpp/graph/tests/graph.2dcost.test.cpp
-  - library/cpp/graph/tests/graph.dijkstra.test.cpp
-  - library/cpp/graph/tests/topological_sort.test.cpp
   - library/cpp/graph/tests/graph.kruskal.test.cpp
   - library/cpp/graph/tests/two_sat.test.cpp
+  - library/cpp/graph/tests/bellman_ford.test.cpp
+  - library/cpp/graph/tests/graph.lowlink.test.cpp
+  - library/cpp/graph/tests/graph.dijkstra.test.cpp
+  - library/cpp/graph/tests/topological_sort.test.cpp
+  - library/cpp/graph/tests/scc.test.cpp
+  - library/cpp/graph/tests/graph.2dcost.test.cpp
+  - library/cpp/graph/tests/graph.bridge.test.cpp
 documentation_of: library/cpp/array/segtree/segment_tree.hpp
 layout: document
 redirect_from:
