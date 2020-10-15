@@ -35,7 +35,8 @@ template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b))
 template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
 template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
-#define cdiv(a, b) (((a) + (b)-1) / (b))
+template <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }
+
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
