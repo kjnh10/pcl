@@ -29,34 +29,34 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/graph/flow/misawa_b_flow.hpp\"\n\nenum Objective {/*{{{*/\n\
-    \    MINIMIZE = 1,\n    MAXIMIZE = -1,\n};/*}}}*/\nenum class Status {/*{{{*/\n\
-    \    OPTIMAL,\n    INFEASIBLE,\n};/*}}}*/\n\ntemplate <class Flow, class Cost,\
-    \ Objective objective = Objective::MINIMIZE>\nclass MinCostFlow {\n    using V_id\
-    \ = uint32_t;\n    using E_id = uint32_t;\n\n    class Edge {/*{{{*/\n       \
-    \ friend class MinCostFlow;\n\n        V_id src, dst;\n        Flow flow, cap;\n\
-    \        Cost cost;\n        E_id rev;\n\n        public:\n        Edge() = default;\n\
-    \n        Edge(const V_id src, const V_id dst, const Flow cap, const Cost cost,\
-    \ const E_id rev)\n            : src(src), dst(dst), flow(0), cap(cap), cost(cost),\
-    \ rev(rev) {}\n\n        [[nodiscard]] Flow residual_cap() const { return cap\
-    \ - flow; }\n    };/*}}}*/\n\n    public:\n    class EdgePtr {/*{{{*/\n      \
-    \  friend class MinCostFlow;\n\n        const MinCostFlow *instance;\n       \
-    \ V_id v;\n        E_id e;\n\n        EdgePtr(const MinCostFlow * const instance,\
-    \ const V_id v, const E_id e)\n            : instance(instance), v(v), e(e) {}\n\
-    \n        [[nodiscard]] const Edge &edge() const { return instance->g[v][e]; }\n\
-    \n        [[nodiscard]] const Edge &rev() const {\n            const Edge &e =\
-    \ edge();\n            return instance->g[e.dst][e.rev];\n        }\n\n      \
-    \  public:\n        EdgePtr() = default;\n\n        [[nodiscard]] V_id src() const\
-    \ { return v; }\n\n        [[nodiscard]] V_id dst() const { return edge().dst;\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/misawa_b_flow.hpp\"\
+    \n\nenum Objective {/*{{{*/\n    MINIMIZE = 1,\n    MAXIMIZE = -1,\n};/*}}}*/\n\
+    enum class Status {/*{{{*/\n    OPTIMAL,\n    INFEASIBLE,\n};/*}}}*/\n\ntemplate\
+    \ <class Flow, class Cost, Objective objective = Objective::MINIMIZE>\nclass MinCostFlow\
+    \ {\n    using V_id = uint32_t;\n    using E_id = uint32_t;\n\n    class Edge\
+    \ {/*{{{*/\n        friend class MinCostFlow;\n\n        V_id src, dst;\n    \
+    \    Flow flow, cap;\n        Cost cost;\n        E_id rev;\n\n        public:\n\
+    \        Edge() = default;\n\n        Edge(const V_id src, const V_id dst, const\
+    \ Flow cap, const Cost cost, const E_id rev)\n            : src(src), dst(dst),\
+    \ flow(0), cap(cap), cost(cost), rev(rev) {}\n\n        [[nodiscard]] Flow residual_cap()\
+    \ const { return cap - flow; }\n    };/*}}}*/\n\n    public:\n    class EdgePtr\
+    \ {/*{{{*/\n        friend class MinCostFlow;\n\n        const MinCostFlow *instance;\n\
+    \        V_id v;\n        E_id e;\n\n        EdgePtr(const MinCostFlow * const\
+    \ instance, const V_id v, const E_id e)\n            : instance(instance), v(v),\
+    \ e(e) {}\n\n        [[nodiscard]] const Edge &edge() const { return instance->g[v][e];\
+    \ }\n\n        [[nodiscard]] const Edge &rev() const {\n            const Edge\
+    \ &e = edge();\n            return instance->g[e.dst][e.rev];\n        }\n\n \
+    \       public:\n        EdgePtr() = default;\n\n        [[nodiscard]] V_id src()\
+    \ const { return v; }\n\n        [[nodiscard]] V_id dst() const { return edge().dst;\
     \ }\n\n        [[nodiscard]] Flow flow() const { return edge().flow; }\n\n   \
     \     [[nodiscard]] Flow lower() const { return -rev().cap; }\n\n        [[nodiscard]]\
     \ Flow upper() const { return edge().cap; }\n\n        [[nodiscard]] Cost cost()\
@@ -237,7 +237,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/flow/misawa_b_flow.hpp
   requiredBy: []
-  timestamp: '2020-09-29 00:07:38+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/flow/misawa_b_flow.hpp

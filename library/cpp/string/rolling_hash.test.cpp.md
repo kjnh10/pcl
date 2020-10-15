@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/string/rolling_hash.hpp
     title: library/cpp/string/rolling_hash.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_14_B
@@ -37,17 +37,18 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/string/rolling_hash.hpp\"\n\n\n//%snippet.set('rolling_hash')%\n\
-    //%snippet.fold()%\n\ntemplate<class Z> Z rng(Z a, Z b) {\n    auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/string/rolling_hash.hpp\"\
+    \n\n\n//%snippet.set('rolling_hash')%\n//%snippet.fold()%\n\ntemplate<class Z>\
+    \ Z rng(Z a, Z b) {\n    auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<Z>(a, b - 1)(tmp);\n}\n\nstruct rolling_hash\
     \ {\n    // static constexpr uint64_t P0 = 4111144441, P1 = 4111444111;\n    static\
     \ constexpr uint64_t P0 = 1e9+7, P1 = 998244353;\n    static uint64_t B0, B1;\n\
@@ -85,8 +86,8 @@ data:
   isVerificationFile: true
   path: library/cpp/string/rolling_hash.test.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-10-15 12:21:18+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: library/cpp/string/rolling_hash.test.cpp
 layout: document

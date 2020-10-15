@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':question:'
+  - icon: ':x:'
     path: library/cpp/misc/zipper.lib/zipper.hpp
     title: library/cpp/misc/zipper.lib/zipper.hpp
   _extendedRequiredBy: []
@@ -38,22 +38,22 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/misc/zipper.lib/zipper.hpp\"\n\n//%snippet.set('zipper')%\n\
-    \nstruct zipper {                             /*{{{*/\n    // unordered_map<long\
-    \ long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\u3065\u3089\u3044\n\
-    \    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n    vector<long long>\
-    \ _unzipper;            // [2, 3, 5, 10]\n    bool _is_build = false;\n    int\
-    \ n = 0;\n\n    zipper(){};\n    zipper(long long inf_value) { /*{{{*/\n     \
-    \   _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/misc/zipper.lib/zipper.hpp\"\
+    \n\n//%snippet.set('zipper')%\n\nstruct zipper {                             /*{{{*/\n\
+    \    // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\
+    \u3065\u3089\u3044\n    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n\
+    \    vector<long long> _unzipper;            // [2, 3, 5, 10]\n    bool _is_build\
+    \ = false;\n    int n = 0;\n\n    zipper(){};\n    zipper(long long inf_value)\
+    \ { /*{{{*/\n        _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
     \    }                                                        /*}}}*/\n\n    template\
     \ <class T>\n    zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/\n\
     \        _unzipper = vector<long long>(sz(a));\n        rep(i, sz(a)) { _unzipper[i]\
@@ -192,7 +192,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/reversed_cnt.cpp
   requiredBy: []
-  timestamp: '2020-10-11 21:18:34+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/reversed_cnt.cpp

@@ -12,60 +12,12 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/bellman_ford.hpp
-    title: library/cpp/graph/bellman_ford.hpp
-  - icon: ':question:'
-    path: library/cpp/graph/graph.hpp
-    title: library/cpp/graph/graph.hpp
-  - icon: ':warning:'
-    path: library/cpp/graph/gridgraph.cpp
-    title: library/cpp/graph/gridgraph.cpp
-  - icon: ':warning:'
-    path: library/cpp/graph/local_min_cycle.hpp
-    title: library/cpp/graph/local_min_cycle.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/strongly_connected_components.hpp
-    title: library/cpp/graph/strongly_connected_components.hpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/topological_sort.hpp
-    title: library/cpp/graph/topological_sort.hpp
-  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.hpp
     title: library/cpp/graph/tree.lib/kth_root.hpp
   - icon: ':warning:'
     path: library/cpp/graph/tree.lib/reroot.cpp
     title: library/cpp/graph/tree.lib/reroot.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/two_sat.hpp
-    title: library/cpp/graph/two_sat.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/bellman_ford.test.cpp
-    title: library/cpp/graph/tests/bellman_ford.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.2dcost.test.cpp
-    title: library/cpp/graph/tests/graph.2dcost.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.bridge.test.cpp
-    title: library/cpp/graph/tests/graph.bridge.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.dijkstra.test.cpp
-    title: library/cpp/graph/tests/graph.dijkstra.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.kruskal.test.cpp
-    title: library/cpp/graph/tests/graph.kruskal.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/graph.lowlink.test.cpp
-    title: library/cpp/graph/tests/graph.lowlink.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/scc.test.cpp
-    title: library/cpp/graph/tests/scc.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/topological_sort.test.cpp
-    title: library/cpp/graph/tests/topological_sort.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: library/cpp/graph/tests/two_sat.test.cpp
-    title: library/cpp/graph/tests/two_sat.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/hld.test.cpp
     title: library/cpp/graph/tree.lib/hld.test.cpp
@@ -100,34 +52,35 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/array/segtree/segment_tree.hpp\"\n// http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\
-    \n//%snippet.set('segment_tree')%\n//%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\
-    \ntemplate <typename X> struct SegmentTree {  // {{{\n    private:\n        using\
-    \ F = function<X(X, X)>;\n        using index = int;\n        int n;  // \u5143\
-    \u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\n        int N;  // n\u4EE5\u4E0A\u306E\
-    \u6700\u5C0F\u306E2\u51AA\n        vector<X> node;\n        F merge;\n       \
-    \ X identity;\n\n    public:\n        SegmentTree() {}\n        SegmentTree(vector<X>\
-    \ a, F f, X id) : merge(f), identity(id) {\n            n = a.size();\n      \
-    \      N = 1;\n            while (N < n) N *= 2;\n            node.resize(2 *\
-    \ N - 1, identity);\n            for (int i = 0; i < n; i++) node[i + N - 1] =\
-    \ a[i];\n            for (int i = N - 2; i >= 0; i--)\n                node[i]\
-    \ = merge(node[2 * i + 1], node[2 * i + 2]);\n        }\n        SegmentTree(int\
-    \ sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}\n\n        X& operator[](index\
-    \ i) { return node[i + N - 1]; }\n\n        void set(index i, X val) {\n     \
-    \       i += (N - 1);\n            node[i] = val;\n            while (i > 0) {\n\
-    \                i = (i - 1) / 2;\n                node[i] = merge(node[2 * i\
-    \ + 1], node[2 * i + 2]);\n            }\n        }\n\n        void add(index\
-    \ i, X val) {\n            i += (N - 1);\n            node[i] += val;\n      \
-    \      while (i > 0) {\n                i = (i - 1) / 2;\n                node[i]\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree.hpp\"\
+    \n// http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\n//%snippet.set('segment_tree')%\n\
+    //%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\ntemplate <typename\
+    \ X> struct SegmentTree {  // {{{\n    private:\n        using F = function<X(X,\
+    \ X)>;\n        using index = int;\n        int n;  // \u5143\u306E\u914D\u5217\
+    \u306E\u30B5\u30A4\u30BA\n        int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
+    2\u51AA\n        vector<X> node;\n        F merge;\n        X identity;\n\n  \
+    \  public:\n        SegmentTree() {}\n        SegmentTree(vector<X> a, F f, X\
+    \ id) : merge(f), identity(id) {\n            n = a.size();\n            N = 1;\n\
+    \            while (N < n) N *= 2;\n            node.resize(2 * N - 1, identity);\n\
+    \            for (int i = 0; i < n; i++) node[i + N - 1] = a[i];\n           \
+    \ for (int i = N - 2; i >= 0; i--)\n                node[i] = merge(node[2 * i\
+    \ + 1], node[2 * i + 2]);\n        }\n        SegmentTree(int sz, F f, X id) :\
+    \ SegmentTree(vector<X>(sz, id), f, id) {}\n\n        X& operator[](index i) {\
+    \ return node[i + N - 1]; }\n\n        void set(index i, X val) {\n          \
+    \  i += (N - 1);\n            node[i] = val;\n            while (i > 0) {\n  \
+    \              i = (i - 1) / 2;\n                node[i] = merge(node[2 * i +\
+    \ 1], node[2 * i + 2]);\n            }\n        }\n\n        void add(index i,\
+    \ X val) {\n            i += (N - 1);\n            node[i] += val;\n         \
+    \   while (i > 0) {\n                i = (i - 1) / 2;\n                node[i]\
     \ = merge(node[2 * i + 1], node[2 * i + 2]);\n            }\n        }\n\n   \
     \     // query for [a, b)\n        X query(index a, index b, int k = 0, index\
     \ l = 0, index r = -1) {\n            if (r < 0) r = N;\n            if (r <=\
@@ -380,30 +333,14 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/tree.hpp
   requiredBy:
-  - library/cpp/graph/local_min_cycle.hpp
   - library/cpp/graph/tree.lib/kth_root.hpp
   - library/cpp/graph/tree.lib/reroot.cpp
-  - library/cpp/graph/two_sat.hpp
-  - library/cpp/graph/graph.hpp
-  - library/cpp/graph/gridgraph.cpp
-  - library/cpp/graph/topological_sort.hpp
-  - library/cpp/graph/bellman_ford.hpp
-  - library/cpp/graph/strongly_connected_components.hpp
-  timestamp: '2020-10-11 16:03:56+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tree.lib/lca.test.cpp
   - library/cpp/graph/tree.lib/hld.test.cpp
   - library/cpp/graph/tree.lib/kth_root.test.cpp
-  - library/cpp/graph/tests/graph.kruskal.test.cpp
-  - library/cpp/graph/tests/two_sat.test.cpp
-  - library/cpp/graph/tests/bellman_ford.test.cpp
-  - library/cpp/graph/tests/graph.lowlink.test.cpp
-  - library/cpp/graph/tests/graph.dijkstra.test.cpp
-  - library/cpp/graph/tests/topological_sort.test.cpp
-  - library/cpp/graph/tests/scc.test.cpp
-  - library/cpp/graph/tests/graph.2dcost.test.cpp
-  - library/cpp/graph/tests/graph.bridge.test.cpp
 documentation_of: library/cpp/graph/tree.lib/tree.hpp
 layout: document
 redirect_from:

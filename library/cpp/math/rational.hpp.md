@@ -33,52 +33,52 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/math/geometry/p2.hpp\"\n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n\
-    //%snippet.config({'alias':'point'})%\n//%snippet.config({'alias':'pair'})%\n\
-    //%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\nstruct P2 {\n    T x, y;\n\
-    \    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n        x = 0;\n        y =\
-    \ 0;\n    }\n    bool operator<(const P2 &r) const {\n        return (x != r.x\
-    \ ? x < r.x : y < r.y);\n    }\n    bool operator>(const P2 &r) const {\n    \
-    \    return (x != r.x ? x > r.x : y > r.y);\n    }\n    bool operator==(const\
-    \ P2 &r) const { return (x == r.x && y == r.y); }\n\n    friend ostream &operator<<(ostream\
-    \ &stream, P2 p) {\n        stream << \"(\" << p.x << \",\" << p.y << \")\";\n\
-    \        return stream;\n    }\n\n    P2 operator-() const {  // \u5358\u9805\u6F14\
-    \u7B97\u5B50\n        return P2(-x, -y);\n    }\n\n    P2& operator+=(const P2<T>&\
-    \ r){\n        x += r.x;\n        y += r.y;\n        return *this;\n    }\n  \
-    \  P2& operator-=(const P2<T>& r){\n        x -= r.x;\n        y -= r.y;\n   \
-    \     return *this;\n    }\n    P2& operator+=(const T& r){\n        x += r;\n\
-    \        y += r;\n        return *this;\n    }\n    P2& operator-=(const T& r){\n\
-    \        x -= r;\n        y -= r;\n        return *this;\n    }\n    P2& operator*=(const\
-    \ P2<T>& r){\n        x *= r.x;\n        y *= r.y;\n        return *this;\n  \
-    \  }\n    P2& operator/=(const P2<T>& r){\n        x /= r.x;\n        y /= r.y;\n\
-    \        return *this;\n    }\n    P2& operator*=(const T& r){\n        x *= r;\n\
-    \        y *= r;\n        return *this;\n    }\n    P2& operator/=(const T& r){\n\
-    \        x /= r;\n        y /= r;\n        return *this;\n    }\n\n    template<class\
-    \ U>\n    P2 operator+(const U& r) const {\n        P2 res(*this);\n        return\
-    \ res += r;\n    }\n    template<class U>\n    P2 operator-(const U& r) const\
-    \ {\n        P2 res(*this);\n        return res -= r;\n    }\n\n    template<class\
-    \ U>\n    P2 operator*(const U& r) const {\n        P2 res(*this);\n        return\
-    \ res *= r;\n    }\n    template<class U>\n    P2 operator/(const U& r) const\
-    \ {\n        P2 res(*this);\n        return res /= r;\n    }\n\n\n    bool in(T\
-    \ a, T b, T c, T d) {  // x in [a, b) && y in [c, d)\n        if (a <= x && x\
-    \ < b && c <= y && y < d) return true;\n        else return false;\n    }\n\n\
-    };\ntemplate<class T>\nlong double dist(const P2<T>& p, const P2<T>& q){\n   \
-    \ return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));\n}\n\n/*}}}*/\n\
-    using P = P2<ll>;\n\n//%snippet.end%\n#line 3 \"library/cpp/math/rational.hpp\"\
-    \n\n//%snippet.set('rational')%\n//%snippet.config({'alias':'fraction'})%\n//%snippet.fold()%\n\
-    \ntemplate<class T=ll> \nstruct rational : public P2<T> {\n    rational(){}\n\
-    \    rational(T _x, T _y) : P2<T>(_x, _y) {\n        T g = gcd(this->x, this->y);\n\
-    \        this->x /= g; this->y /= g;\n        if (this->y<0 or (this->y==0 &&\
-    \ this->x==-1)) this->x *= -1, this->y *= -1;\n    }\n};\n// rational(3, 5);\n\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/p2.hpp\"\
+    \n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n//%snippet.config({'alias':'point'})%\n\
+    //%snippet.config({'alias':'pair'})%\n//%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\n\
+    struct P2 {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n \
+    \       x = 0;\n        y = 0;\n    }\n    bool operator<(const P2 &r) const {\n\
+    \        return (x != r.x ? x < r.x : y < r.y);\n    }\n    bool operator>(const\
+    \ P2 &r) const {\n        return (x != r.x ? x > r.x : y > r.y);\n    }\n    bool\
+    \ operator==(const P2 &r) const { return (x == r.x && y == r.y); }\n\n    friend\
+    \ ostream &operator<<(ostream &stream, P2 p) {\n        stream << \"(\" << p.x\
+    \ << \",\" << p.y << \")\";\n        return stream;\n    }\n\n    P2 operator-()\
+    \ const {  // \u5358\u9805\u6F14\u7B97\u5B50\n        return P2(-x, -y);\n   \
+    \ }\n\n    P2& operator+=(const P2<T>& r){\n        x += r.x;\n        y += r.y;\n\
+    \        return *this;\n    }\n    P2& operator-=(const P2<T>& r){\n        x\
+    \ -= r.x;\n        y -= r.y;\n        return *this;\n    }\n    P2& operator+=(const\
+    \ T& r){\n        x += r;\n        y += r;\n        return *this;\n    }\n   \
+    \ P2& operator-=(const T& r){\n        x -= r;\n        y -= r;\n        return\
+    \ *this;\n    }\n    P2& operator*=(const P2<T>& r){\n        x *= r.x;\n    \
+    \    y *= r.y;\n        return *this;\n    }\n    P2& operator/=(const P2<T>&\
+    \ r){\n        x /= r.x;\n        y /= r.y;\n        return *this;\n    }\n  \
+    \  P2& operator*=(const T& r){\n        x *= r;\n        y *= r;\n        return\
+    \ *this;\n    }\n    P2& operator/=(const T& r){\n        x /= r;\n        y /=\
+    \ r;\n        return *this;\n    }\n\n    template<class U>\n    P2 operator+(const\
+    \ U& r) const {\n        P2 res(*this);\n        return res += r;\n    }\n   \
+    \ template<class U>\n    P2 operator-(const U& r) const {\n        P2 res(*this);\n\
+    \        return res -= r;\n    }\n\n    template<class U>\n    P2 operator*(const\
+    \ U& r) const {\n        P2 res(*this);\n        return res *= r;\n    }\n   \
+    \ template<class U>\n    P2 operator/(const U& r) const {\n        P2 res(*this);\n\
+    \        return res /= r;\n    }\n\n\n    bool in(T a, T b, T c, T d) {  // x\
+    \ in [a, b) && y in [c, d)\n        if (a <= x && x < b && c <= y && y < d) return\
+    \ true;\n        else return false;\n    }\n\n};\ntemplate<class T>\nlong double\
+    \ dist(const P2<T>& p, const P2<T>& q){\n    return sqrt((p.x - q.x) * (p.x -\
+    \ q.x) + (p.y - q.y) * (p.y - q.y));\n}\n\n/*}}}*/\nusing P = P2<ll>;\n\n//%snippet.end%\n\
+    #line 3 \"library/cpp/math/rational.hpp\"\n\n//%snippet.set('rational')%\n//%snippet.config({'alias':'fraction'})%\n\
+    //%snippet.fold()%\n\ntemplate<class T=ll> \nstruct rational : public P2<T> {\n\
+    \    rational(){}\n    rational(T _x, T _y) : P2<T>(_x, _y) {\n        T g = gcd(this->x,\
+    \ this->y);\n        this->x /= g; this->y /= g;\n        if (this->y<0 or (this->y==0\
+    \ && this->x==-1)) this->x *= -1, this->y *= -1;\n    }\n};\n// rational(3, 5);\n\
     // assert(rational(3, 5) == rational(-6, -10));\n// map<rational<ll>, int> cnt;\
     \  // key\u306B\u3082\u3067\u304D\u308B\u3002\n\n//%snippet.end()%\n\n// verified\
     \ by https://atcoder.jp/contests/abc168/tasks/abc168_e\n"
@@ -96,7 +96,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/rational.hpp
   requiredBy: []
-  timestamp: '2020-09-30 01:05:59+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/rational.hpp

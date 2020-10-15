@@ -50,40 +50,40 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/math/mint.hpp\"\n\n//%snippet.set('mint')%\nint mod = 1e9\
-    \ + 7;\n// int mod = 998244353;\nstruct mint {  //{{{\n    ll x;\n    mint(ll\
-    \ x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n    mint& operator+=(const\
-    \ mint a) {\n        (x += a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator-=(const mint a) {\n        (x += mod - a.x) %= mod;\n        return\
-    \ *this;\n    }\n    mint& operator*=(const mint a) {\n        (x *= a.x) %= mod;\n\
-    \        return *this;\n    }\n    mint& operator/=(const mint& rhs) {\n     \
-    \   if (rhs.x == 0) throw runtime_error(\"mint zero division\");\n        return\
-    \ *this *= rhs.inv();\n    }\n\n    mint operator+(const mint a) const {\n   \
-    \     mint res(*this);\n        return res += a;\n    }\n    mint operator-(const\
-    \ mint a) const {\n        mint res(*this);\n        return res -= a;\n    }\n\
-    \    mint operator*(const mint a) const {\n        mint res(*this);\n        return\
-    \ res *= a;\n    }\n    mint operator/(const mint a) const {\n        mint res(*this);\n\
-    \        return res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1),\
-    \ x(*this);\n        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n\
-    \        }\n        while (n) {\n            if (n & 1) res *= x;\n          \
-    \  x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n  \
-    \  mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not\
-    \ exist\");\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n  \
-    \  //     int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n\
-    \    //     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
-    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
-    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
-    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
-    \ os << a.x; }\n//}}}\n"
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\
+    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
+    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
+    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
+    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
+    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
+    \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
+    mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
+    \ operator+(const mint a) const {\n        mint res(*this);\n        return res\
+    \ += a;\n    }\n    mint operator-(const mint a) const {\n        mint res(*this);\n\
+    \        return res -= a;\n    }\n    mint operator*(const mint a) const {\n \
+    \       mint res(*this);\n        return res *= a;\n    }\n    mint operator/(const\
+    \ mint a) const {\n        mint res(*this);\n        return res /= a;\n    }\n\
+    \n    mint pow(ll n) const {\n        mint res(1), x(*this);\n        if (n <\
+    \ 0) {\n            n = -n;\n            x = (*this).inv();\n        }\n     \
+    \   while (n) {\n            if (n & 1) res *= x;\n            x *= x;\n     \
+    \       n >>= 1;\n        }\n        return res;\n    }\n\n    mint inv() const\
+    \ {\n        if (x == 0) throw runtime_error(\"inv does not exist\");\n      \
+    \  return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int x,y;\n\
+    \    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //     if(x<0)x+=mod;\n\
+    \    //     return mint(x);\n    // }\n\n    bool operator<(const mint& r) const\
+    \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
+    \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
+    \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n"
   code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('mint')%\nint\
     \ mod = 1e9 + 7;\n// int mod = 998244353;\nstruct mint {  //{{{\n    ll x;\n \
     \   mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n    mint&\
@@ -118,7 +118,7 @@ data:
   - library/cpp/math/combination.hpp
   - library/cpp/math/bsgs/bsgs.cpp
   - library/cpp/math/gbsgs/gbsgs.cpp
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp

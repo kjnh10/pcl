@@ -29,27 +29,28 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"problem_template/codes/interactive.cpp\"\ntemplate<class T=ll> using\
-    \ vec = vector<T>;\n// TODO: struct flush\u3092\u5207\u3063\u3066\u3042\u3052\u306A\
-    \u3044\u3068\u3044\u3051\u306A\u3044\uFF1F\n\ntemplate<class T, class R>\nR query(T\
-    \ q){/*{{{*/\n    cout << \"?\" << \" \" << q << endl;\n    fflush(stdout);\n\n\
-    \    R res; cin>>res;\n    if (cin.eof()==1) exit(1);  // judge\u304CWA\u3067\u6B62\
-    \u307E\u3063\u305F\u6642\u306A\u3069\u306B\u7D42\u4E86\u3059\u308B\u305F\u3081\
-    \u306E\u30B3\u30FC\u30C9\n    return res;\n}/*}}}*/\n\ntemplate<class T>\nvoid\
-    \ answer(T u){/*{{{*/\n    cout << \"!\" << \" \" << u << endl;\n    fflush(stdout);\n\
-    }/*}}}*/\n\nvoid solve(){\n    ll res = 1;\n    ll num = 22;\n    rep(i, num-1){\n\
-    \        // ll g = query(3);\n        // res += g;\n        // dump(g, res);\n\
-    \    }\n    answer(res);\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n\
-    \    rep(_, Q){\n        solve();\n    }\n    return 0;\n}/*}}}*/\n"
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"problem_template/codes/interactive.cpp\"\
+    \ntemplate<class T=ll> using vec = vector<T>;\n// TODO: struct flush\u3092\u5207\
+    \u3063\u3066\u3042\u3052\u306A\u3044\u3068\u3044\u3051\u306A\u3044\uFF1F\n\ntemplate<class\
+    \ T, class R>\nR query(T q){/*{{{*/\n    cout << \"?\" << \" \" << q << endl;\n\
+    \    fflush(stdout);\n\n    R res; cin>>res;\n    if (cin.eof()==1) exit(1); \
+    \ // judge\u304CWA\u3067\u6B62\u307E\u3063\u305F\u6642\u306A\u3069\u306B\u7D42\
+    \u4E86\u3059\u308B\u305F\u3081\u306E\u30B3\u30FC\u30C9\n    return res;\n}/*}}}*/\n\
+    \ntemplate<class T>\nvoid answer(T u){/*{{{*/\n    cout << \"!\" << \" \" << u\
+    \ << endl;\n    fflush(stdout);\n}/*}}}*/\n\nvoid solve(){\n    ll res = 1;\n\
+    \    ll num = 22;\n    rep(i, num-1){\n        // ll g = query(3);\n        //\
+    \ res += g;\n        // dump(g, res);\n    }\n    answer(res);\n\n    return 0;\n\
+    }\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n    rep(_, Q){\n        solve();\n\
+    \    }\n    return 0;\n}/*}}}*/\n"
   code: "#include \"header.hpp\"\ntemplate<class T=ll> using vec = vector<T>;\n//\
     \ TODO: struct flush\u3092\u5207\u3063\u3066\u3042\u3052\u306A\u3044\u3068\u3044\
     \u3051\u306A\u3044\uFF1F\n\ntemplate<class T, class R>\nR query(T q){/*{{{*/\n\
@@ -67,7 +68,7 @@ data:
   isVerificationFile: false
   path: problem_template/codes/interactive.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: problem_template/codes/interactive.cpp

@@ -37,35 +37,36 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/graph/flow/dinic.hpp\"\n\n//%snippet.set('dinic')%\n//%snippet.config({'alias':'flow'})%\n\
-    //%snippet.fold()%\n\n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\n\
-    using Capacity = int;\nstruct Edge {\n    int src, dst;\n    Capacity cap;\n \
-    \   Edge(int src_, int dst_, Capacity cap_) : src(src_), dst(dst_), cap(cap_)\
-    \ {}\n};\n\nusing Edges = vector<Edge>;\nusing Graph = vector<Edges>;\ntemplate\
-    \ <typename Flow>\nstruct dinic {\n    int n, s, t;\n    vector<int> level, prog,\
-    \ que;\n    vector<vector<Flow>> cap, flow;\n    vector<vector<int>> g;\n    Flow\
-    \ inf;\n    dinic(const Graph &graph)/*{{{*/\n        : n(graph.size()),\n   \
-    \       cap(n, vector<Flow>(n)),\n          flow(n, vector<Flow>(n)),\n      \
-    \    g(n, vector<int>()),\n          inf(numeric_limits<Flow>::max() / 8) {\n\
-    \        for (int i = 0; i < n; i++) {\n            for (auto &e : graph[i]) {\n\
-    \                int u = e.src, v = e.dst;\n                Flow c = e.cap;\n\
-    \                cap[u][v] += c;\n                cap[v][u] += c;\n          \
-    \      flow[v][u] += c;\n                g[u].push_back(v);\n                g[v].push_back(u);\n\
-    \            }\n        }\n    }/*}}}*/\n    Flow solve(int s_, int t_) {/*{{{*/\n\
-    \        this->t = t_, this->s = s_;\n        que.resize(n + 1);\n        Flow\
-    \ res = 0;\n        while (levelize()) {\n            prog.assign(n, 0);\n   \
-    \         res += augment(s, inf);\n        }\n        return res;\n    }/*}}}*/\n\
-    \nprivate:\n    inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v];\
-    \ }\n    bool levelize() {/*{{{*/\n        int l = 0, r = 0;\n        level.assign(n,\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/dinic.hpp\"\
+    \n\n//%snippet.set('dinic')%\n//%snippet.config({'alias':'flow'})%\n//%snippet.fold()%\n\
+    \n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\nusing Capacity = int;\n\
+    struct Edge {\n    int src, dst;\n    Capacity cap;\n    Edge(int src_, int dst_,\
+    \ Capacity cap_) : src(src_), dst(dst_), cap(cap_) {}\n};\n\nusing Edges = vector<Edge>;\n\
+    using Graph = vector<Edges>;\ntemplate <typename Flow = unsigned int>\nstruct\
+    \ dinic {\n    int n, s, t;\n    vector<int> level, prog, que;\n    vector<vector<Flow>>\
+    \ cap, flow;\n    vector<vector<int>> g;\n    Flow inf;\n    dinic(const Graph\
+    \ &graph)/*{{{*/\n        : n(graph.size()),\n          cap(n, vector<Flow>(n)),\n\
+    \          flow(n, vector<Flow>(n)),\n          g(n, vector<int>()),\n       \
+    \   inf(numeric_limits<Flow>::max() / 8) {\n        for (int i = 0; i < n; i++)\
+    \ {\n            for (auto &e : graph[i]) {\n                int u = e.src, v\
+    \ = e.dst;\n                Flow c = e.cap;\n                cap[u][v] += c;\n\
+    \                cap[v][u] += c;\n                flow[v][u] += c;\n         \
+    \       g[u].push_back(v);\n                g[v].push_back(u);\n            }\n\
+    \        }\n    }/*}}}*/\n    Flow solve(int s_, int t_) {/*{{{*/\n        this->t\
+    \ = t_, this->s = s_;\n        que.resize(n + 1);\n        Flow res = 0;\n   \
+    \     while (levelize()) {\n            prog.assign(n, 0);\n            res +=\
+    \ augment(s, inf);\n        }\n        return res;\n    }/*}}}*/\n\nprivate:\n\
+    \    inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v]; }\n  \
+    \  bool levelize() {/*{{{*/\n        int l = 0, r = 0;\n        level.assign(n,\
     \ -1);\n        level[s] = 0;\n        que[r++] = s;\n        while (l != r) {\n\
     \            int v = que[l++];\n            if (v == t) break;\n            for\
     \ (const int &d : g[v])\n                if (level[d] == -1 && residue(v, d) !=\
@@ -95,7 +96,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/flow/dinic.test.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 13:42:38+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/flow/dinic.test.cpp

@@ -29,24 +29,24 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/math/pascal.cpp\"\n\n//%snippet.set('pascal')%\n\ntemplate\
-    \ <class T>\nvector<vector<T>> pascal(int N) {  // {{{\n    vector<vector<T>>\
-    \ com(N + 1, vector<T>(N + 1));\n    com[0][0] = 1;\n    rep(i, 1, N + 1) {\n\
-    \        // \u30D1\u30B9\u30AB\u30EB\u306E\u4E09\u89D2\u5F62\u306F0-indexd\u3067\
-    \u6BB5\u3092\u6570\u3048\u308B\u3068\u3088\u3044\u3002\n        // com[i]\u3092\
-    \u8A08\u7B97\u3002\n        rep(j, 0, i + 1) {\n            if (j - 1 >= 0) com[i][j]\
-    \ += com[i - 1][j - 1];\n            com[i][j] += com[i - 1][j];\n           \
-    \ // com[i][j] /= 2.0;  // probability version\n        }\n    }\n    return com;\n\
-    }  // }}}\n\n//%snippet.end()%\n"
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/pascal.cpp\"\
+    \n\n//%snippet.set('pascal')%\n\ntemplate <class T>\nvector<vector<T>> pascal(int\
+    \ N) {  // {{{\n    vector<vector<T>> com(N + 1, vector<T>(N + 1));\n    com[0][0]\
+    \ = 1;\n    rep(i, 1, N + 1) {\n        // \u30D1\u30B9\u30AB\u30EB\u306E\u4E09\
+    \u89D2\u5F62\u306F0-indexd\u3067\u6BB5\u3092\u6570\u3048\u308B\u3068\u3088\u3044\
+    \u3002\n        // com[i]\u3092\u8A08\u7B97\u3002\n        rep(j, 0, i + 1) {\n\
+    \            if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];\n            com[i][j]\
+    \ += com[i - 1][j];\n            // com[i][j] /= 2.0;  // probability version\n\
+    \        }\n    }\n    return com;\n}  // }}}\n\n//%snippet.end()%\n"
   code: "#include \"../header.hpp\"\n\n//%snippet.set('pascal')%\n\ntemplate <class\
     \ T>\nvector<vector<T>> pascal(int N) {  // {{{\n    vector<vector<T>> com(N +\
     \ 1, vector<T>(N + 1));\n    com[0][0] = 1;\n    rep(i, 1, N + 1) {\n        //\
@@ -61,7 +61,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/pascal.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/pascal.cpp

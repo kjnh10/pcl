@@ -40,49 +40,50 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\n\n//%snippet.set('segment_tree_lazy')%\n\
-    //%snippet.config({'alias':'lazy'})%\n//%snippet.fold()%\n\ntemplate <typename\
-    \ X, typename M>\nstruct segment_tree_lazy {\n    using FX = function<X(X, X)>;\n\
-    \    using FA = function<X(X, M)>;\n    using FM = function<M(M, M)>;\n    using\
-    \ index = int;\n    int n;  // \u5143\u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\
-    \n    int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E2\u51AA\n    FX merge;\n\
-    \    FA apply;\n    FM composite;\n    const X ex;\n    const M em;\n    vector<X>\
-    \ dat;\n    vector<M> lazy;\n    segment_tree_lazy(FX merge_, FA apply_, FM composite_,\
-    \ X ex_, M em_)\n        : merge(merge_), apply(apply_), composite(composite_),\
-    \ ex(ex_), em(em_) {\n    }\n\n    void set(index i, X x) { dat[i + n - 1] = x;\
-    \ }\n    void init(index n_) { \n        N = 1;\n        n = n_;\n        while\
-    \ (N < n_) N <<= 1;\n        dat.assign(2 * N, ex);\n        lazy.assign(2 * N,\
-    \ em);\n    } \n\n    void build(const vector<X> &v) { \n        int n_ = v.size();\n\
-    \        init(n_);\n        for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];\n\
-    \        for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2\
-    \ * k + 2]);\n    } \n\n    /* lazy propagate */\n    void propagate(int k) {\n\
-    \        if (lazy[k] == em) return;  // \u66F4\u65B0\u3059\u308B\u3082\u306E\u304C\
-    \u7121\u3051\u308C\u3070\u7D42\u4E86\n        if (k < N - 1) {            // \u8449\
-    \u3067\u306A\u3051\u308C\u3070\u5B50\u306B\u4F1D\u642C\n            lazy[k * 2\
-    \ + 1] = composite(lazy[k * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k\
-    \ * 2 + 2], lazy[k]);\n        }\n        // \u81EA\u8EAB\u3092\u66F4\u65B0\n\
-    \        dat[k] = apply(dat[k], lazy[k]);\n        lazy[k] = em;\n    }\n\n  \
-    \  void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }\n    void\
-    \ update(index a, index b, M x, int k, index l, index r) {\n        if (a <= l\
-    \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            lazy[k]\
-    \ = composite(lazy[k], x);\n            propagate(k);\n        }\n        else\
-    \ if (a < r && l < b) {                     // \u4E00\u90E8\u533A\u9593\u304C\u88AB\
-    \u308B\u6642\n            propagate(k);\n            update(a, b, x, k * 2 + 1,\
-    \ l, (l + r) / 2);  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 +\
-    \ 2, (l + r) / 2, r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k\
-    \ * 2 + 1], dat[k * 2 + 2]);\n        }\n        else{\n            propagate(k);\n\
-    \        }\n    }\n\n    X query(index a, index b) { return query_sub(a, b, 0,\
-    \ 0, N); }\n    X query_sub(index a, index b, int k, index l, index r) {\n   \
-    \     propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\u5168\u306B\u5916\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\
+    \n\n//%snippet.set('segment_tree_lazy')%\n//%snippet.config({'alias':'lazy'})%\n\
+    //%snippet.fold()%\n\ntemplate <typename X, typename M>\nstruct segment_tree_lazy\
+    \ {\n    using FX = function<X(X, X)>;\n    using FA = function<X(X, M)>;\n  \
+    \  using FM = function<M(M, M)>;\n    using index = int;\n    int n;  // \u5143\
+    \u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\n    int N;  // n\u4EE5\u4E0A\u306E\
+    \u6700\u5C0F\u306E2\u51AA\n    FX merge;\n    FA apply;\n    FM composite;\n \
+    \   const X ex;\n    const M em;\n    vector<X> dat;\n    vector<M> lazy;\n  \
+    \  segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)\n    \
+    \    : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {\n\
+    \    }\n\n    void set(index i, X x) { dat[i + n - 1] = x; }\n    void init(index\
+    \ n_) { \n        N = 1;\n        n = n_;\n        while (N < n_) N <<= 1;\n \
+    \       dat.assign(2 * N, ex);\n        lazy.assign(2 * N, em);\n    } \n\n  \
+    \  void build(const vector<X> &v) { \n        int n_ = v.size();\n        init(n_);\n\
+    \        for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];\n        for (int\
+    \ k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);\n  \
+    \  } \n\n    /* lazy propagate */\n    void propagate(int k) {\n        if (lazy[k]\
+    \ == em) return;  // \u66F4\u65B0\u3059\u308B\u3082\u306E\u304C\u7121\u3051\u308C\
+    \u3070\u7D42\u4E86\n        if (k < N - 1) {            // \u8449\u3067\u306A\u3051\
+    \u308C\u3070\u5B50\u306B\u4F1D\u642C\n            lazy[k * 2 + 1] = composite(lazy[k\
+    \ * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k * 2 + 2],\
+    \ lazy[k]);\n        }\n        // \u81EA\u8EAB\u3092\u66F4\u65B0\n        dat[k]\
+    \ = apply(dat[k], lazy[k]);\n        lazy[k] = em;\n    }\n\n    void update(index\
+    \ a, index b, M x) { update(a, b, x, 0, 0, N); }\n    void update(index a, index\
+    \ b, M x, int k, index l, index r) {\n        if (a <= l && r <= b) {  // \u5B8C\
+    \u5168\u306B\u5185\u5074\u306E\u6642\n            lazy[k] = composite(lazy[k],\
+    \ x);\n            propagate(k);\n        }\n        else if (a < r && l < b)\
+    \ {                     // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\u6642\n\
+    \            propagate(k);\n            update(a, b, x, k * 2 + 1, l, (l + r)\
+    \ / 2);  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 + 2, (l + r)\
+    \ / 2, r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k * 2 + 1],\
+    \ dat[k * 2 + 2]);\n        }\n        else{\n            propagate(k);\n    \
+    \    }\n    }\n\n    X query(index a, index b) { return query_sub(a, b, 0, 0,\
+    \ N); }\n    X query_sub(index a, index b, int k, index l, index r) {\n      \
+    \  propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\u5168\u306B\u5916\
     \u5074\u306E\u6642\n            return ex;\n        }\n        else if (a <= l\
     \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            return\
     \ dat[k];\n        }\n        else {  // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\
@@ -163,7 +164,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
   requiredBy: []
-  timestamp: '2020-09-27 20:38:26+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp

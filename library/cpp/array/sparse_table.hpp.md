@@ -5,18 +5,18 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.test.cpp
     title: library/cpp/array/sparse_table.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -38,28 +38,28 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/array/sparse_table.hpp\"\n\n//%snippet.set('sparse_table')%\n\
-    //%snippet.fold()%\n\ntemplate< class T = ll >\nstruct sparse_table {\n    vector<\
-    \ vector< T > > st;\n    vector< int > lookup;\n\n    sparse_table(const vector<\
-    \ T > &v) {\n        int b = 0;\n        while((1 << b) <= sz(v)) ++b;\n     \
-    \   st.assign(b, vector< T >(1 << b));\n        for(int i = 0; i < sz(v); i++)\
-    \ {\n            st[0][i] = v[i];\n        }\n        for(int i = 1; i < b; i++)\
-    \ {\n            for(int j = 0; j + (1 << i) <= (1 << b); j++) {\n           \
-    \     st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);\n         \
-    \   }\n        }\n        lookup.resize(v.size() + 1);\n        for(int i = 2;\
-    \ i < sz(lookup); i++) {\n            lookup[i] = lookup[i >> 1] + 1;\n      \
-    \  }\n    }\n\n    inline T query(int l, int r) {  // [l, r)\n        int b =\
-    \ lookup[r - l];\n        return min(st[b][l], st[b][r - (1 << b)]);\n    }\n\
-    };\n\n//%snippet.end()%\n"
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/sparse_table.hpp\"\
+    \n\n//%snippet.set('sparse_table')%\n//%snippet.fold()%\n\ntemplate< class T =\
+    \ ll >\nstruct sparse_table {\n    vector< vector< T > > st;\n    vector< int\
+    \ > lookup;\n\n    sparse_table(const vector< T > &v) {\n        int b = 0;\n\
+    \        while((1 << b) <= sz(v)) ++b;\n        st.assign(b, vector< T >(1 <<\
+    \ b));\n        for(int i = 0; i < sz(v); i++) {\n            st[0][i] = v[i];\n\
+    \        }\n        for(int i = 1; i < b; i++) {\n            for(int j = 0; j\
+    \ + (1 << i) <= (1 << b); j++) {\n                st[i][j] = min(st[i - 1][j],\
+    \ st[i - 1][j + (1 << (i - 1))]);\n            }\n        }\n        lookup.resize(v.size()\
+    \ + 1);\n        for(int i = 2; i < sz(lookup); i++) {\n            lookup[i]\
+    \ = lookup[i >> 1] + 1;\n        }\n    }\n\n    inline T query(int l, int r)\
+    \ {  // [l, r)\n        int b = lookup[r - l];\n        return min(st[b][l], st[b][r\
+    \ - (1 << b)]);\n    }\n};\n\n//%snippet.end()%\n"
   code: "#include \"../header.hpp\"\n\n//%snippet.set('sparse_table')%\n//%snippet.fold()%\n\
     \ntemplate< class T = ll >\nstruct sparse_table {\n    vector< vector< T > > st;\n\
     \    vector< int > lookup;\n\n    sparse_table(const vector< T > &v) {\n     \
@@ -78,8 +78,8 @@ data:
   path: library/cpp/array/sparse_table.hpp
   requiredBy:
   - library/cpp/string/suffix_array.hpp
-  timestamp: '2020-09-05 21:34:55+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2020-10-15 12:21:18+09:00'
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/array/sparse_table.test.cpp
   - library/cpp/string/suffix_array.test.cpp

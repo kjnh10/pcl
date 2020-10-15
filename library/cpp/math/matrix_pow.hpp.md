@@ -32,25 +32,26 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/math/matrix_pow.hpp\"\n\n//%snippet.set('matrix_pow')%\n\
-    //%snippet.fold()%\n\ntemplate <class value = ll>\nusing mat = vector<vector<value>>;\n\
-    \ntemplate <class T>\nmat<T> mul(const mat<T>& A, const mat<T>& B) {\n    mat<T>\
-    \ res(A.size(), vector<T>(B[0].size()));\n    rep(i, A.size()) {\n        rep(j,\
-    \ B[0].size()) {\n            rep(k, B.size()) {\n                res[i][j] =\
-    \ (res[i][j] + A[i][k] * B[k][j]);\n            }\n        }\n    }\n    return\
-    \ res;\n}\n\ntemplate <class T>\nmat<T> pow(mat<T> A, ll n) {\n    mat<T> B(A.size(),\
-    \ vector<T>(A.size()));\n    rep(i, A.size()) {\n        B[i][i] = 1;  // E\n\
-    \    }\n    while (n > 0) {\n        if (n & 1) B = mul(B, A);\n        A = mul(A,\
-    \ A);\n        n >>= 1;\n    }\n    return B;\n}\n\n//%snippet.end()%\n"
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/matrix_pow.hpp\"\
+    \n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\ntemplate <class value\
+    \ = ll>\nusing mat = vector<vector<value>>;\n\ntemplate <class T>\nmat<T> mul(const\
+    \ mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(), vector<T>(B[0].size()));\n\
+    \    rep(i, A.size()) {\n        rep(j, B[0].size()) {\n            rep(k, B.size())\
+    \ {\n                res[i][j] = (res[i][j] + A[i][k] * B[k][j]);\n          \
+    \  }\n        }\n    }\n    return res;\n}\n\ntemplate <class T>\nmat<T> pow(mat<T>\
+    \ A, ll n) {\n    mat<T> B(A.size(), vector<T>(A.size()));\n    rep(i, A.size())\
+    \ {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0) {\n        if (n & 1)\
+    \ B = mul(B, A);\n        A = mul(A, A);\n        n >>= 1;\n    }\n    return\
+    \ B;\n}\n\n//%snippet.end()%\n"
   code: "#include \"../header.hpp\"\n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\
     \ntemplate <class value = ll>\nusing mat = vector<vector<value>>;\n\ntemplate\
     \ <class T>\nmat<T> mul(const mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(),\
@@ -66,7 +67,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/matrix_pow.hpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/matrix_pow.test.cpp

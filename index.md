@@ -18,7 +18,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/slide_min.cpp
       title: library/cpp/array/slide_min.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/array/sparse_table.hpp
       title: library/cpp/array/sparse_table.hpp
     - icon: ':warning:'
@@ -96,13 +96,13 @@ data:
       title: library/cpp/debug/prettyprint.hpp
   - name: library/cpp/graph
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: library/cpp/graph/bellman_ford.hpp
       title: library/cpp/graph/bellman_ford.hpp
     - icon: ':question:'
       path: library/cpp/graph/edge.hpp
       title: library/cpp/graph/edge.hpp
-    - icon: ':question:'
+    - icon: ':warning:'
       path: library/cpp/graph/graph.hpp
       title: library/cpp/graph/graph.hpp
     - icon: ':warning:'
@@ -111,16 +111,16 @@ data:
     - icon: ':warning:'
       path: library/cpp/graph/local_min_cycle.hpp
       title: library/cpp/graph/local_min_cycle.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: library/cpp/graph/strongly_connected_components.hpp
       title: library/cpp/graph/strongly_connected_components.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: library/cpp/graph/topological_sort.hpp
       title: library/cpp/graph/topological_sort.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':warning:'
       path: library/cpp/graph/two_sat.hpp
       title: library/cpp/graph/two_sat.hpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: library/cpp/graph/unionfind.hpp
       title: library/cpp/graph/unionfind.hpp
     - icon: ':warning:'
@@ -277,7 +277,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/misc/zipper.lib/shifter.hpp
       title: library/cpp/misc/zipper.lib/shifter.hpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper.hpp
       title: library/cpp/misc/zipper.lib/zipper.hpp
   - name: library/cpp/string/kmp/codes
@@ -299,13 +299,13 @@ data:
     - icon: ':warning:'
       path: library/cpp/string/lcs.cpp
       title: library/cpp/string/lcs.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/rolling_hash.hpp
       title: library/cpp/string/rolling_hash.hpp
     - icon: ':warning:'
       path: library/cpp/string/split.hpp
       title: library/cpp/string/split.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/suffix_array.hpp
       title: library/cpp/string/suffix_array.hpp
   - name: library/python
@@ -402,31 +402,31 @@ data:
       title: library/cpp/graph/flow/dinic.test.cpp
   - name: library/cpp/graph/tests
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/bellman_ford.test.cpp
       title: library/cpp/graph/tests/bellman_ford.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/graph.2dcost.test.cpp
       title: library/cpp/graph/tests/graph.2dcost.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/graph.bridge.test.cpp
       title: library/cpp/graph/tests/graph.bridge.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/graph.dijkstra.test.cpp
       title: library/cpp/graph/tests/graph.dijkstra.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/graph.kruskal.test.cpp
       title: library/cpp/graph/tests/graph.kruskal.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/graph.lowlink.test.cpp
       title: library/cpp/graph/tests/graph.lowlink.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/scc.test.cpp
       title: library/cpp/graph/tests/scc.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/topological_sort.test.cpp
       title: library/cpp/graph/tests/topological_sort.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/two_sat.test.cpp
       title: library/cpp/graph/tests/two_sat.test.cpp
   - name: library/cpp/graph/tree.lib
@@ -467,7 +467,7 @@ data:
       title: library/cpp/math/geometry/p2.test.cpp
   - name: library/cpp/misc/zipper.lib
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper.test.cpp
       title: library/cpp/misc/zipper.lib/zipper.test.cpp
     - icon: ':x:'
@@ -475,10 +475,10 @@ data:
       title: library/cpp/misc/zipper.lib/zipper2.test.cpp
   - name: library/cpp/string
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/rolling_hash.test.cpp
       title: library/cpp/string/rolling_hash.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/suffix_array.test.cpp
       title: library/cpp/string/suffix_array.test.cpp
 layout: toppage

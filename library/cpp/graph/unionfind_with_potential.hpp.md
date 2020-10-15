@@ -29,49 +29,50 @@ data:
     \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
     \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
     \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
-    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
-    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
-    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/graph/unionfind_with_potential.hpp\"\n\n//%snippet.set('unionfind_with_potential')%\n\
-    //%snippet.fold()%\n\ntemplate<class Pot = ll>  // Pot: Abel\nstruct UnionFind\
-    \ {\n    vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
-    \         // count of groups\n    vector<Pot>  diff;\n    UnionFind() {}\n   \
-    \ UnionFind(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY)\
-    \ {}\n    bool merge(int x, int y, Pot d) { /*{{{*/\n        // d:= wight(y) -\
-    \ weight(x)\n        int rx = root(x);\n        int ry = root(y);\n        if\
-    \ (rx != ry) {\n            if (par[ry] >= par[rx]) {\n                par[rx]\
-    \ += par[ry];\n                par[ry] = rx;\n                diff[ry] = diff[x]\
-    \ + d + (-diff[y]);\n            }\n            else{\n                par[ry]\
-    \ += par[rx];\n                par[rx] = ry;\n                diff[rx] = (-diff[x])\
-    \ + (-d) + diff[y];\n            }\n            gcount--;\n        }\n       \
-    \ else{\n            if (weight(y) + (-weight(x)) != d){\n                throw\
-    \ runtime_error(\"contradiction exist\");\n            }\n        }\n        return\
-    \ rx != ry;\n    } /*}}}*/\n    int root(int x) {/*{{{*/\n        if (is_root(x)){\n\
-    \            return x;\n        }\n        else{\n            int r = root(par[x]);\n\
-    \            diff[x] += diff[par[x]];\n            par[x] = r;\n            return\
-    \ par[x];\n        }\n    }/*}}}*/\n    Pot weight(int x){/*{{{*/\n        root(x);\
-    \ // \u7D4C\u8DEF\u5727\u7E2E\n        return diff[x];\n    }/*}}}*/\n    Pot\
-    \ diff(int x, int y){/*{{{*/\n        if (!same(x, y)){\n            string s\
-    \ = to_string(x) + \" and \" + to_string(y) + \" are not in the same group.\"\
-    ;\n            throw invalid_argument(s);\n        }\n        else{\n        \
-    \    return weight(y) + (-weight(x));\n        }\n    }/*}}}*/\n    bool is_root(int\
-    \ x) { return par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y);\
-    \ }\n    int size(int x) { return -par[root(x)]; }\n#if defined(PCM) || defined(LOCAL)\
-    \  // {{{\n    friend ostream& operator<<(ostream& os, UnionFind& uf) {\n    \
-    \    map<int, vector<int>> group;\n        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i);\
+    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
+    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
+    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
+    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
+    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
+    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
+    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/unionfind_with_potential.hpp\"\
+    \n\n//%snippet.set('union_find_with_potential')%\n//%snippet.fold()%\n\ntemplate<class\
+    \ Pot = ll>  // Pot: Abel\nstruct union_find {\n    vector<int> par;   // par[x]:\
+    \ parent of x. if root, -size.\n    int gcount;         // count of groups\n \
+    \   vector<Pot>  diff;\n    union_find() {}\n    union_find(int _n, Pot SUM_UNITY\
+    \ = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}\n    bool merge(int x,\
+    \ int y, Pot d) { /*{{{*/\n        // d:= wight(y) - weight(x)\n        int rx\
+    \ = root(x);\n        int ry = root(y);\n        if (rx != ry) {\n           \
+    \ if (par[ry] >= par[rx]) {\n                par[rx] += par[ry];\n           \
+    \     par[ry] = rx;\n                diff[ry] = diff[x] + d + (-diff[y]);\n  \
+    \          }\n            else{\n                par[ry] += par[rx];\n       \
+    \         par[rx] = ry;\n                diff[rx] = (-diff[x]) + (-d) + diff[y];\n\
+    \            }\n            gcount--;\n        }\n        else{\n            if\
+    \ (weight(y) + (-weight(x)) != d){\n                throw runtime_error(\"contradiction\
+    \ exist\");\n            }\n        }\n        return rx != ry;\n    } /*}}}*/\n\
+    \    int root(int x) {/*{{{*/\n        if (is_root(x)){\n            return x;\n\
+    \        }\n        else{\n            int r = root(par[x]);\n            diff[x]\
+    \ += diff[par[x]];\n            par[x] = r;\n            return par[x];\n    \
+    \    }\n    }/*}}}*/\n    Pot weight(int x){/*{{{*/\n        root(x); // \u7D4C\
+    \u8DEF\u5727\u7E2E\n        return diff[x];\n    }/*}}}*/\n    Pot diff(int x,\
+    \ int y){/*{{{*/\n        if (!same(x, y)){\n            string s = to_string(x)\
+    \ + \" and \" + to_string(y) + \" are not in the same group.\";\n            throw\
+    \ invalid_argument(s);\n        }\n        else{\n            return weight(y)\
+    \ + (-weight(x));\n        }\n    }/*}}}*/\n    bool is_root(int x) { return par[x]\
+    \ < 0; }\n    bool same(int x, int y) { return root(x) == root(y); }\n    int\
+    \ size(int x) { return -par[root(x)]; }\n#if defined(PCM) || defined(LOCAL)  //\
+    \ {{{\n    friend ostream& operator<<(ostream& os, union_find& uf) {\n       \
+    \ map<int, vector<int>> group;\n        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i);\
     \ }\n        os << endl;\n        each(g, group) { os << g << endl; }\n      \
     \  return os;\n    }\n#endif  // }}}\n};\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('unionfind_with_potential')%\n\
-    //%snippet.fold()%\n\ntemplate<class Pot = ll>  // Pot: Abel\nstruct UnionFind\
+  code: "#include \"../header.hpp\"\n\n//%snippet.set('union_find_with_potential')%\n\
+    //%snippet.fold()%\n\ntemplate<class Pot = ll>  // Pot: Abel\nstruct union_find\
     \ {\n    vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
-    \         // count of groups\n    vector<Pot>  diff;\n    UnionFind() {}\n   \
-    \ UnionFind(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY)\
+    \         // count of groups\n    vector<Pot>  diff;\n    union_find() {}\n  \
+    \  union_find(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY)\
     \ {}\n    bool merge(int x, int y, Pot d) { /*{{{*/\n        // d:= wight(y) -\
     \ weight(x)\n        int rx = root(x);\n        int ry = root(y);\n        if\
     \ (rx != ry) {\n            if (par[ry] >= par[rx]) {\n                par[rx]\
@@ -92,8 +93,8 @@ data:
     \    return weight(y) + (-weight(x));\n        }\n    }/*}}}*/\n    bool is_root(int\
     \ x) { return par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y);\
     \ }\n    int size(int x) { return -par[root(x)]; }\n#if defined(PCM) || defined(LOCAL)\
-    \  // {{{\n    friend ostream& operator<<(ostream& os, UnionFind& uf) {\n    \
-    \    map<int, vector<int>> group;\n        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i);\
+    \  // {{{\n    friend ostream& operator<<(ostream& os, union_find& uf) {\n   \
+    \     map<int, vector<int>> group;\n        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i);\
     \ }\n        os << endl;\n        each(g, group) { os << g << endl; }\n      \
     \  return os;\n    }\n#endif  // }}}\n};\n\n//%snippet.end()%\n"
   dependsOn:
@@ -101,7 +102,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/unionfind_with_potential.hpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 13:49:03+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/unionfind_with_potential.hpp

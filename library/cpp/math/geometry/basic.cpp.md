@@ -84,7 +84,9 @@ data:
     cont); }
 
 
-    #define cdiv(a, b) (((a) + (b)-1) / (b))
+    template <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b;
+    }
+
 
     #define is_in(x, a, b) ((a) <= (x) && (x) < (b))
 
@@ -190,7 +192,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/geometry/basic.cpp
   requiredBy: []
-  timestamp: '2020-09-05 21:34:55+09:00'
+  timestamp: '2020-10-15 12:21:18+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/basic.cpp
