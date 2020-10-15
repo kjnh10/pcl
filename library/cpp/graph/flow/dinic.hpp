@@ -14,7 +14,7 @@ struct Edge {
 
 using Edges = vector<Edge>;
 using Graph = vector<Edges>;
-template <typename Flow>
+template <typename Flow = unsigned int>
 struct dinic {
     int n, s, t;
     vector<int> level, prog, que;
