@@ -1,15 +1,15 @@
 #pragma once
 #include "../header.hpp"
 
-//%snippet.set('UnionFind')%
+//%snippet.set('union_find')%
 //%snippet.fold()%
 
-struct UnionFind {
+struct union_find {
     vector<int> par;   // par[x]: parent of x. if root, -size.
     int gcount;         // count of groups
 
-    UnionFind() {}
-    UnionFind(int _n) : par(_n, -1), gcount(_n) {}
+    union_find() {}
+    union_find(int _n) : par(_n, -1), gcount(_n) {}
     bool merge(int x, int y) { 
         x = root(x);
         y = root(y);
@@ -34,15 +34,20 @@ struct UnionFind {
     bool same(int x, int y) { return root(x) == root(y); }
     int size(int x) { return -par[root(x)]; }
 
-#if defined(PCM) || defined(LOCAL)  // {{{
-    friend ostream& operator<<(ostream& os, UnionFind& uf) {
-        map<int, vector<int>> group;
-        rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
+    map<int, vector<int>> group(){
+        map<int, vector<int>> res;
+        rep(i, sz(this->par)) { res[this->root(i)].pb(i); }
+        return res;
+    }
+
+    #if defined(PCM) || defined(LOCAL)  // {{{
+    friend ostream& operator<<(ostream& os, union_find& uf) {
+        auto group = uf.group();
         os << endl;
         each(g, group) { os << g << endl; }
         return os;
     }
-#endif  // }}}
+    #endif  // }}}
 };
 
 //%snippet.end()%

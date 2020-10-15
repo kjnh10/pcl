@@ -2,10 +2,10 @@
 #include "../header.hpp"
 #include "edge.hpp"
 #include "tree.lib/tree.hpp"
-#include "unionfind.hpp"
+#include "union_find.hpp"
 
 //%snippet.set('Graph')%
-//%snippet.include('UnionFind')%
+//%snippet.include('union_find')%
 //%snippet.include('tree')%
 //%snippet.fold()%
 
@@ -45,7 +45,7 @@ struct Graph {
     }/*}}}*/
 
     vector<int> make_bipartite() {/*{{{*/
-        UnionFind buf(2 * n);
+        union_find buf(2 * n);
         rep(u, n) {
             each(e, adj_list[u]) {
                 buf.merge(u, e.to + n);
@@ -124,7 +124,7 @@ struct Graph {
         // 使用される辺のvectorを返す
         vector<Edge<Cost>> res(n - 1);
         sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
-        UnionFind uf(n);
+        union_find uf(n);
 
         Cost total_cost = zerocost;
         int idx = 0;

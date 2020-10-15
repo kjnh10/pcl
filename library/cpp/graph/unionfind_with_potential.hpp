@@ -1,15 +1,15 @@
 #include "../header.hpp"
 
-//%snippet.set('unionfind_with_potential')%
+//%snippet.set('union_find_with_potential')%
 //%snippet.fold()%
 
 template<class Pot = ll>  // Pot: Abel
-struct UnionFind {
+struct union_find {
     vector<int> par;   // par[x]: parent of x. if root, -size.
     int gcount;         // count of groups
     vector<Pot>  diff;
-    UnionFind() {}
-    UnionFind(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}
+    union_find() {}
+    union_find(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}
     bool merge(int x, int y, Pot d) { /*{{{*/
         // d:= wight(y) - weight(x)
         int rx = root(x);
@@ -62,7 +62,7 @@ struct UnionFind {
     bool same(int x, int y) { return root(x) == root(y); }
     int size(int x) { return -par[root(x)]; }
 #if defined(PCM) || defined(LOCAL)  // {{{
-    friend ostream& operator<<(ostream& os, UnionFind& uf) {
+    friend ostream& operator<<(ostream& os, union_find& uf) {
         map<int, vector<int>> group;
         rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
         os << endl;
