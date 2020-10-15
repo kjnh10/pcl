@@ -10,6 +10,10 @@ int solve() {
 
 int main(){/*{{{*/
     solve();
+
+    #if defined(PCM) || defined(LOCAL)
     check_input();
+    #endif
+
     return 0;
 }/*}}}*/
