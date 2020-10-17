@@ -1,11 +1,11 @@
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_4_A&lang=ja"
 #include "zipper.hpp"
 
-signed main() {
+int main() {
     int n;cin>>n;
 
     vector<ll> x1(n), x2(n), y1(n), y2(n);
-    zipper zx, zy;
+    zipper zx(INF), zy(INF);
     rep(i, n){
         cin>>x1[i]>>y1[i];
         cin>>x2[i]>>y2[i];
@@ -40,7 +40,7 @@ signed main() {
         rep(j, 1, sz(zy)-2){
             ll dx = (zx.unzip(i+1) - zx.unzip(i));
             ll dy = (zy.unzip(j+1) - zy.unzip(j));
-            if (e[i][j]>0 )ans += dx*dy;
+            if (e[i][j]>0)ans += dx*dy;
         }
     }
     cout << ans << endl;
