@@ -104,7 +104,7 @@ string to_bin(ll n, ll d = 10){
 
 //%snippet.set('warsharll')%
 // init
-vector<vector<ll>> d(n, vector<ll>(n, INF));
+vector<vector<ll>> d(n, vector<ll>(n, inf<ll>));
 rep(i, n)rep(j, n){
     if (i==j) d[i][j] = 0;
 }

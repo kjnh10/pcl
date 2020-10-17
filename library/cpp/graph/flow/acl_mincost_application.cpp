@@ -1,3 +1,4 @@
+#include "../../header.hpp"
 //%snippet.set('mincostflow')%
 //%snippet.config({'alias':'mcf'})%
 //%snippet.fold()%
@@ -27,7 +28,7 @@ auto add_negative_edge = [&](ll u, ll v, ll cap, ll cost){
 };
 
 // add edge
-g.add_edge(t1, s1, INF, 0);
+g.add_edge(t1, s1, inf<ll>, 0);
 rep(x, n) g.add_edge(s1, x, k, 0);
 rep(x, n, 2*n) g.add_edge(x, t1, k, 0);
 rep(i, n)rep(j, n) add_negative_edge(i, n+j, 1, -a[i][j]);

@@ -165,7 +165,7 @@ alias cnt_reversed
       }                                                        /*}}}*/
   
       template <class T>
-      zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
+      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
           _unzipper = vector<long long>(sz(a));
           rep(i, sz(a)) { _unzipper[i] = a[i]; }
           _unzipper.push_back(-inf_value);
@@ -217,7 +217,7 @@ alias cnt_reversed
   // How to use {{{
   // construct
   // auto z = zipper(x); // x: vector<long long>;
-  // auto z = zipper(x, INF);
+  // auto z = zipper(x, inf<ll>);
   
   // auto z = zipper();
   // z.add_value(3);
@@ -311,7 +311,7 @@ snippet tsearch
       }
   }
   dump(l, r);
-  ll ans = INF;
+  ll ans = inf<ll>;
   rep(i, l, r+1) chmin(ans, score(i));
 
 
@@ -345,7 +345,7 @@ alias 2drmq
           H = W = 1;
           while (H < (int)f.size()) H <<= 1;
           while (W < (int)f[0].size()) W <<= 1;
-          dat.assign(2 * H - 1, vector<int>(2 * W - 1, INF));
+          dat.assign(2 * H - 1, vector<int>(2 * W - 1, inf<int>));
           init(f);
       }
       void init(vector<vector<int>> &f) {
@@ -366,14 +366,14 @@ alias 2drmq
           return minimum_h(li, lj, ri, rj, 0, H, 0);
       }
       int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
-          if (ri <= si or ti <= li) return INF;
+          if (ri <= si or ti <= li) return inf<int>;
           if (li <= si and ti <= ri) return minimum_w(lj, rj, 0, W, k, 0);
           const int mi = (si + ti) / 2;
           return min(minimum_h(li, lj, ri, rj, si, mi, 2 * k + 1),
                      minimum_h(li, lj, ri, rj, mi, ti, 2 * k + 2));
       }
       int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
-          if (rj <= sj or tj <= lj) return INF;
+          if (rj <= sj or tj <= lj) return inf<int>;
           if (lj <= sj and tj <= rj) return dat[i][k];
           const int mj = (sj + tj) / 2;
           return min(minimum_w(lj, rj, sj, mj, i, 2 * k + 1),
@@ -456,7 +456,7 @@ snippet napsack
       vector<int> v(n), w(n);
       rep(i, n) cin >> v[i] >> w[i];
   
-      vector<int> dp(h + 1, INF);
+      vector<int> dp(h + 1, inf<int>);
       dp[0] = 0;
       rep(i, n) rep(j, h + 1) {  // 個数制限なし
                                  // rep(i,n) r_rep(j,h+1){ // 01 napsack
@@ -593,7 +593,7 @@ snippet to_bin
 
 snippet warsharll
   // init
-  vector<vector<ll>> d(n, vector<ll>(n, INF));
+  vector<vector<ll>> d(n, vector<ll>(n, inf<ll>));
   rep(i, n)rep(j, n){
       if (i==j) d[i][j] = 0;
   }
@@ -1431,7 +1431,7 @@ alias mcf
   };
   
   // add edge
-  g.add_edge(t1, s1, INF, 0);
+  g.add_edge(t1, s1, inf<ll>, 0);
   rep(x, n) g.add_edge(s1, x, k, 0);
   rep(x, n, 2*n) g.add_edge(x, t1, k, 0);
   rep(i, n)rep(j, n) add_negative_edge(i, n+j, 1, -a[i][j]);
@@ -1522,7 +1522,6 @@ snippet header
   #include <bits/stdc++.h>
   
   // varibable settings
-  const long long INF = 1e18;
   template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
   
   #define _overload3(_1, _2, _3, name, ...) name
@@ -2992,7 +2991,7 @@ snippet zipper
       }                                                        /*}}}*/
   
       template <class T>
-      zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
+      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
           _unzipper = vector<long long>(sz(a));
           rep(i, sz(a)) { _unzipper[i] = a[i]; }
           _unzipper.push_back(-inf_value);
@@ -3044,7 +3043,7 @@ snippet zipper
   // How to use {{{
   // construct
   // auto z = zipper(x); // x: vector<long long>;
-  // auto z = zipper(x, INF);
+  // auto z = zipper(x, inf<ll>);
   
   // auto z = zipper();
   // z.add_value(3);
@@ -3970,7 +3969,7 @@ alias tps
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -4579,7 +4578,7 @@ snippet two_sat
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -5350,7 +5349,7 @@ alias cycle
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -5942,7 +5941,7 @@ snippet local_min_cycle_directed
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -6620,7 +6619,7 @@ snippet Graph
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -7165,7 +7164,7 @@ alias StronglyConnectedComponents
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -7765,7 +7764,7 @@ snippet bellman_ford
       Cost infcost;
   
       Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
       Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
   
       void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
@@ -7915,7 +7914,7 @@ snippet bellman_ford
       dist[start] = g.zerocost;
       for (int i = 0; i < g.n; i++) {
           each(edge, g.edges){
-              if (dist[edge.from] != INF && dist[edge.to] > dist[edge.from] + edge.cost) {
+              if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from] + edge.cost) {
                   dist[edge.to] = dist[edge.from] + edge.cost;
                   if (i == g.n - 1)
                       return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在

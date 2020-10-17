@@ -5,7 +5,7 @@ int main() {
     int n;cin>>n;
 
     vector<ll> x1(n), x2(n), y1(n), y2(n);
-    zipper zx(INF), zy(INF);
+    zipper zx(inf<ll>), zy(inf<ll>);
     rep(i, n){
         cin>>x1[i]>>y1[i];
         cin>>x2[i]>>y2[i];

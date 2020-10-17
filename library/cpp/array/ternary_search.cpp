@@ -16,5 +16,5 @@ while(r-l>2){
     }
 }
 dump(l, r);
-ll ans = INF;
+ll ans = inf<ll>;
 rep(i, l, r+1) chmin(ans, score(i));

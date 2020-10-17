@@ -1,7 +1,7 @@
 #include "../header.hpp"
 #include "graph.hpp"
 
-signed main() {
+int main() {
     //%snippet.set('gridgraph')%
 
     // grid graphを通常のグラフに格納する。
@@ -47,7 +47,7 @@ signed main() {
     ll ans = 0;
     rep(s, n){
         auto d = g.dijkstra(s);
-        rep(i, sz(d)) if (d[i]<INF) chmax(ans, d[i]);
+        rep(i, sz(d)) if (d[i]<g.infcost) chmax(ans, d[i]);
     }
     cout << ans << endl;
 

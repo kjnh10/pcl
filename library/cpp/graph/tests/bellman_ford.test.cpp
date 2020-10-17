@@ -19,7 +19,7 @@ signed main() {
     }
     else{
         rep(u, n){
-            cout << (d[u]==INF ? "INF" : to_string(d[u])) << endl;
+            cout << (d[u]==g.infcost ? "INF" : to_string(d[u])) << endl;
         }
     }
 

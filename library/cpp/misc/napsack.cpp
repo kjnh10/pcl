@@ -34,7 +34,7 @@ int nampsack01all(int n, const vector<int>& v, const vector<int>& w) {
             curmax = el.second;
         }
 
-        int ans = -INF;
+        int ans = -inf<int>;
         each(el, r1) {
             int res = 0;
             int sw = el.first;
@@ -42,25 +42,25 @@ int nampsack01all(int n, const vector<int>& v, const vector<int>& w) {
             res += sv;
 
             int load = W - sw;
-            auto i = ub(all(r2), mp(load, INF)) - r2.begin();
+            auto i = ub(all(r2), mp(load, inf<int>)) - r2.begin();
             if (i - 1 >= 0) chmax(ans, res + r2[i - 1].second);
         }
         return ans; /*}}}*/
     } else if (*max_element(all(w)) <= 1000) {
         dump("case 2"); /*{{{*/
         const int MW = 200002;
-        vector<int> dp(MW, -INF);
+        vector<int> dp(MW, -inf<int>);
         dp[0] = 0;
         rep(i, n) r_rep(j, MW) {
             chmax(dp[min(j + w[i], MW - 1)], dp[j] + v[i]);
         }
-        int ans = -INF;
+        int ans = -inf<int>;
         rep(wi, 0, W + 1) { chmax(ans, dp[wi]); }
         return ans; /*}}}*/
     } else if (*max_element(all(v)) <= 1000) {
         dump("case 3"); /*{{{*/
         const int V = 200002;
-        vector<int> dp(V, INF);
+        vector<int> dp(V, inf<int>);
         dp[0] = 0;
         rep(i, n) r_rep(j, V) {                             // 01 napsack
             chmin(dp[min(j + v[i], V - 1)], dp[j] + w[i]);  // jから配る
@@ -81,7 +81,7 @@ signed main() {
     vector<int> v(n), w(n);
     rep(i, n) cin >> v[i] >> w[i];
 
-    vector<int> dp(h + 1, INF);
+    vector<int> dp(h + 1, inf<int>);
     dp[0] = 0;
     rep(i, n) rep(j, h + 1) {  // 個数制限なし
                                // rep(i,n) r_rep(j,h+1){ // 01 napsack

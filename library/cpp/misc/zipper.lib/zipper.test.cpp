@@ -6,7 +6,7 @@ signed main() {
     vector<ll> x({3, 10, 5, (ll)1e12});
     auto z1 = zipper(x);  // x: vector<long long>;
     dump(z1);
-    auto z2 = zipper(x, INF + 5);
+    auto z2 = zipper(x, inf<ll>);
     dump(z2);
 
     auto z3 = zipper();

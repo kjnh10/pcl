@@ -10,7 +10,7 @@ struct segtree {
         H = W = 1;
         while (H < (int)f.size()) H <<= 1;
         while (W < (int)f[0].size()) W <<= 1;
-        dat.assign(2 * H - 1, vector<int>(2 * W - 1, INF));
+        dat.assign(2 * H - 1, vector<int>(2 * W - 1, inf<int>));
         init(f);
     }
     void init(vector<vector<int>> &f) {
@@ -31,14 +31,14 @@ struct segtree {
         return minimum_h(li, lj, ri, rj, 0, H, 0);
     }
     int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
-        if (ri <= si or ti <= li) return INF;
+        if (ri <= si or ti <= li) return inf<int>;
         if (li <= si and ti <= ri) return minimum_w(lj, rj, 0, W, k, 0);
         const int mi = (si + ti) / 2;
         return min(minimum_h(li, lj, ri, rj, si, mi, 2 * k + 1),
                    minimum_h(li, lj, ri, rj, mi, ti, 2 * k + 2));
     }
     int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
-        if (rj <= sj or tj <= lj) return INF;
+        if (rj <= sj or tj <= lj) return inf<int>;
         if (lj <= sj and tj <= rj) return dat[i][k];
         const int mj = (sj + tj) / 2;
         return min(minimum_w(lj, rj, sj, mj, i, 2 * k + 1),

@@ -25,7 +25,7 @@ struct Graph {
     Cost infcost;
 
     Graph() {}
-    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(INF) { }
+    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
     Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
 
     void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/

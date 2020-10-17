@@ -4,7 +4,7 @@ int solve() {
     int a, b, p;
     cin >> a >> b >> p;
     int v = 1;
-    int res = INF;
+    int res = inf<int>;
     rep(x, 0, p) {
         // dump(x, v);
         if (v == b) {

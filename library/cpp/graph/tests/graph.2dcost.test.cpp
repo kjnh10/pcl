@@ -7,7 +7,7 @@
 signed main() {
     int n;
     cin >> n;
-    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(INF, INF));
+    Graph g(n, P2<ll>(0LL, 0LL), P2<ll>(inf<ll>, inf<ll>));
     rep(i, n) {
         int u;
         cin >> u;

@@ -16,7 +16,7 @@ struct zipper {                             /*{{{*/
     }                                                        /*}}}*/
 
     template <class T>
-    zipper(const vector<T>& a, long long inf_value = INF) { /*{{{*/
+    zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
         _unzipper = vector<long long>(sz(a));
         rep(i, sz(a)) { _unzipper[i] = a[i]; }
         _unzipper.push_back(-inf_value);
@@ -68,7 +68,7 @@ struct zipper {                             /*{{{*/
 // How to use {{{
 // construct
 // auto z = zipper(x); // x: vector<long long>;
-// auto z = zipper(x, INF);
+// auto z = zipper(x, inf<ll>);
 
 // auto z = zipper();
 // z.add_value(3);
