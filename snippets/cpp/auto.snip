@@ -4877,6 +4877,79 @@ snippet two_sat
   // snippet:two_sat }}}
 
 
+snippet union_find_with_potential
+  // snippet:union_find_with_potential {{{
+  template<class Pot = ll>  // Pot: Abel
+  struct union_find {
+      vector<int> par;   // par[x]: parent of x. if root, -size.
+      int gcount;         // count of groups
+      vector<Pot>  diff;
+      union_find() {}
+      union_find(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}
+      bool merge(int x, int y, Pot d) { /*{{{*/
+          // d:= wight(y) - weight(x)
+          int rx = root(x);
+          int ry = root(y);
+          if (rx != ry) {
+              if (par[ry] >= par[rx]) {
+                  par[rx] += par[ry];
+                  par[ry] = rx;
+                  diff[ry] = diff[x] + d + (-diff[y]);
+              }
+              else{
+                  par[ry] += par[rx];
+                  par[rx] = ry;
+                  diff[rx] = (-diff[x]) + (-d) + diff[y];
+              }
+              gcount--;
+          }
+          else{
+              if (weight(y) + (-weight(x)) != d){
+                  throw runtime_error("contradiction exist");
+              }
+          }
+          return rx != ry;
+      } /*}}}*/
+      int root(int x) {/*{{{*/
+          if (is_root(x)){
+              return x;
+          }
+          else{
+              int r = root(par[x]);
+              diff[x] += diff[par[x]];
+              par[x] = r;
+              return par[x];
+          }
+      }/*}}}*/
+      Pot weight(int x){/*{{{*/
+          root(x); // 経路圧縮
+          return diff[x];
+      }/*}}}*/
+      Pot diff(int x, int y){/*{{{*/
+          if (!same(x, y)){
+              string s = to_string(x) + " and " + to_string(y) + " are not in the same group.";
+              throw invalid_argument(s);
+          }
+          else{
+              return weight(y) + (-weight(x));
+          }
+      }/*}}}*/
+      bool is_root(int x) { return par[x] < 0; }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -par[root(x)]; }
+  #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, union_find& uf) {
+          map<int, vector<int>> group;
+          rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+  #endif  // }}}
+  };
+  // snippet:union_find_with_potential }}}
+
+
 snippet local_min_cycle_undirected
 alias cycle
   // snippet:segment_tree {{{
@@ -6096,79 +6169,6 @@ snippet local_min_cycle_directed
       return {};
   }
   // snippet:local_min_cycle_directed }}}
-
-
-snippet union_find_with_potential
-  // snippet:union_find_with_potential {{{
-  template<class Pot = ll>  // Pot: Abel
-  struct union_find {
-      vector<int> par;   // par[x]: parent of x. if root, -size.
-      int gcount;         // count of groups
-      vector<Pot>  diff;
-      union_find() {}
-      union_find(int _n, Pot SUM_UNITY = 0) : par(_n, -1), gcount(_n), diff(_n, SUM_UNITY) {}
-      bool merge(int x, int y, Pot d) { /*{{{*/
-          // d:= wight(y) - weight(x)
-          int rx = root(x);
-          int ry = root(y);
-          if (rx != ry) {
-              if (par[ry] >= par[rx]) {
-                  par[rx] += par[ry];
-                  par[ry] = rx;
-                  diff[ry] = diff[x] + d + (-diff[y]);
-              }
-              else{
-                  par[ry] += par[rx];
-                  par[rx] = ry;
-                  diff[rx] = (-diff[x]) + (-d) + diff[y];
-              }
-              gcount--;
-          }
-          else{
-              if (weight(y) + (-weight(x)) != d){
-                  throw runtime_error("contradiction exist");
-              }
-          }
-          return rx != ry;
-      } /*}}}*/
-      int root(int x) {/*{{{*/
-          if (is_root(x)){
-              return x;
-          }
-          else{
-              int r = root(par[x]);
-              diff[x] += diff[par[x]];
-              par[x] = r;
-              return par[x];
-          }
-      }/*}}}*/
-      Pot weight(int x){/*{{{*/
-          root(x); // 経路圧縮
-          return diff[x];
-      }/*}}}*/
-      Pot diff(int x, int y){/*{{{*/
-          if (!same(x, y)){
-              string s = to_string(x) + " and " + to_string(y) + " are not in the same group.";
-              throw invalid_argument(s);
-          }
-          else{
-              return weight(y) + (-weight(x));
-          }
-      }/*}}}*/
-      bool is_root(int x) { return par[x] < 0; }
-      bool same(int x, int y) { return root(x) == root(y); }
-      int size(int x) { return -par[root(x)]; }
-  #if defined(PCM) || defined(LOCAL)  // {{{
-      friend ostream& operator<<(ostream& os, union_find& uf) {
-          map<int, vector<int>> group;
-          rep(i, sz(uf.par)) { group[uf.root(i)].pb(i); }
-          os << endl;
-          each(g, group) { os << g << endl; }
-          return os;
-      }
-  #endif  // }}}
-  };
-  // snippet:union_find_with_potential }}}
 
 
 snippet union_find
@@ -8758,14 +8758,17 @@ snippet rolling_hash
       static constexpr uint64_t P0 = 1e9+7, P1 = 998244353;
       static uint64_t B0, B1;
       vector<ll> hash0, hash1, _bpow0, _bpow1;  // 1-index
-      rolling_hash() {}
+      int n;
   
+      rolling_hash() {}
       template<class T = vector<int>>
       rolling_hash(T &vs) {
+          n = vs.size();
           init(vs, hash0, B0, P0, _bpow0); 
           init(vs, hash1, B1, P1, _bpow1); 
       }
       rolling_hash(string &s) {
+          n = s.size();
           vector<int> vs;
           for (char c : s) vs.emplace_back(c);
           init(vs, hash0, B0, P0, _bpow0); 
@@ -8774,7 +8777,6 @@ snippet rolling_hash
   
       template<class T>
       void init(T& vs, vector<ll>& hash, ll B, ll P, vector<ll>& _bpow) {
-          int n = vs.size();
           hash.assign(n + 1, 0);
           _bpow.assign(n + 1, 1);
           for (int i = 0; i < n; i++) {
@@ -8783,6 +8785,11 @@ snippet rolling_hash
           }
       }
   
+      pair<ll, ll> get_hash() { // [l, r)
+          ll h0 = _get_hash(0, n, hash0, B0, P0, _bpow0);
+          ll h1 = _get_hash(0, n, hash1, B1, P1, _bpow1);
+          return {h0, h1};
+      }
       pair<ll, ll> get_hash(int l, int r) { // [l, r)
           ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
           ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
@@ -8794,6 +8801,21 @@ snippet rolling_hash
           assert(res>=0);
           return res;
       }
+  
+      pair<ll, ll> merge(pair<ll, ll> x, pair<ll, ll> y, int len_y) {
+          // merge hash: 
+          // How to use
+          // rolling_hash op(vec<int>(n, max_len));
+          // op.merge(rh_s.get_hash(), rh_t.get_hash(), rh_t.n);
+          return {(x.first * _bpow0[len_y] + y.first)%P0, (x.second * _bpow1[len_y] + y.second)%P1};
+      }
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, rolling_hash<X>& rh) {  //
+          os << rh.get_hash();
+          return os;
+      }
+      #endif
   };
   uint64_t rolling_hash::B0 = rng<ll>(1000000, rolling_hash::P0);
   uint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);
