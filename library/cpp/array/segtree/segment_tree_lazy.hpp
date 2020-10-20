@@ -20,6 +20,7 @@ struct segment_tree_lazy {
     const M em;
     vector<X> dat;
     vector<M> lazy;
+    segment_tree_lazy() {}
     segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
         : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
     }
