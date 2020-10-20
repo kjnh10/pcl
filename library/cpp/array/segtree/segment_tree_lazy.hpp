@@ -25,7 +25,6 @@ struct segment_tree_lazy {
         : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
     }
 
-    void set(index i, X x) { dat[i + n - 1] = x; }
     void init(index n_) { 
         N = 1;
         n = n_;
@@ -40,6 +39,17 @@ struct segment_tree_lazy {
         for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
         for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
     } 
+
+    void set(index i, X x) {
+        assert(0 <= i && i < n);
+        query(i, i+1);
+        i += (N - 1);
+        dat[i] = x; 
+        while (i > 0) {
+            i = (i - 1) / 2;
+            dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);
+        }
+    }
 
     /* lazy propagate */
     void propagate(int k) {
