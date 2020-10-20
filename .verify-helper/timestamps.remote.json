@@ -22,5 +22,15 @@
 "library/cpp/graph/tests/two_sat.test.cpp": "2020-10-17 17:32:46 +0900",
 "library/cpp/graph/tree.lib/hld.test.cpp": "2020-10-17 17:32:46 +0900",
 "library/cpp/graph/tree.lib/kth_root.test.cpp": "2020-10-17 17:32:46 +0900",
-"library/cpp/graph/tree.lib/lca.test.cpp": "2020-10-17 17:32:46 +0900"
+"library/cpp/graph/tree.lib/lca.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/graph/tree.lib/lca_non_recursive.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/math/combination.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/math/geometry/area_rect.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/math/geometry/p2.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/math/matrix_pow.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/math/sieve.aoj.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/misc/zipper.lib/zipper.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/misc/zipper.lib/zipper2.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/string/rolling_hash.test.cpp": "2020-10-17 17:32:46 +0900",
+"library/cpp/string/suffix_array.test.cpp": "2020-10-17 17:32:46 +0900"
 }
