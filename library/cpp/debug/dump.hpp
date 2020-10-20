@@ -8,14 +8,16 @@ using namespace std;
 
 #define cerrendl cerr << endl
 
-namespace dump_macro {
-stack<vector<string>> varnames;
-stack<int> varidx;
-}  // namespace dump_macro
+namespace dm {
+    stack<vector<string>> varnames;
+    stack<int> varidx;
+    int i;
+    int j;
+}  // namespace dm
 
 #define dump(...)                                                            \
     {                                                                        \
-        dump_macro::varnames.push([](string s) -> vector<string> {           \
+        dm::varnames.push([](string s) -> vector<string> {           \
             int n = s.size();                                                \
             vector<string> res;                                              \
             string tmp = "";                                                 \
@@ -37,44 +39,46 @@ stack<int> varidx;
             res.push_back(tmp);                                              \
             return res;                                                      \
         }(#__VA_ARGS__));                                                    \
-        dump_macro::varidx.push(0);                                          \
+        dm::varidx.push(0);                                                  \
         dump_func(__VA_ARGS__);                                              \
         DUMPOUT << "in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl; \
-        dump_macro::varnames.pop();                                          \
-        dump_macro::varidx.pop();                                            \
+        dm::varnames.pop();                                                  \
+        dm::varidx.pop();                                                    \
     }
 
-#define dump_1d(x, n)                                                     \
-    {                                                                     \
-        DUMPOUT << "  " << #x << "[" << #n << "]"                         \
-                << ":=> {";                                               \
-        rep(i, n) { DUMPOUT << x[i] << (((i) == (n - 1)) ? "}" : ", "); } \
-        DUMPOUT << " in [" << __LINE__ << "]" << endl;                    \
+#define dump_1d(x, n)                                                        \
+    {                                                                        \
+        DUMPOUT << "  " << #x << "[" << #n << "]"                            \
+                << ":=> {";                                                  \
+        for(dm::i=0; dm::i<n; ++dm::i)                                       \
+            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? "}" : ", ");     \
+        DUMPOUT << " in [" << __LINE__ << "]" << endl;                       \
     }
 
-#define dump_2d(x, n, m)                                      \
-    {                                                         \
-        DUMPOUT << "  " << #x << "[" << #n << "]"             \
-                << "[" << #m << "]"                           \
-                << ":=> \n";                                  \
-        rep(i, n) rep(j, m) {                                 \
-            DUMPOUT << ((j == 0) ? "     |" : " ") << x[i][j] \
-                    << (((j) == (m - 1)) ? "|\n" : " ");      \
-        }                                                     \
-        DUMPOUT << "  in [" << __LINE__ << "]" << endl;       \
+#define dump_2d(x, n, m)                                                     \
+    {                                                                        \
+        DUMPOUT << "  " << #x << "[" << #n << "]"                            \
+                << "[" << #m << "]"                                          \
+                << ":=> \n";                                                 \
+        for(dm::i=0; dm::i<n; ++dm::i)                                       \
+        for(dm::j=0; dm::j<m; ++dm::j) {                                     \
+            DUMPOUT << ((dm::j == 0) ? "     |" : " ") << x[dm::i][dm::j]    \
+                    << (((dm::j) == (m - 1)) ? "|\n" : " ");                 \
+        }                                                                    \
+        DUMPOUT << "  in [" << __LINE__ << "]" << endl;                      \
     }
 
 void dump_func() {}
 template <class Head, class... Tail>
 void dump_func(Head&& head, Tail&&... tail) {
-    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()] << ":"
+    DUMPOUT << dm::varnames.top()[dm::varidx.top()] << ":"
             << head;
     if (sizeof...(Tail) == 0) {
         DUMPOUT << " ";
     } else {
         DUMPOUT << ", ";
     }
-    ++dump_macro::varidx.top();
+    ++dm::varidx.top();
     dump_func(std::move(tail)...);
 }
 
