@@ -14,7 +14,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/math/bsgs/bsgs.cpp
     title: library/cpp/math/bsgs/bsgs.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
   - icon: ':warning:'
@@ -24,14 +24,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/matrix_pow.test.cpp
     title: library/cpp/math/matrix_pow.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -122,7 +122,7 @@ data:
   - library/cpp/math/bsgs/bsgs.cpp
   - library/cpp/math/gbsgs/gbsgs.cpp
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - library/cpp/math/matrix_pow.test.cpp

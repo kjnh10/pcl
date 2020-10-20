@@ -12,11 +12,11 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
@@ -373,7 +373,7 @@ data:
   path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   requiredBy: []
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
 documentation_of: library/cpp/graph/tree.lib/tree_non_recursive.hpp

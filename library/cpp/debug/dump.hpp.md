@@ -13,66 +13,70 @@ data:
     - http://www.creativ.xyz/dump-cpp-652
   bundledCode: "#line 2 \"library/cpp/debug/dump.hpp\"\n\n// http://www.creativ.xyz/dump-cpp-652\n\
     using namespace std;\n#include <bits/stdc++.h>\n\n#define DUMPOUT cerr  // where\
-    \ to dump. cout or cerr\n\n#define cerrendl cerr << endl\n\nnamespace dump_macro\
-    \ {\nstack<vector<string>> varnames;\nstack<int> varidx;\n}  // namespace dump_macro\n\
-    \n#define dump(...)                                                          \
-    \  \\\n    {                                                                 \
-    \       \\\n        dump_macro::varnames.push([](string s) -> vector<string> {\
-    \           \\\n            int n = s.size();                                \
-    \                \\\n            vector<string> res;                         \
-    \                     \\\n            string tmp = \"\";                     \
-    \                            \\\n            int parlevel = 0;               \
-    \                                 \\\n            int angle_level = 0;       \
-    \                                      \\\n            for (int i = 0; i < n;\
-    \ i++) {                                    \\\n                if (s[i] == '(')\
-    \ parlevel++;                                 \\\n                if (s[i] ==\
-    \ ')') parlevel--;                                 \\\n                if (s[i]\
-    \ == '<') angle_level++;                              \\\n                if (s[i]\
-    \ == '>') angle_level--;                              \\\n                if (s[i]\
-    \ == ' ') continue;                                   \\\n                if (s[i]\
-    \ == ',' && parlevel == 0 && angle_level == 0) {      \\\n                   \
-    \ res.push_back(tmp);                                      \\\n              \
-    \      tmp = \"\";                                                \\\n       \
-    \         } else {                                                     \\\n  \
-    \                  tmp += s[i];                                             \\\
-    \n                }                                                          \
-    \  \\\n            }                                                         \
-    \       \\\n            res.push_back(tmp);                                  \
-    \            \\\n            return res;                                     \
-    \                 \\\n        }(#__VA_ARGS__));                              \
-    \                      \\\n        dump_macro::varidx.push(0);               \
-    \                           \\\n        dump_func(__VA_ARGS__);              \
-    \                                \\\n        DUMPOUT << \"in [\" << __LINE__ <<\
-    \ \":\" << __FUNCTION__ << \"]\" << endl; \\\n        dump_macro::varnames.pop();\
-    \                                          \\\n        dump_macro::varidx.pop();\
-    \                                            \\\n    }\n\n#define dump_1d(x, n)\
-    \                                                     \\\n    {              \
-    \                                                       \\\n        DUMPOUT <<\
-    \ \"  \" << #x << \"[\" << #n << \"]\"                         \\\n          \
-    \      << \":=> {\";                                               \\\n      \
-    \  rep(i, n) { DUMPOUT << x[i] << (((i) == (n - 1)) ? \"}\" : \", \"); } \\\n\
-    \        DUMPOUT << \" in [\" << __LINE__ << \"]\" << endl;                  \
-    \  \\\n    }\n\n#define dump_2d(x, n, m)                                     \
-    \ \\\n    {                                                         \\\n     \
-    \   DUMPOUT << \"  \" << #x << \"[\" << #n << \"]\"             \\\n         \
-    \       << \"[\" << #m << \"]\"                           \\\n               \
-    \ << \":=> \\n\";                                  \\\n        rep(i, n) rep(j,\
-    \ m) {                                 \\\n            DUMPOUT << ((j == 0) ?\
-    \ \"     |\" : \" \") << x[i][j] \\\n                    << (((j) == (m - 1))\
-    \ ? \"|\\n\" : \" \");      \\\n        }                                    \
-    \                 \\\n        DUMPOUT << \"  in [\" << __LINE__ << \"]\" << endl;\
-    \       \\\n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\n\
-    void dump_func(Head&& head, Tail&&... tail) {\n    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()]\
-    \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
-    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dump_macro::varidx.top();\n\
-    \    dump_func(std::move(tail)...);\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\
-    \n//          Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the\
-    \ Boost Software License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt\
-    \ or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty\
-    \ printing library for C++\n//\n// Usage:\n// Include this header, and operator<<\
-    \ will \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include\
-    \ <cstddef>\n#include <iterator>\n#include <memory>\n#include <ostream>\n#include\
-    \ <set>\n#include <tuple>\n#include <type_traits>\n#include <unordered_set>\n\
+    \ to dump. cout or cerr\n\n#define cerrendl cerr << endl\n\nnamespace dm {\n \
+    \   stack<vector<string>> varnames;\n    stack<int> varidx;\n    int i;\n    int\
+    \ j;\n}  // namespace dm\n\n#define dump(...)                                \
+    \                            \\\n    {                                       \
+    \                                 \\\n        dm::varnames.push([](string s) ->\
+    \ vector<string> {           \\\n            int n = s.size();               \
+    \                                 \\\n            vector<string> res;        \
+    \                                      \\\n            string tmp = \"\";    \
+    \                                             \\\n            int parlevel = 0;\
+    \                                                \\\n            int angle_level\
+    \ = 0;                                             \\\n            for (int i\
+    \ = 0; i < n; i++) {                                    \\\n                if\
+    \ (s[i] == '(') parlevel++;                                 \\\n             \
+    \   if (s[i] == ')') parlevel--;                                 \\\n        \
+    \        if (s[i] == '<') angle_level++;                              \\\n   \
+    \             if (s[i] == '>') angle_level--;                              \\\n\
+    \                if (s[i] == ' ') continue;                                  \
+    \ \\\n                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {\
+    \      \\\n                    res.push_back(tmp);                           \
+    \           \\\n                    tmp = \"\";                              \
+    \                  \\\n                } else {                              \
+    \                       \\\n                    tmp += s[i];                 \
+    \                            \\\n                }                           \
+    \                                 \\\n            }                          \
+    \                                      \\\n            res.push_back(tmp);   \
+    \                                           \\\n            return res;      \
+    \                                                \\\n        }(#__VA_ARGS__));\
+    \                                                    \\\n        dm::varidx.push(0);\
+    \                                                  \\\n        dump_func(__VA_ARGS__);\
+    \                                              \\\n        DUMPOUT << \"in [\"\
+    \ << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl; \\\n        dm::varnames.pop();\
+    \                                                  \\\n        dm::varidx.pop();\
+    \                                                    \\\n    }\n\n#define dump_1d(x,\
+    \ n)                                                        \\\n    {        \
+    \                                                                \\\n        DUMPOUT\
+    \ << \"  \" << #x << \"[\" << #n << \"]\"                            \\\n    \
+    \            << \":=> {\";                                                  \\\
+    \n        for(dm::i=0; dm::i<n; ++dm::i)                                     \
+    \  \\\n            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? \"}\" : \"\
+    , \");     \\\n        DUMPOUT << \" in [\" << __LINE__ << \"]\" << endl;    \
+    \                   \\\n    }\n\n#define dump_2d(x, n, m)                    \
+    \                                 \\\n    {                                  \
+    \                                      \\\n        DUMPOUT << \"  \" << #x <<\
+    \ \"[\" << #n << \"]\"                            \\\n                << \"[\"\
+    \ << #m << \"]\"                                          \\\n               \
+    \ << \":=> \\n\";                                                 \\\n       \
+    \ for(dm::i=0; dm::i<n; ++dm::i)                                       \\\n  \
+    \      for(dm::j=0; dm::j<m; ++dm::j) {                                     \\\
+    \n            DUMPOUT << ((dm::j == 0) ? \"     |\" : \" \") << x[dm::i][dm::j]\
+    \    \\\n                    << (((dm::j) == (m - 1)) ? \"|\\n\" : \" \");   \
+    \              \\\n        }                                                 \
+    \                   \\\n        DUMPOUT << \"  in [\" << __LINE__ << \"]\" <<\
+    \ endl;                      \\\n    }\n\nvoid dump_func() {}\ntemplate <class\
+    \ Head, class... Tail>\nvoid dump_func(Head&& head, Tail&&... tail) {\n    DUMPOUT\
+    \ << dm::varnames.top()[dm::varidx.top()] << \":\"\n            << head;\n   \
+    \ if (sizeof...(Tail) == 0) {\n        DUMPOUT << \" \";\n    } else {\n     \
+    \   DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n    dump_func(std::move(tail)...);\n\
+    }\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\n//          Copyright Louis\
+    \ Delacroix 2010 - 2014.\n// Distributed under the Boost Software License, Version\
+    \ 1.0.\n//    (See accompanying file LICENSE_1_0.txt or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n\
+    //\n// A pretty printing library for C++\n//\n// Usage:\n// Include this header,\
+    \ and operator<< will \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\
+    \n#include <cstddef>\n#include <iterator>\n#include <memory>\n#include <ostream>\n\
+    #include <set>\n#include <tuple>\n#include <type_traits>\n#include <unordered_set>\n\
     #include <utility>\n#include <valarray>\n\nnamespace pretty_print {\nnamespace\
     \ detail {\n// SFINAE type trait to detect whether T::const_iterator exists.\n\
     \nstruct sfinae_base {\n    using yes = char;\n    using no = yes[2];\n};\n\n\
@@ -275,14 +279,14 @@ data:
     \ TCharTraits> &stream, const T &container) {\n    return stream\n           <<\
     \ ::pretty_print::print_container_helper<T, TChar, TCharTraits>(\n           \
     \       container);\n}\n}  // namespace std\n\n#endif  // H_PRETTY_PRINT\n#line\
-    \ 82 \"library/cpp/debug/dump.hpp\"\n"
+    \ 86 \"library/cpp/debug/dump.hpp\"\n"
   code: "#pragma once\n\n// http://www.creativ.xyz/dump-cpp-652\nusing namespace std;\n\
     #include <bits/stdc++.h>\n\n#define DUMPOUT cerr  // where to dump. cout or cerr\n\
-    \n#define cerrendl cerr << endl\n\nnamespace dump_macro {\nstack<vector<string>>\
-    \ varnames;\nstack<int> varidx;\n}  // namespace dump_macro\n\n#define dump(...)\
-    \                                                            \\\n    {       \
-    \                                                                 \\\n       \
-    \ dump_macro::varnames.push([](string s) -> vector<string> {           \\\n  \
+    \n#define cerrendl cerr << endl\n\nnamespace dm {\n    stack<vector<string>> varnames;\n\
+    \    stack<int> varidx;\n    int i;\n    int j;\n}  // namespace dm\n\n#define\
+    \ dump(...)                                                            \\\n  \
+    \  {                                                                        \\\
+    \n        dm::varnames.push([](string s) -> vector<string> {           \\\n  \
     \          int n = s.size();                                                \\\
     \n            vector<string> res;                                            \
     \  \\\n            string tmp = \"\";                                        \
@@ -305,38 +309,42 @@ data:
     \    res.push_back(tmp);                                              \\\n   \
     \         return res;                                                      \\\n\
     \        }(#__VA_ARGS__));                                                   \
-    \ \\\n        dump_macro::varidx.push(0);                                    \
+    \ \\\n        dm::varidx.push(0);                                            \
     \      \\\n        dump_func(__VA_ARGS__);                                   \
     \           \\\n        DUMPOUT << \"in [\" << __LINE__ << \":\" << __FUNCTION__\
-    \ << \"]\" << endl; \\\n        dump_macro::varnames.pop();                  \
-    \                        \\\n        dump_macro::varidx.pop();               \
+    \ << \"]\" << endl; \\\n        dm::varnames.pop();                          \
+    \                        \\\n        dm::varidx.pop();                       \
     \                             \\\n    }\n\n#define dump_1d(x, n)             \
-    \                                        \\\n    {                           \
-    \                                          \\\n        DUMPOUT << \"  \" << #x\
-    \ << \"[\" << #n << \"]\"                         \\\n                << \":=>\
-    \ {\";                                               \\\n        rep(i, n) { DUMPOUT\
-    \ << x[i] << (((i) == (n - 1)) ? \"}\" : \", \"); } \\\n        DUMPOUT << \"\
-    \ in [\" << __LINE__ << \"]\" << endl;                    \\\n    }\n\n#define\
-    \ dump_2d(x, n, m)                                      \\\n    {            \
-    \                                             \\\n        DUMPOUT << \"  \" <<\
-    \ #x << \"[\" << #n << \"]\"             \\\n                << \"[\" << #m <<\
-    \ \"]\"                           \\\n                << \":=> \\n\";        \
-    \                          \\\n        rep(i, n) rep(j, m) {                 \
-    \                \\\n            DUMPOUT << ((j == 0) ? \"     |\" : \" \") <<\
-    \ x[i][j] \\\n                    << (((j) == (m - 1)) ? \"|\\n\" : \" \");  \
-    \    \\\n        }                                                     \\\n  \
-    \      DUMPOUT << \"  in [\" << __LINE__ << \"]\" << endl;       \\\n    }\n\n\
-    void dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
-    \ head, Tail&&... tail) {\n    DUMPOUT << dump_macro::varnames.top()[dump_macro::varidx.top()]\
+    \                                           \\\n    {                        \
+    \                                                \\\n        DUMPOUT << \"  \"\
+    \ << #x << \"[\" << #n << \"]\"                            \\\n              \
+    \  << \":=> {\";                                                  \\\n       \
+    \ for(dm::i=0; dm::i<n; ++dm::i)                                       \\\n  \
+    \          DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? \"}\" : \", \");  \
+    \   \\\n        DUMPOUT << \" in [\" << __LINE__ << \"]\" << endl;           \
+    \            \\\n    }\n\n#define dump_2d(x, n, m)                           \
+    \                          \\\n    {                                         \
+    \                               \\\n        DUMPOUT << \"  \" << #x << \"[\" <<\
+    \ #n << \"]\"                            \\\n                << \"[\" << #m <<\
+    \ \"]\"                                          \\\n                << \":=>\
+    \ \\n\";                                                 \\\n        for(dm::i=0;\
+    \ dm::i<n; ++dm::i)                                       \\\n        for(dm::j=0;\
+    \ dm::j<m; ++dm::j) {                                     \\\n            DUMPOUT\
+    \ << ((dm::j == 0) ? \"     |\" : \" \") << x[dm::i][dm::j]    \\\n          \
+    \          << (((dm::j) == (m - 1)) ? \"|\\n\" : \" \");                 \\\n\
+    \        }                                                                   \
+    \ \\\n        DUMPOUT << \"  in [\" << __LINE__ << \"]\" << endl;            \
+    \          \\\n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\n\
+    void dump_func(Head&& head, Tail&&... tail) {\n    DUMPOUT << dm::varnames.top()[dm::varidx.top()]\
     \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
-    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dump_macro::varidx.top();\n\
+    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
     \    dump_func(std::move(tail)...);\n}\n\n#include \"prettyprint.hpp\"\n"
   dependsOn:
   - library/cpp/debug/prettyprint.hpp
   isVerificationFile: false
   path: library/cpp/debug/dump.hpp
   requiredBy: []
-  timestamp: '2020-09-23 01:01:45+09:00'
+  timestamp: '2020-10-20 20:05:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/debug/dump.hpp

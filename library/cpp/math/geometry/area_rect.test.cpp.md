@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/area_rect.hpp
     title: library/cpp/math/geometry/area_rect.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/1074
@@ -75,7 +75,7 @@ data:
   path: library/cpp/math/geometry/area_rect.test.cpp
   requiredBy: []
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/area_rect.test.cpp
 layout: document

@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':x:'
+  - icon: ':question:'
     path: library/cpp/math/sieve.hpp
     title: library/cpp/math/sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja
@@ -92,7 +92,7 @@ data:
   path: library/cpp/math/sieve.aoj.test.cpp
   requiredBy: []
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/sieve.aoj.test.cpp
 layout: document

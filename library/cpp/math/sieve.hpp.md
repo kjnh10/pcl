@@ -6,14 +6,14 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.aoj.test.cpp
     title: library/cpp/math/sieve.aoj.test.cpp
   - icon: ':x:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -110,7 +110,7 @@ data:
   path: library/cpp/math/sieve.hpp
   requiredBy: []
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/math/sieve.aoj.test.cpp
   - library/cpp/math/sieve.test.cpp

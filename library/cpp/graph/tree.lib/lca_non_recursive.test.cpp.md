@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/edge.hpp
     title: library/cpp/graph/edge.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
     title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - icon: ':question:'
@@ -16,7 +16,7 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/lca
@@ -269,7 +269,7 @@ data:
   path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   requiredBy: []
   timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
 layout: document
