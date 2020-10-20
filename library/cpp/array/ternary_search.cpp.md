@@ -11,17 +11,17 @@ data:
     ll l = 0;\nll r = 1000000001;\n\n// ll num = 100;\n// while(num--){\nwhile(r-l>2){\n\
     \    ll d = (r-l)/3;\n    ll ml = l + d;\n    ll mr = l + 2*d;\n    if ((score(ml)\
     \ < score(mr))){\n        r = mr;\n    }\n    else{\n        l = ml;\n    }\n\
-    }\ndump(l, r);\nll ans = INF;\nrep(i, l, r+1) chmin(ans, score(i));\n"
+    }\ndump(l, r);\nll ans = inf<ll>;\nrep(i, l, r+1) chmin(ans, score(i));\n"
   code: "//%snippet.set('tsearch')%\nll l = 0;\nll r = 1000000001;\n\n// ll num =\
     \ 100;\n// while(num--){\nwhile(r-l>2){\n    ll d = (r-l)/3;\n    ll ml = l +\
     \ d;\n    ll mr = l + 2*d;\n    if ((score(ml) < score(mr))){\n        r = mr;\n\
-    \    }\n    else{\n        l = ml;\n    }\n}\ndump(l, r);\nll ans = INF;\nrep(i,\
-    \ l, r+1) chmin(ans, score(i));\n"
+    \    }\n    else{\n        l = ml;\n    }\n}\ndump(l, r);\nll ans = inf<ll>;\n\
+    rep(i, l, r+1) chmin(ans, score(i));\n"
   dependsOn: []
   isVerificationFile: false
   path: library/cpp/array/ternary_search.cpp
   requiredBy: []
-  timestamp: '2020-05-18 01:47:07+09:00'
+  timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/ternary_search.cpp

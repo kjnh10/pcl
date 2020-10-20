@@ -96,13 +96,13 @@ data:
       title: library/cpp/debug/prettyprint.hpp
   - name: library/cpp/graph
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/bellman_ford.hpp
       title: library/cpp/graph/bellman_ford.hpp
     - icon: ':question:'
       path: library/cpp/graph/edge.hpp
       title: library/cpp/graph/edge.hpp
-    - icon: ':warning:'
+    - icon: ':question:'
       path: library/cpp/graph/graph.hpp
       title: library/cpp/graph/graph.hpp
     - icon: ':warning:'
@@ -111,21 +111,21 @@ data:
     - icon: ':warning:'
       path: library/cpp/graph/local_min_cycle.hpp
       title: library/cpp/graph/local_min_cycle.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/strongly_connected_components.hpp
       title: library/cpp/graph/strongly_connected_components.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/topological_sort.hpp
       title: library/cpp/graph/topological_sort.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/two_sat.hpp
       title: library/cpp/graph/two_sat.hpp
-    - icon: ':x:'
-      path: library/cpp/graph/unionfind.hpp
-      title: library/cpp/graph/unionfind.hpp
+    - icon: ':question:'
+      path: library/cpp/graph/union_find.hpp
+      title: library/cpp/graph/union_find.hpp
     - icon: ':warning:'
-      path: library/cpp/graph/unionfind_with_potential.hpp
-      title: library/cpp/graph/unionfind_with_potential.hpp
+      path: library/cpp/graph/union_find_with_potential.hpp
+      title: library/cpp/graph/union_find_with_potential.hpp
   - name: library/cpp/graph/flow
     pages:
     - icon: ':warning:'
@@ -137,14 +137,6 @@ data:
     - icon: ':warning:'
       path: library/cpp/graph/flow/misawa_b_flow.hpp
       title: library/cpp/graph/flow/misawa_b_flow.hpp
-  - name: library/cpp/graph/tree.lib/hld.test/test
-    pages:
-    - icon: ':warning:'
-      path: library/cpp/graph/tree.lib/hld.test/test/gen.py
-      title: library/cpp/graph/tree.lib/hld.test/test/gen.py
-    - icon: ':warning:'
-      path: library/cpp/graph/tree.lib/hld.test/test/judge.cpp
-      title: library/cpp/graph/tree.lib/hld.test/test/judge.cpp
   - name: library/cpp/graph/tree.lib
     pages:
     - icon: ':heavy_check_mark:'
@@ -156,7 +148,7 @@ data:
     - icon: ':question:'
       path: library/cpp/graph/tree.lib/tree.hpp
       title: library/cpp/graph/tree.lib/tree.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
       title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - name: library/cpp
@@ -182,7 +174,7 @@ data:
       title: library/cpp/math/bsgs/test/gen.py
   - name: library/cpp/math
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/combination.hpp
       title: library/cpp/math/combination.hpp
     - icon: ':warning:'
@@ -191,10 +183,10 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/int.cpp
       title: library/cpp/math/int.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/matrix_pow.hpp
       title: library/cpp/math/matrix_pow.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/math/mint.hpp
       title: library/cpp/math/mint.hpp
     - icon: ':warning:'
@@ -206,7 +198,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/rational.hpp
       title: library/cpp/math/rational.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/sieve.hpp
       title: library/cpp/math/sieve.hpp
   - name: library/cpp/math/gbsgs
@@ -227,7 +219,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/geometry/angle.hpp
       title: library/cpp/math/geometry/angle.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/area_rect.hpp
       title: library/cpp/math/geometry/area_rect.hpp
     - icon: ':warning:'
@@ -236,7 +228,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/geometry/dist_between_line_and_point.cpp
       title: library/cpp/math/geometry/dist_between_line_and_point.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/math/geometry/p2.hpp
       title: library/cpp/math/geometry/p2.hpp
     - icon: ':warning:'
@@ -402,31 +394,31 @@ data:
       title: library/cpp/graph/flow/dinic.test.cpp
   - name: library/cpp/graph/tests
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/bellman_ford.test.cpp
       title: library/cpp/graph/tests/bellman_ford.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.2dcost.test.cpp
       title: library/cpp/graph/tests/graph.2dcost.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.bridge.test.cpp
       title: library/cpp/graph/tests/graph.bridge.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.dijkstra.test.cpp
       title: library/cpp/graph/tests/graph.dijkstra.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.kruskal.test.cpp
       title: library/cpp/graph/tests/graph.kruskal.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/graph.lowlink.test.cpp
       title: library/cpp/graph/tests/graph.lowlink.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/scc.test.cpp
       title: library/cpp/graph/tests/scc.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/topological_sort.test.cpp
       title: library/cpp/graph/tests/topological_sort.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/two_sat.test.cpp
       title: library/cpp/graph/tests/two_sat.test.cpp
   - name: library/cpp/graph/tree.lib
@@ -440,29 +432,29 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca.test.cpp
       title: library/cpp/graph/tree.lib/lca.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
       title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - name: library/cpp/math
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/combination.test.cpp
       title: library/cpp/math/combination.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/matrix_pow.test.cpp
       title: library/cpp/math/matrix_pow.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/sieve.aoj.test.cpp
       title: library/cpp/math/sieve.aoj.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/sieve.test.cpp
       title: library/cpp/math/sieve.test.cpp
   - name: library/cpp/math/geometry
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/area_rect.test.cpp
       title: library/cpp/math/geometry/area_rect.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/p2.test.cpp
       title: library/cpp/math/geometry/p2.test.cpp
   - name: library/cpp/misc/zipper.lib

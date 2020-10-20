@@ -30,8 +30,6 @@ data:
 
     // varibable settings
 
-    const long long INF = 1e18;
-
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 
@@ -146,8 +144,6 @@ data:
 
     // varibable settings
 
-    const long long INF = 1e18;
-
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 
@@ -251,7 +247,7 @@ data:
   requiredBy:
   - library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
   - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
-  timestamp: '2020-09-24 23:26:52+09:00'
+  timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp

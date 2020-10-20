@@ -32,10 +32,10 @@ data:
     \ __builtin_clz(n));  // \u6700\u5927\u6841\u306Ed: (2^d)\n// ll f = N - d; to_bin()\u3067\
     \u8FD4\u3063\u3066\u304D\u305F\u6587\u5B57\u5217\u3067\u6700\u521D\u306B1\u304C\
     \u7ACB\u3063\u3066\u3044\u308Bindex\n\n//%snippet.set('warsharll')%\n// init\n\
-    vector<vector<ll>> d(n, vector<ll>(n, INF));\nrep(i, n)rep(j, n){\n    if (i==j)\
-    \ d[i][j] = 0;\n}\n\n// input\n${0};\n\n// calc\nrep(k, n){\n    rep(i, n){\n\
-    \        rep(j, n){\n            chmin(d[i][j], d[i][k]+d[k][j]);\n        }\n\
-    \    }\n}\ndump_2d(d, n, n);\n\n\n//%snippet.set('digitdp')%\nll n = sz(s);\n\
+    vector<vector<ll>> d(n, vector<ll>(n, inf<ll>));\nrep(i, n)rep(j, n){\n    if\
+    \ (i==j) d[i][j] = 0;\n}\n\n// input\n${0};\n\n// calc\nrep(k, n){\n    rep(i,\
+    \ n){\n        rep(j, n){\n            chmin(d[i][j], d[i][k]+d[k][j]);\n    \
+    \    }\n    }\n}\ndump_2d(d, n, n);\n\n\n//%snippet.set('digitdp')%\nll n = sz(s);\n\
     vector<vector<ll>> dp(2, vector<ll>(n));\ndp[0][0] = 1;\nrep(i, 1, n+1){  //\u6841\
     \u6570\n    rep(leq, 2){  //\u672A\u6E80\u78BA\u5B9A\u30D5\u30E9\u30B0\n     \
     \   ll lim = leq ? 9 : s[i-1]-'0';\n        rep(d, lim+1){\n            dp[leq\
@@ -136,10 +136,10 @@ data:
     \ __builtin_clz(n));  // \u6700\u5927\u6841\u306Ed: (2^d)\n// ll f = N - d; to_bin()\u3067\
     \u8FD4\u3063\u3066\u304D\u305F\u6587\u5B57\u5217\u3067\u6700\u521D\u306B1\u304C\
     \u7ACB\u3063\u3066\u3044\u308Bindex\n\n//%snippet.set('warsharll')%\n// init\n\
-    vector<vector<ll>> d(n, vector<ll>(n, INF));\nrep(i, n)rep(j, n){\n    if (i==j)\
-    \ d[i][j] = 0;\n}\n\n// input\n${0};\n\n// calc\nrep(k, n){\n    rep(i, n){\n\
-    \        rep(j, n){\n            chmin(d[i][j], d[i][k]+d[k][j]);\n        }\n\
-    \    }\n}\ndump_2d(d, n, n);\n\n\n//%snippet.set('digitdp')%\nll n = sz(s);\n\
+    vector<vector<ll>> d(n, vector<ll>(n, inf<ll>));\nrep(i, n)rep(j, n){\n    if\
+    \ (i==j) d[i][j] = 0;\n}\n\n// input\n${0};\n\n// calc\nrep(k, n){\n    rep(i,\
+    \ n){\n        rep(j, n){\n            chmin(d[i][j], d[i][k]+d[k][j]);\n    \
+    \    }\n    }\n}\ndump_2d(d, n, n);\n\n\n//%snippet.set('digitdp')%\nll n = sz(s);\n\
     vector<vector<ll>> dp(2, vector<ll>(n));\ndp[0][0] = 1;\nrep(i, 1, n+1){  //\u6841\
     \u6570\n    rep(leq, 2){  //\u672A\u6E80\u78BA\u5B9A\u30D5\u30E9\u30B0\n     \
     \   ll lim = leq ? 9 : s[i-1]-'0';\n        rep(d, lim+1){\n            dp[leq\
@@ -219,7 +219,7 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-10-11 21:18:34+09:00'
+  timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

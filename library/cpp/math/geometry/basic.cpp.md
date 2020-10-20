@@ -31,8 +31,6 @@ data:
 
     // varibable settings
 
-    const long long INF = 1e18;
-
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 
 
@@ -192,7 +190,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/geometry/basic.cpp
   requiredBy: []
-  timestamp: '2020-10-15 12:21:18+09:00'
+  timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/basic.cpp
