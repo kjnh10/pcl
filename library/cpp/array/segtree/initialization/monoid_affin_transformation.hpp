@@ -1,3 +1,4 @@
+#include "../../../math/mint.hpp"
 #include "../segment_tree_lazy.hpp"
 
 //%snippet.set('monoid_affin_transformation')%
