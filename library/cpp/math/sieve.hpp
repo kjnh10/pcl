@@ -26,7 +26,7 @@ struct Sieve {/*{{{*/
     }
 
     vector<ll> factor_list(ll x) { /*{{{*/
-        assert(x <= n*n); // これが満たされないと正しく計算されない可能性がある。
+        assert(0 < x && x <= n*n); // これが満たされないと正しく計算されない可能性がある。
 
         vector<ll> res;
         if (x <= n) {

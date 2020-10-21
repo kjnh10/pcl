@@ -10,7 +10,7 @@ bool is_prime_naive(ll n) { /*{{{*/
 
 uint64_t rng() {
     static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());
-    return uniform_int_distribution<uint64_t>(0, sv.n * 2)(x);
+    return uniform_int_distribution<uint64_t>(1, sv.n * 2)(x);
 }
 
 void test(ll m){
