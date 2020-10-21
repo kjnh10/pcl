@@ -125,8 +125,8 @@ data:
   timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/misc/zipper.lib/zipper.test.cpp
   - library/cpp/misc/zipper.lib/zipper2.test.cpp
+  - library/cpp/misc/zipper.lib/zipper.test.cpp
 documentation_of: library/cpp/misc/zipper.lib/zipper.hpp
 layout: document
 redirect_from:

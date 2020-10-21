@@ -198,7 +198,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/rational.hpp
       title: library/cpp/math/rational.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/math/sieve.hpp
       title: library/cpp/math/sieve.hpp
   - name: library/cpp/math/gbsgs
@@ -446,7 +446,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/sieve.aoj.test.cpp
       title: library/cpp/math/sieve.aoj.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/math/sieve.test.cpp
       title: library/cpp/math/sieve.test.cpp
   - name: library/cpp/math/geometry

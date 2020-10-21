@@ -382,8 +382,8 @@ data:
   timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/graph/tests/two_sat.test.cpp
   - library/cpp/graph/tests/topological_sort.test.cpp
+  - library/cpp/graph/tests/two_sat.test.cpp
 documentation_of: library/cpp/graph/topological_sort.hpp
 layout: document
 redirect_from:

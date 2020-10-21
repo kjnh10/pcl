@@ -9,11 +9,11 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.aoj.test.cpp
     title: library/cpp/math/sieve.aoj.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -55,21 +55,21 @@ data:
     \   f[i] = i;\n            for (ll j = i * i; j <= n; j += i) {\n            \
     \    if (!f[j]) f[j] = i;\n            }\n        }\n    } /*}}}*/\n    bool is_prime(ll\
     \ x) {\n        if (x <= n) return f[x] == x; \n        return sz(factor_list(x))\
-    \ == 1;\n    }\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(x\
-    \ <= n*n); // \u3053\u308C\u304C\u6E80\u305F\u3055\u308C\u306A\u3044\u3068\u6B63\
-    \u3057\u304F\u8A08\u7B97\u3055\u308C\u306A\u3044\u53EF\u80FD\u6027\u304C\u3042\
-    \u308B\u3002\n\n        vector<ll> res;\n        if (x <= n) {\n            while\
-    \ (x != 1) {\n                res.push_back(f[x]);\n                x /= f[x];\n\
-    \            }\n        }\n        else {\n            for (ll i = 0; primes[i]\
-    \ * primes[i] <= x; i++) {\n                while (x % primes[i] == 0) {\n   \
-    \                 res.pb(primes[i]);\n                    x /= primes[i];\n  \
-    \              }\n            }\n            if (x != 1) res.pb(x);\n        }\n\
-    \n        return res;  // [2, 3, 3, 5, 5, 5.....]\n    }                /*}}}*/\n\
-    \n    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/\n        // just change\
-    \ fl vector to map form\n        vector<ll> fl = factor_list(x);\n        if (fl.size()\
-    \ == 0) return {};\n        vector<pair<ll, ll>> res = {mp(fl[0], 0)};\n     \
-    \   for (ll p : fl) {\n            if (res.back().first == p) {\n            \
-    \    res.back().second++;\n            } else {\n                res.emplace_back(p,\
+    \ == 1;\n    }\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(0\
+    \ < x && x <= n*n); // \u3053\u308C\u304C\u6E80\u305F\u3055\u308C\u306A\u3044\u3068\
+    \u6B63\u3057\u304F\u8A08\u7B97\u3055\u308C\u306A\u3044\u53EF\u80FD\u6027\u304C\
+    \u3042\u308B\u3002\n\n        vector<ll> res;\n        if (x <= n) {\n       \
+    \     while (x != 1) {\n                res.push_back(f[x]);\n               \
+    \ x /= f[x];\n            }\n        }\n        else {\n            for (ll i\
+    \ = 0; primes[i] * primes[i] <= x; i++) {\n                while (x % primes[i]\
+    \ == 0) {\n                    res.pb(primes[i]);\n                    x /= primes[i];\n\
+    \                }\n            }\n            if (x != 1) res.pb(x);\n      \
+    \  }\n\n        return res;  // [2, 3, 3, 5, 5, 5.....]\n    }               \
+    \ /*}}}*/\n\n    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/\n        //\
+    \ just change fl vector to map form\n        vector<ll> fl = factor_list(x);\n\
+    \        if (fl.size() == 0) return {};\n        vector<pair<ll, ll>> res = {mp(fl[0],\
+    \ 0)};\n        for (ll p : fl) {\n            if (res.back().first == p) {\n\
+    \                res.back().second++;\n            } else {\n                res.emplace_back(p,\
     \ 1);\n            }\n        }\n        return res;  // [(2,1), (3,2), (5,3),\
     \ .....]\n    }                /*}}}*/\n};/*}}}*/\nSieve sv(1e6);\n// How to use\n\
     \    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\n    // sv.prime_factor(x);\
@@ -85,21 +85,21 @@ data:
     \   f[i] = i;\n            for (ll j = i * i; j <= n; j += i) {\n            \
     \    if (!f[j]) f[j] = i;\n            }\n        }\n    } /*}}}*/\n    bool is_prime(ll\
     \ x) {\n        if (x <= n) return f[x] == x; \n        return sz(factor_list(x))\
-    \ == 1;\n    }\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(x\
-    \ <= n*n); // \u3053\u308C\u304C\u6E80\u305F\u3055\u308C\u306A\u3044\u3068\u6B63\
-    \u3057\u304F\u8A08\u7B97\u3055\u308C\u306A\u3044\u53EF\u80FD\u6027\u304C\u3042\
-    \u308B\u3002\n\n        vector<ll> res;\n        if (x <= n) {\n            while\
-    \ (x != 1) {\n                res.push_back(f[x]);\n                x /= f[x];\n\
-    \            }\n        }\n        else {\n            for (ll i = 0; primes[i]\
-    \ * primes[i] <= x; i++) {\n                while (x % primes[i] == 0) {\n   \
-    \                 res.pb(primes[i]);\n                    x /= primes[i];\n  \
-    \              }\n            }\n            if (x != 1) res.pb(x);\n        }\n\
-    \n        return res;  // [2, 3, 3, 5, 5, 5.....]\n    }                /*}}}*/\n\
-    \n    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/\n        // just change\
-    \ fl vector to map form\n        vector<ll> fl = factor_list(x);\n        if (fl.size()\
-    \ == 0) return {};\n        vector<pair<ll, ll>> res = {mp(fl[0], 0)};\n     \
-    \   for (ll p : fl) {\n            if (res.back().first == p) {\n            \
-    \    res.back().second++;\n            } else {\n                res.emplace_back(p,\
+    \ == 1;\n    }\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(0\
+    \ < x && x <= n*n); // \u3053\u308C\u304C\u6E80\u305F\u3055\u308C\u306A\u3044\u3068\
+    \u6B63\u3057\u304F\u8A08\u7B97\u3055\u308C\u306A\u3044\u53EF\u80FD\u6027\u304C\
+    \u3042\u308B\u3002\n\n        vector<ll> res;\n        if (x <= n) {\n       \
+    \     while (x != 1) {\n                res.push_back(f[x]);\n               \
+    \ x /= f[x];\n            }\n        }\n        else {\n            for (ll i\
+    \ = 0; primes[i] * primes[i] <= x; i++) {\n                while (x % primes[i]\
+    \ == 0) {\n                    res.pb(primes[i]);\n                    x /= primes[i];\n\
+    \                }\n            }\n            if (x != 1) res.pb(x);\n      \
+    \  }\n\n        return res;  // [2, 3, 3, 5, 5, 5.....]\n    }               \
+    \ /*}}}*/\n\n    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/\n        //\
+    \ just change fl vector to map form\n        vector<ll> fl = factor_list(x);\n\
+    \        if (fl.size() == 0) return {};\n        vector<pair<ll, ll>> res = {mp(fl[0],\
+    \ 0)};\n        for (ll p : fl) {\n            if (res.back().first == p) {\n\
+    \                res.back().second++;\n            } else {\n                res.emplace_back(p,\
     \ 1);\n            }\n        }\n        return res;  // [(2,1), (3,2), (5,3),\
     \ .....]\n    }                /*}}}*/\n};/*}}}*/\nSieve sv(1e6);\n// How to use\n\
     \    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\n    // sv.prime_factor(x);\
@@ -109,8 +109,8 @@ data:
   isVerificationFile: false
   path: library/cpp/math/sieve.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2020-10-21 12:54:46+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/sieve.aoj.test.cpp
   - library/cpp/math/sieve.test.cpp
