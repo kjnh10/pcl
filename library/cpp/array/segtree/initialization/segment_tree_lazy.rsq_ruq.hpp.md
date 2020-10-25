@@ -1,10 +1,10 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'

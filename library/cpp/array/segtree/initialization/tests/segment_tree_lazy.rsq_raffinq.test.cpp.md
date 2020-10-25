@@ -1,28 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
     title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/range_affine_range_sum
@@ -145,36 +145,37 @@ data:
     \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
     \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
     \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/math/mint.hpp\"\
-    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
-    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
-    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
-    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
-    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
-    \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
-    mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
-    \ operator+(const mint a) const {\n        mint res(*this);\n        return res\
-    \ += a;\n    }\n    mint operator-(const mint a) const {\n        mint res(*this);\n\
-    \        return res -= a;\n    }\n    mint operator*(const mint a) const {\n \
-    \       mint res(*this);\n        return res *= a;\n    }\n    mint operator/(const\
-    \ mint a) const {\n        mint res(*this);\n        return res /= a;\n    }\n\
-    \n    mint pow(ll n) const {\n        mint res(1), x(*this);\n        if (n <\
-    \ 0) {\n            n = -n;\n            x = (*this).inv();\n        }\n     \
-    \   while (n) {\n            if (n & 1) res *= x;\n            x *= x;\n     \
-    \       n >>= 1;\n        }\n        return res;\n    }\n\n    mint inv() const\
-    \ {\n        if (x == 0) throw runtime_error(\"inv does not exist\");\n      \
-    \  return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int x,y;\n\
-    \    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //     if(x<0)x+=mod;\n\
-    \    //     return mint(x);\n    // }\n\n    bool operator<(const mint& r) const\
-    \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
-    \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
-    \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
-    #line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\n\n//%snippet.set('monoid_with_len')%\n\
-    //%snippet.fold()%\ntemplate<class T>\nstruct monoid_with_len {\n    T x;\n  \
-    \  int len;\n    monoid_with_len(){};\n    monoid_with_len(T x_, ll len_) : x(x_),\
-    \ len(len_){};\n};\ntemplate<class T>\nmonoid_with_len<T> operator+(monoid_with_len<T>\
-    \ a, monoid_with_len<T> b){\n    return monoid_with_len<T>(a.x + b.x, a.len +\
-    \ b.len);\n}\n//%snippet.end()%\n\n#line 3 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
+    \n\n//%snippet.set('mint')%\nconst int mod = 1e9 + 7;\n// const int mod = 998244353;\n\
+    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
+    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
+    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
+    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
+    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
+    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
+    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
+    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
+    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
+    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
+    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
+    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
+    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
+    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
+    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
+    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
+    );\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int\
+    \ x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //\
+    \     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
+    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
+    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
+    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
+    \ os << a.x; }\n//}}}\n#line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\
+    \n\n//%snippet.set('monoid_with_len')%\n//%snippet.fold()%\ntemplate<class T>\n\
+    struct monoid_with_len {\n    T x;\n    int len;\n    monoid_with_len(){};\n \
+    \   monoid_with_len(T x_, ll len_) : x(x_), len(len_){};\n};\ntemplate<class T>\n\
+    monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){\n  \
+    \  return monoid_with_len<T>(a.x + b.x, a.len + b.len);\n}\n//%snippet.end()%\n\
+    \n#line 3 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
     \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
     \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
     \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
@@ -219,8 +220,8 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   requiredBy: []
-  timestamp: '2020-10-20 17:01:55+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-10-26 02:29:15+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
 layout: document

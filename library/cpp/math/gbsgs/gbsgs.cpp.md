@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
   _extendedRequiredBy: []
@@ -41,31 +41,31 @@ data:
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
     \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\
-    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
-    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
-    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
-    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
-    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
-    \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
-    mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
-    \ operator+(const mint a) const {\n        mint res(*this);\n        return res\
-    \ += a;\n    }\n    mint operator-(const mint a) const {\n        mint res(*this);\n\
-    \        return res -= a;\n    }\n    mint operator*(const mint a) const {\n \
-    \       mint res(*this);\n        return res *= a;\n    }\n    mint operator/(const\
-    \ mint a) const {\n        mint res(*this);\n        return res /= a;\n    }\n\
-    \n    mint pow(ll n) const {\n        mint res(1), x(*this);\n        if (n <\
-    \ 0) {\n            n = -n;\n            x = (*this).inv();\n        }\n     \
-    \   while (n) {\n            if (n & 1) res *= x;\n            x *= x;\n     \
-    \       n >>= 1;\n        }\n        return res;\n    }\n\n    mint inv() const\
-    \ {\n        if (x == 0) throw runtime_error(\"inv does not exist\");\n      \
-    \  return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int x,y;\n\
-    \    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //     if(x<0)x+=mod;\n\
-    \    //     return mint(x);\n    // }\n\n    bool operator<(const mint& r) const\
-    \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
-    \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
-    \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
-    #line 3 \"library/cpp/math/gbsgs/gbsgs.cpp\"\n// %snippet.set('generalized_baybe_step_giant_step')%\n\
+    \n\n//%snippet.set('mint')%\nconst int mod = 1e9 + 7;\n// const int mod = 998244353;\n\
+    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
+    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
+    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
+    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
+    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
+    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
+    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
+    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
+    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
+    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
+    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
+    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
+    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
+    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
+    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
+    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
+    );\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int\
+    \ x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //\
+    \     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
+    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
+    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
+    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
+    \ os << a.x; }\n//}}}\n#line 3 \"library/cpp/math/gbsgs/gbsgs.cpp\"\n// %snippet.set('generalized_baybe_step_giant_step')%\n\
     // %snippet.config({'alias':'gbsgs'})%\n// %snippet.include('mint')%\n\nint bsgs(int\
     \ a, int b) {  //{{{\n    // find x s.t a^x = b in (mod)\n\n    if (b >= mod)\
     \ return -1;\n    if (1 % mod == b) return 0;\n\n    int h = (int)sqrt(mod) +\
@@ -101,7 +101,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/gbsgs/gbsgs.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-26 02:29:15+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/gbsgs/gbsgs.cpp

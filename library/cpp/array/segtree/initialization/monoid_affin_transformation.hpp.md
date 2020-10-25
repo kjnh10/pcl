@@ -1,25 +1,25 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -50,91 +50,92 @@ data:
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
     \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\
-    \n\n//%snippet.set('mint')%\nint mod = 1e9 + 7;\n// int mod = 998244353;\nstruct\
-    \ mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\
-    \n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x += a.x)\
-    \ %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint a) {\n\
-    \        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint& operator*=(const\
-    \ mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
-    mint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    mint\
-    \ operator+(const mint a) const {\n        mint res(*this);\n        return res\
-    \ += a;\n    }\n    mint operator-(const mint a) const {\n        mint res(*this);\n\
-    \        return res -= a;\n    }\n    mint operator*(const mint a) const {\n \
-    \       mint res(*this);\n        return res *= a;\n    }\n    mint operator/(const\
-    \ mint a) const {\n        mint res(*this);\n        return res /= a;\n    }\n\
-    \n    mint pow(ll n) const {\n        mint res(1), x(*this);\n        if (n <\
-    \ 0) {\n            n = -n;\n            x = (*this).inv();\n        }\n     \
-    \   while (n) {\n            if (n & 1) res *= x;\n            x *= x;\n     \
-    \       n >>= 1;\n        }\n        return res;\n    }\n\n    mint inv() const\
-    \ {\n        if (x == 0) throw runtime_error(\"inv does not exist\");\n      \
-    \  return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int x,y;\n\
-    \    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //     if(x<0)x+=mod;\n\
-    \    //     return mint(x);\n    // }\n\n    bool operator<(const mint& r) const\
-    \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
-    \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
-    \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
-    #line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\n\n//%snippet.set('segment_tree_lazy')%\n\
-    //%snippet.config({'alias':'lazy'})%\n//%snippet.fold()%\n\ntemplate <typename\
-    \ X, typename M>\nstruct segment_tree_lazy {\n    using FX = function<X(X, X)>;\n\
-    \    using FA = function<X(X, M)>;\n    using FM = function<M(M, M)>;\n    using\
-    \ index = int;\n    int n;  // \u5143\u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\
-    \n    int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E2\u51AA\n    FX merge;\n\
-    \    FA apply;\n    FM composite;\n    const X ex;\n    const M em;\n    vector<X>\
-    \ dat;\n    vector<M> lazy;\n    segment_tree_lazy() {}\n    segment_tree_lazy(FX\
-    \ merge_, FA apply_, FM composite_, X ex_, M em_)\n        : merge(merge_), apply(apply_),\
-    \ composite(composite_), ex(ex_), em(em_) {\n    }\n\n    void init(index n_)\
-    \ { \n        N = 1;\n        n = n_;\n        while (N < n_) N <<= 1;\n     \
-    \   dat.assign(2 * N, ex);\n        lazy.assign(2 * N, em);\n    } \n\n    void\
-    \ build(const vector<X> &v) { \n        int n_ = v.size();\n        init(n_);\n\
-    \        for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];\n        for (int\
-    \ k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);\n  \
-    \  } \n\n    void set(index i, X x) {\n        assert(0 <= i && i < n);\n    \
-    \    query(i, i+1);\n        i += (N - 1);\n        dat[i] = x; \n        while\
-    \ (i > 0) {\n            i = (i - 1) / 2;\n            dat[i] = merge(dat[2 *\
-    \ i + 1], dat[2 * i + 2]);\n        }\n    }\n\n    /* lazy propagate */\n   \
-    \ void propagate(int k) {\n        if (lazy[k] == em) return;  // \u66F4\u65B0\
-    \u3059\u308B\u3082\u306E\u304C\u7121\u3051\u308C\u3070\u7D42\u4E86\n        if\
-    \ (k < N - 1) {            // \u8449\u3067\u306A\u3051\u308C\u3070\u5B50\u306B\
-    \u4F1D\u642C\n            lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);\n\
-    \            lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);\n        }\n\
-    \        // \u81EA\u8EAB\u3092\u66F4\u65B0\n        dat[k] = apply(dat[k], lazy[k]);\n\
-    \        lazy[k] = em;\n    }\n\n    void update(index a, index b, M x) { update(a,\
-    \ b, x, 0, 0, N); }\n    void update(index a, index b, M x, int k, index l, index\
-    \ r) {\n        if (a <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\
-    \u6642\n            lazy[k] = composite(lazy[k], x);\n            propagate(k);\n\
-    \        }\n        else if (a < r && l < b) {                     // \u4E00\u90E8\
-    \u533A\u9593\u304C\u88AB\u308B\u6642\n            propagate(k);\n            update(a,\
-    \ b, x, k * 2 + 1, l, (l + r) / 2);  // \u5DE6\u306E\u5B50\n            update(a,\
-    \ b, x, k * 2 + 2, (l + r) / 2, r);  // \u53F3\u306E\u5B50\n            dat[k]\
-    \ = merge(dat[k * 2 + 1], dat[k * 2 + 2]);\n        }\n        else{\n       \
-    \     propagate(k);\n        }\n    }\n\n    X query(index a, index b) { return\
-    \ query_sub(a, b, 0, 0, N); }\n    X query_sub(index a, index b, int k, index\
-    \ l, index r) {\n        propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\
-    \u5168\u306B\u5916\u5074\u306E\u6642\n            return ex;\n        }\n    \
-    \    else if (a <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\
-    \n            return dat[k];\n        }\n        else {  // \u4E00\u90E8\u533A\
-    \u9593\u304C\u88AB\u308B\u6642\n            X lv = query_sub(a, b, k * 2 + 1,\
-    \ l, (l + r) / 2);\n            X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2,\
-    \ r);\n            return merge(lv, rv);\n        }\n    }\n\n    index find_most_left(index\
-    \ l, const function<bool(X)>& is_ok){\n        // l\u304B\u3089\u53F3\u306B\u63A2\
-    \u3057\u3066\u3044\u3063\u3066is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\
-    \u3088\u3046\u306Aindex\u3092\u8FD4\u3059\u3002\n        // assume query(l, *)\
-    \ has monotonity\n        // return index i s.t is_ok(query(l, i)) does not holds,\
-    \ but is_ok(query(l, i+1)) does.\n        // if such i does not exist, return\
-    \ n\n        index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;\n     \
-    \   assert(l <= res);\n        return res;\n    }\n    pair<index, X> _find_most_left(index\
-    \ a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){\n\
-    \        // params:\n            // left_value = (a < l ? query(a, l) : ex)\n\
-    \        // return (index i, X v)\n            // i is the index in [a, n)^[l,\
-    \ r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist,\
-    \ i = n\n            // v is the value s.t query(a, r)\n\n        propagate(k);\n\
-    \        if (r <= a) return {n, ex};  // \u533A\u9593\u304C\u5168\u304F\u88AB\u3063\
-    \u3066\u3044\u306A\u3044\n        else if (a <= l && !is_ok(merge(left_value,\
-    \ dat[k]))) return {n, merge(left_value, dat[k])};\n        else if (k >= N-1)\
-    \ return {k - (N-1), merge(left_value, dat[k])};\n        else{\n            auto\
-    \ [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);\n\
-    \            if (vl != n) return {vl, xl};\n            auto [vr, xr] = _find_most_left(a,\
+    \n\n//%snippet.set('mint')%\nconst int mod = 1e9 + 7;\n// const int mod = 998244353;\n\
+    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
+    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
+    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
+    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
+    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
+    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
+    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
+    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
+    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
+    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
+    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
+    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
+    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
+    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
+    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
+    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
+    );\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int\
+    \ x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //\
+    \     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
+    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
+    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
+    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
+    \ os << a.x; }\n//}}}\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\
+    \n\n//%snippet.set('segment_tree_lazy')%\n//%snippet.config({'alias':'lazy'})%\n\
+    //%snippet.fold()%\n\ntemplate <typename X, typename M>\nstruct segment_tree_lazy\
+    \ {\n    using FX = function<X(X, X)>;\n    using FA = function<X(X, M)>;\n  \
+    \  using FM = function<M(M, M)>;\n    using index = int;\n    int n;  // \u5143\
+    \u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\n    int N;  // n\u4EE5\u4E0A\u306E\
+    \u6700\u5C0F\u306E2\u51AA\n    FX merge;\n    FA apply;\n    FM composite;\n \
+    \   const X ex;\n    const M em;\n    vector<X> dat;\n    vector<M> lazy;\n  \
+    \  segment_tree_lazy() {}\n    segment_tree_lazy(FX merge_, FA apply_, FM composite_,\
+    \ X ex_, M em_)\n        : merge(merge_), apply(apply_), composite(composite_),\
+    \ ex(ex_), em(em_) {\n    }\n\n    void init(index n_) { \n        N = 1;\n  \
+    \      n = n_;\n        while (N < n_) N <<= 1;\n        dat.assign(2 * N, ex);\n\
+    \        lazy.assign(2 * N, em);\n    } \n\n    void build(const vector<X> &v)\
+    \ { \n        int n_ = v.size();\n        init(n_);\n        for (int i = 0; i\
+    \ < n_; i++) dat[i + N - 1] = v[i];\n        for (int k = N - 2; k >= 0; k--)\
+    \ dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);\n    } \n\n    void set(index\
+    \ i, X x) {\n        assert(0 <= i && i < n);\n        query(i, i+1);\n      \
+    \  i += (N - 1);\n        dat[i] = x; \n        while (i > 0) {\n            i\
+    \ = (i - 1) / 2;\n            dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);\n\
+    \        }\n    }\n\n    /* lazy propagate */\n    void propagate(int k) {\n \
+    \       if (lazy[k] == em) return;  // \u66F4\u65B0\u3059\u308B\u3082\u306E\u304C\
+    \u7121\u3051\u308C\u3070\u7D42\u4E86\n        if (k < N - 1) {            // \u8449\
+    \u3067\u306A\u3051\u308C\u3070\u5B50\u306B\u4F1D\u642C\n            lazy[k * 2\
+    \ + 1] = composite(lazy[k * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k\
+    \ * 2 + 2], lazy[k]);\n        }\n        // \u81EA\u8EAB\u3092\u66F4\u65B0\n\
+    \        dat[k] = apply(dat[k], lazy[k]);\n        lazy[k] = em;\n    }\n\n  \
+    \  void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }\n    void\
+    \ update(index a, index b, M x, int k, index l, index r) {\n        if (a <= l\
+    \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            lazy[k]\
+    \ = composite(lazy[k], x);\n            propagate(k);\n        }\n        else\
+    \ if (a < r && l < b) {                     // \u4E00\u90E8\u533A\u9593\u304C\u88AB\
+    \u308B\u6642\n            propagate(k);\n            update(a, b, x, k * 2 + 1,\
+    \ l, (l + r) / 2);  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 +\
+    \ 2, (l + r) / 2, r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k\
+    \ * 2 + 1], dat[k * 2 + 2]);\n        }\n        else{\n            propagate(k);\n\
+    \        }\n    }\n\n    X query(index a, index b) { return query_sub(a, b, 0,\
+    \ 0, N); }\n    X query_sub(index a, index b, int k, index l, index r) {\n   \
+    \     propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\u5168\u306B\u5916\
+    \u5074\u306E\u6642\n            return ex;\n        }\n        else if (a <= l\
+    \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            return\
+    \ dat[k];\n        }\n        else {  // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\
+    \u6642\n            X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);\n     \
+    \       X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);\n            return\
+    \ merge(lv, rv);\n        }\n    }\n\n    index find_most_left(index l, const\
+    \ function<bool(X)>& is_ok){\n        // l\u304B\u3089\u53F3\u306B\u63A2\u3057\
+    \u3066\u3044\u3063\u3066is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\
+    \u3046\u306Aindex\u3092\u8FD4\u3059\u3002\n        // assume query(l, *) has monotonity\n\
+    \        // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l,\
+    \ i+1)) does.\n        // if such i does not exist, return n\n        index res\
+    \ = _find_most_left(l, is_ok, 0, 0, N, ex).first;\n        assert(l <= res);\n\
+    \        return res;\n    }\n    pair<index, X> _find_most_left(index a, const\
+    \ function<bool(X)>& is_ok, int k, index l, index r, X left_value){\n        //\
+    \ params:\n            // left_value = (a < l ? query(a, l) : ex)\n        //\
+    \ return (index i, X v)\n            // i is the index in [a, n)^[l, r) s.t query(a,\
+    \ i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n\n     \
+    \       // v is the value s.t query(a, r)\n\n        propagate(k);\n        if\
+    \ (r <= a) return {n, ex};  // \u533A\u9593\u304C\u5168\u304F\u88AB\u3063\u3066\
+    \u3044\u306A\u3044\n        else if (a <= l && !is_ok(merge(left_value, dat[k])))\
+    \ return {n, merge(left_value, dat[k])};\n        else if (k >= N-1) return {k\
+    \ - (N-1), merge(left_value, dat[k])};\n        else{\n            auto [vl, xl]\
+    \ = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);\n      \
+    \      if (vl != n) return {vl, xl};\n            auto [vr, xr] = _find_most_left(a,\
     \ is_ok, 2 * k + 2, (l + r) / 2, r, xl);\n            return {vr, xr};\n     \
     \   }\n    }\n\n    index find_most_right(index r, const function<bool(X)>& is_ok){\n\
     \        // r\u304B\u3089\u5DE6\u306B\u63A2\u3057\u3066\u3044\u3063\u3066is_ok\u304C\
@@ -184,8 +185,8 @@ data:
   path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   requiredBy:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-  timestamp: '2020-10-20 17:01:55+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  timestamp: '2020-10-26 02:29:15+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
 documentation_of: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp

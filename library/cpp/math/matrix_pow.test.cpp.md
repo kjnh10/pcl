@@ -7,7 +7,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/matrix_pow.hpp
     title: library/cpp/math/matrix_pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
   _extendedRequiredBy: []
@@ -59,15 +59,15 @@ data:
     \ {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0) {\n        if (n & 1)\
     \ B = mul(B, A);\n        A = mul(A, A);\n        n >>= 1;\n    }\n    return\
     \ B;\n}\n\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\n\n//%snippet.set('mint')%\n\
-    int mod = 1e9 + 7;\n// int mod = 998244353;\nstruct mint {  //{{{\n    ll x;\n\
-    \    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n    mint&\
-    \ operator+=(const mint a) {\n        (x += a.x) %= mod;\n        return *this;\n\
-    \    }\n    mint& operator-=(const mint a) {\n        (x += mod - a.x) %= mod;\n\
-    \        return *this;\n    }\n    mint& operator*=(const mint a) {\n        (x\
-    \ *= a.x) %= mod;\n        return *this;\n    }\n    mint& operator/=(const mint&\
-    \ rhs) {\n        if (rhs.x == 0) throw runtime_error(\"mint zero division\");\n\
-    \        return *this *= rhs.inv();\n    }\n\n    mint operator+(const mint a)\
-    \ const {\n        mint res(*this);\n        return res += a;\n    }\n    mint\
+    const int mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct mint {  //{{{\n\
+    \    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
+    \    mint& operator+=(const mint a) {\n        (x += a.x) %= mod;\n        return\
+    \ *this;\n    }\n    mint& operator-=(const mint a) {\n        (x += mod - a.x)\
+    \ %= mod;\n        return *this;\n    }\n    mint& operator*=(const mint a) {\n\
+    \        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint& operator/=(const\
+    \ mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"mint zero division\"\
+    );\n        return *this *= rhs.inv();\n    }\n\n    mint operator+(const mint\
+    \ a) const {\n        mint res(*this);\n        return res += a;\n    }\n    mint\
     \ operator-(const mint a) const {\n        mint res(*this);\n        return res\
     \ -= a;\n    }\n    mint operator*(const mint a) const {\n        mint res(*this);\n\
     \        return res *= a;\n    }\n    mint operator/(const mint a) const {\n \
@@ -105,7 +105,7 @@ data:
   isVerificationFile: true
   path: library/cpp/math/matrix_pow.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-26 02:29:15+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/matrix_pow.test.cpp

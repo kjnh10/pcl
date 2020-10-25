@@ -14,10 +14,10 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/reversed_cnt.cpp
     title: library/cpp/array/reversed_cnt.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
     title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
   - icon: ':warning:'
@@ -29,7 +29,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
@@ -44,7 +44,7 @@ data:
   - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree.hpp
     title: library/cpp/array/segtree/segment_tree.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':warning:'
@@ -150,7 +150,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/matrix_pow.hpp
     title: library/cpp/math/matrix_pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
   - icon: ':warning:'
@@ -220,7 +220,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'

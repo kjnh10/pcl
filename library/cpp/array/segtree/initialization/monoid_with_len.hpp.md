@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
@@ -11,7 +11,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - icon: ':heavy_check_mark:'
@@ -21,7 +21,7 @@ data:
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'
@@ -31,7 +31,7 @@ data:
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -172,7 +172,7 @@ data:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
   - library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
   timestamp: '2020-10-20 17:01:55+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp

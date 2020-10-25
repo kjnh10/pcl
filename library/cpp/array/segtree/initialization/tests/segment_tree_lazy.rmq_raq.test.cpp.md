@@ -4,7 +4,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
