@@ -2,8 +2,8 @@
 #include "../header.hpp"
 
 //%snippet.set('mint')%
-int mod = 1e9 + 7;
-// int mod = 998244353;
+const int mod = 1e9 + 7;
+// const int mod = 998244353;
 struct mint {  //{{{
     ll x;
     mint(ll x = 0) : x((x % mod + mod) % mod) {}
