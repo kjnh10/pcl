@@ -151,6 +151,7 @@ struct Graph {
             auto cp = pq.top();
             pq.pop();
             auto [cost, u] = cp;
+            if (cost > dist[u]) continue;
             for (const auto& edge : adj_list[u]) {
                 Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                 if (new_cost < dist[edge.to]) {
