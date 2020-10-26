@@ -302,15 +302,15 @@ data:
     \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
     \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
     \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
-    \ [cost, u] = cp;\n            for (const auto& edge : adj_list[u]) {\n      \
-    \          Cost new_cost = cost + edge.cost;  // TODO: \u554F\u984C\u306B\u3088\
-    \u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\u5FC5\u8981\u3042\u308A\
-    \n                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
-    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
-    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
-    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
-    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/gridgraph.cpp\"\
+    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
+    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
+    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
+    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
+    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
+    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
+    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/gridgraph.cpp\"\
     \n\nint main() {\n    //%snippet.set('gridgraph')%\n\n    // grid graph\u3092\u901A\
     \u5E38\u306E\u30B0\u30E9\u30D5\u306B\u683C\u7D0D\u3059\u308B\u3002\n    int h,\
     \ w;\n    cin >> h >> w;\n    int n = h * w;  // \u9802\u70B9\u6570\n    vector<vector<ll>>\
@@ -369,7 +369,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/gridgraph.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 01:41:53+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/gridgraph.cpp

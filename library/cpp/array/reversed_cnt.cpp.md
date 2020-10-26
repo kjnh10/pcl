@@ -166,7 +166,7 @@ data:
     \        z = zipper(v);\n        max_v = z.n - 1;\n        zipped = true;\n  \
     \  }\n\n    auto add=[](auto a, auto b){return a+b;};\n    ll e = 0;\n    SegmentTree<ll>\
     \ seg(max_v + 1, add, e);\n\n    ll res = 0;\n    rep(i, n){\n        ll w = (zipped\
-    \ ? z(v[i]) : v[i]);\n        res += seg.query(w+1, n+1);\n        seg.add(w,\
+    \ ? z(v[i]) : v[i]);\n        res += seg.query(w+1, max_v+1);\n        seg.add(w,\
     \ 1);\n    }\n    return res;\n}\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n\
     \    vector<int> a(n);\n    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a)\
     \ << endl;\n}\n"
@@ -181,9 +181,9 @@ data:
     \ z.n - 1;\n        zipped = true;\n    }\n\n    auto add=[](auto a, auto b){return\
     \ a+b;};\n    ll e = 0;\n    SegmentTree<ll> seg(max_v + 1, add, e);\n\n    ll\
     \ res = 0;\n    rep(i, n){\n        ll w = (zipped ? z(v[i]) : v[i]);\n      \
-    \  res += seg.query(w+1, n+1);\n        seg.add(w, 1);\n    }\n    return res;\n\
-    }\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n    vector<int> a(n);\n\
-    \    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a) << endl;\n}\n"
+    \  res += seg.query(w+1, max_v+1);\n        seg.add(w, 1);\n    }\n    return\
+    \ res;\n}\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n    vector<int>\
+    \ a(n);\n    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a) << endl;\n}\n"
   dependsOn:
   - library/cpp/misc/zipper.lib/zipper.hpp
   - library/cpp/header.hpp
@@ -191,7 +191,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/reversed_cnt.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 01:44:52+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/reversed_cnt.cpp

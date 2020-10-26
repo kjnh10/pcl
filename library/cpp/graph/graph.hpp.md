@@ -343,15 +343,15 @@ data:
     \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
     \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
     \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
-    \ [cost, u] = cp;\n            for (const auto& edge : adj_list[u]) {\n      \
-    \          Cost new_cost = cost + edge.cost;  // TODO: \u554F\u984C\u306B\u3088\
-    \u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\u5FC5\u8981\u3042\u308A\
-    \n                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
-    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
-    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
-    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
-    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n"
+    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
+    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
+    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
+    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
+    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
+    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
+    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../header.hpp\"\n#include \"edge.hpp\"\n#include\
     \ \"tree.lib/tree.hpp\"\n#include \"union_find.hpp\"\n\n//%snippet.set('Graph')%\n\
     //%snippet.include('union_find')%\n//%snippet.include('tree')%\n//%snippet.fold()%\n\
@@ -411,15 +411,15 @@ data:
     \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
     \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
     \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
-    \ [cost, u] = cp;\n            for (const auto& edge : adj_list[u]) {\n      \
-    \          Cost new_cost = cost + edge.cost;  // TODO: \u554F\u984C\u306B\u3088\
-    \u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\u5FC5\u8981\u3042\u308A\
-    \n                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
-    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
-    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
-    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
-    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n"
+    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
+    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
+    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
+    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
+    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
+    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
+    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   - library/cpp/graph/edge.hpp
@@ -435,7 +435,7 @@ data:
   - library/cpp/graph/two_sat.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/topological_sort.hpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 01:41:53+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tests/graph.lowlink.test.cpp
