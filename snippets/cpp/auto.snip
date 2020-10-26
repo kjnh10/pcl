@@ -255,7 +255,7 @@ alias cnt_reversed
       ll res = 0;
       rep(i, n){
           ll w = (zipped ? z(v[i]) : v[i]);
-          res += seg.query(w+1, n+1);
+          res += seg.query(w+1, max_v+1);
           seg.add(w, 1);
       }
       return res;
@@ -1061,8 +1061,8 @@ snippet pascal
 
 snippet generalized_baybe_step_giant_step
 alias gbsgs
-  int mod = 1e9 + 7;
-  // int mod = 998244353;
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
   struct mint {  //{{{
       ll x;
       mint(ll x = 0) : x((x % mod + mod) % mod) {}
@@ -1184,8 +1184,8 @@ alias deg
 
 snippet baybe_step_giant_step
 alias bsgs
-  int mod = 1e9 + 7;
-  // int mod = 998244353;
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
   struct mint {  //{{{
       ll x;
       mint(ll x = 0) : x((x % mod + mod) % mod) {}
@@ -3152,8 +3152,8 @@ snippet hakidasi_xor
 
 
 snippet combination
-  int mod = 1e9 + 7;
-  // int mod = 998244353;
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
   struct mint {  //{{{
       ll x;
       mint(ll x = 0) : x((x % mod + mod) % mod) {}
@@ -3278,8 +3278,8 @@ snippet matrix_pow
 
 
 snippet mint
-  int mod = 1e9 + 7;
-  // int mod = 998244353;
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
   struct mint {  //{{{
       ll x;
       mint(ll x = 0) : x((x % mod + mod) % mod) {}
@@ -3396,7 +3396,7 @@ alias prime_factor_by_sieve
       }
   
       vector<ll> factor_list(ll x) { /*{{{*/
-          assert(x <= n*n); // これが満たされないと正しく計算されない可能性がある。
+          assert(0 < x && x <= n*n); // これが満たされないと正しく計算されない可能性がある。
   
           vector<ll> res;
           if (x <= n) {
@@ -4161,6 +4161,7 @@ alias tps
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -4770,6 +4771,7 @@ snippet two_sat
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -5541,6 +5543,7 @@ alias cycle
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -6133,6 +6136,7 @@ snippet local_min_cycle_directed
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -6811,6 +6815,7 @@ snippet Graph
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -7356,6 +7361,7 @@ alias StronglyConnectedComponents
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
@@ -7956,6 +7962,7 @@ snippet bellman_ford
               auto cp = pq.top();
               pq.pop();
               auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
               for (const auto& edge : adj_list[u]) {
                   Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
                   if (new_cost < dist[edge.to]) {
