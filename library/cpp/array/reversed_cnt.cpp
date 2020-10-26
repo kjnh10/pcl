@@ -29,7 +29,7 @@ ll reversed_cnt(const vector<T>& v){
     ll res = 0;
     rep(i, n){
         ll w = (zipped ? z(v[i]) : v[i]);
-        res += seg.query(w+1, n+1);
+        res += seg.query(w+1, max_v+1);
         seg.add(w, 1);
     }
     return res;
