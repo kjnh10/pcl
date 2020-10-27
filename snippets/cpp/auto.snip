@@ -30,7 +30,7 @@ alias cnt_reversed
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -66,9 +66,9 @@ alias cnt_reversed
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -91,10 +91,10 @@ alias cnt_reversed
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -112,10 +112,10 @@ alias cnt_reversed
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -1894,7 +1894,7 @@ alias rmq
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -1930,9 +1930,9 @@ alias rmq
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -1955,10 +1955,10 @@ alias rmq
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -1976,10 +1976,10 @@ alias rmq
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -3651,7 +3651,7 @@ alias tps
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -3687,9 +3687,9 @@ alias tps
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -3712,10 +3712,10 @@ alias tps
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -3733,10 +3733,10 @@ alias tps
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -3779,8 +3779,8 @@ alias tps
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -3863,19 +3863,19 @@ alias tps
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -3918,7 +3918,7 @@ alias tps
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -3945,13 +3945,16 @@ alias tps
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -4003,7 +4006,6 @@ alias tps
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -4234,8 +4236,8 @@ snippet edge
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -4261,7 +4263,7 @@ snippet two_sat
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -4297,9 +4299,9 @@ snippet two_sat
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -4322,10 +4324,10 @@ snippet two_sat
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -4343,10 +4345,10 @@ snippet two_sat
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -4389,8 +4391,8 @@ snippet two_sat
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -4473,19 +4475,19 @@ snippet two_sat
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -4528,7 +4530,7 @@ snippet two_sat
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -4555,13 +4557,16 @@ snippet two_sat
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -4613,7 +4618,6 @@ snippet two_sat
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -5033,7 +5037,7 @@ alias cycle
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -5069,9 +5073,9 @@ alias cycle
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -5094,10 +5098,10 @@ alias cycle
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -5115,10 +5119,10 @@ alias cycle
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -5161,8 +5165,8 @@ alias cycle
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -5245,19 +5249,19 @@ alias cycle
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -5300,7 +5304,7 @@ alias cycle
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -5327,13 +5331,16 @@ alias cycle
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -5385,7 +5392,6 @@ alias cycle
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -5626,7 +5632,7 @@ snippet local_min_cycle_directed
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -5662,9 +5668,9 @@ snippet local_min_cycle_directed
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -5687,10 +5693,10 @@ snippet local_min_cycle_directed
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -5708,10 +5714,10 @@ snippet local_min_cycle_directed
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -5754,8 +5760,8 @@ snippet local_min_cycle_directed
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -5838,19 +5844,19 @@ snippet local_min_cycle_directed
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -5893,7 +5899,7 @@ snippet local_min_cycle_directed
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -5920,13 +5926,16 @@ snippet local_min_cycle_directed
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -5978,7 +5987,6 @@ snippet local_min_cycle_directed
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -6305,7 +6313,7 @@ snippet Graph
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -6341,9 +6349,9 @@ snippet Graph
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -6366,10 +6374,10 @@ snippet Graph
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -6387,10 +6395,10 @@ snippet Graph
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -6433,8 +6441,8 @@ snippet Graph
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -6517,19 +6525,19 @@ snippet Graph
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -6572,7 +6580,7 @@ snippet Graph
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -6599,13 +6607,16 @@ snippet Graph
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -6657,7 +6668,6 @@ snippet Graph
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -6851,7 +6861,7 @@ alias StronglyConnectedComponents
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -6887,9 +6897,9 @@ alias StronglyConnectedComponents
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -6912,10 +6922,10 @@ alias StronglyConnectedComponents
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -6933,10 +6943,10 @@ alias StronglyConnectedComponents
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -6979,8 +6989,8 @@ alias StronglyConnectedComponents
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -7063,19 +7073,19 @@ alias StronglyConnectedComponents
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -7118,7 +7128,7 @@ alias StronglyConnectedComponents
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -7145,13 +7155,16 @@ alias StronglyConnectedComponents
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -7203,7 +7216,6 @@ alias StronglyConnectedComponents
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -7452,7 +7464,7 @@ snippet bellman_ford
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -7488,9 +7500,9 @@ snippet bellman_ford
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -7513,10 +7525,10 @@ snippet bellman_ford
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -7534,10 +7546,10 @@ snippet bellman_ford
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -7580,8 +7592,8 @@ snippet bellman_ford
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -7664,19 +7676,19 @@ snippet bellman_ford
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -7719,7 +7731,7 @@ snippet bellman_ford
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -7746,13 +7758,16 @@ snippet bellman_ford
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -7804,7 +7819,6 @@ snippet bellman_ford
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -8014,7 +8028,7 @@ snippet tree
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -8050,9 +8064,9 @@ snippet tree
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -8075,10 +8089,10 @@ snippet tree
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -8096,10 +8110,10 @@ snippet tree
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -8142,8 +8156,8 @@ snippet tree
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -8178,19 +8192,19 @@ snippet tree
       int _counter = 0;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            children(n),
-            et_fpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -8233,7 +8247,7 @@ snippet tree
               // set most heavy child to top
               int max_psize = 0;
               int most_heavy_i = -1;
-              rep(i, sz(adj_list[u])) {
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
                   if (adj_list[u][i].to == pre) continue;
                   if (psize[adj_list[u][i].to] > max_psize) {
                       most_heavy_i = i;
@@ -8260,13 +8274,16 @@ snippet tree
           end[u] = _counter;
       }                     /*}}}*/
       void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = euler_tour.size();
+          et_fpos[u] = (int)euler_tour.size();
           euler_tour.pb(u);
           each(v, children[u]) {
               _dfs_et(v);
               euler_tour.pb(u);
           }
       }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() > 0;
+      }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
           if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -8318,7 +8335,6 @@ snippet tree
       friend ostream& operator<<(ostream& os, const tree& tr) {
           os << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -8349,7 +8365,7 @@ snippet tree_non_recursive
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -8385,9 +8401,9 @@ snippet tree_non_recursive
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -8410,10 +8426,10 @@ snippet tree_non_recursive
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -8431,10 +8447,10 @@ snippet tree_non_recursive
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   
@@ -8477,8 +8493,8 @@ snippet tree_non_recursive
       Cost cost;
       int idx;
       Edge(){};
-      Edge(int from, int to, Cost cost, int idx)
-          : from(from), to(to), cost(cost), idx(idx) {}
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
   
       friend ostream& operator<<(ostream& os, const Edge& e) {
           // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
@@ -8512,19 +8528,19 @@ snippet tree_non_recursive
       vector<int> head_of_comp;
   
       tree(){};/*{{{*/
-      tree(int n)
-          : n(n),
-            par(n),
-            edge(n),
-            ord(n),
-            end(n),
-            psize(n),
-            depth(n),
-            ldepth(n),
-            adj_list(n),
-            et_fpos(n),
-            et_lpos(n),
-            head_of_comp(n){};/*}}}*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            et_fpos(n_),
+            et_lpos(n_),
+            head_of_comp(n_){};/*}}}*/
       void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
           adj_list[u].emplace_back(u, v, cost, idx);
           adj_list[v].emplace_back(v, u, cost, idx);
@@ -8698,7 +8714,6 @@ snippet tree_non_recursive
           os << endl;
           os << "psize:       " << tr.psize << endl;
           os << "par:         " << tr.par << endl;
-          os << "cost:        " << tr.cost << endl;
           os << "dfstrv:      " << tr.dfstrv << endl;
           os << "ord:         " << tr.ord << endl;
           os << "end:         " << tr.end << endl;
@@ -8940,7 +8955,7 @@ alias sa
       public:
           SegmentTree() {}
           SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = a.size();
+              n = (int)a.size();
               N = 1;
               while (N < n) N *= 2;
               node.resize(2 * N - 1, identity);
@@ -8976,9 +8991,9 @@ alias sa
               if (r <= a || b <= l) return identity;
               if (a <= l && r <= b) return node[k];
   
-              X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(vl, vr);
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
           }
   
           index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -9001,10 +9016,10 @@ alias sa
               else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
               else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
               else{
-                  auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (vl != n) return {vl, xl};
-                  auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {vr, xr};
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
               }
           }
   
@@ -9022,10 +9037,10 @@ alias sa
               else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
               else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
               else{
-                  auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (vr != -1) return {vr, xr};
-                  auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {vl, xl};
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
               }
           }
   

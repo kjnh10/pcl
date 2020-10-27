@@ -19,7 +19,7 @@ template <typename X> struct SegmentTree {  // {{{
     public:
         SegmentTree() {}
         SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-            n = a.size();
+            n = (int)a.size();
             N = 1;
             while (N < n) N *= 2;
             node.resize(2 * N - 1, identity);
@@ -55,9 +55,9 @@ template <typename X> struct SegmentTree {  // {{{
             if (r <= a || b <= l) return identity;
             if (a <= l && r <= b) return node[k];
 
-            X vl = query(a, b, 2 * k + 1, l, (l + r) / 2);
-            X vr = query(a, b, 2 * k + 2, (l + r) / 2, r);
-            return merge(vl, vr);
+            X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+            X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+            return merge(lv, rv);
         }
 
         index find_most_left(index l, const function<bool(X)>& is_ok){
@@ -80,10 +80,10 @@ template <typename X> struct SegmentTree {  // {{{
             else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
             else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
             else{
-                auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                if (vl != n) return {vl, xl};
-                auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                return {vr, xr};
+                auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                if (lv != n) return {lv, xl};
+                auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                return {rv, xr};
             }
         }
 
@@ -101,10 +101,10 @@ template <typename X> struct SegmentTree {  // {{{
             else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
             else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
             else{
-                auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                if (vr != -1) return {vr, xr};
-                auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                return {vl, xl};
+                auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                if (rv != -1) return {rv, xr};
+                auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                return {lv, xl};
             }
         }
 

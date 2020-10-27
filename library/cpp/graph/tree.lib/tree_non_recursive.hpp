@@ -32,19 +32,19 @@ struct tree {
     vector<int> head_of_comp;
 
     tree(){};/*{{{*/
-    tree(int n)
-        : n(n),
-          par(n),
-          edge(n),
-          ord(n),
-          end(n),
-          psize(n),
-          depth(n),
-          ldepth(n),
-          adj_list(n),
-          et_fpos(n),
-          et_lpos(n),
-          head_of_comp(n){};/*}}}*/
+    tree(int n_)
+        : n(n_),
+          par(n_),
+          edge(n_),
+          ord(n_),
+          end(n_),
+          psize(n_),
+          depth(n_),
+          ldepth(n_),
+          adj_list(n_),
+          et_fpos(n_),
+          et_lpos(n_),
+          head_of_comp(n_){};/*}}}*/
     void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
         adj_list[u].emplace_back(u, v, cost, idx);
         adj_list[v].emplace_back(v, u, cost, idx);
@@ -218,7 +218,6 @@ struct tree {
         os << endl;
         os << "psize:       " << tr.psize << endl;
         os << "par:         " << tr.par << endl;
-        os << "cost:        " << tr.cost << endl;
         os << "dfstrv:      " << tr.dfstrv << endl;
         os << "ord:         " << tr.ord << endl;
         os << "end:         " << tr.end << endl;

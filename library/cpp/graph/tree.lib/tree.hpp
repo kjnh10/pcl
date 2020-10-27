@@ -33,19 +33,19 @@ struct tree {
     int _counter = 0;
 
     tree(){};/*{{{*/
-    tree(int n)
-        : n(n),
-          par(n),
-          edge(n),
-          ord(n),
-          end(n),
-          psize(n),
-          depth(n),
-          ldepth(n),
-          adj_list(n),
-          children(n),
-          et_fpos(n),
-          head_of_comp(n){};/*}}}*/
+    tree(int n_)
+        : n(n_),
+          par(n_),
+          edge(n_),
+          ord(n_),
+          end(n_),
+          psize(n_),
+          depth(n_),
+          ldepth(n_),
+          adj_list(n_),
+          children(n_),
+          et_fpos(n_),
+          head_of_comp(n_){};/*}}}*/
     void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
         adj_list[u].emplace_back(u, v, cost, idx);
         adj_list[v].emplace_back(v, u, cost, idx);
@@ -88,7 +88,7 @@ struct tree {
             // set most heavy child to top
             int max_psize = 0;
             int most_heavy_i = -1;
-            rep(i, sz(adj_list[u])) {
+            for(int i = 0; i < sz(adj_list[u]); ++i) {
                 if (adj_list[u][i].to == pre) continue;
                 if (psize[adj_list[u][i].to] > max_psize) {
                     most_heavy_i = i;
@@ -115,13 +115,16 @@ struct tree {
         end[u] = _counter;
     }                     /*}}}*/
     void _dfs_et(int u) { /*{{{*/
-        et_fpos[u] = euler_tour.size();
+        et_fpos[u] = (int)euler_tour.size();
         euler_tour.pb(u);
         each(v, children[u]) {
             _dfs_et(v);
             euler_tour.pb(u);
         }
     }                       /*}}}*/
+    bool is_leaf(int u) {
+        return children[u].size() > 0;
+    }
     int lca(int u, int v) { /*{{{*/
         if (u == v) return u;
         if (et_fpos[u] > et_fpos[v]) swap(u, v);
@@ -173,7 +176,6 @@ struct tree {
     friend ostream& operator<<(ostream& os, const tree& tr) {
         os << endl;
         os << "par:         " << tr.par << endl;
-        os << "cost:        " << tr.cost << endl;
         os << "dfstrv:      " << tr.dfstrv << endl;
         os << "ord:         " << tr.ord << endl;
         os << "end:         " << tr.end << endl;

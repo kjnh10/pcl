@@ -9,8 +9,8 @@ struct Edge {
     Cost cost;
     int idx;
     Edge(){};
-    Edge(int from, int to, Cost cost, int idx)
-        : from(from), to(to), cost(cost), idx(idx) {}
+    Edge(int from_, int to_, Cost cost_, int idx_)
+        : from(from_), to(to_), cost(cost_), idx(idx_) {}
 
     friend ostream& operator<<(ostream& os, const Edge& e) {
         // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
