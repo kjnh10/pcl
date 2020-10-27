@@ -3844,7 +3844,7 @@ alias tps
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -3866,7 +3866,7 @@ alias tps
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -3888,7 +3888,7 @@ alias tps
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -3899,9 +3899,9 @@ alias tps
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -3910,7 +3910,7 @@ alias tps
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -3935,7 +3935,7 @@ alias tps
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -4454,7 +4454,7 @@ snippet two_sat
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -4476,7 +4476,7 @@ snippet two_sat
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -4498,7 +4498,7 @@ snippet two_sat
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -4509,9 +4509,9 @@ snippet two_sat
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -4520,7 +4520,7 @@ snippet two_sat
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -4545,7 +4545,7 @@ snippet two_sat
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -5226,7 +5226,7 @@ alias cycle
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -5248,7 +5248,7 @@ alias cycle
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -5270,7 +5270,7 @@ alias cycle
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -5281,9 +5281,9 @@ alias cycle
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -5292,7 +5292,7 @@ alias cycle
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -5317,7 +5317,7 @@ alias cycle
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -5819,7 +5819,7 @@ snippet local_min_cycle_directed
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -5841,7 +5841,7 @@ snippet local_min_cycle_directed
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -5863,7 +5863,7 @@ snippet local_min_cycle_directed
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -5874,9 +5874,9 @@ snippet local_min_cycle_directed
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -5885,7 +5885,7 @@ snippet local_min_cycle_directed
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -5910,7 +5910,7 @@ snippet local_min_cycle_directed
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -6498,7 +6498,7 @@ snippet Graph
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -6520,7 +6520,7 @@ snippet Graph
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -6542,7 +6542,7 @@ snippet Graph
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -6553,9 +6553,9 @@ snippet Graph
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -6564,7 +6564,7 @@ snippet Graph
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -6589,7 +6589,7 @@ snippet Graph
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -7044,7 +7044,7 @@ alias StronglyConnectedComponents
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -7066,7 +7066,7 @@ alias StronglyConnectedComponents
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -7088,7 +7088,7 @@ alias StronglyConnectedComponents
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -7099,9 +7099,9 @@ alias StronglyConnectedComponents
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -7110,7 +7110,7 @@ alias StronglyConnectedComponents
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -7135,7 +7135,7 @@ alias StronglyConnectedComponents
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -7645,7 +7645,7 @@ snippet bellman_ford
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -7667,7 +7667,7 @@ snippet bellman_ford
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -7689,7 +7689,7 @@ snippet bellman_ford
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -7700,9 +7700,9 @@ snippet bellman_ford
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -7711,7 +7711,7 @@ snippet bellman_ford
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -7736,7 +7736,7 @@ snippet bellman_ford
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -8159,7 +8159,7 @@ snippet tree
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -8181,7 +8181,7 @@ snippet tree
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -8203,7 +8203,7 @@ snippet tree
           root = _root;
           _counter = 0;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_psize(root, -1);
           _dfs_tree(root, -1, root);
           _dfs_et(root);
@@ -8214,9 +8214,9 @@ snippet tree
       }                                /*}}}*/
       int _dfs_psize(int u, int pre) { /*{{{*/
           psize[u] = 1;
-          each(edge, adj_list[u]) {
-              if (edge.to == pre) continue;
-              psize[u] += _dfs_psize(edge.to, u);
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
           }
           return psize[u];
       }                                               /*}}}*/
@@ -8225,7 +8225,7 @@ snippet tree
           ord[u] = _counter;
           if (pre != -1) {
               depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + cost[u];
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
           }
   
           _counter++;
@@ -8250,7 +8250,7 @@ snippet tree
   
               children[u].pb(v);
               par[v] = u;
-              cost[v] = adj_list[u][i].cost;
+              edge[v] = &adj_list[u][i];
   
               if (i == 0)
                   _dfs_tree(v, u, head_node);  // continue components
@@ -8494,7 +8494,7 @@ snippet tree_non_recursive
       int n;
       int root;
       vector<int> par;   // par[i]: dfs木における親
-      vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
       vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
       vector<int> ord;    // ord[u]: uのdfs木における訪問順
       vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -8515,7 +8515,7 @@ snippet tree_non_recursive
       tree(int n)
           : n(n),
             par(n),
-            cost(n),
+            edge(n),
             ord(n),
             end(n),
             psize(n),
@@ -8536,7 +8536,7 @@ snippet tree_non_recursive
       void build(int _root) { /*{{{*/
           root = _root;
           par[root] = -1;
-          // cost[root] = -1;
+          edge[root] = nullptr;
           _dfs_basic();
           _dfs_tree();
           _dfs_et();
@@ -8556,19 +8556,18 @@ snippet tree_non_recursive
               counter++;
               par[u] = pre;
               dfstrv.pb(u);
-              each(edge, adj_list[u]) {
-                  if (edge.to == pre) continue;
-                  st.push(make_pair(edge.to, u));
+              each(e, adj_list[u]) {
+                  if (e.to == pre) continue;
+                  st.push(make_pair(e.to, u));
               }
           }
           r_rep(i, sz(dfstrv)){
               int u = dfstrv[i];
               psize[u] = 1;
               end[u] = ord[u] + 1;
-              each(edge, adj_list[u]) {
-                  if (edge.to == par[u]) continue;
-                  psize[u] += psize[edge.to];
-                  cost[edge.to] = edge.cost;
+              for (auto& e : adj_list[u]) {
+                  if (e.to == par[u]) continue;
+                  psize[u] += psize[e.to];
                   chmax(end[u], ord[u]);
               }
           }
@@ -8576,7 +8575,7 @@ snippet tree_non_recursive
               int u = dfstrv[i];
               if (par[u] != -1){
                   depth[u] = depth[par[u]] + 1;
-                  ldepth[u] = ldepth[par[u]] + cost[u];
+                  ldepth[u] = ldepth[par[u]] + edge[u]->cost;
               }
           }
       }                                               /*}}}*/
@@ -8617,10 +8616,10 @@ snippet tree_non_recursive
           r_rep(i, n){
               int u = dfstrv[i];
               end[u] = ord[u];
-              each(edge, adj_list[u]) {
-                  int v = edge.to;
-                  if (v == par[u]) continue;
-                  chmax(end[u], end[v]);
+              each(e, adj_list[u]) {
+                  edge[e.to] = &e;
+                  if (e.to == par[u]) continue;
+                  chmax(end[u], end[e.to]);
               }
           }
   

@@ -14,7 +14,7 @@ struct tree {
     int n;
     int root;
     vector<int> par;   // par[i]: dfs木における親
-    vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+    vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
     vector<int> ord;    // ord[u]: uのdfs木における訪問順
     vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -36,7 +36,7 @@ struct tree {
     tree(int n)
         : n(n),
           par(n),
-          cost(n),
+          edge(n),
           ord(n),
           end(n),
           psize(n),
@@ -58,7 +58,7 @@ struct tree {
         root = _root;
         _counter = 0;
         par[root] = -1;
-        // cost[root] = -1;
+        edge[root] = nullptr;
         _dfs_psize(root, -1);
         _dfs_tree(root, -1, root);
         _dfs_et(root);
@@ -69,9 +69,9 @@ struct tree {
     }                                /*}}}*/
     int _dfs_psize(int u, int pre) { /*{{{*/
         psize[u] = 1;
-        each(edge, adj_list[u]) {
-            if (edge.to == pre) continue;
-            psize[u] += _dfs_psize(edge.to, u);
+        each(e, adj_list[u]) {
+            if (e.to == pre) continue;
+            psize[u] += _dfs_psize(e.to, u);
         }
         return psize[u];
     }                                               /*}}}*/
@@ -80,7 +80,7 @@ struct tree {
         ord[u] = _counter;
         if (pre != -1) {
             depth[u] = depth[pre] + 1;
-            ldepth[u] = ldepth[pre] + cost[u];
+            ldepth[u] = ldepth[pre] + edge[u]->cost;
         }
 
         _counter++;
@@ -105,7 +105,7 @@ struct tree {
 
             children[u].pb(v);
             par[v] = u;
-            cost[v] = adj_list[u][i].cost;
+            edge[v] = &adj_list[u][i];
 
             if (i == 0)
                 _dfs_tree(v, u, head_node);  // continue components

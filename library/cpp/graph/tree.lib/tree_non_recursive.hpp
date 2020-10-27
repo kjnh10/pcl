@@ -14,7 +14,7 @@ struct tree {
     int n;
     int root;
     vector<int> par;   // par[i]: dfs木における親
-    vector<Cost> cost;  // par[i]: dfs木における親への辺のコスト
+    vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
     vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
     vector<int> ord;    // ord[u]: uのdfs木における訪問順
     vector<int> end;    // end[u]: uのdfs終了時のカウンター
@@ -35,7 +35,7 @@ struct tree {
     tree(int n)
         : n(n),
           par(n),
-          cost(n),
+          edge(n),
           ord(n),
           end(n),
           psize(n),
@@ -56,7 +56,7 @@ struct tree {
     void build(int _root) { /*{{{*/
         root = _root;
         par[root] = -1;
-        // cost[root] = -1;
+        edge[root] = nullptr;
         _dfs_basic();
         _dfs_tree();
         _dfs_et();
@@ -76,19 +76,18 @@ struct tree {
             counter++;
             par[u] = pre;
             dfstrv.pb(u);
-            each(edge, adj_list[u]) {
-                if (edge.to == pre) continue;
-                st.push(make_pair(edge.to, u));
+            each(e, adj_list[u]) {
+                if (e.to == pre) continue;
+                st.push(make_pair(e.to, u));
             }
         }
         r_rep(i, sz(dfstrv)){
             int u = dfstrv[i];
             psize[u] = 1;
             end[u] = ord[u] + 1;
-            each(edge, adj_list[u]) {
-                if (edge.to == par[u]) continue;
-                psize[u] += psize[edge.to];
-                cost[edge.to] = edge.cost;
+            for (auto& e : adj_list[u]) {
+                if (e.to == par[u]) continue;
+                psize[u] += psize[e.to];
                 chmax(end[u], ord[u]);
             }
         }
@@ -96,7 +95,7 @@ struct tree {
             int u = dfstrv[i];
             if (par[u] != -1){
                 depth[u] = depth[par[u]] + 1;
-                ldepth[u] = ldepth[par[u]] + cost[u];
+                ldepth[u] = ldepth[par[u]] + edge[u]->cost;
             }
         }
     }                                               /*}}}*/
@@ -137,10 +136,10 @@ struct tree {
         r_rep(i, n){
             int u = dfstrv[i];
             end[u] = ord[u];
-            each(edge, adj_list[u]) {
-                int v = edge.to;
-                if (v == par[u]) continue;
-                chmax(end[u], end[v]);
+            each(e, adj_list[u]) {
+                edge[e.to] = &e;
+                if (e.to == par[u]) continue;
+                chmax(end[u], end[e.to]);
             }
         }
 
