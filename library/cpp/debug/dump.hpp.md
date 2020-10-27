@@ -14,55 +14,35 @@ data:
   bundledCode: "#line 2 \"library/cpp/debug/dump.hpp\"\n\n// http://www.creativ.xyz/dump-cpp-652\n\
     using namespace std;\n#include <bits/stdc++.h>\n\n#define DUMPOUT cerr  // where\
     \ to dump. cout or cerr\n\n#define cerrendl cerr << endl\n\nnamespace dm {\n \
-    \   stack<vector<string>> varnames;\n    stack<int> varidx;\n    int i;\n    int\
-    \ j;\n}  // namespace dm\n\n#define dump(...)                                \
-    \                            \\\n    {                                       \
-    \                                 \\\n        dm::varnames.push([](string s) ->\
-    \ vector<string> {           \\\n            int n = s.size();               \
-    \                                 \\\n            vector<string> res;        \
-    \                                      \\\n            string tmp = \"\";    \
-    \                                             \\\n            int parlevel = 0;\
-    \                                                \\\n            int angle_level\
-    \ = 0;                                             \\\n            for (int i\
-    \ = 0; i < n; i++) {                                    \\\n                if\
-    \ (s[i] == '(') parlevel++;                                 \\\n             \
-    \   if (s[i] == ')') parlevel--;                                 \\\n        \
-    \        if (s[i] == '<') angle_level++;                              \\\n   \
-    \             if (s[i] == '>') angle_level--;                              \\\n\
-    \                if (s[i] == ' ') continue;                                  \
-    \ \\\n                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {\
-    \      \\\n                    res.push_back(tmp);                           \
-    \           \\\n                    tmp = \"\";                              \
-    \                  \\\n                } else {                              \
-    \                       \\\n                    tmp += s[i];                 \
-    \                            \\\n                }                           \
-    \                                 \\\n            }                          \
-    \                                      \\\n            res.push_back(tmp);   \
-    \                                           \\\n            return res;      \
-    \                                                \\\n        }(#__VA_ARGS__));\
-    \                                                    \\\n        dm::varidx.push(0);\
-    \                                                  \\\n        dump_func(__VA_ARGS__);\
-    \                                              \\\n        DUMPOUT << \"in [\"\
-    \ << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl; \\\n        dm::varnames.pop();\
-    \                                                  \\\n        dm::varidx.pop();\
-    \                                                    \\\n    }\n\n#define dump_1d(x,\
-    \ n)                                                          \\\n    {      \
-    \                                                                    \\\n    \
-    \    DUMPOUT << #x << \"[\" << #n << \"]\"                              \\\n \
-    \               << \":=> {\";                                                \
-    \    \\\n        for(dm::i=0; dm::i<n; ++dm::i)                              \
-    \           \\\n            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? \"\
-    }\" : \", \");       \\\n        DUMPOUT << \"  in [\" << __LINE__ << \":\" <<\
-    \ __FUNCTION__ << \"]\" << endl; \\\n    }\n\n#define dump_2d(x, n, m)       \
-    \                                                \\\n    {                   \
-    \                                                       \\\n        DUMPOUT <<\
-    \ #x << \"[\" << #n << \"]\"                              \\\n               \
-    \ << \"[\" << #m << \"]\"                                            \\\n    \
-    \            << \":=> \\n\";                                                 \
-    \  \\\n        dump_2d_core(x, n, m);                                        \
-    \         \\\n        DUMPOUT << \"  in [\" << __LINE__ << \":\" << __FUNCTION__\
-    \ << \"]\" << endl; \\\n    }\n\nvoid dump_func() {}\ntemplate <class Head, class...\
-    \ Tail>\nvoid dump_func(Head&& head, Tail&&... tail) {\n    DUMPOUT << dm::varnames.top()[dm::varidx.top()]\
+    \   stack<vector<string>> arg_names;\n    stack<int> varidx;\n    int i;\n   \
+    \ int j;\n}  // namespace dm\n\n#define dump(...)                            \
+    \                                       \\\n    {                            \
+    \                                                   \\\n        dm::arg_names.push(parse_args_names(#__VA_ARGS__));\
+    \                         \\\n        dm::varidx.push(0);                    \
+    \                                     \\\n        dump_func(__VA_ARGS__);    \
+    \                                                 \\\n        DUMPOUT << \"in\
+    \ [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl;        \\\n     \
+    \   dm::arg_names.pop();                                                     \
+    \   \\\n        dm::varidx.pop();                                            \
+    \               \\\n    }\n\n#define dump_1d(x, n)                           \
+    \                                    \\\n    {                               \
+    \                                                \\\n        DUMPOUT << #x <<\
+    \ \"[\" << #n << \"]\"                                           \\\n        \
+    \        << \":=> {\";                                                       \
+    \  \\\n        for(dm::i=0; dm::i<n; ++dm::i)                                \
+    \              \\\n            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ?\
+    \ \"}\" : \", \");            \\\n        DUMPOUT << \"  in [\" << __LINE__ <<\
+    \ \":\" << __FUNCTION__ << \"]\" << endl;      \\\n    }\n\n#define dump_2d(x,\
+    \ n, m)                                                            \\\n    { \
+    \                                                                            \
+    \  \\\n        DUMPOUT << #x << \"[\" << #n << \"]\"                         \
+    \                  \\\n                << \"[\" << #m << \"]\"               \
+    \                                  \\\n                << \":=> \\n\";       \
+    \                                                 \\\n        dump_2d_core(x,\
+    \ n, m);                                                      \\\n        DUMPOUT\
+    \ << \"  in [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl;      \\\
+    \n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
+    \ head, Tail&&... tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()]\
     \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
     \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
     \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nvoid print_formatted_int(T\
@@ -85,43 +65,52 @@ data:
     \ < n ; ++i) for(int j = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5)\
     \ << i << \" |\";\n        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j],\
     \ inf, column_len[j]);\n        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\"\
-    );\n    }\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\n//          Copyright\
-    \ Louis Delacroix 2010 - 2014.\n// Distributed under the Boost Software License,\
-    \ Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt or copy at\n//  \
-    \        http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty printing library\
-    \ for C++\n//\n// Usage:\n// Include this header, and operator<< will \"just work\"\
-    .\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include <cstddef>\n#include\
-    \ <iterator>\n#include <memory>\n#include <ostream>\n#include <set>\n#include\
-    \ <tuple>\n#include <type_traits>\n#include <unordered_set>\n#include <utility>\n\
-    #include <valarray>\n\nnamespace pretty_print {\nnamespace detail {\n// SFINAE\
-    \ type trait to detect whether T::const_iterator exists.\n\nstruct sfinae_base\
-    \ {\n    using yes = char;\n    using no = yes[2];\n};\n\ntemplate <typename T>\n\
-    struct has_const_iterator : private sfinae_base {\n   private:\n    template <typename\
-    \ C>\n    static yes &test(typename C::const_iterator *);\n    template <typename\
-    \ C>\n    static no &test(...);\n\n   public:\n    static const bool value = sizeof(test<T>(nullptr))\
-    \ == sizeof(yes);\n    using type = T;\n};\n\ntemplate <typename T>\nstruct has_begin_end\
-    \ : private sfinae_base {\n   private:\n    template <typename C>\n    static\
-    \ yes &f(\n        typename std::enable_if<std::is_same<\n            decltype(static_cast<typename\
-    \ C::const_iterator (C::*)() const>(\n                &C::begin)),\n         \
-    \   typename C::const_iterator (C::*)() const>::value>::type *);\n\n    template\
-    \ <typename C>\n    static no &f(...);\n\n    template <typename C>\n    static\
-    \ yes &\n    g(typename std::enable_if<\n        std::is_same<decltype(static_cast<typename\
-    \ C::const_iterator (C::*)()\n                                              const>(&C::end)),\n\
-    \                     typename C::const_iterator (C::*)() const>::value,\n   \
-    \     void>::type *);\n\n    template <typename C>\n    static no &g(...);\n\n\
-    \   public:\n    static bool const beg_value = sizeof(f<T>(nullptr)) == sizeof(yes);\n\
-    \    static bool const end_value = sizeof(g<T>(nullptr)) == sizeof(yes);\n};\n\
-    \n}  // namespace detail\n\n// Holds the delimiter values for a specific character\
-    \ type\n\ntemplate <typename TChar>\nstruct delimiters_values {\n    using char_type\
-    \ = TChar;\n    const char_type *prefix;\n    const char_type *delimiter;\n  \
-    \  const char_type *postfix;\n};\n\n// Defines the delimiter values for a specific\
-    \ container and character type\n\ntemplate <typename T, typename TChar>\nstruct\
-    \ delimiters {\n    using type = delimiters_values<TChar>;\n    static const type\
-    \ values;\n};\n\n// Functor to print containers. You can use this directly if\
-    \ you want\n// to specificy a non-default delimiters type. The printing logic\
-    \ can\n// be customized by specializing the nested template.\n\ntemplate <typename\
-    \ T, typename TChar = char,\n          typename TCharTraits = ::std::char_traits<TChar>,\n\
-    \          typename TDelimiters = delimiters<T, TChar>>\nstruct print_container_helper\
+    );\n    }\n}\n\nvector<string> parse_args_names(string s){\n    int n = s.size();\n\
+    \    vector<string> res;\n    string tmp = \"\";\n    int parlevel = 0;\n    int\
+    \ angle_level = 0;\n    for (int i = 0; i < n; i++) {\n        if (s[i] == '(')\
+    \ parlevel++;\n        if (s[i] == ')') parlevel--;\n        if (s[i] == '<')\
+    \ angle_level++;\n        if (s[i] == '>') angle_level--;\n        if (s[i] ==\
+    \ ' ') continue;\n        if (s[i] == ',' && parlevel == 0 && angle_level == 0)\
+    \ {\n            res.push_back(tmp);\n            tmp = \"\";\n        }\n   \
+    \     else {\n            tmp += s[i];\n        }\n    }\n    res.push_back(tmp);\n\
+    \    return res;\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\n//     \
+    \     Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the Boost Software\
+    \ License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt or copy\
+    \ at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty printing\
+    \ library for C++\n//\n// Usage:\n// Include this header, and operator<< will\
+    \ \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include\
+    \ <cstddef>\n#include <iterator>\n#include <memory>\n#include <ostream>\n#include\
+    \ <set>\n#include <tuple>\n#include <type_traits>\n#include <unordered_set>\n\
+    #include <utility>\n#include <valarray>\n\nnamespace pretty_print {\nnamespace\
+    \ detail {\n// SFINAE type trait to detect whether T::const_iterator exists.\n\
+    \nstruct sfinae_base {\n    using yes = char;\n    using no = yes[2];\n};\n\n\
+    template <typename T>\nstruct has_const_iterator : private sfinae_base {\n   private:\n\
+    \    template <typename C>\n    static yes &test(typename C::const_iterator *);\n\
+    \    template <typename C>\n    static no &test(...);\n\n   public:\n    static\
+    \ const bool value = sizeof(test<T>(nullptr)) == sizeof(yes);\n    using type\
+    \ = T;\n};\n\ntemplate <typename T>\nstruct has_begin_end : private sfinae_base\
+    \ {\n   private:\n    template <typename C>\n    static yes &f(\n        typename\
+    \ std::enable_if<std::is_same<\n            decltype(static_cast<typename C::const_iterator\
+    \ (C::*)() const>(\n                &C::begin)),\n            typename C::const_iterator\
+    \ (C::*)() const>::value>::type *);\n\n    template <typename C>\n    static no\
+    \ &f(...);\n\n    template <typename C>\n    static yes &\n    g(typename std::enable_if<\n\
+    \        std::is_same<decltype(static_cast<typename C::const_iterator (C::*)()\n\
+    \                                              const>(&C::end)),\n           \
+    \          typename C::const_iterator (C::*)() const>::value,\n        void>::type\
+    \ *);\n\n    template <typename C>\n    static no &g(...);\n\n   public:\n   \
+    \ static bool const beg_value = sizeof(f<T>(nullptr)) == sizeof(yes);\n    static\
+    \ bool const end_value = sizeof(g<T>(nullptr)) == sizeof(yes);\n};\n\n}  // namespace\
+    \ detail\n\n// Holds the delimiter values for a specific character type\n\ntemplate\
+    \ <typename TChar>\nstruct delimiters_values {\n    using char_type = TChar;\n\
+    \    const char_type *prefix;\n    const char_type *delimiter;\n    const char_type\
+    \ *postfix;\n};\n\n// Defines the delimiter values for a specific container and\
+    \ character type\n\ntemplate <typename T, typename TChar>\nstruct delimiters {\n\
+    \    using type = delimiters_values<TChar>;\n    static const type values;\n};\n\
+    \n// Functor to print containers. You can use this directly if you want\n// to\
+    \ specificy a non-default delimiters type. The printing logic can\n// be customized\
+    \ by specializing the nested template.\n\ntemplate <typename T, typename TChar\
+    \ = char,\n          typename TCharTraits = ::std::char_traits<TChar>,\n     \
+    \     typename TDelimiters = delimiters<T, TChar>>\nstruct print_container_helper\
     \ {\n    using delimiters_type = TDelimiters;\n    using ostream_type = std::basic_ostream<TChar,\
     \ TCharTraits>;\n\n    template <typename U>\n    struct printer {\n        static\
     \ void print_body(const U &c, ostream_type &stream) {\n            using std::begin;\n\
@@ -294,59 +283,39 @@ data:
     \ TCharTraits> &stream, const T &container) {\n    return stream\n           <<\
     \ ::pretty_print::print_container_helper<T, TChar, TCharTraits>(\n           \
     \       container);\n}\n}  // namespace std\n\n#endif  // H_PRETTY_PRINT\n#line\
-    \ 136 \"library/cpp/debug/dump.hpp\"\n"
+    \ 139 \"library/cpp/debug/dump.hpp\"\n"
   code: "#pragma once\n\n// http://www.creativ.xyz/dump-cpp-652\nusing namespace std;\n\
     #include <bits/stdc++.h>\n\n#define DUMPOUT cerr  // where to dump. cout or cerr\n\
-    \n#define cerrendl cerr << endl\n\nnamespace dm {\n    stack<vector<string>> varnames;\n\
+    \n#define cerrendl cerr << endl\n\nnamespace dm {\n    stack<vector<string>> arg_names;\n\
     \    stack<int> varidx;\n    int i;\n    int j;\n}  // namespace dm\n\n#define\
-    \ dump(...)                                                            \\\n  \
-    \  {                                                                        \\\
-    \n        dm::varnames.push([](string s) -> vector<string> {           \\\n  \
-    \          int n = s.size();                                                \\\
-    \n            vector<string> res;                                            \
-    \  \\\n            string tmp = \"\";                                        \
-    \         \\\n            int parlevel = 0;                                  \
-    \              \\\n            int angle_level = 0;                          \
-    \                   \\\n            for (int i = 0; i < n; i++) {            \
-    \                        \\\n                if (s[i] == '(') parlevel++;    \
-    \                             \\\n                if (s[i] == ')') parlevel--;\
-    \                                 \\\n                if (s[i] == '<') angle_level++;\
-    \                              \\\n                if (s[i] == '>') angle_level--;\
-    \                              \\\n                if (s[i] == ' ') continue;\
-    \                                   \\\n                if (s[i] == ',' && parlevel\
-    \ == 0 && angle_level == 0) {      \\\n                    res.push_back(tmp);\
-    \                                      \\\n                    tmp = \"\";   \
-    \                                             \\\n                } else {   \
-    \                                                  \\\n                    tmp\
-    \ += s[i];                                             \\\n                } \
-    \                                                           \\\n            }\
-    \                                                                \\\n        \
-    \    res.push_back(tmp);                                              \\\n   \
-    \         return res;                                                      \\\n\
-    \        }(#__VA_ARGS__));                                                   \
-    \ \\\n        dm::varidx.push(0);                                            \
-    \      \\\n        dump_func(__VA_ARGS__);                                   \
-    \           \\\n        DUMPOUT << \"in [\" << __LINE__ << \":\" << __FUNCTION__\
-    \ << \"]\" << endl; \\\n        dm::varnames.pop();                          \
-    \                        \\\n        dm::varidx.pop();                       \
-    \                             \\\n    }\n\n#define dump_1d(x, n)             \
-    \                                             \\\n    {                      \
-    \                                                    \\\n        DUMPOUT << #x\
-    \ << \"[\" << #n << \"]\"                              \\\n                <<\
-    \ \":=> {\";                                                    \\\n        for(dm::i=0;\
-    \ dm::i<n; ++dm::i)                                         \\\n            DUMPOUT\
-    \ << x[dm::i] << (((dum::i) == (n - 1)) ? \"}\" : \", \");       \\\n        DUMPOUT\
-    \ << \"  in [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl; \\\n  \
-    \  }\n\n#define dump_2d(x, n, m)                                             \
-    \          \\\n    {                                                         \
-    \                 \\\n        DUMPOUT << #x << \"[\" << #n << \"]\"          \
-    \                    \\\n                << \"[\" << #m << \"]\"             \
-    \                               \\\n                << \":=> \\n\";          \
-    \                                         \\\n        dump_2d_core(x, n, m); \
-    \                                                \\\n        DUMPOUT << \"  in\
-    \ [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl; \\\n    }\n\nvoid\
-    \ dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
-    \ head, Tail&&... tail) {\n    DUMPOUT << dm::varnames.top()[dm::varidx.top()]\
+    \ dump(...)                                                                  \
+    \ \\\n    {                                                                  \
+    \             \\\n        dm::arg_names.push(parse_args_names(#__VA_ARGS__));\
+    \                         \\\n        dm::varidx.push(0);                    \
+    \                                     \\\n        dump_func(__VA_ARGS__);    \
+    \                                                 \\\n        DUMPOUT << \"in\
+    \ [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl;        \\\n     \
+    \   dm::arg_names.pop();                                                     \
+    \   \\\n        dm::varidx.pop();                                            \
+    \               \\\n    }\n\n#define dump_1d(x, n)                           \
+    \                                    \\\n    {                               \
+    \                                                \\\n        DUMPOUT << #x <<\
+    \ \"[\" << #n << \"]\"                                           \\\n        \
+    \        << \":=> {\";                                                       \
+    \  \\\n        for(dm::i=0; dm::i<n; ++dm::i)                                \
+    \              \\\n            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ?\
+    \ \"}\" : \", \");            \\\n        DUMPOUT << \"  in [\" << __LINE__ <<\
+    \ \":\" << __FUNCTION__ << \"]\" << endl;      \\\n    }\n\n#define dump_2d(x,\
+    \ n, m)                                                            \\\n    { \
+    \                                                                            \
+    \  \\\n        DUMPOUT << #x << \"[\" << #n << \"]\"                         \
+    \                  \\\n                << \"[\" << #m << \"]\"               \
+    \                                  \\\n                << \":=> \\n\";       \
+    \                                                 \\\n        dump_2d_core(x,\
+    \ n, m);                                                      \\\n        DUMPOUT\
+    \ << \"  in [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl;      \\\
+    \n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
+    \ head, Tail&&... tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()]\
     \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
     \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
     \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nvoid print_formatted_int(T\
@@ -369,13 +338,21 @@ data:
     \ < n ; ++i) for(int j = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5)\
     \ << i << \" |\";\n        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j],\
     \ inf, column_len[j]);\n        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\"\
-    );\n    }\n}\n\n#include \"prettyprint.hpp\"\n"
+    );\n    }\n}\n\nvector<string> parse_args_names(string s){\n    int n = s.size();\n\
+    \    vector<string> res;\n    string tmp = \"\";\n    int parlevel = 0;\n    int\
+    \ angle_level = 0;\n    for (int i = 0; i < n; i++) {\n        if (s[i] == '(')\
+    \ parlevel++;\n        if (s[i] == ')') parlevel--;\n        if (s[i] == '<')\
+    \ angle_level++;\n        if (s[i] == '>') angle_level--;\n        if (s[i] ==\
+    \ ' ') continue;\n        if (s[i] == ',' && parlevel == 0 && angle_level == 0)\
+    \ {\n            res.push_back(tmp);\n            tmp = \"\";\n        }\n   \
+    \     else {\n            tmp += s[i];\n        }\n    }\n    res.push_back(tmp);\n\
+    \    return res;\n}\n\n#include \"prettyprint.hpp\"\n"
   dependsOn:
   - library/cpp/debug/prettyprint.hpp
   isVerificationFile: false
   path: library/cpp/debug/dump.hpp
   requiredBy: []
-  timestamp: '2020-10-21 16:08:40+09:00'
+  timestamp: '2020-10-27 19:48:17+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/debug/dump.hpp

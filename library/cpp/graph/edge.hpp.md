@@ -32,7 +32,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/tree.lib/tree.hpp
     title: library/cpp/graph/tree.lib/tree.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
     title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - icon: ':heavy_check_mark:'
@@ -75,7 +75,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   _pathExtension: hpp
@@ -112,19 +112,19 @@ data:
     \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/graph/edge.hpp\"\
     \n\n//%snippet.set('edge')%\n//%snippet.fold()%\ntemplate<class Cost=ll>\nstruct\
     \ Edge {\n    int from, to;\n    Cost cost;\n    int idx;\n    Edge(){};\n   \
-    \ Edge(int from, int to, Cost cost, int idx)\n        : from(from), to(to), cost(cost),\
-    \ idx(idx) {}\n\n    friend ostream& operator<<(ostream& os, const Edge& e) {\n\
-    \        // os << \"(f:\" << e.from << \", t:\" << e.to << \", c:\" << e.cost\
-    \ << \", i\" << e.idx << \")\";  // detailed\n        os << \"(\" << e.from <<\
-    \ \",\" << e.to << \")\";\n        return os;\n    }\n};\n//%snippet.end()%\n"
+    \ Edge(int from_, int to_, Cost cost_, int idx_)\n        : from(from_), to(to_),\
+    \ cost(cost_), idx(idx_) {}\n\n    friend ostream& operator<<(ostream& os, const\
+    \ Edge& e) {\n        // os << \"(f:\" << e.from << \", t:\" << e.to << \", c:\"\
+    \ << e.cost << \", i\" << e.idx << \")\";  // detailed\n        os << \"(\" <<\
+    \ e.from << \",\" << e.to << \")\";\n        return os;\n    }\n};\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('edge')%\n//%snippet.fold()%\n\
     template<class Cost=ll>\nstruct Edge {\n    int from, to;\n    Cost cost;\n  \
-    \  int idx;\n    Edge(){};\n    Edge(int from, int to, Cost cost, int idx)\n \
-    \       : from(from), to(to), cost(cost), idx(idx) {}\n\n    friend ostream& operator<<(ostream&\
-    \ os, const Edge& e) {\n        // os << \"(f:\" << e.from << \", t:\" << e.to\
-    \ << \", c:\" << e.cost << \", i\" << e.idx << \")\";  // detailed\n        os\
-    \ << \"(\" << e.from << \",\" << e.to << \")\";\n        return os;\n    }\n};\n\
-    //%snippet.end()%\n"
+    \  int idx;\n    Edge(){};\n    Edge(int from_, int to_, Cost cost_, int idx_)\n\
+    \        : from(from_), to(to_), cost(cost_), idx(idx_) {}\n\n    friend ostream&\
+    \ operator<<(ostream& os, const Edge& e) {\n        // os << \"(f:\" << e.from\
+    \ << \", t:\" << e.to << \", c:\" << e.cost << \", i\" << e.idx << \")\";  //\
+    \ detailed\n        os << \"(\" << e.from << \",\" << e.to << \")\";\n       \
+    \ return os;\n    }\n};\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
@@ -141,7 +141,7 @@ data:
   - library/cpp/graph/two_sat.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/topological_sort.hpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 19:49:53+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tests/graph.lowlink.test.cpp
