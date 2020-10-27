@@ -318,7 +318,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/topological_sort.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/topological_sort.hpp\"\
     \n\n//%snippet.set('topological_sort')%\n//%snippet.include('Graph')%\n//%snippet.config({'alias':'tps'})%\n\
     //%snippet.fold()%\n\nusing Pos = int;\ntuple<bool, vector<Pos>, int> topological_sort(const\
     \ Graph<>& g) {\n    vector<Pos> res;  // sort\u5F8C\u306E\u7D50\u679C\u3092\u683C\
@@ -343,7 +343,7 @@ data:
     \u304C\u3042\u308ADAG\u3067\u306F\u306A\u3044\u3002\u9589\u8DEF\u5185\u306E\u9802\
     \u70B9\u306Fst\u306B\u5165\u308A\u5F97\u306A\u3044\u306E\u3067\u3002\n}\n//%snippet.end()%\n\
     \n"
-  code: "#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('topological_sort')%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('topological_sort')%\n\
     //%snippet.include('Graph')%\n//%snippet.config({'alias':'tps'})%\n//%snippet.fold()%\n\
     \nusing Pos = int;\ntuple<bool, vector<Pos>, int> topological_sort(const Graph<>&\
     \ g) {\n    vector<Pos> res;  // sort\u5F8C\u306E\u7D50\u679C\u3092\u683C\u7D0D\
@@ -379,7 +379,7 @@ data:
   path: library/cpp/graph/topological_sort.hpp
   requiredBy:
   - library/cpp/graph/two_sat.hpp
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/topological_sort.test.cpp

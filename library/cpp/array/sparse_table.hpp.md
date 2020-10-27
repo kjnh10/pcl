@@ -46,7 +46,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/sparse_table.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/sparse_table.hpp\"\
     \n\n//%snippet.set('sparse_table')%\n//%snippet.fold()%\n\ntemplate< class T =\
     \ ll >\nstruct sparse_table {\n    vector< vector< T > > st;\n    vector< int\
     \ > lookup;\n\n    sparse_table(const vector< T > &v) {\n        int b = 0;\n\
@@ -59,25 +59,26 @@ data:
     \ = lookup[i >> 1] + 1;\n        }\n    }\n\n    inline T query(int l, int r)\
     \ {  // [l, r)\n        int b = lookup[r - l];\n        return min(st[b][l], st[b][r\
     \ - (1 << b)]);\n    }\n};\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('sparse_table')%\n//%snippet.fold()%\n\
-    \ntemplate< class T = ll >\nstruct sparse_table {\n    vector< vector< T > > st;\n\
-    \    vector< int > lookup;\n\n    sparse_table(const vector< T > &v) {\n     \
-    \   int b = 0;\n        while((1 << b) <= sz(v)) ++b;\n        st.assign(b, vector<\
-    \ T >(1 << b));\n        for(int i = 0; i < sz(v); i++) {\n            st[0][i]\
-    \ = v[i];\n        }\n        for(int i = 1; i < b; i++) {\n            for(int\
-    \ j = 0; j + (1 << i) <= (1 << b); j++) {\n                st[i][j] = min(st[i\
-    \ - 1][j], st[i - 1][j + (1 << (i - 1))]);\n            }\n        }\n       \
-    \ lookup.resize(v.size() + 1);\n        for(int i = 2; i < sz(lookup); i++) {\n\
-    \            lookup[i] = lookup[i >> 1] + 1;\n        }\n    }\n\n    inline T\
-    \ query(int l, int r) {  // [l, r)\n        int b = lookup[r - l];\n        return\
-    \ min(st[b][l], st[b][r - (1 << b)]);\n    }\n};\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('sparse_table')%\n\
+    //%snippet.fold()%\n\ntemplate< class T = ll >\nstruct sparse_table {\n    vector<\
+    \ vector< T > > st;\n    vector< int > lookup;\n\n    sparse_table(const vector<\
+    \ T > &v) {\n        int b = 0;\n        while((1 << b) <= sz(v)) ++b;\n     \
+    \   st.assign(b, vector< T >(1 << b));\n        for(int i = 0; i < sz(v); i++)\
+    \ {\n            st[0][i] = v[i];\n        }\n        for(int i = 1; i < b; i++)\
+    \ {\n            for(int j = 0; j + (1 << i) <= (1 << b); j++) {\n           \
+    \     st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);\n         \
+    \   }\n        }\n        lookup.resize(v.size() + 1);\n        for(int i = 2;\
+    \ i < sz(lookup); i++) {\n            lookup[i] = lookup[i >> 1] + 1;\n      \
+    \  }\n    }\n\n    inline T query(int l, int r) {  // [l, r)\n        int b =\
+    \ lookup[r - l];\n        return min(st[b][l], st[b][r - (1 << b)]);\n    }\n\
+    };\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/sparse_table.hpp
   requiredBy:
   - library/cpp/string/suffix_array.hpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/string/suffix_array.test.cpp

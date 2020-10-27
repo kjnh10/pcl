@@ -43,7 +43,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/sieve.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/sieve.hpp\"\
     \n\n//%snippet.set('sieve')%\n//%snippet.config({'alias':'prime_factor_by_sieve'})%\n\
     //%snippet.fold()%\n\nstruct Sieve {/*{{{*/\n    // \u30A8\u30E9\u30C8\u30B9\u30C6\
     \u30CD\u30B9\u306E\u3075\u308B\u3044 O(NloglogN)\n    ll n;                  \
@@ -74,7 +74,7 @@ data:
     \ .....]\n    }                /*}}}*/\n};/*}}}*/\nSieve sv(1e6);\n// How to use\n\
     \    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\n    // sv.prime_factor(x);\
     \  // \u7D20\u56E0\u6570\u5206\u89E3\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('sieve')%\n//%snippet.config({'alias':'prime_factor_by_sieve'})%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('sieve')%\n//%snippet.config({'alias':'prime_factor_by_sieve'})%\n\
     //%snippet.fold()%\n\nstruct Sieve {/*{{{*/\n    // \u30A8\u30E9\u30C8\u30B9\u30C6\
     \u30CD\u30B9\u306E\u3075\u308B\u3044 O(NloglogN)\n    ll n;                  \
     \            // n: max number for defined f and primes\n    vector<ll> f;    \
@@ -109,7 +109,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/sieve.hpp
   requiredBy: []
-  timestamp: '2020-10-21 12:54:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/sieve.aoj.test.cpp

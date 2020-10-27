@@ -37,12 +37,12 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/pow.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/pow.hpp\"\
     \n\n//%snippet.set('mypow')%\n//%snippet.config({'alias':'pow'})%\n\ntemplate<class\
     \ T>\nT mypow(T x, int n, T e = 1) {  // e : *\u306E\u5358\u4F4D\u5143\n    //\
     \ return x^n\n    T res(e);\n    while (n > 0) {\n        if (n & 1) res *= x;\n\
     \        x *= x;\n        n >>= 1;\n    }\n    return res;\n}\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('mypow')%\n//%snippet.config({'alias':'pow'})%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('mypow')%\n//%snippet.config({'alias':'pow'})%\n\
     \ntemplate<class T>\nT mypow(T x, int n, T e = 1) {  // e : *\u306E\u5358\u4F4D\
     \u5143\n    // return x^n\n    T res(e);\n    while (n > 0) {\n        if (n &\
     \ 1) res *= x;\n        x *= x;\n        n >>= 1;\n    }\n    return res;\n}\n\
@@ -52,7 +52,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/pow.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/pow.hpp

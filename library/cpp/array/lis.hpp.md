@@ -40,7 +40,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/lis.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/lis.hpp\"\
     \n\n//%snippet.set('lis')%\n\ntemplate<class T>\nint lis(const vector<T>& x, bool\
     \ strict=true) { /*{{{*/\n    int n = sz(x);\n    vector<T> dp(n+1, numeric_limits<T>().max());\n\
     \    vector<pair<int, T>> update_info(n);\n    dp[0] = numeric_limits<T>().min();\n\
@@ -56,8 +56,8 @@ data:
     \ {\n//     vector<ll> x({1, 5, 4, 2, 3, 3, 7});\n//     auto res = lis(x);\n\
     //     auto res_not_strict = lis(x, false);\n//     dump(res);\n//     dump(res_not_strict);\n\
     //     return 0;\n// }\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('lis')%\n\ntemplate<class T>\n\
-    int lis(const vector<T>& x, bool strict=true) { /*{{{*/\n    int n = sz(x);\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('lis')%\n\ntemplate<class\
+    \ T>\nint lis(const vector<T>& x, bool strict=true) { /*{{{*/\n    int n = sz(x);\n\
     \    vector<T> dp(n+1, numeric_limits<T>().max());\n    vector<pair<int, T>> update_info(n);\n\
     \    dp[0] = numeric_limits<T>().min();\n    int res = 0;\n    rep(i, n) {\n \
     \       int j;\n        if (strict) j = lb(all(dp), x[i]) - dp.begin();\n    \
@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/lis.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/lis.test.cpp

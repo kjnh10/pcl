@@ -41,7 +41,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/p2.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/p2.hpp\"\
     \n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n//%snippet.config({'alias':'point'})%\n\
     //%snippet.config({'alias':'pair'})%\n//%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\n\
     struct P2 {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n \
@@ -73,7 +73,7 @@ data:
     \ true;\n        else return false;\n    }\n\n};\ntemplate<class T>\nlong double\
     \ dist(const P2<T>& p, const P2<T>& q){\n    return sqrt((p.x - q.x) * (p.x -\
     \ q.x) + (p.y - q.y) * (p.y - q.y));\n}\n\n/*}}}*/\nusing P = P2<ll>;\n\n//%snippet.end%\n\
-    #line 2 \"library/cpp/math/geometry/angle.hpp\"\n\n//%snippet.set('angle')%\n\n\
+    #line 3 \"library/cpp/math/geometry/angle.hpp\"\n\n//%snippet.set('angle')%\n\n\
     struct Angle{\n    ll x, y; // \u5B9F\u969B\u306B\u306F10^9\u304F\u3089\u3044\u307E\
     \u3067\u3057\u304B\u5165\u308C\u3089\u308C\u306A\u3044\u3002\n    int _orthant;\
     \  // \u8C61\u9650\n    Angle(){};\n    Angle(ll _x, ll _y): x(_x), y(_y){\n \
@@ -92,12 +92,12 @@ data:
     \ &operator<<(ostream &stream, Angle p) {\n        stream << \"(\" << p.x << \"\
     ,\" << p.y << \")\";\n        return stream;\n    }\n};\n\n//%snippet.end%\n\n\
     // from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n"
-  code: "#include \"p2.hpp\"\n\n//%snippet.set('angle')%\n\nstruct Angle{\n    ll\
-    \ x, y; // \u5B9F\u969B\u306B\u306F10^9\u304F\u3089\u3044\u307E\u3067\u3057\u304B\
-    \u5165\u308C\u3089\u308C\u306A\u3044\u3002\n    int _orthant;  // \u8C61\u9650\
-    \n    Angle(){};\n    Angle(ll _x, ll _y): x(_x), y(_y){\n        assert(x !=\
-    \ 0 || y != 0);\n        ll g = gcd(abs(x), abs(y));\n        x /= g;\n      \
-    \  y /= g;\n        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);\n        else _orthant\
+  code: "#pragma once\n#include \"p2.hpp\"\n\n//%snippet.set('angle')%\n\nstruct Angle{\n\
+    \    ll x, y; // \u5B9F\u969B\u306B\u306F10^9\u304F\u3089\u3044\u307E\u3067\u3057\
+    \u304B\u5165\u308C\u3089\u308C\u306A\u3044\u3002\n    int _orthant;  // \u8C61\
+    \u9650\n    Angle(){};\n    Angle(ll _x, ll _y): x(_x), y(_y){\n        assert(x\
+    \ != 0 || y != 0);\n        ll g = gcd(abs(x), abs(y));\n        x /= g;\n   \
+    \     y /= g;\n        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);\n        else _orthant\
     \ = (x >= 0 ? 3 : 2);\n    }\n\n    bool operator<(const Angle &r) const {\n \
     \       return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y *\
     \ r.x > 0);\n    }\n\n    bool operator==(const Angle &r) const { return (x ==\
@@ -117,7 +117,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/geometry/angle.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/angle.hpp

@@ -45,7 +45,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/area_rect.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/area_rect.hpp\"\
     \n\n//%snippet.set('AreaRect')%\n//%snippet.fold()%\n\nclass AreaRect { //(0,0)-(X,Y)\u306E\
     \u77E9\u5F62\u306E\u9762\u7A4D\u306E\u7DCF\u548C\n\tmap<ll,ll> M;  // \u77E9\u5F62\
     \u306E\u53F3\u7AEF\u3092\u7BA1\u7406\npublic:\n\tll sum;\n\tAreaRect() {\n\t\t\
@@ -74,7 +74,7 @@ data:
   isVerificationFile: true
   path: library/cpp/math/geometry/area_rect.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/area_rect.test.cpp

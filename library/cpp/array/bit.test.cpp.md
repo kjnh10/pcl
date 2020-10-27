@@ -44,7 +44,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/bit.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/bit.hpp\"\
     \n\n//%snippet.set('bit')%\n\ntemplate <typename T = ll>\nstruct bit {  //{{{\n\
     \    int n;\n    vector<T> dat;\n    vector<T> raw;\n\n    bit(int _n = 0) { \
     \ //{{{\n        n = _n;\n        dat = vector<T>(n);\n        raw = vector<T>(n);\n\
@@ -85,7 +85,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/bit.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/bit.test.cpp

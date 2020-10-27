@@ -41,7 +41,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/dinic.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/graph/flow/dinic.hpp\"\
     \n\n//%snippet.set('dinic')%\n//%snippet.config({'alias':'flow'})%\n//%snippet.fold()%\n\
     \n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\nusing Capacity = int;\n\
     struct Edge {\n    int src, dst;\n    Capacity cap;\n    Edge(int src_, int dst_,\
@@ -76,8 +76,8 @@ data:
     \ == 0) break;\n        }\n        return res;\n    }/*}}}*/\n};\n// Graph g(n);\n\
     // ll a,b;cin>>a>>b;\n// g[a].emplace_back(a, b, 1);\n// g[b].emplace_back(b,\
     \ a, 1);\n\n//%snippet.end()%\n"
-  code: "#include \"../../header.hpp\"\n\n//%snippet.set('dinic')%\n//%snippet.config({'alias':'flow'})%\n\
-    //%snippet.fold()%\n\n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\n\
+  code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('dinic')%\n\
+    //%snippet.config({'alias':'flow'})%\n//%snippet.fold()%\n\n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\n\
     using Capacity = int;\nstruct Edge {\n    int src, dst;\n    Capacity cap;\n \
     \   Edge(int src_, int dst_, Capacity cap_) : src(src_), dst(dst_), cap(cap_)\
     \ {}\n};\n\nusing Edges = vector<Edge>;\nusing Graph = vector<Edges>;\ntemplate\
@@ -115,7 +115,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/flow/dinic.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/flow/dinic.test.cpp

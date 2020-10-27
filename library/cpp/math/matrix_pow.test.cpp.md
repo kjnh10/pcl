@@ -48,7 +48,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/matrix_pow.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/matrix_pow.hpp\"\
     \n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\ntemplate <class value\
     \ = ll>\nusing mat = vector<vector<value>>;\n\ntemplate <class T>\nmat<T> mul(const\
     \ mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(), vector<T>(B[0].size()));\n\
@@ -105,7 +105,7 @@ data:
   isVerificationFile: true
   path: library/cpp/math/matrix_pow.test.cpp
   requiredBy: []
-  timestamp: '2020-10-26 02:29:15+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/matrix_pow.test.cpp

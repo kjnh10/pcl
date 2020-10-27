@@ -41,7 +41,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/p2.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/p2.hpp\"\
     \n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n//%snippet.config({'alias':'point'})%\n\
     //%snippet.config({'alias':'pair'})%\n//%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\n\
     struct P2 {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n \
@@ -73,7 +73,7 @@ data:
     \ true;\n        else return false;\n    }\n\n};\ntemplate<class T>\nlong double\
     \ dist(const P2<T>& p, const P2<T>& q){\n    return sqrt((p.x - q.x) * (p.x -\
     \ q.x) + (p.y - q.y) * (p.y - q.y));\n}\n\n/*}}}*/\nusing P = P2<ll>;\n\n//%snippet.end%\n\
-    #line 3 \"library/cpp/math/rational.hpp\"\n\n//%snippet.set('rational')%\n//%snippet.config({'alias':'fraction'})%\n\
+    #line 4 \"library/cpp/math/rational.hpp\"\n\n//%snippet.set('rational')%\n//%snippet.config({'alias':'fraction'})%\n\
     //%snippet.fold()%\n\ntemplate<class T=ll> \nstruct rational : public P2<T> {\n\
     \    rational(){}\n    rational(T _x, T _y) : P2<T>(_x, _y) {\n        T g = gcd(this->x,\
     \ this->y);\n        this->x /= g; this->y /= g;\n        if (this->y<0 or (this->y==0\
@@ -81,21 +81,22 @@ data:
     // assert(rational(3, 5) == rational(-6, -10));\n// map<rational<ll>, int> cnt;\
     \  // key\u306B\u3082\u3067\u304D\u308B\u3002\n\n//%snippet.end()%\n\n// verified\
     \ by https://atcoder.jp/contests/abc168/tasks/abc168_e\n"
-  code: "#include \"../header.hpp\"\n#include \"geometry/p2.hpp\"\n\n//%snippet.set('rational')%\n\
-    //%snippet.config({'alias':'fraction'})%\n//%snippet.fold()%\n\ntemplate<class\
-    \ T=ll> \nstruct rational : public P2<T> {\n    rational(){}\n    rational(T _x,\
-    \ T _y) : P2<T>(_x, _y) {\n        T g = gcd(this->x, this->y);\n        this->x\
-    \ /= g; this->y /= g;\n        if (this->y<0 or (this->y==0 && this->x==-1)) this->x\
-    \ *= -1, this->y *= -1;\n    }\n};\n// rational(3, 5);\n// assert(rational(3,\
-    \ 5) == rational(-6, -10));\n// map<rational<ll>, int> cnt;  // key\u306B\u3082\
-    \u3067\u304D\u308B\u3002\n\n//%snippet.end()%\n\n// verified by https://atcoder.jp/contests/abc168/tasks/abc168_e\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n#include \"geometry/p2.hpp\"\n\n\
+    //%snippet.set('rational')%\n//%snippet.config({'alias':'fraction'})%\n//%snippet.fold()%\n\
+    \ntemplate<class T=ll> \nstruct rational : public P2<T> {\n    rational(){}\n\
+    \    rational(T _x, T _y) : P2<T>(_x, _y) {\n        T g = gcd(this->x, this->y);\n\
+    \        this->x /= g; this->y /= g;\n        if (this->y<0 or (this->y==0 &&\
+    \ this->x==-1)) this->x *= -1, this->y *= -1;\n    }\n};\n// rational(3, 5);\n\
+    // assert(rational(3, 5) == rational(-6, -10));\n// map<rational<ll>, int> cnt;\
+    \  // key\u306B\u3082\u3067\u304D\u308B\u3002\n\n//%snippet.end()%\n\n// verified\
+    \ by https://atcoder.jp/contests/abc168/tasks/abc168_e\n"
   dependsOn:
   - library/cpp/header.hpp
   - library/cpp/math/geometry/p2.hpp
   isVerificationFile: false
   path: library/cpp/math/rational.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/rational.hpp

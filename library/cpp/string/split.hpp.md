@@ -37,12 +37,12 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/string/split.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/string/split.hpp\"\
     \n\n//%snippet.set('split')%\n//%snippet.fold()%\n\nvector<string> split(const\
     \ string& s){\n    ll n = sz(s);\n    vector<string> res = {\"\"};\n    rep(i,\
     \ n){\n        if (s[i]==' '){ res.push_back(\"\"); }\n        else{ res.back()\
     \ += s[i]; }\n    }\n    return res;\n}\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('split')%\n//%snippet.fold()%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('split')%\n//%snippet.fold()%\n\
     \nvector<string> split(const string& s){\n    ll n = sz(s);\n    vector<string>\
     \ res = {\"\"};\n    rep(i, n){\n        if (s[i]==' '){ res.push_back(\"\");\
     \ }\n        else{ res.back() += s[i]; }\n    }\n    return res;\n}\n\n//%snippet.end()%\n"
@@ -51,7 +51,7 @@ data:
   isVerificationFile: false
   path: library/cpp/string/split.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/string/split.hpp

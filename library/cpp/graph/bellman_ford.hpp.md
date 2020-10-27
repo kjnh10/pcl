@@ -312,7 +312,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/bellman_ford.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/bellman_ford.hpp\"\
     \n\n//%snippet.set('bellman_ford')%\n//%snippet.include('Graph')%\n//%snippet.fold()%\n\
     \nauto bellman_ford(const Graph<>& g, int start) { // \u8CA0\u9589\u8DEF\u691C\
     \u51FA\n    vector<decltype(g.infcost)> dist(g.n, g.infcost);  // \u6700\u77ED\
@@ -323,7 +323,7 @@ data:
     \            return make_pair(true, dist);  // n\u56DE\u76EE\u306B\u3082\u66F4\
     \u65B0\u304C\u3042\u308B\u306A\u3089\u8CA0\u306E\u9589\u8DEF\u304C\u5B58\u5728\
     \n            }\n        }\n    }\n    return make_pair(false, dist);\n}\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('bellman_ford')%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('bellman_ford')%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\nauto bellman_ford(const Graph<>&\
     \ g, int start) { // \u8CA0\u9589\u8DEF\u691C\u51FA\n    vector<decltype(g.infcost)>\
     \ dist(g.n, g.infcost);  // \u6700\u77ED\u8DDD\u96E2\n    dist[start] = g.zerocost;\n\
@@ -344,7 +344,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/bellman_ford.hpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/bellman_ford.test.cpp

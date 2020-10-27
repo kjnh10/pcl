@@ -40,7 +40,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/geometry/area_rect.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/area_rect.hpp\"\
     \n\n//%snippet.set('AreaRect')%\n//%snippet.fold()%\n\nclass AreaRect { //(0,0)-(X,Y)\u306E\
     \u77E9\u5F62\u306E\u9762\u7A4D\u306E\u7DCF\u548C\n\tmap<ll,ll> M;  // \u77E9\u5F62\
     \u306E\u53F3\u7AEF\u3092\u7BA1\u7406\npublic:\n\tll sum;\n\tAreaRect() {\n\t\t\
@@ -52,23 +52,24 @@ data:
     \ * (p.second - M.lower_bound(x)->second);\n            }\n\t\t}\n\t\tsum += (x\
     \ - prev(M.lower_bound(x))->first) * (y - M.lower_bound(x)->second);\n\t\tM[x]\
     \ = y;\n\t}\n};\n\n//%snippet.end()%\n"
-  code: "#include \"../../header.hpp\"\n\n//%snippet.set('AreaRect')%\n//%snippet.fold()%\n\
-    \nclass AreaRect { //(0,0)-(X,Y)\u306E\u77E9\u5F62\u306E\u9762\u7A4D\u306E\u7DCF\
-    \u548C\n\tmap<ll,ll> M;  // \u77E9\u5F62\u306E\u53F3\u7AEF\u3092\u7BA1\u7406\n\
-    public:\n\tll sum;\n\tAreaRect() {\n\t\tM[0] = 1LL<<60;  // \u756A\u5175\n\t\t\
-    M[1LL<<60] = 0;  // \u756A\u5175\n\t\tsum = 0;\n\t}\n\tvoid add(ll x, ll y) {\n\
-    \t\tauto k = M.lower_bound(x);\n\t\tif (k->second >= y) return;\n\t\twhile(true)\
-    \ {\n            if (auto p = *prev(M.lower_bound(x)); p.second > y){\n      \
-    \          break;\n            }\n            else{;\n                M.erase(p.first);\n\
-    \                sum -= (p.first - prev(M.lower_bound(p.first))->first) * (p.second\
-    \ - M.lower_bound(x)->second);\n            }\n\t\t}\n\t\tsum += (x - prev(M.lower_bound(x))->first)\
-    \ * (y - M.lower_bound(x)->second);\n\t\tM[x] = y;\n\t}\n};\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('AreaRect')%\n\
+    //%snippet.fold()%\n\nclass AreaRect { //(0,0)-(X,Y)\u306E\u77E9\u5F62\u306E\u9762\
+    \u7A4D\u306E\u7DCF\u548C\n\tmap<ll,ll> M;  // \u77E9\u5F62\u306E\u53F3\u7AEF\u3092\
+    \u7BA1\u7406\npublic:\n\tll sum;\n\tAreaRect() {\n\t\tM[0] = 1LL<<60;  // \u756A\
+    \u5175\n\t\tM[1LL<<60] = 0;  // \u756A\u5175\n\t\tsum = 0;\n\t}\n\tvoid add(ll\
+    \ x, ll y) {\n\t\tauto k = M.lower_bound(x);\n\t\tif (k->second >= y) return;\n\
+    \t\twhile(true) {\n            if (auto p = *prev(M.lower_bound(x)); p.second\
+    \ > y){\n                break;\n            }\n            else{;\n         \
+    \       M.erase(p.first);\n                sum -= (p.first - prev(M.lower_bound(p.first))->first)\
+    \ * (p.second - M.lower_bound(x)->second);\n            }\n\t\t}\n\t\tsum += (x\
+    \ - prev(M.lower_bound(x))->first) * (y - M.lower_bound(x)->second);\n\t\tM[x]\
+    \ = y;\n\t}\n};\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/geometry/area_rect.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/geometry/area_rect.test.cpp

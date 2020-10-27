@@ -46,7 +46,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/misc/zipper.lib/zipper.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/zipper.hpp\"\
     \n\n//%snippet.set('zipper')%\n\nstruct zipper {                             /*{{{*/\n\
     \    // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\
     \u3065\u3089\u3044\n    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n\
@@ -191,7 +191,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/reversed_cnt.cpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/reversed_cnt.cpp

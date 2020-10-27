@@ -323,7 +323,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/strongly_connected_components.hpp\"\
     \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
@@ -348,7 +348,7 @@ data:
     \     if (comp[idx] != -1) return;\n        comp[idx] = cnt;\n        for (auto\
     \ e : _rg[idx]) _rdfs(e.to, cnt);\n    }  //}}}\n};\n// how to use\n// StronglyConnectedComponents\
     \ scc(g); // g: Graph\n// dump(scc.comp, scc.dag.adj_list);\n\n//%snippet.end()%\n\
-    \n\n#line 3 \"library/cpp/graph/topological_sort.hpp\"\n\n//%snippet.set('topological_sort')%\n\
+    \n\n#line 4 \"library/cpp/graph/topological_sort.hpp\"\n\n//%snippet.set('topological_sort')%\n\
     //%snippet.include('Graph')%\n//%snippet.config({'alias':'tps'})%\n//%snippet.fold()%\n\
     \nusing Pos = int;\ntuple<bool, vector<Pos>, int> topological_sort(const Graph<>&\
     \ g) {\n    vector<Pos> res;  // sort\u5F8C\u306E\u7D50\u679C\u3092\u683C\u7D0D\
@@ -372,7 +372,7 @@ data:
     \   return {is_valid, res, max_len};  // res.size()<g.n\u306A\u3089\u9589\u8DEF\
     \u304C\u3042\u308ADAG\u3067\u306F\u306A\u3044\u3002\u9589\u8DEF\u5185\u306E\u9802\
     \u70B9\u306Fst\u306B\u5165\u308A\u5F97\u306A\u3044\u306E\u3067\u3002\n}\n//%snippet.end()%\n\
-    \n#line 3 \"library/cpp/graph/two_sat.hpp\"\n\n//%snippet.set('two_sat')%\n//%snippet.include('scc')%\n\
+    \n#line 4 \"library/cpp/graph/two_sat.hpp\"\n\n//%snippet.set('two_sat')%\n//%snippet.include('scc')%\n\
     //%snippet.include('topological_sort')%\n//%snippet.fold()%\n\nstruct two_sat{\n\
     \    using Pos = int;\n    using Size = int;\n    Size orig_n;\n    Graph<bool>\
     \ g;\n    vector<int> assigned;\n\n    two_sat(Size _orig_n): orig_n(_orig_n){\n\
@@ -424,7 +424,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/two_sat.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/two_sat.test.cpp

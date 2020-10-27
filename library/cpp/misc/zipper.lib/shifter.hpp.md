@@ -37,23 +37,23 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/misc/zipper.lib/shifter.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/shifter.hpp\"\
     \n\n//%snippet.set('shifter')%\n\nstruct shifter{\n    ll n, min_v;\n    shifter(ll\
     \ _min_v, ll _max_v): min_v(_min_v){\n        n = _max_v - min_v;\n    }\n   \
     \ ll operator()(ll x) { return x - min_v; }\n    ll unshift(ll sx) { return sx\
     \ + min_v; }\n};\n// How to use\n    // auto sh = shifter(-10000, 10000);\n  \
     \  // vl x(sh.n);\n    // x[sh(-3)];\n\n//%snippet.end()%\n"
-  code: "#include \"../../header.hpp\"\n\n//%snippet.set('shifter')%\n\nstruct shifter{\n\
-    \    ll n, min_v;\n    shifter(ll _min_v, ll _max_v): min_v(_min_v){\n       \
-    \ n = _max_v - min_v;\n    }\n    ll operator()(ll x) { return x - min_v; }\n\
-    \    ll unshift(ll sx) { return sx + min_v; }\n};\n// How to use\n    // auto\
+  code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('shifter')%\n\
+    \nstruct shifter{\n    ll n, min_v;\n    shifter(ll _min_v, ll _max_v): min_v(_min_v){\n\
+    \        n = _max_v - min_v;\n    }\n    ll operator()(ll x) { return x - min_v;\
+    \ }\n    ll unshift(ll sx) { return sx + min_v; }\n};\n// How to use\n    // auto\
     \ sh = shifter(-10000, 10000);\n    // vl x(sh.n);\n    // x[sh(-3)];\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/misc/zipper.lib/shifter.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/zipper.lib/shifter.hpp

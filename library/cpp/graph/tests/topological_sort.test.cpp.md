@@ -317,7 +317,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/topological_sort.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/topological_sort.hpp\"\
     \n\n//%snippet.set('topological_sort')%\n//%snippet.include('Graph')%\n//%snippet.config({'alias':'tps'})%\n\
     //%snippet.fold()%\n\nusing Pos = int;\ntuple<bool, vector<Pos>, int> topological_sort(const\
     \ Graph<>& g) {\n    vector<Pos> res;  // sort\u5F8C\u306E\u7D50\u679C\u3092\u683C\
@@ -368,7 +368,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/topological_sort.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/topological_sort.test.cpp

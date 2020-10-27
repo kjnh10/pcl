@@ -311,7 +311,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 2 \"library/cpp/graph/local_min_cycle.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/local_min_cycle.hpp\"\
     \n\n//%snippet.set('local_min_cycle_undirected')%\n//%snippet.config({'alias':'cycle'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\n// verified by https://codeforces.com/contest/1364/problem/D\n\
     \ntemplate<class T>\nvector<int> local_min_cycle_undirected(Graph<T>& g){\n  \
@@ -373,7 +373,7 @@ data:
     \ ans;\n                    }\n                }\n                else{\n    \
     \                pos.erase(loop[i]);\n                }\n            }\n     \
     \       return ans;\n        }\n    }\n    return {};\n}\n\n//%snippet.end()%\n"
-  code: "#include \"graph.hpp\"\n\n//%snippet.set('local_min_cycle_undirected')%\n\
+  code: "#pragma once\n#include \"graph.hpp\"\n\n//%snippet.set('local_min_cycle_undirected')%\n\
     //%snippet.config({'alias':'cycle'})%\n//%snippet.include('Graph')%\n//%snippet.fold()%\n\
     \n// verified by https://codeforces.com/contest/1364/problem/D\n\ntemplate<class\
     \ T>\nvector<int> local_min_cycle_undirected(Graph<T>& g){\n    // \u7121\u5411\
@@ -445,7 +445,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/local_min_cycle.hpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/local_min_cycle.hpp

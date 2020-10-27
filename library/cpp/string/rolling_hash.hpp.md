@@ -40,7 +40,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/string/rolling_hash.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/string/rolling_hash.hpp\"\
     \n\n\n//%snippet.set('rolling_hash')%\n//%snippet.fold()%\n\ntemplate<class Z>\
     \ Z rng(Z a, Z b) {\n    auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<Z>(a, b - 1)(tmp);\n}\n\nstruct rolling_hash\
@@ -73,8 +73,8 @@ data:
     \        return os;\n    }\n    #endif\n};\nuint64_t rolling_hash::B0 = rng<ll>(1000000,\
     \ rolling_hash::P0);\nuint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);\n\
     \n//%snippet.end()%\n\n"
-  code: "#include \"../header.hpp\"\n\n\n//%snippet.set('rolling_hash')%\n//%snippet.fold()%\n\
-    \ntemplate<class Z> Z rng(Z a, Z b) {\n    auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n\n\n//%snippet.set('rolling_hash')%\n\
+    //%snippet.fold()%\n\ntemplate<class Z> Z rng(Z a, Z b) {\n    auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<Z>(a, b - 1)(tmp);\n}\n\nstruct rolling_hash\
     \ {\n    // static constexpr uint64_t P0 = 4111144441, P1 = 4111444111;\n    static\
     \ constexpr uint64_t P0 = 1e9+7, P1 = 998244353;\n    static uint64_t B0, B1;\n\
@@ -110,7 +110,7 @@ data:
   isVerificationFile: false
   path: library/cpp/string/rolling_hash.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/string/rolling_hash.test.cpp

@@ -128,7 +128,7 @@ data:
     \ i){\n//     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});\n\
     //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});\n//\
     \     return {left, right};\n// }\n// -----------------------------------------------\n\
-    \n//%snippet.end()%\n#line 2 \"library/cpp/array/sparse_table.hpp\"\n\n//%snippet.set('sparse_table')%\n\
+    \n//%snippet.end()%\n#line 3 \"library/cpp/array/sparse_table.hpp\"\n\n//%snippet.set('sparse_table')%\n\
     //%snippet.fold()%\n\ntemplate< class T = ll >\nstruct sparse_table {\n    vector<\
     \ vector< T > > st;\n    vector< int > lookup;\n\n    sparse_table(const vector<\
     \ T > &v) {\n        int b = 0;\n        while((1 << b) <= sz(v)) ++b;\n     \
@@ -140,7 +140,7 @@ data:
     \ i < sz(lookup); i++) {\n            lookup[i] = lookup[i >> 1] + 1;\n      \
     \  }\n    }\n\n    inline T query(int l, int r) {  // [l, r)\n        int b =\
     \ lookup[r - l];\n        return min(st[b][l], st[b][r - (1 << b)]);\n    }\n\
-    };\n\n//%snippet.end()%\n#line 4 \"library/cpp/string/suffix_array.hpp\"\n\n//%snippet.set('suffix_array')%\n\
+    };\n\n//%snippet.end()%\n#line 5 \"library/cpp/string/suffix_array.hpp\"\n\n//%snippet.set('suffix_array')%\n\
     //%snippet.config({'alias':'sa'})%\n//%snippet.include('segment_tree')%\n//%snippet.include('sparse_table')%\n\
     //%snippet.fold()%\n\nstruct suffix_array { \n    vector<int> a;\n    vector<int>\
     \ pos;   // pos[j]: j\u4F4D\u306Esumffix\u306F\u3069\u3053\u304B\u3089\u59CB\u307E\
@@ -202,7 +202,7 @@ data:
   isVerificationFile: true
   path: library/cpp/string/suffix_array.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/string/suffix_array.test.cpp

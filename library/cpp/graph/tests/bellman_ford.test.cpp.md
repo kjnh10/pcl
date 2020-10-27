@@ -317,7 +317,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/bellman_ford.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/bellman_ford.hpp\"\
     \n\n//%snippet.set('bellman_ford')%\n//%snippet.include('Graph')%\n//%snippet.fold()%\n\
     \nauto bellman_ford(const Graph<>& g, int start) { // \u8CA0\u9589\u8DEF\u691C\
     \u51FA\n    vector<decltype(g.infcost)> dist(g.n, g.infcost);  // \u6700\u77ED\
@@ -355,7 +355,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/bellman_ford.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/bellman_ford.test.cpp

@@ -318,7 +318,7 @@ data:
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/strongly_connected_components.hpp\"\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/strongly_connected_components.hpp\"\
     \n\n//%snippet.set('scc')%\n//%snippet.config({'alias':'StronglyConnectedComponents'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\ntemplate<class T = ll>\nstruct\
     \ StronglyConnectedComponents {\n    const Graph<T> &g;  //{{{\n    vector<int>\
@@ -344,7 +344,7 @@ data:
     \ e : _rg[idx]) _rdfs(e.to, cnt);\n    }  //}}}\n};\n// how to use\n// StronglyConnectedComponents\
     \ scc(g); // g: Graph\n// dump(scc.comp, scc.dag.adj_list);\n\n//%snippet.end()%\n\
     \n\n"
-  code: "#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('scc')%\n\
+  code: "#pragma once\n#include \"../header.hpp\"\n#include \"graph.hpp\"\n\n//%snippet.set('scc')%\n\
     //%snippet.config({'alias':'StronglyConnectedComponents'})%\n//%snippet.include('Graph')%\n\
     //%snippet.fold()%\n\ntemplate<class T = ll>\nstruct StronglyConnectedComponents\
     \ {\n    const Graph<T> &g;  //{{{\n    vector<int> comp;  // comp[i]: i\u304C\
@@ -380,7 +380,7 @@ data:
   path: library/cpp/graph/strongly_connected_components.hpp
   requiredBy:
   - library/cpp/graph/two_sat.hpp
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/two_sat.test.cpp

@@ -44,7 +44,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/lis.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/lis.hpp\"\
     \n\n//%snippet.set('lis')%\n\ntemplate<class T>\nint lis(const vector<T>& x, bool\
     \ strict=true) { /*{{{*/\n    int n = sz(x);\n    vector<T> dp(n+1, numeric_limits<T>().max());\n\
     \    vector<pair<int, T>> update_info(n);\n    dp[0] = numeric_limits<T>().min();\n\
@@ -72,7 +72,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/lis.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/lis.test.cpp

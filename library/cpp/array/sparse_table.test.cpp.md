@@ -45,7 +45,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/sparse_table.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/sparse_table.hpp\"\
     \n\n//%snippet.set('sparse_table')%\n//%snippet.fold()%\n\ntemplate< class T =\
     \ ll >\nstruct sparse_table {\n    vector< vector< T > > st;\n    vector< int\
     \ > lookup;\n\n    sparse_table(const vector< T > &v) {\n        int b = 0;\n\
@@ -71,7 +71,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/sparse_table.test.cpp

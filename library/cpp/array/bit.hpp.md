@@ -40,7 +40,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/bit.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/bit.hpp\"\
     \n\n//%snippet.set('bit')%\n\ntemplate <typename T = ll>\nstruct bit {  //{{{\n\
     \    int n;\n    vector<T> dat;\n    vector<T> raw;\n\n    bit(int _n = 0) { \
     \ //{{{\n        n = _n;\n        dat = vector<T>(n);\n        raw = vector<T>(n);\n\
@@ -63,34 +63,34 @@ data:
     \        vector<T> acum;\n        rep(i, b.n) { acum.pb(b.sum(i)); }\n       \
     \ os << \"  acm:\" << acum << endl;\n        return os;\n    }  //}}}\n    #endif\n\
     };     //}}}\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('bit')%\n\ntemplate <typename\
-    \ T = ll>\nstruct bit {  //{{{\n    int n;\n    vector<T> dat;\n    vector<T>\
-    \ raw;\n\n    bit(int _n = 0) {  //{{{\n        n = _n;\n        dat = vector<T>(n);\n\
-    \        raw = vector<T>(n);\n    }  //}}}\n\n    bit(vector<T> a) {  // {{{\n\
-    \        n = (int)a.size();\n        dat = vector<T>(n);\n        raw = vector<T>(n);\n\
-    \        for (int i = 0; i < n; i++) {\n            add(i, a[i]);\n          \
-    \  raw[i] = a[i];\n        }\n    }  //}}}\n\n    T _rsum(int i) {  //{{{ [0,\
-    \ i]\n        T s = 0;\n        while (i >= 0) {\n            s += dat[i];\n \
-    \           i = (i & (i + 1)) - 1;\n        }\n        return s;\n    }  //}}}\n\
-    \n    T query(int l, int r) {  //{{{  [l, r)\n        if (l > r - 1) return 0;\n\
-    \        return _rsum(r - 1) - _rsum(l - 1);\n    }  //}}}\n\n    void add(int\
-    \ i, T x) {  //{{{\n        raw[i] += x;\n        while (i < n) {\n          \
-    \  dat[i] += x;\n            i |= i + 1;\n        }\n    }  //}}}\n\n    int lower_bound(T\
-    \ x) {  // a[0]+...+a[ret] >= x{{{\n        int ret = -1;\n        int k = 1;\n\
-    \        while (2 * k <= n) k <<= 1;\n        for (; k > 0; k >>= 1) {\n     \
-    \       if (ret + k < n && dat[ret + k] < x) {\n                x -= dat[ret +\
-    \ k];\n                ret += k;\n            }\n        }\n        return ret\
-    \ + 1;\n    }  //}}}\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream&\
-    \ operator<<(ostream& os, bit<T>& b) {  //{{{\n        os << endl << \"  raw:\"\
-    \ << b.raw << endl;\n        vector<T> acum;\n        rep(i, b.n) { acum.pb(b.sum(i));\
-    \ }\n        os << \"  acm:\" << acum << endl;\n        return os;\n    }  //}}}\n\
-    \    #endif\n};     //}}}\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('bit')%\n\ntemplate\
+    \ <typename T = ll>\nstruct bit {  //{{{\n    int n;\n    vector<T> dat;\n   \
+    \ vector<T> raw;\n\n    bit(int _n = 0) {  //{{{\n        n = _n;\n        dat\
+    \ = vector<T>(n);\n        raw = vector<T>(n);\n    }  //}}}\n\n    bit(vector<T>\
+    \ a) {  // {{{\n        n = (int)a.size();\n        dat = vector<T>(n);\n    \
+    \    raw = vector<T>(n);\n        for (int i = 0; i < n; i++) {\n            add(i,\
+    \ a[i]);\n            raw[i] = a[i];\n        }\n    }  //}}}\n\n    T _rsum(int\
+    \ i) {  //{{{ [0, i]\n        T s = 0;\n        while (i >= 0) {\n           \
+    \ s += dat[i];\n            i = (i & (i + 1)) - 1;\n        }\n        return\
+    \ s;\n    }  //}}}\n\n    T query(int l, int r) {  //{{{  [l, r)\n        if (l\
+    \ > r - 1) return 0;\n        return _rsum(r - 1) - _rsum(l - 1);\n    }  //}}}\n\
+    \n    void add(int i, T x) {  //{{{\n        raw[i] += x;\n        while (i <\
+    \ n) {\n            dat[i] += x;\n            i |= i + 1;\n        }\n    }  //}}}\n\
+    \n    int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{\n        int ret = -1;\n\
+    \        int k = 1;\n        while (2 * k <= n) k <<= 1;\n        for (; k > 0;\
+    \ k >>= 1) {\n            if (ret + k < n && dat[ret + k] < x) {\n           \
+    \     x -= dat[ret + k];\n                ret += k;\n            }\n        }\n\
+    \        return ret + 1;\n    }  //}}}\n\n    #if defined(PCM) || defined(LOCAL)\n\
+    \    friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{\n        os <<\
+    \ endl << \"  raw:\" << b.raw << endl;\n        vector<T> acum;\n        rep(i,\
+    \ b.n) { acum.pb(b.sum(i)); }\n        os << \"  acm:\" << acum << endl;\n   \
+    \     return os;\n    }  //}}}\n    #endif\n};     //}}}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/bit.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/bit.test.cpp

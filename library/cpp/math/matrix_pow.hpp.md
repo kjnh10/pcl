@@ -40,7 +40,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/matrix_pow.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/matrix_pow.hpp\"\
     \n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\ntemplate <class value\
     \ = ll>\nusing mat = vector<vector<value>>;\n\ntemplate <class T>\nmat<T> mul(const\
     \ mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(), vector<T>(B[0].size()));\n\
@@ -51,22 +51,22 @@ data:
     \ {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0) {\n        if (n & 1)\
     \ B = mul(B, A);\n        A = mul(A, A);\n        n >>= 1;\n    }\n    return\
     \ B;\n}\n\n//%snippet.end()%\n"
-  code: "#include \"../header.hpp\"\n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\
-    \ntemplate <class value = ll>\nusing mat = vector<vector<value>>;\n\ntemplate\
-    \ <class T>\nmat<T> mul(const mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(),\
-    \ vector<T>(B[0].size()));\n    rep(i, A.size()) {\n        rep(j, B[0].size())\
-    \ {\n            rep(k, B.size()) {\n                res[i][j] = (res[i][j] +\
-    \ A[i][k] * B[k][j]);\n            }\n        }\n    }\n    return res;\n}\n\n\
-    template <class T>\nmat<T> pow(mat<T> A, ll n) {\n    mat<T> B(A.size(), vector<T>(A.size()));\n\
-    \    rep(i, A.size()) {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0)\
-    \ {\n        if (n & 1) B = mul(B, A);\n        A = mul(A, A);\n        n >>=\
-    \ 1;\n    }\n    return B;\n}\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('matrix_pow')%\n\
+    //%snippet.fold()%\n\ntemplate <class value = ll>\nusing mat = vector<vector<value>>;\n\
+    \ntemplate <class T>\nmat<T> mul(const mat<T>& A, const mat<T>& B) {\n    mat<T>\
+    \ res(A.size(), vector<T>(B[0].size()));\n    rep(i, A.size()) {\n        rep(j,\
+    \ B[0].size()) {\n            rep(k, B.size()) {\n                res[i][j] =\
+    \ (res[i][j] + A[i][k] * B[k][j]);\n            }\n        }\n    }\n    return\
+    \ res;\n}\n\ntemplate <class T>\nmat<T> pow(mat<T> A, ll n) {\n    mat<T> B(A.size(),\
+    \ vector<T>(A.size()));\n    rep(i, A.size()) {\n        B[i][i] = 1;  // E\n\
+    \    }\n    while (n > 0) {\n        if (n & 1) B = mul(B, A);\n        A = mul(A,\
+    \ A);\n        n >>= 1;\n    }\n    return B;\n}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/matrix_pow.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/matrix_pow.test.cpp

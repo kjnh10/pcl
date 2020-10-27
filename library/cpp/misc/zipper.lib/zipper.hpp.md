@@ -46,7 +46,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/misc/zipper.lib/zipper.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/zipper.hpp\"\
     \n\n//%snippet.set('zipper')%\n\nstruct zipper {                             /*{{{*/\n\
     \    // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\
     \u3065\u3089\u3044\n    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n\
@@ -81,17 +81,17 @@ data:
     // z.add_value(10);\n// z.add_value(100000000);\n// z.build();\n\n// other method\n\
     // z(x[i]); -> zipped x[i]\n// z.unzip(z(x[i])) -> x[i];\n// z.zip(ll x) -> zipped\
     \ x\n// z.zip(vl v) -> zipped v\n// }}}\n\n//%snippet.end()%\n"
-  code: "#include \"../../header.hpp\"\n\n//%snippet.set('zipper')%\n\nstruct zipper\
-    \ {                             /*{{{*/\n    // unordered_map<long long, int>\
-    \ zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\u3065\u3089\u3044\n    map<long\
-    \ long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n    vector<long long> _unzipper;\
-    \            // [2, 3, 5, 10]\n    bool _is_build = false;\n    int n = 0;\n\n\
-    \    zipper(){};\n    zipper(long long inf_value) { /*{{{*/\n        _unzipper.push_back(-inf_value);\n\
-    \        _unzipper.push_back(inf_value);\n    }                              \
-    \                          /*}}}*/\n\n    template <class T>\n    zipper(const\
-    \ vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/\n        _unzipper =\
-    \ vector<long long>(sz(a));\n        rep(i, sz(a)) { _unzipper[i] = a[i]; }\n\
-    \        _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
+  code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('zipper')%\n\
+    \nstruct zipper {                             /*{{{*/\n    // unordered_map<long\
+    \ long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debug\u3057\u3065\u3089\u3044\n\
+    \    map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]\n    vector<long long>\
+    \ _unzipper;            // [2, 3, 5, 10]\n    bool _is_build = false;\n    int\
+    \ n = 0;\n\n    zipper(){};\n    zipper(long long inf_value) { /*{{{*/\n     \
+    \   _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
+    \    }                                                        /*}}}*/\n\n    template\
+    \ <class T>\n    zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/\n\
+    \        _unzipper = vector<long long>(sz(a));\n        rep(i, sz(a)) { _unzipper[i]\
+    \ = a[i]; }\n        _unzipper.push_back(-inf_value);\n        _unzipper.push_back(inf_value);\n\
     \        build();\n    }                              /*}}}*/\n    void add_value(long\
     \ long lv) { /*{{{*/\n        _unzipper.push_back(lv);\n        _is_build = false;\n\
     \    }              /*}}}*/\n    void build() { /*{{{*/\n        uni(_unzipper);\n\
@@ -122,7 +122,7 @@ data:
   path: library/cpp/misc/zipper.lib/zipper.hpp
   requiredBy:
   - library/cpp/array/reversed_cnt.cpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/misc/zipper.lib/zipper2.test.cpp

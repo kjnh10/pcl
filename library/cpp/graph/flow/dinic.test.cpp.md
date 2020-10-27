@@ -45,7 +45,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/dinic.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/graph/flow/dinic.hpp\"\
     \n\n//%snippet.set('dinic')%\n//%snippet.config({'alias':'flow'})%\n//%snippet.fold()%\n\
     \n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\nusing Capacity = int;\n\
     struct Edge {\n    int src, dst;\n    Capacity cap;\n    Edge(int src_, int dst_,\
@@ -95,7 +95,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/flow/dinic.test.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/flow/dinic.test.cpp

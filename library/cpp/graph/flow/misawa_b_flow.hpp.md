@@ -37,7 +37,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/misawa_b_flow.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/graph/flow/misawa_b_flow.hpp\"\
     \n\nenum Objective {/*{{{*/\n    MINIMIZE = 1,\n    MAXIMIZE = -1,\n};/*}}}*/\n\
     enum class Status {/*{{{*/\n    OPTIMAL,\n    INFEASIBLE,\n};/*}}}*/\n\ntemplate\
     \ <class Flow, class Cost, Objective objective = Objective::MINIMIZE>\nclass MinCostFlow\
@@ -134,50 +134,50 @@ data:
     \ -= inf_flow;\n        b[t] += inf_flow;\n        g[s].pop_back();\n        g[t].pop_back();\n\
     \        return { Status::OPTIMAL, mf_value, b[t] };\n    }/*}}}*/\n};\n\ntemplate\
     \ <class Flow, class Cost>\nusing MaxGainFlow = MinCostFlow<Flow, Cost, Objective::MAXIMIZE>;\n"
-  code: "#include \"../../header.hpp\"\n\nenum Objective {/*{{{*/\n    MINIMIZE =\
-    \ 1,\n    MAXIMIZE = -1,\n};/*}}}*/\nenum class Status {/*{{{*/\n    OPTIMAL,\n\
-    \    INFEASIBLE,\n};/*}}}*/\n\ntemplate <class Flow, class Cost, Objective objective\
-    \ = Objective::MINIMIZE>\nclass MinCostFlow {\n    using V_id = uint32_t;\n  \
-    \  using E_id = uint32_t;\n\n    class Edge {/*{{{*/\n        friend class MinCostFlow;\n\
-    \n        V_id src, dst;\n        Flow flow, cap;\n        Cost cost;\n      \
-    \  E_id rev;\n\n        public:\n        Edge() = default;\n\n        Edge(const\
-    \ V_id src, const V_id dst, const Flow cap, const Cost cost, const E_id rev)\n\
-    \            : src(src), dst(dst), flow(0), cap(cap), cost(cost), rev(rev) {}\n\
-    \n        [[nodiscard]] Flow residual_cap() const { return cap - flow; }\n   \
-    \ };/*}}}*/\n\n    public:\n    class EdgePtr {/*{{{*/\n        friend class MinCostFlow;\n\
-    \n        const MinCostFlow *instance;\n        V_id v;\n        E_id e;\n\n \
-    \       EdgePtr(const MinCostFlow * const instance, const V_id v, const E_id e)\n\
-    \            : instance(instance), v(v), e(e) {}\n\n        [[nodiscard]] const\
-    \ Edge &edge() const { return instance->g[v][e]; }\n\n        [[nodiscard]] const\
-    \ Edge &rev() const {\n            const Edge &e = edge();\n            return\
-    \ instance->g[e.dst][e.rev];\n        }\n\n        public:\n        EdgePtr()\
-    \ = default;\n\n        [[nodiscard]] V_id src() const { return v; }\n\n     \
-    \   [[nodiscard]] V_id dst() const { return edge().dst; }\n\n        [[nodiscard]]\
-    \ Flow flow() const { return edge().flow; }\n\n        [[nodiscard]] Flow lower()\
-    \ const { return -rev().cap; }\n\n        [[nodiscard]] Flow upper() const { return\
-    \ edge().cap; }\n\n        [[nodiscard]] Cost cost() const { return edge().cost;\
-    \ }\n\n        [[nodiscard]] Cost gain() const { return -edge().cost; }\n    };/*}}}*/\n\
-    \n    private:\n    V_id n;\n    vector<vector<Edge>> g;\n    vector<Flow> b;\n\
-    \n    public:\n    MinCostFlow() : n(0) {}\n    V_id add_vertex() {/*{{{*/\n \
-    \       ++n;\n        g.resize(n);\n        b.resize(n);\n        return n-1;\n\
-    \    }/*}}}*/\n    vector<V_id> add_vertices(const size_t size) {/*{{{*/\n   \
-    \     vector<V_id> ret(size);\n        iota(begin(ret), end(ret), n);\n      \
-    \  n += size;\n        g.resize(n);\n        b.resize(n);\n        return ret;\n\
-    \    }/*}}}*/\n    EdgePtr add_edge(const V_id src, const V_id dst, const Flow\
-    \ lower, const Flow upper, const Cost cost) {/*{{{*/\n        const E_id e = g[src].size(),\
-    \ re = src == dst ? e + 1 : g[dst].size();\n        assert(lower <= upper);\n\
-    \        g[src].emplace_back(Edge{src, dst, upper, cost * objective, re});\n \
-    \       g[dst].emplace_back(Edge{dst, src, -lower, -cost * objective, e});\n \
-    \       return EdgePtr{this, src, e};\n    }/*}}}*/\n    void add_supply(const\
-    \ V_id v, const Flow amount) { b[v] += amount; }\n    void add_demand(const V_id\
-    \ v, const Flow amount) { b[v] -= amount; }\n\n    private:\n    // Variables\
-    \ used in calculation\n    static Cost constexpr unreachable = numeric_limits<Cost>::max();\n\
-    \    Cost farthest;\n    vector<Cost> potential;\n    vector<Cost> dist;\n   \
-    \ vector<Edge *> parent; // out-forrest.\n    priority_queue<pair<Cost, int>,\
-    \ vector<pair<Cost, int>>, greater<>> pq; // should be empty outside of dual()\n\
-    \    vector<V_id> excess_vs, deficit_vs;\n    Edge &rev(const Edge &e) { return\
-    \ g[e.dst][e.rev]; }\n\n    void push(Edge &e, const Flow amount) {/*{{{*/\n \
-    \       e.flow += amount;\n        g[e.dst][e.rev].flow -= amount;\n    }/*}}}*/\n\
+  code: "#pragma once\n#include \"../../header.hpp\"\n\nenum Objective {/*{{{*/\n\
+    \    MINIMIZE = 1,\n    MAXIMIZE = -1,\n};/*}}}*/\nenum class Status {/*{{{*/\n\
+    \    OPTIMAL,\n    INFEASIBLE,\n};/*}}}*/\n\ntemplate <class Flow, class Cost,\
+    \ Objective objective = Objective::MINIMIZE>\nclass MinCostFlow {\n    using V_id\
+    \ = uint32_t;\n    using E_id = uint32_t;\n\n    class Edge {/*{{{*/\n       \
+    \ friend class MinCostFlow;\n\n        V_id src, dst;\n        Flow flow, cap;\n\
+    \        Cost cost;\n        E_id rev;\n\n        public:\n        Edge() = default;\n\
+    \n        Edge(const V_id src, const V_id dst, const Flow cap, const Cost cost,\
+    \ const E_id rev)\n            : src(src), dst(dst), flow(0), cap(cap), cost(cost),\
+    \ rev(rev) {}\n\n        [[nodiscard]] Flow residual_cap() const { return cap\
+    \ - flow; }\n    };/*}}}*/\n\n    public:\n    class EdgePtr {/*{{{*/\n      \
+    \  friend class MinCostFlow;\n\n        const MinCostFlow *instance;\n       \
+    \ V_id v;\n        E_id e;\n\n        EdgePtr(const MinCostFlow * const instance,\
+    \ const V_id v, const E_id e)\n            : instance(instance), v(v), e(e) {}\n\
+    \n        [[nodiscard]] const Edge &edge() const { return instance->g[v][e]; }\n\
+    \n        [[nodiscard]] const Edge &rev() const {\n            const Edge &e =\
+    \ edge();\n            return instance->g[e.dst][e.rev];\n        }\n\n      \
+    \  public:\n        EdgePtr() = default;\n\n        [[nodiscard]] V_id src() const\
+    \ { return v; }\n\n        [[nodiscard]] V_id dst() const { return edge().dst;\
+    \ }\n\n        [[nodiscard]] Flow flow() const { return edge().flow; }\n\n   \
+    \     [[nodiscard]] Flow lower() const { return -rev().cap; }\n\n        [[nodiscard]]\
+    \ Flow upper() const { return edge().cap; }\n\n        [[nodiscard]] Cost cost()\
+    \ const { return edge().cost; }\n\n        [[nodiscard]] Cost gain() const { return\
+    \ -edge().cost; }\n    };/*}}}*/\n\n    private:\n    V_id n;\n    vector<vector<Edge>>\
+    \ g;\n    vector<Flow> b;\n\n    public:\n    MinCostFlow() : n(0) {}\n    V_id\
+    \ add_vertex() {/*{{{*/\n        ++n;\n        g.resize(n);\n        b.resize(n);\n\
+    \        return n-1;\n    }/*}}}*/\n    vector<V_id> add_vertices(const size_t\
+    \ size) {/*{{{*/\n        vector<V_id> ret(size);\n        iota(begin(ret), end(ret),\
+    \ n);\n        n += size;\n        g.resize(n);\n        b.resize(n);\n      \
+    \  return ret;\n    }/*}}}*/\n    EdgePtr add_edge(const V_id src, const V_id\
+    \ dst, const Flow lower, const Flow upper, const Cost cost) {/*{{{*/\n       \
+    \ const E_id e = g[src].size(), re = src == dst ? e + 1 : g[dst].size();\n   \
+    \     assert(lower <= upper);\n        g[src].emplace_back(Edge{src, dst, upper,\
+    \ cost * objective, re});\n        g[dst].emplace_back(Edge{dst, src, -lower,\
+    \ -cost * objective, e});\n        return EdgePtr{this, src, e};\n    }/*}}}*/\n\
+    \    void add_supply(const V_id v, const Flow amount) { b[v] += amount; }\n  \
+    \  void add_demand(const V_id v, const Flow amount) { b[v] -= amount; }\n\n  \
+    \  private:\n    // Variables used in calculation\n    static Cost constexpr unreachable\
+    \ = numeric_limits<Cost>::max();\n    Cost farthest;\n    vector<Cost> potential;\n\
+    \    vector<Cost> dist;\n    vector<Edge *> parent; // out-forrest.\n    priority_queue<pair<Cost,\
+    \ int>, vector<pair<Cost, int>>, greater<>> pq; // should be empty outside of\
+    \ dual()\n    vector<V_id> excess_vs, deficit_vs;\n    Edge &rev(const Edge &e)\
+    \ { return g[e.dst][e.rev]; }\n\n    void push(Edge &e, const Flow amount) {/*{{{*/\n\
+    \        e.flow += amount;\n        g[e.dst][e.rev].flow -= amount;\n    }/*}}}*/\n\
     \    Cost residual_cost(const V_id src, const V_id dst, const Edge &e) {/*{{{*/\n\
     \        return e.cost + potential[src] - potential[dst];\n    }/*}}}*/\n    bool\
     \ dual() {/*{{{*/\n        dist.assign(n, unreachable);\n        parent.assign(n,\
@@ -236,7 +236,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/flow/misawa_b_flow.hpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/flow/misawa_b_flow.hpp
