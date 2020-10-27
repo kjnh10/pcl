@@ -9,65 +9,44 @@ using namespace std;
 #define cerrendl cerr << endl
 
 namespace dm {
-    stack<vector<string>> varnames;
+    stack<vector<string>> arg_names;
     stack<int> varidx;
     int i;
     int j;
 }  // namespace dm
 
-#define dump(...)                                                            \
-    {                                                                        \
-        dm::varnames.push([](string s) -> vector<string> {           \
-            int n = s.size();                                                \
-            vector<string> res;                                              \
-            string tmp = "";                                                 \
-            int parlevel = 0;                                                \
-            int angle_level = 0;                                             \
-            for (int i = 0; i < n; i++) {                                    \
-                if (s[i] == '(') parlevel++;                                 \
-                if (s[i] == ')') parlevel--;                                 \
-                if (s[i] == '<') angle_level++;                              \
-                if (s[i] == '>') angle_level--;                              \
-                if (s[i] == ' ') continue;                                   \
-                if (s[i] == ',' && parlevel == 0 && angle_level == 0) {      \
-                    res.push_back(tmp);                                      \
-                    tmp = "";                                                \
-                } else {                                                     \
-                    tmp += s[i];                                             \
-                }                                                            \
-            }                                                                \
-            res.push_back(tmp);                                              \
-            return res;                                                      \
-        }(#__VA_ARGS__));                                                    \
-        dm::varidx.push(0);                                                  \
-        dump_func(__VA_ARGS__);                                              \
-        DUMPOUT << "in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl; \
-        dm::varnames.pop();                                                  \
-        dm::varidx.pop();                                                    \
+#define dump(...)                                                                   \
+    {                                                                               \
+        dm::arg_names.push(parse_args_names(#__VA_ARGS__));                         \
+        dm::varidx.push(0);                                                         \
+        dump_func(__VA_ARGS__);                                                     \
+        DUMPOUT << "in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl;        \
+        dm::arg_names.pop();                                                        \
+        dm::varidx.pop();                                                           \
     }
 
-#define dump_1d(x, n)                                                          \
-    {                                                                          \
-        DUMPOUT << #x << "[" << #n << "]"                              \
-                << ":=> {";                                                    \
-        for(dm::i=0; dm::i<n; ++dm::i)                                         \
-            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? "}" : ", ");       \
-        DUMPOUT << "  in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl; \
+#define dump_1d(x, n)                                                               \
+    {                                                                               \
+        DUMPOUT << #x << "[" << #n << "]"                                           \
+                << ":=> {";                                                         \
+        for(dm::i=0; dm::i<n; ++dm::i)                                              \
+            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? "}" : ", ");            \
+        DUMPOUT << "  in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl;      \
     }
 
-#define dump_2d(x, n, m)                                                       \
-    {                                                                          \
-        DUMPOUT << #x << "[" << #n << "]"                              \
-                << "[" << #m << "]"                                            \
-                << ":=> \n";                                                   \
-        dump_2d_core(x, n, m);                                                 \
-        DUMPOUT << "  in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl; \
+#define dump_2d(x, n, m)                                                            \
+    {                                                                               \
+        DUMPOUT << #x << "[" << #n << "]"                                           \
+                << "[" << #m << "]"                                                 \
+                << ":=> \n";                                                        \
+        dump_2d_core(x, n, m);                                                      \
+        DUMPOUT << "  in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl;      \
     }
 
 void dump_func() {}
 template <class Head, class... Tail>
 void dump_func(Head&& head, Tail&&... tail) {
-    DUMPOUT << dm::varnames.top()[dm::varidx.top()] << ":"
+    DUMPOUT << dm::arg_names.top()[dm::varidx.top()] << ":"
             << head;
     if (sizeof...(Tail) == 0) {
         DUMPOUT << " ";
@@ -130,6 +109,30 @@ void dump_2d_core(const vector<vector<T>>& x, int n, int m){
         print_formatted_int(x[i][j], inf, column_len[j]);
         DUMPOUT << (((j) == (m - 1)) ? "|\n" : "");
     }
+}
+
+vector<string> parse_args_names(string s){
+    int n = s.size();
+    vector<string> res;
+    string tmp = "";
+    int parlevel = 0;
+    int angle_level = 0;
+    for (int i = 0; i < n; i++) {
+        if (s[i] == '(') parlevel++;
+        if (s[i] == ')') parlevel--;
+        if (s[i] == '<') angle_level++;
+        if (s[i] == '>') angle_level--;
+        if (s[i] == ' ') continue;
+        if (s[i] == ',' && parlevel == 0 && angle_level == 0) {
+            res.push_back(tmp);
+            tmp = "";
+        }
+        else {
+            tmp += s[i];
+        }
+    }
+    res.push_back(tmp);
+    return res;
 }
 
 #include "prettyprint.hpp"
