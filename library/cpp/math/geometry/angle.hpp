@@ -1,3 +1,4 @@
+#pragma once
 #include "p2.hpp"
 
 //%snippet.set('angle')%

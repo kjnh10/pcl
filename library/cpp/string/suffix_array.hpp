@@ -1,3 +1,4 @@
+#pragma once
 #include "../header.hpp"
 #include "../array/segtree/segment_tree.hpp"
 #include "../array/sparse_table.hpp"
