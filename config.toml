@@ -1,5 +1,10 @@
 template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this directory does not exist or not specified, default template directory will be used
 
+cpp_include_paths = [
+    '{pcm_dir_path}/lang_library/cplusplus/ac-library',
+    '/home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/include'
+]
+
 [prepare]
   [prepare.custom_hook_command]
   after = 'nvim {dirname} -c "args **/solve.cpp" -c "tab all" +6'
@@ -35,16 +40,14 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
   default = """g++ {srcpath} -o {outpath} \
                -std=c++17 \
                -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
-               -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
-               -I /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/include \
+               {cpp_include_paths} \
                -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
             """
 
   debug = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
-            -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
-            -I /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/include \
+            {cpp_include_paths} \
             -DPCM -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -fuse-ld=gold \
             -g
             """
@@ -55,20 +58,20 @@ template_dir = '~/go/src/github.com/kjnh10/pcl/problem_template'  # if this dire
           -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
           -I/usr/include/x86_64-linux-gnu/c++/9 \
           -I/usr/include/c++/9 \
-          -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
+          {cpp_include_paths} \
           -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=lld
           """
 
   detail = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
-            -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
+            {cpp_include_paths} \
             -Wall -Wextra -pedantic -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector \
   """
 
   detail_with_dump = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
-            -I {pcm_dir_path}/lang_library/cplusplus/ac-library \
+            {cpp_include_paths} \
             -DPCM\
             -Wall -Wextra -pedantic -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector \
   """
