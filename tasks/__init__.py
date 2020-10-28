@@ -106,7 +106,7 @@ def deploy(c):
     print("building headers for include")
     for p in CPP_DIR.rglob("*.hpp"):
         if (str(p).find('ac-library') != -1): continue
-        header_for_include = (CPP_DIR / 'include' / p.stem)
+        header_for_include = (CPP_DIR / 'include' / (p.stem + '.hpp'))
         header_for_include.touch()
         with open(header_for_include, mode='w') as f:
             f.write(f'#include "{p.name}"')
