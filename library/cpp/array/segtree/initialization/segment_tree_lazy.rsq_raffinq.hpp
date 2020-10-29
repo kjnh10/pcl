@@ -1,5 +1,4 @@
 #include "../segment_tree_lazy.hpp"
-#include "../../../math/mint.hpp"
 #include "monoid_with_len.hpp"
 #include "monoid_affin_transformation.hpp"
 

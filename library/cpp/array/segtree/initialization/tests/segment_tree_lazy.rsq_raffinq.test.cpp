@@ -4,7 +4,6 @@
 int main(){
     ll n,q;cin>>n>>q;
     vector<ll> a(n);
-    mod = 998244353;
 
     rep(i, n) { cin>>a[i]; }
     auto lseg = make_lseg_rsq_raffinq();
