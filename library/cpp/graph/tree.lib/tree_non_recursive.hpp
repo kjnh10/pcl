@@ -91,13 +91,6 @@ struct tree {
                 chmax(end[u], ord[u]);
             }
         }
-        rep(i, sz(dfstrv)){
-            int u = dfstrv[i];
-            if (par[u] != -1){
-                depth[u] = depth[par[u]] + 1;
-                ldepth[u] = ldepth[par[u]] + edge[u]->cost;
-            }
-        }
     }                                               /*}}}*/
     void _dfs_tree() { /*{{{*/
         dfstrv.clear();
@@ -140,6 +133,14 @@ struct tree {
                 edge[e.to] = &e;
                 if (e.to == par[u]) continue;
                 chmax(end[u], end[e.to]);
+            }
+        }
+
+        rep(i, sz(dfstrv)){
+            int u = dfstrv[i];
+            if (par[u] != -1){
+                depth[u] = depth[par[u]] + 1;
+                ldepth[u] = ldepth[par[u]] + edge[u]->cost;
             }
         }
 
