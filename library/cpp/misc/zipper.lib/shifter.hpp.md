@@ -4,7 +4,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/shifter.hpp
+    title: library/cpp/include/shifter.hpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -52,7 +55,8 @@ data:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/misc/zipper.lib/shifter.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/shifter.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -29,10 +29,10 @@ data:
       title: library/cpp/array/ternary_search.cpp
   - name: library/cpp/array/segtree/initialization
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
       title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
       title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     - icon: ':warning:'
@@ -44,7 +44,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
       title: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_ruq.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
       title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     - icon: ':heavy_check_mark:'
@@ -83,7 +83,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/segtree/segment_tree_beats.cpp
       title: library/cpp/array/segtree/segment_tree_beats.cpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/segment_tree_lazy.hpp
       title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - name: library/cpp/debug
@@ -148,7 +148,7 @@ data:
     - icon: ':question:'
       path: library/cpp/graph/tree.lib/tree.hpp
       title: library/cpp/graph/tree.lib/tree.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
       title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - name: library/cpp
@@ -159,6 +159,146 @@ data:
     - icon: ':question:'
       path: library/cpp/header.hpp
       title: library/cpp/header.hpp
+  - name: library/cpp/include
+    pages:
+    - icon: ':warning:'
+      path: library/cpp/include/angle.hpp
+      title: library/cpp/include/angle.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/area_rect.hpp
+      title: library/cpp/include/area_rect.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/bellman_ford.hpp
+      title: library/cpp/include/bellman_ford.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/bit.hpp
+      title: library/cpp/include/bit.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/combination.hpp
+      title: library/cpp/include/combination.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/dinic.hpp
+      title: library/cpp/include/dinic.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/dump.hpp
+      title: library/cpp/include/dump.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/edge.hpp
+      title: library/cpp/include/edge.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/graph.hpp
+      title: library/cpp/include/graph.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/hakidashi_xor.hpp
+      title: library/cpp/include/hakidashi_xor.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/header.hpp
+      title: library/cpp/include/header.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/header_local.hpp
+      title: library/cpp/include/header_local.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/kth_root.hpp
+      title: library/cpp/include/kth_root.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/lis.hpp
+      title: library/cpp/include/lis.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/local_min_cycle.hpp
+      title: library/cpp/include/local_min_cycle.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/matrix_pow.hpp
+      title: library/cpp/include/matrix_pow.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/mint.hpp
+      title: library/cpp/include/mint.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/misawa_b_flow.hpp
+      title: library/cpp/include/misawa_b_flow.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/monoid_affin_transformation.hpp
+      title: library/cpp/include/monoid_affin_transformation.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/monoid_with_len.hpp
+      title: library/cpp/include/monoid_with_len.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/p2.hpp
+      title: library/cpp/include/p2.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/pow.hpp
+      title: library/cpp/include/pow.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/prettyprint.hpp
+      title: library/cpp/include/prettyprint.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/rational.hpp
+      title: library/cpp/include/rational.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/rolling_hash.hpp
+      title: library/cpp/include/rolling_hash.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree.hpp
+      title: library/cpp/include/segment_tree.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
+      title: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.hpp
+      title: library/cpp/include/segment_tree_lazy.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.rmq_raq.hpp
+      title: library/cpp/include/segment_tree_lazy.rmq_raq.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.rmq_ruq.hpp
+      title: library/cpp/include/segment_tree_lazy.rmq_ruq.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
+      title: library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.rsq_raq.hpp
+      title: library/cpp/include/segment_tree_lazy.rsq_raq.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
+      title: library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/shifter.hpp
+      title: library/cpp/include/shifter.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/sieve.hpp
+      title: library/cpp/include/sieve.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/sparse_table.hpp
+      title: library/cpp/include/sparse_table.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/split.hpp
+      title: library/cpp/include/split.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/strongly_connected_components.hpp
+      title: library/cpp/include/strongly_connected_components.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/suffix_array.hpp
+      title: library/cpp/include/suffix_array.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/topological_sort.hpp
+      title: library/cpp/include/topological_sort.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/tree.hpp
+      title: library/cpp/include/tree.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/tree_non_recursive.hpp
+      title: library/cpp/include/tree_non_recursive.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/two_sat.hpp
+      title: library/cpp/include/two_sat.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/union_find.hpp
+      title: library/cpp/include/union_find.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/union_find_with_potential.hpp
+      title: library/cpp/include/union_find_with_potential.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/zipper.hpp
+      title: library/cpp/include/zipper.hpp
   - name: library/cpp/math/bsgs
     pages:
     - icon: ':warning:'
@@ -186,7 +326,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/matrix_pow.hpp
       title: library/cpp/math/matrix_pow.hpp
-    - icon: ':question:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/math/mint.hpp
       title: library/cpp/math/mint.hpp
     - icon: ':warning:'
@@ -367,7 +507,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
       title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
       title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     - icon: ':heavy_check_mark:'
@@ -432,7 +572,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca.test.cpp
       title: library/cpp/graph/tree.lib/lca.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
       title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - name: library/cpp/math

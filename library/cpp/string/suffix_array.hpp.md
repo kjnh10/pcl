@@ -10,7 +10,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/suffix_array.hpp
+    title: library/cpp/include/suffix_array.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
@@ -236,7 +239,8 @@ data:
   - library/cpp/array/sparse_table.hpp
   isVerificationFile: false
   path: library/cpp/string/suffix_array.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/suffix_array.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

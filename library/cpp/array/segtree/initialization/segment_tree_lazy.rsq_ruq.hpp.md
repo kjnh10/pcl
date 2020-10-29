@@ -1,16 +1,19 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/monoid_with_len.hpp
     title: library/cpp/array/segtree/initialization/monoid_with_len.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
+    title: library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_ruq.test.cpp
@@ -171,7 +174,8 @@ data:
   - library/cpp/array/segtree/initialization/monoid_with_len.hpp
   isVerificationFile: false
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_ruq.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
   timestamp: '2020-10-20 17:01:55+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

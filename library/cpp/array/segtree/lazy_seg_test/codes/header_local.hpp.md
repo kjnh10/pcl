@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
     title: library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
+  - icon: ':warning:'
+    path: library/cpp/include/header_local.hpp
+    title: library/cpp/include/header_local.hpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -247,6 +250,7 @@ data:
   requiredBy:
   - library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
   - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
+  - library/cpp/include/header_local.hpp
   timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

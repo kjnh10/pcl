@@ -32,12 +32,42 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/tree.lib/tree.hpp
     title: library/cpp/graph/tree.lib/tree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
     title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/bellman_ford.hpp
+    title: library/cpp/include/bellman_ford.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/edge.hpp
+    title: library/cpp/include/edge.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/graph.hpp
+    title: library/cpp/include/graph.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/kth_root.hpp
+    title: library/cpp/include/kth_root.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/local_min_cycle.hpp
+    title: library/cpp/include/local_min_cycle.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/strongly_connected_components.hpp
+    title: library/cpp/include/strongly_connected_components.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/topological_sort.hpp
+    title: library/cpp/include/topological_sort.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/tree.hpp
+    title: library/cpp/include/tree.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/tree_non_recursive.hpp
+    title: library/cpp/include/tree_non_recursive.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/two_sat.hpp
+    title: library/cpp/include/two_sat.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
@@ -75,7 +105,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   _pathExtension: hpp
@@ -141,6 +171,16 @@ data:
   - library/cpp/graph/two_sat.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/topological_sort.hpp
+  - library/cpp/include/graph.hpp
+  - library/cpp/include/tree.hpp
+  - library/cpp/include/local_min_cycle.hpp
+  - library/cpp/include/bellman_ford.hpp
+  - library/cpp/include/edge.hpp
+  - library/cpp/include/two_sat.hpp
+  - library/cpp/include/strongly_connected_components.hpp
+  - library/cpp/include/topological_sort.hpp
+  - library/cpp/include/kth_root.hpp
+  - library/cpp/include/tree_non_recursive.hpp
   timestamp: '2020-10-27 19:49:53+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:

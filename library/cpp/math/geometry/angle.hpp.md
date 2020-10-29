@@ -7,7 +7,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/p2.hpp
     title: library/cpp/math/geometry/p2.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/angle.hpp
+    title: library/cpp/include/angle.hpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -116,7 +119,8 @@ data:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/geometry/angle.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/angle.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

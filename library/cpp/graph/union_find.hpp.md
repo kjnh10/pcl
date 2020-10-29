@@ -26,6 +26,27 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/bellman_ford.hpp
+    title: library/cpp/include/bellman_ford.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/graph.hpp
+    title: library/cpp/include/graph.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/local_min_cycle.hpp
+    title: library/cpp/include/local_min_cycle.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/strongly_connected_components.hpp
+    title: library/cpp/include/strongly_connected_components.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/topological_sort.hpp
+    title: library/cpp/include/topological_sort.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/two_sat.hpp
+    title: library/cpp/include/two_sat.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/union_find.hpp
+    title: library/cpp/include/union_find.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
@@ -134,6 +155,13 @@ data:
   - library/cpp/graph/two_sat.hpp
   - library/cpp/graph/strongly_connected_components.hpp
   - library/cpp/graph/topological_sort.hpp
+  - library/cpp/include/union_find.hpp
+  - library/cpp/include/graph.hpp
+  - library/cpp/include/local_min_cycle.hpp
+  - library/cpp/include/bellman_ford.hpp
+  - library/cpp/include/two_sat.hpp
+  - library/cpp/include/strongly_connected_components.hpp
+  - library/cpp/include/topological_sort.hpp
   timestamp: '2020-10-17 17:32:46+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:

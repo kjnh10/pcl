@@ -13,7 +13,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/kth_root.hpp
+    title: library/cpp/include/kth_root.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.test.cpp
@@ -266,7 +269,8 @@ data:
   - library/cpp/graph/edge.hpp
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/kth_root.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/kth_root.hpp
   timestamp: '2020-10-27 19:49:53+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

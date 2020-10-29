@@ -4,7 +4,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/lis.hpp
+    title: library/cpp/include/lis.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/lis.test.cpp
@@ -76,7 +79,8 @@ data:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/lis.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/lis.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

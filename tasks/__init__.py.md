@@ -66,8 +66,8 @@ data:
     \ = vssnip_dir / 'python.code-snippets',\n            )\n\n@task(post=[modpath])\n\
     def deploy(c):\n    print(\"building headers for include\")\n    for p in CPP_DIR.rglob(\"\
     *.hpp\"):\n        if (str(p).find('ac-library') != -1): continue\n        header_for_include\
-    \ = (CPP_DIR / 'include' / p.stem)\n        header_for_include.touch()\n     \
-    \   with open(header_for_include, mode='w') as f:\n            f.write(f'#include\
+    \ = (CPP_DIR / 'include' / (p.stem + '.hpp'))\n        header_for_include.touch()\n\
+    \        with open(header_for_include, mode='w') as f:\n            f.write(f'#include\
     \ \"{p.name}\"')\n\n\n@task\ndef format(c):\n    print(\"formatting cpp codes\"\
     )\n    for p in CPP_DIR.rglob(\"*.[ch]pp\"):\n        if 'snip' in p.name:\n \
     \           continue  # snippet\u306Fformat\u3055\u308C\u308B\u3068\u52D5\u304B\

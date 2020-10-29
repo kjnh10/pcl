@@ -23,6 +23,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/strongly_connected_components.hpp
+    title: library/cpp/include/strongly_connected_components.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/two_sat.hpp
+    title: library/cpp/include/two_sat.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/scc.test.cpp
@@ -380,6 +386,8 @@ data:
   path: library/cpp/graph/strongly_connected_components.hpp
   requiredBy:
   - library/cpp/graph/two_sat.hpp
+  - library/cpp/include/two_sat.hpp
+  - library/cpp/include/strongly_connected_components.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

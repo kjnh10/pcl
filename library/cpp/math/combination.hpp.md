@@ -4,10 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/mint.hpp
     title: library/cpp/math/mint.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/combination.hpp
+    title: library/cpp/include/combination.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
@@ -91,7 +94,8 @@ data:
   - library/cpp/math/mint.hpp
   isVerificationFile: false
   path: library/cpp/math/combination.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/combination.hpp
   timestamp: '2020-10-26 02:29:15+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

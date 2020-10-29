@@ -25,7 +25,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/two_sat.hpp
+    title: library/cpp/include/two_sat.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/two_sat.test.cpp
@@ -419,7 +422,8 @@ data:
   - library/cpp/graph/topological_sort.hpp
   isVerificationFile: false
   path: library/cpp/graph/two_sat.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/two_sat.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

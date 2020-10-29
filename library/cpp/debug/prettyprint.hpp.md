@@ -5,6 +5,12 @@ data:
   - icon: ':warning:'
     path: library/cpp/debug/dump.hpp
     title: library/cpp/debug/dump.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/dump.hpp
+    title: library/cpp/include/dump.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/prettyprint.hpp
+    title: library/cpp/include/prettyprint.hpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -434,6 +440,8 @@ data:
   path: library/cpp/debug/prettyprint.hpp
   requiredBy:
   - library/cpp/debug/dump.hpp
+  - library/cpp/include/prettyprint.hpp
+  - library/cpp/include/dump.hpp
   timestamp: '2020-04-26 09:08:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

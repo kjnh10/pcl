@@ -5,12 +5,12 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
-    path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-    title: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-  - icon: ':x:'
-    path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-    title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/combination.hpp
+    title: library/cpp/include/combination.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/mint.hpp
+    title: library/cpp/include/mint.hpp
   - icon: ':warning:'
     path: library/cpp/math/bsgs/bsgs.cpp
     title: library/cpp/math/bsgs/bsgs.cpp
@@ -21,9 +21,6 @@ data:
     path: library/cpp/math/gbsgs/gbsgs.cpp
     title: library/cpp/math/gbsgs/gbsgs.cpp
   _extendedVerifiedWith:
-  - icon: ':x:'
-    path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
-    title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
@@ -31,7 +28,7 @@ data:
     path: library/cpp/math/matrix_pow.test.cpp
     title: library/cpp/math/matrix_pow.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -120,14 +117,13 @@ data:
   - library/cpp/math/combination.hpp
   - library/cpp/math/gbsgs/gbsgs.cpp
   - library/cpp/math/bsgs/bsgs.cpp
-  - library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
-  - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - library/cpp/include/mint.hpp
+  - library/cpp/include/combination.hpp
   timestamp: '2020-10-26 02:29:15+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp
-  - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
 documentation_of: library/cpp/math/mint.hpp
 layout: document
 redirect_from:

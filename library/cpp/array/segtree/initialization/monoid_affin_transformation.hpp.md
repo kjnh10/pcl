@@ -1,25 +1,28 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree_lazy.hpp
     title: library/cpp/array/segtree/segment_tree_lazy.hpp
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':question:'
-    path: library/cpp/math/mint.hpp
-    title: library/cpp/math/mint.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
     title: library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/monoid_affin_transformation.hpp
+    title: library/cpp/include/monoid_affin_transformation.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
+    title: library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
     title: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -49,32 +52,7 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\
-    \n\n//%snippet.set('mint')%\nconst int mod = 1e9 + 7;\n// const int mod = 998244353;\n\
-    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
-    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
-    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
-    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
-    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
-    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
-    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
-    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
-    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
-    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
-    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
-    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
-    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
-    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
-    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
-    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
-    );\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int\
-    \ x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //\
-    \     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
-    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
-    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
-    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
-    \ os << a.x; }\n//}}}\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree_lazy.hpp\"\
     \n\n//%snippet.set('segment_tree_lazy')%\n//%snippet.config({'alias':'lazy'})%\n\
     //%snippet.fold()%\n\ntemplate <typename X, typename M>\nstruct segment_tree_lazy\
     \ {\n    using FX = function<X(X, X)>;\n    using FA = function<X(X, M)>;\n  \
@@ -161,32 +139,80 @@ data:
     \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
     \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
     \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
-    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 3 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
-    \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
+    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp\"\
+    \n\nconst int mod = 998244353;  // mint\u306Emod\u304C\u52D5\u7684\u306B\u5909\
+    \u3048\u3089\u308C\u306A\u3044\u306E\u3067\u30C6\u30B9\u30C8\u306E\u305F\u3081\
+    \u306B\u66AB\u5B9A\u7684\u306Bmint\u3092\u3053\u3053\u306B\u304A\u304F\u3002\n\
+    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
+    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
+    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
+    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
+    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
+    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
+    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
+    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
+    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
+    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
+    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
+    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
+    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
+    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
+    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
+    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
+    );\n        return pow(mod - 2);\n    }\n\n    bool operator<(const mint& r) const\
+    \ { return x < r.x; }\n    bool operator==(const mint& r) const { return x ==\
+    \ r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is >> a.x;\
+    \ }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x; }\n//}}}\n\
+    \n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\n\nstruct\
     \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
     \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
     \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
     \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
     \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
     }\n//%snippet.end()%\n"
-  code: "#include \"../../../math/mint.hpp\"\n#include \"../segment_tree_lazy.hpp\"\
-    \n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\nstruct\
-    \ monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
+  code: "#include \"../segment_tree_lazy.hpp\"\n\nconst int mod = 998244353;  // mint\u306E\
+    mod\u304C\u52D5\u7684\u306B\u5909\u3048\u3089\u308C\u306A\u3044\u306E\u3067\u30C6\
+    \u30B9\u30C8\u306E\u305F\u3081\u306B\u66AB\u5B9A\u7684\u306Bmint\u3092\u3053\u3053\
+    \u306B\u304A\u304F\u3002\nstruct mint {  //{{{\n    ll x;\n    mint(ll x = 0)\
+    \ : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n    mint& operator+=(const\
+    \ mint a) {\n        (x += a.x) %= mod;\n        return *this;\n    }\n    mint&\
+    \ operator-=(const mint a) {\n        (x += mod - a.x) %= mod;\n        return\
+    \ *this;\n    }\n    mint& operator*=(const mint a) {\n        (x *= a.x) %= mod;\n\
+    \        return *this;\n    }\n    mint& operator/=(const mint& rhs) {\n     \
+    \   if (rhs.x == 0) throw runtime_error(\"mint zero division\");\n        return\
+    \ *this *= rhs.inv();\n    }\n\n    mint operator+(const mint a) const {\n   \
+    \     mint res(*this);\n        return res += a;\n    }\n    mint operator-(const\
+    \ mint a) const {\n        mint res(*this);\n        return res -= a;\n    }\n\
+    \    mint operator*(const mint a) const {\n        mint res(*this);\n        return\
+    \ res *= a;\n    }\n    mint operator/(const mint a) const {\n        mint res(*this);\n\
+    \        return res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1),\
+    \ x(*this);\n        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n\
+    \        }\n        while (n) {\n            if (n & 1) res *= x;\n          \
+    \  x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n  \
+    \  mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not\
+    \ exist\");\n        return pow(mod - 2);\n    }\n\n    bool operator<(const mint&\
+    \ r) const { return x < r.x; }\n    bool operator==(const mint& r) const { return\
+    \ x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) { return is\
+    \ >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return os << a.x;\
+    \ }\n//}}}\n\n//%snippet.set('monoid_affin_transformation')%\n//%snippet.fold()%\n\
+    \nstruct monoid_affin_transformation {\n    mint a, b;\n    monoid_affin_transformation(){};\n\
     \    monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};\n};\nmonoid_affin_transformation\
     \ operator+(monoid_affin_transformation x, monoid_affin_transformation y){\n \
     \   return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);\n}\nbool operator==(monoid_affin_transformation\
     \ m1, monoid_affin_transformation m2) {\n    return m1.a == m2.a && m1.b == m2.b;\n\
     }\n//%snippet.end()%\n"
   dependsOn:
-  - library/cpp/math/mint.hpp
-  - library/cpp/header.hpp
   - library/cpp/array/segtree/segment_tree_lazy.hpp
+  - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   requiredBy:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-  timestamp: '2020-10-26 02:29:15+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  - library/cpp/include/monoid_affin_transformation.hpp
+  - library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
+  timestamp: '2020-10-29 13:10:28+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rsq_raffinq.test.cpp
 documentation_of: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp

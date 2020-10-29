@@ -10,13 +10,16 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/tree_non_recursive.hpp
+    title: library/cpp/include/tree_non_recursive.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links:
     - https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3
@@ -179,10 +182,7 @@ data:
     \ = 1;\n            end[u] = ord[u] + 1;\n            for (auto& e : adj_list[u])\
     \ {\n                if (e.to == par[u]) continue;\n                psize[u] +=\
     \ psize[e.to];\n                chmax(end[u], ord[u]);\n            }\n      \
-    \  }\n        rep(i, sz(dfstrv)){\n            int u = dfstrv[i];\n          \
-    \  if (par[u] != -1){\n                depth[u] = depth[par[u]] + 1;\n       \
-    \         ldepth[u] = ldepth[par[u]] + edge[u]->cost;\n            }\n       \
-    \ }\n    }                                               /*}}}*/\n    void _dfs_tree()\
+    \  }\n    }                                               /*}}}*/\n    void _dfs_tree()\
     \ { /*{{{*/\n        dfstrv.clear();\n        dump(dfstrv);\n        stack<tuple<int,\
     \ int, int>> st; st.push(make_tuple(root, -1, root));\n        int counter = 0;\n\
     \        while(sz(st) > 0){\n            auto [u, pre, head_node] = st.top();\
@@ -202,10 +202,13 @@ data:
     \ u, v)); // new\n            }\n        }\n\n        r_rep(i, n){\n         \
     \   int u = dfstrv[i];\n            end[u] = ord[u];\n            each(e, adj_list[u])\
     \ {\n                edge[e.to] = &e;\n                if (e.to == par[u]) continue;\n\
-    \                chmax(end[u], end[e.to]);\n            }\n        }\n\n    }\
-    \                     /*}}}*/\n    void _dfs_et() { /*{{{*/\n        stack<int>\
-    \ st;\n        st.push(~root);  // \u5E30\u308A\u304C\u3051\u51E6\u7406\u7528\n\
-    \        st.push(root);\n        while(sz(st) > 0){\n            int u = st.top();st.pop();\n\
+    \                chmax(end[u], end[e.to]);\n            }\n        }\n\n     \
+    \   rep(i, sz(dfstrv)){\n            int u = dfstrv[i];\n            if (par[u]\
+    \ != -1){\n                depth[u] = depth[par[u]] + 1;\n                ldepth[u]\
+    \ = ldepth[par[u]] + edge[u]->cost;\n            }\n        }\n\n    }       \
+    \              /*}}}*/\n    void _dfs_et() { /*{{{*/\n        stack<int> st;\n\
+    \        st.push(~root);  // \u5E30\u308A\u304C\u3051\u51E6\u7406\u7528\n    \
+    \    st.push(root);\n        while(sz(st) > 0){\n            int u = st.top();st.pop();\n\
     \            if (u >= 0){  // \u884C\u304D\u304C\u3051\u9806\u306E\u51E6\u7406\
     \n                et_fpos[u] = euler_tour.size();\n                euler_tour.pb(u);\n\
     \                r_rep(i, sz(adj_list[u])) {\n                    int v = adj_list[u][i].to;\n\
@@ -294,10 +297,7 @@ data:
     \ = 1;\n            end[u] = ord[u] + 1;\n            for (auto& e : adj_list[u])\
     \ {\n                if (e.to == par[u]) continue;\n                psize[u] +=\
     \ psize[e.to];\n                chmax(end[u], ord[u]);\n            }\n      \
-    \  }\n        rep(i, sz(dfstrv)){\n            int u = dfstrv[i];\n          \
-    \  if (par[u] != -1){\n                depth[u] = depth[par[u]] + 1;\n       \
-    \         ldepth[u] = ldepth[par[u]] + edge[u]->cost;\n            }\n       \
-    \ }\n    }                                               /*}}}*/\n    void _dfs_tree()\
+    \  }\n    }                                               /*}}}*/\n    void _dfs_tree()\
     \ { /*{{{*/\n        dfstrv.clear();\n        dump(dfstrv);\n        stack<tuple<int,\
     \ int, int>> st; st.push(make_tuple(root, -1, root));\n        int counter = 0;\n\
     \        while(sz(st) > 0){\n            auto [u, pre, head_node] = st.top();\
@@ -317,10 +317,13 @@ data:
     \ u, v)); // new\n            }\n        }\n\n        r_rep(i, n){\n         \
     \   int u = dfstrv[i];\n            end[u] = ord[u];\n            each(e, adj_list[u])\
     \ {\n                edge[e.to] = &e;\n                if (e.to == par[u]) continue;\n\
-    \                chmax(end[u], end[e.to]);\n            }\n        }\n\n    }\
-    \                     /*}}}*/\n    void _dfs_et() { /*{{{*/\n        stack<int>\
-    \ st;\n        st.push(~root);  // \u5E30\u308A\u304C\u3051\u51E6\u7406\u7528\n\
-    \        st.push(root);\n        while(sz(st) > 0){\n            int u = st.top();st.pop();\n\
+    \                chmax(end[u], end[e.to]);\n            }\n        }\n\n     \
+    \   rep(i, sz(dfstrv)){\n            int u = dfstrv[i];\n            if (par[u]\
+    \ != -1){\n                depth[u] = depth[par[u]] + 1;\n                ldepth[u]\
+    \ = ldepth[par[u]] + edge[u]->cost;\n            }\n        }\n\n    }       \
+    \              /*}}}*/\n    void _dfs_et() { /*{{{*/\n        stack<int> st;\n\
+    \        st.push(~root);  // \u5E30\u308A\u304C\u3051\u51E6\u7406\u7528\n    \
+    \    st.push(root);\n        while(sz(st) > 0){\n            int u = st.top();st.pop();\n\
     \            if (u >= 0){  // \u884C\u304D\u304C\u3051\u9806\u306E\u51E6\u7406\
     \n                et_fpos[u] = euler_tour.size();\n                euler_tour.pb(u);\n\
     \                r_rep(i, sz(adj_list[u])) {\n                    int v = adj_list[u][i].to;\n\
@@ -367,9 +370,10 @@ data:
   - library/cpp/graph/edge.hpp
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
-  requiredBy: []
-  timestamp: '2020-10-27 19:49:53+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  requiredBy:
+  - library/cpp/include/tree_non_recursive.hpp
+  timestamp: '2020-10-29 12:32:06+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
 documentation_of: library/cpp/graph/tree.lib/tree_non_recursive.hpp

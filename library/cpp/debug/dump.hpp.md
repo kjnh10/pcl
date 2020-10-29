@@ -4,7 +4,10 @@ data:
   - icon: ':warning:'
     path: library/cpp/debug/prettyprint.hpp
     title: library/cpp/debug/prettyprint.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/dump.hpp
+    title: library/cpp/include/dump.hpp
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -351,7 +354,8 @@ data:
   - library/cpp/debug/prettyprint.hpp
   isVerificationFile: false
   path: library/cpp/debug/dump.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/dump.hpp
   timestamp: '2020-10-27 19:48:17+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

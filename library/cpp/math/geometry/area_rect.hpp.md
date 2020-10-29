@@ -4,7 +4,10 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/area_rect.hpp
+    title: library/cpp/include/area_rect.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/area_rect.test.cpp
@@ -68,7 +71,8 @@ data:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/geometry/area_rect.hpp
-  requiredBy: []
+  requiredBy:
+  - library/cpp/include/area_rect.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/reversed_cnt.cpp
     title: library/cpp/array/reversed_cnt.cpp
+  - icon: ':warning:'
+    path: library/cpp/include/zipper.hpp
+    title: library/cpp/include/zipper.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/misc/zipper.lib/zipper.test.cpp
@@ -122,6 +125,7 @@ data:
   path: library/cpp/misc/zipper.lib/zipper.hpp
   requiredBy:
   - library/cpp/array/reversed_cnt.cpp
+  - library/cpp/include/zipper.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

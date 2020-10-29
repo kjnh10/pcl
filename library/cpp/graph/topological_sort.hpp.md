@@ -23,6 +23,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/two_sat.hpp
     title: library/cpp/graph/two_sat.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/topological_sort.hpp
+    title: library/cpp/include/topological_sort.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/two_sat.hpp
+    title: library/cpp/include/two_sat.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/topological_sort.test.cpp
@@ -379,6 +385,8 @@ data:
   path: library/cpp/graph/topological_sort.hpp
   requiredBy:
   - library/cpp/graph/two_sat.hpp
+  - library/cpp/include/two_sat.hpp
+  - library/cpp/include/topological_sort.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
