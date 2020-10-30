@@ -1714,6 +1714,26 @@ snippet bit
   };     //}}}
 
 
+snippet zeta
+  // snippet:zeta {{{
+  template <class T> 
+  vec<T> zeta(const vec<T>& a, int n){
+      vec<T> res(a);
+      // 自由度0
+      rep(j, 0, n){
+          // j桁目を自由にする。
+          rep(i, 1<<n) {
+              if (i >> j & 1) {
+                  res[i] += res[i ^ 1<<j];
+                  // j桁目が立ってないやつからj桁目が立ってるやつに更新が行くので順番の心配は不要
+              }
+          }
+      }
+      return res;
+  }
+  // snippet:zeta }}}
+
+
 snippet segment_tree_lazy
 alias lazy
   // snippet:segment_tree_lazy {{{
@@ -8587,13 +8607,6 @@ snippet tree_non_recursive
                   chmax(end[u], ord[u]);
               }
           }
-          rep(i, sz(dfstrv)){
-              int u = dfstrv[i];
-              if (par[u] != -1){
-                  depth[u] = depth[par[u]] + 1;
-                  ldepth[u] = ldepth[par[u]] + edge[u]->cost;
-              }
-          }
       }                                               /*}}}*/
       void _dfs_tree() { /*{{{*/
           dfstrv.clear();
@@ -8636,6 +8649,14 @@ snippet tree_non_recursive
                   edge[e.to] = &e;
                   if (e.to == par[u]) continue;
                   chmax(end[u], end[e.to]);
+              }
+          }
+  
+          rep(i, sz(dfstrv)){
+              int u = dfstrv[i];
+              if (par[u] != -1){
+                  depth[u] = depth[par[u]] + 1;
+                  ldepth[u] = ldepth[par[u]] + edge[u]->cost;
               }
           }
   
