@@ -9,6 +9,9 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/bsearch.cpp
       title: library/cpp/array/bsearch.cpp
+    - icon: ':warning:'
+      path: library/cpp/array/fast_zeta.hpp
+      title: library/cpp/array/fast_zeta.hpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/lis.hpp
       title: library/cpp/array/lis.hpp
@@ -185,6 +188,9 @@ data:
     - icon: ':warning:'
       path: library/cpp/include/edge.hpp
       title: library/cpp/include/edge.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/fast_zeta.hpp
+      title: library/cpp/include/fast_zeta.hpp
     - icon: ':warning:'
       path: library/cpp/include/graph.hpp
       title: library/cpp/include/graph.hpp

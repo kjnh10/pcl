@@ -8,6 +8,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/bsearch.cpp
     title: library/cpp/array/bsearch.cpp
+  - icon: ':warning:'
+    path: library/cpp/array/fast_zeta.hpp
+    title: library/cpp/array/fast_zeta.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/lis.hpp
     title: library/cpp/array/lis.hpp
@@ -125,6 +128,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/include/edge.hpp
     title: library/cpp/include/edge.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/fast_zeta.hpp
+    title: library/cpp/include/fast_zeta.hpp
   - icon: ':warning:'
     path: library/cpp/include/graph.hpp
     title: library/cpp/include/graph.hpp
@@ -742,6 +748,7 @@ data:
   - library/cpp/graph/topological_sort.hpp
   - library/cpp/array/sparse_table.hpp
   - library/cpp/array/syakutori.cpp
+  - library/cpp/array/fast_zeta.hpp
   - library/cpp/array/bit.hpp
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/array/segtree/rmq_2d.cpp
@@ -768,6 +775,7 @@ data:
   - library/cpp/include/sparse_table.hpp
   - library/cpp/include/union_find.hpp
   - library/cpp/include/segment_tree_lazy.rsq_ruq.hpp
+  - library/cpp/include/fast_zeta.hpp
   - library/cpp/include/graph.hpp
   - library/cpp/include/monoid_affin_transformation.hpp
   - library/cpp/include/header.hpp
