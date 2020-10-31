@@ -30,57 +30,62 @@ data:
     \                                    \\\n    {                               \
     \                                                \\\n        DUMPOUT << #x <<\
     \ \"[\" << #n << \"]\"                                           \\\n        \
-    \        << \":=> {\";                                                       \
-    \  \\\n        for(dm::i=0; dm::i<n; ++dm::i)                                \
-    \              \\\n            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ?\
-    \ \"}\" : \", \");            \\\n        DUMPOUT << \"  in [\" << __LINE__ <<\
-    \ \":\" << __FUNCTION__ << \"]\" << endl;      \\\n    }\n\n#define dump_2d(x,\
-    \ n, m)                                                            \\\n    { \
-    \                                                                            \
-    \  \\\n        DUMPOUT << #x << \"[\" << #n << \"]\"                         \
-    \                  \\\n                << \"[\" << #m << \"]\"               \
-    \                                  \\\n                << \":=> \\n\";       \
-    \                                                 \\\n        dump_2d_core(x,\
-    \ n, m);                                                      \\\n        DUMPOUT\
-    \ << \"  in [\" << __LINE__ << \":\" << __FUNCTION__ << \"]\" << endl;      \\\
-    \n    }\n\nvoid dump_func() {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&&\
-    \ head, Tail&&... tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()]\
-    \ << \":\"\n            << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT\
-    \ << \" \";\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
+    \        << \":=> \";                                                        \
+    \ \\\n        dump_1d_core(x, n);                                            \
+    \             \\\n        DUMPOUT << \"  in [\" << __LINE__ << \":\" << __FUNCTION__\
+    \ << \"]\" << endl;      \\\n    }\n\n#define dump_2d(x, n, m)               \
+    \                                             \\\n    {                      \
+    \                                                         \\\n        DUMPOUT\
+    \ << #x << \"[\" << #n << \"]\"                                           \\\n\
+    \                << \"[\" << #m << \"]\"                                     \
+    \            \\\n                << \":=> \\n\";                             \
+    \                           \\\n        dump_2d_core(x, n, m);               \
+    \                                       \\\n        DUMPOUT << \"  in [\" << __LINE__\
+    \ << \":\" << __FUNCTION__ << \"]\" << endl;      \\\n    }\n\nvoid dump_func()\
+    \ {}\ntemplate <class Head, class... Tail>\nvoid dump_func(Head&& head, Tail&&...\
+    \ tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()] << \":\"\n   \
+    \         << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT << \" \"\
+    ;\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
     \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nvoid print_formatted_int(T\
     \ v, T inf, int len){\n    if (v == inf) {\n        DUMPOUT << string(max(len-2,\
     \ 0), ' ');\n        DUMPOUT << \"\u221E \";\n    }\n    else if (v == -inf){\n\
     \        DUMPOUT << string(max(len-3, 0), ' ');\n        DUMPOUT << \"-\u221E\
     \ \";\n    }\n    else{\n        DUMPOUT << setw(len);\n        DUMPOUT << v;\n\
-    \    }\n}\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>& x,\
-    \ int n, int m){\n    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int>\
-    \ column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j)\
-    \ {\n        int len = to_string(x[i][j]).size();\n        if (x[i][j] == inf)\
-    \ len = 2;\n        if (x[i][j] == -inf) len = 3;\n        if (len > column_len[j])\
-    \ column_len[j] = len;\n    }\n\n    // print header\n    int header_len = 0;\n\
-    \    for(int j = 0; j < m ; ++j) {\n        if (j == 0) {\n            DUMPOUT\
-    \ << string(7, ' ');\n        }\n        else{\n            DUMPOUT << \" \";\n\
-    \            header_len++;\n        }\n        DUMPOUT << setw(column_len[j])\
-    \ << j;\n        header_len += column_len[j];\n        DUMPOUT << (((j) == (m\
-    \ - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT << string(7, ' ');\n    DUMPOUT\
-    \ << string(header_len, '-');\n    DUMPOUT << \"\\n\";\n\n    for(int i = 0; i\
-    \ < n ; ++i) for(int j = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5)\
-    \ << i << \" |\";\n        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j],\
-    \ inf, column_len[j]);\n        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\"\
-    );\n    }\n}\n\nvector<string> parse_args_names(string s){\n    int n = s.size();\n\
-    \    vector<string> res;\n    string tmp = \"\";\n    int parlevel = 0;\n    int\
-    \ angle_level = 0;\n    for (int i = 0; i < n; i++) {\n        if (s[i] == '(')\
-    \ parlevel++;\n        if (s[i] == ')') parlevel--;\n        if (s[i] == '<')\
-    \ angle_level++;\n        if (s[i] == '>') angle_level--;\n        if (s[i] ==\
-    \ ' ') continue;\n        if (s[i] == ',' && parlevel == 0 && angle_level == 0)\
-    \ {\n            res.push_back(tmp);\n            tmp = \"\";\n        }\n   \
-    \     else {\n            tmp += s[i];\n        }\n    }\n    res.push_back(tmp);\n\
-    \    return res;\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\n//     \
-    \     Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the Boost Software\
-    \ License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt or copy\
-    \ at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty printing\
-    \ library for C++\n//\n// Usage:\n// Include this header, and operator<< will\
-    \ \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include\
+    \    }\n}\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n\
+    \    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
+    \ 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string(x[j]).size();\n\
+    \        if (x[j] == inf) len = 2;\n        if (x[j] == -inf) len = 3;\n     \
+    \   if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j = 0;\
+    \ j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        print_formatted_int(x[j],\
+    \ inf, column_len[j]);\n        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n\
+    }\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>& x, int n,\
+    \ int m){\n    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
+    \ 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n        int\
+    \ len = to_string(x[i][j]).size();\n        if (x[i][j] == inf) len = 2;\n   \
+    \     if (x[i][j] == -inf) len = 3;\n        if (len > column_len[j]) column_len[j]\
+    \ = len;\n    }\n\n    // print header\n    int header_len = 0;\n    for(int j\
+    \ = 0; j < m ; ++j) {\n        if (j == 0) {\n            DUMPOUT << string(7,\
+    \ ' ');\n        }\n        else{\n            DUMPOUT << \" \";\n           \
+    \ header_len++;\n        }\n        DUMPOUT << setw(column_len[j]) << j;\n   \
+    \     header_len += column_len[j];\n        DUMPOUT << (((j) == (m - 1)) ? \"\\\
+    n\" : \"\");\n    }\n    DUMPOUT << string(7, ' ');\n    DUMPOUT << string(header_len,\
+    \ '-');\n    DUMPOUT << \"\\n\";\n\n    for(int i = 0; i < n ; ++i) for(int j\
+    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n\
+    \        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j], inf, column_len[j]);\n\
+    \        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
+    \ parse_args_names(string s){\n    int n = s.size();\n    vector<string> res;\n\
+    \    string tmp = \"\";\n    int parlevel = 0;\n    int angle_level = 0;\n   \
+    \ for (int i = 0; i < n; i++) {\n        if (s[i] == '(') parlevel++;\n      \
+    \  if (s[i] == ')') parlevel--;\n        if (s[i] == '<') angle_level++;\n   \
+    \     if (s[i] == '>') angle_level--;\n        if (s[i] == ' ') continue;\n  \
+    \      if (s[i] == ',' && parlevel == 0 && angle_level == 0) {\n            res.push_back(tmp);\n\
+    \            tmp = \"\";\n        }\n        else {\n            tmp += s[i];\n\
+    \        }\n    }\n    res.push_back(tmp);\n    return res;\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\
+    \n//          Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the\
+    \ Boost Software License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt\
+    \ or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty\
+    \ printing library for C++\n//\n// Usage:\n// Include this header, and operator<<\
+    \ will \"just work\".\n\n#ifndef H_PRETTY_PRINT\n#define H_PRETTY_PRINT\n\n#include\
     \ <cstddef>\n#include <iterator>\n#include <memory>\n#include <ostream>\n#include\
     \ <set>\n#include <tuple>\n#include <type_traits>\n#include <unordered_set>\n\
     #include <utility>\n#include <valarray>\n\nnamespace pretty_print {\nnamespace\
@@ -293,7 +298,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/dump.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-10-31 20:50:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/dump.hpp
