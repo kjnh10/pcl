@@ -199,7 +199,7 @@ data:
     \        et_fpos[u] = (int)euler_tour.size();\n        euler_tour.pb(u);\n   \
     \     each(v, children[u]) {\n            _dfs_et(v);\n            euler_tour.pb(u);\n\
     \        }\n    }                       /*}}}*/\n    bool is_leaf(int u) {\n \
-    \       return children[u].size() > 0;\n    }\n    int lca(int u, int v) { /*{{{*/\n\
+    \       return children[u].size() == 0;\n    }\n    int lca(int u, int v) { /*{{{*/\n\
     \        if (u == v) return u;\n        if (et_fpos[u] > et_fpos[v]) swap(u, v);\n\
     \        return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];\n    }           \
     \             /*}}}*/\n    int dist(int u, int v) { /*{{{*/\n        int p = lca(u,\
@@ -449,7 +449,7 @@ data:
   path: library/cpp/graph/local_min_cycle.hpp
   requiredBy:
   - library/cpp/include/local_min_cycle.hpp
-  timestamp: '2020-10-27 20:24:34+09:00'
+  timestamp: '2020-10-31 19:09:33+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/local_min_cycle.hpp

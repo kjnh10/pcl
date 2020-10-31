@@ -194,8 +194,8 @@ data:
     \      /*}}}*/\n    void _dfs_et(int u) { /*{{{*/\n        et_fpos[u] = (int)euler_tour.size();\n\
     \        euler_tour.pb(u);\n        each(v, children[u]) {\n            _dfs_et(v);\n\
     \            euler_tour.pb(u);\n        }\n    }                       /*}}}*/\n\
-    \    bool is_leaf(int u) {\n        return children[u].size() > 0;\n    }\n  \
-    \  int lca(int u, int v) { /*{{{*/\n        if (u == v) return u;\n        if\
+    \    bool is_leaf(int u) {\n        return children[u].size() == 0;\n    }\n \
+    \   int lca(int u, int v) { /*{{{*/\n        if (u == v) return u;\n        if\
     \ (et_fpos[u] > et_fpos[v]) swap(u, v);\n        return dfstrv[_seg.query(et_fpos[u],\
     \ et_fpos[v])];\n    }                        /*}}}*/\n    int dist(int u, int\
     \ v) { /*{{{*/\n        int p = lca(u, v);\n        return depth[u] + depth[v]\
@@ -271,7 +271,7 @@ data:
   path: library/cpp/graph/tree.lib/kth_root.hpp
   requiredBy:
   - library/cpp/include/kth_root.hpp
-  timestamp: '2020-10-27 19:49:53+09:00'
+  timestamp: '2020-10-31 19:09:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/kth_root.test.cpp
