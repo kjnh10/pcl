@@ -28,9 +28,8 @@ namespace dm {
 #define dump_1d(x, n)                                                               \
     {                                                                               \
         DUMPOUT << #x << "[" << #n << "]"                                           \
-                << ":=> {";                                                         \
-        for(dm::i=0; dm::i<n; ++dm::i)                                              \
-            DUMPOUT << x[dm::i] << (((dum::i) == (n - 1)) ? "}" : ", ");            \
+                << ":=> ";                                                         \
+        dump_1d_core(x, n);                                                         \
         DUMPOUT << "  in [" << __LINE__ << ":" << __FUNCTION__ << "]" << endl;      \
     }
 
@@ -74,6 +73,25 @@ void print_formatted_int(T v, T inf, int len){
 }
 
 template <class T>
+void dump_1d_core(const vector<T>& x, int m){
+    T inf = numeric_limits<T>::max() / 2.1;
+
+    vector<int> column_len(m, 2);
+    for(int j = 0; j < m; ++j) {
+        int len = to_string(x[j]).size();
+        if (x[j] == inf) len = 2;
+        if (x[j] == -inf) len = 3;
+        if (len > column_len[j]) column_len[j] = len;
+    }
+
+    for(int j = 0; j < m; ++j) {
+        if (j == 0) DUMPOUT << "[";
+        print_formatted_int(x[j], inf, column_len[j]);
+        DUMPOUT << (j != m-1 ? " " : "]");
+    }
+}
+
+template <class T>
 void dump_2d_core(const vector<vector<T>>& x, int n, int m){
     T inf = numeric_limits<T>::max() / 2.1;
 
@@ -110,6 +128,7 @@ void dump_2d_core(const vector<vector<T>>& x, int n, int m){
         DUMPOUT << (((j) == (m - 1)) ? "|\n" : "");
     }
 }
+
 
 vector<string> parse_args_names(string s){
     int n = s.size();
