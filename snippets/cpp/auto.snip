@@ -3973,7 +3973,7 @@ alias tps
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -4585,7 +4585,7 @@ snippet two_sat
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -5359,7 +5359,7 @@ alias cycle
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -5954,7 +5954,7 @@ snippet local_min_cycle_directed
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -6635,7 +6635,7 @@ snippet Graph
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -7183,7 +7183,7 @@ alias StronglyConnectedComponents
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -7786,7 +7786,7 @@ snippet bellman_ford
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;
@@ -8302,7 +8302,7 @@ snippet tree
           }
       }                       /*}}}*/
       bool is_leaf(int u) {
-          return children[u].size() > 0;
+          return children[u].size() == 0;
       }
       int lca(int u, int v) { /*{{{*/
           if (u == v) return u;

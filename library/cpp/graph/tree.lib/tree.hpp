@@ -123,7 +123,7 @@ struct tree {
         }
     }                       /*}}}*/
     bool is_leaf(int u) {
-        return children[u].size() > 0;
+        return children[u].size() == 0;
     }
     int lca(int u, int v) { /*{{{*/
         if (u == v) return u;
