@@ -1063,47 +1063,47 @@ snippet generalized_baybe_step_giant_step
 alias gbsgs
   const int mod = 1e9 + 7;
   // const int mod = 998244353;
-  struct mint {  //{{{
+  struct modint {  //{{{
       ll x;
-      mint(ll x = 0) : x((x % mod + mod) % mod) {}
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
   
       // ?= operator
-      mint& operator+=(const mint a) {
+      modint& operator+=(const modint a) {
           (x += a.x) %= mod;
           return *this;
       }
-      mint& operator-=(const mint a) {
+      modint& operator-=(const modint a) {
           (x += mod - a.x) %= mod;
           return *this;
       }
-      mint& operator*=(const mint a) {
+      modint& operator*=(const modint a) {
           (x *= a.x) %= mod;
           return *this;
       }
-      mint& operator/=(const mint& rhs) {
-          if (rhs.x == 0) throw runtime_error("mint zero division");
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
           return *this *= rhs.inv();
       }
   
-      mint operator+(const mint a) const {
-          mint res(*this);
+      modint operator+(const modint a) const {
+          modint res(*this);
           return res += a;
       }
-      mint operator-(const mint a) const {
-          mint res(*this);
+      modint operator-(const modint a) const {
+          modint res(*this);
           return res -= a;
       }
-      mint operator*(const mint a) const {
-          mint res(*this);
+      modint operator*(const modint a) const {
+          modint res(*this);
           return res *= a;
       }
-      mint operator/(const mint a) const {
-          mint res(*this);
+      modint operator/(const modint a) const {
+          modint res(*this);
           return res /= a;
       }
   
-      mint pow(ll n) const {
-          mint res(1), x(*this);
+      modint pow(ll n) const {
+          modint res(1), x(*this);
           if (n < 0) {
               n = -n;
               x = (*this).inv();
@@ -1116,24 +1116,28 @@ alias gbsgs
           return res;
       }
   
-      mint inv() const {
+      modint inv() const {
           if (x == 0) throw runtime_error("inv does not exist");
           return pow(mod - 2);
       }
-      // mint inv()const{
+      // modint inv()const{
       //     int x,y;
       //     int g=extgcd(v,mod,x,y);
       //     assert(g==1);
       //     if(x<0)x+=mod;
-      //     return mint(x);
+      //     return modint(x);
       // }
   
-      bool operator<(const mint& r) const { return x < r.x; }
-      bool operator==(const mint& r) const { return x == r.x; }
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
   };
-  istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
   //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
   
   int bsgs(int a, int b) {  //{{{
       // find x s.t a^x = b in (mod)
@@ -1186,47 +1190,47 @@ snippet baybe_step_giant_step
 alias bsgs
   const int mod = 1e9 + 7;
   // const int mod = 998244353;
-  struct mint {  //{{{
+  struct modint {  //{{{
       ll x;
-      mint(ll x = 0) : x((x % mod + mod) % mod) {}
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
   
       // ?= operator
-      mint& operator+=(const mint a) {
+      modint& operator+=(const modint a) {
           (x += a.x) %= mod;
           return *this;
       }
-      mint& operator-=(const mint a) {
+      modint& operator-=(const modint a) {
           (x += mod - a.x) %= mod;
           return *this;
       }
-      mint& operator*=(const mint a) {
+      modint& operator*=(const modint a) {
           (x *= a.x) %= mod;
           return *this;
       }
-      mint& operator/=(const mint& rhs) {
-          if (rhs.x == 0) throw runtime_error("mint zero division");
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
           return *this *= rhs.inv();
       }
   
-      mint operator+(const mint a) const {
-          mint res(*this);
+      modint operator+(const modint a) const {
+          modint res(*this);
           return res += a;
       }
-      mint operator-(const mint a) const {
-          mint res(*this);
+      modint operator-(const modint a) const {
+          modint res(*this);
           return res -= a;
       }
-      mint operator*(const mint a) const {
-          mint res(*this);
+      modint operator*(const modint a) const {
+          modint res(*this);
           return res *= a;
       }
-      mint operator/(const mint a) const {
-          mint res(*this);
+      modint operator/(const modint a) const {
+          modint res(*this);
           return res /= a;
       }
   
-      mint pow(ll n) const {
-          mint res(1), x(*this);
+      modint pow(ll n) const {
+          modint res(1), x(*this);
           if (n < 0) {
               n = -n;
               x = (*this).inv();
@@ -1239,24 +1243,28 @@ alias bsgs
           return res;
       }
   
-      mint inv() const {
+      modint inv() const {
           if (x == 0) throw runtime_error("inv does not exist");
           return pow(mod - 2);
       }
-      // mint inv()const{
+      // modint inv()const{
       //     int x,y;
       //     int g=extgcd(v,mod,x,y);
       //     assert(g==1);
       //     if(x<0)x+=mod;
-      //     return mint(x);
+      //     return modint(x);
       // }
   
-      bool operator<(const mint& r) const { return x < r.x; }
-      bool operator==(const mint& r) const { return x == r.x; }
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
   };
-  istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
   //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
   
   int bsgs(int a, int b) {  //{{{
       if (b >= mod) {
@@ -3174,47 +3182,47 @@ snippet hakidasi_xor
 snippet combination
   const int mod = 1e9 + 7;
   // const int mod = 998244353;
-  struct mint {  //{{{
+  struct modint {  //{{{
       ll x;
-      mint(ll x = 0) : x((x % mod + mod) % mod) {}
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
   
       // ?= operator
-      mint& operator+=(const mint a) {
+      modint& operator+=(const modint a) {
           (x += a.x) %= mod;
           return *this;
       }
-      mint& operator-=(const mint a) {
+      modint& operator-=(const modint a) {
           (x += mod - a.x) %= mod;
           return *this;
       }
-      mint& operator*=(const mint a) {
+      modint& operator*=(const modint a) {
           (x *= a.x) %= mod;
           return *this;
       }
-      mint& operator/=(const mint& rhs) {
-          if (rhs.x == 0) throw runtime_error("mint zero division");
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
           return *this *= rhs.inv();
       }
   
-      mint operator+(const mint a) const {
-          mint res(*this);
+      modint operator+(const modint a) const {
+          modint res(*this);
           return res += a;
       }
-      mint operator-(const mint a) const {
-          mint res(*this);
+      modint operator-(const modint a) const {
+          modint res(*this);
           return res -= a;
       }
-      mint operator*(const mint a) const {
-          mint res(*this);
+      modint operator*(const modint a) const {
+          modint res(*this);
           return res *= a;
       }
-      mint operator/(const mint a) const {
-          mint res(*this);
+      modint operator/(const modint a) const {
+          modint res(*this);
           return res /= a;
       }
   
-      mint pow(ll n) const {
-          mint res(1), x(*this);
+      modint pow(ll n) const {
+          modint res(1), x(*this);
           if (n < 0) {
               n = -n;
               x = (*this).inv();
@@ -3227,24 +3235,28 @@ snippet combination
           return res;
       }
   
-      mint inv() const {
+      modint inv() const {
           if (x == 0) throw runtime_error("inv does not exist");
           return pow(mod - 2);
       }
-      // mint inv()const{
+      // modint inv()const{
       //     int x,y;
       //     int g=extgcd(v,mod,x,y);
       //     assert(g==1);
       //     if(x<0)x+=mod;
-      //     return mint(x);
+      //     return modint(x);
       // }
   
-      bool operator<(const mint& r) const { return x < r.x; }
-      bool operator==(const mint& r) const { return x == r.x; }
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
   };
-  istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
   //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
   
   struct combination {  // {{{
       vector<mint> fact, ifact;
@@ -3297,82 +3309,6 @@ snippet matrix_pow
   // snippet:matrix_pow }}}
 
 
-snippet mint
-  const int mod = 1e9 + 7;
-  // const int mod = 998244353;
-  struct mint {  //{{{
-      ll x;
-      mint(ll x = 0) : x((x % mod + mod) % mod) {}
-  
-      // ?= operator
-      mint& operator+=(const mint a) {
-          (x += a.x) %= mod;
-          return *this;
-      }
-      mint& operator-=(const mint a) {
-          (x += mod - a.x) %= mod;
-          return *this;
-      }
-      mint& operator*=(const mint a) {
-          (x *= a.x) %= mod;
-          return *this;
-      }
-      mint& operator/=(const mint& rhs) {
-          if (rhs.x == 0) throw runtime_error("mint zero division");
-          return *this *= rhs.inv();
-      }
-  
-      mint operator+(const mint a) const {
-          mint res(*this);
-          return res += a;
-      }
-      mint operator-(const mint a) const {
-          mint res(*this);
-          return res -= a;
-      }
-      mint operator*(const mint a) const {
-          mint res(*this);
-          return res *= a;
-      }
-      mint operator/(const mint a) const {
-          mint res(*this);
-          return res /= a;
-      }
-  
-      mint pow(ll n) const {
-          mint res(1), x(*this);
-          if (n < 0) {
-              n = -n;
-              x = (*this).inv();
-          }
-          while (n) {
-              if (n & 1) res *= x;
-              x *= x;
-              n >>= 1;
-          }
-          return res;
-      }
-  
-      mint inv() const {
-          if (x == 0) throw runtime_error("inv does not exist");
-          return pow(mod - 2);
-      }
-      // mint inv()const{
-      //     int x,y;
-      //     int g=extgcd(v,mod,x,y);
-      //     assert(g==1);
-      //     if(x<0)x+=mod;
-      //     return mint(x);
-      // }
-  
-      bool operator<(const mint& r) const { return x < r.x; }
-      bool operator==(const mint& r) const { return x == r.x; }
-  };
-  istream& operator>>(istream& is, const mint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const mint& a) { return os << a.x; }
-  //}}}
-
-
 snippet rational
 alias fraction
   // snippet:rational {{{
@@ -3389,6 +3325,87 @@ alias fraction
   // assert(rational(3, 5) == rational(-6, -10));
   // map<rational<ll>, int> cnt;  // keyにもできる。
   // snippet:rational }}}
+
+
+snippet modint
+alias mint
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
+  struct modint {  //{{{
+      ll x;
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+  
+      // ?= operator
+      modint& operator+=(const modint a) {
+          (x += a.x) %= mod;
+          return *this;
+      }
+      modint& operator-=(const modint a) {
+          (x += mod - a.x) %= mod;
+          return *this;
+      }
+      modint& operator*=(const modint a) {
+          (x *= a.x) %= mod;
+          return *this;
+      }
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
+          return *this *= rhs.inv();
+      }
+  
+      modint operator+(const modint a) const {
+          modint res(*this);
+          return res += a;
+      }
+      modint operator-(const modint a) const {
+          modint res(*this);
+          return res -= a;
+      }
+      modint operator*(const modint a) const {
+          modint res(*this);
+          return res *= a;
+      }
+      modint operator/(const modint a) const {
+          modint res(*this);
+          return res /= a;
+      }
+  
+      modint pow(ll n) const {
+          modint res(1), x(*this);
+          if (n < 0) {
+              n = -n;
+              x = (*this).inv();
+          }
+          while (n) {
+              if (n & 1) res *= x;
+              x *= x;
+              n >>= 1;
+          }
+          return res;
+      }
+  
+      modint inv() const {
+          if (x == 0) throw runtime_error("inv does not exist");
+          return pow(mod - 2);
+      }
+      // modint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return modint(x);
+      // }
+  
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
+  };
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+  //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
 
 
 snippet sieve

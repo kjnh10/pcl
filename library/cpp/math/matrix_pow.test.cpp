@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1073"
 #include "matrix_pow.hpp"
-#include "mint.hpp"
+#include "modint.hpp"
 
 int solve() {
     ll n;cin>>n;

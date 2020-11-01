@@ -1,9 +1,9 @@
 #include "../../header.hpp"
-#include "../mint.hpp"
+#include "../modint.hpp"
 
 // %snippet.set('baybe_step_giant_step')%
 // %snippet.config({'alias':'bsgs'})%
-// %snippet.include('mint')%
+// %snippet.include('modint')%
 
 int bsgs(int a, int b) {  //{{{
     if (b >= mod) {

@@ -1,9 +1,9 @@
 #pragma once
 #include "../header.hpp"
-#include "mint.hpp"
+#include "modint.hpp"
 
 //%snippet.set('combination')%
-// %snippet.include('mint')%
+// %snippet.include('modint')%
 struct combination {  // {{{
     vector<mint> fact, ifact;
     combination(int n) : fact(n + 1), ifact(n + 1) {

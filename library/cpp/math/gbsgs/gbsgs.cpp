@@ -1,8 +1,8 @@
 #include "../../header.hpp"
-#include "../mint.hpp"
+#include "../modint.hpp"
 // %snippet.set('generalized_baybe_step_giant_step')%
 // %snippet.config({'alias':'gbsgs'})%
-// %snippet.include('mint')%
+// %snippet.include('modint')%
 
 int bsgs(int a, int b) {  //{{{
     // find x s.t a^x = b in (mod)

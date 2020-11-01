@@ -1,10 +1,18 @@
 #include "../header.hpp"
+#include "../math/modint.hpp"
 
 namespace std {
     template<> class numeric_limits<pair<int, int>> {
     public:
-       static pair<int, int> max() {return pair<int, int>(100, 100);};
-       // One can implement other methods if needed
+        static pair<int, int> max() {return pair<int, int>(100, 100);};
+    };
+    template<> class numeric_limits<mint> {
+        public:
+        static mint max() { 
+            mint res = 0;
+            res.x = res.mod;
+            return res;
+        };
     };
 }
 
