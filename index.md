@@ -216,11 +216,11 @@ data:
       path: library/cpp/include/matrix_pow.hpp
       title: library/cpp/include/matrix_pow.hpp
     - icon: ':warning:'
-      path: library/cpp/include/mint.hpp
-      title: library/cpp/include/mint.hpp
-    - icon: ':warning:'
       path: library/cpp/include/misawa_b_flow.hpp
       title: library/cpp/include/misawa_b_flow.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/modint.hpp
+      title: library/cpp/include/modint.hpp
     - icon: ':warning:'
       path: library/cpp/include/monoid_affin_transformation.hpp
       title: library/cpp/include/monoid_affin_transformation.hpp
@@ -333,8 +333,8 @@ data:
       path: library/cpp/math/matrix_pow.hpp
       title: library/cpp/math/matrix_pow.hpp
     - icon: ':heavy_check_mark:'
-      path: library/cpp/math/mint.hpp
-      title: library/cpp/math/mint.hpp
+      path: library/cpp/math/modint.hpp
+      title: library/cpp/math/modint.hpp
     - icon: ':warning:'
       path: library/cpp/math/pascal.cpp
       title: library/cpp/math/pascal.cpp

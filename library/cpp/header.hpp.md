@@ -153,11 +153,11 @@ data:
     path: library/cpp/include/matrix_pow.hpp
     title: library/cpp/include/matrix_pow.hpp
   - icon: ':warning:'
-    path: library/cpp/include/mint.hpp
-    title: library/cpp/include/mint.hpp
-  - icon: ':warning:'
     path: library/cpp/include/misawa_b_flow.hpp
     title: library/cpp/include/misawa_b_flow.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/modint.hpp
+    title: library/cpp/include/modint.hpp
   - icon: ':warning:'
     path: library/cpp/include/monoid_affin_transformation.hpp
     title: library/cpp/include/monoid_affin_transformation.hpp
@@ -286,8 +286,8 @@ data:
     path: library/cpp/math/matrix_pow.hpp
     title: library/cpp/math/matrix_pow.hpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/math/mint.hpp
-    title: library/cpp/math/mint.hpp
+    path: library/cpp/math/modint.hpp
+    title: library/cpp/math/modint.hpp
   - icon: ':warning:'
     path: library/cpp/math/pascal.cpp
     title: library/cpp/math/pascal.cpp
@@ -710,13 +710,13 @@ data:
   - library/cpp/string/suffix_array.hpp
   - library/cpp/string/rolling_hash.hpp
   - library/cpp/math/sieve.hpp
-  - library/cpp/math/mint.hpp
   - library/cpp/math/pascal.cpp
   - library/cpp/math/matrix_pow.hpp
   - library/cpp/math/pow.hpp
   - library/cpp/math/hakidashi_xor.hpp
   - library/cpp/math/combination.hpp
   - library/cpp/math/rational.hpp
+  - library/cpp/math/modint.hpp
   - library/cpp/math/gbsgs/naive.cpp
   - library/cpp/math/gbsgs/gbsgs.cpp
   - "library/cpp/math/geometry/\u4E8C\u70B9\u3092\u901A\u308B\u5186\u306E\u4E2D\u5FC3\
@@ -780,7 +780,6 @@ data:
   - library/cpp/include/monoid_affin_transformation.hpp
   - library/cpp/include/header.hpp
   - library/cpp/include/tree.hpp
-  - library/cpp/include/mint.hpp
   - library/cpp/include/shifter.hpp
   - library/cpp/include/segment_tree_lazy.rsq_raq.hpp
   - library/cpp/include/matrix_pow.hpp
@@ -799,6 +798,7 @@ data:
   - library/cpp/include/split.hpp
   - library/cpp/include/segment_tree.hpp
   - library/cpp/include/suffix_array.hpp
+  - library/cpp/include/modint.hpp
   - library/cpp/include/lis.hpp
   - library/cpp/include/p2.hpp
   - library/cpp/include/zipper.hpp

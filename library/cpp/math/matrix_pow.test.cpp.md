@@ -8,8 +8,8 @@ data:
     path: library/cpp/math/matrix_pow.hpp
     title: library/cpp/math/matrix_pow.hpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/math/mint.hpp
-    title: library/cpp/math/mint.hpp
+    path: library/cpp/math/modint.hpp
+    title: library/cpp/math/modint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -58,54 +58,58 @@ data:
     \ A, ll n) {\n    mat<T> B(A.size(), vector<T>(A.size()));\n    rep(i, A.size())\
     \ {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0) {\n        if (n & 1)\
     \ B = mul(B, A);\n        A = mul(A, A);\n        n >>= 1;\n    }\n    return\
-    \ B;\n}\n\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\n\n//%snippet.set('mint')%\n\
-    const int mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct mint {  //{{{\n\
-    \    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
-    \    mint& operator+=(const mint a) {\n        (x += a.x) %= mod;\n        return\
-    \ *this;\n    }\n    mint& operator-=(const mint a) {\n        (x += mod - a.x)\
-    \ %= mod;\n        return *this;\n    }\n    mint& operator*=(const mint a) {\n\
-    \        (x *= a.x) %= mod;\n        return *this;\n    }\n    mint& operator/=(const\
-    \ mint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"mint zero division\"\
-    );\n        return *this *= rhs.inv();\n    }\n\n    mint operator+(const mint\
-    \ a) const {\n        mint res(*this);\n        return res += a;\n    }\n    mint\
-    \ operator-(const mint a) const {\n        mint res(*this);\n        return res\
-    \ -= a;\n    }\n    mint operator*(const mint a) const {\n        mint res(*this);\n\
-    \        return res *= a;\n    }\n    mint operator/(const mint a) const {\n \
-    \       mint res(*this);\n        return res /= a;\n    }\n\n    mint pow(ll n)\
-    \ const {\n        mint res(1), x(*this);\n        if (n < 0) {\n            n\
-    \ = -n;\n            x = (*this).inv();\n        }\n        while (n) {\n    \
-    \        if (n & 1) res *= x;\n            x *= x;\n            n >>= 1;\n   \
-    \     }\n        return res;\n    }\n\n    mint inv() const {\n        if (x ==\
-    \ 0) throw runtime_error(\"inv does not exist\");\n        return pow(mod - 2);\n\
-    \    }\n    // mint inv()const{\n    //     int x,y;\n    //     int g=extgcd(v,mod,x,y);\n\
-    \    //     assert(g==1);\n    //     if(x<0)x+=mod;\n    //     return mint(x);\n\
-    \    // }\n\n    bool operator<(const mint& r) const { return x < r.x; }\n   \
-    \ bool operator==(const mint& r) const { return x == r.x; }\n};\nistream& operator>>(istream&\
-    \ is, const mint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ mint& a) { return os << a.x; }\n//}}}\n#line 4 \"library/cpp/math/matrix_pow.test.cpp\"\
-    \n\nint solve() {\n    ll n;cin>>n;\n\n    mat<mint> A(6, vector<mint>(6));\n\
-    \    mint x = mint(1)/6;\n    A[0] = {x, x, x, x, x, x};\n    A[1] = {1, 0, 0,\
-    \ 0, 0, 0};\n    A[2] = {0, 1, 0, 0, 0, 0};\n    A[3] = {0, 0, 1, 0, 0, 0};\n\
-    \    A[4] = {0, 0, 0, 1, 0, 0};\n    A[5] = {0, 0, 0, 0, 1, 0};\n\n    mat<mint>\
-    \ B(6, vector<mint>(1, 0));\n    B[0] = {x};\n    B[1] = {1};\n\n    cout << mul(pow(A,\
-    \ n-1), B)[0][0] << endl;\n\n    return 0; \n}\n\n\nint main(){/*{{{*/\n    solve();\n\
-    \    check_input();\n    return 0;\n}/*}}}*/\n"
+    \ B;\n}\n\n//%snippet.end()%\n#line 3 \"library/cpp/math/modint.hpp\"\n\n//%snippet.set('modint')%\n\
+    //%snippet.config({'alias':'mint'})%\nconst int mod = 1e9 + 7;\n// const int mod\
+    \ = 998244353;\nstruct modint {  //{{{\n    ll x;\n    modint(ll x = 0) : x((x\
+    \ % mod + mod) % mod) {}\n\n    // ?= operator\n    modint& operator+=(const modint\
+    \ a) {\n        (x += a.x) %= mod;\n        return *this;\n    }\n    modint&\
+    \ operator-=(const modint a) {\n        (x += mod - a.x) %= mod;\n        return\
+    \ *this;\n    }\n    modint& operator*=(const modint a) {\n        (x *= a.x)\
+    \ %= mod;\n        return *this;\n    }\n    modint& operator/=(const modint&\
+    \ rhs) {\n        if (rhs.x == 0) throw runtime_error(\"modint zero division\"\
+    );\n        return *this *= rhs.inv();\n    }\n\n    modint operator+(const modint\
+    \ a) const {\n        modint res(*this);\n        return res += a;\n    }\n  \
+    \  modint operator-(const modint a) const {\n        modint res(*this);\n    \
+    \    return res -= a;\n    }\n    modint operator*(const modint a) const {\n \
+    \       modint res(*this);\n        return res *= a;\n    }\n    modint operator/(const\
+    \ modint a) const {\n        modint res(*this);\n        return res /= a;\n  \
+    \  }\n\n    modint pow(ll n) const {\n        modint res(1), x(*this);\n     \
+    \   if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n      \
+    \  }\n        while (n) {\n            if (n & 1) res *= x;\n            x *=\
+    \ x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n    modint\
+    \ inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
+    );\n        return pow(mod - 2);\n    }\n    // modint inv()const{\n    //   \
+    \  int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n \
+    \   //     if(x<0)x+=mod;\n    //     return modint(x);\n    // }\n\n    bool\
+    \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
+    \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
+    \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
+    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
+    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
+    #line 4 \"library/cpp/math/matrix_pow.test.cpp\"\n\nint solve() {\n    ll n;cin>>n;\n\
+    \n    mat<mint> A(6, vector<mint>(6));\n    mint x = mint(1)/6;\n    A[0] = {x,\
+    \ x, x, x, x, x};\n    A[1] = {1, 0, 0, 0, 0, 0};\n    A[2] = {0, 1, 0, 0, 0,\
+    \ 0};\n    A[3] = {0, 0, 1, 0, 0, 0};\n    A[4] = {0, 0, 0, 1, 0, 0};\n    A[5]\
+    \ = {0, 0, 0, 0, 1, 0};\n\n    mat<mint> B(6, vector<mint>(1, 0));\n    B[0] =\
+    \ {x};\n    B[1] = {1};\n\n    cout << mul(pow(A, n-1), B)[0][0] << endl;\n\n\
+    \    return 0; \n}\n\n\nint main(){/*{{{*/\n    solve();\n    check_input();\n\
+    \    return 0;\n}/*}}}*/\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/1073\"\n#include \"matrix_pow.hpp\"\
-    \n#include \"mint.hpp\"\n\nint solve() {\n    ll n;cin>>n;\n\n    mat<mint> A(6,\
-    \ vector<mint>(6));\n    mint x = mint(1)/6;\n    A[0] = {x, x, x, x, x, x};\n\
-    \    A[1] = {1, 0, 0, 0, 0, 0};\n    A[2] = {0, 1, 0, 0, 0, 0};\n    A[3] = {0,\
-    \ 0, 1, 0, 0, 0};\n    A[4] = {0, 0, 0, 1, 0, 0};\n    A[5] = {0, 0, 0, 0, 1,\
-    \ 0};\n\n    mat<mint> B(6, vector<mint>(1, 0));\n    B[0] = {x};\n    B[1] =\
-    \ {1};\n\n    cout << mul(pow(A, n-1), B)[0][0] << endl;\n\n    return 0; \n}\n\
-    \n\nint main(){/*{{{*/\n    solve();\n    check_input();\n    return 0;\n}/*}}}*/\n"
+    \n#include \"modint.hpp\"\n\nint solve() {\n    ll n;cin>>n;\n\n    mat<mint>\
+    \ A(6, vector<mint>(6));\n    mint x = mint(1)/6;\n    A[0] = {x, x, x, x, x,\
+    \ x};\n    A[1] = {1, 0, 0, 0, 0, 0};\n    A[2] = {0, 1, 0, 0, 0, 0};\n    A[3]\
+    \ = {0, 0, 1, 0, 0, 0};\n    A[4] = {0, 0, 0, 1, 0, 0};\n    A[5] = {0, 0, 0,\
+    \ 0, 1, 0};\n\n    mat<mint> B(6, vector<mint>(1, 0));\n    B[0] = {x};\n    B[1]\
+    \ = {1};\n\n    cout << mul(pow(A, n-1), B)[0][0] << endl;\n\n    return 0; \n\
+    }\n\n\nint main(){/*{{{*/\n    solve();\n    check_input();\n    return 0;\n}/*}}}*/\n"
   dependsOn:
   - library/cpp/math/matrix_pow.hpp
   - library/cpp/header.hpp
-  - library/cpp/math/mint.hpp
+  - library/cpp/math/modint.hpp
   isVerificationFile: true
   path: library/cpp/math/matrix_pow.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 20:24:34+09:00'
+  timestamp: '2020-11-02 01:39:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/matrix_pow.test.cpp

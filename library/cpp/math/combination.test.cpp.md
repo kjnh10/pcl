@@ -8,8 +8,8 @@ data:
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/math/mint.hpp
-    title: library/cpp/math/mint.hpp
+    path: library/cpp/math/modint.hpp
+    title: library/cpp/math/modint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
@@ -48,37 +48,40 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/mint.hpp\"\
-    \n\n//%snippet.set('mint')%\nconst int mod = 1e9 + 7;\n// const int mod = 998244353;\n\
-    struct mint {  //{{{\n    ll x;\n    mint(ll x = 0) : x((x % mod + mod) % mod)\
-    \ {}\n\n    // ?= operator\n    mint& operator+=(const mint a) {\n        (x +=\
-    \ a.x) %= mod;\n        return *this;\n    }\n    mint& operator-=(const mint\
-    \ a) {\n        (x += mod - a.x) %= mod;\n        return *this;\n    }\n    mint&\
-    \ operator*=(const mint a) {\n        (x *= a.x) %= mod;\n        return *this;\n\
-    \    }\n    mint& operator/=(const mint& rhs) {\n        if (rhs.x == 0) throw\
-    \ runtime_error(\"mint zero division\");\n        return *this *= rhs.inv();\n\
-    \    }\n\n    mint operator+(const mint a) const {\n        mint res(*this);\n\
-    \        return res += a;\n    }\n    mint operator-(const mint a) const {\n \
-    \       mint res(*this);\n        return res -= a;\n    }\n    mint operator*(const\
-    \ mint a) const {\n        mint res(*this);\n        return res *= a;\n    }\n\
-    \    mint operator/(const mint a) const {\n        mint res(*this);\n        return\
-    \ res /= a;\n    }\n\n    mint pow(ll n) const {\n        mint res(1), x(*this);\n\
-    \        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n \
-    \       }\n        while (n) {\n            if (n & 1) res *= x;\n           \
-    \ x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n   \
-    \ mint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
-    );\n        return pow(mod - 2);\n    }\n    // mint inv()const{\n    //     int\
-    \ x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n    //\
-    \     if(x<0)x+=mod;\n    //     return mint(x);\n    // }\n\n    bool operator<(const\
-    \ mint& r) const { return x < r.x; }\n    bool operator==(const mint& r) const\
-    \ { return x == r.x; }\n};\nistream& operator>>(istream& is, const mint& a) {\
-    \ return is >> a.x; }\nostream& operator<<(ostream& os, const mint& a) { return\
-    \ os << a.x; }\n//}}}\n#line 4 \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n\
-    // %snippet.include('mint')%\nstruct combination {  // {{{\n    vector<mint> fact,\
-    \ ifact;\n    combination(int n) : fact(n + 1), ifact(n + 1) {\n        assert(n\
-    \ < mod);\n        fact[0] = 1;\n        for (int i = 1; i <= n; ++i) fact[i]\
-    \ = fact[i - 1] * i;\n        ifact[n] = fact[n].inv();\n        for (int i =\
-    \ n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;\n    }\n    mint operator()(int\
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/modint.hpp\"\
+    \n\n//%snippet.set('modint')%\n//%snippet.config({'alias':'mint'})%\nconst int\
+    \ mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct modint {  //{{{\n    ll\
+    \ x;\n    modint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
+    \    modint& operator+=(const modint a) {\n        (x += a.x) %= mod;\n      \
+    \  return *this;\n    }\n    modint& operator-=(const modint a) {\n        (x\
+    \ += mod - a.x) %= mod;\n        return *this;\n    }\n    modint& operator*=(const\
+    \ modint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    modint&\
+    \ operator/=(const modint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
+    modint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    modint\
+    \ operator+(const modint a) const {\n        modint res(*this);\n        return\
+    \ res += a;\n    }\n    modint operator-(const modint a) const {\n        modint\
+    \ res(*this);\n        return res -= a;\n    }\n    modint operator*(const modint\
+    \ a) const {\n        modint res(*this);\n        return res *= a;\n    }\n  \
+    \  modint operator/(const modint a) const {\n        modint res(*this);\n    \
+    \    return res /= a;\n    }\n\n    modint pow(ll n) const {\n        modint res(1),\
+    \ x(*this);\n        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n\
+    \        }\n        while (n) {\n            if (n & 1) res *= x;\n          \
+    \  x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n  \
+    \  modint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not\
+    \ exist\");\n        return pow(mod - 2);\n    }\n    // modint inv()const{\n\
+    \    //     int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n\
+    \    //     if(x<0)x+=mod;\n    //     return modint(x);\n    // }\n\n    bool\
+    \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
+    \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
+    \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
+    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
+    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
+    #line 4 \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n\
+    // %snippet.include('modint')%\nstruct combination {  // {{{\n    vector<mint>\
+    \ fact, ifact;\n    combination(int n) : fact(n + 1), ifact(n + 1) {\n       \
+    \ assert(n < mod);\n        fact[0] = 1;\n        for (int i = 1; i <= n; ++i)\
+    \ fact[i] = fact[i - 1] * i;\n        ifact[n] = fact[n].inv();\n        for (int\
+    \ i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;\n    }\n    mint operator()(int\
     \ n, int k) {\n        if (k < 0 || k > n) return 0;\n        return fact[n] *\
     \ ifact[k] * ifact[n - k];\n    }\n}  // }}}\ncom(500001);  // check this is enough\n\
     //%snippet.end()%\n#line 4 \"library/cpp/math/combination.test.cpp\"\n\nint main(){\n\
@@ -93,11 +96,11 @@ data:
   dependsOn:
   - library/cpp/math/combination.hpp
   - library/cpp/header.hpp
-  - library/cpp/math/mint.hpp
+  - library/cpp/math/modint.hpp
   isVerificationFile: true
   path: library/cpp/math/combination.test.cpp
   requiredBy: []
-  timestamp: '2020-10-26 02:29:15+09:00'
+  timestamp: '2020-11-02 01:39:53+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/combination.test.cpp

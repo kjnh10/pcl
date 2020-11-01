@@ -9,7 +9,7 @@ data:
     title: library/cpp/math/modint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _pathExtension: cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
@@ -68,36 +68,21 @@ data:
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
     \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
     \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/misc/constant.cpp\"\n\nnamespace std {\n    template<> class\
-    \ numeric_limits<pair<int, int>> {\n    public:\n        static pair<int, int>\
-    \ max() {return pair<int, int>(100, 100);};\n    };\n    template<> class numeric_limits<mint>\
-    \ {\n        public:\n        static mint max() { \n            mint res = 0;\n\
-    \            res.x = res.mod;\n            return res;\n        };\n    };\n}\n\
-    \ntemplate <class T>\nT get_inf(){\n    T t; return t;\n}\n\ntemplate <>\npair<int,\
-    \ int> get_inf(){\n    int inf = numeric_limits<int>().max();\n    return make_pair(inf,\
-    \ inf);\n}\n\nint main(){\n    dump(get_inf<pair<int, int>>());\n}\n"
-  code: "#include \"../header.hpp\"\n#include \"../math/modint.hpp\"\n\nnamespace\
-    \ std {\n    template<> class numeric_limits<pair<int, int>> {\n    public:\n\
-    \        static pair<int, int> max() {return pair<int, int>(100, 100);};\n   \
-    \ };\n    template<> class numeric_limits<mint> {\n        public:\n        static\
-    \ mint max() { \n            mint res = 0;\n            res.x = res.mod;\n   \
-    \         return res;\n        };\n    };\n}\n\ntemplate <class T>\nT get_inf(){\n\
-    \    T t; return t;\n}\n\ntemplate <>\npair<int, int> get_inf(){\n    int inf\
-    \ = numeric_limits<int>().max();\n    return make_pair(inf, inf);\n}\n\nint main(){\n\
-    \    dump(get_inf<pair<int, int>>());\n}\n"
+    #line 2 \"library/cpp/include/modint.hpp\"\n"
+  code: '#include "../math/modint.hpp"'
   dependsOn:
-  - library/cpp/header.hpp
   - library/cpp/math/modint.hpp
+  - library/cpp/header.hpp
   isVerificationFile: false
-  path: library/cpp/misc/constant.cpp
+  path: library/cpp/include/modint.hpp
   requiredBy: []
   timestamp: '2020-11-02 01:39:53+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/misc/constant.cpp
+documentation_of: library/cpp/include/modint.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/misc/constant.cpp
-- /library/library/cpp/misc/constant.cpp.html
-title: library/cpp/misc/constant.cpp
+- /library/library/cpp/include/modint.hpp
+- /library/library/cpp/include/modint.hpp.html
+title: library/cpp/include/modint.hpp
 ---

@@ -47,33 +47,29 @@ data:
     \ tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()] << \":\"\n   \
     \         << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT << \" \"\
     ;\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
-    \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nvoid print_formatted_int(T\
-    \ v, T inf, int len){\n    if (v == inf) {\n        DUMPOUT << string(max(len-2,\
-    \ 0), ' ');\n        DUMPOUT << \"\u221E \";\n    }\n    else if (v == -inf){\n\
-    \        DUMPOUT << string(max(len-3, 0), ' ');\n        DUMPOUT << \"-\u221E\
-    \ \";\n    }\n    else{\n        DUMPOUT << setw(len);\n        DUMPOUT << v;\n\
-    \    }\n}\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n\
-    \    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
-    \ 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string(x[j]).size();\n\
-    \        if (x[j] == inf) len = 2;\n        if (x[j] == -inf) len = 3;\n     \
-    \   if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j = 0;\
-    \ j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        print_formatted_int(x[j],\
-    \ inf, column_len[j]);\n        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n\
-    }\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>& x, int n,\
-    \ int m){\n    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
-    \ 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n        int\
-    \ len = to_string(x[i][j]).size();\n        if (x[i][j] == inf) len = 2;\n   \
-    \     if (x[i][j] == -inf) len = 3;\n        if (len > column_len[j]) column_len[j]\
-    \ = len;\n    }\n\n    // print header\n    int header_len = 0;\n    for(int j\
-    \ = 0; j < m ; ++j) {\n        if (j == 0) {\n            DUMPOUT << string(7,\
-    \ ' ');\n        }\n        else{\n            DUMPOUT << \" \";\n           \
-    \ header_len++;\n        }\n        DUMPOUT << setw(column_len[j]) << j;\n   \
-    \     header_len += column_len[j];\n        DUMPOUT << (((j) == (m - 1)) ? \"\\\
-    n\" : \"\");\n    }\n    DUMPOUT << string(7, ' ');\n    DUMPOUT << string(header_len,\
-    \ '-');\n    DUMPOUT << \"\\n\";\n\n    for(int i = 0; i < n ; ++i) for(int j\
-    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n\
-    \        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j], inf, column_len[j]);\n\
-    \        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
+    \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nstring to_string_mod(T\
+    \ v) {\n    T inf = numeric_limits<T>::max() / 2.1;\n    if (v == inf) return\
+    \ \"inf\";\n    else if (v == -inf) return \"-inf\";\n    else return to_string(v);\n\
+    }\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n    vector<int>\
+    \ column_len(m, 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[j]).size();\n\
+    \        if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j\
+    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        DUMPOUT <<\
+    \ setw(column_len[j]) << to_string_mod(x[j]);\n        DUMPOUT << (j != m-1 ?\
+    \ \" \" : \"]\");\n    }\n}\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>&\
+    \ x, int n, int m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i <\
+    \ n ; ++i) for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n\
+    \        if (len > column_len[j]) column_len[j] = len;\n    }\n    for (int i\
+    \ = 0; i < m; ++i){\n        DUMPOUT << column_len[i] << endl;\n    }\n\n    //\
+    \ print header\n    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n \
+    \       if (j == 0) {\n            DUMPOUT << string(7, ' ');\n        }\n   \
+    \     else{\n            DUMPOUT << \" \";\n            header_len++;\n      \
+    \  }\n        DUMPOUT << setw(column_len[j]) << j;\n        header_len += column_len[j];\n\
+    \        DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT <<\
+    \ string(7, ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\\
+    n\";\n\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n       \
+    \ if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n        else DUMPOUT << \" \"\
+    ;\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[i][j]);\n       \
+    \ DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
     \ parse_args_names(string s){\n    int n = s.size();\n    vector<string> res;\n\
     \    string tmp = \"\";\n    int parlevel = 0;\n    int angle_level = 0;\n   \
     \ for (int i = 0; i < n; i++) {\n        if (s[i] == '(') parlevel++;\n      \
@@ -291,7 +287,7 @@ data:
     \ TCharTraits> &stream, const T &container) {\n    return stream\n           <<\
     \ ::pretty_print::print_container_helper<T, TChar, TCharTraits>(\n           \
     \       container);\n}\n}  // namespace std\n\n#endif  // H_PRETTY_PRINT\n#line\
-    \ 158 \"library/cpp/debug/dump.hpp\"\n"
+    \ 145 \"library/cpp/debug/dump.hpp\"\n"
   code: "#pragma once\n\n// http://www.creativ.xyz/dump-cpp-652\nusing namespace std;\n\
     #include <bits/stdc++.h>\n\n#define DUMPOUT cerr  // where to dump. cout or cerr\n\
     \n#define cerrendl cerr << endl\n\nnamespace dm {\n    stack<vector<string>> arg_names;\n\
@@ -325,33 +321,29 @@ data:
     \ tail) {\n    DUMPOUT << dm::arg_names.top()[dm::varidx.top()] << \":\"\n   \
     \         << head;\n    if (sizeof...(Tail) == 0) {\n        DUMPOUT << \" \"\
     ;\n    } else {\n        DUMPOUT << \", \";\n    }\n    ++dm::varidx.top();\n\
-    \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nvoid print_formatted_int(T\
-    \ v, T inf, int len){\n    if (v == inf) {\n        DUMPOUT << string(max(len-2,\
-    \ 0), ' ');\n        DUMPOUT << \"\u221E \";\n    }\n    else if (v == -inf){\n\
-    \        DUMPOUT << string(max(len-3, 0), ' ');\n        DUMPOUT << \"-\u221E\
-    \ \";\n    }\n    else{\n        DUMPOUT << setw(len);\n        DUMPOUT << v;\n\
-    \    }\n}\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n\
-    \    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
-    \ 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string(x[j]).size();\n\
-    \        if (x[j] == inf) len = 2;\n        if (x[j] == -inf) len = 3;\n     \
-    \   if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j = 0;\
-    \ j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        print_formatted_int(x[j],\
-    \ inf, column_len[j]);\n        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n\
-    }\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>& x, int n,\
-    \ int m){\n    T inf = numeric_limits<T>::max() / 2.1;\n\n    vector<int> column_len(m,\
-    \ 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n        int\
-    \ len = to_string(x[i][j]).size();\n        if (x[i][j] == inf) len = 2;\n   \
-    \     if (x[i][j] == -inf) len = 3;\n        if (len > column_len[j]) column_len[j]\
-    \ = len;\n    }\n\n    // print header\n    int header_len = 0;\n    for(int j\
-    \ = 0; j < m ; ++j) {\n        if (j == 0) {\n            DUMPOUT << string(7,\
-    \ ' ');\n        }\n        else{\n            DUMPOUT << \" \";\n           \
-    \ header_len++;\n        }\n        DUMPOUT << setw(column_len[j]) << j;\n   \
-    \     header_len += column_len[j];\n        DUMPOUT << (((j) == (m - 1)) ? \"\\\
-    n\" : \"\");\n    }\n    DUMPOUT << string(7, ' ');\n    DUMPOUT << string(header_len,\
-    \ '-');\n    DUMPOUT << \"\\n\";\n\n    for(int i = 0; i < n ; ++i) for(int j\
-    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n\
-    \        else DUMPOUT << \" \";\n        print_formatted_int(x[i][j], inf, column_len[j]);\n\
-    \        DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
+    \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nstring to_string_mod(T\
+    \ v) {\n    T inf = numeric_limits<T>::max() / 2.1;\n    if (v == inf) return\
+    \ \"inf\";\n    else if (v == -inf) return \"-inf\";\n    else return to_string(v);\n\
+    }\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n    vector<int>\
+    \ column_len(m, 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[j]).size();\n\
+    \        if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j\
+    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        DUMPOUT <<\
+    \ setw(column_len[j]) << to_string_mod(x[j]);\n        DUMPOUT << (j != m-1 ?\
+    \ \" \" : \"]\");\n    }\n}\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>&\
+    \ x, int n, int m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i <\
+    \ n ; ++i) for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n\
+    \        if (len > column_len[j]) column_len[j] = len;\n    }\n    for (int i\
+    \ = 0; i < m; ++i){\n        DUMPOUT << column_len[i] << endl;\n    }\n\n    //\
+    \ print header\n    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n \
+    \       if (j == 0) {\n            DUMPOUT << string(7, ' ');\n        }\n   \
+    \     else{\n            DUMPOUT << \" \";\n            header_len++;\n      \
+    \  }\n        DUMPOUT << setw(column_len[j]) << j;\n        header_len += column_len[j];\n\
+    \        DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT <<\
+    \ string(7, ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\\
+    n\";\n\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n       \
+    \ if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n        else DUMPOUT << \" \"\
+    ;\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[i][j]);\n       \
+    \ DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
     \ parse_args_names(string s){\n    int n = s.size();\n    vector<string> res;\n\
     \    string tmp = \"\";\n    int parlevel = 0;\n    int angle_level = 0;\n   \
     \ for (int i = 0; i < n; i++) {\n        if (s[i] == '(') parlevel++;\n      \
@@ -367,7 +359,7 @@ data:
   path: library/cpp/debug/dump.hpp
   requiredBy:
   - library/cpp/include/dump.hpp
-  timestamp: '2020-10-31 20:50:23+09:00'
+  timestamp: '2020-11-02 01:40:36+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/debug/dump.hpp

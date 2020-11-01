@@ -4,13 +4,34 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: library/cpp/include/combination.hpp
+    title: library/cpp/include/combination.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/modint.hpp
+    title: library/cpp/include/modint.hpp
+  - icon: ':warning:'
+    path: library/cpp/math/bsgs/bsgs.cpp
+    title: library/cpp/math/bsgs/bsgs.cpp
   - icon: ':heavy_check_mark:'
-    path: library/cpp/math/modint.hpp
-    title: library/cpp/math/modint.hpp
-  _extendedRequiredBy: []
-  _extendedVerifiedWith: []
-  _pathExtension: cpp
-  _verificationStatusIcon: ':warning:'
+    path: library/cpp/math/combination.hpp
+    title: library/cpp/math/combination.hpp
+  - icon: ':warning:'
+    path: library/cpp/math/gbsgs/gbsgs.cpp
+    title: library/cpp/math/gbsgs/gbsgs.cpp
+  - icon: ':warning:'
+    path: library/cpp/misc/constant.cpp
+    title: library/cpp/misc/constant.cpp
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/combination.test.cpp
+    title: library/cpp/math/combination.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/matrix_pow.test.cpp
+    title: library/cpp/math/matrix_pow.test.cpp
+  _pathExtension: hpp
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -67,37 +88,54 @@ data:
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
     \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/misc/constant.cpp\"\n\nnamespace std {\n    template<> class\
-    \ numeric_limits<pair<int, int>> {\n    public:\n        static pair<int, int>\
-    \ max() {return pair<int, int>(100, 100);};\n    };\n    template<> class numeric_limits<mint>\
-    \ {\n        public:\n        static mint max() { \n            mint res = 0;\n\
-    \            res.x = res.mod;\n            return res;\n        };\n    };\n}\n\
-    \ntemplate <class T>\nT get_inf(){\n    T t; return t;\n}\n\ntemplate <>\npair<int,\
-    \ int> get_inf(){\n    int inf = numeric_limits<int>().max();\n    return make_pair(inf,\
-    \ inf);\n}\n\nint main(){\n    dump(get_inf<pair<int, int>>());\n}\n"
-  code: "#include \"../header.hpp\"\n#include \"../math/modint.hpp\"\n\nnamespace\
-    \ std {\n    template<> class numeric_limits<pair<int, int>> {\n    public:\n\
-    \        static pair<int, int> max() {return pair<int, int>(100, 100);};\n   \
-    \ };\n    template<> class numeric_limits<mint> {\n        public:\n        static\
-    \ mint max() { \n            mint res = 0;\n            res.x = res.mod;\n   \
-    \         return res;\n        };\n    };\n}\n\ntemplate <class T>\nT get_inf(){\n\
-    \    T t; return t;\n}\n\ntemplate <>\npair<int, int> get_inf(){\n    int inf\
-    \ = numeric_limits<int>().max();\n    return make_pair(inf, inf);\n}\n\nint main(){\n\
-    \    dump(get_inf<pair<int, int>>());\n}\n"
+    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('modint')%\n//%snippet.config({'alias':'mint'})%\n\
+    const int mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct modint {  //{{{\n\
+    \    ll x;\n    modint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
+    \    modint& operator+=(const modint a) {\n        (x += a.x) %= mod;\n      \
+    \  return *this;\n    }\n    modint& operator-=(const modint a) {\n        (x\
+    \ += mod - a.x) %= mod;\n        return *this;\n    }\n    modint& operator*=(const\
+    \ modint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    modint&\
+    \ operator/=(const modint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
+    modint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    modint\
+    \ operator+(const modint a) const {\n        modint res(*this);\n        return\
+    \ res += a;\n    }\n    modint operator-(const modint a) const {\n        modint\
+    \ res(*this);\n        return res -= a;\n    }\n    modint operator*(const modint\
+    \ a) const {\n        modint res(*this);\n        return res *= a;\n    }\n  \
+    \  modint operator/(const modint a) const {\n        modint res(*this);\n    \
+    \    return res /= a;\n    }\n\n    modint pow(ll n) const {\n        modint res(1),\
+    \ x(*this);\n        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n\
+    \        }\n        while (n) {\n            if (n & 1) res *= x;\n          \
+    \  x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n  \
+    \  modint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not\
+    \ exist\");\n        return pow(mod - 2);\n    }\n    // modint inv()const{\n\
+    \    //     int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n\
+    \    //     if(x<0)x+=mod;\n    //     return modint(x);\n    // }\n\n    bool\
+    \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
+    \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
+    \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
+    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
+    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
-  - library/cpp/math/modint.hpp
   isVerificationFile: false
-  path: library/cpp/misc/constant.cpp
-  requiredBy: []
+  path: library/cpp/math/modint.hpp
+  requiredBy:
+  - library/cpp/math/combination.hpp
+  - library/cpp/math/gbsgs/gbsgs.cpp
+  - library/cpp/math/bsgs/bsgs.cpp
+  - library/cpp/misc/constant.cpp
+  - library/cpp/include/combination.hpp
+  - library/cpp/include/modint.hpp
   timestamp: '2020-11-02 01:39:53+09:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
-documentation_of: library/cpp/misc/constant.cpp
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - library/cpp/math/combination.test.cpp
+  - library/cpp/math/matrix_pow.test.cpp
+documentation_of: library/cpp/math/modint.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/misc/constant.cpp
-- /library/library/cpp/misc/constant.cpp.html
-title: library/cpp/misc/constant.cpp
+- /library/library/cpp/math/modint.hpp
+- /library/library/cpp/math/modint.hpp.html
+title: library/cpp/math/modint.hpp
 ---
