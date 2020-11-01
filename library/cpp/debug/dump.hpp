@@ -57,50 +57,37 @@ void dump_func(Head&& head, Tail&&... tail) {
 }
 
 template <class T>
-void print_formatted_int(T v, T inf, int len){
-    if (v == inf) {
-        DUMPOUT << string(max(len-2, 0), ' ');
-        DUMPOUT << "∞ ";
-    }
-    else if (v == -inf){
-        DUMPOUT << string(max(len-3, 0), ' ');
-        DUMPOUT << "-∞ ";
-    }
-    else{
-        DUMPOUT << setw(len);
-        DUMPOUT << v;
-    }
+string to_string_mod(T v) {
+    T inf = numeric_limits<T>::max() / 2.1;
+    if (v == inf) return "inf";
+    else if (v == -inf) return "-inf";
+    else return to_string(v);
 }
 
 template <class T>
 void dump_1d_core(const vector<T>& x, int m){
-    T inf = numeric_limits<T>::max() / 2.1;
-
     vector<int> column_len(m, 2);
     for(int j = 0; j < m; ++j) {
-        int len = to_string(x[j]).size();
-        if (x[j] == inf) len = 2;
-        if (x[j] == -inf) len = 3;
+        int len = to_string_mod(x[j]).size();
         if (len > column_len[j]) column_len[j] = len;
     }
 
     for(int j = 0; j < m; ++j) {
         if (j == 0) DUMPOUT << "[";
-        print_formatted_int(x[j], inf, column_len[j]);
+        DUMPOUT << setw(column_len[j]) << to_string_mod(x[j]);
         DUMPOUT << (j != m-1 ? " " : "]");
     }
 }
 
 template <class T>
 void dump_2d_core(const vector<vector<T>>& x, int n, int m){
-    T inf = numeric_limits<T>::max() / 2.1;
-
     vector<int> column_len(m, 2);
     for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {
-        int len = to_string(x[i][j]).size();
-        if (x[i][j] == inf) len = 2;
-        if (x[i][j] == -inf) len = 3;
+        int len = to_string_mod(x[i][j]).size();
         if (len > column_len[j]) column_len[j] = len;
+    }
+    for (int i = 0; i < m; ++i){
+        DUMPOUT << column_len[i] << endl;
     }
 
     // print header
@@ -124,7 +111,7 @@ void dump_2d_core(const vector<vector<T>>& x, int n, int m){
     for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {
         if (j == 0) DUMPOUT << setw(5) << i << " |";
         else DUMPOUT << " ";
-        print_formatted_int(x[i][j], inf, column_len[j]);
+        DUMPOUT << setw(column_len[j]) << to_string_mod(x[i][j]);
         DUMPOUT << (((j) == (m - 1)) ? "|\n" : "");
     }
 }
