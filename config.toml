@@ -39,6 +39,7 @@ cpp_include_paths = [
   [test.compile_command.cpp]  # for tt command, you can change the compile command by --cc option. like 'pcm tt -c 1 --cc v5'
   default = """g++ {srcpath} -o {outpath} \
                -std=c++17 \
+               -static-libasan \
                -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
                {cpp_include_paths} \
                -DPCM -Wall -D_GLIBCXX_DEBUG -fuse-ld=gold
@@ -46,6 +47,7 @@ cpp_include_paths = [
 
   debug = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
+            -static-libasan \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
             {cpp_include_paths} \
             -DPCM -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -fuse-ld=gold \
@@ -64,12 +66,14 @@ cpp_include_paths = [
 
   detail = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
+            -static-libasan \
             {cpp_include_paths} \
             -Wall -Wextra -pedantic -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector \
   """
 
   detail_with_dump = """g++ {srcpath} -o {outpath} \
             -std=c++17 \
+            -static-libasan \
             -include /home/koji0708/go/src/github.com/kjnh10/pcl/library/cpp/debug/dump.hpp \
             {cpp_include_paths} \
             -DPCM\
