@@ -74,8 +74,8 @@ void dump_1d_core(VEC<T>& x, int m){
 
     for(int j = 0; j < m; ++j) {
         if (j == 0) DUMPOUT << "[";
-        DUMPOUT << setw(column_len[j]) << to_string_mod(x[j]);
-        DUMPOUT << (j != m-1 ? " " : "]");
+        DUMPOUT << to_string_mod(x[j]);
+        DUMPOUT << (j != m-1 ? ", " : "]");
     }
 }
 
