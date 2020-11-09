@@ -313,6 +313,9 @@ data:
     path: library/cpp/misc/napsack.cpp
     title: library/cpp/misc/napsack.cpp
   - icon: ':warning:'
+    path: library/cpp/misc/range_dp.cpp
+    title: library/cpp/misc/range_dp.cpp
+  - icon: ':warning:'
     path: library/cpp/misc/run_length_encoding.cpp
     title: library/cpp/misc/run_length_encoding.cpp
   - icon: ':warning:'
@@ -774,6 +777,7 @@ data:
   - library/cpp/array/bsearch.cpp
   - library/cpp/misc/zipper.lib/shifter.hpp
   - library/cpp/misc/zipper.lib/zipper.hpp
+  - library/cpp/misc/range_dp.cpp
   - library/cpp/misc/napsack.cpp
   - library/cpp/misc/constant.cpp
   - library/cpp/misc/run_length_encoding.cpp

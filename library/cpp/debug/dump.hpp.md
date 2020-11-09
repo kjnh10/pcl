@@ -54,15 +54,15 @@ data:
     \ x, int m){\n    vector<int> column_len(m, 2);\n    for(int j = 0; j < m; ++j)\
     \ {\n        int len = to_string_mod(x[j]).size();\n        if (len > column_len[j])\
     \ column_len[j] = len;\n    }\n\n    for(int j = 0; j < m; ++j) {\n        if\
-    \ (j == 0) DUMPOUT << \"[\";\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[j]);\n\
-    \        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n}\n\ntemplate <class T,\
-    \ template <class C> class VEC>\nvoid dump_2d_core(VEC<VEC<T>>& x, int n, int\
-    \ m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int\
-    \ j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n   \
-    \     if (len > column_len[j]) column_len[j] = len;\n    }\n\n    // print header\n\
-    \    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n        if (j ==\
-    \ 0) {\n            DUMPOUT << string(7, ' ');\n        }\n        else{\n   \
-    \         DUMPOUT << \" \";\n            header_len++;\n        }\n        DUMPOUT\
+    \ (j == 0) DUMPOUT << \"[\";\n        DUMPOUT << to_string_mod(x[j]);\n      \
+    \  DUMPOUT << (j != m-1 ? \", \" : \"]\");\n    }\n}\n\ntemplate <class T, template\
+    \ <class C> class VEC>\nvoid dump_2d_core(VEC<VEC<T>>& x, int n, int m){\n   \
+    \ vector<int> column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0;\
+    \ j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n        if\
+    \ (len > column_len[j]) column_len[j] = len;\n    }\n\n    // print header\n \
+    \   int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n        if (j == 0)\
+    \ {\n            DUMPOUT << string(7, ' ');\n        }\n        else{\n      \
+    \      DUMPOUT << \" \";\n            header_len++;\n        }\n        DUMPOUT\
     \ << setw(column_len[j]) << j;\n        header_len += column_len[j];\n       \
     \ DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT << string(7,\
     \ ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\n\";\n\n\
@@ -328,15 +328,15 @@ data:
     \ x, int m){\n    vector<int> column_len(m, 2);\n    for(int j = 0; j < m; ++j)\
     \ {\n        int len = to_string_mod(x[j]).size();\n        if (len > column_len[j])\
     \ column_len[j] = len;\n    }\n\n    for(int j = 0; j < m; ++j) {\n        if\
-    \ (j == 0) DUMPOUT << \"[\";\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[j]);\n\
-    \        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n}\n\ntemplate <class T,\
-    \ template <class C> class VEC>\nvoid dump_2d_core(VEC<VEC<T>>& x, int n, int\
-    \ m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int\
-    \ j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n   \
-    \     if (len > column_len[j]) column_len[j] = len;\n    }\n\n    // print header\n\
-    \    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n        if (j ==\
-    \ 0) {\n            DUMPOUT << string(7, ' ');\n        }\n        else{\n   \
-    \         DUMPOUT << \" \";\n            header_len++;\n        }\n        DUMPOUT\
+    \ (j == 0) DUMPOUT << \"[\";\n        DUMPOUT << to_string_mod(x[j]);\n      \
+    \  DUMPOUT << (j != m-1 ? \", \" : \"]\");\n    }\n}\n\ntemplate <class T, template\
+    \ <class C> class VEC>\nvoid dump_2d_core(VEC<VEC<T>>& x, int n, int m){\n   \
+    \ vector<int> column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int j = 0;\
+    \ j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n        if\
+    \ (len > column_len[j]) column_len[j] = len;\n    }\n\n    // print header\n \
+    \   int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n        if (j == 0)\
+    \ {\n            DUMPOUT << string(7, ' ');\n        }\n        else{\n      \
+    \      DUMPOUT << \" \";\n            header_len++;\n        }\n        DUMPOUT\
     \ << setw(column_len[j]) << j;\n        header_len += column_len[j];\n       \
     \ DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT << string(7,\
     \ ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\n\";\n\n\
@@ -358,7 +358,7 @@ data:
   path: library/cpp/debug/dump.hpp
   requiredBy:
   - library/cpp/include/dump.hpp
-  timestamp: '2020-11-09 20:23:31+09:00'
+  timestamp: '2020-11-09 20:34:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/debug/dump.hpp

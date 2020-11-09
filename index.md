@@ -411,6 +411,9 @@ data:
       path: library/cpp/misc/napsack.cpp
       title: library/cpp/misc/napsack.cpp
     - icon: ':warning:'
+      path: library/cpp/misc/range_dp.cpp
+      title: library/cpp/misc/range_dp.cpp
+    - icon: ':warning:'
       path: library/cpp/misc/rectanglesum.cpp
       title: library/cpp/misc/rectanglesum.cpp
     - icon: ':warning:'
