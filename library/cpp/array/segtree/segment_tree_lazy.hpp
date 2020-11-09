@@ -63,7 +63,10 @@ struct segment_tree_lazy {
         lazy[k] = em;
     }
 
-    void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+    void update(index a, index b, M x) {
+        assert(0<= a && b <= n);
+        update(a, b, x, 0, 0, N); 
+    }
     void update(index a, index b, M x, int k, index l, index r) {
         if (a <= l && r <= b) {  // 完全に内側の時
             lazy[k] = composite(lazy[k], x);
@@ -80,7 +83,10 @@ struct segment_tree_lazy {
         }
     }
 
-    X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+    X query(index a, index b) {
+        assert(0<= a && b <= n);
+        return query_sub(a, b, 0, 0, N); 
+    }
     X query_sub(index a, index b, int k, index l, index r) {
         propagate(k);
         if (r <= a || b <= l) {  // 完全に外側の時
