@@ -1,423 +1,351 @@
-snippet bsearch
-      ll left = 0, right = 1e9 + 1;
-      auto isright = [&](ll y) {
-          bool is_r = true;
-  
-          return is_r;
-      };
-      while (right - left > 1) {/*{{{*/
-          ll mid = (right + left) / 2;
-          if (isright(mid)) right = mid;
-          else left = mid;
-      }/*}}}*/
-  
-      dump(right);
+snippet pascal
+  template <class T>
+  vector<vector<T>> pascal(int N) {  // {{{
+      vector<vector<T>> com(N + 1, vector<T>(N + 1));
+      com[0][0] = 1;
+      rep(i, 1, N + 1) {
+          // パスカルの三角形は0-indexdで段を数えるとよい。
+          // com[i]を計算。
+          rep(j, 0, i + 1) {
+              if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
+              com[i][j] += com[i - 1][j];
+              // com[i][j] /= 2.0;  // probability version
+          }
+      }
+      return com;
+  }  // }}}
 
 
-snippet reversed_cnt
-alias cnt_reversed
-  // snippet:segment_tree {{{
-  template <typename X> struct SegmentTree {  // {{{
-      private:
-          using F = function<X(X, X)>;
-          using index = int;
-          int n;  // 元の配列のサイズ
-          int N;  // n以上の最小の2冪
-          vector<X> node;
-          F merge;
-          X identity;
+snippet gcd
+  ll gcd(ll a, ll b) {
+      if (b > a) swap(a, b);
+      if (b == 0) return a;
+      return gcd(b, a % b);
+  }
+
+
+snippet lcm
+  ll gcd(ll a, ll b) {
+      if (b > a) swap(a, b);
+      if (b == 0) return a;
+      return gcd(b, a % b);
+  }
   
-      public:
-          SegmentTree() {}
-          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = (int)a.size();
-              N = 1;
-              while (N < n) N *= 2;
-              node.resize(2 * N - 1, identity);
-              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
-              for (int i = N - 2; i >= 0; i--)
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-          }
-          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
+  ll lcm(ll a, ll b) {
+      return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
+  }
+
+
+snippet reverse_int
+  ll gcd(ll a, ll b) {
+      if (b > a) swap(a, b);
+      if (b == 0) return a;
+      return gcd(b, a % b);
+  }
   
-          X& operator[](index i) { return node[i + N - 1]; }
+  ll lcm(ll a, ll b) {
+      return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
+  }
   
-          void set(index i, X val) {
-              i += (N - 1);
-              node[i] = val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          void add(index i, X val) {
-              i += (N - 1);
-              node[i] += val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          // query for [a, b)
-          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
-              if (r < 0) r = N;
-              if (r <= a || b <= l) return identity;
-              if (a <= l && r <= b) return node[k];
-  
-              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(lv, rv);
-          }
-  
-          index find_most_left(index l, const function<bool(X)>& is_ok){
-              // lから右に探していってis_okが初めて成り立つようなindexを返す。
-              // assume query(l, *) has monotonity
-              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
-              // if such i does not exist, return n
-              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
-              assert(l <= res);
-              return res;
-          }
-          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
-              // params:
-                  // left_value = (a < l ? query(a, l) : ex)
-              // return (index i, X v)
-                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
-                  // v is the value s.t query(a, r)
-  
-              if (r <= a) return {n, identity};  // 区間が全く被っていない
-              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
-              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
-              else{
-                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (lv != n) return {lv, xl};
-                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {rv, xr};
-              }
-          }
-  
-          index find_most_right(index r, const function<bool(X)>& is_ok){
-              // rから左に探していってis_okが初めて成り立つようなindexを返す。
-              // assume query(*, r) has monotonity
-              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
-              // if such i does not exist, return -1
-              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
-              assert(res <= r);
-              return res;
-          }
-          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
-              if (b <= l) return {-1, identity};  // 区間が全く被っていない
-              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
-              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
-              else{
-                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (rv != -1) return {rv, xr};
-                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {lv, xl};
-              }
-          }
-  
-          #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
-              os << "[";
-              for (int i = 0; i < sg.n; i++) {
-                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
-              }
-              return os;
-          }
-          #endif
-  };/*}}}*/
-  // sample of initialize SegmentTree:
-  // -----------------------------------------------
-  // auto mymin=[](auto a, auto b){return min(a,b);};
-  // ll e = 1e18;
-  // SegmentTree<ll> seg(a, mymin, e);
-  
-  // auto mymax=[](auto a, auto b){return max(a,b);};
-  // ll e = -1e18;
-  // SegmentTree<ll> seg(a, mymax, e);
-  
-  // auto add=[](auto a, auto b){return a+b;};
-  // ll e = 0;
-  // SegmentTree<ll> seg(a, add, e);
-  
-  // pair<int, int> get_nearest_index_of_smaller_element(int i){
-  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
-  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
-  //     return {left, right};
-  // }
-  // -----------------------------------------------
-  // snippet:segment_tree }}}
-  
-  struct zipper {                             /*{{{*/
-      // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
-      map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
-      vector<long long> _unzipper;            // [2, 3, 5, 10]
-      bool _is_build = false;
-      int n = 0;
-  
-      zipper(){};
-      zipper(long long inf_value) { /*{{{*/
-          _unzipper.push_back(-inf_value);
-          _unzipper.push_back(inf_value);
-      }                                                        /*}}}*/
-  
-      template <class T>
-      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
-          _unzipper = vector<long long>(sz(a));
-          rep(i, sz(a)) { _unzipper[i] = a[i]; }
-          _unzipper.push_back(-inf_value);
-          _unzipper.push_back(inf_value);
-          build();
-      }                              /*}}}*/
-      void add_value(long long lv) { /*{{{*/
-          _unzipper.push_back(lv);
-          _is_build = false;
-      }              /*}}}*/
-      void build() { /*{{{*/
-          uni(_unzipper);
-          zip_map.clear();
-          n = sz(_unzipper);
-          rep(i, n) { zip_map[_unzipper[i]] = i; }
-          _is_build = true;
-      }                              /*}}}*/
-      vector<int> zip(vector<long long> lvs) { /*{{{*/
-          if (!_is_build) assert(false);
-          int n = sz(lvs);
-          vector<int> res(n);
-          rep(i, n) res[i] = zip_map[lvs[i]];
-          return res;
-      }                              /*}}}*/
-      int zip(long long lv) { /*{{{*/
-          if (!_is_build) assert(false);
-          return zip_map[lv];
-      }                                               /*}}}*/
-      int operator()(long long lv) { return zip(lv); }
-  
-      long long unzip(int sv) { /*{{{*/
-          if (!_is_build) assert(false);
-          return _unzipper[sv];
-      }                              /*}}}*/
-      int operator[](int sv) { return unzip(sv); }
-  
-      int size() {return n;}
-  
-  #if defined(PCM) || defined(LOCAL) /*{{{*/
-      friend ostream& operator<<(ostream& os, const zipper& zp) {
-          os << endl;
-          os << "_is_build: " << zp._is_build << endl;
-          os << "zip_map:   " << zp.zip_map << endl;
-          os << "_unzipper:   " << zp._unzipper << endl;
-          return os;
+  ll reverse_int(ll number) {
+      ll reverse = 0;
+      while (number > 0) {
+          reverse = reverse * 10 + number % 10;
+          number /= 10;
       }
-  #endif /*}}}*/
-  };     /*}}}*/
-  // How to use {{{
-  // construct
-  // auto z = zipper(x); // x: vector<long long>;
-  // auto z = zipper(x, inf<ll>);
-  
-  // auto z = zipper();
-  // z.add_value(3);
-  // z.add_value(5);
-  // z.add_value(10);
-  // z.add_value(100000000);
-  // z.build();
-  
-  // other method
-  // z(x[i]); -> zipped x[i]
-  // z.unzip(z(x[i])) -> x[i];
-  // z.zip(ll x) -> zipped x
-  // z.zip(vl v) -> zipped v
-  // }}}
-  
-  // snippet:reversed_cnt {{{
-  template<class T>
-  ll reversed_cnt(const vector<T>& v){
-      int n = sz(v);
-      ll max_v = *max_element(all(v));
-      ll min_v = *min_element(all(v));
-  
-      zipper z;
-      bool zipped = false;
-      if (max_v > n-1 || min_v < 0) {
-          z = zipper(v);
-          max_v = z.n - 1;
-          zipped = true;
-      }
-  
-      auto add=[](auto a, auto b){return a+b;};
-      ll e = 0;
-      SegmentTree<ll> seg(max_v + 1, add, e);
-  
-      ll res = 0;
-      rep(i, n){
-          ll w = (zipped ? z(v[i]) : v[i]);
-          res += seg.query(w+1, max_v+1);
-          seg.add(w, 1);
+      return reverse;
+  }
+
+
+snippet digitSum
+  int digitSum(ll x) { /*{{{*/
+      int res = 0;
+      while (true) {
+          res += x % 10;
+          x /= 10;
+          if (x == 0) {
+              break;
+          }
       }
       return res;
+  } /*}}}*/
+
+
+snippet is_prime
+  bool is_prime(ll n) { /*{{{*/
+      for (ll i = 2; i * i <= n; i++) {
+          if (n % i == 0) return false;
+      }
+      return n != 1;
+  } /*}}}*/
+
+
+snippet prime_factor
+  map<ll, ll> prime_factor(ll n) {  // 素因数分解 (o(√N)){{{
+      map<ll, ll> res;  // vectorで持つことも考えられる。
+      for (ll i = 2; i * i <= n; i++) {
+          while (n % i == 0) {
+              ++res[i];
+              n /= i;
+          }
+      }
+      if (n != 1) res[n] += 1;
+      return res;
   }
-  // snippet:reversed_cnt }}}
+  // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
+  //}}}
 
 
-snippet syakutori
-      ll sum = 0;
-  
-      auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
-          if (sum + x[next_r - 1] <= k)
-              return true;
-          else
-              return false;
-      };
-  
-      ll res = 0;
-      ll r = 0;
-      for (ll l = 0; l < n; ++l) {
-          // [l, r)を限界まで広げる。
-          while (r < n && isok(r + 1)) {
-              sum += x[r];
-              ++r;
-          }
-          chmax(res, (r - l));
-  
-          // leftをincrementする準備
-          if (r == l){
-              ++r;  // 空区間から空区間への変動なので何もしない。
-          }
-          else{
-              sum -= x[l];
+snippet divisor
+  vector<ll> divisor(ll n) {  // 約数全列挙{{{
+      vector<ll> p, q;
+      for (ll i = 1; i * i <= n; i++) {
+          if (n % i == 0) {
+              p.pb(i);
+              if (i * i != n) q.pb(n / i);
           }
       }
-
-
-snippet tsearch
-  ll l = 0;
-  ll r = 1000000001;
-  
-  // ll num = 100;
-  // while(num--){
-  while(r-l>2){
-      ll d = (r-l)/3;
-      ll ml = l + d;
-      ll mr = l + 2*d;
-      if ((score(ml) < score(mr))){
-          r = mr;
-      }
-      else{
-          l = ml;
-      }
-  }
-  dump(l, r);
-  ll ans = inf<ll>;
-  rep(i, l, r+1) chmin(ans, score(i));
-
-
-snippet slide_min
-  template <typename T>  //{{{
-  vector<T> slide_min(const vector<T> &v, int k) {
-      deque<int> deq;
-      vector<T> ret;
-      int m = sz(v);
-      rep(i, m) {
-          while (!deq.empty() && v[deq.back()] >= v[i]) {
-              deq.pop_back();
-          }
-          deq.push_back(i);
-          if (i - k + 1 >= 0) {
-              ret.emplace_back(v[deq.front()]);
-              if (deq.front() == i - k + 1) deq.pop_front();
-          }
-      }
-      return ret;  // sz(res) == m-k+1, last index is m-k
+      reverse(all(q));
+      p.insert(p.end(), all(q));
+      return p;
   }  //}}}
 
 
-snippet SegmentTree2DRMQ
-alias 2drmq
-  struct segtree {
-      int H, W;
-      vector<vector<int>> dat;
-      segtree() {}
-      segtree(vector<vector<int>> &f) {
-          H = W = 1;
-          while (H < (int)f.size()) H <<= 1;
-          while (W < (int)f[0].size()) W <<= 1;
-          dat.assign(2 * H - 1, vector<int>(2 * W - 1, inf<int>));
-          init(f);
+snippet baybe_step_giant_step
+alias bsgs
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
+  struct modint {  //{{{
+      ll x;
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+  
+      // ?= operator
+      modint& operator+=(const modint a) {
+          (x += a.x) %= mod;
+          return *this;
       }
-      void init(vector<vector<int>> &f) {
-          for (int i = 0; i < (int)f.size(); i++)
-              for (int j = 0; j < (int)f[0].size(); j++)
-                  dat[i + H - 1][j + W - 1] = f[i][j];
-          dump("hello");
-          for (int i = 2 * H - 2; i > H - 2; i--)
-              for (int j = W - 2; j >= 0; j--)
-                  dat[i][j] = min(dat[i][2 * j + 1], dat[i][2 * j + 2]);
-          dump("hello1");
-          for (int i = H - 2; i >= 0; i--)
-              for (int j = 0; j < 2 * W - 1; j++)
-                  dat[i][j] = min(dat[2 * i + 1][j], dat[2 * i + 2][j]);
-          dump("hello2");
+      modint& operator-=(const modint a) {
+          (x += mod - a.x) %= mod;
+          return *this;
       }
-      int minimum(int li, int lj, int ri, int rj) {
-          return minimum_h(li, lj, ri, rj, 0, H, 0);
+      modint& operator*=(const modint a) {
+          (x *= a.x) %= mod;
+          return *this;
       }
-      int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
-          if (ri <= si or ti <= li) return inf<int>;
-          if (li <= si and ti <= ri) return minimum_w(lj, rj, 0, W, k, 0);
-          const int mi = (si + ti) / 2;
-          return min(minimum_h(li, lj, ri, rj, si, mi, 2 * k + 1),
-                     minimum_h(li, lj, ri, rj, mi, ti, 2 * k + 2));
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
+          return *this *= rhs.inv();
       }
-      int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
-          if (rj <= sj or tj <= lj) return inf<int>;
-          if (lj <= sj and tj <= rj) return dat[i][k];
-          const int mj = (sj + tj) / 2;
-          return min(minimum_w(lj, rj, sj, mj, i, 2 * k + 1),
-                     minimum_w(lj, rj, mj, tj, i, 2 * k + 2));
+  
+      modint operator+(const modint a) const {
+          modint res(*this);
+          return res += a;
       }
+      modint operator-(const modint a) const {
+          modint res(*this);
+          return res -= a;
+      }
+      modint operator*(const modint a) const {
+          modint res(*this);
+          return res *= a;
+      }
+      modint operator/(const modint a) const {
+          modint res(*this);
+          return res /= a;
+      }
+  
+      modint pow(ll n) const {
+          modint res(1), x(*this);
+          if (n < 0) {
+              n = -n;
+              x = (*this).inv();
+          }
+          while (n) {
+              if (n & 1) res *= x;
+              x *= x;
+              n >>= 1;
+          }
+          return res;
+      }
+  
+      modint inv() const {
+          if (x == 0) throw runtime_error("inv does not exist");
+          return pow(mod - 2);
+      }
+      // modint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return modint(x);
+      // }
+  
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
   };
-
-
-snippet event_sort
-  struct Event {
-      Event(int t_, int s_, int e_, int isIn_)
-          : t(t_), s(s_), e(e_), isIn(isIn_) {}
-      int t;
-      int s, e;
-      int isIn;
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+  //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
   
-      bool operator<(const Event& rhs) {
-          if (t == rhs.t) return isIn < rhs.isIn;
-  
-          return t < rhs.t;
-      }
-  };
-  
-  void event_sort(vector<int>& s, vector<int>& e) {
-      // 回収はl, rは掃除するversion
-      multiset<int> e_set;
-      int n = sz(s);
-  
-      vector<Event> events;
-      for (int i = 0; i < n; i++) {
-          events.emplace_back(s[i], s[i], e[i], 1);
-          events.emplace_back(e[i] + 1, s[i], e[i], 0);
+  int bsgs(int a, int b) {  //{{{
+      if (b >= mod) {
+          return -1;
       }
   
-      sort(all(events));
+      // find x s.t a^x = b in (mod)
+      mint x;
+      int sq = sqrt(mod);
+      // x = p*sq + r  (0<=r<sq and 0<=p<=sq)
   
-      for (int i = 0; i < 2 * n; i++) {
-          if (events[i].isIn) {
-              e_set.insert(events[i].e);
-          } else {
-              e_set.erase(e_set.find(events[i].e));
+      map<int, int> minr;  // minr[v]: min(r s.t a^r=v)
+      mint ar = 1;
+      rep(r, 0, sq) {
+          if (minr.find(ar.x) == minr.end()) minr[ar.x] = r;
+          ar *= a;
+      }
+  
+      mint A = mint(a).pow(-sq);
+      rep(p, 0, sq + 1) {
+          int Ab = (A.pow(p) * b).x;
+          if (minr.find(Ab) != minr.end()) {
+              int r = minr[Ab];
+              return p * sq + r;
           }
       }
+  
+      return -1;
+  }  //}}}
+
+
+snippet dist
+  template<class T> T dist(T x1, T y1, T x2, T y2){ return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)); }
+
+
+snippet rad
+  template<class T> T rad(T x){ return x * M_PI / 180.0; }
+
+
+snippet degree
+alias deg
+  template<class T> T deg(T r){ return r / M_PI * 180.0; }
+
+
+snippet generalized_baybe_step_giant_step
+alias gbsgs
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
+  struct modint {  //{{{
+      ll x;
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+  
+      // ?= operator
+      modint& operator+=(const modint a) {
+          (x += a.x) %= mod;
+          return *this;
+      }
+      modint& operator-=(const modint a) {
+          (x += mod - a.x) %= mod;
+          return *this;
+      }
+      modint& operator*=(const modint a) {
+          (x *= a.x) %= mod;
+          return *this;
+      }
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
+          return *this *= rhs.inv();
+      }
+  
+      modint operator+(const modint a) const {
+          modint res(*this);
+          return res += a;
+      }
+      modint operator-(const modint a) const {
+          modint res(*this);
+          return res -= a;
+      }
+      modint operator*(const modint a) const {
+          modint res(*this);
+          return res *= a;
+      }
+      modint operator/(const modint a) const {
+          modint res(*this);
+          return res /= a;
+      }
+  
+      modint pow(ll n) const {
+          modint res(1), x(*this);
+          if (n < 0) {
+              n = -n;
+              x = (*this).inv();
+          }
+          while (n) {
+              if (n & 1) res *= x;
+              x *= x;
+              n >>= 1;
+          }
+          return res;
+      }
+  
+      modint inv() const {
+          if (x == 0) throw runtime_error("inv does not exist");
+          return pow(mod - 2);
+      }
+      // modint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return modint(x);
+      // }
+  
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
+  };
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+  //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
   }
+  using mint = modint;
+  
+  int bsgs(int a, int b) {  //{{{
+      // find x s.t a^x = b in (mod)
+  
+      if (b >= mod) return -1;
+      if (1 % mod == b) return 0;
+  
+      int h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)
+  
+      unordered_map<int, vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v
+      mint bar = b;
+      rep(r, 0, h) {
+          rs[bar.x].pb(r);
+          bar *= a;
+      }
+      bool looped = false;
+      each(el, rs) if (sz(el.second) > 1) looped = true;
+  
+      mint ah = mint(a).pow(h);
+      rep(p, 1, h + 1) {
+          int aph = ah.pow(p).x;
+          if (rs.find(aph) != rs.end()) {
+              reverse(all(rs[aph]));
+              each(r, rs[aph]) {
+                  if ((p * h - r) >= 0 && mint(a).pow(p * h - r) == b)
+                      return p * h - r;
+              }
+          }
+          if (looped) return -1;
+      }
+  
+      return -1;
+  }  //}}}
 
 
 snippet RectangleSum
@@ -463,6 +391,63 @@ snippet napsack
           chmin(dp[min(j + v[i], h)], dp[j] + w[i]);  // jから配る
       }
       cout << dp[h] << endl;
+
+
+snippet event_sort
+  struct Event {
+      Event(int t_, int s_, int e_, int isIn_)
+          : t(t_), s(s_), e(e_), isIn(isIn_) {}
+      int t;
+      int s, e;
+      int isIn;
+  
+      bool operator<(const Event& rhs) {
+          if (t == rhs.t) return isIn < rhs.isIn;
+  
+          return t < rhs.t;
+      }
+  };
+  
+  void event_sort(vector<int>& s, vector<int>& e) {
+      // 回収はl, rは掃除するversion
+      multiset<int> e_set;
+      int n = sz(s);
+  
+      vector<Event> events;
+      for (int i = 0; i < n; i++) {
+          events.emplace_back(s[i], s[i], e[i], 1);
+          events.emplace_back(e[i] + 1, s[i], e[i], 0);
+      }
+  
+      sort(all(events));
+  
+      for (int i = 0; i < 2 * n; i++) {
+          if (events[i].isIn) {
+              e_set.insert(events[i].e);
+          } else {
+              e_set.erase(e_set.find(events[i].e));
+          }
+      }
+  }
+
+
+snippet RLE
+alias run_length_encoding
+  // snippet:RLE {{{
+  template<class T = vector<int>, class U = int>
+  vector<pair<U, int>> RLE(const T& v){
+      vector<pair<U, int>> res;
+      rep(i, sz(v)){
+          if (sz(res) == 0 || res.back().first != v[i]) {
+              res.emplace_back(v[i], 1);
+          }
+          else{
+              res.back().second++;
+          }
+      }
+      return res;
+  }
+  // snippet:RLE }}}
 
 
 snippet cout
@@ -894,373 +879,405 @@ snippet 01bfs
   }
 
 
-snippet RLE
-alias run_length_encoding
-  // snippet:RLE {{{
-  template<class T = vector<int>, class U = int>
-  vector<pair<U, int>> RLE(const T& v){
-      vector<pair<U, int>> res;
-      rep(i, sz(v)){
-          if (sz(res) == 0 || res.back().first != v[i]) {
-              res.emplace_back(v[i], 1);
-          }
-          else{
-              res.back().second++;
-          }
-      }
-      return res;
-  }
-  // snippet:RLE }}}
-
-
-snippet gcd
-  ll gcd(ll a, ll b) {
-      if (b > a) swap(a, b);
-      if (b == 0) return a;
-      return gcd(b, a % b);
-  }
-
-
-snippet lcm
-  ll gcd(ll a, ll b) {
-      if (b > a) swap(a, b);
-      if (b == 0) return a;
-      return gcd(b, a % b);
-  }
-  
-  ll lcm(ll a, ll b) {
-      return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
-  }
-
-
-snippet reverse_int
-  ll gcd(ll a, ll b) {
-      if (b > a) swap(a, b);
-      if (b == 0) return a;
-      return gcd(b, a % b);
-  }
-  
-  ll lcm(ll a, ll b) {
-      return (a / gcd(a, b)) * b;  // overflowしにくいように最初に割り算をする。
-  }
-  
-  ll reverse_int(ll number) {
-      ll reverse = 0;
-      while (number > 0) {
-          reverse = reverse * 10 + number % 10;
-          number /= 10;
-      }
-      return reverse;
-  }
-
-
-snippet digitSum
-  int digitSum(ll x) { /*{{{*/
-      int res = 0;
-      while (true) {
-          res += x % 10;
-          x /= 10;
-          if (x == 0) {
-              break;
-          }
-      }
-      return res;
-  } /*}}}*/
-
-
-snippet is_prime
-  bool is_prime(ll n) { /*{{{*/
-      for (ll i = 2; i * i <= n; i++) {
-          if (n % i == 0) return false;
-      }
-      return n != 1;
-  } /*}}}*/
-
-
-snippet prime_factor
-  map<ll, ll> prime_factor(ll n) {  // 素因数分解 (o(√N)){{{
-      map<ll, ll> res;  // vectorで持つことも考えられる。
-      for (ll i = 2; i * i <= n; i++) {
-          while (n % i == 0) {
-              ++res[i];
-              n /= i;
-          }
-      }
-      if (n != 1) res[n] += 1;
-      return res;
-  }
-  // (参考)http://pakapa104.hatenablog.com/entry/2016/02/09/230443
-  //}}}
-
-
-snippet divisor
-  vector<ll> divisor(ll n) {  // 約数全列挙{{{
-      vector<ll> p, q;
-      for (ll i = 1; i * i <= n; i++) {
-          if (n % i == 0) {
-              p.pb(i);
-              if (i * i != n) q.pb(n / i);
-          }
-      }
-      reverse(all(q));
-      p.insert(p.end(), all(q));
-      return p;
-  }  //}}}
-
-
-snippet pascal
-  template <class T>
-  vector<vector<T>> pascal(int N) {  // {{{
-      vector<vector<T>> com(N + 1, vector<T>(N + 1));
-      com[0][0] = 1;
-      rep(i, 1, N + 1) {
-          // パスカルの三角形は0-indexdで段を数えるとよい。
-          // com[i]を計算。
-          rep(j, 0, i + 1) {
-              if (j - 1 >= 0) com[i][j] += com[i - 1][j - 1];
-              com[i][j] += com[i - 1][j];
-              // com[i][j] /= 2.0;  // probability version
-          }
-      }
-      return com;
-  }  // }}}
-
-
-snippet generalized_baybe_step_giant_step
-alias gbsgs
-  const int mod = 1e9 + 7;
-  // const int mod = 998244353;
-  struct modint {  //{{{
-      ll x;
-      modint(ll x = 0) : x((x % mod + mod) % mod) {}
-  
-      // ?= operator
-      modint& operator+=(const modint a) {
-          (x += a.x) %= mod;
-          return *this;
-      }
-      modint& operator-=(const modint a) {
-          (x += mod - a.x) %= mod;
-          return *this;
-      }
-      modint& operator*=(const modint a) {
-          (x *= a.x) %= mod;
-          return *this;
-      }
-      modint& operator/=(const modint& rhs) {
-          if (rhs.x == 0) throw runtime_error("modint zero division");
-          return *this *= rhs.inv();
-      }
-  
-      modint operator+(const modint a) const {
-          modint res(*this);
-          return res += a;
-      }
-      modint operator-(const modint a) const {
-          modint res(*this);
-          return res -= a;
-      }
-      modint operator*(const modint a) const {
-          modint res(*this);
-          return res *= a;
-      }
-      modint operator/(const modint a) const {
-          modint res(*this);
-          return res /= a;
-      }
-  
-      modint pow(ll n) const {
-          modint res(1), x(*this);
-          if (n < 0) {
-              n = -n;
-              x = (*this).inv();
-          }
-          while (n) {
-              if (n & 1) res *= x;
-              x *= x;
-              n >>= 1;
-          }
-          return res;
-      }
-  
-      modint inv() const {
-          if (x == 0) throw runtime_error("inv does not exist");
-          return pow(mod - 2);
-      }
-      // modint inv()const{
-      //     int x,y;
-      //     int g=extgcd(v,mod,x,y);
-      //     assert(g==1);
-      //     if(x<0)x+=mod;
-      //     return modint(x);
-      // }
-  
-      bool operator<(const modint& r) const { return x < r.x; }
-      bool operator==(const modint& r) const { return x == r.x; }
-  };
-  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
-  //}}}
-  string to_string_mod(const modint& x){
-      return to_string(x.x);
-  }
-  using mint = modint;
-  
-  int bsgs(int a, int b) {  //{{{
-      // find x s.t a^x = b in (mod)
-  
-      if (b >= mod) return -1;
-      if (1 % mod == b) return 0;
-  
-      int h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)
-  
-      unordered_map<int, vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v
-      mint bar = b;
-      rep(r, 0, h) {
-          rs[bar.x].pb(r);
-          bar *= a;
-      }
-      bool looped = false;
-      each(el, rs) if (sz(el.second) > 1) looped = true;
-  
-      mint ah = mint(a).pow(h);
-      rep(p, 1, h + 1) {
-          int aph = ah.pow(p).x;
-          if (rs.find(aph) != rs.end()) {
-              reverse(all(rs[aph]));
-              each(r, rs[aph]) {
-                  if ((p * h - r) >= 0 && mint(a).pow(p * h - r) == b)
-                      return p * h - r;
+snippet range_dp
+alias dp_range
+  // snippet:range_dp {{{
+      auto dp = make_table(n, n+1, inf<int>);
+      for (int len = 1; len <= n ; len++) {
+          rep(l, 0, n-len+1){
+              int r = l + len;
+              // calc dp[l][r] : [l, r)
+              chmin(dp[l][r], single(l, r));
+              rep(mid, l+1, r) {
+                  chmin(dp[l][r], dp[l][mid]+dp[mid][r]);
               }
           }
-          if (looped) return -1;
       }
+  // snippet:range_dp }}}
+
+
+snippet bsearch
+      ll left = 0, right = 1e9 + 1;
+      auto isright = [&](ll y) {
+          bool is_r = true;
   
-      return -1;
+          return is_r;
+      };
+      while (right - left > 1) {/*{{{*/
+          ll mid = (right + left) / 2;
+          if (isright(mid)) right = mid;
+          else left = mid;
+      }/*}}}*/
+  
+      dump(right);
+
+
+snippet slide_min
+  template <typename T>  //{{{
+  vector<T> slide_min(const vector<T> &v, int k) {
+      deque<int> deq;
+      vector<T> ret;
+      int m = sz(v);
+      rep(i, m) {
+          while (!deq.empty() && v[deq.back()] >= v[i]) {
+              deq.pop_back();
+          }
+          deq.push_back(i);
+          if (i - k + 1 >= 0) {
+              ret.emplace_back(v[deq.front()]);
+              if (deq.front() == i - k + 1) deq.pop_front();
+          }
+      }
+      return ret;  // sz(res) == m-k+1, last index is m-k
   }  //}}}
 
 
-snippet dist
-  template<class T> T dist(T x1, T y1, T x2, T y2){ return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)); }
-
-
-snippet rad
-  template<class T> T rad(T x){ return x * M_PI / 180.0; }
-
-
-snippet degree
-alias deg
-  template<class T> T deg(T r){ return r / M_PI * 180.0; }
-
-
-snippet baybe_step_giant_step
-alias bsgs
-  const int mod = 1e9 + 7;
-  // const int mod = 998244353;
-  struct modint {  //{{{
-      ll x;
-      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+snippet reversed_cnt
+alias cnt_reversed
+  struct zipper {                             /*{{{*/
+      // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
+      map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
+      vector<long long> _unzipper;            // [2, 3, 5, 10]
+      bool _is_build = false;
+      int n = 0;
   
-      // ?= operator
-      modint& operator+=(const modint a) {
-          (x += a.x) %= mod;
-          return *this;
-      }
-      modint& operator-=(const modint a) {
-          (x += mod - a.x) %= mod;
-          return *this;
-      }
-      modint& operator*=(const modint a) {
-          (x *= a.x) %= mod;
-          return *this;
-      }
-      modint& operator/=(const modint& rhs) {
-          if (rhs.x == 0) throw runtime_error("modint zero division");
-          return *this *= rhs.inv();
-      }
+      zipper(){};
+      zipper(long long inf_value) { /*{{{*/
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+      }                                                        /*}}}*/
   
-      modint operator+(const modint a) const {
-          modint res(*this);
-          return res += a;
-      }
-      modint operator-(const modint a) const {
-          modint res(*this);
-          return res -= a;
-      }
-      modint operator*(const modint a) const {
-          modint res(*this);
-          return res *= a;
-      }
-      modint operator/(const modint a) const {
-          modint res(*this);
-          return res /= a;
-      }
-  
-      modint pow(ll n) const {
-          modint res(1), x(*this);
-          if (n < 0) {
-              n = -n;
-              x = (*this).inv();
-          }
-          while (n) {
-              if (n & 1) res *= x;
-              x *= x;
-              n >>= 1;
-          }
+      template <class T>
+      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
+          _unzipper = vector<long long>(sz(a));
+          rep(i, sz(a)) { _unzipper[i] = a[i]; }
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+          build();
+      }                              /*}}}*/
+      void add_value(long long lv) { /*{{{*/
+          _unzipper.push_back(lv);
+          _is_build = false;
+      }              /*}}}*/
+      void build() { /*{{{*/
+          uni(_unzipper);
+          zip_map.clear();
+          n = sz(_unzipper);
+          rep(i, n) { zip_map[_unzipper[i]] = i; }
+          _is_build = true;
+      }                              /*}}}*/
+      vector<int> zip(vector<long long> lvs) { /*{{{*/
+          if (!_is_build) assert(false);
+          int n = sz(lvs);
+          vector<int> res(n);
+          rep(i, n) res[i] = zip_map[lvs[i]];
           return res;
+      }                              /*}}}*/
+      int zip(long long lv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return zip_map[lv];
+      }                                               /*}}}*/
+      int operator()(long long lv) { return zip(lv); }
+  
+      long long unzip(int sv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return _unzipper[sv];
+      }                              /*}}}*/
+      int operator[](int sv) { return unzip(sv); }
+  
+      int size() {return n;}
+  
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const zipper& zp) {
+          os << endl;
+          os << "_is_build: " << zp._is_build << endl;
+          os << "zip_map:   " << zp.zip_map << endl;
+          os << "_unzipper:   " << zp._unzipper << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  };     /*}}}*/
+  // How to use {{{
+  // construct
+  // auto z = zipper(x); // x: vector<long long>;
+  // auto z = zipper(x, inf<ll>);
+  
+  // auto z = zipper();
+  // z.add_value(3);
+  // z.add_value(5);
+  // z.add_value(10);
+  // z.add_value(100000000);
+  // z.build();
+  
+  // other method
+  // z(x[i]); -> zipped x[i]
+  // z.unzip(z(x[i])) -> x[i];
+  // z.zip(ll x) -> zipped x
+  // z.zip(vl v) -> zipped v
+  // }}}
+  
+  // snippet:segment_tree {{{
+  template <typename X> struct SegmentTree {  // {{{
+      private:
+          using F = function<X(X, X)>;
+          using index = int;
+          int n;  // 元の配列のサイズ
+          int N;  // n以上の最小の2冪
+          vector<X> node;
+          F merge;
+          X identity;
+  
+      public:
+          SegmentTree() {}
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
+              n = (int)a.size();
+              N = 1;
+              while (N < n) N *= 2;
+              node.resize(2 * N - 1, identity);
+              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+              for (int i = N - 2; i >= 0; i--)
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+          }
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
+  
+          X& operator[](index i) { return node[i + N - 1]; }
+  
+          void set(index i, X val) {
+              i += (N - 1);
+              node[i] = val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          void add(index i, X val) {
+              i += (N - 1);
+              node[i] += val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          // query for [a, b)
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
+              if (r < 0) r = N;
+              if (r <= a || b <= l) return identity;
+              if (a <= l && r <= b) return node[k];
+  
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
+          }
+  
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
+  
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
+              }
+          }
+  
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
+              }
+          }
+  
+          #if defined(PCM) || defined(LOCAL)
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
+              os << "[";
+              for (int i = 0; i < sg.n; i++) {
+                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+              }
+              return os;
+          }
+          #endif
+  };/*}}}*/
+  // sample of initialize SegmentTree:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // ll e = 1e18;
+  // SegmentTree<ll> seg(a, mymin, e);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // ll e = -1e18;
+  // SegmentTree<ll> seg(a, mymax, e);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // ll e = 0;
+  // SegmentTree<ll> seg(a, add, e);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
+  // -----------------------------------------------
+  // snippet:segment_tree }}}
+  
+  // snippet:reversed_cnt {{{
+  template<class T>
+  ll reversed_cnt(const vector<T>& v){
+      int n = sz(v);
+      ll max_v = *max_element(all(v));
+      ll min_v = *min_element(all(v));
+  
+      zipper z;
+      bool zipped = false;
+      if (max_v > n-1 || min_v < 0) {
+          z = zipper(v);
+          max_v = z.n - 1;
+          zipped = true;
       }
   
-      modint inv() const {
-          if (x == 0) throw runtime_error("inv does not exist");
-          return pow(mod - 2);
-      }
-      // modint inv()const{
-      //     int x,y;
-      //     int g=extgcd(v,mod,x,y);
-      //     assert(g==1);
-      //     if(x<0)x+=mod;
-      //     return modint(x);
-      // }
+      auto add=[](auto a, auto b){return a+b;};
+      ll e = 0;
+      SegmentTree<ll> seg(max_v + 1, add, e);
   
-      bool operator<(const modint& r) const { return x < r.x; }
-      bool operator==(const modint& r) const { return x == r.x; }
-  };
-  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
-  //}}}
-  string to_string_mod(const modint& x){
-      return to_string(x.x);
+      ll res = 0;
+      rep(i, n){
+          ll w = (zipped ? z(v[i]) : v[i]);
+          res += seg.query(w+1, max_v+1);
+          seg.add(w, 1);
+      }
+      return res;
   }
-  using mint = modint;
+  // snippet:reversed_cnt }}}
+
+
+snippet syakutori
+      ll sum = 0;
   
-  int bsgs(int a, int b) {  //{{{
-      if (b >= mod) {
-          return -1;
-      }
+      auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
+          if (sum + x[next_r - 1] <= k)
+              return true;
+          else
+              return false;
+      };
   
-      // find x s.t a^x = b in (mod)
-      mint x;
-      int sq = sqrt(mod);
-      // x = p*sq + r  (0<=r<sq and 0<=p<=sq)
+      ll res = 0;
+      ll r = 0;
+      for (ll l = 0; l < n; ++l) {
+          // [l, r)を限界まで広げる。
+          while (r < n && isok(r + 1)) {
+              sum += x[r];
+              ++r;
+          }
+          chmax(res, (r - l));
   
-      map<int, int> minr;  // minr[v]: min(r s.t a^r=v)
-      mint ar = 1;
-      rep(r, 0, sq) {
-          if (minr.find(ar.x) == minr.end()) minr[ar.x] = r;
-          ar *= a;
-      }
-  
-      mint A = mint(a).pow(-sq);
-      rep(p, 0, sq + 1) {
-          int Ab = (A.pow(p) * b).x;
-          if (minr.find(Ab) != minr.end()) {
-              int r = minr[Ab];
-              return p * sq + r;
+          // leftをincrementする準備
+          if (r == l){
+              ++r;  // 空区間から空区間への変動なので何もしない。
+          }
+          else{
+              sum -= x[l];
           }
       }
+
+
+snippet tsearch
+  ll l = 0;
+  ll r = 1000000001;
   
-      return -1;
-  }  //}}}
+  // ll num = 100;
+  // while(num--){
+  while(r-l>2){
+      ll d = (r-l)/3;
+      ll ml = l + d;
+      ll mr = l + 2*d;
+      if ((score(ml) < score(mr))){
+          r = mr;
+      }
+      else{
+          l = ml;
+      }
+  }
+  dump(l, r);
+  ll ans = inf<ll>;
+  rep(i, l, r+1) chmin(ans, score(i));
+
+
+snippet SegmentTree2DRMQ
+alias 2drmq
+  struct segtree {
+      int H, W;
+      vector<vector<int>> dat;
+      segtree() {}
+      segtree(vector<vector<int>> &f) {
+          H = W = 1;
+          while (H < (int)f.size()) H <<= 1;
+          while (W < (int)f[0].size()) W <<= 1;
+          dat.assign(2 * H - 1, vector<int>(2 * W - 1, inf<int>));
+          init(f);
+      }
+      void init(vector<vector<int>> &f) {
+          for (int i = 0; i < (int)f.size(); i++)
+              for (int j = 0; j < (int)f[0].size(); j++)
+                  dat[i + H - 1][j + W - 1] = f[i][j];
+          dump("hello");
+          for (int i = 2 * H - 2; i > H - 2; i--)
+              for (int j = W - 2; j >= 0; j--)
+                  dat[i][j] = min(dat[i][2 * j + 1], dat[i][2 * j + 2]);
+          dump("hello1");
+          for (int i = H - 2; i >= 0; i--)
+              for (int j = 0; j < 2 * W - 1; j++)
+                  dat[i][j] = min(dat[2 * i + 1][j], dat[2 * i + 2][j]);
+          dump("hello2");
+      }
+      int minimum(int li, int lj, int ri, int rj) {
+          return minimum_h(li, lj, ri, rj, 0, H, 0);
+      }
+      int minimum_h(int li, int lj, int ri, int rj, int si, int ti, int k) {
+          if (ri <= si or ti <= li) return inf<int>;
+          if (li <= si and ti <= ri) return minimum_w(lj, rj, 0, W, k, 0);
+          const int mi = (si + ti) / 2;
+          return min(minimum_h(li, lj, ri, rj, si, mi, 2 * k + 1),
+                     minimum_h(li, lj, ri, rj, mi, ti, 2 * k + 2));
+      }
+      int minimum_w(int lj, int rj, int sj, int tj, int i, int k) {
+          if (rj <= sj or tj <= lj) return inf<int>;
+          if (lj <= sj and tj <= rj) return dat[i][k];
+          const int mj = (sj + tj) / 2;
+          return min(minimum_w(lj, rj, sj, mj, i, 2 * k + 1),
+                     minimum_w(lj, rj, mj, tj, i, 2 * k + 2));
+      }
+  };
 
 
 snippet gridgraph
@@ -1300,6 +1317,54 @@ snippet gridgraph
               }
           }
       }
+
+
+snippet mincostflow
+alias mcf
+  // snippet:mincostflow {{{
+  #include <atcoder/mincostflow>
+  using namespace atcoder;
+  
+  mcf_graph<ll, ll> g(2*n + 4);
+  // auto debug = [&](){
+  //     auto edges = (g.edges());
+  //     for (auto& e : edges){ dump(e.from, e.to, e.cap, e.flow, e.cost); }
+  // };
+  ll s0 = 2*n;     // super source
+  ll s1 = 2*n+1;   // original source
+  ll t1 = 2*n+2;   // original target
+  ll t0 = 2*n+3;   // super target
+  
+  ll total_cost = 0;
+  ll surplus_at_super_source = 0;
+  auto add_negative_edge = [&](ll u, ll v, ll cap, ll cost){
+      assert(cost <= 0);
+      g.add_edge(s0, v, cap, 0);
+      g.add_edge(u, t0, cap, 0);
+      g.add_edge(v, u, cap, -cost);
+      total_cost += cost;
+      surplus_at_super_source += cap;
+  };
+  
+  // add edge
+  g.add_edge(t1, s1, inf<ll>, 0);
+  rep(x, n) g.add_edge(s1, x, k, 0);
+  rep(x, n, 2*n) g.add_edge(x, t1, k, 0);
+  rep(i, n)rep(j, n) add_negative_edge(i, n+j, 1, -a[i][j]);
+  
+  auto res = g.flow(s0, t0, surplus_at_super_source);
+  cout << -(total_cost + res.second) << endl;
+  
+  // 復元
+  auto edges = (g.edges());
+  vec<string> ans(n, string(n, '.'));
+  for (auto& e : edges){
+      if (e.flow == 0 && e.cost > 0){
+          ans[e.to][e.from-n] = 'X';
+      }
+  }
+  rep(i, n) cout << ans[i] << endl;
+  // snippet:mincostflow }}}
 
 
 snippet reroot
@@ -1376,54 +1441,6 @@ snippet reroot
           ans.push_back(res);
       }
       rep(i, sz(ans)) cout << ans[i] << (i != sz(ans) - 1 ? " " : "\n");
-
-
-snippet mincostflow
-alias mcf
-  // snippet:mincostflow {{{
-  #include <atcoder/mincostflow>
-  using namespace atcoder;
-  
-  mcf_graph<ll, ll> g(2*n + 4);
-  // auto debug = [&](){
-  //     auto edges = (g.edges());
-  //     for (auto& e : edges){ dump(e.from, e.to, e.cap, e.flow, e.cost); }
-  // };
-  ll s0 = 2*n;     // super source
-  ll s1 = 2*n+1;   // original source
-  ll t1 = 2*n+2;   // original target
-  ll t0 = 2*n+3;   // super target
-  
-  ll total_cost = 0;
-  ll surplus_at_super_source = 0;
-  auto add_negative_edge = [&](ll u, ll v, ll cap, ll cost){
-      assert(cost <= 0);
-      g.add_edge(s0, v, cap, 0);
-      g.add_edge(u, t0, cap, 0);
-      g.add_edge(v, u, cap, -cost);
-      total_cost += cost;
-      surplus_at_super_source += cap;
-  };
-  
-  // add edge
-  g.add_edge(t1, s1, inf<ll>, 0);
-  rep(x, n) g.add_edge(s1, x, k, 0);
-  rep(x, n, 2*n) g.add_edge(x, t1, k, 0);
-  rep(i, n)rep(j, n) add_negative_edge(i, n+j, 1, -a[i][j]);
-  
-  auto res = g.flow(s0, t0, surplus_at_super_source);
-  cout << -(total_cost + res.second) << endl;
-  
-  // 復元
-  auto edges = (g.edges());
-  vec<string> ans(n, string(n, '.'));
-  for (auto& e : edges){
-      if (e.flow == 0 && e.cost > 0){
-          ans[e.to][e.from-n] = 'X';
-      }
-  }
-  rep(i, n) cout << ans[i] << endl;
-  // snippet:mincostflow }}}
 
 
 snippet lcs
@@ -1549,164 +1566,621 @@ snippet header
   // snippet:header }}}
 
 
-snippet lis
-  template<class T>
-  int lis(const vector<T>& x, bool strict=true) { /*{{{*/
-      int n = sz(x);
-      vector<T> dp(n+1, numeric_limits<T>().max());
-      vector<pair<int, T>> update_info(n);
-      dp[0] = numeric_limits<T>().min();
-      int res = 0;
-      rep(i, n) {
-          int j;
-          if (strict) j = lb(all(dp), x[i]) - dp.begin();
-          else        j = ub(all(dp), x[i]) - dp.begin();
-          chmax(res, j);
-          update_info[i] = make_pair(j, dp[j]);
-          dp[j] = x[i];
+snippet modint
+alias mint
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
+  struct modint {  //{{{
+      ll x;
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+  
+      // ?= operator
+      modint& operator+=(const modint a) {
+          (x += a.x) %= mod;
+          return *this;
       }
-      dump(dp);
-  
-      // 復元
-      int now_len = res;
-      vector<T> lis;
-      r_rep(i, n){
-          auto [j, pre] = update_info[i];
-          if (j==now_len) {
-              now_len--;
-              lis.push_back(x[i]);
-          }
-          dp[j] = pre;
+      modint& operator-=(const modint a) {
+          (x += mod - a.x) %= mod;
+          return *this;
       }
-      assert(now_len==0);
-      reverse(all(lis));
-      dump(lis);
-  
-      return res;
-  } /*}}}*/
-
-
-snippet sparse_table
-  // snippet:sparse_table {{{
-  template< class T = ll >
-  struct sparse_table {
-      vector< vector< T > > st;
-      vector< int > lookup;
-  
-      sparse_table(const vector< T > &v) {
-          int b = 0;
-          while((1 << b) <= sz(v)) ++b;
-          st.assign(b, vector< T >(1 << b));
-          for(int i = 0; i < sz(v); i++) {
-              st[0][i] = v[i];
-          }
-          for(int i = 1; i < b; i++) {
-              for(int j = 0; j + (1 << i) <= (1 << b); j++) {
-                  st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
-              }
-          }
-          lookup.resize(v.size() + 1);
-          for(int i = 2; i < sz(lookup); i++) {
-              lookup[i] = lookup[i >> 1] + 1;
-          }
+      modint& operator*=(const modint a) {
+          (x *= a.x) %= mod;
+          return *this;
+      }
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
+          return *this *= rhs.inv();
       }
   
-      inline T query(int l, int r) {  // [l, r)
-          int b = lookup[r - l];
-          return min(st[b][l], st[b][r - (1 << b)]);
+      modint operator+(const modint a) const {
+          modint res(*this);
+          return res += a;
       }
+      modint operator-(const modint a) const {
+          modint res(*this);
+          return res -= a;
+      }
+      modint operator*(const modint a) const {
+          modint res(*this);
+          return res *= a;
+      }
+      modint operator/(const modint a) const {
+          modint res(*this);
+          return res /= a;
+      }
+  
+      modint pow(ll n) const {
+          modint res(1), x(*this);
+          if (n < 0) {
+              n = -n;
+              x = (*this).inv();
+          }
+          while (n) {
+              if (n & 1) res *= x;
+              x *= x;
+              n >>= 1;
+          }
+          return res;
+      }
+  
+      modint inv() const {
+          if (x == 0) throw runtime_error("inv does not exist");
+          return pow(mod - 2);
+      }
+      // modint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return modint(x);
+      // }
+  
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
   };
-  // snippet:sparse_table }}}
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+  //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
 
 
-snippet bit
-  template <typename T = ll>
-  struct bit {  //{{{
-      int n;
-      vector<T> dat;
-      vector<T> raw;
-  
-      bit(int _n = 0) {  //{{{
-          n = _n;
-          dat = vector<T>(n);
-          raw = vector<T>(n);
-      }  //}}}
-  
-      bit(vector<T> a) {  // {{{
-          n = (int)a.size();
-          dat = vector<T>(n);
-          raw = vector<T>(n);
-          for (int i = 0; i < n; i++) {
-              add(i, a[i]);
-              raw[i] = a[i];
-          }
-      }  //}}}
-  
-      T _rsum(int i) {  //{{{ [0, i]
-          T s = 0;
-          while (i >= 0) {
-              s += dat[i];
-              i = (i & (i + 1)) - 1;
-          }
-          return s;
-      }  //}}}
-  
-      T query(int l, int r) {  //{{{  [l, r)
-          if (l > r - 1) return 0;
-          return _rsum(r - 1) - _rsum(l - 1);
-      }  //}}}
-  
-      void add(int i, T x) {  //{{{
-          raw[i] += x;
-          while (i < n) {
-              dat[i] += x;
-              i |= i + 1;
-          }
-      }  //}}}
-  
-      int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{
-          int ret = -1;
-          int k = 1;
-          while (2 * k <= n) k <<= 1;
-          for (; k > 0; k >>= 1) {
-              if (ret + k < n && dat[ret + k] < x) {
-                  x -= dat[ret + k];
-                  ret += k;
-              }
-          }
-          return ret + 1;
-      }  //}}}
-  
-      #if defined(PCM) || defined(LOCAL)
-      friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
-          os << endl << "  raw:" << b.raw << endl;
-          vector<T> acum;
-          rep(i, b.n) { acum.pb(b.sum(i)); }
-          os << "  acm:" << acum << endl;
-          return os;
-      }  //}}}
-      #endif
-  };     //}}}
+snippet mypow
+alias pow
+  template<class T>
+  T mypow(T x, int n, T e = 1) {  // e : *の単位元
+      // return x^n
+      T res(e);
+      while (n > 0) {
+          if (n & 1) res *= x;
+          x *= x;
+          n >>= 1;
+      }
+      return res;
+  }
 
 
-snippet zeta
-  // snippet:zeta {{{
-  template <class T> 
-  vec<T> zeta(const vec<T>& a, int n){
-      vec<T> res(a);
-      // 自由度0
-      rep(j, 0, n){
-          // j桁目を自由にする。
-          rep(i, 1<<n) {
-              if (i >> j & 1) {
-                  res[i] += res[i ^ 1<<j];
-                  // j桁目が立ってないやつからj桁目が立ってるやつに更新が行くので順番の心配は不要
+snippet matrix_pow
+  // snippet:matrix_pow {{{
+  template <class value = ll>
+  using mat = vector<vector<value>>;
+  
+  template <class T>
+  mat<T> mul(const mat<T>& A, const mat<T>& B) {
+      mat<T> res(A.size(), vector<T>(B[0].size()));
+      rep(i, A.size()) {
+          rep(j, B[0].size()) {
+              rep(k, B.size()) {
+                  res[i][j] = (res[i][j] + A[i][k] * B[k][j]);
               }
           }
       }
       return res;
   }
-  // snippet:zeta }}}
+  
+  template <class T>
+  mat<T> pow(mat<T> A, ll n) {
+      mat<T> B(A.size(), vector<T>(A.size()));
+      rep(i, A.size()) {
+          B[i][i] = 1;  // E
+      }
+      while (n > 0) {
+          if (n & 1) B = mul(B, A);
+          A = mul(A, A);
+          n >>= 1;
+      }
+      return B;
+  }
+  // snippet:matrix_pow }}}
+
+
+snippet combination
+  const int mod = 1e9 + 7;
+  // const int mod = 998244353;
+  struct modint {  //{{{
+      ll x;
+      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+  
+      // ?= operator
+      modint& operator+=(const modint a) {
+          (x += a.x) %= mod;
+          return *this;
+      }
+      modint& operator-=(const modint a) {
+          (x += mod - a.x) %= mod;
+          return *this;
+      }
+      modint& operator*=(const modint a) {
+          (x *= a.x) %= mod;
+          return *this;
+      }
+      modint& operator/=(const modint& rhs) {
+          if (rhs.x == 0) throw runtime_error("modint zero division");
+          return *this *= rhs.inv();
+      }
+  
+      modint operator+(const modint a) const {
+          modint res(*this);
+          return res += a;
+      }
+      modint operator-(const modint a) const {
+          modint res(*this);
+          return res -= a;
+      }
+      modint operator*(const modint a) const {
+          modint res(*this);
+          return res *= a;
+      }
+      modint operator/(const modint a) const {
+          modint res(*this);
+          return res /= a;
+      }
+  
+      modint pow(ll n) const {
+          modint res(1), x(*this);
+          if (n < 0) {
+              n = -n;
+              x = (*this).inv();
+          }
+          while (n) {
+              if (n & 1) res *= x;
+              x *= x;
+              n >>= 1;
+          }
+          return res;
+      }
+  
+      modint inv() const {
+          if (x == 0) throw runtime_error("inv does not exist");
+          return pow(mod - 2);
+      }
+      // modint inv()const{
+      //     int x,y;
+      //     int g=extgcd(v,mod,x,y);
+      //     assert(g==1);
+      //     if(x<0)x+=mod;
+      //     return modint(x);
+      // }
+  
+      bool operator<(const modint& r) const { return x < r.x; }
+      bool operator==(const modint& r) const { return x == r.x; }
+  };
+  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
+  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+  //}}}
+  string to_string_mod(const modint& x){
+      return to_string(x.x);
+  }
+  using mint = modint;
+  
+  struct combination {  // {{{
+      vector<mint> fact, ifact;
+      combination(int n) : fact(n + 1), ifact(n + 1) {
+          assert(n < mod);
+          fact[0] = 1;
+          for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
+          ifact[n] = fact[n].inv();
+          for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
+      }
+      mint operator()(int n, int k) {
+          if (k < 0 || k > n) return 0;
+          return fact[n] * ifact[k] * ifact[n - k];
+      }
+  }  // }}}
+  com(500001);  // check this is enough
+
+
+snippet sieve
+alias prime_factor_by_sieve
+  // snippet:sieve {{{
+  struct Sieve {/*{{{*/
+      // エラトステネスのふるい O(NloglogN)
+      ll n;                              // n: max number for defined f and primes
+      vector<ll> f;                      // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
+      vector<ll> primes;                 // [2, 3, 5, .......]
+      Sieve(ll n = 1) : n(n), f(n + 1) { /*{{{*/
+          f[0] = f[1] = -1;
+          for (ll i = 2; i <= n; ++i) {
+              if (f[i]) continue;
+              primes.push_back(i);
+              f[i] = i;
+              for (ll j = i * i; j <= n; j += i) {
+                  if (!f[j]) f[j] = i;
+              }
+          }
+      } /*}}}*/
+      bool is_prime(ll x) {
+          if (x <= n) return f[x] == x; 
+          return sz(factor_list(x)) == 1;
+      }
+  
+      vector<ll> factor_list(ll x) { /*{{{*/
+          assert(0 < x && x <= n*n); // これが満たされないと正しく計算されない可能性がある。
+  
+          vector<ll> res;
+          if (x <= n) {
+              while (x != 1) {
+                  res.push_back(f[x]);
+                  x /= f[x];
+              }
+          }
+          else {
+              for (ll i = 0; primes[i] * primes[i] <= x; i++) {
+                  while (x % primes[i] == 0) {
+                      res.pb(primes[i]);
+                      x /= primes[i];
+                  }
+              }
+              if (x != 1) res.pb(x);
+          }
+  
+          return res;  // [2, 3, 3, 5, 5, 5.....]
+      }                /*}}}*/
+  
+      vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/
+          // just change fl vector to map form
+          vector<ll> fl = factor_list(x);
+          if (fl.size() == 0) return {};
+          vector<pair<ll, ll>> res = {mp(fl[0], 0)};
+          for (ll p : fl) {
+              if (res.back().first == p) {
+                  res.back().second++;
+              } else {
+                  res.emplace_back(p, 1);
+              }
+          }
+          return res;  // [(2,1), (3,2), (5,3), .....]
+      }                /*}}}*/
+  };/*}}}*/
+  Sieve sv(1e6);
+  // How to use
+      // sv.primes            // 素数のリスト
+      // sv.prime_factor(x);  // 素因数分解
+  // snippet:sieve }}}
+
+
+snippet hakidasi_xor
+  vector<ll> hakidasi_xor(vector<ll>& a){
+      int r = 0;
+      int n = sz(a);
+      r_rep(d, 0, 64){
+          int p = -1;
+          rep(i, r, n) {
+              if (a[i]>>d&1) {
+                  p = i;
+              }
+          }
+          if (p == -1) continue;
+  
+          swap(a[r], a[p]);
+          rep(i, n){
+              if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
+          }
+          r++;
+      }
+      vector<ll> res;
+      rep(i, r) res.pb(a[i]);
+      return res;
+  }
+
+
+snippet rational
+alias fraction
+  // snippet:rational {{{
+  template<class T=ll> 
+  struct rational : public P2<T> {
+      rational(){}
+      rational(T _x, T _y) : P2<T>(_x, _y) {
+          T g = gcd(this->x, this->y);
+          this->x /= g; this->y /= g;
+          if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
+      }
+  };
+  // rational(3, 5);
+  // assert(rational(3, 5) == rational(-6, -10));
+  // map<rational<ll>, int> cnt;  // keyにもできる。
+  // snippet:rational }}}
+
+
+snippet AreaRect
+  // snippet:AreaRect {{{
+  class AreaRect { //(0,0)-(X,Y)の矩形の面積の総和
+  	map<ll,ll> M;  // 矩形の右端を管理
+  public:
+  	ll sum;
+  	AreaRect() {
+  		M[0] = 1LL<<60;  // 番兵
+  		M[1LL<<60] = 0;  // 番兵
+  		sum = 0;
+  	}
+  	void add(ll x, ll y) {
+  		auto k = M.lower_bound(x);
+  		if (k->second >= y) return;
+  		while(true) {
+              if (auto p = *prev(M.lower_bound(x)); p.second > y){
+                  break;
+              }
+              else{;
+                  M.erase(p.first);
+                  sum -= (p.first - prev(M.lower_bound(p.first))->first) * (p.second - M.lower_bound(x)->second);
+              }
+  		}
+  		sum += (x - prev(M.lower_bound(x))->first) * (y - M.lower_bound(x)->second);
+  		M[x] = y;
+  	}
+  };
+  // snippet:AreaRect }}}
+
+
+snippet P2
+alias pair
+  // snippet:P2 {{{
+  template<class T=ll>/*{{{*/
+  struct P2 {
+      T x, y;
+      P2(T _x, T _y) : x(_x), y(_y) {}
+      P2() {
+          x = 0;
+          y = 0;
+      }
+      bool operator<(const P2 &r) const {
+          return (x != r.x ? x < r.x : y < r.y);
+      }
+      bool operator>(const P2 &r) const {
+          return (x != r.x ? x > r.x : y > r.y);
+      }
+      bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+  
+      friend ostream &operator<<(ostream &stream, P2 p) {
+          stream << "(" << p.x << "," << p.y << ")";
+          return stream;
+      }
+  
+      P2 operator-() const {  // 単項演算子
+          return P2(-x, -y);
+      }
+  
+      P2& operator+=(const P2<T>& r){
+          x += r.x;
+          y += r.y;
+          return *this;
+      }
+      P2& operator-=(const P2<T>& r){
+          x -= r.x;
+          y -= r.y;
+          return *this;
+      }
+      P2& operator+=(const T& r){
+          x += r;
+          y += r;
+          return *this;
+      }
+      P2& operator-=(const T& r){
+          x -= r;
+          y -= r;
+          return *this;
+      }
+      P2& operator*=(const P2<T>& r){
+          x *= r.x;
+          y *= r.y;
+          return *this;
+      }
+      P2& operator/=(const P2<T>& r){
+          x /= r.x;
+          y /= r.y;
+          return *this;
+      }
+      P2& operator*=(const T& r){
+          x *= r;
+          y *= r;
+          return *this;
+      }
+      P2& operator/=(const T& r){
+          x /= r;
+          y /= r;
+          return *this;
+      }
+  
+      template<class U>
+      P2 operator+(const U& r) const {
+          P2 res(*this);
+          return res += r;
+      }
+      template<class U>
+      P2 operator-(const U& r) const {
+          P2 res(*this);
+          return res -= r;
+      }
+  
+      template<class U>
+      P2 operator*(const U& r) const {
+          P2 res(*this);
+          return res *= r;
+      }
+      template<class U>
+      P2 operator/(const U& r) const {
+          P2 res(*this);
+          return res /= r;
+      }
+  
+  
+      bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
+          if (a <= x && x < b && c <= y && y < d) return true;
+          else return false;
+      }
+  
+  };
+  template<class T>
+  long double dist(const P2<T>& p, const P2<T>& q){
+      return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
+  }
+  
+  /*}}}*/
+  using P = P2<ll>;
+  // snippet:P2 }}}
+
+
+snippet angle
+  struct Angle{
+      ll x, y; // 実際には10^9くらいまでしか入れられない。
+      int _orthant;  // 象限
+      Angle(){};
+      Angle(ll _x, ll _y): x(_x), y(_y){
+          assert(x != 0 || y != 0);
+          ll g = gcd(abs(x), abs(y));
+          x /= g;
+          y /= g;
+          if(y >= 0) _orthant = (x >= 0 ? 0 : 1);
+          else _orthant = (x >= 0 ? 3 : 2);
+      }
+  
+      bool operator<(const Angle &r) const {
+          return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y * r.x > 0);
+      }
+  
+      bool operator==(const Angle &r) const { return (x == r.x && y == r.y); }
+  
+      long double operator-(const Angle& r) const {
+          // rを起点に見て何度進んでいるかradianで返す
+          return rad() - r.rad();
+      }
+  
+      long double rad() const {
+          long double r = atan2(y, x); 
+          return (r<0 ? (r + M_PI*2.0) : r);
+      }
+      long double const deg(){ return rad() * 180.0/ M_PI; }
+  
+      Angle rot_90() const { return Angle(-y, x); }
+  
+      Angle rot_r90() const { return Angle(y, -x); }
+  
+      friend ostream &operator<<(ostream &stream, Angle p) {
+          stream << "(" << p.x << "," << p.y << ")";
+          return stream;
+      }
+  };
+
+
+snippet shifter
+  struct shifter{
+      ll n, min_v;
+      shifter(ll _min_v, ll _max_v): min_v(_min_v){
+          n = _max_v - min_v;
+      }
+      ll operator()(ll x) { return x - min_v; }
+      ll unshift(ll sx) { return sx + min_v; }
+  };
+  // How to use
+      // auto sh = shifter(-10000, 10000);
+      // vl x(sh.n);
+      // x[sh(-3)];
+
+
+snippet zipper
+  struct zipper {                             /*{{{*/
+      // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
+      map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
+      vector<long long> _unzipper;            // [2, 3, 5, 10]
+      bool _is_build = false;
+      int n = 0;
+  
+      zipper(){};
+      zipper(long long inf_value) { /*{{{*/
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+      }                                                        /*}}}*/
+  
+      template <class T>
+      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
+          _unzipper = vector<long long>(sz(a));
+          rep(i, sz(a)) { _unzipper[i] = a[i]; }
+          _unzipper.push_back(-inf_value);
+          _unzipper.push_back(inf_value);
+          build();
+      }                              /*}}}*/
+      void add_value(long long lv) { /*{{{*/
+          _unzipper.push_back(lv);
+          _is_build = false;
+      }              /*}}}*/
+      void build() { /*{{{*/
+          uni(_unzipper);
+          zip_map.clear();
+          n = sz(_unzipper);
+          rep(i, n) { zip_map[_unzipper[i]] = i; }
+          _is_build = true;
+      }                              /*}}}*/
+      vector<int> zip(vector<long long> lvs) { /*{{{*/
+          if (!_is_build) assert(false);
+          int n = sz(lvs);
+          vector<int> res(n);
+          rep(i, n) res[i] = zip_map[lvs[i]];
+          return res;
+      }                              /*}}}*/
+      int zip(long long lv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return zip_map[lv];
+      }                                               /*}}}*/
+      int operator()(long long lv) { return zip(lv); }
+  
+      long long unzip(int sv) { /*{{{*/
+          if (!_is_build) assert(false);
+          return _unzipper[sv];
+      }                              /*}}}*/
+      int operator[](int sv) { return unzip(sv); }
+  
+      int size() {return n;}
+  
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const zipper& zp) {
+          os << endl;
+          os << "_is_build: " << zp._is_build << endl;
+          os << "zip_map:   " << zp.zip_map << endl;
+          os << "_unzipper:   " << zp._unzipper << endl;
+          return os;
+      }
+  #endif /*}}}*/
+  };     /*}}}*/
+  // How to use {{{
+  // construct
+  // auto z = zipper(x); // x: vector<long long>;
+  // auto z = zipper(x, inf<ll>);
+  
+  // auto z = zipper();
+  // z.add_value(3);
+  // z.add_value(5);
+  // z.add_value(10);
+  // z.add_value(100000000);
+  // z.build();
+  
+  // other method
+  // z(x[i]); -> zipped x[i]
+  // z.unzip(z(x[i])) -> x[i];
+  // z.zip(ll x) -> zipped x
+  // z.zip(vl v) -> zipped v
+  // }}}
 
 
 snippet pyvec
@@ -1784,6 +2258,166 @@ snippet asvector
   // TODO
   // neg shifter vec
   // snippet:asvector }}}
+
+
+snippet sparse_table
+  // snippet:sparse_table {{{
+  template< class T = ll >
+  struct sparse_table {
+      vector< vector< T > > st;
+      vector< int > lookup;
+  
+      sparse_table(const vector< T > &v) {
+          int b = 0;
+          while((1 << b) <= sz(v)) ++b;
+          st.assign(b, vector< T >(1 << b));
+          for(int i = 0; i < sz(v); i++) {
+              st[0][i] = v[i];
+          }
+          for(int i = 1; i < b; i++) {
+              for(int j = 0; j + (1 << i) <= (1 << b); j++) {
+                  st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+              }
+          }
+          lookup.resize(v.size() + 1);
+          for(int i = 2; i < sz(lookup); i++) {
+              lookup[i] = lookup[i >> 1] + 1;
+          }
+      }
+  
+      inline T query(int l, int r) {  // [l, r)
+          int b = lookup[r - l];
+          return min(st[b][l], st[b][r - (1 << b)]);
+      }
+  };
+  // snippet:sparse_table }}}
+
+
+snippet lis
+  template<class T>
+  int lis(const vector<T>& x, bool strict=true) { /*{{{*/
+      int n = sz(x);
+      vector<T> dp(n+1, numeric_limits<T>().max());
+      vector<pair<int, T>> update_info(n);
+      dp[0] = numeric_limits<T>().min();
+      int res = 0;
+      rep(i, n) {
+          int j;
+          if (strict) j = lb(all(dp), x[i]) - dp.begin();
+          else        j = ub(all(dp), x[i]) - dp.begin();
+          chmax(res, j);
+          update_info[i] = make_pair(j, dp[j]);
+          dp[j] = x[i];
+      }
+      dump(dp);
+  
+      // 復元
+      int now_len = res;
+      vector<T> lis;
+      r_rep(i, n){
+          auto [j, pre] = update_info[i];
+          if (j==now_len) {
+              now_len--;
+              lis.push_back(x[i]);
+          }
+          dp[j] = pre;
+      }
+      assert(now_len==0);
+      reverse(all(lis));
+      dump(lis);
+  
+      return res;
+  } /*}}}*/
+
+
+snippet zeta
+  // snippet:zeta {{{
+  template <class T> 
+  vec<T> zeta(const vec<T>& a, int n){
+      vec<T> res(a);
+      // 自由度0
+      rep(j, 0, n){
+          // j桁目を自由にする。
+          rep(i, 1<<n) {
+              if (i >> j & 1) {
+                  res[i] += res[i ^ 1<<j];
+                  // j桁目が立ってないやつからj桁目が立ってるやつに更新が行くので順番の心配は不要
+              }
+          }
+      }
+      return res;
+  }
+  // snippet:zeta }}}
+
+
+snippet bit
+  template <typename T = ll>
+  struct bit {  //{{{
+      int n;
+      vector<T> dat;
+      vector<T> raw;
+  
+      bit(int _n = 0) {  //{{{
+          n = _n;
+          dat = vector<T>(n);
+          raw = vector<T>(n);
+      }  //}}}
+  
+      bit(vector<T> a) {  // {{{
+          n = (int)a.size();
+          dat = vector<T>(n);
+          raw = vector<T>(n);
+          for (int i = 0; i < n; i++) {
+              add(i, a[i]);
+              raw[i] = a[i];
+          }
+      }  //}}}
+  
+      T _rsum(int i) {  //{{{ [0, i]
+          T s = 0;
+          while (i >= 0) {
+              s += dat[i];
+              i = (i & (i + 1)) - 1;
+          }
+          return s;
+      }  //}}}
+  
+      T query(int l, int r) {  //{{{  [l, r)
+          if (l > r - 1) return 0;
+          return _rsum(r - 1) - _rsum(l - 1);
+      }  //}}}
+  
+      void add(int i, T x) {  //{{{
+          raw[i] += x;
+          while (i < n) {
+              dat[i] += x;
+              i |= i + 1;
+          }
+      }  //}}}
+  
+      int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{
+          int ret = -1;
+          int k = 1;
+          while (2 * k <= n) k <<= 1;
+          for (; k > 0; k >>= 1) {
+              if (ret + k < n && dat[ret + k] < x) {
+                  x -= dat[ret + k];
+                  ret += k;
+              }
+          }
+          return ret + 1;
+      }  //}}}
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
+          os << endl << "  raw:" << b.raw << endl;
+          vector<T> acum;
+          rep(i, b.n) { acum.pb(b.sum(i)); }
+          os << "  acm:" << acum << endl;
+          return os;
+      }  //}}}
+      #endif
+  };     //}}}
 
 
 snippet segment_tree_lazy
@@ -2094,8 +2728,8 @@ alias rmq
   // snippet:segment_tree }}}
 
 
-snippet make_lseg_rmq_ruq
-alias rmq_ruq
+snippet make_lseg_rmq_raq
+alias rmq_raq
   // snippet:segment_tree_lazy {{{
   template <typename X, typename M>
   struct segment_tree_lazy {
@@ -2263,454 +2897,38 @@ alias rmq_ruq
   // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
   // snippet:segment_tree_lazy }}}
   
-  // snippet:make_lseg_rmq_ruq {{{
+  // snippet:make_lseg_rmq_raq {{{
   using X = ll; // (X, merge) is monoid
   using M = ll; // (M, composition) is monoid
-  auto make_lseg_rmq_ruq(){
+  auto make_lseg_rmq_raq(){
       auto merge = [](X x1, X x2){return min(x1,x2);};
       X ex = numeric_limits<X>::max();
-      M em = numeric_limits<M>::max();
-      auto composition = [em](M m1, M m2){ 
-          if (m1 == em) return m2;
-          if (m2 == em) return m1;
-          return m2;
-      };
-      auto apply = [em](X x, M m){return (m==em ? x : m);};
+      auto composition = [](M m1, M m2){return m1 + m2;};
+      M em = 0;
+      auto apply = [](X x, M m){return x + m;};
       return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
   }
-  // auto lseg = make_lseg_rmq_ruq();
+  // auto lseg = make_lseg_rmq_raq();
   // lseg.build(a);
   //   or
   // lseg.build(vector<X>(n, <初期値>);
-  // snippet:make_lseg_rmq_ruq }}}
+  // snippet:make_lseg_rmq_raq }}}
 
 
-snippet make_lseg_rsq_raq
-alias rsq_raq
-  // snippet:segment_tree_lazy {{{
-  template <typename X, typename M>
-  struct segment_tree_lazy {
-      using FX = function<X(X, X)>;
-      using FA = function<X(X, M)>;
-      using FM = function<M(M, M)>;
-      using index = int;
-      int n;  // 元の配列のサイズ
-      int N;  // n以上の最小の2冪
-      FX merge;
-      FA apply;
-      FM composite;
-      const X ex;
-      const M em;
-      vector<X> dat;
-      vector<M> lazy;
-      segment_tree_lazy() {}
-      segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
-          : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
-      }
-  
-      void init(index n_) { 
-          N = 1;
-          n = n_;
-          while (N < n_) N <<= 1;
-          dat.assign(2 * N, ex);
-          lazy.assign(2 * N, em);
-      } 
-  
-      void build(const vector<X> &v) { 
-          int n_ = v.size();
-          init(n_);
-          for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
-          for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
-      } 
-  
-      void set(index i, X x) {
-          assert(0 <= i && i < n);
-          query(i, i+1);
-          i += (N - 1);
-          dat[i] = x; 
-          while (i > 0) {
-              i = (i - 1) / 2;
-              dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);
-          }
-      }
-  
-      /* lazy propagate */
-      void propagate(int k) {
-          if (lazy[k] == em) return;  // 更新するものが無ければ終了
-          if (k < N - 1) {            // 葉でなければ子に伝搬
-              lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
-              lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);
-          }
-          // 自身を更新
-          dat[k] = apply(dat[k], lazy[k]);
-          lazy[k] = em;
-      }
-  
-      void update(index a, index b, M x) {
-          assert(0<= a && b <= n);
-          update(a, b, x, 0, 0, N); 
-      }
-      void update(index a, index b, M x, int k, index l, index r) {
-          if (a <= l && r <= b) {  // 完全に内側の時
-              lazy[k] = composite(lazy[k], x);
-              propagate(k);
-          }
-          else if (a < r && l < b) {                     // 一部区間が被る時
-              propagate(k);
-              update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
-              update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
-              dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
-          }
-          else{
-              propagate(k);
-          }
-      }
-  
-      X query(index a, index b) {
-          assert(0<= a && b <= n);
-          return query_sub(a, b, 0, 0, N); 
-      }
-      X query_sub(index a, index b, int k, index l, index r) {
-          propagate(k);
-          if (r <= a || b <= l) {  // 完全に外側の時
-              return ex;
-          }
-          else if (a <= l && r <= b) {  // 完全に内側の時
-              return dat[k];
-          }
-          else {  // 一部区間が被る時
-              X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
-              X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
-              return merge(lv, rv);
-          }
-      }
-  
-      index find_most_left(index l, const function<bool(X)>& is_ok){
-          // lから右に探していってis_okが初めて成り立つようなindexを返す。
-          // assume query(l, *) has monotonity
-          // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
-          // if such i does not exist, return n
-          index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
-          assert(l <= res);
-          return res;
-      }
-      pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
-          // params:
-              // left_value = (a < l ? query(a, l) : ex)
-          // return (index i, X v)
-              // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
-              // v is the value s.t query(a, r)
-  
-          propagate(k);
-          if (r <= a) return {n, ex};  // 区間が全く被っていない
-          else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
-          else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
-          else{
-              auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-              if (vl != n) return {vl, xl};
-              auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-              return {vr, xr};
-          }
-      }
-  
-      index find_most_right(index r, const function<bool(X)>& is_ok){
-          // rから左に探していってis_okが初めて成り立つようなindexを返す。
-          // assume query(*, r) has monotonity
-          // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
-          // if such i does not exist, return -1
-          index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
-          assert(res <= r);
-          return res;
-      }
-      pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
-          propagate(k);
-          if (b <= l) return {-1, ex};  // 区間が全く被っていない
-          else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
-          else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
-          else{
-              auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-              if (vr != -1) return {vr, xr};
-              auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-              return {vl, xl};
-          }
-      }
-  
-      /* debug */
-      inline X operator[](int i) { return query(i, i + 1); }
-  
-      #if defined(PCM) || defined(LOCAL)
-      friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //
-          os << "[";
-          for (int i = 0; i < sg.n; i++) {
-              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
-          }
-          return os;
-      }
-      #endif
-  };
-  // Regarding apply and merge, the conditions below should holds.
-  // apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))
-  // apply(apply(x, m1), m2) = apply(x, composition(m1, m2))
-  // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
-  // snippet:segment_tree_lazy }}}
-  
-  // snippet:monoid_with_len {{{
-  template<class T>
-  struct monoid_with_len {
-      T x;
-      int len;
-      monoid_with_len(){};
-      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
-  };
-  template<class T>
-  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
-      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
-  }
-  // snippet:monoid_with_len }}}
-  
-  // snippet:make_lseg_rsq_raq {{{
-  using X = monoid_with_len<ll>; // (X, merge) is monoid
+snippet make_lseg_getone_chmin
+alias getone_chmin
+  // snippet:make_lseg_getone_chmin {{{
+  using X = ll; // (X, merge) is monoid // 双対セグメント木として使う時は適当なモノイドを入れておけば良い。
   using M = ll; // (M, composition) is monoid
-  auto make_lseg_rsq_raq(){
-      auto merge = [](X x1, X x2){return x1 + x2;};
-      X ex = X(0, 0);
-      M em = 0;
-      auto composition = [](M m1, M m2){ return m1 + m2; };
-      auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
+  auto make_lseg_getone_chmin(){
+      auto merge = [](X x1, X x2){return min(x1,x2);};
+      X ex = numeric_limits<X>::max();
+      M em = numeric_limits<M>::max();
+      auto composition = [](M m1, M m2){return min(m1, m2);};
+      auto apply = [](X x, M m){return min(x, m);};
       return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
   }
-  // auto lseg = make_lseg_rsq_raq();
-  // lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
-  // snippet:make_lseg_rsq_raq }}}
-
-
-snippet monoid_with_len
-  // snippet:monoid_with_len {{{
-  template<class T>
-  struct monoid_with_len {
-      T x;
-      int len;
-      monoid_with_len(){};
-      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
-  };
-  template<class T>
-  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
-      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
-  }
-  // snippet:monoid_with_len }}}
-
-
-snippet make_lseg_rsq_raffinq
-alias rsq_raffinq
-  // snippet:segment_tree_lazy {{{
-  template <typename X, typename M>
-  struct segment_tree_lazy {
-      using FX = function<X(X, X)>;
-      using FA = function<X(X, M)>;
-      using FM = function<M(M, M)>;
-      using index = int;
-      int n;  // 元の配列のサイズ
-      int N;  // n以上の最小の2冪
-      FX merge;
-      FA apply;
-      FM composite;
-      const X ex;
-      const M em;
-      vector<X> dat;
-      vector<M> lazy;
-      segment_tree_lazy() {}
-      segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
-          : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
-      }
-  
-      void init(index n_) { 
-          N = 1;
-          n = n_;
-          while (N < n_) N <<= 1;
-          dat.assign(2 * N, ex);
-          lazy.assign(2 * N, em);
-      } 
-  
-      void build(const vector<X> &v) { 
-          int n_ = v.size();
-          init(n_);
-          for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
-          for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
-      } 
-  
-      void set(index i, X x) {
-          assert(0 <= i && i < n);
-          query(i, i+1);
-          i += (N - 1);
-          dat[i] = x; 
-          while (i > 0) {
-              i = (i - 1) / 2;
-              dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);
-          }
-      }
-  
-      /* lazy propagate */
-      void propagate(int k) {
-          if (lazy[k] == em) return;  // 更新するものが無ければ終了
-          if (k < N - 1) {            // 葉でなければ子に伝搬
-              lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
-              lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);
-          }
-          // 自身を更新
-          dat[k] = apply(dat[k], lazy[k]);
-          lazy[k] = em;
-      }
-  
-      void update(index a, index b, M x) {
-          assert(0<= a && b <= n);
-          update(a, b, x, 0, 0, N); 
-      }
-      void update(index a, index b, M x, int k, index l, index r) {
-          if (a <= l && r <= b) {  // 完全に内側の時
-              lazy[k] = composite(lazy[k], x);
-              propagate(k);
-          }
-          else if (a < r && l < b) {                     // 一部区間が被る時
-              propagate(k);
-              update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
-              update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
-              dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
-          }
-          else{
-              propagate(k);
-          }
-      }
-  
-      X query(index a, index b) {
-          assert(0<= a && b <= n);
-          return query_sub(a, b, 0, 0, N); 
-      }
-      X query_sub(index a, index b, int k, index l, index r) {
-          propagate(k);
-          if (r <= a || b <= l) {  // 完全に外側の時
-              return ex;
-          }
-          else if (a <= l && r <= b) {  // 完全に内側の時
-              return dat[k];
-          }
-          else {  // 一部区間が被る時
-              X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
-              X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
-              return merge(lv, rv);
-          }
-      }
-  
-      index find_most_left(index l, const function<bool(X)>& is_ok){
-          // lから右に探していってis_okが初めて成り立つようなindexを返す。
-          // assume query(l, *) has monotonity
-          // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
-          // if such i does not exist, return n
-          index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
-          assert(l <= res);
-          return res;
-      }
-      pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
-          // params:
-              // left_value = (a < l ? query(a, l) : ex)
-          // return (index i, X v)
-              // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
-              // v is the value s.t query(a, r)
-  
-          propagate(k);
-          if (r <= a) return {n, ex};  // 区間が全く被っていない
-          else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
-          else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
-          else{
-              auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-              if (vl != n) return {vl, xl};
-              auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-              return {vr, xr};
-          }
-      }
-  
-      index find_most_right(index r, const function<bool(X)>& is_ok){
-          // rから左に探していってis_okが初めて成り立つようなindexを返す。
-          // assume query(*, r) has monotonity
-          // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
-          // if such i does not exist, return -1
-          index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
-          assert(res <= r);
-          return res;
-      }
-      pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
-          propagate(k);
-          if (b <= l) return {-1, ex};  // 区間が全く被っていない
-          else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
-          else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
-          else{
-              auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-              if (vr != -1) return {vr, xr};
-              auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-              return {vl, xl};
-          }
-      }
-  
-      /* debug */
-      inline X operator[](int i) { return query(i, i + 1); }
-  
-      #if defined(PCM) || defined(LOCAL)
-      friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //
-          os << "[";
-          for (int i = 0; i < sg.n; i++) {
-              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
-          }
-          return os;
-      }
-      #endif
-  };
-  // Regarding apply and merge, the conditions below should holds.
-  // apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))
-  // apply(apply(x, m1), m2) = apply(x, composition(m1, m2))
-  // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
-  // snippet:segment_tree_lazy }}}
-  
-  // snippet:monoid_with_len {{{
-  template<class T>
-  struct monoid_with_len {
-      T x;
-      int len;
-      monoid_with_len(){};
-      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
-  };
-  template<class T>
-  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
-      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
-  }
-  // snippet:monoid_with_len }}}
-  
-  // snippet:monoid_affin_transformation {{{
-  struct monoid_affin_transformation {
-      mint a, b;
-      monoid_affin_transformation(){};
-      monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};
-  };
-  monoid_affin_transformation operator+(monoid_affin_transformation x, monoid_affin_transformation y){
-      return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);
-  }
-  bool operator==(monoid_affin_transformation m1, monoid_affin_transformation m2) {
-      return m1.a == m2.a && m1.b == m2.b;
-  }
-  // snippet:monoid_affin_transformation }}}
-  
-  // snippet:make_lseg_rsq_raffinq {{{
-  using X = monoid_with_len<mint>; // (X, merge) is monoid
-  using M = monoid_affin_transformation; // (M, composition) is monoid
-  auto make_lseg_rsq_raffinq(){
-      auto merge = [](X x1, X x2){return x1 + x2;};
-      X ex = X(0, 0);
-      M em = M(1, 0);
-      auto composition = [](M m1, M m2){ return m1 + m2; };
-      auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};
-      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
-  }
-  // auto lseg = make_lseg_rsq_raffinq();
-  // lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
-  // snippet:make_lseg_rsq_raffinq }}}
+  // snippet:make_lseg_getone_chmin }}}
 
 
 snippet make_lseg_rsq_ruq
@@ -2916,8 +3134,8 @@ alias rsq_ruq
   // snippet:make_lseg_rsq_ruq }}}
 
 
-snippet make_lseg_rmq_raq
-alias rmq_raq
+snippet make_lseg_rmq_ruq
+alias rmq_ruq
   // snippet:segment_tree_lazy {{{
   template <typename X, typename M>
   struct segment_tree_lazy {
@@ -3085,38 +3303,26 @@ alias rmq_raq
   // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
   // snippet:segment_tree_lazy }}}
   
-  // snippet:make_lseg_rmq_raq {{{
+  // snippet:make_lseg_rmq_ruq {{{
   using X = ll; // (X, merge) is monoid
   using M = ll; // (M, composition) is monoid
-  auto make_lseg_rmq_raq(){
-      auto merge = [](X x1, X x2){return min(x1,x2);};
-      X ex = numeric_limits<X>::max();
-      auto composition = [](M m1, M m2){return m1 + m2;};
-      M em = 0;
-      auto apply = [](X x, M m){return x + m;};
-      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
-  }
-  // auto lseg = make_lseg_rmq_raq();
-  // lseg.build(a);
-  //   or
-  // lseg.build(vector<X>(n, <初期値>);
-  // snippet:make_lseg_rmq_raq }}}
-
-
-snippet make_lseg_getone_chmin
-alias getone_chmin
-  // snippet:make_lseg_getone_chmin {{{
-  using X = ll; // (X, merge) is monoid // 双対セグメント木として使う時は適当なモノイドを入れておけば良い。
-  using M = ll; // (M, composition) is monoid
-  auto make_lseg_getone_chmin(){
+  auto make_lseg_rmq_ruq(){
       auto merge = [](X x1, X x2){return min(x1,x2);};
       X ex = numeric_limits<X>::max();
       M em = numeric_limits<M>::max();
-      auto composition = [](M m1, M m2){return min(m1, m2);};
-      auto apply = [](X x, M m){return min(x, m);};
+      auto composition = [em](M m1, M m2){ 
+          if (m1 == em) return m2;
+          if (m2 == em) return m1;
+          return m2;
+      };
+      auto apply = [em](X x, M m){return (m==em ? x : m);};
       return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
   }
-  // snippet:make_lseg_getone_chmin }}}
+  // auto lseg = make_lseg_rmq_ruq();
+  // lseg.build(a);
+  //   or
+  // lseg.build(vector<X>(n, <初期値>);
+  // snippet:make_lseg_rmq_ruq }}}
 
 
 snippet monoid_affin_transformation
@@ -3135,621 +3341,1066 @@ snippet monoid_affin_transformation
   // snippet:monoid_affin_transformation }}}
 
 
-snippet shifter
-  struct shifter{
-      ll n, min_v;
-      shifter(ll _min_v, ll _max_v): min_v(_min_v){
-          n = _max_v - min_v;
-      }
-      ll operator()(ll x) { return x - min_v; }
-      ll unshift(ll sx) { return sx + min_v; }
+snippet monoid_with_len
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
   };
-  // How to use
-      // auto sh = shifter(-10000, 10000);
-      // vl x(sh.n);
-      // x[sh(-3)];
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
 
 
-snippet zipper
-  struct zipper {                             /*{{{*/
-      // unordered_map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3] debugしづらい
-      map<long long, int> zip_map;  // [2:0, 3:1, 5:2, 10:3]
-      vector<long long> _unzipper;            // [2, 3, 5, 10]
-      bool _is_build = false;
-      int n = 0;
+snippet make_lseg_rsq_raq
+alias rsq_raq
+  // snippet:segment_tree_lazy {{{
+  template <typename X, typename M>
+  struct segment_tree_lazy {
+      using FX = function<X(X, X)>;
+      using FA = function<X(X, M)>;
+      using FM = function<M(M, M)>;
+      using index = int;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
+      FX merge;
+      FA apply;
+      FM composite;
+      const X ex;
+      const M em;
+      vector<X> dat;
+      vector<M> lazy;
+      segment_tree_lazy() {}
+      segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
+          : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
+      }
   
-      zipper(){};
-      zipper(long long inf_value) { /*{{{*/
-          _unzipper.push_back(-inf_value);
-          _unzipper.push_back(inf_value);
-      }                                                        /*}}}*/
+      void init(index n_) { 
+          N = 1;
+          n = n_;
+          while (N < n_) N <<= 1;
+          dat.assign(2 * N, ex);
+          lazy.assign(2 * N, em);
+      } 
   
-      template <class T>
-      zipper(const vector<T>& a, long long inf_value = inf<ll>) { /*{{{*/
-          _unzipper = vector<long long>(sz(a));
-          rep(i, sz(a)) { _unzipper[i] = a[i]; }
-          _unzipper.push_back(-inf_value);
-          _unzipper.push_back(inf_value);
-          build();
-      }                              /*}}}*/
-      void add_value(long long lv) { /*{{{*/
-          _unzipper.push_back(lv);
-          _is_build = false;
-      }              /*}}}*/
-      void build() { /*{{{*/
-          uni(_unzipper);
-          zip_map.clear();
-          n = sz(_unzipper);
-          rep(i, n) { zip_map[_unzipper[i]] = i; }
-          _is_build = true;
-      }                              /*}}}*/
-      vector<int> zip(vector<long long> lvs) { /*{{{*/
-          if (!_is_build) assert(false);
-          int n = sz(lvs);
-          vector<int> res(n);
-          rep(i, n) res[i] = zip_map[lvs[i]];
+      void build(const vector<X> &v) { 
+          int n_ = v.size();
+          init(n_);
+          for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
+          for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
+      } 
+  
+      void set(index i, X x) {
+          assert(0 <= i && i < n);
+          query(i, i+1);
+          i += (N - 1);
+          dat[i] = x; 
+          while (i > 0) {
+              i = (i - 1) / 2;
+              dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);
+          }
+      }
+  
+      /* lazy propagate */
+      void propagate(int k) {
+          if (lazy[k] == em) return;  // 更新するものが無ければ終了
+          if (k < N - 1) {            // 葉でなければ子に伝搬
+              lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
+              lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);
+          }
+          // 自身を更新
+          dat[k] = apply(dat[k], lazy[k]);
+          lazy[k] = em;
+      }
+  
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
+      void update(index a, index b, M x, int k, index l, index r) {
+          if (a <= l && r <= b) {  // 完全に内側の時
+              lazy[k] = composite(lazy[k], x);
+              propagate(k);
+          }
+          else if (a < r && l < b) {                     // 一部区間が被る時
+              propagate(k);
+              update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
+              update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
+              dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
+          }
+          else{
+              propagate(k);
+          }
+      }
+  
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
+      X query_sub(index a, index b, int k, index l, index r) {
+          propagate(k);
+          if (r <= a || b <= l) {  // 完全に外側の時
+              return ex;
+          }
+          else if (a <= l && r <= b) {  // 完全に内側の時
+              return dat[k];
+          }
+          else {  // 一部区間が被る時
+              X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
+              X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
+              return merge(lv, rv);
+          }
+      }
+  
+      index find_most_left(index l, const function<bool(X)>& is_ok){
+          // lから右に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(l, *) has monotonity
+          // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+          // if such i does not exist, return n
+          index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
+          assert(l <= res);
           return res;
-      }                              /*}}}*/
-      int zip(long long lv) { /*{{{*/
-          if (!_is_build) assert(false);
-          return zip_map[lv];
-      }                                               /*}}}*/
-      int operator()(long long lv) { return zip(lv); }
+      }
+      pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+          // params:
+              // left_value = (a < l ? query(a, l) : ex)
+          // return (index i, X v)
+              // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+              // v is the value s.t query(a, r)
   
-      long long unzip(int sv) { /*{{{*/
-          if (!_is_build) assert(false);
-          return _unzipper[sv];
-      }                              /*}}}*/
-      int operator[](int sv) { return unzip(sv); }
+          propagate(k);
+          if (r <= a) return {n, ex};  // 区間が全く被っていない
+          else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
+          else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
+          else{
+              auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+              if (vl != n) return {vl, xl};
+              auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+              return {vr, xr};
+          }
+      }
   
-      int size() {return n;}
+      index find_most_right(index r, const function<bool(X)>& is_ok){
+          // rから左に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(*, r) has monotonity
+          // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+          // if such i does not exist, return -1
+          index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
+          assert(res <= r);
+          return res;
+      }
+      pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+          propagate(k);
+          if (b <= l) return {-1, ex};  // 区間が全く被っていない
+          else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
+          else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
+          else{
+              auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+              if (vr != -1) return {vr, xr};
+              auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+              return {vl, xl};
+          }
+      }
   
-  #if defined(PCM) || defined(LOCAL) /*{{{*/
-      friend ostream& operator<<(ostream& os, const zipper& zp) {
+      /* debug */
+      inline X operator[](int i) { return query(i, i + 1); }
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //
+          os << "[";
+          for (int i = 0; i < sg.n; i++) {
+              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+          }
+          return os;
+      }
+      #endif
+  };
+  // Regarding apply and merge, the conditions below should holds.
+  // apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))
+  // apply(apply(x, m1), m2) = apply(x, composition(m1, m2))
+  // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
+  // snippet:segment_tree_lazy }}}
+  
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
+  };
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
+  
+  // snippet:make_lseg_rsq_raq {{{
+  using X = monoid_with_len<ll>; // (X, merge) is monoid
+  using M = ll; // (M, composition) is monoid
+  auto make_lseg_rsq_raq(){
+      auto merge = [](X x1, X x2){return x1 + x2;};
+      X ex = X(0, 0);
+      M em = 0;
+      auto composition = [](M m1, M m2){ return m1 + m2; };
+      auto apply = [](X x, M m){return X(x.x + m*x.len, x.len);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // auto lseg = make_lseg_rsq_raq();
+  // lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
+  // snippet:make_lseg_rsq_raq }}}
+
+
+snippet make_lseg_rsq_raffinq
+alias rsq_raffinq
+  // snippet:segment_tree_lazy {{{
+  template <typename X, typename M>
+  struct segment_tree_lazy {
+      using FX = function<X(X, X)>;
+      using FA = function<X(X, M)>;
+      using FM = function<M(M, M)>;
+      using index = int;
+      int n;  // 元の配列のサイズ
+      int N;  // n以上の最小の2冪
+      FX merge;
+      FA apply;
+      FM composite;
+      const X ex;
+      const M em;
+      vector<X> dat;
+      vector<M> lazy;
+      segment_tree_lazy() {}
+      segment_tree_lazy(FX merge_, FA apply_, FM composite_, X ex_, M em_)
+          : merge(merge_), apply(apply_), composite(composite_), ex(ex_), em(em_) {
+      }
+  
+      void init(index n_) { 
+          N = 1;
+          n = n_;
+          while (N < n_) N <<= 1;
+          dat.assign(2 * N, ex);
+          lazy.assign(2 * N, em);
+      } 
+  
+      void build(const vector<X> &v) { 
+          int n_ = v.size();
+          init(n_);
+          for (int i = 0; i < n_; i++) dat[i + N - 1] = v[i];
+          for (int k = N - 2; k >= 0; k--) dat[k] = merge(dat[2 * k + 1], dat[2 * k + 2]);
+      } 
+  
+      void set(index i, X x) {
+          assert(0 <= i && i < n);
+          query(i, i+1);
+          i += (N - 1);
+          dat[i] = x; 
+          while (i > 0) {
+              i = (i - 1) / 2;
+              dat[i] = merge(dat[2 * i + 1], dat[2 * i + 2]);
+          }
+      }
+  
+      /* lazy propagate */
+      void propagate(int k) {
+          if (lazy[k] == em) return;  // 更新するものが無ければ終了
+          if (k < N - 1) {            // 葉でなければ子に伝搬
+              lazy[k * 2 + 1] = composite(lazy[k * 2 + 1], lazy[k]);
+              lazy[k * 2 + 2] = composite(lazy[k * 2 + 2], lazy[k]);
+          }
+          // 自身を更新
+          dat[k] = apply(dat[k], lazy[k]);
+          lazy[k] = em;
+      }
+  
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
+      void update(index a, index b, M x, int k, index l, index r) {
+          if (a <= l && r <= b) {  // 完全に内側の時
+              lazy[k] = composite(lazy[k], x);
+              propagate(k);
+          }
+          else if (a < r && l < b) {                     // 一部区間が被る時
+              propagate(k);
+              update(a, b, x, k * 2 + 1, l, (l + r) / 2);  // 左の子
+              update(a, b, x, k * 2 + 2, (l + r) / 2, r);  // 右の子
+              dat[k] = merge(dat[k * 2 + 1], dat[k * 2 + 2]);
+          }
+          else{
+              propagate(k);
+          }
+      }
+  
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
+      X query_sub(index a, index b, int k, index l, index r) {
+          propagate(k);
+          if (r <= a || b <= l) {  // 完全に外側の時
+              return ex;
+          }
+          else if (a <= l && r <= b) {  // 完全に内側の時
+              return dat[k];
+          }
+          else {  // 一部区間が被る時
+              X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
+              X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
+              return merge(lv, rv);
+          }
+      }
+  
+      index find_most_left(index l, const function<bool(X)>& is_ok){
+          // lから右に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(l, *) has monotonity
+          // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+          // if such i does not exist, return n
+          index res = _find_most_left(l, is_ok, 0, 0, N, ex).first;
+          assert(l <= res);
+          return res;
+      }
+      pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+          // params:
+              // left_value = (a < l ? query(a, l) : ex)
+          // return (index i, X v)
+              // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+              // v is the value s.t query(a, r)
+  
+          propagate(k);
+          if (r <= a) return {n, ex};  // 区間が全く被っていない
+          else if (a <= l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};
+          else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};
+          else{
+              auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+              if (vl != n) return {vl, xl};
+              auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+              return {vr, xr};
+          }
+      }
+  
+      index find_most_right(index r, const function<bool(X)>& is_ok){
+          // rから左に探していってis_okが初めて成り立つようなindexを返す。
+          // assume query(*, r) has monotonity
+          // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+          // if such i does not exist, return -1
+          index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;
+          assert(res <= r);
+          return res;
+      }
+      pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+          propagate(k);
+          if (b <= l) return {-1, ex};  // 区間が全く被っていない
+          else if (r <= b && !is_ok(merge(dat[k], right_value))) return {-1, merge(dat[k], right_value)};
+          else if (k >= N-1) return {k - (N-1), merge(dat[k], right_value)};
+          else{
+              auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+              if (vr != -1) return {vr, xr};
+              auto [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+              return {vl, xl};
+          }
+      }
+  
+      /* debug */
+      inline X operator[](int i) { return query(i, i + 1); }
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //
+          os << "[";
+          for (int i = 0; i < sg.n; i++) {
+              os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+          }
+          return os;
+      }
+      #endif
+  };
+  // Regarding apply and merge, the conditions below should holds.
+  // apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))
+  // apply(apply(x, m1), m2) = apply(x, composition(m1, m2))
+  // composition(m, em) = m && composition(em, m) = m && apply(x, em) = x
+  // snippet:segment_tree_lazy }}}
+  
+  // snippet:monoid_affin_transformation {{{
+  struct monoid_affin_transformation {
+      mint a, b;
+      monoid_affin_transformation(){};
+      monoid_affin_transformation(mint a_, mint b_) : a(a_), b(b_){};
+  };
+  monoid_affin_transformation operator+(monoid_affin_transformation x, monoid_affin_transformation y){
+      return monoid_affin_transformation(x.a * y.a, x.b * y.a + y.b);
+  }
+  bool operator==(monoid_affin_transformation m1, monoid_affin_transformation m2) {
+      return m1.a == m2.a && m1.b == m2.b;
+  }
+  // snippet:monoid_affin_transformation }}}
+  
+  // snippet:monoid_with_len {{{
+  template<class T>
+  struct monoid_with_len {
+      T x;
+      int len;
+      monoid_with_len(){};
+      monoid_with_len(T x_, ll len_) : x(x_), len(len_){};
+  };
+  template<class T>
+  monoid_with_len<T> operator+(monoid_with_len<T> a, monoid_with_len<T> b){
+      return monoid_with_len<T>(a.x + b.x, a.len + b.len);
+  }
+  // snippet:monoid_with_len }}}
+  
+  // snippet:make_lseg_rsq_raffinq {{{
+  using X = monoid_with_len<mint>; // (X, merge) is monoid
+  using M = monoid_affin_transformation; // (M, composition) is monoid
+  auto make_lseg_rsq_raffinq(){
+      auto merge = [](X x1, X x2){return x1 + x2;};
+      X ex = X(0, 0);
+      M em = M(1, 0);
+      auto composition = [](M m1, M m2){ return m1 + m2; };
+      auto apply = [](X x, M m){return X(x.x*m.a + m.b*x.len, x.len);};
+      return segment_tree_lazy<X, M>(merge, apply, composition, ex, em);
+  }
+  // auto lseg = make_lseg_rsq_raffinq();
+  // lseg.build(vector<X>(sz, X(<初期値>, 1))); // X(*, 1)を入れないといけないことに注意する。
+  // snippet:make_lseg_rsq_raffinq }}}
+
+
+snippet bellman_ford
+  // snippet:segment_tree {{{
+  template <typename X> struct SegmentTree {  // {{{
+      private:
+          using F = function<X(X, X)>;
+          using index = int;
+          int n;  // 元の配列のサイズ
+          int N;  // n以上の最小の2冪
+          vector<X> node;
+          F merge;
+          X identity;
+  
+      public:
+          SegmentTree() {}
+          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
+              n = (int)a.size();
+              N = 1;
+              while (N < n) N *= 2;
+              node.resize(2 * N - 1, identity);
+              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
+              for (int i = N - 2; i >= 0; i--)
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+          }
+          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
+  
+          X& operator[](index i) { return node[i + N - 1]; }
+  
+          void set(index i, X val) {
+              i += (N - 1);
+              node[i] = val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          void add(index i, X val) {
+              i += (N - 1);
+              node[i] += val;
+              while (i > 0) {
+                  i = (i - 1) / 2;
+                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
+              }
+          }
+  
+          // query for [a, b)
+          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
+              if (r < 0) r = N;
+              if (r <= a || b <= l) return identity;
+              if (a <= l && r <= b) return node[k];
+  
+              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
+              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
+              return merge(lv, rv);
+          }
+  
+          index find_most_left(index l, const function<bool(X)>& is_ok){
+              // lから右に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(l, *) has monotonity
+              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
+              // if such i does not exist, return n
+              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
+              assert(l <= res);
+              return res;
+          }
+          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
+              // params:
+                  // left_value = (a < l ? query(a, l) : ex)
+              // return (index i, X v)
+                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
+                  // v is the value s.t query(a, r)
+  
+              if (r <= a) return {n, identity};  // 区間が全く被っていない
+              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
+              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
+              else{
+                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
+                  if (lv != n) return {lv, xl};
+                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
+                  return {rv, xr};
+              }
+          }
+  
+          index find_most_right(index r, const function<bool(X)>& is_ok){
+              // rから左に探していってis_okが初めて成り立つようなindexを返す。
+              // assume query(*, r) has monotonity
+              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
+              // if such i does not exist, return -1
+              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
+              assert(res <= r);
+              return res;
+          }
+          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
+              if (b <= l) return {-1, identity};  // 区間が全く被っていない
+              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
+              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
+              else{
+                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
+                  if (rv != -1) return {rv, xr};
+                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
+                  return {lv, xl};
+              }
+          }
+  
+          #if defined(PCM) || defined(LOCAL)
+          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
+              os << "[";
+              for (int i = 0; i < sg.n; i++) {
+                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
+              }
+              return os;
+          }
+          #endif
+  };/*}}}*/
+  // sample of initialize SegmentTree:
+  // -----------------------------------------------
+  // auto mymin=[](auto a, auto b){return min(a,b);};
+  // ll e = 1e18;
+  // SegmentTree<ll> seg(a, mymin, e);
+  
+  // auto mymax=[](auto a, auto b){return max(a,b);};
+  // ll e = -1e18;
+  // SegmentTree<ll> seg(a, mymax, e);
+  
+  // auto add=[](auto a, auto b){return a+b;};
+  // ll e = 0;
+  // SegmentTree<ll> seg(a, add, e);
+  
+  // pair<int, int> get_nearest_index_of_smaller_element(int i){
+  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
+  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
+  //     return {left, right};
+  // }
+  // -----------------------------------------------
+  // snippet:segment_tree }}}
+  
+  // snippet:edge {{{
+  template<class Cost=ll>
+  struct Edge {
+      int from, to;
+      Cost cost;
+      int idx;
+      Edge(){};
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
+  
+      friend ostream& operator<<(ostream& os, const Edge& e) {
+          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+          os << "(" << e.from << "," << e.to << ")";
+          return os;
+      }
+  };
+  // snippet:edge }}}
+  
+  // snippet:union_find {{{
+  struct union_find {
+      vector<int> par;   // par[x]: parent of x. if root, -size.
+      int gcount;         // count of groups
+  
+      union_find() {}
+      union_find(int _n) : par(_n, -1), gcount(_n) {}
+      bool merge(int x, int y) { 
+          x = root(x);
+          y = root(y);
+          if (x != y) {
+              if (par[y] < par[x]) swap(x, y);
+              par[x] += par[y];
+              par[y] = x;
+              gcount--;
+          }
+          return x != y;
+      } 
+      int root(int x) {
+          if (is_root(x)){
+              return x;
+          }
+          else{
+              return par[x] = root(par[x]);  // 経路圧縮
+              // return root(par[x]);         // 経路圧縮なし
+          }
+      }
+      bool is_root(int x) { return par[x] < 0; }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -par[root(x)]; }
+  
+      map<int, vector<int>> group(){
+          map<int, vector<int>> res;
+          rep(i, sz(this->par)) { res[this->root(i)].pb(i); }
+          return res;
+      }
+  
+      #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, union_find& uf) {
+          auto group = uf.group();
           os << endl;
-          os << "_is_build: " << zp._is_build << endl;
-          os << "zip_map:   " << zp.zip_map << endl;
-          os << "_unzipper:   " << zp._unzipper << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+      #endif  // }}}
+  };
+  // snippet:union_find }}}
+  
+  // snippet:tree {{{
+  template<class Cost=ll>
+  struct tree { 
+      int n;
+      int root;
+      vector<int> par;   // par[i]: dfs木における親
+      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
+      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
+      vector<int> ord;    // ord[u]: uのdfs木における訪問順
+      vector<int> end;    // end[u]: uのdfs終了時のカウンター
+      vector<int> psize;  // psize[u]: uのpartial tree size
+      // uの部分木は[ord[u], end[u])
+      // ordとdfstrvは逆変換
+      vector<int> depth;   // depth[i]: dfs木でのiの深さ
+      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
+      vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
+      auto operator[](int pos) const { return adj_list[pos]; }
+      vector<vector<int>> children;
+      vector<int> euler_tour;
+      vector<int> et_fpos;    // euler_tour first occurence position
+      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
+      vector<int> head_of_comp;
+      int _counter = 0;
+  
+      tree(){};/*{{{*/
+      tree(int n_)
+          : n(n_),
+            par(n_),
+            edge(n_),
+            ord(n_),
+            end(n_),
+            psize(n_),
+            depth(n_),
+            ldepth(n_),
+            adj_list(n_),
+            children(n_),
+            et_fpos(n_),
+            head_of_comp(n_){};/*}}}*/
+      void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
+          adj_list[u].emplace_back(u, v, cost, idx);
+          adj_list[v].emplace_back(v, u, cost, idx);
+      }                             /*}}}*/
+      void add_edge(int u, int v) { /*{{{*/
+          adj_list[u].emplace_back(u, v, 1, -1);
+          adj_list[v].emplace_back(v, u, 1, -1);
+      }                      /*}}}*/
+      void build(int _root) { /*{{{*/
+          root = _root;
+          _counter = 0;
+          par[root] = -1;
+          edge[root] = nullptr;
+          _dfs_psize(root, -1);
+          _dfs_tree(root, -1, root);
+          _dfs_et(root);
+          vector<int> ini(2 * n - 1);
+          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
+          _seg = SegmentTree<int>(
+              ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
+      }                                /*}}}*/
+      int _dfs_psize(int u, int pre) { /*{{{*/
+          psize[u] = 1;
+          each(e, adj_list[u]) {
+              if (e.to == pre) continue;
+              psize[u] += _dfs_psize(e.to, u);
+          }
+          return psize[u];
+      }                                               /*}}}*/
+      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
+          dfstrv.pb(u);
+          ord[u] = _counter;
+          if (pre != -1) {
+              depth[u] = depth[pre] + 1;
+              ldepth[u] = ldepth[pre] + edge[u]->cost;
+          }
+  
+          _counter++;
+          {
+              // set most heavy child to top
+              int max_psize = 0;
+              int most_heavy_i = -1;
+              for(int i = 0; i < sz(adj_list[u]); ++i) {
+                  if (adj_list[u][i].to == pre) continue;
+                  if (psize[adj_list[u][i].to] > max_psize) {
+                      most_heavy_i = i;
+                      max_psize = psize[adj_list[u][i].to];
+                  }
+              }
+              if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
+          }
+  
+          head_of_comp[u] = head_node;
+          rep(i, sz(adj_list[u])) {
+              int v = adj_list[u][i].to;
+              if (v == pre) continue;
+  
+              children[u].pb(v);
+              par[v] = u;
+              edge[v] = &adj_list[u][i];
+  
+              if (i == 0)
+                  _dfs_tree(v, u, head_node);  // continue components
+              else
+                  _dfs_tree(v, u, v);  // new
+          }
+          end[u] = _counter;
+      }                     /*}}}*/
+      void _dfs_et(int u) { /*{{{*/
+          et_fpos[u] = (int)euler_tour.size();
+          euler_tour.pb(u);
+          each(v, children[u]) {
+              _dfs_et(v);
+              euler_tour.pb(u);
+          }
+      }                       /*}}}*/
+      bool is_leaf(int u) {
+          return children[u].size() == 0;
+      }
+      int lca(int u, int v) { /*{{{*/
+          if (u == v) return u;
+          if (et_fpos[u] > et_fpos[v]) swap(u, v);
+          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
+      }                        /*}}}*/
+      int dist(int u, int v) { /*{{{*/
+          int p = lca(u, v);
+          return depth[u] + depth[v] - 2 * depth[p];
+      }                          /*}}}*/
+      Cost ldist(int u, int v) {  // length dist{{{
+          int p = lca(u, v);
+          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
+      }                           /*}}}*/
+      pair<int, int> diameter() { /*{{{*/
+          int u, v;
+          Cost max_len = *max_element(all(ldepth));
+          rep(i, n) {
+              if (ldepth[i] == max_len) {
+                  u = i;
+                  break;
+              }
+          }
+          Cost md = -1;
+          rep(i, n) {
+              Cost d = ldist(u, i);
+              if (d > md) {
+                  v = i;
+                  md = d;
+              }
+          }
+          return mp(u, v);
+      }                                                /*}}}*/
+      vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
+          // return {[l0, r0), [l1, r1), ....} for_edge=trueでlcaは除いて返すことに注意。
+          vector<pair<int, int>> res;
+          while (head_of_comp[u] != head_of_comp[v]) {
+              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
+                  res.push_back({ord[head_of_comp[v]], ord[v]+1});
+                  v = par[head_of_comp[v]];
+              } else {
+                  res.push_back({ord[head_of_comp[u]], ord[u]+1});
+                  u = par[head_of_comp[u]];
+              }
+          }
+          res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])+1});
+          return res;
+      }                              //}}}
+  #if defined(PCM) || defined(LOCAL) /*{{{*/
+      friend ostream& operator<<(ostream& os, const tree& tr) {
+          os << endl;
+          os << "par:         " << tr.par << endl;
+          os << "dfstrv:      " << tr.dfstrv << endl;
+          os << "ord:         " << tr.ord << endl;
+          os << "end:         " << tr.end << endl;
+          os << "depth:       " << tr.depth << endl;
+          os << "children:    " << tr.children << endl;
+          os << "euler_tour:  " << tr.euler_tour << endl;
+          os << "et_fpos:     " << tr.et_fpos << endl;
+          os << "head_of_comp:" << tr.head_of_comp << endl;
           return os;
       }
   #endif /*}}}*/
-  };     /*}}}*/
-  // How to use {{{
-  // construct
-  // auto z = zipper(x); // x: vector<long long>;
-  // auto z = zipper(x, inf<ll>);
+  }; 
+  // snippet:tree }}}
   
-  // auto z = zipper();
-  // z.add_value(3);
-  // z.add_value(5);
-  // z.add_value(10);
-  // z.add_value(100000000);
-  // z.build();
+  // snippet:Graph {{{
+  template<class Cost=ll>
+  struct Graph {
+      using Pos = int;  // int以外には対応しない。
   
-  // other method
-  // z(x[i]); -> zipped x[i]
-  // z.unzip(z(x[i])) -> x[i];
-  // z.zip(ll x) -> zipped x
-  // z.zip(vl v) -> zipped v
-  // }}}
-
-
-snippet hakidasi_xor
-  vector<ll> hakidasi_xor(vector<ll>& a){
-      int r = 0;
-      int n = sz(a);
-      r_rep(d, 0, 64){
-          int p = -1;
-          rep(i, r, n) {
-              if (a[i]>>d&1) {
-                  p = i;
+      int n;  // 頂点数
+      vector<vector<Edge<Cost>>> adj_list;
+      auto operator[](Pos pos) const { return adj_list[pos]; }
+      vector<Edge<Cost>> edges;
+      tree<Cost> tr;
+      Pos root;
+      vector<int> _used_in_dfs;
+      vector<int> lowlink;
+      Cost zerocost;
+      Cost infcost;
+  
+      Graph() {}
+      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
+      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
+  
+      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
+          adj_list[from].emplace_back(from, to, cost, idx);
+          edges.emplace_back(from, to, cost, idx);
+      }
+      void add_edge(Pos from, Pos to) {  // for ll
+          adj_list[from].emplace_back(from, to, 1, -1);
+          edges.emplace_back(from, to, 1, -1);
+      }/*}}}*/
+  
+      void build_tree(Pos _root) {/*{{{*/
+          root = _root;
+          _dfs_tree(root);
+          tr.build(root);
+          _make_lowlink();
+      }/*}}}*/
+  
+      vector<int> make_bipartite() {/*{{{*/
+          union_find buf(2 * n);
+          rep(u, n) {
+              each(e, adj_list[u]) {
+                  buf.merge(u, e.to + n);
+                  buf.merge(e.to, u + n);
               }
           }
-          if (p == -1) continue;
   
-          swap(a[r], a[p]);
-          rep(i, n){
-              if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
+          vector<int> res(n, -1);
+          rep(u, n) {
+              if (buf.same(u, u + n)) return res;
           }
-          r++;
-      }
-      vector<ll> res;
-      rep(i, r) res.pb(a[i]);
-      return res;
-  }
-
-
-snippet combination
-  const int mod = 1e9 + 7;
-  // const int mod = 998244353;
-  struct modint {  //{{{
-      ll x;
-      modint(ll x = 0) : x((x % mod + mod) % mod) {}
-  
-      // ?= operator
-      modint& operator+=(const modint a) {
-          (x += a.x) %= mod;
-          return *this;
-      }
-      modint& operator-=(const modint a) {
-          (x += mod - a.x) %= mod;
-          return *this;
-      }
-      modint& operator*=(const modint a) {
-          (x *= a.x) %= mod;
-          return *this;
-      }
-      modint& operator/=(const modint& rhs) {
-          if (rhs.x == 0) throw runtime_error("modint zero division");
-          return *this *= rhs.inv();
-      }
-  
-      modint operator+(const modint a) const {
-          modint res(*this);
-          return res += a;
-      }
-      modint operator-(const modint a) const {
-          modint res(*this);
-          return res -= a;
-      }
-      modint operator*(const modint a) const {
-          modint res(*this);
-          return res *= a;
-      }
-      modint operator/(const modint a) const {
-          modint res(*this);
-          return res /= a;
-      }
-  
-      modint pow(ll n) const {
-          modint res(1), x(*this);
-          if (n < 0) {
-              n = -n;
-              x = (*this).inv();
-          }
-          while (n) {
-              if (n & 1) res *= x;
-              x *= x;
-              n >>= 1;
+          rep(u, n) {
+              if (buf.same(0, u)) res[u] = 0;
+              else res[u] = 1;
           }
           return res;
-      }
+      }/*}}}*/
   
-      modint inv() const {
-          if (x == 0) throw runtime_error("inv does not exist");
-          return pow(mod - 2);
-      }
-      // modint inv()const{
-      //     int x,y;
-      //     int g=extgcd(v,mod,x,y);
-      //     assert(g==1);
-      //     if(x<0)x+=mod;
-      //     return modint(x);
-      // }
-  
-      bool operator<(const modint& r) const { return x < r.x; }
-      bool operator==(const modint& r) const { return x == r.x; }
-  };
-  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
-  //}}}
-  string to_string_mod(const modint& x){
-      return to_string(x.x);
-  }
-  using mint = modint;
-  
-  struct combination {  // {{{
-      vector<mint> fact, ifact;
-      combination(int n) : fact(n + 1), ifact(n + 1) {
-          assert(n < mod);
-          fact[0] = 1;
-          for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
-          ifact[n] = fact[n].inv();
-          for (int i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;
-      }
-      mint operator()(int n, int k) {
-          if (k < 0 || k > n) return 0;
-          return fact[n] * ifact[k] * ifact[n - k];
-      }
-  }  // }}}
-  com(500001);  // check this is enough
-
-
-snippet matrix_pow
-  // snippet:matrix_pow {{{
-  template <class value = ll>
-  using mat = vector<vector<value>>;
-  
-  template <class T>
-  mat<T> mul(const mat<T>& A, const mat<T>& B) {
-      mat<T> res(A.size(), vector<T>(B[0].size()));
-      rep(i, A.size()) {
-          rep(j, B[0].size()) {
-              rep(k, B.size()) {
-                  res[i][j] = (res[i][j] + A[i][k] * B[k][j]);
-              }
+      void _dfs_tree(Pos u) {/*{{{*/
+          _used_in_dfs[u] = 1;
+          each(e, adj_list[u]) {
+              if (_used_in_dfs[e.to]) continue;
+              tr.add_edge(u, e.to, e.cost);
+              _dfs_tree(e.to);
           }
-      }
-      return res;
-  }
+      }/*}}}*/
   
-  template <class T>
-  mat<T> pow(mat<T> A, ll n) {
-      mat<T> B(A.size(), vector<T>(A.size()));
-      rep(i, A.size()) {
-          B[i][i] = 1;  // E
-      }
-      while (n > 0) {
-          if (n & 1) B = mul(B, A);
-          A = mul(A, A);
-          n >>= 1;
-      }
-      return B;
-  }
-  // snippet:matrix_pow }}}
-
-
-snippet rational
-alias fraction
-  // snippet:rational {{{
-  template<class T=ll> 
-  struct rational : public P2<T> {
-      rational(){}
-      rational(T _x, T _y) : P2<T>(_x, _y) {
-          T g = gcd(this->x, this->y);
-          this->x /= g; this->y /= g;
-          if (this->y<0 or (this->y==0 && this->x==-1)) this->x *= -1, this->y *= -1;
-      }
-  };
-  // rational(3, 5);
-  // assert(rational(3, 5) == rational(-6, -10));
-  // map<rational<ll>, int> cnt;  // keyにもできる。
-  // snippet:rational }}}
-
-
-snippet modint
-alias mint
-  const int mod = 1e9 + 7;
-  // const int mod = 998244353;
-  struct modint {  //{{{
-      ll x;
-      modint(ll x = 0) : x((x % mod + mod) % mod) {}
+      void _make_lowlink() {/*{{{*/
+          lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
+          r_rep(i, n) {
+              Pos u = tr.dfstrv[i];
+              chmin(lowlink[u], tr.ord[u]);
   
-      // ?= operator
-      modint& operator+=(const modint a) {
-          (x += a.x) %= mod;
-          return *this;
-      }
-      modint& operator-=(const modint a) {
-          (x += mod - a.x) %= mod;
-          return *this;
-      }
-      modint& operator*=(const modint a) {
-          (x *= a.x) %= mod;
-          return *this;
-      }
-      modint& operator/=(const modint& rhs) {
-          if (rhs.x == 0) throw runtime_error("modint zero division");
-          return *this *= rhs.inv();
-      }
-  
-      modint operator+(const modint a) const {
-          modint res(*this);
-          return res += a;
-      }
-      modint operator-(const modint a) const {
-          modint res(*this);
-          return res -= a;
-      }
-      modint operator*(const modint a) const {
-          modint res(*this);
-          return res *= a;
-      }
-      modint operator/(const modint a) const {
-          modint res(*this);
-          return res /= a;
-      }
-  
-      modint pow(ll n) const {
-          modint res(1), x(*this);
-          if (n < 0) {
-              n = -n;
-              x = (*this).inv();
-          }
-          while (n) {
-              if (n & 1) res *= x;
-              x *= x;
-              n >>= 1;
-          }
-          return res;
-      }
-  
-      modint inv() const {
-          if (x == 0) throw runtime_error("inv does not exist");
-          return pow(mod - 2);
-      }
-      // modint inv()const{
-      //     int x,y;
-      //     int g=extgcd(v,mod,x,y);
-      //     assert(g==1);
-      //     if(x<0)x+=mod;
-      //     return modint(x);
-      // }
-  
-      bool operator<(const modint& r) const { return x < r.x; }
-      bool operator==(const modint& r) const { return x == r.x; }
-  };
-  istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
-  ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
-  //}}}
-  string to_string_mod(const modint& x){
-      return to_string(x.x);
-  }
-  using mint = modint;
-
-
-snippet sieve
-alias prime_factor_by_sieve
-  // snippet:sieve {{{
-  struct Sieve {/*{{{*/
-      // エラトステネスのふるい O(NloglogN)
-      ll n;                              // n: max number for defined f and primes
-      vector<ll> f;                      // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]
-      vector<ll> primes;                 // [2, 3, 5, .......]
-      Sieve(ll n = 1) : n(n), f(n + 1) { /*{{{*/
-          f[0] = f[1] = -1;
-          for (ll i = 2; i <= n; ++i) {
-              if (f[i]) continue;
-              primes.push_back(i);
-              f[i] = i;
-              for (ll j = i * i; j <= n; j += i) {
-                  if (!f[j]) f[j] = i;
-              }
-          }
-      } /*}}}*/
-      bool is_prime(ll x) {
-          if (x <= n) return f[x] == x; 
-          return sz(factor_list(x)) == 1;
-      }
-  
-      vector<ll> factor_list(ll x) { /*{{{*/
-          assert(0 < x && x <= n*n); // これが満たされないと正しく計算されない可能性がある。
-  
-          vector<ll> res;
-          if (x <= n) {
-              while (x != 1) {
-                  res.push_back(f[x]);
-                  x /= f[x];
-              }
-          }
-          else {
-              for (ll i = 0; primes[i] * primes[i] <= x; i++) {
-                  while (x % primes[i] == 0) {
-                      res.pb(primes[i]);
-                      x /= primes[i];
+              each(e, adj_list[u]) {
+                  if (e.to == tr.par[u])
+                      continue;
+                  else if (tr.ord[e.to] < tr.ord[u]) {
+                      chmin(lowlink[u], tr.ord[e.to]);
+                  } else {
+                      chmin(lowlink[u], lowlink[e.to]);
                   }
               }
-              if (x != 1) res.pb(x);
           }
+      }/*}}}*/
   
-          return res;  // [2, 3, 3, 5, 5, 5.....]
-      }                /*}}}*/
+      vector<Pos> get_articulation_points() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
   
-      vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/
-          // just change fl vector to map form
-          vector<ll> fl = factor_list(x);
-          if (fl.size() == 0) return {};
-          vector<pair<ll, ll>> res = {mp(fl[0], 0)};
-          for (ll p : fl) {
-              if (res.back().first == p) {
-                  res.back().second++;
-              } else {
-                  res.emplace_back(p, 1);
+          vector<Pos> res;
+          if (sz(tr.children[root]) > 1) {
+              res.push_back(root);
+          }
+          rep(u, 0, n) {
+              if (u == root) continue;
+              bool is_kan = false;
+              each(v, tr.children[u]) {
+                  if (tr.ord[u] <= lowlink[v]) {
+                      is_kan = true;
+                  }
+              }
+              if (is_kan) res.push_back(u);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge<Cost>> get_bridges() {/*{{{*/
+          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
+          vector<Edge<Cost>> res;
+          each(edge, edges){
+              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+          }
+          return res;
+      }/*}}}*/
+  
+      vector<Edge<Cost>> kruskal_tree() {/*{{{*/
+          // 使用される辺のvectorを返す
+          vector<Edge<Cost>> res(n - 1);
+          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
+          union_find uf(n);
+  
+          Cost total_cost = zerocost;
+          int idx = 0;
+          each(e, edges) {
+              if (uf.same(e.from, e.to)) continue;
+              uf.merge(e.from, e.to);
+              total_cost = total_cost + e.cost;
+              res[idx] = e;
+              idx++;
+          }
+          assert(idx == n - 1);
+  
+          return res;
+      }/*}}}*/
+  
+      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
+          vector<Cost> dist(n, infcost);           // 最短距離
+          PQ<pair<Cost, Pos>> pq;
+          each(start, starts) {
+              dist[start] = zerocost;
+              pq.push(make_pair(zerocost, start));
+          }
+          while (!pq.empty()) {
+              auto cp = pq.top();
+              pq.pop();
+              auto [cost, u] = cp;
+              if (cost > dist[u]) continue;
+              for (const auto& edge : adj_list[u]) {
+                  Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
+                  if (new_cost < dist[edge.to]) {
+                      dist[edge.to] = new_cost;
+                      pq.push(make_pair(new_cost, edge.to));
+                  }
               }
           }
-          return res;  // [(2,1), (3,2), (5,3), .....]
-      }                /*}}}*/
-  };/*}}}*/
-  Sieve sv(1e6);
-  // How to use
-      // sv.primes            // 素数のリスト
-      // sv.prime_factor(x);  // 素因数分解
-  // snippet:sieve }}}
-
-
-snippet mypow
-alias pow
-  template<class T>
-  T mypow(T x, int n, T e = 1) {  // e : *の単位元
-      // return x^n
-      T res(e);
-      while (n > 0) {
-          if (n & 1) res *= x;
-          x *= x;
-          n >>= 1;
-      }
-      return res;
-  }
-
-
-snippet P2
-alias pair
-  // snippet:P2 {{{
-  template<class T=ll>/*{{{*/
-  struct P2 {
-      T x, y;
-      P2(T _x, T _y) : x(_x), y(_y) {}
-      P2() {
-          x = 0;
-          y = 0;
-      }
-      bool operator<(const P2 &r) const {
-          return (x != r.x ? x < r.x : y < r.y);
-      }
-      bool operator>(const P2 &r) const {
-          return (x != r.x ? x > r.x : y > r.y);
-      }
-      bool operator==(const P2 &r) const { return (x == r.x && y == r.y); }
+          return dist;
+      };/*}}}*/
   
-      friend ostream &operator<<(ostream &stream, P2 p) {
-          stream << "(" << p.x << "," << p.y << ")";
-          return stream;
-      }
-  
-      P2 operator-() const {  // 単項演算子
-          return P2(-x, -y);
-      }
-  
-      P2& operator+=(const P2<T>& r){
-          x += r.x;
-          y += r.y;
-          return *this;
-      }
-      P2& operator-=(const P2<T>& r){
-          x -= r.x;
-          y -= r.y;
-          return *this;
-      }
-      P2& operator+=(const T& r){
-          x += r;
-          y += r;
-          return *this;
-      }
-      P2& operator-=(const T& r){
-          x -= r;
-          y -= r;
-          return *this;
-      }
-      P2& operator*=(const P2<T>& r){
-          x *= r.x;
-          y *= r.y;
-          return *this;
-      }
-      P2& operator/=(const P2<T>& r){
-          x /= r.x;
-          y /= r.y;
-          return *this;
-      }
-      P2& operator*=(const T& r){
-          x *= r;
-          y *= r;
-          return *this;
-      }
-      P2& operator/=(const T& r){
-          x /= r;
-          y /= r;
-          return *this;
-      }
-  
-      template<class U>
-      P2 operator+(const U& r) const {
-          P2 res(*this);
-          return res += r;
-      }
-      template<class U>
-      P2 operator-(const U& r) const {
-          P2 res(*this);
-          return res -= r;
-      }
-  
-      template<class U>
-      P2 operator*(const U& r) const {
-          P2 res(*this);
-          return res *= r;
-      }
-      template<class U>
-      P2 operator/(const U& r) const {
-          P2 res(*this);
-          return res /= r;
-      }
-  
-  
-      bool in(T a, T b, T c, T d) {  // x in [a, b) && y in [c, d)
-          if (a <= x && x < b && c <= y && y < d) return true;
-          else return false;
-      }
-  
+      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
+          vector<Pos> starts = {start};
+          return dijkstra(starts);
+      };/*}}}*/
   };
-  template<class T>
-  long double dist(const P2<T>& p, const P2<T>& q){
-      return sqrt((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y));
-  }
+  // snippet:Graph }}}
   
-  /*}}}*/
-  using P = P2<ll>;
-  // snippet:P2 }}}
-
-
-snippet angle
-  struct Angle{
-      ll x, y; // 実際には10^9くらいまでしか入れられない。
-      int _orthant;  // 象限
-      Angle(){};
-      Angle(ll _x, ll _y): x(_x), y(_y){
-          assert(x != 0 || y != 0);
-          ll g = gcd(abs(x), abs(y));
-          x /= g;
-          y /= g;
-          if(y >= 0) _orthant = (x >= 0 ? 0 : 1);
-          else _orthant = (x >= 0 ? 3 : 2);
-      }
-  
-      bool operator<(const Angle &r) const {
-          return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y - y * r.x > 0);
-      }
-  
-      bool operator==(const Angle &r) const { return (x == r.x && y == r.y); }
-  
-      long double operator-(const Angle& r) const {
-          // rを起点に見て何度進んでいるかradianで返す
-          return rad() - r.rad();
-      }
-  
-      long double rad() const {
-          long double r = atan2(y, x); 
-          return (r<0 ? (r + M_PI*2.0) : r);
-      }
-      long double const deg(){ return rad() * 180.0/ M_PI; }
-  
-      Angle rot_90() const { return Angle(-y, x); }
-  
-      Angle rot_r90() const { return Angle(y, -x); }
-  
-      friend ostream &operator<<(ostream &stream, Angle p) {
-          stream << "(" << p.x << "," << p.y << ")";
-          return stream;
-      }
-  };
-
-
-snippet AreaRect
-  // snippet:AreaRect {{{
-  class AreaRect { //(0,0)-(X,Y)の矩形の面積の総和
-  	map<ll,ll> M;  // 矩形の右端を管理
-  public:
-  	ll sum;
-  	AreaRect() {
-  		M[0] = 1LL<<60;  // 番兵
-  		M[1LL<<60] = 0;  // 番兵
-  		sum = 0;
-  	}
-  	void add(ll x, ll y) {
-  		auto k = M.lower_bound(x);
-  		if (k->second >= y) return;
-  		while(true) {
-              if (auto p = *prev(M.lower_bound(x)); p.second > y){
-                  break;
+  // snippet:bellman_ford {{{
+  auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
+      vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
+      dist[start] = g.zerocost;
+      for (int i = 0; i < g.n; i++) {
+          each(edge, g.edges){
+              if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from] + edge.cost) {
+                  dist[edge.to] = dist[edge.from] + edge.cost;
+                  if (i == g.n - 1)
+                      return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在
               }
-              else{;
-                  M.erase(p.first);
-                  sum -= (p.first - prev(M.lower_bound(p.first))->first) * (p.second - M.lower_bound(x)->second);
-              }
-  		}
-  		sum += (x - prev(M.lower_bound(x))->first) * (y - M.lower_bound(x)->second);
-  		M[x] = y;
-  	}
+          }
+      }
+      return make_pair(false, dist);
+  }
+  // snippet:bellman_ford }}}
+
+
+snippet edge
+  // snippet:edge {{{
+  template<class Cost=ll>
+  struct Edge {
+      int from, to;
+      Cost cost;
+      int idx;
+      Edge(){};
+      Edge(int from_, int to_, Cost cost_, int idx_)
+          : from(from_), to(to_), cost(cost_), idx(idx_) {}
+  
+      friend ostream& operator<<(ostream& os, const Edge& e) {
+          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
+          os << "(" << e.from << "," << e.to << ")";
+          return os;
+      }
   };
-  // snippet:AreaRect }}}
+  // snippet:edge }}}
+
+
+snippet union_find
+  // snippet:union_find {{{
+  struct union_find {
+      vector<int> par;   // par[x]: parent of x. if root, -size.
+      int gcount;         // count of groups
+  
+      union_find() {}
+      union_find(int _n) : par(_n, -1), gcount(_n) {}
+      bool merge(int x, int y) { 
+          x = root(x);
+          y = root(y);
+          if (x != y) {
+              if (par[y] < par[x]) swap(x, y);
+              par[x] += par[y];
+              par[y] = x;
+              gcount--;
+          }
+          return x != y;
+      } 
+      int root(int x) {
+          if (is_root(x)){
+              return x;
+          }
+          else{
+              return par[x] = root(par[x]);  // 経路圧縮
+              // return root(par[x]);         // 経路圧縮なし
+          }
+      }
+      bool is_root(int x) { return par[x] < 0; }
+      bool same(int x, int y) { return root(x) == root(y); }
+      int size(int x) { return -par[root(x)]; }
+  
+      map<int, vector<int>> group(){
+          map<int, vector<int>> res;
+          rep(i, sz(this->par)) { res[this->root(i)].pb(i); }
+          return res;
+      }
+  
+      #if defined(PCM) || defined(LOCAL)  // {{{
+      friend ostream& operator<<(ostream& os, union_find& uf) {
+          auto group = uf.group();
+          os << endl;
+          each(g, group) { os << g << endl; }
+          return os;
+      }
+      #endif  // }}}
+  };
+  // snippet:union_find }}}
 
 
 snippet topological_sort
@@ -4345,27 +4996,7 @@ alias tps
   // snippet:topological_sort }}}
 
 
-snippet edge
-  // snippet:edge {{{
-  template<class Cost=ll>
-  struct Edge {
-      int from, to;
-      Cost cost;
-      int idx;
-      Edge(){};
-      Edge(int from_, int to_, Cost cost_, int idx_)
-          : from(from_), to(to_), cost(cost_), idx(idx_) {}
-  
-      friend ostream& operator<<(ostream& os, const Edge& e) {
-          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
-          os << "(" << e.from << "," << e.to << ")";
-          return os;
-      }
-  };
-  // snippet:edge }}}
-
-
-snippet two_sat
+snippet Graph
   // snippet:segment_tree {{{
   template <typename X> struct SegmentTree {  // {{{
       private:
@@ -4910,159 +5541,6 @@ snippet two_sat
       };/*}}}*/
   };
   // snippet:Graph }}}
-  
-  // snippet:topological_sort {{{
-  using Pos = int;
-  tuple<bool, vector<Pos>, int> topological_sort(const Graph<>& g) {
-      vector<Pos> res;  // sort後の結果を格納
-      vector<int> h(g.n);  // 頂点ごとの入次数
-      stack<Pos> st;    // 入次数が0になっている頂点の集合
-      int max_len = 0;   // 最長経路の長さ
-  
-      // 入次数を計算する。
-      rep(u, g.n) {
-          for (const auto& edge : g[u]) {
-              h[edge.to]++;
-          }
-      }
-  
-      // 最初に入次数0になっている頂点を集める。
-      rep(u, g.n) {
-          if (h[u] == 0) {
-              st.push(u);
-              res.push_back(u);
-          }
-      }
-  
-      // 入次数0の頂点をresに追加しそこから出て行く辺は削除していく。O(g.n+E)
-      while (!st.empty()) {
-          stack<Pos> nex_st;
-          while (!st.empty()) {
-              Pos u = st.top(); st.pop();
-              for (const auto& edge : g[u]) {
-                  h[edge.to]--;
-                  if (h[edge.to] == 0) {
-                      res.push_back(edge.to);
-                      nex_st.push(edge.to);
-                  }
-              }
-          }
-          max_len++;
-          st = nex_st;
-      }
-      
-      bool is_valid = (sz(res)==g.n ? true : false);
-      return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
-  }
-  // snippet:topological_sort }}}
-  
-  // snippet:scc {{{
-  template<class T = ll>
-  struct StronglyConnectedComponents {
-      const Graph<T> &g;  //{{{
-      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
-      Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
-      Graph<> _rg;  // reversed graph
-      vector<int> _order;  // order[i]: 帰りがけ順
-      vector<int> _used;
-  
-      StronglyConnectedComponents(Graph<T> &_g)
-          : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
-          for (int i = 0; i < g.n; i++) {
-              for (auto e : g[i]) {
-                  _rg.add_edge(e.to, e.from);
-              }
-          }
-          _build();
-      }
-  
-      int operator[](int k) { return comp[k]; }
-  
-      void _build() {
-          for (int i = 0; i < g.n; i++) _dfs(i);
-          reverse(begin(_order), end(_order));
-          int cnt = 0;
-          for (int u : _order)
-              if (comp[u] == -1) _rdfs(u, cnt), cnt++;
-  
-          dag = Graph(cnt);
-          for (int u = 0; u < g.n; u++) {
-              for (auto &e : g[u]) {
-                  if (comp[u] == comp[e.to]) continue;
-                  dag.add_edge(comp[u], comp[e.to]);
-              }
-          }
-      }
-  
-      void _dfs(int idx) {
-          if (_used[idx]) return;
-          _used[idx] = true;
-          for (auto &e : g[idx]) _dfs(e.to);
-          _order.push_back(idx);
-      }
-  
-      void _rdfs(int idx, int cnt) {
-          if (comp[idx] != -1) return;
-          comp[idx] = cnt;
-          for (auto e : _rg[idx]) _rdfs(e.to, cnt);
-      }  //}}}
-  };
-  // how to use
-  // StronglyConnectedComponents scc(g); // g: Graph
-  // dump(scc.comp, scc.dag.adj_list);
-  // snippet:scc }}}
-  
-  // snippet:two_sat {{{
-  struct two_sat{
-      using Pos = int;
-      using Size = int;
-      Size orig_n;
-      Graph<bool> g;
-      vector<int> assigned;
-  
-      two_sat(Size _orig_n): orig_n(_orig_n){
-          g = Graph<bool>(orig_n * 2);  // 頂点倍加
-      };
-  
-      Pos toid(Pos u, bool is_u) {
-          return u * 2 + is_u;
-      }
-  
-      void add_condition(Pos u, bool is_u, Pos v, bool is_v) {
-          // add condition (u == is_u or v == is_v)
-          g.add_edge(toid(u, is_u^1), toid(v, is_v));
-          g.add_edge(toid(v, is_v^1), toid(u, is_u));
-      }
-  
-      bool build(){
-          // if successed to assigne valiables, return true, else return false。
-          StronglyConnectedComponents scc(g);
-          auto ts = get<1>(topological_sort(scc.dag));
-          vector<Size> ord(sz(ts));
-          rep(i, sz(ts)) ord[ts[i]] = i;
-  
-          // check valid
-          rep(u, orig_n){
-              if (scc.comp[toid(u, 0)] == scc.comp[toid(u, 1)]) {
-                  return false;
-              }
-          }
-  
-          assigned = vector<int>(orig_n, -1);
-          rep(u, orig_n){
-              assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);
-          }
-          return true;
-      }
-  };
-  // how to use
-  // two_sat ts(n); // n変数
-  // ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)
-  // ......
-  // ......
-  // auto valid = ts.build();
-  // if (valid) dump(ts.assigned);
-  // snippet:two_sat }}}
 
 
 snippet union_find_with_potential
@@ -6365,57 +6843,7 @@ snippet local_min_cycle_directed
   // snippet:local_min_cycle_directed }}}
 
 
-snippet union_find
-  // snippet:union_find {{{
-  struct union_find {
-      vector<int> par;   // par[x]: parent of x. if root, -size.
-      int gcount;         // count of groups
-  
-      union_find() {}
-      union_find(int _n) : par(_n, -1), gcount(_n) {}
-      bool merge(int x, int y) { 
-          x = root(x);
-          y = root(y);
-          if (x != y) {
-              if (par[y] < par[x]) swap(x, y);
-              par[x] += par[y];
-              par[y] = x;
-              gcount--;
-          }
-          return x != y;
-      } 
-      int root(int x) {
-          if (is_root(x)){
-              return x;
-          }
-          else{
-              return par[x] = root(par[x]);  // 経路圧縮
-              // return root(par[x]);         // 経路圧縮なし
-          }
-      }
-      bool is_root(int x) { return par[x] < 0; }
-      bool same(int x, int y) { return root(x) == root(y); }
-      int size(int x) { return -par[root(x)]; }
-  
-      map<int, vector<int>> group(){
-          map<int, vector<int>> res;
-          rep(i, sz(this->par)) { res[this->root(i)].pb(i); }
-          return res;
-      }
-  
-      #if defined(PCM) || defined(LOCAL)  // {{{
-      friend ostream& operator<<(ostream& os, union_find& uf) {
-          auto group = uf.group();
-          os << endl;
-          each(g, group) { os << g << endl; }
-          return os;
-      }
-      #endif  // }}}
-  };
-  // snippet:union_find }}}
-
-
-snippet Graph
+snippet two_sat
   // snippet:segment_tree {{{
   template <typename X> struct SegmentTree {  // {{{
       private:
@@ -6960,6 +7388,159 @@ snippet Graph
       };/*}}}*/
   };
   // snippet:Graph }}}
+  
+  // snippet:topological_sort {{{
+  using Pos = int;
+  tuple<bool, vector<Pos>, int> topological_sort(const Graph<>& g) {
+      vector<Pos> res;  // sort後の結果を格納
+      vector<int> h(g.n);  // 頂点ごとの入次数
+      stack<Pos> st;    // 入次数が0になっている頂点の集合
+      int max_len = 0;   // 最長経路の長さ
+  
+      // 入次数を計算する。
+      rep(u, g.n) {
+          for (const auto& edge : g[u]) {
+              h[edge.to]++;
+          }
+      }
+  
+      // 最初に入次数0になっている頂点を集める。
+      rep(u, g.n) {
+          if (h[u] == 0) {
+              st.push(u);
+              res.push_back(u);
+          }
+      }
+  
+      // 入次数0の頂点をresに追加しそこから出て行く辺は削除していく。O(g.n+E)
+      while (!st.empty()) {
+          stack<Pos> nex_st;
+          while (!st.empty()) {
+              Pos u = st.top(); st.pop();
+              for (const auto& edge : g[u]) {
+                  h[edge.to]--;
+                  if (h[edge.to] == 0) {
+                      res.push_back(edge.to);
+                      nex_st.push(edge.to);
+                  }
+              }
+          }
+          max_len++;
+          st = nex_st;
+      }
+      
+      bool is_valid = (sz(res)==g.n ? true : false);
+      return {is_valid, res, max_len};  // res.size()<g.nなら閉路がありDAGではない。閉路内の頂点はstに入り得ないので。
+  }
+  // snippet:topological_sort }}}
+  
+  // snippet:scc {{{
+  template<class T = ll>
+  struct StronglyConnectedComponents {
+      const Graph<T> &g;  //{{{
+      vector<int> comp;  // comp[i]: iが属する強連結成分が何番目の成分か
+      Graph<> dag;  // 縮約されたDAG graph. sizeをとれば強連結成分の個数が分かる。
+      Graph<> _rg;  // reversed graph
+      vector<int> _order;  // order[i]: 帰りがけ順
+      vector<int> _used;
+  
+      StronglyConnectedComponents(Graph<T> &_g)
+          : g(_g), comp(_g.n, -1), _rg(_g.n), _used(_g.n) {
+          for (int i = 0; i < g.n; i++) {
+              for (auto e : g[i]) {
+                  _rg.add_edge(e.to, e.from);
+              }
+          }
+          _build();
+      }
+  
+      int operator[](int k) { return comp[k]; }
+  
+      void _build() {
+          for (int i = 0; i < g.n; i++) _dfs(i);
+          reverse(begin(_order), end(_order));
+          int cnt = 0;
+          for (int u : _order)
+              if (comp[u] == -1) _rdfs(u, cnt), cnt++;
+  
+          dag = Graph(cnt);
+          for (int u = 0; u < g.n; u++) {
+              for (auto &e : g[u]) {
+                  if (comp[u] == comp[e.to]) continue;
+                  dag.add_edge(comp[u], comp[e.to]);
+              }
+          }
+      }
+  
+      void _dfs(int idx) {
+          if (_used[idx]) return;
+          _used[idx] = true;
+          for (auto &e : g[idx]) _dfs(e.to);
+          _order.push_back(idx);
+      }
+  
+      void _rdfs(int idx, int cnt) {
+          if (comp[idx] != -1) return;
+          comp[idx] = cnt;
+          for (auto e : _rg[idx]) _rdfs(e.to, cnt);
+      }  //}}}
+  };
+  // how to use
+  // StronglyConnectedComponents scc(g); // g: Graph
+  // dump(scc.comp, scc.dag.adj_list);
+  // snippet:scc }}}
+  
+  // snippet:two_sat {{{
+  struct two_sat{
+      using Pos = int;
+      using Size = int;
+      Size orig_n;
+      Graph<bool> g;
+      vector<int> assigned;
+  
+      two_sat(Size _orig_n): orig_n(_orig_n){
+          g = Graph<bool>(orig_n * 2);  // 頂点倍加
+      };
+  
+      Pos toid(Pos u, bool is_u) {
+          return u * 2 + is_u;
+      }
+  
+      void add_condition(Pos u, bool is_u, Pos v, bool is_v) {
+          // add condition (u == is_u or v == is_v)
+          g.add_edge(toid(u, is_u^1), toid(v, is_v));
+          g.add_edge(toid(v, is_v^1), toid(u, is_u));
+      }
+  
+      bool build(){
+          // if successed to assigne valiables, return true, else return false。
+          StronglyConnectedComponents scc(g);
+          auto ts = get<1>(topological_sort(scc.dag));
+          vector<Size> ord(sz(ts));
+          rep(i, sz(ts)) ord[ts[i]] = i;
+  
+          // check valid
+          rep(u, orig_n){
+              if (scc.comp[toid(u, 0)] == scc.comp[toid(u, 1)]) {
+                  return false;
+              }
+          }
+  
+          assigned = vector<int>(orig_n, -1);
+          rep(u, orig_n){
+              assigned[u] = (ord[scc.comp[toid(u, 0)]] < ord[scc.comp[toid(u, 1)]] ? 1 : 0);
+          }
+          return true;
+      }
+  };
+  // how to use
+  // two_sat ts(n); // n変数
+  // ts.add_condition(x, 1, y, 0);  // represents (x==1 or y==0)
+  // ......
+  // ......
+  // auto valid = ts.build();
+  // if (valid) dump(ts.assigned);
+  // snippet:two_sat }}}
 
 
 snippet scc
@@ -7566,568 +8147,94 @@ alias StronglyConnectedComponents
   // snippet:scc }}}
 
 
-snippet bellman_ford
-  // snippet:segment_tree {{{
-  template <typename X> struct SegmentTree {  // {{{
-      private:
-          using F = function<X(X, X)>;
-          using index = int;
-          int n;  // 元の配列のサイズ
-          int N;  // n以上の最小の2冪
-          vector<X> node;
-          F merge;
-          X identity;
-  
-      public:
-          SegmentTree() {}
-          SegmentTree(vector<X> a, F f, X id) : merge(f), identity(id) {
-              n = (int)a.size();
-              N = 1;
-              while (N < n) N *= 2;
-              node.resize(2 * N - 1, identity);
-              for (int i = 0; i < n; i++) node[i + N - 1] = a[i];
-              for (int i = N - 2; i >= 0; i--)
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-          }
-          SegmentTree(int sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}
-  
-          X& operator[](index i) { return node[i + N - 1]; }
-  
-          void set(index i, X val) {
-              i += (N - 1);
-              node[i] = val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          void add(index i, X val) {
-              i += (N - 1);
-              node[i] += val;
-              while (i > 0) {
-                  i = (i - 1) / 2;
-                  node[i] = merge(node[2 * i + 1], node[2 * i + 2]);
-              }
-          }
-  
-          // query for [a, b)
-          X query(index a, index b, int k = 0, index l = 0, index r = -1) {
-              if (r < 0) r = N;
-              if (r <= a || b <= l) return identity;
-              if (a <= l && r <= b) return node[k];
-  
-              X lv = query(a, b, 2 * k + 1, l, (l + r) / 2);
-              X rv = query(a, b, 2 * k + 2, (l + r) / 2, r);
-              return merge(lv, rv);
-          }
-  
-          index find_most_left(index l, const function<bool(X)>& is_ok){
-              // lから右に探していってis_okが初めて成り立つようなindexを返す。
-              // assume query(l, *) has monotonity
-              // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.
-              // if such i does not exist, return n
-              index res = _find_most_left(l, is_ok, 0, 0, N, identity).first;
-              assert(l <= res);
-              return res;
-          }
-          pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int k, index l, index r, X left_value){
-              // params:
-                  // left_value = (a < l ? query(a, l) : ex)
-              // return (index i, X v)
-                  // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n
-                  // v is the value s.t query(a, r)
-  
-              if (r <= a) return {n, identity};  // 区間が全く被っていない
-              else if (a <= l && !is_ok(merge(left_value, node[k]))) return {n, merge(left_value, node[k])};
-              else if (k >= N-1) return {k - (N-1), merge(left_value, node[k])};
-              else{
-                  auto [lv, xl] = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);
-                  if (lv != n) return {lv, xl};
-                  auto [rv, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r, xl);
-                  return {rv, xr};
-              }
-          }
-  
-          index find_most_right(index r, const function<bool(X)>& is_ok){
-              // rから左に探していってis_okが初めて成り立つようなindexを返す。
-              // assume query(*, r) has monotonity
-              // return index i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.
-              // if such i does not exist, return -1
-              index res = _find_most_right(r+1, is_ok, 0, 0, N, identity).first;
-              assert(res <= r);
-              return res;
-          }
-          pair<index, X> _find_most_right(index b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){
-              if (b <= l) return {-1, identity};  // 区間が全く被っていない
-              else if (r <= b && !is_ok(merge(node[k], right_value))) return {-1, merge(node[k], right_value)};
-              else if (k >= N-1) return {k - (N-1), merge(node[k], right_value)};
-              else{
-                  auto [rv, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);
-                  if (rv != -1) return {rv, xr};
-                  auto [lv, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);
-                  return {lv, xl};
-              }
-          }
-  
-          #if defined(PCM) || defined(LOCAL)
-          friend ostream& operator<<(ostream& os, SegmentTree<X>& sg) {  //
-              os << "[";
-              for (int i = 0; i < sg.n; i++) {
-                  os << sg[i] << (i == sg.n - 1 ? "]\n" : ", ");
-              }
-              return os;
-          }
-          #endif
-  };/*}}}*/
-  // sample of initialize SegmentTree:
-  // -----------------------------------------------
-  // auto mymin=[](auto a, auto b){return min(a,b);};
-  // ll e = 1e18;
-  // SegmentTree<ll> seg(a, mymin, e);
-  
-  // auto mymax=[](auto a, auto b){return max(a,b);};
-  // ll e = -1e18;
-  // SegmentTree<ll> seg(a, mymax, e);
-  
-  // auto add=[](auto a, auto b){return a+b;};
-  // ll e = 0;
-  // SegmentTree<ll> seg(a, add, e);
-  
-  // pair<int, int> get_nearest_index_of_smaller_element(int i){
-  //     auto left = seg.find_most_right(i, [&](auto x){return x < a[i];});
-  //     auto right = seg.find_most_left(i, [&](auto x){return x < a[i];});
-  //     return {left, right};
-  // }
-  // -----------------------------------------------
-  // snippet:segment_tree }}}
-  
-  // snippet:edge {{{
-  template<class Cost=ll>
+snippet dinic
+alias flow
+  // snippet:dinic {{{
+  // Dinic: https://tubo28.me/compprog/algorithm/dinic/
+  using Capacity = int;
   struct Edge {
-      int from, to;
-      Cost cost;
-      int idx;
-      Edge(){};
-      Edge(int from_, int to_, Cost cost_, int idx_)
-          : from(from_), to(to_), cost(cost_), idx(idx_) {}
-  
-      friend ostream& operator<<(ostream& os, const Edge& e) {
-          // os << "(f:" << e.from << ", t:" << e.to << ", c:" << e.cost << ", i" << e.idx << ")";  // detailed
-          os << "(" << e.from << "," << e.to << ")";
-          return os;
-      }
+      int src, dst;
+      Capacity cap;
+      Edge(int src_, int dst_, Capacity cap_) : src(src_), dst(dst_), cap(cap_) {}
   };
-  // snippet:edge }}}
   
-  // snippet:union_find {{{
-  struct union_find {
-      vector<int> par;   // par[x]: parent of x. if root, -size.
-      int gcount;         // count of groups
-  
-      union_find() {}
-      union_find(int _n) : par(_n, -1), gcount(_n) {}
-      bool merge(int x, int y) { 
-          x = root(x);
-          y = root(y);
-          if (x != y) {
-              if (par[y] < par[x]) swap(x, y);
-              par[x] += par[y];
-              par[y] = x;
-              gcount--;
+  using Edges = vector<Edge>;
+  using Graph = vector<Edges>;
+  template <typename Flow = unsigned int>
+  struct dinic {
+      int n, s, t;
+      vector<int> level, prog, que;
+      vector<vector<Flow>> cap, flow;
+      vector<vector<int>> g;
+      Flow inf;
+      dinic(const Graph &graph)/*{{{*/
+          : n(graph.size()),
+            cap(n, vector<Flow>(n)),
+            flow(n, vector<Flow>(n)),
+            g(n, vector<int>()),
+            inf(numeric_limits<Flow>::max() / 8) {
+          for (int i = 0; i < n; i++) {
+              for (auto &e : graph[i]) {
+                  int u = e.src, v = e.dst;
+                  Flow c = e.cap;
+                  cap[u][v] += c;
+                  cap[v][u] += c;
+                  flow[v][u] += c;
+                  g[u].push_back(v);
+                  g[v].push_back(u);
+              }
           }
-          return x != y;
-      } 
-      int root(int x) {
-          if (is_root(x)){
-              return x;
+      }/*}}}*/
+      Flow solve(int s_, int t_) {/*{{{*/
+          this->t = t_, this->s = s_;
+          que.resize(n + 1);
+          Flow res = 0;
+          while (levelize()) {
+              prog.assign(n, 0);
+              res += augment(s, inf);
           }
-          else{
-              return par[x] = root(par[x]);  // 経路圧縮
-              // return root(par[x]);         // 経路圧縮なし
-          }
-      }
-      bool is_root(int x) { return par[x] < 0; }
-      bool same(int x, int y) { return root(x) == root(y); }
-      int size(int x) { return -par[root(x)]; }
-  
-      map<int, vector<int>> group(){
-          map<int, vector<int>> res;
-          rep(i, sz(this->par)) { res[this->root(i)].pb(i); }
           return res;
-      }
+      }/*}}}*/
   
-      #if defined(PCM) || defined(LOCAL)  // {{{
-      friend ostream& operator<<(ostream& os, union_find& uf) {
-          auto group = uf.group();
-          os << endl;
-          each(g, group) { os << g << endl; }
-          return os;
-      }
-      #endif  // }}}
+  private:
+      inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v]; }
+      bool levelize() {/*{{{*/
+          int l = 0, r = 0;
+          level.assign(n, -1);
+          level[s] = 0;
+          que[r++] = s;
+          while (l != r) {
+              int v = que[l++];
+              if (v == t) break;
+              for (const int &d : g[v])
+                  if (level[d] == -1 && residue(v, d) != 0) {
+                      level[d] = level[v] + 1;
+                      que[r++] = d;
+                  }
+          }
+          return level[t] != -1;
+      }/*}}}*/
+      Flow augment(int v, Flow lim) {/*{{{*/
+          Flow res = 0;
+          if (v == t) return lim;
+          for (int &i = prog[v]; i < (int)g[v].size(); i++) {
+              const int &d = g[v][i];
+              if (residue(v, d) == 0 || level[v] >= level[d]) continue;
+              const Flow aug = augment(d, std::min(lim, residue(v, d)));
+              flow[v][d] += aug;
+              flow[d][v] -= aug;
+              res += aug;
+              lim -= aug;
+              if (lim == 0) break;
+          }
+          return res;
+      }/*}}}*/
   };
-  // snippet:union_find }}}
-  
-  // snippet:tree {{{
-  template<class Cost=ll>
-  struct tree { 
-      int n;
-      int root;
-      vector<int> par;   // par[i]: dfs木における親
-      vector<Edge<Cost>*> edge;  // edge[i]: dfs木における親への辺のpointer
-      vector<int> dfstrv;  // dfstrv[i]: dfs木でi番目に訪れるノード。dpはこれを逆順に回す
-      vector<int> ord;    // ord[u]: uのdfs木における訪問順
-      vector<int> end;    // end[u]: uのdfs終了時のカウンター
-      vector<int> psize;  // psize[u]: uのpartial tree size
-      // uの部分木は[ord[u], end[u])
-      // ordとdfstrvは逆変換
-      vector<int> depth;   // depth[i]: dfs木でのiの深さ
-      vector<Cost> ldepth;  //  ldepth[i]: dfs木でのrootからの距離
-      vector<vector<Edge<Cost>>> adj_list;       // 辺(隣接リスト)
-      auto operator[](int pos) const { return adj_list[pos]; }
-      vector<vector<int>> children;
-      vector<int> euler_tour;
-      vector<int> et_fpos;    // euler_tour first occurence position
-      SegmentTree<int> _seg;  // seg(map(ord, euler_tour), mymin, 1e18)
-      vector<int> head_of_comp;
-      int _counter = 0;
-  
-      tree(){};/*{{{*/
-      tree(int n_)
-          : n(n_),
-            par(n_),
-            edge(n_),
-            ord(n_),
-            end(n_),
-            psize(n_),
-            depth(n_),
-            ldepth(n_),
-            adj_list(n_),
-            children(n_),
-            et_fpos(n_),
-            head_of_comp(n_){};/*}}}*/
-      void add_edge(int u, int v, Cost cost, int idx=-1) { /*{{{*/
-          adj_list[u].emplace_back(u, v, cost, idx);
-          adj_list[v].emplace_back(v, u, cost, idx);
-      }                             /*}}}*/
-      void add_edge(int u, int v) { /*{{{*/
-          adj_list[u].emplace_back(u, v, 1, -1);
-          adj_list[v].emplace_back(v, u, 1, -1);
-      }                      /*}}}*/
-      void build(int _root) { /*{{{*/
-          root = _root;
-          _counter = 0;
-          par[root] = -1;
-          edge[root] = nullptr;
-          _dfs_psize(root, -1);
-          _dfs_tree(root, -1, root);
-          _dfs_et(root);
-          vector<int> ini(2 * n - 1);
-          rep(i, 2 * n - 1) ini[i] = ord[euler_tour[i]];
-          _seg = SegmentTree<int>(
-              ini, [](auto a, auto b) { return min(a, b); }, numeric_limits<int>().max());
-      }                                /*}}}*/
-      int _dfs_psize(int u, int pre) { /*{{{*/
-          psize[u] = 1;
-          each(e, adj_list[u]) {
-              if (e.to == pre) continue;
-              psize[u] += _dfs_psize(e.to, u);
-          }
-          return psize[u];
-      }                                               /*}}}*/
-      void _dfs_tree(int u, int pre, int head_node) { /*{{{*/
-          dfstrv.pb(u);
-          ord[u] = _counter;
-          if (pre != -1) {
-              depth[u] = depth[pre] + 1;
-              ldepth[u] = ldepth[pre] + edge[u]->cost;
-          }
-  
-          _counter++;
-          {
-              // set most heavy child to top
-              int max_psize = 0;
-              int most_heavy_i = -1;
-              for(int i = 0; i < sz(adj_list[u]); ++i) {
-                  if (adj_list[u][i].to == pre) continue;
-                  if (psize[adj_list[u][i].to] > max_psize) {
-                      most_heavy_i = i;
-                      max_psize = psize[adj_list[u][i].to];
-                  }
-              }
-              if (most_heavy_i != -1) swap(adj_list[u][most_heavy_i], adj_list[u][0]);
-          }
-  
-          head_of_comp[u] = head_node;
-          rep(i, sz(adj_list[u])) {
-              int v = adj_list[u][i].to;
-              if (v == pre) continue;
-  
-              children[u].pb(v);
-              par[v] = u;
-              edge[v] = &adj_list[u][i];
-  
-              if (i == 0)
-                  _dfs_tree(v, u, head_node);  // continue components
-              else
-                  _dfs_tree(v, u, v);  // new
-          }
-          end[u] = _counter;
-      }                     /*}}}*/
-      void _dfs_et(int u) { /*{{{*/
-          et_fpos[u] = (int)euler_tour.size();
-          euler_tour.pb(u);
-          each(v, children[u]) {
-              _dfs_et(v);
-              euler_tour.pb(u);
-          }
-      }                       /*}}}*/
-      bool is_leaf(int u) {
-          return children[u].size() == 0;
-      }
-      int lca(int u, int v) { /*{{{*/
-          if (u == v) return u;
-          if (et_fpos[u] > et_fpos[v]) swap(u, v);
-          return dfstrv[_seg.query(et_fpos[u], et_fpos[v])];
-      }                        /*}}}*/
-      int dist(int u, int v) { /*{{{*/
-          int p = lca(u, v);
-          return depth[u] + depth[v] - 2 * depth[p];
-      }                          /*}}}*/
-      Cost ldist(int u, int v) {  // length dist{{{
-          int p = lca(u, v);
-          return ldepth[u] + ldepth[v] - 2 * ldepth[p];
-      }                           /*}}}*/
-      pair<int, int> diameter() { /*{{{*/
-          int u, v;
-          Cost max_len = *max_element(all(ldepth));
-          rep(i, n) {
-              if (ldepth[i] == max_len) {
-                  u = i;
-                  break;
-              }
-          }
-          Cost md = -1;
-          rep(i, n) {
-              Cost d = ldist(u, i);
-              if (d > md) {
-                  v = i;
-                  md = d;
-              }
-          }
-          return mp(u, v);
-      }                                                /*}}}*/
-      vector<pair<int, int>> hld_path(int u, int v, bool for_edge=true) {  //{{{
-          // return {[l0, r0), [l1, r1), ....} for_edge=trueでlcaは除いて返すことに注意。
-          vector<pair<int, int>> res;
-          while (head_of_comp[u] != head_of_comp[v]) {
-              if (depth[head_of_comp[u]] < depth[head_of_comp[v]]) {
-                  res.push_back({ord[head_of_comp[v]], ord[v]+1});
-                  v = par[head_of_comp[v]];
-              } else {
-                  res.push_back({ord[head_of_comp[u]], ord[u]+1});
-                  u = par[head_of_comp[u]];
-              }
-          }
-          res.push_back({min(ord[u], ord[v]) + (for_edge?1:0), max(ord[u], ord[v])+1});
-          return res;
-      }                              //}}}
-  #if defined(PCM) || defined(LOCAL) /*{{{*/
-      friend ostream& operator<<(ostream& os, const tree& tr) {
-          os << endl;
-          os << "par:         " << tr.par << endl;
-          os << "dfstrv:      " << tr.dfstrv << endl;
-          os << "ord:         " << tr.ord << endl;
-          os << "end:         " << tr.end << endl;
-          os << "depth:       " << tr.depth << endl;
-          os << "children:    " << tr.children << endl;
-          os << "euler_tour:  " << tr.euler_tour << endl;
-          os << "et_fpos:     " << tr.et_fpos << endl;
-          os << "head_of_comp:" << tr.head_of_comp << endl;
-          return os;
-      }
-  #endif /*}}}*/
-  }; 
-  // snippet:tree }}}
-  
-  // snippet:Graph {{{
-  template<class Cost=ll>
-  struct Graph {
-      using Pos = int;  // int以外には対応しない。
-  
-      int n;  // 頂点数
-      vector<vector<Edge<Cost>>> adj_list;
-      auto operator[](Pos pos) const { return adj_list[pos]; }
-      vector<Edge<Cost>> edges;
-      tree<Cost> tr;
-      Pos root;
-      vector<int> _used_in_dfs;
-      vector<int> lowlink;
-      Cost zerocost;
-      Cost infcost;
-  
-      Graph() {}
-      Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL), infcost(inf<Cost>) { }
-      Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }
-  
-      void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
-          adj_list[from].emplace_back(from, to, cost, idx);
-          edges.emplace_back(from, to, cost, idx);
-      }
-      void add_edge(Pos from, Pos to) {  // for ll
-          adj_list[from].emplace_back(from, to, 1, -1);
-          edges.emplace_back(from, to, 1, -1);
-      }/*}}}*/
-  
-      void build_tree(Pos _root) {/*{{{*/
-          root = _root;
-          _dfs_tree(root);
-          tr.build(root);
-          _make_lowlink();
-      }/*}}}*/
-  
-      vector<int> make_bipartite() {/*{{{*/
-          union_find buf(2 * n);
-          rep(u, n) {
-              each(e, adj_list[u]) {
-                  buf.merge(u, e.to + n);
-                  buf.merge(e.to, u + n);
-              }
-          }
-  
-          vector<int> res(n, -1);
-          rep(u, n) {
-              if (buf.same(u, u + n)) return res;
-          }
-          rep(u, n) {
-              if (buf.same(0, u)) res[u] = 0;
-              else res[u] = 1;
-          }
-          return res;
-      }/*}}}*/
-  
-      void _dfs_tree(Pos u) {/*{{{*/
-          _used_in_dfs[u] = 1;
-          each(e, adj_list[u]) {
-              if (_used_in_dfs[e.to]) continue;
-              tr.add_edge(u, e.to, e.cost);
-              _dfs_tree(e.to);
-          }
-      }/*}}}*/
-  
-      void _make_lowlink() {/*{{{*/
-          lowlink = vector<Pos>(n, numeric_limits<Pos>().max());
-          r_rep(i, n) {
-              Pos u = tr.dfstrv[i];
-              chmin(lowlink[u], tr.ord[u]);
-  
-              each(e, adj_list[u]) {
-                  if (e.to == tr.par[u])
-                      continue;
-                  else if (tr.ord[e.to] < tr.ord[u]) {
-                      chmin(lowlink[u], tr.ord[e.to]);
-                  } else {
-                      chmin(lowlink[u], lowlink[e.to]);
-                  }
-              }
-          }
-      }/*}}}*/
-  
-      vector<Pos> get_articulation_points() {/*{{{*/
-          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-  
-          vector<Pos> res;
-          if (sz(tr.children[root]) > 1) {
-              res.push_back(root);
-          }
-          rep(u, 0, n) {
-              if (u == root) continue;
-              bool is_kan = false;
-              each(v, tr.children[u]) {
-                  if (tr.ord[u] <= lowlink[v]) {
-                      is_kan = true;
-                  }
-              }
-              if (is_kan) res.push_back(u);
-          }
-          return res;
-      }/*}}}*/
-  
-      vector<Edge<Cost>> get_bridges() {/*{{{*/
-          if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
-          vector<Edge<Cost>> res;
-          each(edge, edges){
-              if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
-          }
-          return res;
-      }/*}}}*/
-  
-      vector<Edge<Cost>> kruskal_tree() {/*{{{*/
-          // 使用される辺のvectorを返す
-          vector<Edge<Cost>> res(n - 1);
-          sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
-          union_find uf(n);
-  
-          Cost total_cost = zerocost;
-          int idx = 0;
-          each(e, edges) {
-              if (uf.same(e.from, e.to)) continue;
-              uf.merge(e.from, e.to);
-              total_cost = total_cost + e.cost;
-              res[idx] = e;
-              idx++;
-          }
-          assert(idx == n - 1);
-  
-          return res;
-      }/*}}}*/
-  
-      vector<Cost> dijkstra(vector<Pos> starts) {  // 多点スタート{{{
-          vector<Cost> dist(n, infcost);           // 最短距離
-          PQ<pair<Cost, Pos>> pq;
-          each(start, starts) {
-              dist[start] = zerocost;
-              pq.push(make_pair(zerocost, start));
-          }
-          while (!pq.empty()) {
-              auto cp = pq.top();
-              pq.pop();
-              auto [cost, u] = cp;
-              if (cost > dist[u]) continue;
-              for (const auto& edge : adj_list[u]) {
-                  Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
-                  if (new_cost < dist[edge.to]) {
-                      dist[edge.to] = new_cost;
-                      pq.push(make_pair(new_cost, edge.to));
-                  }
-              }
-          }
-          return dist;
-      };/*}}}*/
-  
-      vector<Cost> dijkstra(Pos start) {  // 1点スタート{{{
-          vector<Pos> starts = {start};
-          return dijkstra(starts);
-      };/*}}}*/
-  };
-  // snippet:Graph }}}
-  
-  // snippet:bellman_ford {{{
-  auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
-      vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
-      dist[start] = g.zerocost;
-      for (int i = 0; i < g.n; i++) {
-          each(edge, g.edges){
-              if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from] + edge.cost) {
-                  dist[edge.to] = dist[edge.from] + edge.cost;
-                  if (i == g.n - 1)
-                      return make_pair(true, dist);  // n回目にも更新があるなら負の閉路が存在
-              }
-          }
-      }
-      return make_pair(false, dist);
-  }
-  // snippet:bellman_ford }}}
+  // Graph g(n);
+  // ll a,b;cin>>a>>b;
+  // g[a].emplace_back(a, b, 1);
+  // g[b].emplace_back(b, a, 1);
+  // snippet:dinic }}}
 
 
 snippet tree
@@ -8846,96 +8953,6 @@ snippet tree_non_recursive
   // snippet:tree_non_recursive }}}
 
 
-snippet dinic
-alias flow
-  // snippet:dinic {{{
-  // Dinic: https://tubo28.me/compprog/algorithm/dinic/
-  using Capacity = int;
-  struct Edge {
-      int src, dst;
-      Capacity cap;
-      Edge(int src_, int dst_, Capacity cap_) : src(src_), dst(dst_), cap(cap_) {}
-  };
-  
-  using Edges = vector<Edge>;
-  using Graph = vector<Edges>;
-  template <typename Flow = unsigned int>
-  struct dinic {
-      int n, s, t;
-      vector<int> level, prog, que;
-      vector<vector<Flow>> cap, flow;
-      vector<vector<int>> g;
-      Flow inf;
-      dinic(const Graph &graph)/*{{{*/
-          : n(graph.size()),
-            cap(n, vector<Flow>(n)),
-            flow(n, vector<Flow>(n)),
-            g(n, vector<int>()),
-            inf(numeric_limits<Flow>::max() / 8) {
-          for (int i = 0; i < n; i++) {
-              for (auto &e : graph[i]) {
-                  int u = e.src, v = e.dst;
-                  Flow c = e.cap;
-                  cap[u][v] += c;
-                  cap[v][u] += c;
-                  flow[v][u] += c;
-                  g[u].push_back(v);
-                  g[v].push_back(u);
-              }
-          }
-      }/*}}}*/
-      Flow solve(int s_, int t_) {/*{{{*/
-          this->t = t_, this->s = s_;
-          que.resize(n + 1);
-          Flow res = 0;
-          while (levelize()) {
-              prog.assign(n, 0);
-              res += augment(s, inf);
-          }
-          return res;
-      }/*}}}*/
-  
-  private:
-      inline Flow residue(int u, int v) { return cap[u][v] - flow[u][v]; }
-      bool levelize() {/*{{{*/
-          int l = 0, r = 0;
-          level.assign(n, -1);
-          level[s] = 0;
-          que[r++] = s;
-          while (l != r) {
-              int v = que[l++];
-              if (v == t) break;
-              for (const int &d : g[v])
-                  if (level[d] == -1 && residue(v, d) != 0) {
-                      level[d] = level[v] + 1;
-                      que[r++] = d;
-                  }
-          }
-          return level[t] != -1;
-      }/*}}}*/
-      Flow augment(int v, Flow lim) {/*{{{*/
-          Flow res = 0;
-          if (v == t) return lim;
-          for (int &i = prog[v]; i < (int)g[v].size(); i++) {
-              const int &d = g[v][i];
-              if (residue(v, d) == 0 || level[v] >= level[d]) continue;
-              const Flow aug = augment(d, std::min(lim, residue(v, d)));
-              flow[v][d] += aug;
-              flow[d][v] -= aug;
-              res += aug;
-              lim -= aug;
-              if (lim == 0) break;
-          }
-          return res;
-      }/*}}}*/
-  };
-  // Graph g(n);
-  // ll a,b;cin>>a>>b;
-  // g[a].emplace_back(a, b, 1);
-  // g[b].emplace_back(b, a, 1);
-  // snippet:dinic }}}
-
-
 snippet split
   // snippet:split {{{
   vector<string> split(const string& s){
@@ -8948,82 +8965,6 @@ snippet split
       return res;
   }
   // snippet:split }}}
-
-
-snippet rolling_hash
-  // snippet:rolling_hash {{{
-  template<class Z> Z rng(Z a, Z b) {
-      auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());
-      return uniform_int_distribution<Z>(a, b - 1)(tmp);
-  }
-  
-  struct rolling_hash {
-      // static constexpr uint64_t P0 = 4111144441, P1 = 4111444111;
-      static constexpr uint64_t P0 = 1e9+7, P1 = 998244353;
-      static uint64_t B0, B1;
-      vector<ll> hash0, hash1, _bpow0, _bpow1;  // 1-index
-      int n;
-  
-      rolling_hash() {}
-      template<class T = vector<int>>
-      rolling_hash(T &vs) {
-          n = vs.size();
-          init(vs, hash0, B0, P0, _bpow0); 
-          init(vs, hash1, B1, P1, _bpow1); 
-      }
-      rolling_hash(string &s) {
-          n = s.size();
-          vector<int> vs;
-          for (char c : s) vs.emplace_back(c);
-          init(vs, hash0, B0, P0, _bpow0); 
-          init(vs, hash1, B1, P1, _bpow1); 
-      }
-  
-      template<class T>
-      void init(T& vs, vector<ll>& hash, ll B, ll P, vector<ll>& _bpow) {
-          hash.assign(n + 1, 0);
-          _bpow.assign(n + 1, 1);
-          for (int i = 0; i < n; i++) {
-              hash[i + 1] = (hash[i] * B + vs[i]) % P;
-              _bpow[i + 1] = _bpow[i] * B % P;
-          }
-      }
-  
-      pair<ll, ll> get_hash() { // [l, r)
-          ll h0 = _get_hash(0, n, hash0, B0, P0, _bpow0);
-          ll h1 = _get_hash(0, n, hash1, B1, P1, _bpow1);
-          return {h0, h1};
-      }
-      pair<ll, ll> get_hash(int l, int r) { // [l, r)
-          ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
-          ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
-          return {h0, h1};
-      }
-      ll _get_hash(int l, int r,  const vector<ll>& hash, ll B, ll P, const vector<ll>& _bpow) {
-          ll res = (hash[r] - hash[l]*_bpow[r - l]) % P;
-          res = (res < 0 ? res + P : res);
-          assert(res>=0);
-          return res;
-      }
-  
-      pair<ll, ll> merge(pair<ll, ll> x, pair<ll, ll> y, int len_y) {
-          // merge hash: 
-          // How to use
-          // rolling_hash op(vec<int>(n, max_len));
-          // op.merge(rh_s.get_hash(), rh_t.get_hash(), rh_t.n);
-          return {(x.first * _bpow0[len_y] + y.first)%P0, (x.second * _bpow1[len_y] + y.second)%P1};
-      }
-  
-      #if defined(PCM) || defined(LOCAL)
-      friend ostream& operator<<(ostream& os, rolling_hash<X>& rh) {  //
-          os << rh.get_hash();
-          return os;
-      }
-      #endif
-  };
-  uint64_t rolling_hash::B0 = rng<ll>(1000000, rolling_hash::P0);
-  uint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);
-  // snippet:rolling_hash }}}
 
 
 snippet suffix_array
@@ -9299,5 +9240,81 @@ alias sa
       // sa.lcp_arry[j] : return lcp(s[pos[j]:], s[pos[j+1]:])
       // sa.lcp(i, j) :   return lcp(s[i:], s[j:])
   // snippet:suffix_array }}}
+
+
+snippet rolling_hash
+  // snippet:rolling_hash {{{
+  template<class Z> Z rng(Z a, Z b) {
+      auto tmp = mt19937(chrono::steady_clock::now().time_since_epoch().count());
+      return uniform_int_distribution<Z>(a, b - 1)(tmp);
+  }
+  
+  struct rolling_hash {
+      // static constexpr uint64_t P0 = 4111144441, P1 = 4111444111;
+      static constexpr uint64_t P0 = 1e9+7, P1 = 998244353;
+      static uint64_t B0, B1;
+      vector<ll> hash0, hash1, _bpow0, _bpow1;  // 1-index
+      int n;
+  
+      rolling_hash() {}
+      template<class T = vector<int>>
+      rolling_hash(T &vs) {
+          n = vs.size();
+          init(vs, hash0, B0, P0, _bpow0); 
+          init(vs, hash1, B1, P1, _bpow1); 
+      }
+      rolling_hash(string &s) {
+          n = s.size();
+          vector<int> vs;
+          for (char c : s) vs.emplace_back(c);
+          init(vs, hash0, B0, P0, _bpow0); 
+          init(vs, hash1, B1, P1, _bpow1); 
+      }
+  
+      template<class T>
+      void init(T& vs, vector<ll>& hash, ll B, ll P, vector<ll>& _bpow) {
+          hash.assign(n + 1, 0);
+          _bpow.assign(n + 1, 1);
+          for (int i = 0; i < n; i++) {
+              hash[i + 1] = (hash[i] * B + vs[i]) % P;
+              _bpow[i + 1] = _bpow[i] * B % P;
+          }
+      }
+  
+      pair<ll, ll> get_hash() { // [l, r)
+          ll h0 = _get_hash(0, n, hash0, B0, P0, _bpow0);
+          ll h1 = _get_hash(0, n, hash1, B1, P1, _bpow1);
+          return {h0, h1};
+      }
+      pair<ll, ll> get_hash(int l, int r) { // [l, r)
+          ll h0 = _get_hash(l, r, hash0, B0, P0, _bpow0);
+          ll h1 = _get_hash(l, r, hash1, B1, P1, _bpow1);
+          return {h0, h1};
+      }
+      ll _get_hash(int l, int r,  const vector<ll>& hash, ll B, ll P, const vector<ll>& _bpow) {
+          ll res = (hash[r] - hash[l]*_bpow[r - l]) % P;
+          res = (res < 0 ? res + P : res);
+          assert(res>=0);
+          return res;
+      }
+  
+      pair<ll, ll> merge(pair<ll, ll> x, pair<ll, ll> y, int len_y) {
+          // merge hash: 
+          // How to use
+          // rolling_hash op(vec<int>(n, max_len));
+          // op.merge(rh_s.get_hash(), rh_t.get_hash(), rh_t.n);
+          return {(x.first * _bpow0[len_y] + y.first)%P0, (x.second * _bpow1[len_y] + y.second)%P1};
+      }
+  
+      #if defined(PCM) || defined(LOCAL)
+      friend ostream& operator<<(ostream& os, rolling_hash<X>& rh) {  //
+          os << rh.get_hash();
+          return os;
+      }
+      #endif
+  };
+  uint64_t rolling_hash::B0 = rng<ll>(1000000, rolling_hash::P0);
+  uint64_t rolling_hash::B1 = rng<ll>(1000000, rolling_hash::P1);
+  // snippet:rolling_hash }}}
 
 
