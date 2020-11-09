@@ -137,39 +137,6 @@ rep(i, 1, n+1){  //桁数
 }
 
 
-//%snippet.set('asv')%
-// acumulative sum vector {{{
-template<typename T>
-struct asvector {
-    vector<T> cum; //accumulative sum
-    asvector(vector<T> a): cum(a){  // {{{  // constructor
-        rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-    }
-    asvector(){};
-    // }}}
-
-    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
-        l = max(0, l);
-        r = min(r, sz(cum));
-        if (l<r){
-            return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
-        }
-        else{
-            return 0;
-        }
-    } // }}}
-
-    T& operator[](int i) { // {{{
-        return cum[i]; 
-    } // }}}
-
-    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
-        os << as.cum; return os;
-    } //}}}
-};
-//}}}
-
-
 //%snippet.set('remove_leading_zeros')%
 str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 

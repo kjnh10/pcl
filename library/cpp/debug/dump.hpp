@@ -64,8 +64,8 @@ string to_string_mod(T v) {
     else return to_string(v);
 }
 
-template <class T>
-void dump_1d_core(const vector<T>& x, int m){
+template <class T, template <class C> class VEC>
+void dump_1d_core(VEC<T>& x, int m){
     vector<int> column_len(m, 2);
     for(int j = 0; j < m; ++j) {
         int len = to_string_mod(x[j]).size();
@@ -79,15 +79,12 @@ void dump_1d_core(const vector<T>& x, int m){
     }
 }
 
-template <class T>
-void dump_2d_core(const vector<vector<T>>& x, int n, int m){
+template <class T, template <class C> class VEC>
+void dump_2d_core(VEC<VEC<T>>& x, int n, int m){
     vector<int> column_len(m, 2);
     for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {
         int len = to_string_mod(x[i][j]).size();
         if (len > column_len[j]) column_len[j] = len;
-    }
-    for (int i = 0; i < m; ++i){
-        DUMPOUT << column_len[i] << endl;
     }
 
     // print header

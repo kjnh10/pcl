@@ -626,39 +626,6 @@ snippet digitdp
   }
 
 
-snippet asv
-  // acumulative sum vector {{{
-  template<typename T>
-  struct asvector {
-      vector<T> cum; //accumulative sum
-      asvector(vector<T> a): cum(a){  // {{{  // constructor
-          rep(i, 1, sz(a))  cum[i]+=cum[i-1];
-      }
-      asvector(){};
-      // }}}
-  
-      T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
-          l = max(0, l);
-          r = min(r, sz(cum));
-          if (l<r){
-              return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
-          }
-          else{
-              return 0;
-          }
-      } // }}}
-  
-      T& operator[](int i) { // {{{
-          return cum[i]; 
-      } // }}}
-  
-      friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
-          os << as.cum; return os;
-      } //}}}
-  };
-  //}}}
-
-
 snippet remove_leading_zeros
   str.erase(0, min(str.find_first_not_of('0'), str.size()-1));
 
@@ -1742,6 +1709,83 @@ snippet zeta
   // snippet:zeta }}}
 
 
+snippet pyvec
+alias vector_neg
+  // snippet:pyvec {{{
+  template <class T>
+  struct pyvec {
+      vector<T> v;
+      pyvec(){}
+      pyvec(int n_){ v = vector<T>(n_); }
+      pyvec(int n_, T x){ v = vector<T>(n_, x); }
+      T& operator[](int i){
+          if (i>=0) return v[i];
+          else return v[(int)v.size()+i];
+      }
+      auto begin(){ return v.begin(); }
+      auto end(){ return v.end(); }
+      auto push_back(){ return v.push_back(); }
+      auto emplace_back(){ return v.emplace_back(); }
+      auto size() const { return v.size(); }
+      auto clear() { v.clear(); }
+      auto resize(int x) { v.resize(x); }
+      auto back() {this[-1];}
+  };
+  template<class T>
+  ostream& operator<<(ostream& os, const pyvec<T>& a) {
+      os << a.v; return os; 
+  }
+  template<class T=ll> using vec = pyvec<T>;
+  // snippet:pyvec }}}
+
+
+snippet asvector
+  // snippet:asvector {{{
+  // acumulative sum vector 
+  template<typename T=ll>
+  struct asvector {
+      vector<T> v; //accumulative sum
+      vector<T> cum; //accumulative sum
+      asvector(){};
+      asvector(int n_){ v = vector<T>(n_); }
+      asvector(int n_, T x){ v = vector<T>(n_, x); }
+      T& operator[](int i){
+          if (i>=0) return v[i];
+          else return v[(int)v.size()+i];
+      }
+      auto begin(){ return v.begin(); }
+      auto end(){ return v.end(); }
+      auto push_back(){ return v.push_back(); }
+      auto emplace_back(){ return v.emplace_back(); }
+      auto size() const { return v.size(); }
+      auto clear() { v.clear(); }
+      auto resize(int x) { v.resize(x); }
+      auto back() {this[-1];}
+  
+      void build() {
+          cum.resize(sz(v));
+          rep(i, 1, sz(v)) cum[i]+=cum[i-1];
+      }
+  
+      T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+          l = max(0, l);
+          r = min(r, sz(cum));
+          if (l<r) return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);
+          else     return 0;
+      } // }}}
+  
+      friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{
+          os << as.v; return os;
+      } //}}}
+  };
+  //
+  
+  
+  // TODO
+  // neg shifter vec
+  // snippet:asvector }}}
+
+
 snippet segment_tree_lazy
 alias lazy
   // snippet:segment_tree_lazy {{{
@@ -1803,7 +1847,10 @@ alias lazy
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -1820,7 +1867,10 @@ alias lazy
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
@@ -2105,7 +2155,10 @@ alias rmq_ruq
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -2122,7 +2175,10 @@ alias rmq_ruq
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
@@ -2290,7 +2346,10 @@ alias rsq_raq
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -2307,7 +2366,10 @@ alias rsq_raq
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
@@ -2499,7 +2561,10 @@ alias rsq_raffinq
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -2516,7 +2581,10 @@ alias rsq_raffinq
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
@@ -2706,7 +2774,10 @@ alias rsq_ruq
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -2723,7 +2794,10 @@ alias rsq_ruq
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
@@ -2903,7 +2977,10 @@ alias rmq_raq
           lazy[k] = em;
       }
   
-      void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }
+      void update(index a, index b, M x) {
+          assert(0<= a && b <= n);
+          update(a, b, x, 0, 0, N); 
+      }
       void update(index a, index b, M x, int k, index l, index r) {
           if (a <= l && r <= b) {  // 完全に内側の時
               lazy[k] = composite(lazy[k], x);
@@ -2920,7 +2997,10 @@ alias rmq_raq
           }
       }
   
-      X query(index a, index b) { return query_sub(a, b, 0, 0, N); }
+      X query(index a, index b) {
+          assert(0<= a && b <= n);
+          return query_sub(a, b, 0, 0, N); 
+      }
       X query_sub(index a, index b, int k, index l, index r) {
           propagate(k);
           if (r <= a || b <= l) {  // 完全に外側の時
