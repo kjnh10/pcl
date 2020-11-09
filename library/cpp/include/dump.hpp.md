@@ -49,34 +49,34 @@ data:
     \    dump_func(std::move(tail)...);\n}\n\ntemplate <class T>\nstring to_string_mod(T\
     \ v) {\n    T inf = numeric_limits<T>::max() / 2.1;\n    if (v == inf) return\
     \ \"inf\";\n    else if (v == -inf) return \"-inf\";\n    else return to_string(v);\n\
-    }\n\ntemplate <class T>\nvoid dump_1d_core(const vector<T>& x, int m){\n    vector<int>\
-    \ column_len(m, 2);\n    for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[j]).size();\n\
-    \        if (len > column_len[j]) column_len[j] = len;\n    }\n\n    for(int j\
-    \ = 0; j < m; ++j) {\n        if (j == 0) DUMPOUT << \"[\";\n        DUMPOUT <<\
-    \ setw(column_len[j]) << to_string_mod(x[j]);\n        DUMPOUT << (j != m-1 ?\
-    \ \" \" : \"]\");\n    }\n}\n\ntemplate <class T>\nvoid dump_2d_core(const vector<vector<T>>&\
-    \ x, int n, int m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i <\
-    \ n ; ++i) for(int j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n\
-    \        if (len > column_len[j]) column_len[j] = len;\n    }\n    for (int i\
-    \ = 0; i < m; ++i){\n        DUMPOUT << column_len[i] << endl;\n    }\n\n    //\
-    \ print header\n    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n \
-    \       if (j == 0) {\n            DUMPOUT << string(7, ' ');\n        }\n   \
-    \     else{\n            DUMPOUT << \" \";\n            header_len++;\n      \
-    \  }\n        DUMPOUT << setw(column_len[j]) << j;\n        header_len += column_len[j];\n\
-    \        DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT <<\
-    \ string(7, ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\\
-    n\";\n\n    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n       \
-    \ if (j == 0) DUMPOUT << setw(5) << i << \" |\";\n        else DUMPOUT << \" \"\
-    ;\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[i][j]);\n       \
-    \ DUMPOUT << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string>\
-    \ parse_args_names(string s){\n    int n = s.size();\n    vector<string> res;\n\
-    \    string tmp = \"\";\n    int parlevel = 0;\n    int angle_level = 0;\n   \
-    \ for (int i = 0; i < n; i++) {\n        if (s[i] == '(') parlevel++;\n      \
-    \  if (s[i] == ')') parlevel--;\n        if (s[i] == '<') angle_level++;\n   \
-    \     if (s[i] == '>') angle_level--;\n        if (s[i] == ' ') continue;\n  \
-    \      if (s[i] == ',' && parlevel == 0 && angle_level == 0) {\n            res.push_back(tmp);\n\
-    \            tmp = \"\";\n        }\n        else {\n            tmp += s[i];\n\
-    \        }\n    }\n    res.push_back(tmp);\n    return res;\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\
+    }\n\ntemplate <class T, template <class C> class VEC>\nvoid dump_1d_core(VEC<T>&\
+    \ x, int m){\n    vector<int> column_len(m, 2);\n    for(int j = 0; j < m; ++j)\
+    \ {\n        int len = to_string_mod(x[j]).size();\n        if (len > column_len[j])\
+    \ column_len[j] = len;\n    }\n\n    for(int j = 0; j < m; ++j) {\n        if\
+    \ (j == 0) DUMPOUT << \"[\";\n        DUMPOUT << setw(column_len[j]) << to_string_mod(x[j]);\n\
+    \        DUMPOUT << (j != m-1 ? \" \" : \"]\");\n    }\n}\n\ntemplate <class T,\
+    \ template <class C> class VEC>\nvoid dump_2d_core(VEC<VEC<T>>& x, int n, int\
+    \ m){\n    vector<int> column_len(m, 2);\n    for(int i = 0; i < n ; ++i) for(int\
+    \ j = 0; j < m; ++j) {\n        int len = to_string_mod(x[i][j]).size();\n   \
+    \     if (len > column_len[j]) column_len[j] = len;\n    }\n\n    // print header\n\
+    \    int header_len = 0;\n    for(int j = 0; j < m ; ++j) {\n        if (j ==\
+    \ 0) {\n            DUMPOUT << string(7, ' ');\n        }\n        else{\n   \
+    \         DUMPOUT << \" \";\n            header_len++;\n        }\n        DUMPOUT\
+    \ << setw(column_len[j]) << j;\n        header_len += column_len[j];\n       \
+    \ DUMPOUT << (((j) == (m - 1)) ? \"\\n\" : \"\");\n    }\n    DUMPOUT << string(7,\
+    \ ' ');\n    DUMPOUT << string(header_len, '-');\n    DUMPOUT << \"\\n\";\n\n\
+    \    for(int i = 0; i < n ; ++i) for(int j = 0; j < m; ++j) {\n        if (j ==\
+    \ 0) DUMPOUT << setw(5) << i << \" |\";\n        else DUMPOUT << \" \";\n    \
+    \    DUMPOUT << setw(column_len[j]) << to_string_mod(x[i][j]);\n        DUMPOUT\
+    \ << (((j) == (m - 1)) ? \"|\\n\" : \"\");\n    }\n}\n\n\nvector<string> parse_args_names(string\
+    \ s){\n    int n = s.size();\n    vector<string> res;\n    string tmp = \"\";\n\
+    \    int parlevel = 0;\n    int angle_level = 0;\n    for (int i = 0; i < n; i++)\
+    \ {\n        if (s[i] == '(') parlevel++;\n        if (s[i] == ')') parlevel--;\n\
+    \        if (s[i] == '<') angle_level++;\n        if (s[i] == '>') angle_level--;\n\
+    \        if (s[i] == ' ') continue;\n        if (s[i] == ',' && parlevel == 0\
+    \ && angle_level == 0) {\n            res.push_back(tmp);\n            tmp = \"\
+    \";\n        }\n        else {\n            tmp += s[i];\n        }\n    }\n \
+    \   res.push_back(tmp);\n    return res;\n}\n\n#line 1 \"library/cpp/debug/prettyprint.hpp\"\
     \n//          Copyright Louis Delacroix 2010 - 2014.\n// Distributed under the\
     \ Boost Software License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt\
     \ or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n//\n// A pretty\
@@ -294,7 +294,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/dump.hpp
   requiredBy: []
-  timestamp: '2020-11-02 01:40:36+09:00'
+  timestamp: '2020-11-09 20:23:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/dump.hpp

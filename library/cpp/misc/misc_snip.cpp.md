@@ -39,29 +39,19 @@ data:
     vector<vector<ll>> dp(2, vector<ll>(n));\ndp[0][0] = 1;\nrep(i, 1, n+1){  //\u6841\
     \u6570\n    rep(leq, 2){  //\u672A\u6E80\u78BA\u5B9A\u30D5\u30E9\u30B0\n     \
     \   ll lim = leq ? 9 : s[i-1]-'0';\n        rep(d, lim+1){\n            dp[leq\
-    \ || d<lim][i] += dp[leq][i-1];\n        }\n    }\n}\n\n\n//%snippet.set('asv')%\n\
-    // acumulative sum vector {{{\ntemplate<typename T>\nstruct asvector {\n    vector<T>\
-    \ cum; //accumulative sum\n    asvector(vector<T> a): cum(a){  // {{{  // constructor\n\
-    \        rep(i, 1, sz(a))  cum[i]+=cum[i-1];\n    }\n    asvector(){};\n    //\
-    \ }}}\n\n    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{\n  \
-    \      l = max(0, l);\n        r = min(r, sz(cum));\n        if (l<r){\n     \
-    \       return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);\n        }\n        else{\n\
-    \            return 0;\n        }\n    } // }}}\n\n    T& operator[](int i) {\
-    \ // {{{\n        return cum[i]; \n    } // }}}\n\n    friend ostream& operator<<(ostream\
-    \ &os, asvector<T>& as){//{{{\n        os << as.cum; return os;\n    } //}}}\n\
-    };\n//}}}\n\n\n//%snippet.set('remove_leading_zeros')%\nstr.erase(0, min(str.find_first_not_of('0'),\
-    \ str.size()-1));\n\n\n//%snippet.set('lambda')%\n//%snippet.config({'alias':'f'})%\n\
-    auto f = [&](){\n};\n\n\n//%snippet.set('dfs_lambda_graph')%\nvector<ll> used(n);\n\
-    auto dfs = [&](const auto& dfs, ll u) -> void {\n    used[u] = 1;\n    each(e,\
-    \ g[u]){\n        if (used[e.to]) continue;\n        dfs(dfs, e.to);\n    }\n\
-    };\ndfs(dfs, 0);\n\n\n//%snippet.set('dfs_lambda')%\nauto dfs = [&](const auto&\
-    \ dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1, -1, 0, 0};\n\
-    ll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream& operator<<(ostream&\
-    \ os, const ${1:type}& ${2}){\n    os << ${3};\n    return os;\n}\n\n//%snippet.set('query')%\n\
-    int query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll\
-    \ Q;cin>>Q;\n    rep(_, Q){\n        query();\n    }\n    check_input();\n   \
-    \ return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng()\
-    \ {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \ || d<lim][i] += dp[leq][i-1];\n        }\n    }\n}\n\n\n//%snippet.set('remove_leading_zeros')%\n\
+    str.erase(0, min(str.find_first_not_of('0'), str.size()-1));\n\n\n//%snippet.set('lambda')%\n\
+    //%snippet.config({'alias':'f'})%\nauto f = [&](){\n};\n\n\n//%snippet.set('dfs_lambda_graph')%\n\
+    vector<ll> used(n);\nauto dfs = [&](const auto& dfs, ll u) -> void {\n    used[u]\
+    \ = 1;\n    each(e, g[u]){\n        if (used[e.to]) continue;\n        dfs(dfs,\
+    \ e.to);\n    }\n};\ndfs(dfs, 0);\n\n\n//%snippet.set('dfs_lambda')%\nauto dfs\
+    \ = [&](const auto& dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1,\
+    \ -1, 0, 0};\nll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream&\
+    \ operator<<(ostream& os, const ${1:type}& ${2}){\n    os << ${3};\n    return\
+    \ os;\n}\n\n//%snippet.set('query')%\nint query(){\n    cerrendl;\n\n    return\
+    \ 0;\n}\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n    rep(_, Q){\n        query();\n\
+    \    }\n    check_input();\n    return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\n\
+    uint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
     rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
     \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
@@ -143,29 +133,19 @@ data:
     vector<vector<ll>> dp(2, vector<ll>(n));\ndp[0][0] = 1;\nrep(i, 1, n+1){  //\u6841\
     \u6570\n    rep(leq, 2){  //\u672A\u6E80\u78BA\u5B9A\u30D5\u30E9\u30B0\n     \
     \   ll lim = leq ? 9 : s[i-1]-'0';\n        rep(d, lim+1){\n            dp[leq\
-    \ || d<lim][i] += dp[leq][i-1];\n        }\n    }\n}\n\n\n//%snippet.set('asv')%\n\
-    // acumulative sum vector {{{\ntemplate<typename T>\nstruct asvector {\n    vector<T>\
-    \ cum; //accumulative sum\n    asvector(vector<T> a): cum(a){  // {{{  // constructor\n\
-    \        rep(i, 1, sz(a))  cum[i]+=cum[i-1];\n    }\n    asvector(){};\n    //\
-    \ }}}\n\n    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{\n  \
-    \      l = max(0, l);\n        r = min(r, sz(cum));\n        if (l<r){\n     \
-    \       return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);\n        }\n        else{\n\
-    \            return 0;\n        }\n    } // }}}\n\n    T& operator[](int i) {\
-    \ // {{{\n        return cum[i]; \n    } // }}}\n\n    friend ostream& operator<<(ostream\
-    \ &os, asvector<T>& as){//{{{\n        os << as.cum; return os;\n    } //}}}\n\
-    };\n//}}}\n\n\n//%snippet.set('remove_leading_zeros')%\nstr.erase(0, min(str.find_first_not_of('0'),\
-    \ str.size()-1));\n\n\n//%snippet.set('lambda')%\n//%snippet.config({'alias':'f'})%\n\
-    auto f = [&](){\n};\n\n\n//%snippet.set('dfs_lambda_graph')%\nvector<ll> used(n);\n\
-    auto dfs = [&](const auto& dfs, ll u) -> void {\n    used[u] = 1;\n    each(e,\
-    \ g[u]){\n        if (used[e.to]) continue;\n        dfs(dfs, e.to);\n    }\n\
-    };\ndfs(dfs, 0);\n\n\n//%snippet.set('dfs_lambda')%\nauto dfs = [&](const auto&\
-    \ dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1, -1, 0, 0};\n\
-    ll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream& operator<<(ostream&\
-    \ os, const ${1:type}& ${2}){\n    os << ${3};\n    return os;\n}\n\n//%snippet.set('query')%\n\
-    int query(){\n    cerrendl;\n\n    return 0;\n}\n\nint main(){/*{{{*/\n    ll\
-    \ Q;cin>>Q;\n    rep(_, Q){\n        query();\n    }\n    check_input();\n   \
-    \ return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\nuint64_t rng()\
-    \ {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
+    \ || d<lim][i] += dp[leq][i-1];\n        }\n    }\n}\n\n\n//%snippet.set('remove_leading_zeros')%\n\
+    str.erase(0, min(str.find_first_not_of('0'), str.size()-1));\n\n\n//%snippet.set('lambda')%\n\
+    //%snippet.config({'alias':'f'})%\nauto f = [&](){\n};\n\n\n//%snippet.set('dfs_lambda_graph')%\n\
+    vector<ll> used(n);\nauto dfs = [&](const auto& dfs, ll u) -> void {\n    used[u]\
+    \ = 1;\n    each(e, g[u]){\n        if (used[e.to]) continue;\n        dfs(dfs,\
+    \ e.to);\n    }\n};\ndfs(dfs, 0);\n\n\n//%snippet.set('dfs_lambda')%\nauto dfs\
+    \ = [&](const auto& dfs, ll u) -> ll {\n};\n\n\n//%snippet.set('dxdy')%\nll dx[]={1,\
+    \ -1, 0, 0};\nll dy[]={0, 0, 1, -1};\n\n\n//%snippet.set('ostream')%\nostream&\
+    \ operator<<(ostream& os, const ${1:type}& ${2}){\n    os << ${3};\n    return\
+    \ os;\n}\n\n//%snippet.set('query')%\nint query(){\n    cerrendl;\n\n    return\
+    \ 0;\n}\n\nint main(){/*{{{*/\n    ll Q;cin>>Q;\n    rep(_, Q){\n        query();\n\
+    \    }\n    check_input();\n    return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\n\
+    uint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
     rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
     \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
@@ -219,7 +199,7 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-11-09 20:23:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

@@ -16,6 +16,9 @@ data:
       path: library/cpp/array/lis.hpp
       title: library/cpp/array/lis.hpp
     - icon: ':warning:'
+      path: library/cpp/array/myvec.hpp
+      title: library/cpp/array/myvec.hpp
+    - icon: ':warning:'
       path: library/cpp/array/reversed_cnt.cpp
       title: library/cpp/array/reversed_cnt.cpp
     - icon: ':warning:'
@@ -227,6 +230,9 @@ data:
     - icon: ':warning:'
       path: library/cpp/include/monoid_with_len.hpp
       title: library/cpp/include/monoid_with_len.hpp
+    - icon: ':warning:'
+      path: library/cpp/include/myvec.hpp
+      title: library/cpp/include/myvec.hpp
     - icon: ':warning:'
       path: library/cpp/include/p2.hpp
       title: library/cpp/include/p2.hpp

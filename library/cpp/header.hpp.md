@@ -15,6 +15,9 @@ data:
     path: library/cpp/array/lis.hpp
     title: library/cpp/array/lis.hpp
   - icon: ':warning:'
+    path: library/cpp/array/myvec.hpp
+    title: library/cpp/array/myvec.hpp
+  - icon: ':warning:'
     path: library/cpp/array/reversed_cnt.cpp
     title: library/cpp/array/reversed_cnt.cpp
   - icon: ':heavy_check_mark:'
@@ -164,6 +167,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/include/monoid_with_len.hpp
     title: library/cpp/include/monoid_with_len.hpp
+  - icon: ':warning:'
+    path: library/cpp/include/myvec.hpp
+    title: library/cpp/include/myvec.hpp
   - icon: ':warning:'
     path: library/cpp/include/p2.hpp
     title: library/cpp/include/p2.hpp
@@ -761,6 +767,7 @@ data:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
   - library/cpp/array/segtree/initialization/monoid_with_len.hpp
   - library/cpp/array/segtree/segment_tree.hpp
+  - library/cpp/array/myvec.hpp
   - library/cpp/array/reversed_cnt.cpp
   - library/cpp/array/lis.hpp
   - library/cpp/array/slide_min.cpp
@@ -790,6 +797,7 @@ data:
   - library/cpp/include/bit.hpp
   - library/cpp/include/segment_tree_lazy.rmq_ruq.hpp
   - library/cpp/include/combination.hpp
+  - library/cpp/include/myvec.hpp
   - library/cpp/include/rational.hpp
   - library/cpp/include/angle.hpp
   - library/cpp/include/dinic.hpp

@@ -72,68 +72,69 @@ data:
     \ + 1] = composite(lazy[k * 2 + 1], lazy[k]);\n            lazy[k * 2 + 2] = composite(lazy[k\
     \ * 2 + 2], lazy[k]);\n        }\n        // \u81EA\u8EAB\u3092\u66F4\u65B0\n\
     \        dat[k] = apply(dat[k], lazy[k]);\n        lazy[k] = em;\n    }\n\n  \
-    \  void update(index a, index b, M x) { update(a, b, x, 0, 0, N); }\n    void\
-    \ update(index a, index b, M x, int k, index l, index r) {\n        if (a <= l\
-    \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            lazy[k]\
-    \ = composite(lazy[k], x);\n            propagate(k);\n        }\n        else\
-    \ if (a < r && l < b) {                     // \u4E00\u90E8\u533A\u9593\u304C\u88AB\
-    \u308B\u6642\n            propagate(k);\n            update(a, b, x, k * 2 + 1,\
-    \ l, (l + r) / 2);  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 +\
-    \ 2, (l + r) / 2, r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k\
-    \ * 2 + 1], dat[k * 2 + 2]);\n        }\n        else{\n            propagate(k);\n\
-    \        }\n    }\n\n    X query(index a, index b) { return query_sub(a, b, 0,\
-    \ 0, N); }\n    X query_sub(index a, index b, int k, index l, index r) {\n   \
-    \     propagate(k);\n        if (r <= a || b <= l) {  // \u5B8C\u5168\u306B\u5916\
-    \u5074\u306E\u6642\n            return ex;\n        }\n        else if (a <= l\
-    \ && r <= b) {  // \u5B8C\u5168\u306B\u5185\u5074\u306E\u6642\n            return\
-    \ dat[k];\n        }\n        else {  // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\
-    \u6642\n            X lv = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);\n     \
-    \       X rv = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);\n            return\
-    \ merge(lv, rv);\n        }\n    }\n\n    index find_most_left(index l, const\
-    \ function<bool(X)>& is_ok){\n        // l\u304B\u3089\u53F3\u306B\u63A2\u3057\
-    \u3066\u3044\u3063\u3066is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\
-    \u3046\u306Aindex\u3092\u8FD4\u3059\u3002\n        // assume query(l, *) has monotonity\n\
-    \        // return index i s.t is_ok(query(l, i)) does not holds, but is_ok(query(l,\
-    \ i+1)) does.\n        // if such i does not exist, return n\n        index res\
-    \ = _find_most_left(l, is_ok, 0, 0, N, ex).first;\n        assert(l <= res);\n\
-    \        return res;\n    }\n    pair<index, X> _find_most_left(index a, const\
-    \ function<bool(X)>& is_ok, int k, index l, index r, X left_value){\n        //\
-    \ params:\n            // left_value = (a < l ? query(a, l) : ex)\n        //\
-    \ return (index i, X v)\n            // i is the index in [a, n)^[l, r) s.t query(a,\
-    \ i+1) is ok but query(a, i) isn't ok. if such i does not exist, i = n\n     \
-    \       // v is the value s.t query(a, r)\n\n        propagate(k);\n        if\
-    \ (r <= a) return {n, ex};  // \u533A\u9593\u304C\u5168\u304F\u88AB\u3063\u3066\
-    \u3044\u306A\u3044\n        else if (a <= l && !is_ok(merge(left_value, dat[k])))\
-    \ return {n, merge(left_value, dat[k])};\n        else if (k >= N-1) return {k\
-    \ - (N-1), merge(left_value, dat[k])};\n        else{\n            auto [vl, xl]\
-    \ = _find_most_left(a, is_ok, 2 * k + 1, l, (l + r) / 2, left_value);\n      \
-    \      if (vl != n) return {vl, xl};\n            auto [vr, xr] = _find_most_left(a,\
-    \ is_ok, 2 * k + 2, (l + r) / 2, r, xl);\n            return {vr, xr};\n     \
-    \   }\n    }\n\n    index find_most_right(index r, const function<bool(X)>& is_ok){\n\
-    \        // r\u304B\u3089\u5DE6\u306B\u63A2\u3057\u3066\u3044\u3063\u3066is_ok\u304C\
-    \u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\u3046\u306Aindex\u3092\u8FD4\u3059\
-    \u3002\n        // assume query(*, r) has monotonity\n        // return index\
-    \ i s.t is_ok(query(i+1, r+1)) does not holds, but is_ok(query(i, r+1)) does.\n\
-    \        // if such i does not exist, return -1\n        index res = _find_most_right(r+1,\
-    \ is_ok, 0, 0, N, ex).first;\n        assert(res <= r);\n        return res;\n\
-    \    }\n    pair<index, X> _find_most_right(index b, const function<bool(X)>&\
-    \ is_ok, int k, index l, index r, X right_value){\n        propagate(k);\n   \
-    \     if (b <= l) return {-1, ex};  // \u533A\u9593\u304C\u5168\u304F\u88AB\u3063\
-    \u3066\u3044\u306A\u3044\n        else if (r <= b && !is_ok(merge(dat[k], right_value)))\
-    \ return {-1, merge(dat[k], right_value)};\n        else if (k >= N-1) return\
-    \ {k - (N-1), merge(dat[k], right_value)};\n        else{\n            auto [vr,\
-    \ xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r, right_value);\n\
-    \            if (vr != -1) return {vr, xr};\n            auto [vl, xl] = _find_most_right(b,\
-    \ is_ok, 2 * k + 1, l, (l + r) / 2, xr);\n            return {vl, xl};\n     \
-    \   }\n    }\n\n    /* debug */\n    inline X operator[](int i) { return query(i,\
-    \ i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
-    \ os, segment_tree_lazy& sg) {  //\n        os << \"[\";\n        for (int i =\
-    \ 0; i < sg.n; i++) {\n            os << sg[i] << (i == sg.n - 1 ? \"]\\n\" :\
-    \ \", \");\n        }\n        return os;\n    }\n    #endif\n};\n// Regarding\
-    \ apply and merge, the conditions below should holds.\n// apply(merge(x1, x2),\
-    \ m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x, m1), m2) = apply(x,\
-    \ composition(m1, m2))\n// composition(m, em) = m && composition(em, m) = m &&\
-    \ apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\
+    \  void update(index a, index b, M x) {\n        assert(0<= a && b <= n);\n  \
+    \      update(a, b, x, 0, 0, N); \n    }\n    void update(index a, index b, M\
+    \ x, int k, index l, index r) {\n        if (a <= l && r <= b) {  // \u5B8C\u5168\
+    \u306B\u5185\u5074\u306E\u6642\n            lazy[k] = composite(lazy[k], x);\n\
+    \            propagate(k);\n        }\n        else if (a < r && l < b) {    \
+    \                 // \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\u6642\n      \
+    \      propagate(k);\n            update(a, b, x, k * 2 + 1, l, (l + r) / 2);\
+    \  // \u5DE6\u306E\u5B50\n            update(a, b, x, k * 2 + 2, (l + r) / 2,\
+    \ r);  // \u53F3\u306E\u5B50\n            dat[k] = merge(dat[k * 2 + 1], dat[k\
+    \ * 2 + 2]);\n        }\n        else{\n            propagate(k);\n        }\n\
+    \    }\n\n    X query(index a, index b) {\n        assert(0<= a && b <= n);\n\
+    \        return query_sub(a, b, 0, 0, N); \n    }\n    X query_sub(index a, index\
+    \ b, int k, index l, index r) {\n        propagate(k);\n        if (r <= a ||\
+    \ b <= l) {  // \u5B8C\u5168\u306B\u5916\u5074\u306E\u6642\n            return\
+    \ ex;\n        }\n        else if (a <= l && r <= b) {  // \u5B8C\u5168\u306B\u5185\
+    \u5074\u306E\u6642\n            return dat[k];\n        }\n        else {  //\
+    \ \u4E00\u90E8\u533A\u9593\u304C\u88AB\u308B\u6642\n            X lv = query_sub(a,\
+    \ b, k * 2 + 1, l, (l + r) / 2);\n            X rv = query_sub(a, b, k * 2 + 2,\
+    \ (l + r) / 2, r);\n            return merge(lv, rv);\n        }\n    }\n\n  \
+    \  index find_most_left(index l, const function<bool(X)>& is_ok){\n        //\
+    \ l\u304B\u3089\u53F3\u306B\u63A2\u3057\u3066\u3044\u3063\u3066is_ok\u304C\u521D\
+    \u3081\u3066\u6210\u308A\u7ACB\u3064\u3088\u3046\u306Aindex\u3092\u8FD4\u3059\u3002\
+    \n        // assume query(l, *) has monotonity\n        // return index i s.t\
+    \ is_ok(query(l, i)) does not holds, but is_ok(query(l, i+1)) does.\n        //\
+    \ if such i does not exist, return n\n        index res = _find_most_left(l, is_ok,\
+    \ 0, 0, N, ex).first;\n        assert(l <= res);\n        return res;\n    }\n\
+    \    pair<index, X> _find_most_left(index a, const function<bool(X)>& is_ok, int\
+    \ k, index l, index r, X left_value){\n        // params:\n            // left_value\
+    \ = (a < l ? query(a, l) : ex)\n        // return (index i, X v)\n           \
+    \ // i is the index in [a, n)^[l, r) s.t query(a, i+1) is ok but query(a, i) isn't\
+    \ ok. if such i does not exist, i = n\n            // v is the value s.t query(a,\
+    \ r)\n\n        propagate(k);\n        if (r <= a) return {n, ex};  // \u533A\u9593\
+    \u304C\u5168\u304F\u88AB\u3063\u3066\u3044\u306A\u3044\n        else if (a <=\
+    \ l && !is_ok(merge(left_value, dat[k]))) return {n, merge(left_value, dat[k])};\n\
+    \        else if (k >= N-1) return {k - (N-1), merge(left_value, dat[k])};\n \
+    \       else{\n            auto [vl, xl] = _find_most_left(a, is_ok, 2 * k + 1,\
+    \ l, (l + r) / 2, left_value);\n            if (vl != n) return {vl, xl};\n  \
+    \          auto [vr, xr] = _find_most_left(a, is_ok, 2 * k + 2, (l + r) / 2, r,\
+    \ xl);\n            return {vr, xr};\n        }\n    }\n\n    index find_most_right(index\
+    \ r, const function<bool(X)>& is_ok){\n        // r\u304B\u3089\u5DE6\u306B\u63A2\
+    \u3057\u3066\u3044\u3063\u3066is_ok\u304C\u521D\u3081\u3066\u6210\u308A\u7ACB\u3064\
+    \u3088\u3046\u306Aindex\u3092\u8FD4\u3059\u3002\n        // assume query(*, r)\
+    \ has monotonity\n        // return index i s.t is_ok(query(i+1, r+1)) does not\
+    \ holds, but is_ok(query(i, r+1)) does.\n        // if such i does not exist,\
+    \ return -1\n        index res = _find_most_right(r+1, is_ok, 0, 0, N, ex).first;\n\
+    \        assert(res <= r);\n        return res;\n    }\n    pair<index, X> _find_most_right(index\
+    \ b, const function<bool(X)>& is_ok, int k, index l, index r, X right_value){\n\
+    \        propagate(k);\n        if (b <= l) return {-1, ex};  // \u533A\u9593\u304C\
+    \u5168\u304F\u88AB\u3063\u3066\u3044\u306A\u3044\n        else if (r <= b && !is_ok(merge(dat[k],\
+    \ right_value))) return {-1, merge(dat[k], right_value)};\n        else if (k\
+    \ >= N-1) return {k - (N-1), merge(dat[k], right_value)};\n        else{\n   \
+    \         auto [vr, xr] = _find_most_right(b, is_ok, 2 * k + 2, (l + r) / 2, r,\
+    \ right_value);\n            if (vr != -1) return {vr, xr};\n            auto\
+    \ [vl, xl] = _find_most_right(b, is_ok, 2 * k + 1, l, (l + r) / 2, xr);\n    \
+    \        return {vl, xl};\n        }\n    }\n\n    /* debug */\n    inline X operator[](int\
+    \ i) { return query(i, i + 1); }\n\n    #if defined(PCM) || defined(LOCAL)\n \
+    \   friend ostream& operator<<(ostream& os, segment_tree_lazy& sg) {  //\n   \
+    \     os << \"[\";\n        for (int i = 0; i < sg.n; i++) {\n            os <<\
+    \ sg[i] << (i == sg.n - 1 ? \"]\\n\" : \", \");\n        }\n        return os;\n\
+    \    }\n    #endif\n};\n// Regarding apply and merge, the conditions below should\
+    \ holds.\n// apply(merge(x1, x2), m) = merge(apply(x1, m), apply(x2, m))\n// apply(apply(x,\
+    \ m1), m2) = apply(x, composition(m1, m2))\n// composition(m, em) = m && composition(em,\
+    \ m) = m && apply(x, em) = x\n\n//%snippet.end()%\n\n#line 2 \"library/cpp/array/segtree/initialization/monoid_with_len.hpp\"\
     \n\n//%snippet.set('monoid_with_len')%\n//%snippet.fold()%\ntemplate<class T>\n\
     struct monoid_with_len {\n    T x;\n    int len;\n    monoid_with_len(){};\n \
     \   monoid_with_len(T x_, ll len_) : x(x_), len(len_){};\n};\ntemplate<class T>\n\
@@ -159,7 +160,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-11-09 20:18:50+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
