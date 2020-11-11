@@ -10,8 +10,8 @@ data:
   bundledCode: "#line 1 \"library/cpp/misc/misc_snip.cpp\"\n//%snippet.set('cout')%\n\
     cout << ${0} << endl;\n\n//%snippet.set('couts')%\nrep(i, sz(${1:x})) cout <<\
     \ $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n(${1} ? ${2}\
-    \ : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n) {\n    cin>>$1[i];\n\
-    }\ndump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>> ${1}(h, vector<ll>(w));\n\
+    \ : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n) cin>>$1[i];\n\
+    dump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>> ${1}(h, vector<ll>(w));\n\
     rep(i, h){\n    rep(j,w){\n        cin>>$1[i][j];\n    }\n}\n\n//%snippet.set('invvs')%\n\
     vector<vector<ll>> ${1}(h, vector<ll>(w));\nrep(i, h){\n    string tmp;cin>>tmp;\n\
     \    rep(j,w){\n        if (tmp[j]=='#') $1[i][j]=1;\n        else           \
@@ -104,13 +104,13 @@ data:
   code: "//%snippet.set('cout')%\ncout << ${0} << endl;\n\n//%snippet.set('couts')%\n\
     rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n\
     (${1} ? ${2} : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n)\
-    \ {\n    cin>>$1[i];\n}\ndump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>>\
-    \ ${1}(h, vector<ll>(w));\nrep(i, h){\n    rep(j,w){\n        cin>>$1[i][j];\n\
-    \    }\n}\n\n//%snippet.set('invvs')%\nvector<vector<ll>> ${1}(h, vector<ll>(w));\n\
-    rep(i, h){\n    string tmp;cin>>tmp;\n    rep(j,w){\n        if (tmp[j]=='#')\
-    \ $1[i][j]=1;\n        else             $1[i][j]=0; \n    }\n}\n\n//%snippet.set('rep')%\n\
-    rep(${0}){\n}\n\n//%snippet.set('r_rep')%\nr_rep(${0}){\n}\n\n//%snippet.set('for')%\n\
-    for(ll i=0; i<n; i++){${0}\n}\n\n//%snippet.set('for_iter')%\nfor(auto iter=begin(${1});\
+    \ cin>>$1[i];\ndump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>> ${1}(h,\
+    \ vector<ll>(w));\nrep(i, h){\n    rep(j,w){\n        cin>>$1[i][j];\n    }\n\
+    }\n\n//%snippet.set('invvs')%\nvector<vector<ll>> ${1}(h, vector<ll>(w));\nrep(i,\
+    \ h){\n    string tmp;cin>>tmp;\n    rep(j,w){\n        if (tmp[j]=='#') $1[i][j]=1;\n\
+    \        else             $1[i][j]=0; \n    }\n}\n\n//%snippet.set('rep')%\nrep(${0}){\n\
+    }\n\n//%snippet.set('r_rep')%\nr_rep(${0}){\n}\n\n//%snippet.set('for')%\nfor(ll\
+    \ i=0; i<n; i++){${0}\n}\n\n//%snippet.set('for_iter')%\nfor(auto iter=begin(${1});\
     \ iter!=end($1); ++iter){${0}\n}\n\n//%snippet.set('for_riter')%\nfor(auto riter=rbegin(${1});\
     \ riter!=rend($1); ++riter){${0}\n}\n\n//%snippet.set('if')%\nif (${0}) {\n}\n\
     \n//%snippet.set('else')%\nelse{${0}\n}\n\n//%snippet.set('elif')%\nelse if(${0}){\n\
@@ -199,7 +199,7 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-11-09 20:23:31+09:00'
+  timestamp: '2020-11-11 19:32:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

@@ -75,26 +75,29 @@ data:
     \ true;\n        else return false;\n    }\n\n};\ntemplate<class T>\nlong double\
     \ dist(const P2<T>& p, const P2<T>& q){\n    return sqrt((p.x - q.x) * (p.x -\
     \ q.x) + (p.y - q.y) * (p.y - q.y));\n}\n\n/*}}}*/\nusing P = P2<ll>;\n\n//%snippet.end%\n\
-    #line 3 \"library/cpp/math/geometry/angle.hpp\"\n\n//%snippet.set('angle')%\n\n\
-    struct Angle{\n    ll x, y; // \u5B9F\u969B\u306B\u306F10^9\u304F\u3089\u3044\u307E\
-    \u3067\u3057\u304B\u5165\u308C\u3089\u308C\u306A\u3044\u3002\n    int _orthant;\
-    \  // \u8C61\u9650\n    Angle(){};\n    Angle(ll _x, ll _y): x(_x), y(_y){\n \
-    \       assert(x != 0 || y != 0);\n        ll g = gcd(abs(x), abs(y));\n     \
-    \   x /= g;\n        y /= g;\n        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);\n\
-    \        else _orthant = (x >= 0 ? 3 : 2);\n    }\n\n    bool operator<(const\
-    \ Angle &r) const {\n        return (_orthant != r._orthant ? _orthant < r._orthant\
-    \ : x * r.y - y * r.x > 0);\n    }\n\n    bool operator==(const Angle &r) const\
-    \ { return (x == r.x && y == r.y); }\n\n    long double operator-(const Angle&\
-    \ r) const {\n        // r\u3092\u8D77\u70B9\u306B\u898B\u3066\u4F55\u5EA6\u9032\
-    \u3093\u3067\u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        return rad() -\
-    \ r.rad();\n    }\n\n    long double rad() const {\n        long double r = atan2(y,\
-    \ x); \n        return (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double const\
-    \ deg(){ return rad() * 180.0/ M_PI; }\n\n    Angle rot_90() const { return Angle(-y,\
+    #line 3 \"library/cpp/math/geometry/angle.hpp\"\n\n//%snippet.set('angle')%\n\
+    //%snippet.config({'alias':'argment_sort'})%\n//%snippet.fold()%\n\nstruct Angle{\n\
+    \    ll x, y; // \u5B9F\u969B\u306B\u306F10^9\u304F\u3089\u3044\u307E\u3067\u3057\
+    \u304B\u5165\u308C\u3089\u308C\u306A\u3044\u3002operator<\u3067\u5916\u7A4D\u3092\
+    \u8A08\u7B97\u3059\u308B\u306E\u3067\u3002\n    int _orthant;  // \u8C61\u9650\
+    \n    Angle(){};\n    Angle(ll _x, ll _y): x(_x), y(_y){\n        assert(x !=\
+    \ 0 || y != 0);\n        ll g = gcd(abs(x), abs(y));\n        x /= g;\n      \
+    \  y /= g;\n        if(y >= 0) _orthant = (x >= 0 ? 0 : 1);\n        else _orthant\
+    \ = (x >= 0 ? 3 : 2);\n    }\n\n    bool operator<(const Angle &r) const {  //\
+    \ for argment_sort\n        // [0, 2*pi)\u3067\u9806\u5E8F\u4ED8\u3051\u3089\u308C\
+    \u308B\n        return (_orthant != r._orthant ? _orthant < r._orthant : x * r.y\
+    \ - y * r.x > 0);\n    }\n\n    bool operator==(const Angle &r) const { return\
+    \ (x == r.x && y == r.y); }\n\n    long double operator-(const Angle& r) const\
+    \ {\n        // r\u3092\u8D77\u70B9\u306B\u898B\u3066\u4F55\u5EA6\u9032\u3093\u3067\
+    \u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        return rad() - r.rad();\n\
+    \    }\n\n    long double rad() const {\n        long double r = atan2(y, x);\
+    \ \n        return (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double const deg(){\
+    \ return rad() * 180.0/ M_PI; }\n\n    Angle rot_90() const { return Angle(-y,\
     \ x); }\n\n    Angle rot_r90() const { return Angle(y, -x); }\n\n    friend ostream\
     \ &operator<<(ostream &stream, Angle p) {\n        stream << \"(\" << p.x << \"\
-    ,\" << p.y << \")\";\n        return stream;\n    }\n};\n\n//%snippet.end%\n\n\
-    // from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n#line 2 \"library/cpp/include/angle.hpp\"\
-    \n"
+    ,\" << p.y << \"):\" << p.deg() << \"\xB0\";\n        return stream;\n    }\n\
+    };\n\n//%snippet.end%\n\n// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n\
+    #line 2 \"library/cpp/include/angle.hpp\"\n"
   code: '#include "../math/geometry/angle.hpp"'
   dependsOn:
   - library/cpp/math/geometry/angle.hpp
@@ -103,7 +106,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/angle.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-11-11 19:32:47+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/angle.hpp
