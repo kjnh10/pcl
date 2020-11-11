@@ -12,14 +12,11 @@ data:
     path: library/cpp/include/modint.hpp
     title: library/cpp/include/modint.hpp
   - icon: ':warning:'
-    path: library/cpp/math/bsgs/bsgs.cpp
-    title: library/cpp/math/bsgs/bsgs.cpp
+    path: library/cpp/math/bsgs.hpp
+    title: library/cpp/math/bsgs.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
-  - icon: ':warning:'
-    path: library/cpp/math/gbsgs/gbsgs.cpp
-    title: library/cpp/math/gbsgs/gbsgs.cpp
   - icon: ':warning:'
     path: library/cpp/misc/constant.cpp
     title: library/cpp/misc/constant.cpp
@@ -121,9 +118,8 @@ data:
   isVerificationFile: false
   path: library/cpp/math/modint.hpp
   requiredBy:
+  - library/cpp/math/bsgs.hpp
   - library/cpp/math/combination.hpp
-  - library/cpp/math/gbsgs/gbsgs.cpp
-  - library/cpp/math/bsgs/bsgs.cpp
   - library/cpp/misc/constant.cpp
   - library/cpp/include/combination.hpp
   - library/cpp/include/modint.hpp

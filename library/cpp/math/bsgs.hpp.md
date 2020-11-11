@@ -9,7 +9,7 @@ data:
     title: library/cpp/math/modint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _pathExtension: cpp
+  _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
     links: []
@@ -68,43 +68,73 @@ data:
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
     \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
     \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/math/bsgs/bsgs.cpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
+    #line 3 \"library/cpp/math/bsgs.hpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
     // %snippet.config({'alias':'bsgs'})%\n// %snippet.include('modint')%\n\nint bsgs(int\
-    \ a, int b) {  //{{{\n    if (b >= mod) {\n        return -1;\n    }\n\n    //\
-    \ find x s.t a^x = b in (mod)\n    mint x;\n    int sq = sqrt(mod);\n    // x\
-    \ = p*sq + r  (0<=r<sq and 0<=p<=sq)\n\n    map<int, int> minr;  // minr[v]: min(r\
-    \ s.t a^r=v)\n    mint ar = 1;\n    rep(r, 0, sq) {\n        if (minr.find(ar.x)\
-    \ == minr.end()) minr[ar.x] = r;\n        ar *= a;\n    }\n\n    mint A = mint(a).pow(-sq);\n\
-    \    rep(p, 0, sq + 1) {\n        int Ab = (A.pow(p) * b).x;\n        if (minr.find(Ab)\
-    \ != minr.end()) {\n            int r = minr[Ab];\n            return p * sq +\
-    \ r;\n        }\n    }\n\n    return -1;\n}  //}}}\n// %snippet.end()%\n\nsigned\
-    \ main() {\n    int a, b, p;\n    cin >> a >> b >> p;\n    mod = p;\n    cout\
-    \ << bsgs(a, b) << endl;\n    return 0;\n}\n"
-  code: "#include \"../../header.hpp\"\n#include \"../modint.hpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
+    \ a, int b) {  //{{{\n    if (b >= mod) return -1;\n\n    // find x s.t a^x =\
+    \ b in (mod)\n    int h = sqrt(mod);\n    // x = p*h + r  (0<=r<h and 0<=p<=h)\n\
+    \n    unordered_map<int, int> minr;  // minr[v]: min(r s.t a^r=v)\n    mint ar\
+    \ = 1;  // a^r\n    rep(r, 0, h) {\n        if (minr.find(ar.x) == minr.end())\
+    \ minr[ar.x] = r;\n        ar *= a;\n    }\n\n    mint A = mint(a).pow(-h);\n\
+    \    rep(p, 0, h + 1) {\n        int Ab = (A.pow(p) * b).x;\n        if (minr.find(Ab)\
+    \ != minr.end()) {\n            int r = minr[Ab];\n            return p * h +\
+    \ r;\n        }\n    }\n\n    return -1;\n}  //}}}\n\n// %snippet.end()%\n\n\n\
+    // %snippet.set('generalized_baybe_step_giant_step')%\n// %snippet.config({'alias':'gbsgs'})%\n\
+    // %snippet.include('modint')%\n\nint gbsgs(int a, int b) {  //{{{\n    // find\
+    \ x s.t a^x = b in (mod: prime\u3067\u3042\u308B\u5FC5\u8981\u306F\u306A\u3044\
+    )\n\n    if (b >= mod) return -1;\n    if (1 % mod == b) return 0;\n\n    int\
+    \ h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)\n\n    unordered_map<int,\
+    \ vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v\n    mint bar = b;  //\
+    \ b*a^r\n    rep(r, 0, h) {\n        rs[bar.x].pb(r);\n        bar *= a;\n   \
+    \ }\n    bool looped = false;\n    each(el, rs) if (sz(el.second) > 1) looped\
+    \ = true;\n\n    mint ah = mint(a).pow(h);\n    rep(p, 1, h + 1) {\n        int\
+    \ aph = ah.pow(p).x;\n        if (rs.find(aph) != rs.end()) {\n            reverse(all(rs[aph]));\n\
+    \            each(r, rs[aph]) {\n                if (mint(a).pow(p * h - r) ==\
+    \ b){\n                    // a^(p*h-r) == b in (mod) => a^(ph) == b*a^r\u3060\
+    \u304C\u9006\u306F\u6210\u308A\u7ACB\u305F\u306A\u3044\u306E\u3067\u3053\u306E\
+    \u78BA\u8A8D\u304C\u5FC5\u8981\n                    return p * h - r;\n      \
+    \          }\n            }\n        }\n        // sz(rs[aph]) > 0\u306E\u5834\
+    \u5408\u306Fbreak\u3059\u308B\u306E\u3067\u8A08\u7B97\u91CF\u3082\u5927\u4E08\u592B\
+    \n        if (looped) return -1;\n    }\n\n    return -1;\n}  //}}}\n\n// %snippet.end()%\n"
+  code: "#include \"../header.hpp\"\n#include \"modint.hpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
     // %snippet.config({'alias':'bsgs'})%\n// %snippet.include('modint')%\n\nint bsgs(int\
-    \ a, int b) {  //{{{\n    if (b >= mod) {\n        return -1;\n    }\n\n    //\
-    \ find x s.t a^x = b in (mod)\n    mint x;\n    int sq = sqrt(mod);\n    // x\
-    \ = p*sq + r  (0<=r<sq and 0<=p<=sq)\n\n    map<int, int> minr;  // minr[v]: min(r\
-    \ s.t a^r=v)\n    mint ar = 1;\n    rep(r, 0, sq) {\n        if (minr.find(ar.x)\
-    \ == minr.end()) minr[ar.x] = r;\n        ar *= a;\n    }\n\n    mint A = mint(a).pow(-sq);\n\
-    \    rep(p, 0, sq + 1) {\n        int Ab = (A.pow(p) * b).x;\n        if (minr.find(Ab)\
-    \ != minr.end()) {\n            int r = minr[Ab];\n            return p * sq +\
-    \ r;\n        }\n    }\n\n    return -1;\n}  //}}}\n// %snippet.end()%\n\nsigned\
-    \ main() {\n    int a, b, p;\n    cin >> a >> b >> p;\n    mod = p;\n    cout\
-    \ << bsgs(a, b) << endl;\n    return 0;\n}\n"
+    \ a, int b) {  //{{{\n    if (b >= mod) return -1;\n\n    // find x s.t a^x =\
+    \ b in (mod)\n    int h = sqrt(mod);\n    // x = p*h + r  (0<=r<h and 0<=p<=h)\n\
+    \n    unordered_map<int, int> minr;  // minr[v]: min(r s.t a^r=v)\n    mint ar\
+    \ = 1;  // a^r\n    rep(r, 0, h) {\n        if (minr.find(ar.x) == minr.end())\
+    \ minr[ar.x] = r;\n        ar *= a;\n    }\n\n    mint A = mint(a).pow(-h);\n\
+    \    rep(p, 0, h + 1) {\n        int Ab = (A.pow(p) * b).x;\n        if (minr.find(Ab)\
+    \ != minr.end()) {\n            int r = minr[Ab];\n            return p * h +\
+    \ r;\n        }\n    }\n\n    return -1;\n}  //}}}\n\n// %snippet.end()%\n\n\n\
+    // %snippet.set('generalized_baybe_step_giant_step')%\n// %snippet.config({'alias':'gbsgs'})%\n\
+    // %snippet.include('modint')%\n\nint gbsgs(int a, int b) {  //{{{\n    // find\
+    \ x s.t a^x = b in (mod: prime\u3067\u3042\u308B\u5FC5\u8981\u306F\u306A\u3044\
+    )\n\n    if (b >= mod) return -1;\n    if (1 % mod == b) return 0;\n\n    int\
+    \ h = (int)sqrt(mod) + 1;  // h s.t x = p*h-r (0<=r<h and 0<=p<=h)\n\n    unordered_map<int,\
+    \ vector<int>> rs;  // rs[v]: vector of r s.t b*a^r==v\n    mint bar = b;  //\
+    \ b*a^r\n    rep(r, 0, h) {\n        rs[bar.x].pb(r);\n        bar *= a;\n   \
+    \ }\n    bool looped = false;\n    each(el, rs) if (sz(el.second) > 1) looped\
+    \ = true;\n\n    mint ah = mint(a).pow(h);\n    rep(p, 1, h + 1) {\n        int\
+    \ aph = ah.pow(p).x;\n        if (rs.find(aph) != rs.end()) {\n            reverse(all(rs[aph]));\n\
+    \            each(r, rs[aph]) {\n                if (mint(a).pow(p * h - r) ==\
+    \ b){\n                    // a^(p*h-r) == b in (mod) => a^(ph) == b*a^r\u3060\
+    \u304C\u9006\u306F\u6210\u308A\u7ACB\u305F\u306A\u3044\u306E\u3067\u3053\u306E\
+    \u78BA\u8A8D\u304C\u5FC5\u8981\n                    return p * h - r;\n      \
+    \          }\n            }\n        }\n        // sz(rs[aph]) > 0\u306E\u5834\
+    \u5408\u306Fbreak\u3059\u308B\u306E\u3067\u8A08\u7B97\u91CF\u3082\u5927\u4E08\u592B\
+    \n        if (looped) return -1;\n    }\n\n    return -1;\n}  //}}}\n\n// %snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   - library/cpp/math/modint.hpp
   isVerificationFile: false
-  path: library/cpp/math/bsgs/bsgs.cpp
+  path: library/cpp/math/bsgs.hpp
   requiredBy: []
-  timestamp: '2020-11-02 01:39:53+09:00'
+  timestamp: '2020-11-12 01:52:19+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/math/bsgs/bsgs.cpp
+documentation_of: library/cpp/math/bsgs.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/math/bsgs/bsgs.cpp
-- /library/library/cpp/math/bsgs/bsgs.cpp.html
-title: library/cpp/math/bsgs/bsgs.cpp
+- /library/library/cpp/math/bsgs.hpp
+- /library/library/cpp/math/bsgs.hpp.html
+title: library/cpp/math/bsgs.hpp
 ---

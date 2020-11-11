@@ -246,20 +246,11 @@ data:
     path: library/cpp/include/zipper.hpp
     title: library/cpp/include/zipper.hpp
   - icon: ':warning:'
-    path: library/cpp/math/bsgs/bsgs.cpp
-    title: library/cpp/math/bsgs/bsgs.cpp
-  - icon: ':warning:'
-    path: library/cpp/math/bsgs/naive.cpp
-    title: library/cpp/math/bsgs/naive.cpp
+    path: library/cpp/math/bsgs.hpp
+    title: library/cpp/math/bsgs.hpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
-  - icon: ':warning:'
-    path: library/cpp/math/gbsgs/gbsgs.cpp
-    title: library/cpp/math/gbsgs/gbsgs.cpp
-  - icon: ':warning:'
-    path: library/cpp/math/gbsgs/naive.cpp
-    title: library/cpp/math/gbsgs/naive.cpp
   - icon: ':warning:'
     path: library/cpp/math/geometry/angle.hpp
     title: library/cpp/math/geometry/angle.hpp
@@ -309,6 +300,9 @@ data:
   - icon: ':warning:'
     path: library/cpp/misc/constant.cpp
     title: library/cpp/misc/constant.cpp
+  - icon: ':warning:'
+    path: library/cpp/misc/int128.hpp
+    title: library/cpp/misc/int128.hpp
   - icon: ':warning:'
     path: library/cpp/misc/napsack.cpp
     title: library/cpp/misc/napsack.cpp
@@ -427,6 +421,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: library/cpp/math/bsgs.test.cpp
+    title: library/cpp/math/bsgs.test.cpp
   - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
@@ -718,6 +715,7 @@ data:
   - library/cpp/string/split.hpp
   - library/cpp/string/suffix_array.hpp
   - library/cpp/string/rolling_hash.hpp
+  - library/cpp/math/bsgs.hpp
   - library/cpp/math/sieve.hpp
   - library/cpp/math/pascal.cpp
   - library/cpp/math/matrix_pow.hpp
@@ -726,8 +724,6 @@ data:
   - library/cpp/math/combination.hpp
   - library/cpp/math/rational.hpp
   - library/cpp/math/modint.hpp
-  - library/cpp/math/gbsgs/naive.cpp
-  - library/cpp/math/gbsgs/gbsgs.cpp
   - "library/cpp/math/geometry/\u4E8C\u70B9\u3092\u901A\u308B\u5186\u306E\u4E2D\u5FC3\
     .cpp"
   - "library/cpp/math/geometry/\u7DDA\u5206\u3068\u7DDA\u5206\u306E\u4EA4\u5DEE\u5224\
@@ -737,8 +733,6 @@ data:
   - library/cpp/math/geometry/p2.hpp
   - library/cpp/math/geometry/area_rect.hpp
   - library/cpp/math/geometry/basic.cpp
-  - library/cpp/math/bsgs/naive.cpp
-  - library/cpp/math/bsgs/bsgs.cpp
   - library/cpp/graph/union_find.hpp
   - library/cpp/graph/graph.hpp
   - library/cpp/graph/flow/dinic.hpp
@@ -781,6 +775,7 @@ data:
   - library/cpp/misc/napsack.cpp
   - library/cpp/misc/constant.cpp
   - library/cpp/misc/run_length_encoding.cpp
+  - library/cpp/misc/int128.hpp
   - library/cpp/include/segment_tree_lazy.hpp
   - library/cpp/include/sieve.hpp
   - library/cpp/include/sparse_table.hpp
@@ -837,6 +832,7 @@ data:
   - library/cpp/math/sieve.test.cpp
   - library/cpp/math/geometry/p2.test.cpp
   - library/cpp/math/geometry/area_rect.test.cpp
+  - library/cpp/math/bsgs.test.cpp
   - library/cpp/graph/flow/dinic.test.cpp
   - library/cpp/graph/tests/graph.lowlink.test.cpp
   - library/cpp/graph/tests/graph.dijkstra.test.cpp

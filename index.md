@@ -311,21 +311,11 @@ data:
     - icon: ':warning:'
       path: library/cpp/include/zipper.hpp
       title: library/cpp/include/zipper.hpp
-  - name: library/cpp/math/bsgs
-    pages:
-    - icon: ':warning:'
-      path: library/cpp/math/bsgs/bsgs.cpp
-      title: library/cpp/math/bsgs/bsgs.cpp
-    - icon: ':warning:'
-      path: library/cpp/math/bsgs/naive.cpp
-      title: library/cpp/math/bsgs/naive.cpp
-  - name: library/cpp/math/bsgs/test
-    pages:
-    - icon: ':warning:'
-      path: library/cpp/math/bsgs/test/gen.py
-      title: library/cpp/math/bsgs/test/gen.py
   - name: library/cpp/math
     pages:
+    - icon: ':warning:'
+      path: library/cpp/math/bsgs.hpp
+      title: library/cpp/math/bsgs.hpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/combination.hpp
       title: library/cpp/math/combination.hpp
@@ -353,19 +343,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/sieve.hpp
       title: library/cpp/math/sieve.hpp
-  - name: library/cpp/math/gbsgs
-    pages:
-    - icon: ':warning:'
-      path: library/cpp/math/gbsgs/gbsgs.cpp
-      title: library/cpp/math/gbsgs/gbsgs.cpp
-    - icon: ':warning:'
-      path: library/cpp/math/gbsgs/naive.cpp
-      title: library/cpp/math/gbsgs/naive.cpp
-  - name: library/cpp/math/gbsgs/test
-    pages:
-    - icon: ':warning:'
-      path: library/cpp/math/gbsgs/test/gen.py
-      title: library/cpp/math/gbsgs/test/gen.py
   - name: library/cpp/math/geometry
     pages:
     - icon: ':warning:'
@@ -595,6 +572,9 @@ data:
       title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - name: library/cpp/math
     pages:
+    - icon: ':heavy_check_mark:'
+      path: library/cpp/math/bsgs.test.cpp
+      title: library/cpp/math/bsgs.test.cpp
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/combination.test.cpp
       title: library/cpp/math/combination.test.cpp
