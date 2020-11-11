@@ -9,9 +9,7 @@ rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
 
 //%snippet.set('inv')%
 vector<ll> ${1}(n);
-rep(i, n) {
-    cin>>$1[i];
-}
+rep(i, n) cin>>$1[i];
 dump($1);${0}
 
 //%snippet.set('invv')%
