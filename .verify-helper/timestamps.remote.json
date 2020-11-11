@@ -24,6 +24,7 @@
 "library/cpp/graph/tree.lib/kth_root.test.cpp": "2020-10-31 19:09:33 +0900",
 "library/cpp/graph/tree.lib/lca.test.cpp": "2020-10-31 19:09:33 +0900",
 "library/cpp/graph/tree.lib/lca_non_recursive.test.cpp": "2020-10-29 12:32:06 +0900",
+"library/cpp/math/bsgs.test.cpp": "2020-11-12 01:52:19 +0900",
 "library/cpp/math/combination.test.cpp": "2020-11-02 01:39:53 +0900",
 "library/cpp/math/geometry/area_rect.test.cpp": "2020-10-27 20:24:34 +0900",
 "library/cpp/math/geometry/p2.test.cpp": "2020-10-27 20:24:34 +0900",
