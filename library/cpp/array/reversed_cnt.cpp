@@ -11,6 +11,7 @@
 template<class T>
 ll reversed_cnt(const vector<T>& v){
     int n = sz(v);
+    if (n == 0) return 0;
     ll max_v = *max_element(all(v));
     ll min_v = *min_element(all(v));
 
@@ -33,6 +34,17 @@ ll reversed_cnt(const vector<T>& v){
         seg.add(w, 1);
     }
     return res;
+}
+
+template<class T>
+ll reversed_dist(const vector<T>& a, const vector<T>& b){
+    // assume a and b are permutaion of same size
+    int n = sz(a);
+    vector<int> d(n+1);
+    rep(i, n){ d[a[i]] = i; }
+    vector<T> c(n);
+    rep(i, n){ c[i] = d[b[i]]; }
+    return reversed_cnt(c);
 }
 //%snippet.end()%
 
