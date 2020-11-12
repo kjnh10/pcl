@@ -161,29 +161,37 @@ data:
     //%snippet.config({'alias':'tentousu'})%\n//%snippet.config({'alias':'cnt_reversed'})%\n\
     //%snippet.include('zipper')%\n//%snippet.include('segment_tree')%\n//%snippet.fold()%\n\
     template<class T>\nll reversed_cnt(const vector<T>& v){\n    int n = sz(v);\n\
-    \    ll max_v = *max_element(all(v));\n    ll min_v = *min_element(all(v));\n\n\
-    \    zipper z;\n    bool zipped = false;\n    if (max_v > n-1 || min_v < 0) {\n\
-    \        z = zipper(v);\n        max_v = z.n - 1;\n        zipped = true;\n  \
-    \  }\n\n    auto add=[](auto a, auto b){return a+b;};\n    ll e = 0;\n    SegmentTree<ll>\
-    \ seg(max_v + 1, add, e);\n\n    ll res = 0;\n    rep(i, n){\n        ll w = (zipped\
-    \ ? z(v[i]) : v[i]);\n        res += seg.query(w+1, max_v+1);\n        seg.add(w,\
-    \ 1);\n    }\n    return res;\n}\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n\
-    \    vector<int> a(n);\n    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a)\
+    \    if (n == 0) return 0;\n    ll max_v = *max_element(all(v));\n    ll min_v\
+    \ = *min_element(all(v));\n\n    zipper z;\n    bool zipped = false;\n    if (max_v\
+    \ > n-1 || min_v < 0) {\n        z = zipper(v);\n        max_v = z.n - 1;\n  \
+    \      zipped = true;\n    }\n\n    auto add=[](auto a, auto b){return a+b;};\n\
+    \    ll e = 0;\n    SegmentTree<ll> seg(max_v + 1, add, e);\n\n    ll res = 0;\n\
+    \    rep(i, n){\n        ll w = (zipped ? z(v[i]) : v[i]);\n        res += seg.query(w+1,\
+    \ max_v+1);\n        seg.add(w, 1);\n    }\n    return res;\n}\n\ntemplate<class\
+    \ T>\nll reversed_dist(const vector<T>& a, const vector<T>& b){\n    // assume\
+    \ a and b are permutaion of same size\n    int n = sz(a);\n    vector<int> d(n+1);\n\
+    \    rep(i, n){ d[a[i]] = i; }\n    vector<T> c(n);\n    rep(i, n){ c[i] = d[b[i]];\
+    \ }\n    return reversed_cnt(c);\n}\n//%snippet.end()%\n\nint main(){\n    int\
+    \ n;cin>>n;\n    vector<int> a(n);\n    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a)\
     \ << endl;\n}\n"
   code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_5_D\"\
     \n#include \"../misc/zipper.lib/zipper.hpp\"\n#include \"segtree/segment_tree.hpp\"\
     \n\n//%snippet.set('reversed_cnt')%\n//%snippet.config({'alias':'tentousu'})%\n\
     //%snippet.config({'alias':'cnt_reversed'})%\n//%snippet.include('zipper')%\n\
     //%snippet.include('segment_tree')%\n//%snippet.fold()%\ntemplate<class T>\nll\
-    \ reversed_cnt(const vector<T>& v){\n    int n = sz(v);\n    ll max_v = *max_element(all(v));\n\
-    \    ll min_v = *min_element(all(v));\n\n    zipper z;\n    bool zipped = false;\n\
-    \    if (max_v > n-1 || min_v < 0) {\n        z = zipper(v);\n        max_v =\
-    \ z.n - 1;\n        zipped = true;\n    }\n\n    auto add=[](auto a, auto b){return\
-    \ a+b;};\n    ll e = 0;\n    SegmentTree<ll> seg(max_v + 1, add, e);\n\n    ll\
-    \ res = 0;\n    rep(i, n){\n        ll w = (zipped ? z(v[i]) : v[i]);\n      \
-    \  res += seg.query(w+1, max_v+1);\n        seg.add(w, 1);\n    }\n    return\
-    \ res;\n}\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n    vector<int>\
-    \ a(n);\n    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a) << endl;\n}\n"
+    \ reversed_cnt(const vector<T>& v){\n    int n = sz(v);\n    if (n == 0) return\
+    \ 0;\n    ll max_v = *max_element(all(v));\n    ll min_v = *min_element(all(v));\n\
+    \n    zipper z;\n    bool zipped = false;\n    if (max_v > n-1 || min_v < 0) {\n\
+    \        z = zipper(v);\n        max_v = z.n - 1;\n        zipped = true;\n  \
+    \  }\n\n    auto add=[](auto a, auto b){return a+b;};\n    ll e = 0;\n    SegmentTree<ll>\
+    \ seg(max_v + 1, add, e);\n\n    ll res = 0;\n    rep(i, n){\n        ll w = (zipped\
+    \ ? z(v[i]) : v[i]);\n        res += seg.query(w+1, max_v+1);\n        seg.add(w,\
+    \ 1);\n    }\n    return res;\n}\n\ntemplate<class T>\nll reversed_dist(const\
+    \ vector<T>& a, const vector<T>& b){\n    // assume a and b are permutaion of\
+    \ same size\n    int n = sz(a);\n    vector<int> d(n+1);\n    rep(i, n){ d[a[i]]\
+    \ = i; }\n    vector<T> c(n);\n    rep(i, n){ c[i] = d[b[i]]; }\n    return reversed_cnt(c);\n\
+    }\n//%snippet.end()%\n\nint main(){\n    int n;cin>>n;\n    vector<int> a(n);\n\
+    \    rep(i, n) cin>>a[i];\n    cout << reversed_cnt(a) << endl;\n}\n"
   dependsOn:
   - library/cpp/misc/zipper.lib/zipper.hpp
   - library/cpp/header.hpp
@@ -191,7 +199,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/reversed_cnt.cpp
   requiredBy: []
-  timestamp: '2020-10-27 20:24:34+09:00'
+  timestamp: '2020-11-12 23:22:31+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/reversed_cnt.cpp
