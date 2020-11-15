@@ -86,8 +86,13 @@ private:
     }/*}}}*/
 };
 // Graph g(n);
-// ll a,b;cin>>a>>b;
-// g[a].emplace_back(a, b, 1);
-// g[b].emplace_back(b, a, 1);
+// auto connect = [&](int x, int y, auto cost){
+//     g[x].emplace_back(x, y, cost);
+// };
+
+// int u,v;cin>>u>>v;
+// connect(u, v, 1);
+
+// auto f = dinic(g).solve(S, T);
 
 //%snippet.end()%
