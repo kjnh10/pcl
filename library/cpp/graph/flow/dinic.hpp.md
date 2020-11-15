@@ -77,8 +77,9 @@ data:
     \ residue(v, d)));\n            flow[v][d] += aug;\n            flow[d][v] -=\
     \ aug;\n            res += aug;\n            lim -= aug;\n            if (lim\
     \ == 0) break;\n        }\n        return res;\n    }/*}}}*/\n};\n// Graph g(n);\n\
-    // ll a,b;cin>>a>>b;\n// g[a].emplace_back(a, b, 1);\n// g[b].emplace_back(b,\
-    \ a, 1);\n\n//%snippet.end()%\n"
+    // auto connect = [&](int x, int y, auto cost){\n//     g[x].emplace_back(x, y,\
+    \ cost);\n// };\n\n// int u,v;cin>>u>>v;\n// connect(u, v, 1);\n\n// auto f =\
+    \ dinic(g).solve(S, T);\n\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('dinic')%\n\
     //%snippet.config({'alias':'flow'})%\n//%snippet.fold()%\n\n// Dinic: https://tubo28.me/compprog/algorithm/dinic/\n\
     using Capacity = int;\nstruct Edge {\n    int src, dst;\n    Capacity cap;\n \
@@ -111,15 +112,16 @@ data:
     \ residue(v, d)));\n            flow[v][d] += aug;\n            flow[d][v] -=\
     \ aug;\n            res += aug;\n            lim -= aug;\n            if (lim\
     \ == 0) break;\n        }\n        return res;\n    }/*}}}*/\n};\n// Graph g(n);\n\
-    // ll a,b;cin>>a>>b;\n// g[a].emplace_back(a, b, 1);\n// g[b].emplace_back(b,\
-    \ a, 1);\n\n//%snippet.end()%\n"
+    // auto connect = [&](int x, int y, auto cost){\n//     g[x].emplace_back(x, y,\
+    \ cost);\n// };\n\n// int u,v;cin>>u>>v;\n// connect(u, v, 1);\n\n// auto f =\
+    \ dinic(g).solve(S, T);\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/graph/flow/dinic.hpp
   requiredBy:
   - library/cpp/include/dinic.hpp
-  timestamp: '2020-10-27 20:24:34+09:00'
+  timestamp: '2020-11-15 09:51:00+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/flow/dinic.test.cpp

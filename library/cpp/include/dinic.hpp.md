@@ -73,8 +73,10 @@ data:
     \ residue(v, d)));\n            flow[v][d] += aug;\n            flow[d][v] -=\
     \ aug;\n            res += aug;\n            lim -= aug;\n            if (lim\
     \ == 0) break;\n        }\n        return res;\n    }/*}}}*/\n};\n// Graph g(n);\n\
-    // ll a,b;cin>>a>>b;\n// g[a].emplace_back(a, b, 1);\n// g[b].emplace_back(b,\
-    \ a, 1);\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/dinic.hpp\"\n"
+    // auto connect = [&](int x, int y, auto cost){\n//     g[x].emplace_back(x, y,\
+    \ cost);\n// };\n\n// int u,v;cin>>u>>v;\n// connect(u, v, 1);\n\n// auto f =\
+    \ dinic(g).solve(S, T);\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/dinic.hpp\"\
+    \n"
   code: '#include "../graph/flow/dinic.hpp"'
   dependsOn:
   - library/cpp/graph/flow/dinic.hpp
@@ -82,7 +84,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/dinic.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-11-15 09:51:00+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/dinic.hpp
