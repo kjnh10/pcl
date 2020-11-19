@@ -163,8 +163,12 @@ auto dfs = [&](const auto& dfs, ll u) -> ll {
 
 
 //%snippet.set('dxdy')%
-ll dx[]={1, -1, 0, 0};
-ll dy[]={0, 0, 1, -1};
+int dx[]={1, -1, 0, 0};
+int dy[]={0, 0, 1, -1};
+int ni = i + dx[dir];
+int nj = j + dy[dir];
+if (0 <= ni && ni < h && 0 <= nj && nj < w) {
+}
 
 
 //%snippet.set('ostream')%

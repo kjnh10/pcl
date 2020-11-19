@@ -75,10 +75,8 @@ struct modint {  //{{{
 };
 istream& operator>>(istream& is, const modint& a) { return is >> a.x; }
 ostream& operator<<(ostream& os, const modint& a) { return os << a.x; }
+string to_string_mod(const modint& x){ return to_string(x.x); }
 //}}}
-string to_string_mod(const modint& x){
-    return to_string(x.x);
-}
 using mint = modint;
 
 //%snippet.end()%

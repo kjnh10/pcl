@@ -10,16 +10,17 @@ struct union_find {
 
     union_find() {}
     union_find(int _n) : par(_n, -1), gcount(_n) {}
-    bool merge(int x, int y) { 
+    bool merge(int x, int y) { // -> return new_root
         x = root(x);
         y = root(y);
         if (x != y) {
             if (par[y] < par[x]) swap(x, y);
+            // y -> x : 大きい方にmergeする。
             par[x] += par[y];
             par[y] = x;
             gcount--;
         }
-        return x != y;
+        return (x != y ? x : -1);
     } 
     int root(int x) {
         if (is_root(x)){
