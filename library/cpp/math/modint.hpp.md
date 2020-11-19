@@ -84,8 +84,8 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n"
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('modint')%\n//%snippet.config({'alias':'mint'})%\n\
     const int mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct modint {  //{{{\n\
     \    ll x;\n    modint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
@@ -111,23 +111,23 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n"
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/modint.hpp
   requiredBy:
-  - library/cpp/math/bsgs.hpp
-  - library/cpp/math/combination.hpp
-  - library/cpp/misc/constant.cpp
-  - library/cpp/include/combination.hpp
   - library/cpp/include/modint.hpp
-  timestamp: '2020-11-02 01:39:53+09:00'
+  - library/cpp/include/combination.hpp
+  - library/cpp/math/combination.hpp
+  - library/cpp/math/bsgs.hpp
+  - library/cpp/misc/constant.cpp
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp
+  - library/cpp/math/combination.test.cpp
 documentation_of: library/cpp/math/modint.hpp
 layout: document
 redirect_from:

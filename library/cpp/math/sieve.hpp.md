@@ -116,8 +116,8 @@ data:
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/math/sieve.aoj.test.cpp
   - library/cpp/math/sieve.test.cpp
+  - library/cpp/math/sieve.aoj.test.cpp
 documentation_of: library/cpp/math/sieve.hpp
 layout: document
 redirect_from:

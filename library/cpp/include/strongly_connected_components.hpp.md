@@ -233,63 +233,65 @@ data:
     //%snippet.fold()%\n\nstruct union_find {\n    vector<int> par;   // par[x]: parent\
     \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    union_find()\
     \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    bool merge(int\
-    \ x, int y) { \n        x = root(x);\n        y = root(y);\n        if (x != y)\
-    \ {\n            if (par[y] < par[x]) swap(x, y);\n            par[x] += par[y];\n\
-    \            par[y] = x;\n            gcount--;\n        }\n        return x !=\
-    \ y;\n    } \n    int root(int x) {\n        if (is_root(x)){\n            return\
-    \ x;\n        }\n        else{\n            return par[x] = root(par[x]);  //\
-    \ \u7D4C\u8DEF\u5727\u7E2E\n            // return root(par[x]);         // \u7D4C\
-    \u8DEF\u5727\u7E2E\u306A\u3057\n        }\n    }\n    bool is_root(int x) { return\
-    \ par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y); }\n\
-    \    int size(int x) { return -par[root(x)]; }\n\n    map<int, vector<int>> group(){\n\
-    \        map<int, vector<int>> res;\n        rep(i, sz(this->par)) { res[this->root(i)].pb(i);\
-    \ }\n        return res;\n    }\n\n    #if defined(PCM) || defined(LOCAL)  //\
-    \ {{{\n    friend ostream& operator<<(ostream& os, union_find& uf) {\n       \
-    \ auto group = uf.group();\n        os << endl;\n        each(g, group) { os <<\
-    \ g << endl; }\n        return os;\n    }\n    #endif  // }}}\n};\n\n//%snippet.end()%\n\
-    #line 6 \"library/cpp/graph/graph.hpp\"\n\n//%snippet.set('Graph')%\n//%snippet.include('union_find')%\n\
-    //%snippet.include('tree')%\n//%snippet.fold()%\n\ntemplate<class Cost=ll>\nstruct\
-    \ Graph {\n    using Pos = int;  // int\u4EE5\u5916\u306B\u306F\u5BFE\u5FDC\u3057\
-    \u306A\u3044\u3002\n\n    int n;  // \u9802\u70B9\u6570\n    vector<vector<Edge<Cost>>>\
-    \ adj_list;\n    auto operator[](Pos pos) const { return adj_list[pos]; }\n  \
-    \  vector<Edge<Cost>> edges;\n    tree<Cost> tr;\n    Pos root;\n    vector<int>\
-    \ _used_in_dfs;\n    vector<int> lowlink;\n    Cost zerocost;\n    Cost infcost;\n\
-    \n    Graph() {}\n    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n),\
-    \ zerocost(0LL), infcost(inf<Cost>) { }\n    Graph(int _n, Cost zc, Cost ic) :\
-    \ n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }\n\
-    \n    void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/\n      \
-    \  adj_list[from].emplace_back(from, to, cost, idx);\n        edges.emplace_back(from,\
-    \ to, cost, idx);\n    }\n    void add_edge(Pos from, Pos to) {  // for ll\n \
-    \       adj_list[from].emplace_back(from, to, 1, -1);\n        edges.emplace_back(from,\
-    \ to, 1, -1);\n    }/*}}}*/\n\n    void build_tree(Pos _root) {/*{{{*/\n     \
-    \   root = _root;\n        _dfs_tree(root);\n        tr.build(root);\n       \
-    \ _make_lowlink();\n    }/*}}}*/\n\n    vector<int> make_bipartite() {/*{{{*/\n\
-    \        union_find buf(2 * n);\n        rep(u, n) {\n            each(e, adj_list[u])\
-    \ {\n                buf.merge(u, e.to + n);\n                buf.merge(e.to,\
-    \ u + n);\n            }\n        }\n\n        vector<int> res(n, -1);\n     \
-    \   rep(u, n) {\n            if (buf.same(u, u + n)) return res;\n        }\n\
-    \        rep(u, n) {\n            if (buf.same(0, u)) res[u] = 0;\n          \
-    \  else res[u] = 1;\n        }\n        return res;\n    }/*}}}*/\n\n    void\
-    \ _dfs_tree(Pos u) {/*{{{*/\n        _used_in_dfs[u] = 1;\n        each(e, adj_list[u])\
-    \ {\n            if (_used_in_dfs[e.to]) continue;\n            tr.add_edge(u,\
-    \ e.to, e.cost);\n            _dfs_tree(e.to);\n        }\n    }/*}}}*/\n\n  \
-    \  void _make_lowlink() {/*{{{*/\n        lowlink = vector<Pos>(n, numeric_limits<Pos>().max());\n\
-    \        r_rep(i, n) {\n            Pos u = tr.dfstrv[i];\n            chmin(lowlink[u],\
-    \ tr.ord[u]);\n\n            each(e, adj_list[u]) {\n                if (e.to\
-    \ == tr.par[u])\n                    continue;\n                else if (tr.ord[e.to]\
-    \ < tr.ord[u]) {\n                    chmin(lowlink[u], tr.ord[e.to]);\n     \
-    \           } else {\n                    chmin(lowlink[u], lowlink[e.to]);\n\
-    \                }\n            }\n        }\n    }/*}}}*/\n\n    vector<Pos>\
-    \ get_articulation_points() {/*{{{*/\n        if (sz(lowlink) == 0) throw(\"make_lowlik()\
-    \ beforehand\");\n\n        vector<Pos> res;\n        if (sz(tr.children[root])\
-    \ > 1) {\n            res.push_back(root);\n        }\n        rep(u, 0, n) {\n\
-    \            if (u == root) continue;\n            bool is_kan = false;\n    \
-    \        each(v, tr.children[u]) {\n                if (tr.ord[u] <= lowlink[v])\
-    \ {\n                    is_kan = true;\n                }\n            }\n  \
-    \          if (is_kan) res.push_back(u);\n        }\n        return res;\n   \
-    \ }/*}}}*/\n\n    vector<Edge<Cost>> get_bridges() {/*{{{*/\n        if (sz(lowlink)\
-    \ == 0) throw(\"make_lowlik() beforehand\");\n        vector<Edge<Cost>> res;\n\
-    \        each(edge, edges){\n            if (tr.ord[edge.from] < lowlink[edge.to])\
+    \ x, int y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n\
+    \        if (x != y) {\n            if (par[y] < par[x]) swap(x, y);\n       \
+    \     // y -> x : \u5927\u304D\u3044\u65B9\u306Bmerge\u3059\u308B\u3002\n    \
+    \        par[x] += par[y];\n            par[y] = x;\n            gcount--;\n \
+    \       }\n        return (x != y ? x : -1);\n    } \n    int root(int x) {\n\
+    \        if (is_root(x)){\n            return x;\n        }\n        else{\n \
+    \           return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n     \
+    \       // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
+    \n        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
+    \ x, int y) { return root(x) == root(y); }\n    int size(int x) { return -par[root(x)];\
+    \ }\n\n    map<int, vector<int>> group(){\n        map<int, vector<int>> res;\n\
+    \        rep(i, sz(this->par)) { res[this->root(i)].pb(i); }\n        return res;\n\
+    \    }\n\n    #if defined(PCM) || defined(LOCAL)  // {{{\n    friend ostream&\
+    \ operator<<(ostream& os, union_find& uf) {\n        auto group = uf.group();\n\
+    \        os << endl;\n        each(g, group) { os << g << endl; }\n        return\
+    \ os;\n    }\n    #endif  // }}}\n};\n\n//%snippet.end()%\n#line 6 \"library/cpp/graph/graph.hpp\"\
+    \n\n//%snippet.set('Graph')%\n//%snippet.include('union_find')%\n//%snippet.include('tree')%\n\
+    //%snippet.fold()%\n\ntemplate<class Cost=ll>\nstruct Graph {\n    using Pos =\
+    \ int;  // int\u4EE5\u5916\u306B\u306F\u5BFE\u5FDC\u3057\u306A\u3044\u3002\n\n\
+    \    int n;  // \u9802\u70B9\u6570\n    vector<vector<Edge<Cost>>> adj_list;\n\
+    \    auto operator[](Pos pos) const { return adj_list[pos]; }\n    vector<Edge<Cost>>\
+    \ edges;\n    tree<Cost> tr;\n    Pos root;\n    vector<int> _used_in_dfs;\n \
+    \   vector<int> lowlink;\n    Cost zerocost;\n    Cost infcost;\n\n    Graph()\
+    \ {}\n    Graph(int _n) : n(_n), adj_list(_n), tr(n), _used_in_dfs(n), zerocost(0LL),\
+    \ infcost(inf<Cost>) { }\n    Graph(int _n, Cost zc, Cost ic) : n(_n), adj_list(_n),\
+    \ tr(n), _used_in_dfs(n), zerocost(zc), infcost(ic) { }\n\n    void add_edge(Pos\
+    \ from, Pos to, Cost cost, int idx=-1) {/*{{{*/\n        adj_list[from].emplace_back(from,\
+    \ to, cost, idx);\n        edges.emplace_back(from, to, cost, idx);\n    }\n \
+    \   void add_edge(Pos from, Pos to) {  // for ll\n        adj_list[from].emplace_back(from,\
+    \ to, 1, -1);\n        edges.emplace_back(from, to, 1, -1);\n    }/*}}}*/\n\n\
+    \    void build_tree(Pos _root) {/*{{{*/\n        root = _root;\n        _dfs_tree(root);\n\
+    \        tr.build(root);\n        _make_lowlink();\n    }/*}}}*/\n\n    vector<int>\
+    \ make_bipartite() {/*{{{*/\n        union_find buf(2 * n);\n        rep(u, n)\
+    \ {\n            each(e, adj_list[u]) {\n                buf.merge(u, e.to + n);\n\
+    \                buf.merge(e.to, u + n);\n            }\n        }\n\n       \
+    \ vector<int> res(n, -1);\n        rep(u, n) {\n            if (buf.same(u, u\
+    \ + n)) return res;\n        }\n        rep(u, n) {\n            if (buf.same(0,\
+    \ u)) res[u] = 0;\n            else res[u] = 1;\n        }\n        return res;\n\
+    \    }/*}}}*/\n\n    void _dfs_tree(Pos u) {/*{{{*/\n        _used_in_dfs[u] =\
+    \ 1;\n        each(e, adj_list[u]) {\n            if (_used_in_dfs[e.to]) continue;\n\
+    \            tr.add_edge(u, e.to, e.cost);\n            _dfs_tree(e.to);\n   \
+    \     }\n    }/*}}}*/\n\n    void _make_lowlink() {/*{{{*/\n        lowlink =\
+    \ vector<Pos>(n, numeric_limits<Pos>().max());\n        r_rep(i, n) {\n      \
+    \      Pos u = tr.dfstrv[i];\n            chmin(lowlink[u], tr.ord[u]);\n\n  \
+    \          each(e, adj_list[u]) {\n                if (e.to == tr.par[u])\n  \
+    \                  continue;\n                else if (tr.ord[e.to] < tr.ord[u])\
+    \ {\n                    chmin(lowlink[u], tr.ord[e.to]);\n                } else\
+    \ {\n                    chmin(lowlink[u], lowlink[e.to]);\n                }\n\
+    \            }\n        }\n    }/*}}}*/\n\n    vector<Pos> get_articulation_points()\
+    \ {/*{{{*/\n        if (sz(lowlink) == 0) throw(\"make_lowlik() beforehand\");\n\
+    \n        vector<Pos> res;\n        if (sz(tr.children[root]) > 1) {\n       \
+    \     res.push_back(root);\n        }\n        rep(u, 0, n) {\n            if\
+    \ (u == root) continue;\n            bool is_kan = false;\n            each(v,\
+    \ tr.children[u]) {\n                if (tr.ord[u] <= lowlink[v]) {\n        \
+    \            is_kan = true;\n                }\n            }\n            if\
+    \ (is_kan) res.push_back(u);\n        }\n        return res;\n    }/*}}}*/\n\n\
+    \    vector<Edge<Cost>> get_bridges() {/*{{{*/\n        if (sz(lowlink) == 0)\
+    \ throw(\"make_lowlik() beforehand\");\n        vector<Edge<Cost>> res;\n    \
+    \    each(edge, edges){\n            if (tr.ord[edge.from] < lowlink[edge.to])\
     \ res.push_back(edge);\n        }\n        return res;\n    }/*}}}*/\n\n    vector<Edge<Cost>>\
     \ kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\u3055\u308C\u308B\u8FBA\u306E\
     vector\u3092\u8FD4\u3059\n        vector<Edge<Cost>> res(n - 1);\n        sort(all(edges),\
@@ -350,7 +352,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/strongly_connected_components.hpp
   requiredBy: []
-  timestamp: '2020-10-31 19:09:33+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/strongly_connected_components.hpp

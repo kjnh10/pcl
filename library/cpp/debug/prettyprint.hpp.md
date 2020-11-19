@@ -440,8 +440,8 @@ data:
   path: library/cpp/debug/prettyprint.hpp
   requiredBy:
   - library/cpp/debug/dump.hpp
-  - library/cpp/include/prettyprint.hpp
   - library/cpp/include/dump.hpp
+  - library/cpp/include/prettyprint.hpp
   timestamp: '2020-04-26 09:08:25+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

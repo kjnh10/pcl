@@ -74,20 +74,20 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 4 \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n\
-    // %snippet.include('modint')%\nstruct combination {  // {{{\n    vector<mint>\
-    \ fact, ifact;\n    combination(int n) : fact(n + 1), ifact(n + 1) {\n       \
-    \ assert(n < mod);\n        fact[0] = 1;\n        for (int i = 1; i <= n; ++i)\
-    \ fact[i] = fact[i - 1] * i;\n        ifact[n] = fact[n].inv();\n        for (int\
-    \ i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;\n    }\n    mint operator()(int\
-    \ n, int k) {\n        if (k < 0 || k > n) return 0;\n        return fact[n] *\
-    \ ifact[k] * ifact[n - k];\n    }\n}  // }}}\ncom(500001);  // check this is enough\n\
-    //%snippet.end()%\n#line 4 \"library/cpp/math/combination.test.cpp\"\n\nint main(){\n\
-    \    int n,m;cin>>n>>m;\n\n    mint ans = mint(m).pow(n);\n\n    rep(x, 1, m){\
-    \  // x: \u4F7F\u308F\u306A\u3044\u8272\u306E\u6570\n        ans += mint(-1).pow(x)\
-    \ * com(m, x) * mint(m-x).pow(n);\n    }\n\n    cout << ans << endl;\n}\n"
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n#line 4\
+    \ \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n// %snippet.include('modint')%\n\
+    struct combination {  // {{{\n    vector<mint> fact, ifact;\n    combination(int\
+    \ n) : fact(n + 1), ifact(n + 1) {\n        assert(n < mod);\n        fact[0]\
+    \ = 1;\n        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;\n    \
+    \    ifact[n] = fact[n].inv();\n        for (int i = n; i >= 1; --i) ifact[i -\
+    \ 1] = ifact[i] * i;\n    }\n    mint operator()(int n, int k) {\n        if (k\
+    \ < 0 || k > n) return 0;\n        return fact[n] * ifact[k] * ifact[n - k];\n\
+    \    }\n}  // }}}\ncom(500001);  // check this is enough\n//%snippet.end()%\n\
+    #line 4 \"library/cpp/math/combination.test.cpp\"\n\nint main(){\n    int n,m;cin>>n>>m;\n\
+    \n    mint ans = mint(m).pow(n);\n\n    rep(x, 1, m){  // x: \u4F7F\u308F\u306A\
+    \u3044\u8272\u306E\u6570\n        ans += mint(-1).pow(x) * com(m, x) * mint(m-x).pow(n);\n\
+    \    }\n\n    cout << ans << endl;\n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/1035\"\n\n#include \"\
     combination.hpp\"\n\nint main(){\n    int n,m;cin>>n>>m;\n\n    mint ans = mint(m).pow(n);\n\
     \n    rep(x, 1, m){  // x: \u4F7F\u308F\u306A\u3044\u8272\u306E\u6570\n      \
@@ -100,7 +100,7 @@ data:
   isVerificationFile: true
   path: library/cpp/math/combination.test.cpp
   requiredBy: []
-  timestamp: '2020-11-02 01:39:53+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/combination.test.cpp

@@ -66,9 +66,9 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 2 \"library/cpp/include/modint.hpp\"\n"
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n#line 2\
+    \ \"library/cpp/include/modint.hpp\"\n"
   code: '#include "../math/modint.hpp"'
   dependsOn:
   - library/cpp/math/modint.hpp
@@ -76,7 +76,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/modint.hpp
   requiredBy: []
-  timestamp: '2020-11-02 01:39:53+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/modint.hpp

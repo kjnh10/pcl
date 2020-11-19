@@ -84,9 +84,9 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 4 \"library/cpp/math/matrix_pow.test.cpp\"\n\nint solve() {\n    ll n;cin>>n;\n\
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n#line 4\
+    \ \"library/cpp/math/matrix_pow.test.cpp\"\n\nint solve() {\n    ll n;cin>>n;\n\
     \n    mat<mint> A(6, vector<mint>(6));\n    mint x = mint(1)/6;\n    A[0] = {x,\
     \ x, x, x, x, x};\n    A[1] = {1, 0, 0, 0, 0, 0};\n    A[2] = {0, 1, 0, 0, 0,\
     \ 0};\n    A[3] = {0, 0, 1, 0, 0, 0};\n    A[4] = {0, 0, 0, 1, 0, 0};\n    A[5]\
@@ -109,7 +109,7 @@ data:
   isVerificationFile: true
   path: library/cpp/math/matrix_pow.test.cpp
   requiredBy: []
-  timestamp: '2020-11-02 01:39:53+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/matrix_pow.test.cpp

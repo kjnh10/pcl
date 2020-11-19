@@ -44,22 +44,23 @@ data:
     \n\n//%snippet.set('union_find')%\n//%snippet.fold()%\n\nstruct union_find {\n\
     \    vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
     \         // count of groups\n\n    union_find() {}\n    union_find(int _n) :\
-    \ par(_n, -1), gcount(_n) {}\n    bool merge(int x, int y) { \n        x = root(x);\n\
-    \        y = root(y);\n        if (x != y) {\n            if (par[y] < par[x])\
-    \ swap(x, y);\n            par[x] += par[y];\n            par[y] = x;\n      \
-    \      gcount--;\n        }\n        return x != y;\n    } \n    int root(int\
-    \ x) {\n        if (is_root(x)){\n            return x;\n        }\n        else{\n\
-    \            return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n    \
-    \        // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
-    \n        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
-    \ x, int y) { return root(x) == root(y); }\n    int size(int x) { return -par[root(x)];\
-    \ }\n\n    map<int, vector<int>> group(){\n        map<int, vector<int>> res;\n\
-    \        rep(i, sz(this->par)) { res[this->root(i)].pb(i); }\n        return res;\n\
-    \    }\n\n    #if defined(PCM) || defined(LOCAL)  // {{{\n    friend ostream&\
-    \ operator<<(ostream& os, union_find& uf) {\n        auto group = uf.group();\n\
-    \        os << endl;\n        each(g, group) { os << g << endl; }\n        return\
-    \ os;\n    }\n    #endif  // }}}\n};\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/union_find.hpp\"\
-    \n"
+    \ par(_n, -1), gcount(_n) {}\n    bool merge(int x, int y) { // -> return new_root\n\
+    \        x = root(x);\n        y = root(y);\n        if (x != y) {\n         \
+    \   if (par[y] < par[x]) swap(x, y);\n            // y -> x : \u5927\u304D\u3044\
+    \u65B9\u306Bmerge\u3059\u308B\u3002\n            par[x] += par[y];\n         \
+    \   par[y] = x;\n            gcount--;\n        }\n        return (x != y ? x\
+    \ : -1);\n    } \n    int root(int x) {\n        if (is_root(x)){\n          \
+    \  return x;\n        }\n        else{\n            return par[x] = root(par[x]);\
+    \  // \u7D4C\u8DEF\u5727\u7E2E\n            // return root(par[x]);         //\
+    \ \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\n        }\n    }\n    bool is_root(int\
+    \ x) { return par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y);\
+    \ }\n    int size(int x) { return -par[root(x)]; }\n\n    map<int, vector<int>>\
+    \ group(){\n        map<int, vector<int>> res;\n        rep(i, sz(this->par))\
+    \ { res[this->root(i)].pb(i); }\n        return res;\n    }\n\n    #if defined(PCM)\
+    \ || defined(LOCAL)  // {{{\n    friend ostream& operator<<(ostream& os, union_find&\
+    \ uf) {\n        auto group = uf.group();\n        os << endl;\n        each(g,\
+    \ group) { os << g << endl; }\n        return os;\n    }\n    #endif  // }}}\n\
+    };\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/union_find.hpp\"\n"
   code: '#include "../graph/union_find.hpp"'
   dependsOn:
   - library/cpp/graph/union_find.hpp
@@ -67,7 +68,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/union_find.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/union_find.hpp

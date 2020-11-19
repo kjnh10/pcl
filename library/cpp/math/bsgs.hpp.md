@@ -66,9 +66,9 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 3 \"library/cpp/math/bsgs.hpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n#line 3\
+    \ \"library/cpp/math/bsgs.hpp\"\n\n// %snippet.set('baybe_step_giant_step')%\n\
     // %snippet.config({'alias':'bsgs'})%\n// %snippet.include('modint')%\n\nint bsgs(int\
     \ a, int b) {  //{{{\n    if (b >= mod) return -1;\n\n    // find x s.t a^x =\
     \ b in (mod)\n    int h = sqrt(mod);\n    // x = p*h + r  (0<=r<h and 0<=p<=h)\n\
@@ -128,7 +128,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/bsgs.hpp
   requiredBy: []
-  timestamp: '2020-11-12 01:52:19+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/bsgs.hpp

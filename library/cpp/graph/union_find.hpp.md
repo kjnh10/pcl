@@ -110,13 +110,35 @@ data:
     \n\n//%snippet.set('union_find')%\n//%snippet.fold()%\n\nstruct union_find {\n\
     \    vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
     \         // count of groups\n\n    union_find() {}\n    union_find(int _n) :\
-    \ par(_n, -1), gcount(_n) {}\n    bool merge(int x, int y) { \n        x = root(x);\n\
-    \        y = root(y);\n        if (x != y) {\n            if (par[y] < par[x])\
-    \ swap(x, y);\n            par[x] += par[y];\n            par[y] = x;\n      \
-    \      gcount--;\n        }\n        return x != y;\n    } \n    int root(int\
-    \ x) {\n        if (is_root(x)){\n            return x;\n        }\n        else{\n\
-    \            return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n    \
-    \        // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
+    \ par(_n, -1), gcount(_n) {}\n    bool merge(int x, int y) { // -> return new_root\n\
+    \        x = root(x);\n        y = root(y);\n        if (x != y) {\n         \
+    \   if (par[y] < par[x]) swap(x, y);\n            // y -> x : \u5927\u304D\u3044\
+    \u65B9\u306Bmerge\u3059\u308B\u3002\n            par[x] += par[y];\n         \
+    \   par[y] = x;\n            gcount--;\n        }\n        return (x != y ? x\
+    \ : -1);\n    } \n    int root(int x) {\n        if (is_root(x)){\n          \
+    \  return x;\n        }\n        else{\n            return par[x] = root(par[x]);\
+    \  // \u7D4C\u8DEF\u5727\u7E2E\n            // return root(par[x]);         //\
+    \ \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\n        }\n    }\n    bool is_root(int\
+    \ x) { return par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y);\
+    \ }\n    int size(int x) { return -par[root(x)]; }\n\n    map<int, vector<int>>\
+    \ group(){\n        map<int, vector<int>> res;\n        rep(i, sz(this->par))\
+    \ { res[this->root(i)].pb(i); }\n        return res;\n    }\n\n    #if defined(PCM)\
+    \ || defined(LOCAL)  // {{{\n    friend ostream& operator<<(ostream& os, union_find&\
+    \ uf) {\n        auto group = uf.group();\n        os << endl;\n        each(g,\
+    \ group) { os << g << endl; }\n        return os;\n    }\n    #endif  // }}}\n\
+    };\n\n//%snippet.end()%\n"
+  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('union_find')%\n\
+    //%snippet.fold()%\n\nstruct union_find {\n    vector<int> par;   // par[x]: parent\
+    \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    union_find()\
+    \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    bool merge(int\
+    \ x, int y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n\
+    \        if (x != y) {\n            if (par[y] < par[x]) swap(x, y);\n       \
+    \     // y -> x : \u5927\u304D\u3044\u65B9\u306Bmerge\u3059\u308B\u3002\n    \
+    \        par[x] += par[y];\n            par[y] = x;\n            gcount--;\n \
+    \       }\n        return (x != y ? x : -1);\n    } \n    int root(int x) {\n\
+    \        if (is_root(x)){\n            return x;\n        }\n        else{\n \
+    \           return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n     \
+    \       // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
     \n        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
     \ x, int y) { return root(x) == root(y); }\n    int size(int x) { return -par[root(x)];\
     \ }\n\n    map<int, vector<int>> group(){\n        map<int, vector<int>> res;\n\
@@ -125,55 +147,37 @@ data:
     \ operator<<(ostream& os, union_find& uf) {\n        auto group = uf.group();\n\
     \        os << endl;\n        each(g, group) { os << g << endl; }\n        return\
     \ os;\n    }\n    #endif  // }}}\n};\n\n//%snippet.end()%\n"
-  code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('union_find')%\n\
-    //%snippet.fold()%\n\nstruct union_find {\n    vector<int> par;   // par[x]: parent\
-    \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    union_find()\
-    \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    bool merge(int\
-    \ x, int y) { \n        x = root(x);\n        y = root(y);\n        if (x != y)\
-    \ {\n            if (par[y] < par[x]) swap(x, y);\n            par[x] += par[y];\n\
-    \            par[y] = x;\n            gcount--;\n        }\n        return x !=\
-    \ y;\n    } \n    int root(int x) {\n        if (is_root(x)){\n            return\
-    \ x;\n        }\n        else{\n            return par[x] = root(par[x]);  //\
-    \ \u7D4C\u8DEF\u5727\u7E2E\n            // return root(par[x]);         // \u7D4C\
-    \u8DEF\u5727\u7E2E\u306A\u3057\n        }\n    }\n    bool is_root(int x) { return\
-    \ par[x] < 0; }\n    bool same(int x, int y) { return root(x) == root(y); }\n\
-    \    int size(int x) { return -par[root(x)]; }\n\n    map<int, vector<int>> group(){\n\
-    \        map<int, vector<int>> res;\n        rep(i, sz(this->par)) { res[this->root(i)].pb(i);\
-    \ }\n        return res;\n    }\n\n    #if defined(PCM) || defined(LOCAL)  //\
-    \ {{{\n    friend ostream& operator<<(ostream& os, union_find& uf) {\n       \
-    \ auto group = uf.group();\n        os << endl;\n        each(g, group) { os <<\
-    \ g << endl; }\n        return os;\n    }\n    #endif  // }}}\n};\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/graph/union_find.hpp
   requiredBy:
-  - library/cpp/graph/graph.hpp
-  - library/cpp/graph/local_min_cycle.hpp
-  - library/cpp/graph/bellman_ford.hpp
-  - library/cpp/graph/gridgraph.cpp
-  - library/cpp/graph/two_sat.hpp
-  - library/cpp/graph/strongly_connected_components.hpp
-  - library/cpp/graph/topological_sort.hpp
-  - library/cpp/include/union_find.hpp
-  - library/cpp/include/graph.hpp
   - library/cpp/include/local_min_cycle.hpp
+  - library/cpp/include/union_find.hpp
+  - library/cpp/include/strongly_connected_components.hpp
+  - library/cpp/include/graph.hpp
   - library/cpp/include/bellman_ford.hpp
   - library/cpp/include/two_sat.hpp
-  - library/cpp/include/strongly_connected_components.hpp
   - library/cpp/include/topological_sort.hpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  - library/cpp/graph/local_min_cycle.hpp
+  - library/cpp/graph/gridgraph.cpp
+  - library/cpp/graph/strongly_connected_components.hpp
+  - library/cpp/graph/graph.hpp
+  - library/cpp/graph/bellman_ford.hpp
+  - library/cpp/graph/two_sat.hpp
+  - library/cpp/graph/topological_sort.hpp
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tests/graph.lowlink.test.cpp
   - library/cpp/graph/tests/graph.dijkstra.test.cpp
-  - library/cpp/graph/tests/bellman_ford.test.cpp
-  - library/cpp/graph/tests/topological_sort.test.cpp
   - library/cpp/graph/tests/graph.kruskal.test.cpp
-  - library/cpp/graph/tests/two_sat.test.cpp
+  - library/cpp/graph/tests/scc.test.cpp
+  - library/cpp/graph/tests/bellman_ford.test.cpp
   - library/cpp/graph/tests/graph.bridge.test.cpp
   - library/cpp/graph/tests/graph.2dcost.test.cpp
-  - library/cpp/graph/tests/scc.test.cpp
+  - library/cpp/graph/tests/topological_sort.test.cpp
+  - library/cpp/graph/tests/two_sat.test.cpp
 documentation_of: library/cpp/graph/union_find.hpp
 layout: document
 redirect_from:

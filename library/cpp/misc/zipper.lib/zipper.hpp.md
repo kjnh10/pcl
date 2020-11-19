@@ -124,8 +124,8 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/zipper.lib/zipper.hpp
   requiredBy:
-  - library/cpp/array/reversed_cnt.cpp
   - library/cpp/include/zipper.hpp
+  - library/cpp/array/reversed_cnt.cpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

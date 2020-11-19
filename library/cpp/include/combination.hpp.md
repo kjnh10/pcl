@@ -69,17 +69,17 @@ data:
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
-    \ modint& a) { return os << a.x; }\n//}}}\nstring to_string_mod(const modint&\
-    \ x){\n    return to_string(x.x);\n}\nusing mint = modint;\n\n//%snippet.end()%\n\
-    #line 4 \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n\
-    // %snippet.include('modint')%\nstruct combination {  // {{{\n    vector<mint>\
-    \ fact, ifact;\n    combination(int n) : fact(n + 1), ifact(n + 1) {\n       \
-    \ assert(n < mod);\n        fact[0] = 1;\n        for (int i = 1; i <= n; ++i)\
-    \ fact[i] = fact[i - 1] * i;\n        ifact[n] = fact[n].inv();\n        for (int\
-    \ i = n; i >= 1; --i) ifact[i - 1] = ifact[i] * i;\n    }\n    mint operator()(int\
-    \ n, int k) {\n        if (k < 0 || k > n) return 0;\n        return fact[n] *\
-    \ ifact[k] * ifact[n - k];\n    }\n}  // }}}\ncom(500001);  // check this is enough\n\
-    //%snippet.end()%\n#line 2 \"library/cpp/include/combination.hpp\"\n"
+    \ modint& a) { return os << a.x; }\nstring to_string_mod(const modint& x){ return\
+    \ to_string(x.x); }\n//}}}\nusing mint = modint;\n\n//%snippet.end()%\n#line 4\
+    \ \"library/cpp/math/combination.hpp\"\n\n//%snippet.set('combination')%\n// %snippet.include('modint')%\n\
+    struct combination {  // {{{\n    vector<mint> fact, ifact;\n    combination(int\
+    \ n) : fact(n + 1), ifact(n + 1) {\n        assert(n < mod);\n        fact[0]\
+    \ = 1;\n        for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;\n    \
+    \    ifact[n] = fact[n].inv();\n        for (int i = n; i >= 1; --i) ifact[i -\
+    \ 1] = ifact[i] * i;\n    }\n    mint operator()(int n, int k) {\n        if (k\
+    \ < 0 || k > n) return 0;\n        return fact[n] * ifact[k] * ifact[n - k];\n\
+    \    }\n}  // }}}\ncom(500001);  // check this is enough\n//%snippet.end()%\n\
+    #line 2 \"library/cpp/include/combination.hpp\"\n"
   code: '#include "../math/combination.hpp"'
   dependsOn:
   - library/cpp/math/combination.hpp
@@ -88,7 +88,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/combination.hpp
   requiredBy: []
-  timestamp: '2020-11-02 01:39:53+09:00'
+  timestamp: '2020-11-19 23:34:21+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/combination.hpp
