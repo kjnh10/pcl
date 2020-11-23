@@ -16,7 +16,6 @@ struct Graph {
     int n;  // 頂点数
     vector<vector<Edge<Cost>>> adj_list;
     auto operator[](Pos pos) const { return adj_list[pos]; }
-    vector<Edge<Cost>> edges;
     tree<Cost> tr;
     Pos root;
     vector<int> _used_in_dfs;
@@ -30,11 +29,9 @@ struct Graph {
 
     void add_edge(Pos from, Pos to, Cost cost, int idx=-1) {/*{{{*/
         adj_list[from].emplace_back(from, to, cost, idx);
-        edges.emplace_back(from, to, cost, idx);
     }
     void add_edge(Pos from, Pos to) {  // for ll
         adj_list[from].emplace_back(from, to, 1, -1);
-        edges.emplace_back(from, to, 1, -1);
     }/*}}}*/
 
     void build_tree(Pos _root) {/*{{{*/
@@ -114,14 +111,19 @@ struct Graph {
     vector<Edge<Cost>> get_bridges() {/*{{{*/
         if (sz(lowlink) == 0) throw("make_lowlik() beforehand");
         vector<Edge<Cost>> res;
-        each(edge, edges){
-            if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+        rep(u, n){
+            for (auto& edge : adj_list[u]){
+                if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);
+            }
         }
         return res;
     }/*}}}*/
 
     vector<Edge<Cost>> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
+        vector<Edge<Cost>> edges;
+        rep(u, n) for (auto& edge : adj_list[u]) edges.push_back(edge);
+
         vector<Edge<Cost>> res(n - 1);
         sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
         union_find uf(n);
