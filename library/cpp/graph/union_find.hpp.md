@@ -5,7 +5,7 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/graph/bellman_ford.hpp
     title: library/cpp/graph/bellman_ford.hpp
   - icon: ':question:'
@@ -48,7 +48,7 @@ data:
     path: library/cpp/include/union_find.hpp
     title: library/cpp/include/union_find.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
     title: library/cpp/graph/tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
@@ -110,7 +110,7 @@ data:
     \n\n//%snippet.set('union_find')%\n//%snippet.fold()%\n\nstruct union_find {\n\
     \    vector<int> par;   // par[x]: parent of x. if root, -size.\n    int gcount;\
     \         // count of groups\n\n    union_find() {}\n    union_find(int _n) :\
-    \ par(_n, -1), gcount(_n) {}\n    bool merge(int x, int y) { // -> return new_root\n\
+    \ par(_n, -1), gcount(_n) {}\n    int merge(int x, int y) { // -> return new_root\n\
     \        x = root(x);\n        y = root(y);\n        if (x != y) {\n         \
     \   if (par[y] < par[x]) swap(x, y);\n            // y -> x : \u5927\u304D\u3044\
     \u65B9\u306Bmerge\u3059\u308B\u3002\n            par[x] += par[y];\n         \
@@ -130,8 +130,8 @@ data:
   code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('union_find')%\n\
     //%snippet.fold()%\n\nstruct union_find {\n    vector<int> par;   // par[x]: parent\
     \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    union_find()\
-    \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    bool merge(int\
-    \ x, int y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n\
+    \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    int merge(int x,\
+    \ int y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n\
     \        if (x != y) {\n            if (par[y] < par[x]) swap(x, y);\n       \
     \     // y -> x : \u5927\u304D\u3044\u65B9\u306Bmerge\u3059\u308B\u3002\n    \
     \        par[x] += par[y];\n            par[y] = x;\n            gcount--;\n \
@@ -166,7 +166,7 @@ data:
   - library/cpp/graph/bellman_ford.hpp
   - library/cpp/graph/two_sat.hpp
   - library/cpp/graph/topological_sort.hpp
-  timestamp: '2020-11-19 23:34:21+09:00'
+  timestamp: '2020-11-23 11:30:59+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tests/graph.lowlink.test.cpp
