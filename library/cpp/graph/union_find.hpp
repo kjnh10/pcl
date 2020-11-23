@@ -10,7 +10,7 @@ struct union_find {
 
     union_find() {}
     union_find(int _n) : par(_n, -1), gcount(_n) {}
-    bool merge(int x, int y) { // -> return new_root
+    int merge(int x, int y) { // -> return new_root
         x = root(x);
         y = root(y);
         if (x != y) {
