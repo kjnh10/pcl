@@ -24,11 +24,11 @@ data:
     path: library/cpp/include/bellman_ford.hpp
     title: library/cpp/include/bellman_ford.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
     title: library/cpp/graph/tests/bellman_ford.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -295,35 +295,36 @@ data:
     \        rep(u, n){\n            for (auto& edge : adj_list[u]){\n           \
     \     if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);\n       \
     \     }\n        }\n        return res;\n    }/*}}}*/\n\n    vector<Edge<Cost>>\
-    \ kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\u3055\u308C\u308B\u8FBA\u306E\
-    vector\u3092\u8FD4\u3059\n        vector<Edge<Cost>> edges;\n        rep(u, n)\
-    \ for (auto& edge : adj_list[u]) edges.push_back(edge);\n\n        vector<Edge<Cost>>\
-    \ res(n - 1);\n        sort(all(edges), [&](auto l, auto r) { return l.cost <\
-    \ r.cost; });\n        union_find uf(n);\n\n        Cost total_cost = zerocost;\n\
-    \        int idx = 0;\n        each(e, edges) {\n            if (uf.same(e.from,\
-    \ e.to)) continue;\n            uf.merge(e.from, e.to);\n            total_cost\
-    \ = total_cost + e.cost;\n            res[idx] = e;\n            idx++;\n    \
-    \    }\n        assert(idx == n - 1);\n\n        return res;\n    }/*}}}*/\n\n\
-    \    vector<Cost> dijkstra(vector<Pos> starts) {  // \u591A\u70B9\u30B9\u30BF\u30FC\
-    \u30C8{{{\n        vector<Cost> dist(n, infcost);           // \u6700\u77ED\u8DDD\
-    \u96E2\n        PQ<pair<Cost, Pos>> pq;\n        each(start, starts) {\n     \
-    \       dist[start] = zerocost;\n            pq.push(make_pair(zerocost, start));\n\
-    \        }\n        while (!pq.empty()) {\n            auto cp = pq.top();\n \
-    \           pq.pop();\n            auto [cost, u] = cp;\n            if (cost\
-    \ > dist[u]) continue;\n            for (const auto& edge : adj_list[u]) {\n \
-    \               Cost new_cost = cost + edge.cost;  // TODO: \u554F\u984C\u306B\
-    \u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\u5FC5\u8981\u3042\
-    \u308A\n                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
-    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
-    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
-    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
-    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/bellman_ford.hpp\"\
+    \ get_edges() const {\n        vector<Edge<Cost>> edges;\n        rep(u, n) for\
+    \ (auto& edge : adj_list[u]) edges.push_back(edge);\n        return edges;\n \
+    \   }\n\n    vector<Edge<Cost>> kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\
+    \u3055\u308C\u308B\u8FBA\u306Evector\u3092\u8FD4\u3059\n        auto edges = get_edges();\n\
+    \n        vector<Edge<Cost>> res(n - 1);\n        sort(all(edges), [&](auto l,\
+    \ auto r) { return l.cost < r.cost; });\n        union_find uf(n);\n\n       \
+    \ Cost total_cost = zerocost;\n        int idx = 0;\n        each(e, edges) {\n\
+    \            if (uf.same(e.from, e.to)) continue;\n            uf.merge(e.from,\
+    \ e.to);\n            total_cost = total_cost + e.cost;\n            res[idx]\
+    \ = e;\n            idx++;\n        }\n        assert(idx == n - 1);\n\n     \
+    \   return res;\n    }/*}}}*/\n\n    vector<Cost> dijkstra(vector<Pos> starts)\
+    \ {  // \u591A\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n        vector<Cost> dist(n,\
+    \ infcost);           // \u6700\u77ED\u8DDD\u96E2\n        PQ<pair<Cost, Pos>>\
+    \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
+    \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
+    \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
+    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
+    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
+    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
+    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
+    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
+    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
+    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 4 \"library/cpp/graph/bellman_ford.hpp\"\
     \n\n//%snippet.set('bellman_ford')%\n//%snippet.include('Graph')%\n//%snippet.fold()%\n\
     \nauto bellman_ford(const Graph<>& g, int start) { // \u8CA0\u9589\u8DEF\u691C\
     \u51FA\n    vector<decltype(g.infcost)> dist(g.n, g.infcost);  // \u6700\u77ED\
     \u8DDD\u96E2\n    dist[start] = g.zerocost;\n    for (int i = 0; i < g.n; i++)\
-    \ {\n        each(edge, g.edges){\n            if (dist[edge.from] != g.infcost\
+    \ {\n        each(edge, g.get_edges()){\n            if (dist[edge.from] != g.infcost\
     \ && dist[edge.to] > dist[edge.from] + edge.cost) {\n                dist[edge.to]\
     \ = dist[edge.from] + edge.cost;\n                if (i == g.n - 1)\n        \
     \            return make_pair(true, dist);  // n\u56DE\u76EE\u306B\u3082\u66F4\
@@ -333,13 +334,13 @@ data:
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\nauto bellman_ford(const Graph<>&\
     \ g, int start) { // \u8CA0\u9589\u8DEF\u691C\u51FA\n    vector<decltype(g.infcost)>\
     \ dist(g.n, g.infcost);  // \u6700\u77ED\u8DDD\u96E2\n    dist[start] = g.zerocost;\n\
-    \    for (int i = 0; i < g.n; i++) {\n        each(edge, g.edges){\n         \
-    \   if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from] + edge.cost)\
-    \ {\n                dist[edge.to] = dist[edge.from] + edge.cost;\n          \
-    \      if (i == g.n - 1)\n                    return make_pair(true, dist);  //\
-    \ n\u56DE\u76EE\u306B\u3082\u66F4\u65B0\u304C\u3042\u308B\u306A\u3089\u8CA0\u306E\
-    \u9589\u8DEF\u304C\u5B58\u5728\n            }\n        }\n    }\n    return make_pair(false,\
-    \ dist);\n}\n\n//%snippet.end()%\n"
+    \    for (int i = 0; i < g.n; i++) {\n        each(edge, g.get_edges()){\n   \
+    \         if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from]\
+    \ + edge.cost) {\n                dist[edge.to] = dist[edge.from] + edge.cost;\n\
+    \                if (i == g.n - 1)\n                    return make_pair(true,\
+    \ dist);  // n\u56DE\u76EE\u306B\u3082\u66F4\u65B0\u304C\u3042\u308B\u306A\u3089\
+    \u8CA0\u306E\u9589\u8DEF\u304C\u5B58\u5728\n            }\n        }\n    }\n\
+    \    return make_pair(false, dist);\n}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   - library/cpp/graph/graph.hpp
@@ -351,8 +352,8 @@ data:
   path: library/cpp/graph/bellman_ford.hpp
   requiredBy:
   - library/cpp/include/bellman_ford.hpp
-  timestamp: '2020-11-23 11:31:05+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2020-11-24 14:35:33+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tests/bellman_ford.test.cpp
 documentation_of: library/cpp/graph/bellman_ford.hpp

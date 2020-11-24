@@ -102,7 +102,7 @@ data:
       title: library/cpp/debug/prettyprint.hpp
   - name: library/cpp/graph
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/bellman_ford.hpp
       title: library/cpp/graph/bellman_ford.hpp
     - icon: ':question:'
@@ -529,7 +529,7 @@ data:
       title: library/cpp/graph/flow/dinic.test.cpp
   - name: library/cpp/graph/tests
     pages:
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/bellman_ford.test.cpp
       title: library/cpp/graph/tests/bellman_ford.test.cpp
     - icon: ':heavy_check_mark:'

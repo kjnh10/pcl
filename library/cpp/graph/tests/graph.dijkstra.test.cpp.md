@@ -294,30 +294,31 @@ data:
     \        rep(u, n){\n            for (auto& edge : adj_list[u]){\n           \
     \     if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);\n       \
     \     }\n        }\n        return res;\n    }/*}}}*/\n\n    vector<Edge<Cost>>\
-    \ kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\u3055\u308C\u308B\u8FBA\u306E\
-    vector\u3092\u8FD4\u3059\n        vector<Edge<Cost>> edges;\n        rep(u, n)\
-    \ for (auto& edge : adj_list[u]) edges.push_back(edge);\n\n        vector<Edge<Cost>>\
-    \ res(n - 1);\n        sort(all(edges), [&](auto l, auto r) { return l.cost <\
-    \ r.cost; });\n        union_find uf(n);\n\n        Cost total_cost = zerocost;\n\
-    \        int idx = 0;\n        each(e, edges) {\n            if (uf.same(e.from,\
-    \ e.to)) continue;\n            uf.merge(e.from, e.to);\n            total_cost\
-    \ = total_cost + e.cost;\n            res[idx] = e;\n            idx++;\n    \
-    \    }\n        assert(idx == n - 1);\n\n        return res;\n    }/*}}}*/\n\n\
-    \    vector<Cost> dijkstra(vector<Pos> starts) {  // \u591A\u70B9\u30B9\u30BF\u30FC\
-    \u30C8{{{\n        vector<Cost> dist(n, infcost);           // \u6700\u77ED\u8DDD\
-    \u96E2\n        PQ<pair<Cost, Pos>> pq;\n        each(start, starts) {\n     \
-    \       dist[start] = zerocost;\n            pq.push(make_pair(zerocost, start));\n\
-    \        }\n        while (!pq.empty()) {\n            auto cp = pq.top();\n \
-    \           pq.pop();\n            auto [cost, u] = cp;\n            if (cost\
-    \ > dist[u]) continue;\n            for (const auto& edge : adj_list[u]) {\n \
-    \               Cost new_cost = cost + edge.cost;  // TODO: \u554F\u984C\u306B\
-    \u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\u5FC5\u8981\u3042\
-    \u308A\n                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
-    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
-    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
-    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
-    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
-    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 6 \"library/cpp/graph/tests/graph.dijkstra.test.cpp\"\
+    \ get_edges() const {\n        vector<Edge<Cost>> edges;\n        rep(u, n) for\
+    \ (auto& edge : adj_list[u]) edges.push_back(edge);\n        return edges;\n \
+    \   }\n\n    vector<Edge<Cost>> kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\
+    \u3055\u308C\u308B\u8FBA\u306Evector\u3092\u8FD4\u3059\n        auto edges = get_edges();\n\
+    \n        vector<Edge<Cost>> res(n - 1);\n        sort(all(edges), [&](auto l,\
+    \ auto r) { return l.cost < r.cost; });\n        union_find uf(n);\n\n       \
+    \ Cost total_cost = zerocost;\n        int idx = 0;\n        each(e, edges) {\n\
+    \            if (uf.same(e.from, e.to)) continue;\n            uf.merge(e.from,\
+    \ e.to);\n            total_cost = total_cost + e.cost;\n            res[idx]\
+    \ = e;\n            idx++;\n        }\n        assert(idx == n - 1);\n\n     \
+    \   return res;\n    }/*}}}*/\n\n    vector<Cost> dijkstra(vector<Pos> starts)\
+    \ {  // \u591A\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n        vector<Cost> dist(n,\
+    \ infcost);           // \u6700\u77ED\u8DDD\u96E2\n        PQ<pair<Cost, Pos>>\
+    \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
+    \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
+    \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
+    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
+    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
+    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
+    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
+    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
+    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
+    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
+    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 6 \"library/cpp/graph/tests/graph.dijkstra.test.cpp\"\
     \n\nsigned main() {\n    int n;\n    cin >> n;\n    Graph g(n);\n    rep(i, n)\
     \ {\n        int u;\n        cin >> u;\n        int k;\n        cin >> k;\n  \
     \      rep(j, k) {\n            int to, cost;\n            cin >> to >> cost;\n\
@@ -340,7 +341,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/graph.dijkstra.test.cpp
   requiredBy: []
-  timestamp: '2020-11-23 11:31:05+09:00'
+  timestamp: '2020-11-24 14:35:33+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/graph.dijkstra.test.cpp

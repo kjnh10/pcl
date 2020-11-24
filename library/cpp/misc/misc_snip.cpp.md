@@ -54,19 +54,25 @@ data:
     \      query();\n    }\n    check_input();\n    return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\n\
     uint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
-    rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
-    \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
-    , ${1});\n\n\n//%snippet.set('sep')%\n//%snippet.config({'alias':'<<'})%\n<< \"\
-    \ \" << ${1}\n\n\n//%snippet.set('interactive')%\nll counter = 0;\nll query(ll\
-    \ u, ll v){/*{{{*/\n    dump('q', u+1, v+1);\n    counter++;\n    if (counter>n/2)\
-    \ assert(false);\n\n    cout << \"?\" << \" \" << u << \" \" << v << endl;\n \
-    \   fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n    ll res; cin>>res;\n\n\
-    \    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n    cout << \"!\" << \"\
-    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n//%snippet.fold()%\n\
-    template<class T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n\
-    \    vector<tuple<T, T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i],\
-    \ y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n\
-    \        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
+    rep(bit, 1<<n){\n    rep(i, n){\n        if(bit>>i&1){\n        }\n    }\n}\n\n\
+    \n//%snippet.set('subsum')%\n//%snippet.config({'alias':'bit_subsum'})%\ntemplate<class\
+    \ T>\nvector<T> subsum(const vector<T>& v) {\n    // O(2^N) faster than naive\
+    \ bit all search\n    // return sorted vector\n    int n = v.size();\n    vector<T>\
+    \ ret;\n    vector<T> t1, t2;\n    ret.emplace_back(0);\n    for (auto e : v)\
+    \ {\n        t1.clear();\n        for (auto p : ret) {\n            t1.emplace_back(e\
+    \ + p);\n        }\n        t2 = ret;\n        ret.clear();\n        merge(t1.begin(),\
+    \ t1.end(), t2.begin(), t2.end(), back_inserter(ret));\n    }\n    return ret;\n\
+    };\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\", ${1});\n\n\n//%snippet.set('sep')%\n\
+    //%snippet.config({'alias':'<<'})%\n<< \" \" << ${1}\n\n\n//%snippet.set('interactive')%\n\
+    ll counter = 0;\nll query(ll u, ll v){/*{{{*/\n    dump('q', u+1, v+1);\n    counter++;\n\
+    \    if (counter>n/2) assert(false);\n\n    cout << \"?\" << \" \" << u << \"\
+    \ \" << v << endl;\n    fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n   \
+    \ ll res; cin>>res;\n\n    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n \
+    \   cout << \"!\" << \" \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n\
+    //%snippet.fold()%\ntemplate<class T>\nvoid pairsort(vector<T>& x, vector<T>&\
+    \ y){\n    ll n = sz(x);\n    vector<tuple<T, T>> t(n);\n    rep(i, n){\n    \
+    \    t[i] = make_tuple(x[i], y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n\
+    \        x[i] = get<0>(t[i]);\n        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
     template<class T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n\
     \    return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
     \ T> vector<vector<vector<T>>> make_vector_3d(ll n1, ll n2, ll n3, T init_value){\n\
@@ -149,19 +155,25 @@ data:
     \      query();\n    }\n    check_input();\n    return 0;\n}/*}}}*/\n\n\n//%snippet.set('random_generator')%\n\
     uint64_t rng() {\n    static mt19937 x(chrono::steady_clock::now().time_since_epoch().count());\n\
     \    return uniform_int_distribution<uint64_t>(0, -1)(x);\n}\n\n\n//%snippet.set('bitall')%\n\
-    rep(s, 1<<n){\n    rep(i, n){\n        if(s>>i&1){\n        }\n        else{\n\
-    \        }\n    }\n}\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\"\
-    , ${1});\n\n\n//%snippet.set('sep')%\n//%snippet.config({'alias':'<<'})%\n<< \"\
-    \ \" << ${1}\n\n\n//%snippet.set('interactive')%\nll counter = 0;\nll query(ll\
-    \ u, ll v){/*{{{*/\n    dump('q', u+1, v+1);\n    counter++;\n    if (counter>n/2)\
-    \ assert(false);\n\n    cout << \"?\" << \" \" << u << \" \" << v << endl;\n \
-    \   fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n    ll res; cin>>res;\n\n\
-    \    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n    cout << \"!\" << \"\
-    \ \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n//%snippet.fold()%\n\
-    template<class T>\nvoid pairsort(vector<T>& x, vector<T>& y){\n    ll n = sz(x);\n\
-    \    vector<tuple<T, T>> t(n);\n    rep(i, n){\n        t[i] = make_tuple(x[i],\
-    \ y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n        x[i] = get<0>(t[i]);\n\
-    \        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
+    rep(bit, 1<<n){\n    rep(i, n){\n        if(bit>>i&1){\n        }\n    }\n}\n\n\
+    \n//%snippet.set('subsum')%\n//%snippet.config({'alias':'bit_subsum'})%\ntemplate<class\
+    \ T>\nvector<T> subsum(const vector<T>& v) {\n    // O(2^N) faster than naive\
+    \ bit all search\n    // return sorted vector\n    int n = v.size();\n    vector<T>\
+    \ ret;\n    vector<T> t1, t2;\n    ret.emplace_back(0);\n    for (auto e : v)\
+    \ {\n        t1.clear();\n        for (auto p : ret) {\n            t1.emplace_back(e\
+    \ + p);\n        }\n        t2 = ret;\n        ret.clear();\n        merge(t1.begin(),\
+    \ t1.end(), t2.begin(), t2.end(), back_inserter(ret));\n    }\n    return ret;\n\
+    };\n\n\n//%snippet.set('print_float')%\nprintf(\"%.12f\\n\", ${1});\n\n\n//%snippet.set('sep')%\n\
+    //%snippet.config({'alias':'<<'})%\n<< \" \" << ${1}\n\n\n//%snippet.set('interactive')%\n\
+    ll counter = 0;\nll query(ll u, ll v){/*{{{*/\n    dump('q', u+1, v+1);\n    counter++;\n\
+    \    if (counter>n/2) assert(false);\n\n    cout << \"?\" << \" \" << u << \"\
+    \ \" << v << endl;\n    fflush(stdout);\n\n    // ll res = tr.lca(u, v);\n   \
+    \ ll res; cin>>res;\n\n    return res;\n}/*}}}*/\n\nvoid ans(ll u){/*{{{*/\n \
+    \   cout << \"!\" << \" \" << u+1 << endl;\n}/*}}}*/\n\n\n//%snippet.set('pairsort')%\n\
+    //%snippet.fold()%\ntemplate<class T>\nvoid pairsort(vector<T>& x, vector<T>&\
+    \ y){\n    ll n = sz(x);\n    vector<tuple<T, T>> t(n);\n    rep(i, n){\n    \
+    \    t[i] = make_tuple(x[i], y[i]);\n    }\n    sort(all(t));\n    rep(i, n){\n\
+    \        x[i] = get<0>(t[i]);\n        y[i] = get<1>(t[i]);\n    }\n}\n\n\n//%snippet.set('make_vector')%\n\
     template<class T> vector<vector<vector<T>>> make_vector_2d(ll n1, ll n2, T init_value){\n\
     \    return vector<vector<T>>(n1, vector<T>(n2, init_value));\n}\n\n\ntemplate<class\
     \ T> vector<vector<vector<T>>> make_vector_3d(ll n1, ll n2, ll n3, T init_value){\n\
@@ -201,7 +213,7 @@ data:
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-11-19 23:34:21+09:00'
+  timestamp: '2020-11-24 14:35:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

@@ -5,7 +5,7 @@ data:
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
   _extendedRequiredBy:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/bellman_ford.hpp
     title: library/cpp/graph/bellman_ford.hpp
   - icon: ':question:'
@@ -48,7 +48,7 @@ data:
     path: library/cpp/include/union_find.hpp
     title: library/cpp/include/union_find.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
     title: library/cpp/graph/tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'

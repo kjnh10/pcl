@@ -8,7 +8,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/reversed_cnt.cpp
     title: library/cpp/array/reversed_cnt.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/bellman_ford.hpp
     title: library/cpp/graph/bellman_ford.hpp
   - icon: ':question:'
@@ -87,7 +87,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.test.cpp
     title: library/cpp/array/segtree/segment_tree.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
     title: library/cpp/graph/tests/bellman_ford.test.cpp
   - icon: ':heavy_check_mark:'
