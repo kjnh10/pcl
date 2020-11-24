@@ -202,14 +202,35 @@ uint64_t rng() {
 
 
 //%snippet.set('bitall')%
-rep(s, 1<<n){
+rep(bit, 1<<n){
     rep(i, n){
-        if(s>>i&1){
-        }
-        else{
+        if(bit>>i&1){
         }
     }
 }
+
+
+//%snippet.set('subsum')%
+//%snippet.config({'alias':'bit_subsum'})%
+template<class T>
+vector<T> subsum(const vector<T>& v) {
+    // O(2^N) faster than naive bit all search
+    // return sorted vector
+    int n = v.size();
+    vector<T> ret;
+    vector<T> t1, t2;
+    ret.emplace_back(0);
+    for (auto e : v) {
+        t1.clear();
+        for (auto p : ret) {
+            t1.emplace_back(e + p);
+        }
+        t2 = ret;
+        ret.clear();
+        merge(t1.begin(), t1.end(), t2.begin(), t2.end(), back_inserter(ret));
+    }
+    return ret;
+};
 
 
 //%snippet.set('print_float')%
