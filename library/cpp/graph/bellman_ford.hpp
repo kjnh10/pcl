@@ -10,7 +10,7 @@ auto bellman_ford(const Graph<>& g, int start) { // 負閉路検出
     vector<decltype(g.infcost)> dist(g.n, g.infcost);  // 最短距離
     dist[start] = g.zerocost;
     for (int i = 0; i < g.n; i++) {
-        each(edge, g.edges){
+        each(edge, g.get_edges()){
             if (dist[edge.from] != g.infcost && dist[edge.to] > dist[edge.from] + edge.cost) {
                 dist[edge.to] = dist[edge.from] + edge.cost;
                 if (i == g.n - 1)

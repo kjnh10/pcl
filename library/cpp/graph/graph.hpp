@@ -119,10 +119,15 @@ struct Graph {
         return res;
     }/*}}}*/
 
-    vector<Edge<Cost>> kruskal_tree() {/*{{{*/
-        // 使用される辺のvectorを返す
+    vector<Edge<Cost>> get_edges() const {
         vector<Edge<Cost>> edges;
         rep(u, n) for (auto& edge : adj_list[u]) edges.push_back(edge);
+        return edges;
+    }
+
+    vector<Edge<Cost>> kruskal_tree() {/*{{{*/
+        // 使用される辺のvectorを返す
+        auto edges = get_edges();
 
         vector<Edge<Cost>> res(n - 1);
         sort(all(edges), [&](auto l, auto r) { return l.cost < r.cost; });
