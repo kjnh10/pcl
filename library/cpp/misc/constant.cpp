@@ -10,7 +10,7 @@ namespace std {
         public:
         static mint max() { 
             mint res = 0;
-            res.x = res.mod;
+            res.x = mod;
             return res;
         };
     };
