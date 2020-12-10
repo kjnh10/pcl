@@ -142,21 +142,23 @@ data:
     \  return monoid_with_len<T>(a.x + b.x, a.len + b.len);\n}\n//%snippet.end()%\n\
     \n#line 3 \"library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp\"\
     \n\n//%snippet.set('make_lseg_getone_chmin')%\n//%snippet.config({'alias':'getone_chmin'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid // \u53CC\u5BFE\u30BB\
-    \u30B0\u30E1\u30F3\u30C8\u6728\u3068\u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\
-    \u5F53\u306A\u30E2\u30CE\u30A4\u30C9\u3092\u5165\u308C\u3066\u304A\u3051\u3070\
-    \u826F\u3044\u3002\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n\
-    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
+    //%snippet.include('segment_tree_lazy')%\n//%snippet.fold()%\nusing X = ll; //\
+    \ (X, merge) is monoid // \u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\u3068\
+    \u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\u5F53\u306A\u30E2\u30CE\u30A4\u30C9\
+    \u3092\u5165\u308C\u3066\u304A\u3051\u3070\u826F\u3044\u3002\nusing M = ll; //\
+    \ (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n    auto merge =\
+    \ [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
     \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
     \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
     \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
   code: "#include \"../segment_tree_lazy.hpp\"\n#include \"monoid_with_len.hpp\"\n\
     \n//%snippet.set('make_lseg_getone_chmin')%\n//%snippet.config({'alias':'getone_chmin'})%\n\
-    //%snippet.fold()%\nusing X = ll; // (X, merge) is monoid // \u53CC\u5BFE\u30BB\
-    \u30B0\u30E1\u30F3\u30C8\u6728\u3068\u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\
-    \u5F53\u306A\u30E2\u30CE\u30A4\u30C9\u3092\u5165\u308C\u3066\u304A\u3051\u3070\
-    \u826F\u3044\u3002\nusing M = ll; // (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n\
-    \    auto merge = [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
+    //%snippet.include('segment_tree_lazy')%\n//%snippet.fold()%\nusing X = ll; //\
+    \ (X, merge) is monoid // \u53CC\u5BFE\u30BB\u30B0\u30E1\u30F3\u30C8\u6728\u3068\
+    \u3057\u3066\u4F7F\u3046\u6642\u306F\u9069\u5F53\u306A\u30E2\u30CE\u30A4\u30C9\
+    \u3092\u5165\u308C\u3066\u304A\u3051\u3070\u826F\u3044\u3002\nusing M = ll; //\
+    \ (M, composition) is monoid\nauto make_lseg_getone_chmin(){\n    auto merge =\
+    \ [](X x1, X x2){return min(x1,x2);};\n    X ex = numeric_limits<X>::max();\n\
     \    M em = numeric_limits<M>::max();\n    auto composition = [](M m1, M m2){return\
     \ min(m1, m2);};\n    auto apply = [](X x, M m){return min(x, m);};\n    return\
     \ segment_tree_lazy<X, M>(merge, apply, composition, ex, em);\n}\n//%snippet.end()%\n"
@@ -168,7 +170,7 @@ data:
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp
   requiredBy:
   - library/cpp/include/segment_tree_lazy.getone_chmin.hpp
-  timestamp: '2020-11-09 20:18:50+09:00'
+  timestamp: '2020-12-10 17:54:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/segment_tree_lazy.getone_chmin.hpp

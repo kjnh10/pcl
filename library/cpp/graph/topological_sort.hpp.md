@@ -388,9 +388,9 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/topological_sort.hpp
   requiredBy:
+  - library/cpp/graph/two_sat.hpp
   - library/cpp/include/two_sat.hpp
   - library/cpp/include/topological_sort.hpp
-  - library/cpp/graph/two_sat.hpp
   timestamp: '2020-11-24 14:35:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

@@ -83,14 +83,14 @@ data:
   isVerificationFile: false
   path: library/cpp/array/sparse_table.hpp
   requiredBy:
+  - library/cpp/string/suffix_array.hpp
   - library/cpp/include/suffix_array.hpp
   - library/cpp/include/sparse_table.hpp
-  - library/cpp/string/suffix_array.hpp
   timestamp: '2020-10-27 20:24:34+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/string/suffix_array.test.cpp
   - library/cpp/array/sparse_table.test.cpp
+  - library/cpp/string/suffix_array.test.cpp
 documentation_of: library/cpp/array/sparse_table.hpp
 layout: document
 redirect_from:

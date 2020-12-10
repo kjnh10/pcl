@@ -389,9 +389,9 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/strongly_connected_components.hpp
   requiredBy:
-  - library/cpp/include/strongly_connected_components.hpp
-  - library/cpp/include/two_sat.hpp
   - library/cpp/graph/two_sat.hpp
+  - library/cpp/include/two_sat.hpp
+  - library/cpp/include/strongly_connected_components.hpp
   timestamp: '2020-11-24 14:35:33+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
