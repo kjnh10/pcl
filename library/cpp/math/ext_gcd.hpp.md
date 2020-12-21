@@ -4,10 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: library/cpp/include/shifter.hpp
-    title: library/cpp/include/shifter.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
@@ -40,30 +37,27 @@ data:
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/misc/zipper.lib/shifter.hpp\"\
-    \n\n//%snippet.set('shifter')%\n\nstruct shifter{\n    ll n, min_v;\n    shifter(ll\
-    \ _min_v, ll _max_v): min_v(_min_v){\n        n = _max_v - min_v;\n    }\n   \
-    \ ll operator()(ll x) { return x - min_v; }\n    ll unshift(ll sx) { return sx\
-    \ + min_v; }\n};\n// How to use\n    // auto sh = shifter(-10000, 10000);\n  \
-    \  // vl x(sh.n);\n    // x[sh(-3)];\n\n//%snippet.end()%\n"
-  code: "#pragma once\n#include \"../../header.hpp\"\n\n//%snippet.set('shifter')%\n\
-    \nstruct shifter{\n    ll n, min_v;\n    shifter(ll _min_v, ll _max_v): min_v(_min_v){\n\
-    \        n = _max_v - min_v;\n    }\n    ll operator()(ll x) { return x - min_v;\
-    \ }\n    ll unshift(ll sx) { return sx + min_v; }\n};\n// How to use\n    // auto\
-    \ sh = shifter(-10000, 10000);\n    // vl x(sh.n);\n    // x[sh(-3)];\n\n//%snippet.end()%\n"
+    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/ext_gcd.hpp\"\
+    \n\n//%snippet.set('ext_gcd')%\n//%snippet.config({'alias':'gcd_ext'})%\n//%snippet.fold()%\n\
+    \ntemplate<class T>\npair<T, T> ext_gcd(T x, T y){\n    // return ax + by = gcd(x,y)\n\
+    \    if (y == 0) return {1, 0};\n    auto [aa, bb] = ext_gcd(y, x-y*(x/y));\n\
+    \    return {bb, aa - bb*(x/y)};\n}\n\n//%snippet.end()%\n"
+  code: "#include \"../header.hpp\"\n\n//%snippet.set('ext_gcd')%\n//%snippet.config({'alias':'gcd_ext'})%\n\
+    //%snippet.fold()%\n\ntemplate<class T>\npair<T, T> ext_gcd(T x, T y){\n    //\
+    \ return ax + by = gcd(x,y)\n    if (y == 0) return {1, 0};\n    auto [aa, bb]\
+    \ = ext_gcd(y, x-y*(x/y));\n    return {bb, aa - bb*(x/y)};\n}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
-  path: library/cpp/misc/zipper.lib/shifter.hpp
-  requiredBy:
-  - library/cpp/include/shifter.hpp
-  timestamp: '2020-12-21 23:16:54+09:00'
+  path: library/cpp/math/ext_gcd.hpp
+  requiredBy: []
+  timestamp: '2020-12-21 23:17:14+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
-documentation_of: library/cpp/misc/zipper.lib/shifter.hpp
+documentation_of: library/cpp/math/ext_gcd.hpp
 layout: document
 redirect_from:
-- /library/library/cpp/misc/zipper.lib/shifter.hpp
-- /library/library/cpp/misc/zipper.lib/shifter.hpp.html
-title: library/cpp/misc/zipper.lib/shifter.hpp
+- /library/library/cpp/math/ext_gcd.hpp
+- /library/library/cpp/math/ext_gcd.hpp.html
+title: library/cpp/math/ext_gcd.hpp
 ---

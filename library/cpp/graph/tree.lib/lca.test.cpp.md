@@ -25,7 +25,7 @@ data:
   bundledCode: "#line 1 \"library/cpp/graph/tree.lib/lca.test.cpp\"\n#define PROBLEM\
     \ \"https://judge.yosupo.jp/problem/lca\"\n#line 2 \"library/cpp/header.hpp\"\n\
     \n//%snippet.set('header')%\n//%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\
-    \n// template version 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n\
+    \n// template version 2.0\n#include <bits/stdc++.h>\nusing namespace std;\n\n\
     // varibable settings\ntemplate <class T> constexpr T inf = numeric_limits<T>::max()\
     \ / 2.1;\n\n#define _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n)\
     \ repi(i, 0, n)\n#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n\
@@ -243,7 +243,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tree.lib/lca.test.cpp
   requiredBy: []
-  timestamp: '2020-10-31 19:09:33+09:00'
+  timestamp: '2020-12-21 23:16:54+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/lca.test.cpp

@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/geometry/area_rect.hpp
     title: library/cpp/math/geometry/area_rect.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/1074
@@ -19,7 +19,7 @@ data:
   bundledCode: "#line 1 \"library/cpp/math/geometry/area_rect.test.cpp\"\n#define\
     \ PROBLEM \"https://yukicoder.me/problems/no/1074\"\n#line 2 \"library/cpp/header.hpp\"\
     \n\n//%snippet.set('header')%\n//%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\
-    \n// template version 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n\
+    \n// template version 2.0\n#include <bits/stdc++.h>\nusing namespace std;\n\n\
     // varibable settings\ntemplate <class T> constexpr T inf = numeric_limits<T>::max()\
     \ / 2.1;\n\n#define _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n)\
     \ repi(i, 0, n)\n#define repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n\
@@ -74,8 +74,8 @@ data:
   isVerificationFile: true
   path: library/cpp/math/geometry/area_rect.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 20:24:34+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-12-21 23:16:54+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/area_rect.test.cpp
 layout: document

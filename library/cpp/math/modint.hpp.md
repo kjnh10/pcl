@@ -14,26 +14,26 @@ data:
   - icon: ':warning:'
     path: library/cpp/math/bsgs.hpp
     title: library/cpp/math/bsgs.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
   - icon: ':warning:'
     path: library/cpp/misc/constant.cpp
     title: library/cpp/misc/constant.cpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/matrix_pow.test.cpp
     title: library/cpp/math/matrix_pow.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\
-    \ 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n// varibable settings\n\
+    \ 2.0\n#include <bits/stdc++.h>\nusing namespace std;\n\n// varibable settings\n\
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;\n\n#define\
     \ _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define\
     \ repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__,\
@@ -118,13 +118,13 @@ data:
   isVerificationFile: false
   path: library/cpp/math/modint.hpp
   requiredBy:
-  - library/cpp/misc/constant.cpp
-  - library/cpp/math/bsgs.hpp
-  - library/cpp/math/combination.hpp
-  - library/cpp/include/combination.hpp
   - library/cpp/include/modint.hpp
-  timestamp: '2020-11-19 23:34:21+09:00'
-  verificationStatus: LIBRARY_ALL_AC
+  - library/cpp/include/combination.hpp
+  - library/cpp/misc/constant.cpp
+  - library/cpp/math/combination.hpp
+  - library/cpp/math/bsgs.hpp
+  timestamp: '2020-12-21 23:16:54+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp

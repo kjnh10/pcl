@@ -4,13 +4,13 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/misc/zipper.lib/zipper.hpp
     title: library/cpp/misc/zipper.lib/zipper.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A
@@ -19,13 +19,13 @@ data:
   bundledCode: "#line 1 \"library/cpp/misc/zipper.lib/zipper.test.cpp\"\n#define PROBLEM\
     \ \\\n    \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ITP1_1_A\"\
     \n#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n//%snippet.fold()%\n\
-    #ifndef HEADER_H\n#define HEADER_H\n\n// template version 2.0\nusing namespace\
-    \ std;\n#include <bits/stdc++.h>\n\n// varibable settings\ntemplate <class T>\
-    \ constexpr T inf = numeric_limits<T>::max() / 2.1;\n\n#define _overload3(_1,\
-    \ _2, _3, name, ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define repi(i, a,\
-    \ b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__,\
-    \ repi, _rep, )(__VA_ARGS__)\n#define _rrep(i, n) rrepi(i, 0, n)\n#define rrepi(i,\
-    \ a, b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)\n#define r_rep(...) _overload3(__VA_ARGS__,\
+    #ifndef HEADER_H\n#define HEADER_H\n\n// template version 2.0\n#include <bits/stdc++.h>\n\
+    using namespace std;\n\n// varibable settings\ntemplate <class T> constexpr T\
+    \ inf = numeric_limits<T>::max() / 2.1;\n\n#define _overload3(_1, _2, _3, name,\
+    \ ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define repi(i, a, b) for (ll i\
+    \ = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__, repi,\
+    \ _rep, )(__VA_ARGS__)\n#define _rrep(i, n) rrepi(i, 0, n)\n#define rrepi(i, a,\
+    \ b) for (ll i = (ll)((b)-1); i >= (ll)(a); --i)\n#define r_rep(...) _overload3(__VA_ARGS__,\
     \ rrepi, _rrep, )(__VA_ARGS__)\n#define each(i, a) for (auto &&i : a)\n#define\
     \ all(x) (x).begin(), (x).end()\n#define sz(x) ((int)(x).size())\n#define pb(a)\
     \ push_back(a)\n#define mp(a, b) make_pair(a, b)\n#define mt(...) make_tuple(__VA_ARGS__)\n\
@@ -102,8 +102,8 @@ data:
   isVerificationFile: true
   path: library/cpp/misc/zipper.lib/zipper.test.cpp
   requiredBy: []
-  timestamp: '2020-10-27 20:24:34+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2020-12-21 23:16:54+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: library/cpp/misc/zipper.lib/zipper.test.cpp
 layout: document

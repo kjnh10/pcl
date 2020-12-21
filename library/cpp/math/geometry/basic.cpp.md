@@ -24,9 +24,9 @@ data:
 
     // template version 2.0
 
-    using namespace std;
-
     #include <bits/stdc++.h>
+
+    using namespace std;
 
 
     // varibable settings
@@ -190,7 +190,7 @@ data:
   isVerificationFile: false
   path: library/cpp/math/geometry/basic.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2020-12-21 23:16:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/basic.cpp

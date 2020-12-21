@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/geometry/p2.hpp
     title: library/cpp/math/geometry/p2.hpp
   _extendedRequiredBy:
@@ -19,7 +19,7 @@ data:
     - https://atcoder.jp/contests/abc168/tasks/abc168_e
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\
-    \ 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n// varibable settings\n\
+    \ 2.0\n#include <bits/stdc++.h>\nusing namespace std;\n\n// varibable settings\n\
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;\n\n#define\
     \ _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define\
     \ repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__,\
@@ -100,7 +100,7 @@ data:
   path: library/cpp/math/rational.hpp
   requiredBy:
   - library/cpp/include/rational.hpp
-  timestamp: '2020-10-27 20:24:34+09:00'
+  timestamp: '2020-12-21 23:16:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/rational.hpp

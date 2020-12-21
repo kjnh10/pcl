@@ -9,7 +9,7 @@ data:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
     //%snippet.fold()%\n#ifndef HEADER_H\n#define HEADER_H\n\n// template version\
-    \ 2.0\nusing namespace std;\n#include <bits/stdc++.h>\n\n// varibable settings\n\
+    \ 2.0\n#include <bits/stdc++.h>\nusing namespace std;\n\n// varibable settings\n\
     template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;\n\n#define\
     \ _overload3(_1, _2, _3, name, ...) name\n#define _rep(i, n) repi(i, 0, n)\n#define\
     \ repi(i, a, b) for (ll i = (ll)(a); i < (ll)(b); ++i)\n#define rep(...) _overload3(__VA_ARGS__,\

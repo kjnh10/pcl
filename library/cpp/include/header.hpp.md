@@ -24,9 +24,9 @@ data:
 
     // template version 2.0
 
-    using namespace std;
-
     #include <bits/stdc++.h>
+
+    using namespace std;
 
 
     // varibable settings
@@ -140,7 +140,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/header.hpp
   requiredBy: []
-  timestamp: '2020-10-29 04:58:12+09:00'
+  timestamp: '2020-12-21 23:16:54+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/header.hpp
