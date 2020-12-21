@@ -3,6 +3,7 @@
 
 //%snippet.set('make_lseg_getone_chmin')%
 //%snippet.config({'alias':'getone_chmin'})%
+//%snippet.include('segment_tree_lazy')%
 //%snippet.fold()%
 using X = ll; // (X, merge) is monoid // 双対セグメント木として使う時は適当なモノイドを入れておけば良い。
 using M = ll; // (M, composition) is monoid

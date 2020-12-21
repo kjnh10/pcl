@@ -8,11 +8,9 @@ int main() {
     int h, w;
     cin >> h >> w;
     int n = h * w;  // 頂点数
-    vector<vector<ll>> block(h, vector<ll>(w));
+    vector<string> grid(h);
     rep(i, h) {
-        string s;
-        cin >> s;
-        rep(j, w) { block[i][j] = (s[j] == '#' ? 1 : 0); }
+        cin >> grid[i];
     }
 
     Graph g(n);
@@ -29,12 +27,12 @@ int main() {
     // int dx[] = {1, 0};
     // int dy[] = {0, 1};
     rep(i, h) rep(j, w) {
-        if (block[i][j]) continue;  // blockから出る辺はない
+        if (grid[i][j]=='#') continue;  // blockから出る辺はない
         rep(dir, 4) {
             int ni = i + dx[dir];
             int nj = j + dy[dir];
             if (is_in(ni, 0, h) && is_in(nj, 0, w)) {
-                if (block[ni][nj]) continue;  // blockに入る辺はない
+                if (grid[ni][nj]=='#') continue;  // blockに入る辺はない
                 g.add_edge(nid(i, j), nid(ni, nj));
                 // 自分から生える辺だけでよい。そうしないと二重辺になってしまう。
             }
