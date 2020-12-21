@@ -6,8 +6,8 @@
 #define HEADER_H
 
 // template version 2.0
-using namespace std;
 #include <bits/stdc++.h>
+using namespace std;
 
 // varibable settings
 template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
