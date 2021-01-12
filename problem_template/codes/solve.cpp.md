@@ -32,27 +32,28 @@ data:
     \ cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x,\
     \ a, b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
     \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
-    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
     \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"problem_template/codes/solve.cpp\"\
     \ntemplate<class T=ll> using vec = vector<T>;\nstruct Fast { Fast() { std::cin.tie(0);\
-    \ ios::sync_with_stdio(false); } } fast;\n\n\nint solve() {\n    return 0; \n\
-    }\n\n\nint main(){/*{{{*/\n    solve();\n\n    #if defined(PCM) || defined(LOCAL)\n\
-    \    check_input();\n    #endif\n\n    return 0;\n}/*}}}*/\n"
+    \ ios::sync_with_stdio(false); } } fast;\n\nusing vi = vector<int>;\nusing vvi\
+    \ = vector<vi>;\nusing pii = pair<int, int>;\nusing iii = tuple<int, int, int>;\n\
+    \n\nint solve() {\n}\n\n\nsigned main(){/*{{{*/\n    solve();\n\n    #if defined(PCM)\
+    \ || defined(LOCAL)\n    check_input();\n    #endif\n\n    return 0;\n}/*}}}*/\n"
   code: "#include \"header.hpp\"\ntemplate<class T=ll> using vec = vector<T>;\nstruct\
-    \ Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;\n\n\n\
-    int solve() {\n    return 0; \n}\n\n\nint main(){/*{{{*/\n    solve();\n\n   \
-    \ #if defined(PCM) || defined(LOCAL)\n    check_input();\n    #endif\n\n    return\
-    \ 0;\n}/*}}}*/\n"
+    \ Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;\n\n\
+    using vi = vector<int>;\nusing vvi = vector<vi>;\nusing pii = pair<int, int>;\n\
+    using iii = tuple<int, int, int>;\n\n\nint solve() {\n}\n\n\nsigned main(){/*{{{*/\n\
+    \    solve();\n\n    #if defined(PCM) || defined(LOCAL)\n    check_input();\n\
+    \    #endif\n\n    return 0;\n}/*}}}*/\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: problem_template/codes/solve.cpp
   requiredBy: []
-  timestamp: '2020-12-21 23:16:54+09:00'
+  timestamp: '2021-01-12 22:17:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: problem_template/codes/solve.cpp

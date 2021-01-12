@@ -13,7 +13,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/strongly_connected_components.hpp
     title: library/cpp/graph/strongly_connected_components.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
   - icon: ':question:'
@@ -61,8 +61,7 @@ data:
     \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
     \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
     \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
-    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
@@ -318,12 +317,12 @@ data:
     \ infcost);           // \u6700\u77ED\u8DDD\u96E2\n        PQ<pair<Cost, Pos>>\
     \ pq;\n        each(start, starts) {\n            dist[start] = zerocost;\n  \
     \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
-    \ {\n            auto cp = pq.top();\n            pq.pop();\n            auto\
-    \ [cost, u] = cp;\n            if (cost > dist[u]) continue;\n            for\
-    \ (const auto& edge : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;\
-    \  // TODO: \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\
-    \u66F4\u306E\u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to])\
-    \ {\n                    dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
+    \ {\n            auto cp = pq.top(); pq.pop();\n            auto [cost, u] = cp;\n\
+    \            if (cost > dist[u]) continue;\n            for (const auto& edge\
+    \ : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;  // TODO:\
+    \ \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\
+    \u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to]) {\n  \
+    \                  dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
     \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
     \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
     \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
@@ -428,7 +427,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/two_sat.test.cpp
   requiredBy: []
-  timestamp: '2020-12-21 23:16:54+09:00'
+  timestamp: '2021-01-12 22:17:43+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/two_sat.test.cpp

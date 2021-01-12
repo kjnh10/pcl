@@ -15,14 +15,14 @@ data:
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   _extendedVerifiedWith:
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/sparse_table.test.cpp
     title: library/cpp/array/sparse_table.test.cpp
   - icon: ':x:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
   _pathExtension: hpp
-  _verificationStatusIcon: ':question:'
+  _verificationStatusIcon: ':x:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -47,8 +47,7 @@ data:
     \ cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x,\
     \ a, b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
     \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\nusing vl = vector<ll>;\nusing vvl = vector<vl>;\nusing pll\
-    \ = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
+    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
     \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
     \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
     \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
@@ -86,8 +85,8 @@ data:
   - library/cpp/string/suffix_array.hpp
   - library/cpp/include/suffix_array.hpp
   - library/cpp/include/sparse_table.hpp
-  timestamp: '2020-12-21 23:16:54+09:00'
-  verificationStatus: LIBRARY_SOME_WA
+  timestamp: '2021-01-12 22:17:43+09:00'
+  verificationStatus: LIBRARY_ALL_WA
   verifiedWith:
   - library/cpp/array/sparse_table.test.cpp
   - library/cpp/string/suffix_array.test.cpp

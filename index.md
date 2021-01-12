@@ -24,7 +24,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/slide_min.cpp
       title: library/cpp/array/slide_min.cpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: library/cpp/array/sparse_table.hpp
       title: library/cpp/array/sparse_table.hpp
     - icon: ':warning:'
@@ -120,7 +120,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/strongly_connected_components.hpp
       title: library/cpp/graph/strongly_connected_components.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/graph/topological_sort.hpp
       title: library/cpp/graph/topological_sort.hpp
     - icon: ':heavy_check_mark:'
@@ -154,7 +154,7 @@ data:
     - icon: ':question:'
       path: library/cpp/graph/tree.lib/tree.hpp
       title: library/cpp/graph/tree.lib/tree.hpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
       title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - name: library/cpp
@@ -494,7 +494,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/array/lis.test.cpp
       title: library/cpp/array/lis.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/array/sparse_table.test.cpp
       title: library/cpp/array/sparse_table.test.cpp
   - name: library/cpp/array/segtree/initialization/tests
@@ -553,7 +553,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tests/scc.test.cpp
       title: library/cpp/graph/tests/scc.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tests/topological_sort.test.cpp
       title: library/cpp/graph/tests/topological_sort.test.cpp
     - icon: ':heavy_check_mark:'
@@ -570,7 +570,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca.test.cpp
       title: library/cpp/graph/tree.lib/lca.test.cpp
-    - icon: ':x:'
+    - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
       title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - name: library/cpp/math

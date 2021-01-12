@@ -97,12 +97,6 @@ data:
 
     typedef long double ld;
 
-    using vl = vector<ll>;
-
-    using vvl = vector<vl>;
-
-    using pll = pair<ll, ll>;
-
 
     template <typename T>
 
@@ -140,7 +134,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/header.hpp
   requiredBy: []
-  timestamp: '2020-12-21 23:16:54+09:00'
+  timestamp: '2021-01-12 22:17:43+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/header.hpp

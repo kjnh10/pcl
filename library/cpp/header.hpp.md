@@ -56,7 +56,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/array/slide_min.cpp
     title: library/cpp/array/slide_min.cpp
-  - icon: ':question:'
+  - icon: ':x:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   - icon: ':warning:'
@@ -86,7 +86,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/strongly_connected_components.hpp
     title: library/cpp/graph/strongly_connected_components.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
   - icon: ':heavy_check_mark:'
@@ -98,7 +98,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/tree.lib/tree.hpp
     title: library/cpp/graph/tree.lib/tree.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/tree_non_recursive.hpp
     title: library/cpp/graph/tree.lib/tree_non_recursive.hpp
   - icon: ':heavy_check_mark:'
@@ -379,7 +379,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/array/segtree/segment_tree.test.cpp
     title: library/cpp/array/segtree/segment_tree.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/array/sparse_table.test.cpp
     title: library/cpp/array/sparse_table.test.cpp
   - icon: ':heavy_check_mark:'
@@ -406,7 +406,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/scc.test.cpp
     title: library/cpp/graph/tests/scc.test.cpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/graph/tests/topological_sort.test.cpp
     title: library/cpp/graph/tests/topological_sort.test.cpp
   - icon: ':heavy_check_mark:'
@@ -421,7 +421,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca.test.cpp
     title: library/cpp/graph/tree.lib/lca.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   - icon: ':x:'
@@ -548,12 +548,6 @@ data:
 
     typedef long double ld;
 
-    using vl = vector<ll>;
-
-    using vvl = vector<vl>;
-
-    using pll = pair<ll, ll>;
-
 
     template <typename T>
 
@@ -669,12 +663,6 @@ data:
     typedef long long ll;
 
     typedef long double ld;
-
-    using vl = vector<ll>;
-
-    using vvl = vector<vl>;
-
-    using pll = pair<ll, ll>;
 
 
     template <typename T>
@@ -825,7 +813,7 @@ data:
   - problem_template/test/judge.cpp
   - problem_template/codes/solve.cpp
   - problem_template/codes/interactive.cpp
-  timestamp: '2020-12-21 23:16:54+09:00'
+  timestamp: '2021-01-12 22:17:43+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_ruq.test.cpp
