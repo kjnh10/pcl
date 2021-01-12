@@ -42,9 +42,6 @@ template <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; 
 
 typedef long long ll;
 typedef long double ld;
-using vl = vector<ll>;
-using vvl = vector<vl>;
-using pll = pair<ll, ll>;
 
 template <typename T>
 using PQ = priority_queue<T, vector<T>, greater<T>>;

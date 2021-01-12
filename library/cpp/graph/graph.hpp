@@ -155,8 +155,7 @@ struct Graph {
             pq.push(make_pair(zerocost, start));
         }
         while (!pq.empty()) {
-            auto cp = pq.top();
-            pq.pop();
+            auto cp = pq.top(); pq.pop();
             auto [cost, u] = cp;
             if (cost > dist[u]) continue;
             for (const auto& edge : adj_list[u]) {
