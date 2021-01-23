@@ -9,6 +9,7 @@ using iii = tuple<int, int, int>;
 
 
 int solve() {
+    return 0;
 }
 
 
