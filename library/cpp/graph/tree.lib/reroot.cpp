@@ -31,7 +31,7 @@ signed main() {
         int u = tr.dfstrv[i];
         dp[u][tr.par[u]] = col[u];  // TODO: update: 子供がいない場合
         each(ch, tr.children[u]) {
-            dp[u][tr.par[u]] += max(0LL, dp[ch][u]);  // TODO: update
+            dp[u][tr.par[u]] += max((int)0, dp[ch][u]);  // TODO: update
         }
     }
     dump_2d(dp, n, n);
@@ -41,15 +41,15 @@ signed main() {
         cerrendl;
         // uを頂点とする部分木の情報dp[u][*]を配る。
         int u = tr.dfstrv[i];
-        int m = sz(tr.adj[u]);
+        int m = sz(tr.adj_list[u]);
 
         vector<int> lcum(m + 2);
         vector<int> rcum(m + 2);
         {  // 前処理
             vector<int> child_info(m + 2);
             rep(j, 1, m + 1) {
-                int v = tr.adj[u][j - 1];
-                child_info[j] = max(dp[v][u], 0LL);  // TODO: update
+                int v = tr.adj_list[u][j - 1].to;
+                child_info[j] = max(dp[v][u], (int)0);  // TODO: update
             }
             lcum[0] = 0;
             lcum[m + 1] = 0;  // 単位元を番兵に  // TODO: update
@@ -67,7 +67,7 @@ signed main() {
         dump(lcum);
         dump(rcum);
         rep(j, 1, m + 1) {
-            int v = tr.adj[u][j - 1];
+            int v = tr.adj_list[u][j - 1].to;
             dp[u][v] = lcum[j - 1] + rcum[j + 1];  // TODO: update
             dp[u][v] += col[u];  // 追加条件  // TODO: update
             dump(u, v, j, dp[u][v], lcum[j - 1], rcum[j + 1], col[u]);
@@ -79,8 +79,8 @@ signed main() {
     vector<int> ans;
     rep(u, n) {
         int res = col[u];  // TODO: update
-        each(v, tr.adj[u]) {
-            res += max(0LL, dp[v][u]);  // TODO: update
+        each(e, tr.adj_list[u]) {
+            res += max((int)0, dp[e.to][u]);  // TODO: update
         }
         ans.push_back(res);
     }
