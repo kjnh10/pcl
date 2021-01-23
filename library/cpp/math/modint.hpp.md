@@ -14,21 +14,22 @@ data:
   - icon: ':warning:'
     path: library/cpp/math/bsgs.hpp
     title: library/cpp/math/bsgs.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.hpp
     title: library/cpp/math/combination.hpp
   - icon: ':warning:'
     path: library/cpp/misc/constant.cpp
     title: library/cpp/misc/constant.cpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/combination.test.cpp
     title: library/cpp/math/combination.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/matrix_pow.test.cpp
     title: library/cpp/math/matrix_pow.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -123,7 +124,7 @@ data:
   - library/cpp/math/combination.hpp
   - library/cpp/math/bsgs.hpp
   timestamp: '2021-01-12 22:17:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/combination.test.cpp
   - library/cpp/math/matrix_pow.test.cpp

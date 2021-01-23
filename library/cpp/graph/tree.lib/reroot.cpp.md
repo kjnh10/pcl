@@ -15,6 +15,7 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
@@ -232,30 +233,30 @@ data:
     \u6728\u306E\u60C5\u5831\n\n    // first dfs\n    r_rep(i, 1, n) {\n        //\
     \ \u8449\u304B\u3089dp\n        int u = tr.dfstrv[i];\n        dp[u][tr.par[u]]\
     \ = col[u];  // TODO: update: \u5B50\u4F9B\u304C\u3044\u306A\u3044\u5834\u5408\
-    \n        each(ch, tr.children[u]) {\n            dp[u][tr.par[u]] += max(0LL,\
+    \n        each(ch, tr.children[u]) {\n            dp[u][tr.par[u]] += max((int)0,\
     \ dp[ch][u]);  // TODO: update\n        }\n    }\n    dump_2d(dp, n, n);\n\n \
     \   // second dfs\n    rep(i, 0, n) {\n        cerrendl;\n        // u\u3092\u9802\
     \u70B9\u3068\u3059\u308B\u90E8\u5206\u6728\u306E\u60C5\u5831dp[u][*]\u3092\u914D\
-    \u308B\u3002\n        int u = tr.dfstrv[i];\n        int m = sz(tr.adj[u]);\n\n\
-    \        vector<int> lcum(m + 2);\n        vector<int> rcum(m + 2);\n        {\
-    \  // \u524D\u51E6\u7406\n            vector<int> child_info(m + 2);\n       \
-    \     rep(j, 1, m + 1) {\n                int v = tr.adj[u][j - 1];\n        \
-    \        child_info[j] = max(dp[v][u], 0LL);  // TODO: update\n            }\n\
-    \            lcum[0] = 0;\n            lcum[m + 1] = 0;  // \u5358\u4F4D\u5143\
-    \u3092\u756A\u5175\u306B  // TODO: update\n            rcum[0] = 0;\n        \
-    \    rcum[m + 1] = 0;  // \u5358\u4F4D\u5143\u3092\u756A\u5175\u306B  // TODO:\
-    \ update\n            rep(j, 1, m + 1) {\n                lcum[j] = lcum[j - 1]\
-    \ + child_info[j];  // TODO: update\n            }\n            r_rep(j, 1, m\
-    \ + 1) {\n                rcum[j] = rcum[j + 1] + child_info[j];  // TODO: update\n\
-    \            }\n            dump(child_info);\n        }\n\n        dump(lcum);\n\
-    \        dump(rcum);\n        rep(j, 1, m + 1) {\n            int v = tr.adj[u][j\
-    \ - 1];\n            dp[u][v] = lcum[j - 1] + rcum[j + 1];  // TODO: update\n\
+    \u308B\u3002\n        int u = tr.dfstrv[i];\n        int m = sz(tr.adj_list[u]);\n\
+    \n        vector<int> lcum(m + 2);\n        vector<int> rcum(m + 2);\n       \
+    \ {  // \u524D\u51E6\u7406\n            vector<int> child_info(m + 2);\n     \
+    \       rep(j, 1, m + 1) {\n                int v = tr.adj_list[u][j - 1].to;\n\
+    \                child_info[j] = max(dp[v][u], (int)0);  // TODO: update\n   \
+    \         }\n            lcum[0] = 0;\n            lcum[m + 1] = 0;  // \u5358\
+    \u4F4D\u5143\u3092\u756A\u5175\u306B  // TODO: update\n            rcum[0] = 0;\n\
+    \            rcum[m + 1] = 0;  // \u5358\u4F4D\u5143\u3092\u756A\u5175\u306B \
+    \ // TODO: update\n            rep(j, 1, m + 1) {\n                lcum[j] = lcum[j\
+    \ - 1] + child_info[j];  // TODO: update\n            }\n            r_rep(j,\
+    \ 1, m + 1) {\n                rcum[j] = rcum[j + 1] + child_info[j];  // TODO:\
+    \ update\n            }\n            dump(child_info);\n        }\n\n        dump(lcum);\n\
+    \        dump(rcum);\n        rep(j, 1, m + 1) {\n            int v = tr.adj_list[u][j\
+    \ - 1].to;\n            dp[u][v] = lcum[j - 1] + rcum[j + 1];  // TODO: update\n\
     \            dp[u][v] += col[u];  // \u8FFD\u52A0\u6761\u4EF6  // TODO: update\n\
     \            dump(u, v, j, dp[u][v], lcum[j - 1], rcum[j + 1], col[u]);\n    \
     \    }\n    }\n    dump_2d(dp, n, n);\n\n    // answer\n    vector<int> ans;\n\
-    \    rep(u, n) {\n        int res = col[u];  // TODO: update\n        each(v,\
-    \ tr.adj[u]) {\n            res += max(0LL, dp[v][u]);  // TODO: update\n    \
-    \    }\n        ans.push_back(res);\n    }\n    rep(i, sz(ans)) cout << ans[i]\
+    \    rep(u, n) {\n        int res = col[u];  // TODO: update\n        each(e,\
+    \ tr.adj_list[u]) {\n            res += max((int)0, dp[e.to][u]);  // TODO: update\n\
+    \        }\n        ans.push_back(res);\n    }\n    rep(i, sz(ans)) cout << ans[i]\
     \ << (i != sz(ans) - 1 ? \" \" : \"\\n\");\n\n    //%snippet.end()%\n\n    return\
     \ 0;\n}\n"
   code: "// %test('http://codeforces.com/contest/1324/problem/F')%\n#include \"../../header.hpp\"\
@@ -270,14 +271,14 @@ data:
     \ 1, n) {\n        // \u8449\u304B\u3089dp\n        int u = tr.dfstrv[i];\n  \
     \      dp[u][tr.par[u]] = col[u];  // TODO: update: \u5B50\u4F9B\u304C\u3044\u306A\
     \u3044\u5834\u5408\n        each(ch, tr.children[u]) {\n            dp[u][tr.par[u]]\
-    \ += max(0LL, dp[ch][u]);  // TODO: update\n        }\n    }\n    dump_2d(dp,\
+    \ += max((int)0, dp[ch][u]);  // TODO: update\n        }\n    }\n    dump_2d(dp,\
     \ n, n);\n\n    // second dfs\n    rep(i, 0, n) {\n        cerrendl;\n       \
     \ // u\u3092\u9802\u70B9\u3068\u3059\u308B\u90E8\u5206\u6728\u306E\u60C5\u5831\
     dp[u][*]\u3092\u914D\u308B\u3002\n        int u = tr.dfstrv[i];\n        int m\
-    \ = sz(tr.adj[u]);\n\n        vector<int> lcum(m + 2);\n        vector<int> rcum(m\
-    \ + 2);\n        {  // \u524D\u51E6\u7406\n            vector<int> child_info(m\
-    \ + 2);\n            rep(j, 1, m + 1) {\n                int v = tr.adj[u][j -\
-    \ 1];\n                child_info[j] = max(dp[v][u], 0LL);  // TODO: update\n\
+    \ = sz(tr.adj_list[u]);\n\n        vector<int> lcum(m + 2);\n        vector<int>\
+    \ rcum(m + 2);\n        {  // \u524D\u51E6\u7406\n            vector<int> child_info(m\
+    \ + 2);\n            rep(j, 1, m + 1) {\n                int v = tr.adj_list[u][j\
+    \ - 1].to;\n                child_info[j] = max(dp[v][u], (int)0);  // TODO: update\n\
     \            }\n            lcum[0] = 0;\n            lcum[m + 1] = 0;  // \u5358\
     \u4F4D\u5143\u3092\u756A\u5175\u306B  // TODO: update\n            rcum[0] = 0;\n\
     \            rcum[m + 1] = 0;  // \u5358\u4F4D\u5143\u3092\u756A\u5175\u306B \
@@ -285,14 +286,14 @@ data:
     \ - 1] + child_info[j];  // TODO: update\n            }\n            r_rep(j,\
     \ 1, m + 1) {\n                rcum[j] = rcum[j + 1] + child_info[j];  // TODO:\
     \ update\n            }\n            dump(child_info);\n        }\n\n        dump(lcum);\n\
-    \        dump(rcum);\n        rep(j, 1, m + 1) {\n            int v = tr.adj[u][j\
-    \ - 1];\n            dp[u][v] = lcum[j - 1] + rcum[j + 1];  // TODO: update\n\
+    \        dump(rcum);\n        rep(j, 1, m + 1) {\n            int v = tr.adj_list[u][j\
+    \ - 1].to;\n            dp[u][v] = lcum[j - 1] + rcum[j + 1];  // TODO: update\n\
     \            dp[u][v] += col[u];  // \u8FFD\u52A0\u6761\u4EF6  // TODO: update\n\
     \            dump(u, v, j, dp[u][v], lcum[j - 1], rcum[j + 1], col[u]);\n    \
     \    }\n    }\n    dump_2d(dp, n, n);\n\n    // answer\n    vector<int> ans;\n\
-    \    rep(u, n) {\n        int res = col[u];  // TODO: update\n        each(v,\
-    \ tr.adj[u]) {\n            res += max(0LL, dp[v][u]);  // TODO: update\n    \
-    \    }\n        ans.push_back(res);\n    }\n    rep(i, sz(ans)) cout << ans[i]\
+    \    rep(u, n) {\n        int res = col[u];  // TODO: update\n        each(e,\
+    \ tr.adj_list[u]) {\n            res += max((int)0, dp[e.to][u]);  // TODO: update\n\
+    \        }\n        ans.push_back(res);\n    }\n    rep(i, sz(ans)) cout << ans[i]\
     \ << (i != sz(ans) - 1 ? \" \" : \"\\n\");\n\n    //%snippet.end()%\n\n    return\
     \ 0;\n}\n"
   dependsOn:
@@ -303,7 +304,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/reroot.cpp
   requiredBy: []
-  timestamp: '2021-01-12 22:17:43+09:00'
+  timestamp: '2021-01-23 18:49:29+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/reroot.cpp

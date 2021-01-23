@@ -12,6 +12,7 @@ data:
     path: library/cpp/include/header_local.hpp
     title: library/cpp/include/header_local.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

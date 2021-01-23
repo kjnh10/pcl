@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/shifter.hpp
     title: library/cpp/include/shifter.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

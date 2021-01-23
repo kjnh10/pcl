@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/union_find_with_potential.hpp
     title: library/cpp/include/union_find_with_potential.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

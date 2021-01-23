@@ -12,11 +12,12 @@ data:
   - icon: ':x:'
     path: library/cpp/math/sieve.aoj.test.cpp
     title: library/cpp/math/sieve.aoj.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':question:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -113,7 +114,7 @@ data:
   requiredBy:
   - library/cpp/include/sieve.hpp
   timestamp: '2021-01-12 22:17:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/math/sieve.test.cpp
   - library/cpp/math/sieve.aoj.test.cpp

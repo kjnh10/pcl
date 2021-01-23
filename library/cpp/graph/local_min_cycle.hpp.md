@@ -24,6 +24,7 @@ data:
     path: library/cpp/include/local_min_cycle.hpp
     title: library/cpp/include/local_min_cycle.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

@@ -6,6 +6,7 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':warning:'
   attributes:
@@ -40,20 +41,21 @@ data:
     \ntemplate<class T=ll> using vec = vector<T>;\nstruct Fast { Fast() { std::cin.tie(0);\
     \ ios::sync_with_stdio(false); } } fast;\n\nusing vi = vector<int>;\nusing vvi\
     \ = vector<vi>;\nusing pii = pair<int, int>;\nusing iii = tuple<int, int, int>;\n\
-    \n\nint solve() {\n}\n\n\nsigned main(){/*{{{*/\n    solve();\n\n    #if defined(PCM)\
-    \ || defined(LOCAL)\n    check_input();\n    #endif\n\n    return 0;\n}/*}}}*/\n"
+    \n\nint solve() {\n    return 0;\n}\n\n\nsigned main(){/*{{{*/\n    solve();\n\
+    \n    #if defined(PCM) || defined(LOCAL)\n    check_input();\n    #endif\n\n \
+    \   return 0;\n}/*}}}*/\n"
   code: "#include \"header.hpp\"\ntemplate<class T=ll> using vec = vector<T>;\nstruct\
     \ Fast { Fast() { std::cin.tie(0); ios::sync_with_stdio(false); } } fast;\n\n\
     using vi = vector<int>;\nusing vvi = vector<vi>;\nusing pii = pair<int, int>;\n\
-    using iii = tuple<int, int, int>;\n\n\nint solve() {\n}\n\n\nsigned main(){/*{{{*/\n\
-    \    solve();\n\n    #if defined(PCM) || defined(LOCAL)\n    check_input();\n\
-    \    #endif\n\n    return 0;\n}/*}}}*/\n"
+    using iii = tuple<int, int, int>;\n\n\nint solve() {\n    return 0;\n}\n\n\nsigned\
+    \ main(){/*{{{*/\n    solve();\n\n    #if defined(PCM) || defined(LOCAL)\n   \
+    \ check_input();\n    #endif\n\n    return 0;\n}/*}}}*/\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: problem_template/codes/solve.cpp
   requiredBy: []
-  timestamp: '2021-01-12 22:17:43+09:00'
+  timestamp: '2021-01-23 18:45:40+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: problem_template/codes/solve.cpp

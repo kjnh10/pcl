@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/p2.hpp
     title: library/cpp/math/geometry/p2.hpp
   - icon: ':warning:'
@@ -12,6 +12,7 @@ data:
     title: library/cpp/math/rational.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

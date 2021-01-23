@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/dump.hpp
     title: library/cpp/include/dump.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

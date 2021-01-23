@@ -12,6 +12,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/flow/dinic.test.cpp
     title: library/cpp/graph/flow/dinic.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:

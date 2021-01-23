@@ -18,6 +18,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:

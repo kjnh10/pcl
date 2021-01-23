@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/split.hpp
     title: library/cpp/include/split.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

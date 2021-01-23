@@ -3,6 +3,7 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: py
   _verificationStatusIcon: ':warning:'
   attributes:
@@ -74,11 +75,11 @@ data:
     \        res = []\n        if header:\n            res.append(f\"{self.n} {len(self.edges)}\"\
     )\n        for edge in self.edges:\n            res.append(f\"{edge[0]+one_index}\
     \ {edge[1]+one_index}\")\n        return '\\n'.join(res)\n\n# write down here\n\
-    # ---------------------------------------------\na = rint(2, 10)\nb = rint(2,\
-    \ 10)\nprint(a, b)\n\n# if you want to test some specified ranges,\n# def generator():\
-    \  # you should implement as generator\n#     for a in range(1, 5):\n#       \
-    \  for b in range(1, 5):\n#             # single case\n#             print(a,\
-    \ b)\n#             yield 0\n"
+    # ---------------------------------------------\nn = rint(1, 10)\nprint(n)\n\n\
+    # if you want to test some specified ranges,\n# def generator():  # you should\
+    \ implement as generator\n#     for a in range(1, 5):\n#         for b in range(1,\
+    \ 5):\n#             # single case\n#             print(a, b)\n#             yield\
+    \ 0\n"
   dependsOn: []
   isVerificationFile: false
   path: problem_template/test/gen.py

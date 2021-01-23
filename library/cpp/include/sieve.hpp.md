@@ -4,11 +4,12 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':x:'
+  - icon: ':question:'
     path: library/cpp/math/sieve.hpp
     title: library/cpp/math/sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

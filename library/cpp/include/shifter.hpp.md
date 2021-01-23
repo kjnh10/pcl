@@ -9,6 +9,7 @@ data:
     title: library/cpp/misc/zipper.lib/shifter.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

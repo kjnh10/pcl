@@ -12,6 +12,7 @@ data:
     path: library/cpp/include/prettyprint.hpp
     title: library/cpp/include/prettyprint.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

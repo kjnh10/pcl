@@ -74,7 +74,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/include/two_sat.hpp
     title: library/cpp/include/two_sat.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.hpp
     title: library/cpp/string/suffix_array.hpp
   _extendedVerifiedWith:
@@ -126,9 +126,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
     title: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/suffix_array.test.cpp
     title: library/cpp/string/suffix_array.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
   attributes:

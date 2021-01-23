@@ -81,6 +81,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/two_sat.test.cpp
     title: library/cpp/graph/tests/two_sat.test.cpp
+  _isVerificationFailed: true
   _pathExtension: hpp
   _verificationStatusIcon: ':question:'
   attributes:

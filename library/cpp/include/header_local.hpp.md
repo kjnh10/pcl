@@ -6,6 +6,7 @@ data:
     title: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

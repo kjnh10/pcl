@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/pow.hpp
     title: library/cpp/include/pow.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

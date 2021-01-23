@@ -9,6 +9,7 @@ data:
     title: library/cpp/debug/prettyprint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

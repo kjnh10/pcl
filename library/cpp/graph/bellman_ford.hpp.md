@@ -27,6 +27,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/bellman_ford.test.cpp
     title: library/cpp/graph/tests/bellman_ford.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:

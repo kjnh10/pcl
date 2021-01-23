@@ -12,14 +12,15 @@ data:
     path: library/cpp/include/zipper.hpp
     title: library/cpp/include/zipper.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/misc/zipper.lib/zipper.test.cpp
     title: library/cpp/misc/zipper.lib/zipper.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/misc/zipper.lib/zipper2.test.cpp
     title: library/cpp/misc/zipper.lib/zipper2.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -126,7 +127,7 @@ data:
   - library/cpp/array/reversed_cnt.cpp
   - library/cpp/include/zipper.hpp
   timestamp: '2021-01-12 22:17:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/misc/zipper.lib/zipper2.test.cpp
   - library/cpp/misc/zipper.lib/zipper.test.cpp

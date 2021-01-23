@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/fast_zeta.hpp
     title: library/cpp/include/fast_zeta.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

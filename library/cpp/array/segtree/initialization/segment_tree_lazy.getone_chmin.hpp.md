@@ -15,6 +15,7 @@ data:
     path: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
     title: library/cpp/include/segment_tree_lazy.getone_chmin.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:

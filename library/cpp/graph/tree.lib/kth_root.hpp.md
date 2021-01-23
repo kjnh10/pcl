@@ -21,6 +21,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.test.cpp
     title: library/cpp/graph/tree.lib/kth_root.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:

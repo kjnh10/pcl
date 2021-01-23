@@ -9,11 +9,12 @@ data:
     path: library/cpp/include/matrix_pow.hpp
     title: library/cpp/include/matrix_pow.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/matrix_pow.test.cpp
     title: library/cpp/math/matrix_pow.test.cpp
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -70,7 +71,7 @@ data:
   requiredBy:
   - library/cpp/include/matrix_pow.hpp
   timestamp: '2021-01-12 22:17:43+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/matrix_pow.test.cpp
 documentation_of: library/cpp/math/matrix_pow.hpp

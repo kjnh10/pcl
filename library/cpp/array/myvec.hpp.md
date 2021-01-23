@@ -9,6 +9,7 @@ data:
     path: library/cpp/include/myvec.hpp
     title: library/cpp/include/myvec.hpp
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':warning:'
   attributes:
