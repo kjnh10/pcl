@@ -40,6 +40,15 @@ template <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; 
 #define uni(x) sort(all(x)); x.erase(unique(all(x)), x.end())
 #define slice(l, r) substr(l, r - l)
 
+#include <cxxabi.h>
+string demangle(const char * name) {
+    size_t len = strlen(name) + 256;
+    char output_buffer[len];
+    int status = 0;
+    return string(abi::__cxa_demangle(name, output_buffer, &len, &status));
+}
+template<class T> string type(T x){ return demangle(typeid(x).name()); }
+
 typedef long long ll;
 typedef long double ld;
 
