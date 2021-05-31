@@ -1,6 +1,9 @@
 ---
 data:
-  _extendedDependsOn: []
+  _extendedDependsOn:
+  - icon: ':question:'
+    path: library/cpp/header.hpp
+    title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
@@ -23,18 +26,22 @@ data:
     \ x) - A.begin())\n#define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate\
     \ <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a)\
     \ = (b); }\ntemplate <class T, class U> inline void chmin(T &a, const U &b) {\
-    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto make_table(X\
-    \ x, T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
-    \ Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y,\
-    \ z, zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T\
-    \ cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x,\
-    \ a, b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
-    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
-    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
-    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
-    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/acl_mincost_application.cpp\"\
+    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto mv(X x,\
+    \ T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
+    \ Z, typename... Zs> auto mv(X x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...);\
+    \ return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T a,\
+    \ T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a, b)\
+    \ ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\n#include <cxxabi.h>\nstring\
+    \ demangle(const char * name) {\n    size_t len = strlen(name) + 256;\n    char\
+    \ output_buffer[len];\n    int status = 0;\n    return string(abi::__cxa_demangle(name,\
+    \ output_buffer, &len, &status));\n}\ntemplate<class T> string type(T x){ return\
+    \ demangle(typeid(x).name()); }\n\ntypedef long long ll;\ntypedef long double\
+    \ ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>, greater<T>>;\n\
+    void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof()\
+    \ == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define dump(...) ;\n\
+    #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
+    #endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/graph/flow/acl_mincost_application.cpp\"\
     \n//%snippet.set('mincostflow')%\n//%snippet.config({'alias':'mcf'})%\n//%snippet.fold()%\n\
     \n#include <atcoder/mincostflow>\nusing namespace atcoder;\n\nmcf_graph<ll, ll>\
     \ g(2*n + 4);\n// auto debug = [&](){\n//     auto edges = (g.edges());\n//  \
@@ -69,11 +76,12 @@ data:
     \ '.'));\nfor (auto& e : edges){\n    if (e.flow == 0 && e.cost > 0){\n      \
     \  ans[e.to][e.from-n] = 'X';\n    }\n}\nrep(i, n) cout << ans[i] << endl;\n\n\
     //%snippet.end()%\n"
-  dependsOn: []
+  dependsOn:
+  - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/graph/flow/acl_mincost_application.cpp
   requiredBy: []
-  timestamp: '1970-01-01 00:00:00+00:00'
+  timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/flow/acl_mincost_application.cpp

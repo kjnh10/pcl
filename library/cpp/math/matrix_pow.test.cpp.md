@@ -4,17 +4,17 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/matrix_pow.hpp
     title: library/cpp/math/matrix_pow.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':x:'
     path: library/cpp/math/modint.hpp
     title: library/cpp/math/modint.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: false
+  _isVerificationFailed: true
   _pathExtension: cpp
-  _verificationStatusIcon: ':heavy_check_mark:'
+  _verificationStatusIcon: ':x:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/1073
@@ -37,50 +37,53 @@ data:
     #define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate <class T, class\
     \ U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }\ntemplate\
     \ <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a)\
-    \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
-    \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
-    \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
-    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
-    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
-    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
-    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
-    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
-    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/matrix_pow.hpp\"\
-    \n\n//%snippet.set('matrix_pow')%\n//%snippet.fold()%\n\ntemplate <class value\
-    \ = ll>\nusing mat = vector<vector<value>>;\n\ntemplate <class T>\nmat<T> mul(const\
-    \ mat<T>& A, const mat<T>& B) {\n    mat<T> res(A.size(), vector<T>(B[0].size()));\n\
-    \    rep(i, A.size()) {\n        rep(j, B[0].size()) {\n            rep(k, B.size())\
-    \ {\n                res[i][j] = (res[i][j] + A[i][k] * B[k][j]);\n          \
-    \  }\n        }\n    }\n    return res;\n}\n\ntemplate <class T>\nmat<T> pow(mat<T>\
-    \ A, ll n) {\n    mat<T> B(A.size(), vector<T>(A.size()));\n    rep(i, A.size())\
-    \ {\n        B[i][i] = 1;  // E\n    }\n    while (n > 0) {\n        if (n & 1)\
-    \ B = mul(B, A);\n        A = mul(A, A);\n        n >>= 1;\n    }\n    return\
-    \ B;\n}\n\n//%snippet.end()%\n#line 3 \"library/cpp/math/modint.hpp\"\n\n//%snippet.set('modint')%\n\
-    //%snippet.config({'alias':'mint'})%\nconst int mod = 1e9 + 7;\n// const int mod\
-    \ = 998244353;\nstruct modint {  //{{{\n    ll x;\n    modint(ll x = 0) : x((x\
-    \ % mod + mod) % mod) {}\n\n    // ?= operator\n    modint& operator+=(const modint\
-    \ a) {\n        (x += a.x) %= mod;\n        return *this;\n    }\n    modint&\
-    \ operator-=(const modint a) {\n        (x += mod - a.x) %= mod;\n        return\
-    \ *this;\n    }\n    modint& operator*=(const modint a) {\n        (x *= a.x)\
-    \ %= mod;\n        return *this;\n    }\n    modint& operator/=(const modint&\
-    \ rhs) {\n        if (rhs.x == 0) throw runtime_error(\"modint zero division\"\
-    );\n        return *this *= rhs.inv();\n    }\n\n    modint operator+(const modint\
-    \ a) const {\n        modint res(*this);\n        return res += a;\n    }\n  \
-    \  modint operator-(const modint a) const {\n        modint res(*this);\n    \
-    \    return res -= a;\n    }\n    modint operator*(const modint a) const {\n \
-    \       modint res(*this);\n        return res *= a;\n    }\n    modint operator/(const\
-    \ modint a) const {\n        modint res(*this);\n        return res /= a;\n  \
-    \  }\n\n    modint pow(ll n) const {\n        modint res(1), x(*this);\n     \
-    \   if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n      \
-    \  }\n        while (n) {\n            if (n & 1) res *= x;\n            x *=\
-    \ x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n    modint\
-    \ inv() const {\n        if (x == 0) throw runtime_error(\"inv does not exist\"\
-    );\n        return pow(mod - 2);\n    }\n    // modint inv()const{\n    //   \
-    \  int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n \
-    \   //     if(x<0)x+=mod;\n    //     return modint(x);\n    // }\n\n    bool\
+    \ = (b); }\ntemplate <typename X, typename T> auto mv(X x, T a) { return vector<T>(x,\
+    \ a); }\ntemplate <typename X, typename Y, typename Z, typename... Zs> auto mv(X\
+    \ x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...); return vector<decltype(cont)>(x,\
+    \ cont); }\n\ntemplate <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return\
+    \ (a+b-1)/b; }\n\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
+    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
+    \ r - l)\n\n#include <cxxabi.h>\nstring demangle(const char * name) {\n    size_t\
+    \ len = strlen(name) + 256;\n    char output_buffer[len];\n    int status = 0;\n\
+    \    return string(abi::__cxa_demangle(name, output_buffer, &len, &status));\n\
+    }\ntemplate<class T> string type(T x){ return demangle(typeid(x).name()); }\n\n\
+    typedef long long ll;\ntypedef long double ld;\n\ntemplate <typename T>\nusing\
+    \ PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
+    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
+    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
+    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
+    #line 3 \"library/cpp/math/matrix_pow.hpp\"\n\n//%snippet.set('matrix_pow')%\n\
+    //%snippet.fold()%\n\ntemplate <class value = ll>\nusing mat = vector<vector<value>>;\n\
+    \ntemplate <class T>\nmat<T> mul(const mat<T>& A, const mat<T>& B) {\n    mat<T>\
+    \ res(A.size(), vector<T>(B[0].size()));\n    rep(i, A.size()) {\n        rep(j,\
+    \ B[0].size()) {\n            rep(k, B.size()) {\n                res[i][j] =\
+    \ (res[i][j] + A[i][k] * B[k][j]);\n            }\n        }\n    }\n    return\
+    \ res;\n}\n\ntemplate <class T>\nmat<T> pow(mat<T> A, ll n) {\n    mat<T> B(A.size(),\
+    \ vector<T>(A.size()));\n    rep(i, A.size()) {\n        B[i][i] = 1;  // E\n\
+    \    }\n    while (n > 0) {\n        if (n & 1) B = mul(B, A);\n        A = mul(A,\
+    \ A);\n        n >>= 1;\n    }\n    return B;\n}\n\n//%snippet.end()%\n#line 3\
+    \ \"library/cpp/math/modint.hpp\"\n\n//%snippet.set('modint')%\n//%snippet.config({'alias':'mint'})%\n\
+    const int mod = 1e9 + 7;\n// const int mod = 998244353;\nstruct modint {  //{{{\n\
+    \    ll x;\n    modint(ll x = 0) : x((x % mod + mod) % mod) {}\n\n    // ?= operator\n\
+    \    modint& operator+=(const modint a) {\n        (x += a.x) %= mod;\n      \
+    \  return *this;\n    }\n    modint& operator-=(const modint a) {\n        (x\
+    \ += mod - a.x) %= mod;\n        return *this;\n    }\n    modint& operator*=(const\
+    \ modint a) {\n        (x *= a.x) %= mod;\n        return *this;\n    }\n    modint&\
+    \ operator/=(const modint& rhs) {\n        if (rhs.x == 0) throw runtime_error(\"\
+    modint zero division\");\n        return *this *= rhs.inv();\n    }\n\n    modint\
+    \ operator+(const modint a) const {\n        modint res(*this);\n        return\
+    \ res += a;\n    }\n    modint operator-(const modint a) const {\n        modint\
+    \ res(*this);\n        return res -= a;\n    }\n    modint operator*(const modint\
+    \ a) const {\n        modint res(*this);\n        return res *= a;\n    }\n  \
+    \  modint operator/(const modint a) const {\n        modint res(*this);\n    \
+    \    return res /= a;\n    }\n\n    modint pow(ll n) const {\n        modint res(1),\
+    \ x(*this);\n        if (n < 0) {\n            n = -n;\n            x = (*this).inv();\n\
+    \        }\n        while (n) {\n            if (n & 1) res *= x;\n          \
+    \  x *= x;\n            n >>= 1;\n        }\n        return res;\n    }\n\n  \
+    \  modint inv() const {\n        if (x == 0) throw runtime_error(\"inv does not\
+    \ exist\");\n        return pow(mod - 2);\n    }\n    // modint inv()const{\n\
+    \    //     int x,y;\n    //     int g=extgcd(v,mod,x,y);\n    //     assert(g==1);\n\
+    \    //     if(x<0)x+=mod;\n    //     return modint(x);\n    // }\n\n    bool\
     \ operator<(const modint& r) const { return x < r.x; }\n    bool operator==(const\
     \ modint& r) const { return x == r.x; }\n};\nistream& operator>>(istream& is,\
     \ const modint& a) { return is >> a.x; }\nostream& operator<<(ostream& os, const\
@@ -109,8 +112,8 @@ data:
   isVerificationFile: true
   path: library/cpp/math/matrix_pow.test.cpp
   requiredBy: []
-  timestamp: '2021-01-12 22:17:43+09:00'
-  verificationStatus: TEST_ACCEPTED
+  timestamp: '2021-05-31 23:41:24+09:00'
+  verificationStatus: TEST_WRONG_ANSWER
   verifiedWith: []
 documentation_of: library/cpp/math/matrix_pow.test.cpp
 layout: document

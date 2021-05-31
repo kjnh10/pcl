@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':heavy_check_mark:'
+  - icon: ':question:'
     path: library/cpp/math/geometry/p2.hpp
     title: library/cpp/math/geometry/p2.hpp
   _extendedRequiredBy:
@@ -33,18 +33,22 @@ data:
     \ x) - A.begin())\n#define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate\
     \ <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a)\
     \ = (b); }\ntemplate <class T, class U> inline void chmin(T &a, const U &b) {\
-    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto make_table(X\
-    \ x, T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
-    \ Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y,\
-    \ z, zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T\
-    \ cdiv(T a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x,\
-    \ a, b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
-    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
-    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
-    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
-    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/p2.hpp\"\
+    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto mv(X x,\
+    \ T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
+    \ Z, typename... Zs> auto mv(X x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...);\
+    \ return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T a,\
+    \ T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a, b)\
+    \ ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
+    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\n#include <cxxabi.h>\nstring\
+    \ demangle(const char * name) {\n    size_t len = strlen(name) + 256;\n    char\
+    \ output_buffer[len];\n    int status = 0;\n    return string(abi::__cxa_demangle(name,\
+    \ output_buffer, &len, &status));\n}\ntemplate<class T> string type(T x){ return\
+    \ demangle(typeid(x).name()); }\n\ntypedef long long ll;\ntypedef long double\
+    \ ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>, greater<T>>;\n\
+    void check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp; assert(cin.eof()\
+    \ == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define dump(...) ;\n\
+    #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
+    #endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/geometry/p2.hpp\"\
     \n\n//%snippet.set('P2')%\n//%snippet.config({'alias':'pos'})%\n//%snippet.config({'alias':'point'})%\n\
     //%snippet.config({'alias':'pair'})%\n//%snippet.fold()%\n\ntemplate<class T=ll>/*{{{*/\n\
     struct P2 {\n    T x, y;\n    P2(T _x, T _y) : x(_x), y(_y) {}\n    P2() {\n \
@@ -90,14 +94,15 @@ data:
     \ - y * r.x > 0);\n    }\n\n    bool operator==(const Angle &r) const { return\
     \ (x == r.x && y == r.y); }\n\n    long double operator-(const Angle& r) const\
     \ {\n        // r\u3092\u8D77\u70B9\u306B\u898B\u3066\u4F55\u5EA6\u9032\u3093\u3067\
-    \u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        return rad() - r.rad();\n\
-    \    }\n\n    long double rad() const {\n        long double r = atan2(y, x);\
-    \ \n        return (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double const deg(){\
-    \ return rad() * 180.0/ M_PI; }\n\n    Angle rot_90() const { return Angle(-y,\
-    \ x); }\n\n    Angle rot_r90() const { return Angle(y, -x); }\n\n    friend ostream\
-    \ &operator<<(ostream &stream, Angle p) {\n        stream << \"(\" << p.x << \"\
-    ,\" << p.y << \"):\" << p.deg() << \"\xB0\";\n        return stream;\n    }\n\
-    };\n\n//%snippet.end%\n\n// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n"
+    \u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        long double res = rad() -\
+    \ r.rad();\n        return (res<0 ? (res + M_PI*2.0) : res);\n    }\n\n    long\
+    \ double rad() const {\n        long double r = atan2(y, x); \n        return\
+    \ (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double const deg(){ return rad()\
+    \ * 180.0/ M_PI; }\n\n    Angle rot_90() const { return Angle(-y, x); }\n\n  \
+    \  Angle rot_r90() const { return Angle(y, -x); }\n\n    friend ostream &operator<<(ostream\
+    \ &stream, Angle p) {\n        stream << \"(\" << p.x << \",\" << p.y << \"):\"\
+    \ << p.deg() << \"\xB0\";\n        return stream;\n    }\n};\n\n//%snippet.end%\n\
+    \n// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n"
   code: "#pragma once\n#include \"p2.hpp\"\n\n//%snippet.set('angle')%\n//%snippet.config({'alias':'argment_sort'})%\n\
     //%snippet.fold()%\n\nstruct Angle{\n    ll x, y; // \u5B9F\u969B\u306B\u306F\
     10^9\u304F\u3089\u3044\u307E\u3067\u3057\u304B\u5165\u308C\u3089\u308C\u306A\u3044\
@@ -111,14 +116,15 @@ data:
     \ ? _orthant < r._orthant : x * r.y - y * r.x > 0);\n    }\n\n    bool operator==(const\
     \ Angle &r) const { return (x == r.x && y == r.y); }\n\n    long double operator-(const\
     \ Angle& r) const {\n        // r\u3092\u8D77\u70B9\u306B\u898B\u3066\u4F55\u5EA6\
-    \u9032\u3093\u3067\u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        return rad()\
-    \ - r.rad();\n    }\n\n    long double rad() const {\n        long double r =\
-    \ atan2(y, x); \n        return (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double\
-    \ const deg(){ return rad() * 180.0/ M_PI; }\n\n    Angle rot_90() const { return\
-    \ Angle(-y, x); }\n\n    Angle rot_r90() const { return Angle(y, -x); }\n\n  \
-    \  friend ostream &operator<<(ostream &stream, Angle p) {\n        stream << \"\
-    (\" << p.x << \",\" << p.y << \"):\" << p.deg() << \"\xB0\";\n        return stream;\n\
-    \    }\n};\n\n//%snippet.end%\n\n// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n"
+    \u9032\u3093\u3067\u3044\u308B\u304Bradian\u3067\u8FD4\u3059\n        long double\
+    \ res = rad() - r.rad();\n        return (res<0 ? (res + M_PI*2.0) : res);\n \
+    \   }\n\n    long double rad() const {\n        long double r = atan2(y, x); \n\
+    \        return (r<0 ? (r + M_PI*2.0) : r);\n    }\n    long double const deg(){\
+    \ return rad() * 180.0/ M_PI; }\n\n    Angle rot_90() const { return Angle(-y,\
+    \ x); }\n\n    Angle rot_r90() const { return Angle(y, -x); }\n\n    friend ostream\
+    \ &operator<<(ostream &stream, Angle p) {\n        stream << \"(\" << p.x << \"\
+    ,\" << p.y << \"):\" << p.deg() << \"\xB0\";\n        return stream;\n    }\n\
+    };\n\n//%snippet.end%\n\n// from: https://betrue12.hateblo.jp/entry/2020/01/05/151244\n"
   dependsOn:
   - library/cpp/math/geometry/p2.hpp
   - library/cpp/header.hpp
@@ -126,7 +132,7 @@ data:
   path: library/cpp/math/geometry/angle.hpp
   requiredBy:
   - library/cpp/include/angle.hpp
-  timestamp: '2021-01-12 22:17:43+09:00'
+  timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/geometry/angle.hpp

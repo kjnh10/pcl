@@ -24,7 +24,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/array/slide_min.cpp
       title: library/cpp/array/slide_min.cpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: library/cpp/array/sparse_table.hpp
       title: library/cpp/array/sparse_table.hpp
     - icon: ':warning:'
@@ -145,7 +145,7 @@ data:
       title: library/cpp/graph/flow/misawa_b_flow.hpp
   - name: library/cpp/graph/tree.lib
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tree.lib/kth_root.hpp
       title: library/cpp/graph/tree.lib/kth_root.hpp
     - icon: ':warning:'
@@ -316,7 +316,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/bsgs.hpp
       title: library/cpp/math/bsgs.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/combination.hpp
       title: library/cpp/math/combination.hpp
     - icon: ':warning:'
@@ -328,10 +328,10 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/int.cpp
       title: library/cpp/math/int.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/matrix_pow.hpp
       title: library/cpp/math/matrix_pow.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/modint.hpp
       title: library/cpp/math/modint.hpp
     - icon: ':warning:'
@@ -343,7 +343,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/rational.hpp
       title: library/cpp/math/rational.hpp
-    - icon: ':question:'
+    - icon: ':x:'
       path: library/cpp/math/sieve.hpp
       title: library/cpp/math/sieve.hpp
   - name: library/cpp/math/geometry
@@ -351,7 +351,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/geometry/angle.hpp
       title: library/cpp/math/geometry/angle.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/area_rect.hpp
       title: library/cpp/math/geometry/area_rect.hpp
     - icon: ':warning:'
@@ -360,7 +360,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/math/geometry/dist_between_line_and_point.cpp
       title: library/cpp/math/geometry/dist_between_line_and_point.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':question:'
       path: library/cpp/math/geometry/p2.hpp
       title: library/cpp/math/geometry/p2.hpp
     - icon: ':warning:'
@@ -407,7 +407,7 @@ data:
     - icon: ':warning:'
       path: library/cpp/misc/zipper.lib/shifter.hpp
       title: library/cpp/misc/zipper.lib/shifter.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper.hpp
       title: library/cpp/misc/zipper.lib/zipper.hpp
   - name: library/cpp/string/kmp/codes
@@ -429,13 +429,13 @@ data:
     - icon: ':warning:'
       path: library/cpp/string/lcs.cpp
       title: library/cpp/string/lcs.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/rolling_hash.hpp
       title: library/cpp/string/rolling_hash.hpp
     - icon: ':warning:'
       path: library/cpp/string/split.hpp
       title: library/cpp/string/split.hpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/suffix_array.hpp
       title: library/cpp/string/suffix_array.hpp
   - name: library/python
@@ -564,7 +564,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/graph/tree.lib/hld.test.cpp
       title: library/cpp/graph/tree.lib/hld.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/graph/tree.lib/kth_root.test.cpp
       title: library/cpp/graph/tree.lib/kth_root.test.cpp
     - icon: ':heavy_check_mark:'
@@ -578,40 +578,40 @@ data:
     - icon: ':heavy_check_mark:'
       path: library/cpp/math/bsgs.test.cpp
       title: library/cpp/math/bsgs.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/combination.test.cpp
       title: library/cpp/math/combination.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/matrix_pow.test.cpp
       title: library/cpp/math/matrix_pow.test.cpp
     - icon: ':x:'
       path: library/cpp/math/sieve.aoj.test.cpp
       title: library/cpp/math/sieve.aoj.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/sieve.test.cpp
       title: library/cpp/math/sieve.test.cpp
   - name: library/cpp/math/geometry
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/area_rect.test.cpp
       title: library/cpp/math/geometry/area_rect.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/math/geometry/p2.test.cpp
       title: library/cpp/math/geometry/p2.test.cpp
   - name: library/cpp/misc/zipper.lib
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper.test.cpp
       title: library/cpp/misc/zipper.lib/zipper.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/misc/zipper.lib/zipper2.test.cpp
       title: library/cpp/misc/zipper.lib/zipper2.test.cpp
   - name: library/cpp/string
     pages:
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/rolling_hash.test.cpp
       title: library/cpp/string/rolling_hash.test.cpp
-    - icon: ':heavy_check_mark:'
+    - icon: ':x:'
       path: library/cpp/string/suffix_array.test.cpp
       title: library/cpp/string/suffix_array.test.cpp
 layout: toppage

@@ -40,33 +40,36 @@ data:
     #define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate <class T, class\
     \ U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }\ntemplate\
     \ <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a)\
-    \ = (b); }\ntemplate <typename X, typename T> auto make_table(X x, T a) { return\
-    \ vector<T>(x, a); }\ntemplate <typename X, typename Y, typename Z, typename...\
-    \ Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z,\
-    \ zs...); return vector<decltype(cont)>(x, cont); }\n\ntemplate <class T> T cdiv(T\
-    \ a, T b){ assert(a >= 0 && b > 0); return (a+b-1)/b; }\n\n#define is_in(x, a,\
-    \ b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x)); x.erase(unique(all(x)),\
-    \ x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef long long ll;\ntypedef\
-    \ long double ld;\n\ntemplate <typename T>\nusing PQ = priority_queue<T, vector<T>,\
-    \ greater<T>>;\nvoid check_input() { assert(cin.eof() == 0); int tmp; cin >> tmp;\
-    \ assert(cin.eof() == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define\
-    \ dump(...) ;\n#define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl\
-    \ ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/segtree/segment_tree.hpp\"\
-    \n// http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\n//%snippet.set('segment_tree')%\n\
-    //%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\ntemplate <typename\
-    \ X> struct SegmentTree {  // {{{\n    private:\n        using F = function<X(X,\
-    \ X)>;\n        using index = int;\n        int n;  // \u5143\u306E\u914D\u5217\
-    \u306E\u30B5\u30A4\u30BA\n        int N;  // n\u4EE5\u4E0A\u306E\u6700\u5C0F\u306E\
-    2\u51AA\n        vector<X> node;\n        F merge;\n        X identity;\n\n  \
-    \  public:\n        SegmentTree() {}\n        SegmentTree(vector<X> a, F f, X\
-    \ id) : merge(f), identity(id) {\n            n = (int)a.size();\n           \
-    \ N = 1;\n            while (N < n) N *= 2;\n            node.resize(2 * N - 1,\
-    \ identity);\n            for (int i = 0; i < n; i++) node[i + N - 1] = a[i];\n\
-    \            for (int i = N - 2; i >= 0; i--)\n                node[i] = merge(node[2\
-    \ * i + 1], node[2 * i + 2]);\n        }\n        SegmentTree(int sz, F f, X id)\
-    \ : SegmentTree(vector<X>(sz, id), f, id) {}\n\n        X& operator[](index i)\
-    \ { return node[i + N - 1]; }\n\n        void set(index i, X val) {\n        \
-    \    i += (N - 1);\n            node[i] = val;\n            while (i > 0) {\n\
+    \ = (b); }\ntemplate <typename X, typename T> auto mv(X x, T a) { return vector<T>(x,\
+    \ a); }\ntemplate <typename X, typename Y, typename Z, typename... Zs> auto mv(X\
+    \ x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...); return vector<decltype(cont)>(x,\
+    \ cont); }\n\ntemplate <class T> T cdiv(T a, T b){ assert(a >= 0 && b > 0); return\
+    \ (a+b-1)/b; }\n\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
+    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
+    \ r - l)\n\n#include <cxxabi.h>\nstring demangle(const char * name) {\n    size_t\
+    \ len = strlen(name) + 256;\n    char output_buffer[len];\n    int status = 0;\n\
+    \    return string(abi::__cxa_demangle(name, output_buffer, &len, &status));\n\
+    }\ntemplate<class T> string type(T x){ return demangle(typeid(x).name()); }\n\n\
+    typedef long long ll;\ntypedef long double ld;\n\ntemplate <typename T>\nusing\
+    \ PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
+    \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
+    \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
+    \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n//%snippet.end()%\n\
+    #line 3 \"library/cpp/array/segtree/segment_tree.hpp\"\n// http://tsutaj.hatenablog.com/entry/2017/03/29/204841\n\
+    \n//%snippet.set('segment_tree')%\n//%snippet.config({'alias':'rmq'})%\n//%snippet.fold()%\n\
+    \ntemplate <typename X> struct SegmentTree {  // {{{\n    private:\n        using\
+    \ F = function<X(X, X)>;\n        using index = int;\n        int n;  // \u5143\
+    \u306E\u914D\u5217\u306E\u30B5\u30A4\u30BA\n        int N;  // n\u4EE5\u4E0A\u306E\
+    \u6700\u5C0F\u306E2\u51AA\n        vector<X> node;\n        F merge;\n       \
+    \ X identity;\n\n    public:\n        SegmentTree() {}\n        SegmentTree(vector<X>\
+    \ a, F f, X id) : merge(f), identity(id) {\n            n = (int)a.size();\n \
+    \           N = 1;\n            while (N < n) N *= 2;\n            node.resize(2\
+    \ * N - 1, identity);\n            for (int i = 0; i < n; i++) node[i + N - 1]\
+    \ = a[i];\n            for (int i = N - 2; i >= 0; i--)\n                node[i]\
+    \ = merge(node[2 * i + 1], node[2 * i + 2]);\n        }\n        SegmentTree(int\
+    \ sz, F f, X id) : SegmentTree(vector<X>(sz, id), f, id) {}\n\n        X& operator[](index\
+    \ i) { return node[i + N - 1]; }\n\n        void set(index i, X val) {\n     \
+    \       i += (N - 1);\n            node[i] = val;\n            while (i > 0) {\n\
     \                i = (i - 1) / 2;\n                node[i] = merge(node[2 * i\
     \ + 1], node[2 * i + 2]);\n            }\n        }\n\n        void add(index\
     \ i, X val) {\n            i += (N - 1);\n            node[i] += val;\n      \
@@ -266,7 +269,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
   requiredBy: []
-  timestamp: '2021-01-12 22:17:43+09:00'
+  timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/lca_non_recursive.test.cpp
