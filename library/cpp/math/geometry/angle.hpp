@@ -27,7 +27,8 @@ struct Angle{
 
     long double operator-(const Angle& r) const {
         // rを起点に見て何度進んでいるかradianで返す
-        return rad() - r.rad();
+        long double res = rad() - r.rad();
+        return (res<0 ? (res + M_PI*2.0) : res);
     }
 
     long double rad() const {
