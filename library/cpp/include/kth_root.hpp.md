@@ -7,7 +7,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/edge.hpp
     title: library/cpp/graph/edge.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.hpp
     title: library/cpp/graph/tree.lib/kth_root.hpp
   - icon: ':question:'
@@ -233,18 +233,18 @@ data:
     \ db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n        int max_depth = *max_element(all(tr.depth));\n\
     \        N = 0;\n        int mul = 1;\n        while(mul < max_depth){\n     \
     \       mul <<= 1;\n            N++;\n        }\n        N++;\n\n        db =\
-    \ make_table(N, tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n   \
-    \     rep(d, 1, N){\n            rep(j, tr.n){\n                if (db[d-1][j]\
-    \ == -1) db[d][j] = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n\
-    \            }\n        }\n    }\n    \n    int query(int node, int k) {\n   \
-    \     int cur = node;\n        for(int d = 0; d < N ; d++) {\n            if (k>>d&1)\
-    \ {\n                if (db[d][cur]==-1) return -1;\n                else cur\
-    \ = db[d][cur];\n            }\n        }\n        return cur;\n    }\n\n    int\
-    \ lca(int u, int v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n  \
-    \      v = query(v, tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\
-    \n        for (int d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v])\
-    \ {\n                u = db[d][u];\n                v = db[d][v];\n          \
-    \  }\n        }\n        return tr.par[u];\n    }\n};\n#line 2 \"library/cpp/include/kth_root.hpp\"\
+    \ mv(N, tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n        rep(d,\
+    \ 1, N){\n            rep(j, tr.n){\n                if (db[d-1][j] == -1) db[d][j]\
+    \ = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n            }\n\
+    \        }\n    }\n    \n    int query(int node, int k) {\n        int cur = node;\n\
+    \        for(int d = 0; d < N ; d++) {\n            if (k>>d&1) {\n          \
+    \      if (db[d][cur]==-1) return -1;\n                else cur = db[d][cur];\n\
+    \            }\n        }\n        return cur;\n    }\n\n    int lca(int u, int\
+    \ v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n        v = query(v,\
+    \ tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\n        for (int\
+    \ d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v]) {\n         \
+    \       u = db[d][u];\n                v = db[d][v];\n            }\n        }\n\
+    \        return tr.par[u];\n    }\n};\n#line 2 \"library/cpp/include/kth_root.hpp\"\
     \n"
   code: '#include "../graph/tree.lib/kth_root.hpp"'
   dependsOn:
@@ -256,7 +256,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/kth_root.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-06-01 13:34:09+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/kth_root.hpp

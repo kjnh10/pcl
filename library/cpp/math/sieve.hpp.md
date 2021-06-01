@@ -9,15 +9,15 @@ data:
     path: library/cpp/include/sieve.hpp
     title: library/cpp/include/sieve.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.aoj.test.cpp
     title: library/cpp/math/sieve.aoj.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.test.cpp
     title: library/cpp/math/sieve.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -118,7 +118,7 @@ data:
   requiredBy:
   - library/cpp/include/sieve.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/math/sieve.test.cpp
   - library/cpp/math/sieve.aoj.test.cpp

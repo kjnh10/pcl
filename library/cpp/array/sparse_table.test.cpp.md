@@ -1,7 +1,7 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/array/sparse_table.hpp
     title: library/cpp/array/sparse_table.hpp
   - icon: ':question:'
@@ -9,9 +9,9 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://judge.yosupo.jp/problem/staticrmq
@@ -62,21 +62,21 @@ data:
     \  }\n    }\n\n    inline T query(int l, int r) {  // [l, r)\n        int b =\
     \ lookup[r - l];\n        return min(st[b][l], st[b][r - (1 << b)]);\n    }\n\
     };\n\n//%snippet.end()%\n#line 3 \"library/cpp/array/sparse_table.test.cpp\"\n\
-    \nint main(){\n    ll N,Q;cin>>N>>Q;\n    vl a(N);\n    rep(n, N) cin>>a[n];\n\
+    \nint main(){\n    ll N,Q;cin>>N>>Q;\n    vector<ll> a(N);\n    rep(n, N) cin>>a[n];\n\
     \n    sparse_table<ll> sp(a);\n    rep(q, Q){\n        ll l,r;cin>>l>>r;\n   \
     \     cout << sp.query(l, r) << endl;\n    }\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/staticrmq\"\n#include \"\
-    sparse_table.hpp\"\n\nint main(){\n    ll N,Q;cin>>N>>Q;\n    vl a(N);\n    rep(n,\
-    \ N) cin>>a[n];\n\n    sparse_table<ll> sp(a);\n    rep(q, Q){\n        ll l,r;cin>>l>>r;\n\
-    \        cout << sp.query(l, r) << endl;\n    }\n}\n"
+    sparse_table.hpp\"\n\nint main(){\n    ll N,Q;cin>>N>>Q;\n    vector<ll> a(N);\n\
+    \    rep(n, N) cin>>a[n];\n\n    sparse_table<ll> sp(a);\n    rep(q, Q){\n   \
+    \     ll l,r;cin>>l>>r;\n        cout << sp.query(l, r) << endl;\n    }\n}\n"
   dependsOn:
   - library/cpp/array/sparse_table.hpp
   - library/cpp/header.hpp
   isVerificationFile: true
   path: library/cpp/array/sparse_table.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-06-01 13:34:09+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/sparse_table.test.cpp
 layout: document

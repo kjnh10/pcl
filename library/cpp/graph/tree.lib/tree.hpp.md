@@ -26,10 +26,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/strongly_connected_components.hpp
     title: library/cpp/graph/strongly_connected_components.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.hpp
     title: library/cpp/graph/tree.lib/kth_root.hpp
   - icon: ':warning:'
@@ -84,7 +84,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/scc.test.cpp
     title: library/cpp/graph/tests/scc.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tests/topological_sort.test.cpp
     title: library/cpp/graph/tests/topological_sort.test.cpp
   - icon: ':heavy_check_mark:'
@@ -93,7 +93,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/hld.test.cpp
     title: library/cpp/graph/tree.lib/hld.test.cpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.test.cpp
     title: library/cpp/graph/tree.lib/kth_root.test.cpp
   - icon: ':heavy_check_mark:'

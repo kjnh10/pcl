@@ -4,7 +4,7 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/area_rect.hpp
     title: library/cpp/math/geometry/area_rect.hpp
   _extendedRequiredBy: []

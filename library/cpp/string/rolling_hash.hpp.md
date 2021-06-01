@@ -9,12 +9,12 @@ data:
     path: library/cpp/include/rolling_hash.hpp
     title: library/cpp/include/rolling_hash.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/string/rolling_hash.test.cpp
     title: library/cpp/string/rolling_hash.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -119,7 +119,7 @@ data:
   requiredBy:
   - library/cpp/include/rolling_hash.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/string/rolling_hash.test.cpp
 documentation_of: library/cpp/string/rolling_hash.hpp

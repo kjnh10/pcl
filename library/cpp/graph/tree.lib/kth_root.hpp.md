@@ -18,12 +18,12 @@ data:
     path: library/cpp/include/kth_root.hpp
     title: library/cpp/include/kth_root.hpp
   _extendedVerifiedWith:
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/tree.lib/kth_root.test.cpp
     title: library/cpp/graph/tree.lib/kth_root.test.cpp
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"library/cpp/header.hpp\"\n\n//%snippet.set('header')%\n\
@@ -236,36 +236,35 @@ data:
     \ db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n        int max_depth = *max_element(all(tr.depth));\n\
     \        N = 0;\n        int mul = 1;\n        while(mul < max_depth){\n     \
     \       mul <<= 1;\n            N++;\n        }\n        N++;\n\n        db =\
-    \ make_table(N, tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n   \
-    \     rep(d, 1, N){\n            rep(j, tr.n){\n                if (db[d-1][j]\
-    \ == -1) db[d][j] = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n\
-    \            }\n        }\n    }\n    \n    int query(int node, int k) {\n   \
-    \     int cur = node;\n        for(int d = 0; d < N ; d++) {\n            if (k>>d&1)\
-    \ {\n                if (db[d][cur]==-1) return -1;\n                else cur\
-    \ = db[d][cur];\n            }\n        }\n        return cur;\n    }\n\n    int\
-    \ lca(int u, int v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n  \
-    \      v = query(v, tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\
-    \n        for (int d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v])\
-    \ {\n                u = db[d][u];\n                v = db[d][v];\n          \
-    \  }\n        }\n        return tr.par[u];\n    }\n};\n"
-  code: "#include \"tree.hpp\"\n\nclass kth_root {\npublic:\n    int N; // 2**N >=\
-    \ max_depth\u3068\u306A\u308B\u6700\u5C0F\u306E\u3079\u304D + 1\n    const tree<>&\
-    \ tr;\n    vector<vector<int>> db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n  \
-    \      int max_depth = *max_element(all(tr.depth));\n        N = 0;\n        int\
-    \ mul = 1;\n        while(mul < max_depth){\n            mul <<= 1;\n        \
-    \    N++;\n        }\n        N++;\n\n        db = make_table(N, tr.n, -1);\n\
-    \        db[0] = tr.par; db[0][tr.root] = -1;\n        rep(d, 1, N){\n       \
-    \     rep(j, tr.n){\n                if (db[d-1][j] == -1) db[d][j] = -1;\n  \
-    \              else db[d][j] = db[d-1][db[d-1][j]];\n            }\n        }\n\
-    \    }\n    \n    int query(int node, int k) {\n        int cur = node;\n    \
-    \    for(int d = 0; d < N ; d++) {\n            if (k>>d&1) {\n              \
-    \  if (db[d][cur]==-1) return -1;\n                else cur = db[d][cur];\n  \
-    \          }\n        }\n        return cur;\n    }\n\n    int lca(int u, int\
+    \ mv(N, tr.n, -1);\n        db[0] = tr.par; db[0][tr.root] = -1;\n        rep(d,\
+    \ 1, N){\n            rep(j, tr.n){\n                if (db[d-1][j] == -1) db[d][j]\
+    \ = -1;\n                else db[d][j] = db[d-1][db[d-1][j]];\n            }\n\
+    \        }\n    }\n    \n    int query(int node, int k) {\n        int cur = node;\n\
+    \        for(int d = 0; d < N ; d++) {\n            if (k>>d&1) {\n          \
+    \      if (db[d][cur]==-1) return -1;\n                else cur = db[d][cur];\n\
+    \            }\n        }\n        return cur;\n    }\n\n    int lca(int u, int\
     \ v) {\n        if (tr.depth[u] > tr.depth[v]) swap(u, v);\n        v = query(v,\
     \ tr.depth[v] - tr.depth[u]);\n        if (u==v) return u;\n\n        for (int\
     \ d = N-1; d >= 0; d--) {\n            if (db[d][u] != db[d][v]) {\n         \
     \       u = db[d][u];\n                v = db[d][v];\n            }\n        }\n\
     \        return tr.par[u];\n    }\n};\n"
+  code: "#include \"tree.hpp\"\n\nclass kth_root {\npublic:\n    int N; // 2**N >=\
+    \ max_depth\u3068\u306A\u308B\u6700\u5C0F\u306E\u3079\u304D + 1\n    const tree<>&\
+    \ tr;\n    vector<vector<int>> db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n  \
+    \      int max_depth = *max_element(all(tr.depth));\n        N = 0;\n        int\
+    \ mul = 1;\n        while(mul < max_depth){\n            mul <<= 1;\n        \
+    \    N++;\n        }\n        N++;\n\n        db = mv(N, tr.n, -1);\n        db[0]\
+    \ = tr.par; db[0][tr.root] = -1;\n        rep(d, 1, N){\n            rep(j, tr.n){\n\
+    \                if (db[d-1][j] == -1) db[d][j] = -1;\n                else db[d][j]\
+    \ = db[d-1][db[d-1][j]];\n            }\n        }\n    }\n    \n    int query(int\
+    \ node, int k) {\n        int cur = node;\n        for(int d = 0; d < N ; d++)\
+    \ {\n            if (k>>d&1) {\n                if (db[d][cur]==-1) return -1;\n\
+    \                else cur = db[d][cur];\n            }\n        }\n        return\
+    \ cur;\n    }\n\n    int lca(int u, int v) {\n        if (tr.depth[u] > tr.depth[v])\
+    \ swap(u, v);\n        v = query(v, tr.depth[v] - tr.depth[u]);\n        if (u==v)\
+    \ return u;\n\n        for (int d = N-1; d >= 0; d--) {\n            if (db[d][u]\
+    \ != db[d][v]) {\n                u = db[d][u];\n                v = db[d][v];\n\
+    \            }\n        }\n        return tr.par[u];\n    }\n};\n"
   dependsOn:
   - library/cpp/graph/tree.lib/tree.hpp
   - library/cpp/header.hpp
@@ -275,8 +274,8 @@ data:
   path: library/cpp/graph/tree.lib/kth_root.hpp
   requiredBy:
   - library/cpp/include/kth_root.hpp
-  timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: LIBRARY_ALL_WA
+  timestamp: '2021-06-01 13:34:09+09:00'
+  verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/kth_root.test.cpp
 documentation_of: library/cpp/graph/tree.lib/kth_root.hpp

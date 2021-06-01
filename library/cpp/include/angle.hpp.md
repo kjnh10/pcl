@@ -7,7 +7,7 @@ data:
   - icon: ':warning:'
     path: library/cpp/math/geometry/angle.hpp
     title: library/cpp/math/geometry/angle.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/geometry/p2.hpp
     title: library/cpp/math/geometry/p2.hpp
   _extendedRequiredBy: []

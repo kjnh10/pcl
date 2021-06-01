@@ -10,7 +10,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/graph.hpp
     title: library/cpp/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
   - icon: ':question:'
@@ -24,9 +24,9 @@ data:
     title: library/cpp/header.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: https://yukicoder.me/problems/no/30
@@ -352,19 +352,19 @@ data:
     \n#line 3 \"library/cpp/graph/tests/topological_sort.test.cpp\"\n\n\nint main()\
     \ {\n    ll n;cin>>n;\n    ll m;cin>>m;\n\n    Graph<ll> g(n);\n    rep(i, m){\n\
     \        ll a,c,b;cin>>a>>c>>b;\n        a--;b--;\n        g.add_edge(b, a, c);\n\
-    \    }\n    auto tp = get<1>(topological_sort(g));\n\n    vl ans(n-1);\n    vl\
-    \ cnt(n);\n    cnt[n-1] = 1;\n    each(u, tp){\n        each(edge, g.adj_list[u])\
-    \ cnt[edge.to] += cnt[u] * edge.cost;\n        if (g.adj_list[u].empty()) ans[u]\
-    \ += cnt[u];\n    }\n    rep(i, n-1) cout << ans[i] << endl;\n    return 0; \n\
-    }\n"
+    \    }\n    auto tp = get<1>(topological_sort(g));\n\n    vector<ll> ans(n-1);\n\
+    \    vector<ll> cnt(n);\n    cnt[n-1] = 1;\n    each(u, tp){\n        each(edge,\
+    \ g.adj_list[u]) cnt[edge.to] += cnt[u] * edge.cost;\n        if (g.adj_list[u].empty())\
+    \ ans[u] += cnt[u];\n    }\n    rep(i, n-1) cout << ans[i] << endl;\n    return\
+    \ 0; \n}\n"
   code: "#define PROBLEM \"https://yukicoder.me/problems/no/30\"\n#include \"../topological_sort.hpp\"\
     \n\n\nint main() {\n    ll n;cin>>n;\n    ll m;cin>>m;\n\n    Graph<ll> g(n);\n\
     \    rep(i, m){\n        ll a,c,b;cin>>a>>c>>b;\n        a--;b--;\n        g.add_edge(b,\
-    \ a, c);\n    }\n    auto tp = get<1>(topological_sort(g));\n\n    vl ans(n-1);\n\
-    \    vl cnt(n);\n    cnt[n-1] = 1;\n    each(u, tp){\n        each(edge, g.adj_list[u])\
-    \ cnt[edge.to] += cnt[u] * edge.cost;\n        if (g.adj_list[u].empty()) ans[u]\
-    \ += cnt[u];\n    }\n    rep(i, n-1) cout << ans[i] << endl;\n    return 0; \n\
-    }\n"
+    \ a, c);\n    }\n    auto tp = get<1>(topological_sort(g));\n\n    vector<ll>\
+    \ ans(n-1);\n    vector<ll> cnt(n);\n    cnt[n-1] = 1;\n    each(u, tp){\n   \
+    \     each(edge, g.adj_list[u]) cnt[edge.to] += cnt[u] * edge.cost;\n        if\
+    \ (g.adj_list[u].empty()) ans[u] += cnt[u];\n    }\n    rep(i, n-1) cout << ans[i]\
+    \ << endl;\n    return 0; \n}\n"
   dependsOn:
   - library/cpp/graph/topological_sort.hpp
   - library/cpp/header.hpp
@@ -376,8 +376,8 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tests/topological_sort.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-06-01 13:34:09+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tests/topological_sort.test.cpp
 layout: document

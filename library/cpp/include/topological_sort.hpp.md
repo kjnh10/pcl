@@ -10,7 +10,7 @@ data:
   - icon: ':question:'
     path: library/cpp/graph/graph.hpp
     title: library/cpp/graph/graph.hpp
-  - icon: ':question:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/graph/topological_sort.hpp
     title: library/cpp/graph/topological_sort.hpp
   - icon: ':question:'

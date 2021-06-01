@@ -4,14 +4,14 @@ data:
   - icon: ':question:'
     path: library/cpp/header.hpp
     title: library/cpp/header.hpp
-  - icon: ':x:'
+  - icon: ':heavy_check_mark:'
     path: library/cpp/math/sieve.hpp
     title: library/cpp/math/sieve.hpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
-  _isVerificationFailed: true
+  _isVerificationFailed: false
   _pathExtension: cpp
-  _verificationStatusIcon: ':x:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
     PROBLEM: http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja
@@ -80,23 +80,23 @@ data:
     \ .....]\n    }                /*}}}*/\n};/*}}}*/\nSieve sv(1e6);\n// How to use\n\
     \    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\n    // sv.prime_factor(x);\
     \  // \u7D20\u56E0\u6570\u5206\u89E3\n\n//%snippet.end()%\n#line 4 \"library/cpp/math/sieve.aoj.test.cpp\"\
-    \n\nint main(){\n    ll n;cin>>n;\n    auto ps = sv.prime_factor(n);\n\n    vl\
+    \n\nint main(){\n    ll n;cin>>n;\n    auto ps = sv.prime_factor(n);\n\n    vector<ll>\
     \ ans;\n    each(el, ps){\n        auto [p, c] = el;\n        rep(_, c) ans.pb(p);\n\
     \    }\n\n    cout << n << \": \";\n    rep(i, sz(ans)) cout << ans[i] << (i!=sz(ans)-1\
     \ ? \" \" : \"\\n\");\n}\n"
   code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_A&lang=ja\"\
     \n\n#include \"sieve.hpp\"\n\nint main(){\n    ll n;cin>>n;\n    auto ps = sv.prime_factor(n);\n\
-    \n    vl ans;\n    each(el, ps){\n        auto [p, c] = el;\n        rep(_, c)\
-    \ ans.pb(p);\n    }\n\n    cout << n << \": \";\n    rep(i, sz(ans)) cout << ans[i]\
-    \ << (i!=sz(ans)-1 ? \" \" : \"\\n\");\n}\n"
+    \n    vector<ll> ans;\n    each(el, ps){\n        auto [p, c] = el;\n        rep(_,\
+    \ c) ans.pb(p);\n    }\n\n    cout << n << \": \";\n    rep(i, sz(ans)) cout <<\
+    \ ans[i] << (i!=sz(ans)-1 ? \" \" : \"\\n\");\n}\n"
   dependsOn:
   - library/cpp/math/sieve.hpp
   - library/cpp/header.hpp
   isVerificationFile: true
   path: library/cpp/math/sieve.aoj.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
-  verificationStatus: TEST_WRONG_ANSWER
+  timestamp: '2021-06-01 13:34:09+09:00'
+  verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/math/sieve.aoj.test.cpp
 layout: document
