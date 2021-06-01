@@ -14,8 +14,8 @@ int main() {
     }
     auto tp = get<1>(topological_sort(g));
 
-    vl ans(n-1);
-    vl cnt(n);
+    vector<ll> ans(n-1);
+    vector<ll> cnt(n);
     cnt[n-1] = 1;
     each(u, tp){
         each(edge, g.adj_list[u]) cnt[edge.to] += cnt[u] * edge.cost;

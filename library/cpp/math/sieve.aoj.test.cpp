@@ -6,7 +6,7 @@ int main(){
     ll n;cin>>n;
     auto ps = sv.prime_factor(n);
 
-    vl ans;
+    vector<ll> ans;
     each(el, ps){
         auto [p, c] = el;
         rep(_, c) ans.pb(p);

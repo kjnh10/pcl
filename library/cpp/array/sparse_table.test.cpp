@@ -3,7 +3,7 @@
 
 int main(){
     ll N,Q;cin>>N>>Q;
-    vl a(N);
+    vector<ll> a(N);
     rep(n, N) cin>>a[n];
 
     sparse_table<ll> sp(a);

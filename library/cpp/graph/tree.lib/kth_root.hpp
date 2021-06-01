@@ -15,7 +15,7 @@ public:
         }
         N++;
 
-        db = make_table(N, tr.n, -1);
+        db = mv(N, tr.n, -1);
         db[0] = tr.par; db[0][tr.root] = -1;
         rep(d, 1, N){
             rep(j, tr.n){
