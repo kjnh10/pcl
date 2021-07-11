@@ -25,6 +25,8 @@ struct bit {  //{{{
         }
     }  //}}}
 
+    T operator[](int i) { return query(i, i+1); }
+
     T _rsum(int i) {  //{{{ [0, i]
         T s = 0;
         while (i >= 0) {
@@ -64,7 +66,7 @@ struct bit {  //{{{
     friend ostream& operator<<(ostream& os, bit<T>& b) {  //{{{
         os << endl << "  raw:" << b.raw << endl;
         vector<T> acum;
-        rep(i, b.n) { acum.pb(b.sum(i)); }
+        rep(i, b.n) { acum.pb(b.query(i, i+1)); }
         os << "  acm:" << acum << endl;
         return os;
     }  //}}}
