@@ -393,14 +393,14 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/strongly_connected_components.hpp
   requiredBy:
-  - library/cpp/include/two_sat.hpp
-  - library/cpp/include/strongly_connected_components.hpp
   - library/cpp/graph/two_sat.hpp
+  - library/cpp/include/strongly_connected_components.hpp
+  - library/cpp/include/two_sat.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/graph/tests/two_sat.test.cpp
   - library/cpp/graph/tests/scc.test.cpp
+  - library/cpp/graph/tests/two_sat.test.cpp
 documentation_of: library/cpp/graph/strongly_connected_components.hpp
 layout: document
 redirect_from:

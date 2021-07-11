@@ -120,8 +120,8 @@ data:
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/math/sieve.test.cpp
   - library/cpp/math/sieve.aoj.test.cpp
+  - library/cpp/math/sieve.test.cpp
 documentation_of: library/cpp/math/sieve.hpp
 layout: document
 redirect_from:

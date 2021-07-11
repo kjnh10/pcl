@@ -55,24 +55,25 @@ data:
     \    }  //}}}\n\n    bit(vector<T> a) {  // {{{\n        n = (int)a.size();\n\
     \        dat = vector<T>(n);\n        raw = vector<T>(n);\n        for (int i\
     \ = 0; i < n; i++) {\n            add(i, a[i]);\n            raw[i] = a[i];\n\
-    \        }\n    }  //}}}\n\n    T _rsum(int i) {  //{{{ [0, i]\n        T s =\
-    \ 0;\n        while (i >= 0) {\n            s += dat[i];\n            i = (i &\
-    \ (i + 1)) - 1;\n        }\n        return s;\n    }  //}}}\n\n    T query(int\
-    \ l, int r) {  //{{{  [l, r)\n        if (l > r - 1) return 0;\n        return\
-    \ _rsum(r - 1) - _rsum(l - 1);\n    }  //}}}\n\n    void add(int i, T x) {  //{{{\n\
-    \        raw[i] += x;\n        while (i < n) {\n            dat[i] += x;\n   \
-    \         i |= i + 1;\n        }\n    }  //}}}\n\n    int lower_bound(T x) { \
-    \ // a[0]+...+a[ret] >= x{{{\n        int ret = -1;\n        int k = 1;\n    \
-    \    while (2 * k <= n) k <<= 1;\n        for (; k > 0; k >>= 1) {\n         \
-    \   if (ret + k < n && dat[ret + k] < x) {\n                x -= dat[ret + k];\n\
-    \                ret += k;\n            }\n        }\n        return ret + 1;\n\
-    \    }  //}}}\n\n    #if defined(PCM) || defined(LOCAL)\n    friend ostream& operator<<(ostream&\
-    \ os, bit<T>& b) {  //{{{\n        os << endl << \"  raw:\" << b.raw << endl;\n\
-    \        vector<T> acum;\n        rep(i, b.n) { acum.pb(b.sum(i)); }\n       \
-    \ os << \"  acm:\" << acum << endl;\n        return os;\n    }  //}}}\n    #endif\n\
-    };     //}}}\n\n//%snippet.end()%\n#line 4 \"library/cpp/array/bit.test.cpp\"\n\
-    \nint main(){\n    ll N,Q;cin>>N>>Q;\n    vector<ll> a(N);\n    rep(i, N) {\n\
-    \        cin>>a[i];\n    }\n\n    bit<ll> b(a);\n    rep(q, Q){\n        int t;cin>>t;\n\
+    \        }\n    }  //}}}\n\n    T operator[](int i) { return query(i, i+1); }\n\
+    \n    T _rsum(int i) {  //{{{ [0, i]\n        T s = 0;\n        while (i >= 0)\
+    \ {\n            s += dat[i];\n            i = (i & (i + 1)) - 1;\n        }\n\
+    \        return s;\n    }  //}}}\n\n    T query(int l, int r) {  //{{{  [l, r)\n\
+    \        if (l > r - 1) return 0;\n        return _rsum(r - 1) - _rsum(l - 1);\n\
+    \    }  //}}}\n\n    void add(int i, T x) {  //{{{\n        raw[i] += x;\n   \
+    \     while (i < n) {\n            dat[i] += x;\n            i |= i + 1;\n   \
+    \     }\n    }  //}}}\n\n    int lower_bound(T x) {  // a[0]+...+a[ret] >= x{{{\n\
+    \        int ret = -1;\n        int k = 1;\n        while (2 * k <= n) k <<= 1;\n\
+    \        for (; k > 0; k >>= 1) {\n            if (ret + k < n && dat[ret + k]\
+    \ < x) {\n                x -= dat[ret + k];\n                ret += k;\n    \
+    \        }\n        }\n        return ret + 1;\n    }  //}}}\n\n    #if defined(PCM)\
+    \ || defined(LOCAL)\n    friend ostream& operator<<(ostream& os, bit<T>& b) {\
+    \  //{{{\n        os << endl << \"  raw:\" << b.raw << endl;\n        vector<T>\
+    \ acum;\n        rep(i, b.n) { acum.pb(b.query(i, i+1)); }\n        os << \" \
+    \ acm:\" << acum << endl;\n        return os;\n    }  //}}}\n    #endif\n};  \
+    \   //}}}\n\n//%snippet.end()%\n#line 4 \"library/cpp/array/bit.test.cpp\"\n\n\
+    int main(){\n    ll N,Q;cin>>N>>Q;\n    vector<ll> a(N);\n    rep(i, N) {\n  \
+    \      cin>>a[i];\n    }\n\n    bit<ll> b(a);\n    rep(q, Q){\n        int t;cin>>t;\n\
     \        if (t==0){\n            int i;cin>>i;\n            ll x;cin>>x;\n   \
     \         b.add(i, x);\n        }\n        if (t==1){\n            int l,r;cin>>l>>r;\n\
     \            cout << b.query(l, r) << endl;\n        }\n    }\n}\n"
@@ -89,7 +90,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/bit.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-11 21:56:10+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/bit.test.cpp

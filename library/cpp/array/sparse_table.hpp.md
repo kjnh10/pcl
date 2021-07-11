@@ -87,9 +87,9 @@ data:
   isVerificationFile: false
   path: library/cpp/array/sparse_table.hpp
   requiredBy:
-  - library/cpp/string/suffix_array.hpp
-  - library/cpp/include/suffix_array.hpp
   - library/cpp/include/sparse_table.hpp
+  - library/cpp/include/suffix_array.hpp
+  - library/cpp/string/suffix_array.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
