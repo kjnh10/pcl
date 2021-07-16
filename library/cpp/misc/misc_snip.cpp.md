@@ -9,8 +9,8 @@ data:
   attributes:
     links: []
   bundledCode: "#line 1 \"library/cpp/misc/misc_snip.cpp\"\n//%snippet.set('cout')%\n\
-    cout << ${0} << endl;\n\n//%snippet.set('couts')%\nrep(i, sz(${1:x})) cout <<\
-    \ $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n(${1} ? ${2}\
+    cout << ${0} << endl;\n\n//%snippet.set('couts')%\nrep(j, sz(${1:x})) cout <<\
+    \ $1[j] << (j!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n(${1} ? ${2}\
     \ : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n) cin>>$1[i];\n\
     dump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>> ${1}(h, vector<ll>(w));\n\
     rep(i, h){\n    rep(j,w){\n        cin>>$1[i][j];\n    }\n}\n\n//%snippet.set('invvs')%\n\
@@ -101,16 +101,21 @@ data:
     //%snippet.config({'alias':'nid'})%\nauto nid = [&](int i, int j){return (i*w\
     \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
     \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
-    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
-    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
+    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> tuple<int,\
+    \ int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
     //%snippet.config({'alias':'acl'})%\n// {{{ include acl-library\n// #include <atcoder/fenwicktree>\n\
     // #include <atcoder/segtree>\n// #include <atcoder/lazysegtree>\n// #include\
     \ <atcoder/string>\n// #include <atcoder/math>\n// #include <atcoder/convolution>\n\
     // #include <atcoder/modint>\n// #include <atcoder/dsu>\n// #include <atcoder/maxflow>\n\
     // #include <atcoder/mincostflow>\n// #include <atcoder/scc>\n// #include <atcoder/twosat>\n\
-    // using namespace atcoder;\n// }}}\n"
+    // using namespace atcoder;\n// }}}\n\n\n//%snippet.set('syuuki')%\nll P = 100000;\
+    \ // mod\nauto nxt = [&](ll x){\n    return (x + digitSum(x))%P;\n};\n\nvec<ll>\
+    \ last(P, -1);\nlast[n] = 0;\nll d; // \u5468\u671F\nll x = n;\nrep(i, 1, P+1){\n\
+    \    x = nxt(x);\n    if (last[x]==-1) last[x] = i;\n    else {\n        d = i\
+    \ - last[x];  // \u5468\u671F\n        if (k>i) k = i+(k-i)%d;\n        break;\n\
+    \    }\n}\nwhile(k--) n = nxt(n);\n\n"
   code: "//%snippet.set('cout')%\ncout << ${0} << endl;\n\n//%snippet.set('couts')%\n\
-    rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n\
+    rep(j, sz(${1:x})) cout << $1[j] << (j!=sz($1)-1 ? \" \" : \"\\n\");\n\n//%snippet.set('?')%\n\
     (${1} ? ${2} : ${3})\n\n//%snippet.set('inv')%\nvector<ll> ${1}(n);\nrep(i, n)\
     \ cin>>$1[i];\ndump($1);${0}\n\n//%snippet.set('invv')%\nvector<vector<ll>> ${1}(h,\
     \ vector<ll>(w));\nrep(i, h){\n    rep(j,w){\n        cin>>$1[i][j];\n    }\n\
@@ -202,19 +207,24 @@ data:
     //%snippet.config({'alias':'nid'})%\nauto nid = [&](int i, int j){return (i*w\
     \ + j);}; // int u = nid(i, j);\nauto pos = [&](int idx) -> pair<int, int> { return\
     \ {idx/w, idx%w}; }; // auto [i,j] = pos(u);\n// auto nid = [&](int i, int j,\
-    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> pair<int,\
-    \ int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
+    \ int k){return (i*(y*z) + j*(z) + k);};\n// auto pos = [&](int idx) -> tuple<int,\
+    \ int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };\n\n\n//%snippet.set('atcoder')%\n\
     //%snippet.config({'alias':'acl'})%\n// {{{ include acl-library\n// #include <atcoder/fenwicktree>\n\
     // #include <atcoder/segtree>\n// #include <atcoder/lazysegtree>\n// #include\
     \ <atcoder/string>\n// #include <atcoder/math>\n// #include <atcoder/convolution>\n\
     // #include <atcoder/modint>\n// #include <atcoder/dsu>\n// #include <atcoder/maxflow>\n\
     // #include <atcoder/mincostflow>\n// #include <atcoder/scc>\n// #include <atcoder/twosat>\n\
-    // using namespace atcoder;\n// }}}\n"
+    // using namespace atcoder;\n// }}}\n\n\n//%snippet.set('syuuki')%\nll P = 100000;\
+    \ // mod\nauto nxt = [&](ll x){\n    return (x + digitSum(x))%P;\n};\n\nvec<ll>\
+    \ last(P, -1);\nlast[n] = 0;\nll d; // \u5468\u671F\nll x = n;\nrep(i, 1, P+1){\n\
+    \    x = nxt(x);\n    if (last[x]==-1) last[x] = i;\n    else {\n        d = i\
+    \ - last[x];  // \u5468\u671F\n        if (k>i) k = i+(k-i)%d;\n        break;\n\
+    \    }\n}\nwhile(k--) n = nxt(n);\n\n"
   dependsOn: []
   isVerificationFile: false
   path: library/cpp/misc/misc_snip.cpp
   requiredBy: []
-  timestamp: '2020-11-24 14:35:54+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/misc_snip.cpp

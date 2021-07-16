@@ -310,7 +310,10 @@ data:
     \        os << \"children:    \" << tr.children << endl;\n        os << \"euler_tour:\
     \  \" << tr.euler_tour << endl;\n        os << \"et_fpos:     \" << tr.et_fpos\
     \ << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp << endl;\n    \
-    \    return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n"
+    \    return os;\n    }\n#endif /*}}}*/\n}; \n    // initialize code\n    // ll\
+    \ n;cin>>n;\n    // tree tr(n);\n    // rep(i, n-1){\n    //     ll u,v;cin>>u>>v;\n\
+    \    //     u--;v--;\n    //     tr.add_edge(u, v);\n    // }\n    // tr.build(0);\n\
+    \    // dump(tr);\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"../../header.hpp\"\n#include \"../../array/segtree/segment_tree.hpp\"\
     \n#include \"../edge.hpp\"\n// (ref) https://www.slideshare.net/Proktmr/ss-138534092\n\
     // (ref:HL decomposition) https://qiita.com/Pro_ktmr/items/4e1e051ea0561772afa3\n\
@@ -402,7 +405,9 @@ data:
     \ << endl;\n        os << \"euler_tour:  \" << tr.euler_tour << endl;\n      \
     \  os << \"et_fpos:     \" << tr.et_fpos << endl;\n        os << \"head_of_comp:\"\
     \ << tr.head_of_comp << endl;\n        return os;\n    }\n#endif /*}}}*/\n}; \n\
-    //%snippet.end()%\n"
+    \    // initialize code\n    // ll n;cin>>n;\n    // tree tr(n);\n    // rep(i,\
+    \ n-1){\n    //     ll u,v;cin>>u>>v;\n    //     u--;v--;\n    //     tr.add_edge(u,\
+    \ v);\n    // }\n    // tr.build(0);\n    // dump(tr);\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   - library/cpp/array/segtree/segment_tree.hpp
@@ -427,7 +432,7 @@ data:
   - library/cpp/include/topological_sort.hpp
   - library/cpp/include/local_min_cycle.hpp
   - library/cpp/include/bellman_ford.hpp
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_SOME_WA
   verifiedWith:
   - library/cpp/graph/tree.lib/kth_root.test.cpp

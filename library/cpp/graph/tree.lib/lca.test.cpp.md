@@ -228,7 +228,10 @@ data:
     \        os << \"children:    \" << tr.children << endl;\n        os << \"euler_tour:\
     \  \" << tr.euler_tour << endl;\n        os << \"et_fpos:     \" << tr.et_fpos\
     \ << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp << endl;\n    \
-    \    return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n#line 3 \"library/cpp/graph/tree.lib/lca.test.cpp\"\
+    \    return os;\n    }\n#endif /*}}}*/\n}; \n    // initialize code\n    // ll\
+    \ n;cin>>n;\n    // tree tr(n);\n    // rep(i, n-1){\n    //     ll u,v;cin>>u>>v;\n\
+    \    //     u--;v--;\n    //     tr.add_edge(u, v);\n    // }\n    // tr.build(0);\n\
+    \    // dump(tr);\n//%snippet.end()%\n#line 3 \"library/cpp/graph/tree.lib/lca.test.cpp\"\
     \n\nint main() {\n    int n, q;\n    cin >> n >> q;\n    tree tr(n);\n    rep(u,\
     \ 1, n) {\n        int p;\n        cin >> p;\n        tr.add_edge(p, u);\n   \
     \ }\n    tr.build(0);\n    rep(_, q) {\n        int u, v;\n        cin >> u >>\
@@ -246,7 +249,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tree.lib/lca.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/lca.test.cpp

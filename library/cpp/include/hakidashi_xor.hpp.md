@@ -45,14 +45,13 @@ data:
     \ == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define dump(...) ;\n\
     #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
     #endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/math/hakidashi_xor.hpp\"\
-    \n\n//%snippet.set('hakidasi_xor')%\nvector<ll> hakidasi_xor(vector<ll>& a){\n\
-    \    int r = 0;\n    int n = sz(a);\n    r_rep(d, 0, 64){\n        int p = -1;\n\
-    \        rep(i, r, n) {\n            if (a[i]>>d&1) {\n                p = i;\n\
-    \            }\n        }\n        if (p == -1) continue;\n\n        swap(a[r],\
-    \ a[p]);\n        rep(i, n){\n            if (a[i]>>d&1 && i!=r) a[i] ^= a[r];\n\
-    \        }\n        r++;\n    }\n    vector<ll> res;\n    rep(i, r) res.pb(a[i]);\n\
-    \    return res;\n}\n//%snippet.end()%\n\n// verified by https://atcoder.jp/contests/agc045/tasks/agc045_a\n\
-    #line 2 \"library/cpp/include/hakidashi_xor.hpp\"\n"
+    \n\n//%snippet.set('hakidasi_xor')%\nconst int D = 64;\nusing B = bitset<D>;\n\
+    void hakidasi_xor(vector<B>& a){\n    int r = 0;\n    int n = sz(a);\n    rep(d,\
+    \ 0, D){\n        int p = -1;\n        rep(i, r, n) if(a[i][d]) p = i;\n     \
+    \   if (p == -1) continue;\n\n        swap(a[r], a[p]);\n        rep(i, n) if(a[i][d]\
+    \ && i!=r) a[i] ^= a[r];\n        r++;\n    }\n}\n//%snippet.end()%\n\n// verified\
+    \ by https://atcoder.jp/contests/agc045/tasks/agc045_a\n#line 2 \"library/cpp/include/hakidashi_xor.hpp\"\
+    \n"
   code: '#include "../math/hakidashi_xor.hpp"'
   dependsOn:
   - library/cpp/math/hakidashi_xor.hpp
@@ -60,7 +59,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/hakidashi_xor.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/hakidashi_xor.hpp

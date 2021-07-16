@@ -44,35 +44,34 @@ data:
     #endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/array/syakutori.cpp\"\
     \n\nvector<int> x;\nint k;\nint n;\n\nsigned main(){\n//%snippet.set('syakutori')%\n\
     //%snippet.config({'abbr':'syakutori-hou-[l,r)', 'indent':True})%\n    ll sum\
-    \ = 0;\n\n    auto isok = [&](ll next_r) {  // check [l, next_r) is ok?\n    \
-    \    if (sum + x[next_r - 1] <= k)\n            return true;\n        else\n \
-    \           return false;\n    };\n\n    ll res = 0;\n    ll r = 0;\n    for (ll\
-    \ l = 0; l < n; ++l) {\n        // [l, r)\u3092\u9650\u754C\u307E\u3067\u5E83\u3052\
-    \u308B\u3002\n        while (r < n && isok(r + 1)) {\n            sum += x[r];\n\
-    \            ++r;\n        }\n        chmax(res, (r - l));\n\n        // left\u3092\
-    increment\u3059\u308B\u6E96\u5099\n        if (r == l){\n            ++r;  //\
-    \ \u7A7A\u533A\u9593\u304B\u3089\u7A7A\u533A\u9593\u3078\u306E\u5909\u52D5\u306A\
-    \u306E\u3067\u4F55\u3082\u3057\u306A\u3044\u3002\n        }\n        else{\n \
-    \           sum -= x[l];\n        }\n    }\n//%snippet.end()%\n}\n"
+    \ = 0;\n    auto isok = [&](ll next_r) {  // check [l, next_r) is ok?\n      \
+    \  if (sum + x[next_r - 1] <= k) return true;\n        else return false;\n  \
+    \  };\n    ll res = 0;\n    ll r = 0;\n    for (ll l = 0; l < n; ++l) {\n    \
+    \    // [l, r)\u3092\u9650\u754C\u307E\u3067\u5E83\u3052\u308B\u3002\n       \
+    \ while (r < n && isok(r + 1)) {\n            sum += x[r];\n            ++r;\n\
+    \        }\n        chmax(res, (r - l));\n\n        // \u6B21\u306Eloop\u3078\u306E\
+    \u6E96\u5099\n        if (r == l) ++r;  // \u7A7A\u533A\u9593\u304B\u3089\u7A7A\
+    \u533A\u9593\u3078\u306E\u5909\u52D5\u306A\u306E\u3067\u4F55\u3082\u3057\u306A\
+    \u3044\u3002\n        else sum -= x[l]; // left\u3092increment\u3059\u308B\u6E96\
+    \u5099\n    }\n//%snippet.end()%\n}\n"
   code: "#include \"../header.hpp\"\n\nvector<int> x;\nint k;\nint n;\n\nsigned main(){\n\
     //%snippet.set('syakutori')%\n//%snippet.config({'abbr':'syakutori-hou-[l,r)',\
-    \ 'indent':True})%\n    ll sum = 0;\n\n    auto isok = [&](ll next_r) {  // check\
-    \ [l, next_r) is ok?\n        if (sum + x[next_r - 1] <= k)\n            return\
-    \ true;\n        else\n            return false;\n    };\n\n    ll res = 0;\n\
-    \    ll r = 0;\n    for (ll l = 0; l < n; ++l) {\n        // [l, r)\u3092\u9650\
-    \u754C\u307E\u3067\u5E83\u3052\u308B\u3002\n        while (r < n && isok(r + 1))\
-    \ {\n            sum += x[r];\n            ++r;\n        }\n        chmax(res,\
-    \ (r - l));\n\n        // left\u3092increment\u3059\u308B\u6E96\u5099\n      \
-    \  if (r == l){\n            ++r;  // \u7A7A\u533A\u9593\u304B\u3089\u7A7A\u533A\
-    \u9593\u3078\u306E\u5909\u52D5\u306A\u306E\u3067\u4F55\u3082\u3057\u306A\u3044\
-    \u3002\n        }\n        else{\n            sum -= x[l];\n        }\n    }\n\
-    //%snippet.end()%\n}\n"
+    \ 'indent':True})%\n    ll sum = 0;\n    auto isok = [&](ll next_r) {  // check\
+    \ [l, next_r) is ok?\n        if (sum + x[next_r - 1] <= k) return true;\n   \
+    \     else return false;\n    };\n    ll res = 0;\n    ll r = 0;\n    for (ll\
+    \ l = 0; l < n; ++l) {\n        // [l, r)\u3092\u9650\u754C\u307E\u3067\u5E83\u3052\
+    \u308B\u3002\n        while (r < n && isok(r + 1)) {\n            sum += x[r];\n\
+    \            ++r;\n        }\n        chmax(res, (r - l));\n\n        // \u6B21\
+    \u306Eloop\u3078\u306E\u6E96\u5099\n        if (r == l) ++r;  // \u7A7A\u533A\u9593\
+    \u304B\u3089\u7A7A\u533A\u9593\u3078\u306E\u5909\u52D5\u306A\u306E\u3067\u4F55\
+    \u3082\u3057\u306A\u3044\u3002\n        else sum -= x[l]; // left\u3092increment\u3059\
+    \u308B\u6E96\u5099\n    }\n//%snippet.end()%\n}\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/syakutori.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/syakutori.cpp

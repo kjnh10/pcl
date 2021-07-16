@@ -239,19 +239,22 @@ data:
     \ << endl;\n        os << \"euler_tour:  \" << tr.euler_tour << endl;\n      \
     \  os << \"et_fpos:     \" << tr.et_fpos << endl;\n        os << \"head_of_comp:\"\
     \ << tr.head_of_comp << endl;\n        return os;\n    }\n#endif /*}}}*/\n}; \n\
-    //%snippet.end()%\n#line 3 \"library/cpp/graph/union_find.hpp\"\n\n//%snippet.set('union_find')%\n\
-    //%snippet.fold()%\n\nstruct union_find {\n    vector<int> par;   // par[x]: parent\
-    \ of x. if root, -size.\n    int gcount;         // count of groups\n\n    union_find()\
-    \ {}\n    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    int merge(int x,\
-    \ int y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n\
-    \        if (x != y) {\n            if (par[y] < par[x]) swap(x, y);\n       \
-    \     // y -> x : \u5927\u304D\u3044\u65B9\u306Bmerge\u3059\u308B\u3002\n    \
-    \        par[x] += par[y];\n            par[y] = x;\n            gcount--;\n \
-    \       }\n        return (x != y ? x : -1);\n    } \n    int root(int x) {\n\
-    \        if (is_root(x)){\n            return x;\n        }\n        else{\n \
-    \           return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n     \
-    \       // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\
-    \n        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
+    \    // initialize code\n    // ll n;cin>>n;\n    // tree tr(n);\n    // rep(i,\
+    \ n-1){\n    //     ll u,v;cin>>u>>v;\n    //     u--;v--;\n    //     tr.add_edge(u,\
+    \ v);\n    // }\n    // tr.build(0);\n    // dump(tr);\n//%snippet.end()%\n#line\
+    \ 3 \"library/cpp/graph/union_find.hpp\"\n\n//%snippet.set('union_find')%\n//%snippet.fold()%\n\
+    \nstruct union_find {\n    vector<int> par;   // par[x]: parent of x. if root,\
+    \ -size.\n    int gcount;         // count of groups\n\n    union_find() {}\n\
+    \    union_find(int _n) : par(_n, -1), gcount(_n) {}\n    int merge(int x, int\
+    \ y) { // -> return new_root\n        x = root(x);\n        y = root(y);\n   \
+    \     if (x != y) {\n            if (par[y] < par[x]) swap(x, y);\n          \
+    \  // y -> x : \u5927\u304D\u3044\u65B9\u306Bmerge\u3059\u308B\u3002\n       \
+    \     par[x] += par[y];\n            par[y] = x;\n            gcount--;\n    \
+    \    }\n        return (x != y ? x : -1);\n    } \n    int root(int x) {\n   \
+    \     if (is_root(x)){\n            return x;\n        }\n        else{\n    \
+    \        return par[x] = root(par[x]);  // \u7D4C\u8DEF\u5727\u7E2E\n        \
+    \    // return root(par[x]);         // \u7D4C\u8DEF\u5727\u7E2E\u306A\u3057\n\
+    \        }\n    }\n    bool is_root(int x) { return par[x] < 0; }\n    bool same(int\
     \ x, int y) { return root(x) == root(y); }\n    int size(int x) { return -par[root(x)];\
     \ }\n\n    map<int, vector<int>> group(){\n        map<int, vector<int>> res;\n\
     \        rep(i, sz(this->par)) { res[this->root(i)].pb(i); }\n        return res;\n\
@@ -409,7 +412,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/two_sat.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/two_sat.hpp

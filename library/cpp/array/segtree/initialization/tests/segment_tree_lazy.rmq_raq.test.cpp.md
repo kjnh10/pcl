@@ -148,7 +148,7 @@ data:
     \    auto composition = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto\
     \ apply = [](X x, M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge,\
     \ apply, composition, ex, em);\n}\n// auto lseg = make_lseg_rmq_raq();\n// lseg.build(a);\n\
-    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>);\n\n//%snippet.end()%\n\
+    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>));\n\n//%snippet.end()%\n\
     #line 3 \"library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp\"\
     \n\nint main(){\n    ll n,q;cin>>n>>q;\n    auto lseg = make_lseg_rmq_raq();\n\
     \    const int sz = n;\n    lseg.build(vector<X>(sz, 0));\n    rep(i, q){\n  \
@@ -170,7 +170,7 @@ data:
   isVerificationFile: true
   path: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp

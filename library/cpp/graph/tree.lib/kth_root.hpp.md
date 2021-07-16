@@ -230,7 +230,10 @@ data:
     \        os << \"children:    \" << tr.children << endl;\n        os << \"euler_tour:\
     \  \" << tr.euler_tour << endl;\n        os << \"et_fpos:     \" << tr.et_fpos\
     \ << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp << endl;\n    \
-    \    return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n#line 2 \"library/cpp/graph/tree.lib/kth_root.hpp\"\
+    \    return os;\n    }\n#endif /*}}}*/\n}; \n    // initialize code\n    // ll\
+    \ n;cin>>n;\n    // tree tr(n);\n    // rep(i, n-1){\n    //     ll u,v;cin>>u>>v;\n\
+    \    //     u--;v--;\n    //     tr.add_edge(u, v);\n    // }\n    // tr.build(0);\n\
+    \    // dump(tr);\n//%snippet.end()%\n#line 2 \"library/cpp/graph/tree.lib/kth_root.hpp\"\
     \n\nclass kth_root {\npublic:\n    int N; // 2**N >= max_depth\u3068\u306A\u308B\
     \u6700\u5C0F\u306E\u3079\u304D + 1\n    const tree<>& tr;\n    vector<vector<int>>\
     \ db;\n    kth_root(tree<>& _tr) : tr(_tr) {\n        int max_depth = *max_element(all(tr.depth));\n\
@@ -274,7 +277,7 @@ data:
   path: library/cpp/graph/tree.lib/kth_root.hpp
   requiredBy:
   - library/cpp/include/kth_root.hpp
-  timestamp: '2021-06-01 13:34:09+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/graph/tree.lib/kth_root.test.cpp

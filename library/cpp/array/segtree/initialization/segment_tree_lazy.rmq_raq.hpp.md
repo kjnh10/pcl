@@ -146,7 +146,7 @@ data:
     \    auto composition = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto\
     \ apply = [](X x, M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge,\
     \ apply, composition, ex, em);\n}\n// auto lseg = make_lseg_rmq_raq();\n// lseg.build(a);\n\
-    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>);\n\n//%snippet.end()%\n"
+    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>));\n\n//%snippet.end()%\n"
   code: "#include \"../segment_tree_lazy.hpp\"\n\n//%snippet.set('make_lseg_rmq_raq')%\n\
     //%snippet.config({'alias':'rmq_raq'})%\n//%snippet.include('segment_tree_lazy')%\n\
     //%snippet.fold()%\n\nusing X = ll; // (X, merge) is monoid\nusing M = ll; //\
@@ -155,7 +155,7 @@ data:
     \ composition = [](M m1, M m2){return m1 + m2;};\n    M em = 0;\n    auto apply\
     \ = [](X x, M m){return x + m;};\n    return segment_tree_lazy<X, M>(merge, apply,\
     \ composition, ex, em);\n}\n// auto lseg = make_lseg_rmq_raq();\n// lseg.build(a);\n\
-    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>);\n\n//%snippet.end()%\n"
+    //   or\n// lseg.build(vector<X>(n, <\u521D\u671F\u5024>));\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/array/segtree/segment_tree_lazy.hpp
   - library/cpp/header.hpp
@@ -163,7 +163,7 @@ data:
   path: library/cpp/array/segtree/initialization/segment_tree_lazy.rmq_raq.hpp
   requiredBy:
   - library/cpp/include/segment_tree_lazy.rmq_raq.hpp
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - library/cpp/array/segtree/initialization/tests/segment_tree_lazy.rmq_raq.test.cpp

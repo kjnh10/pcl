@@ -226,7 +226,10 @@ data:
     \        os << \"children:    \" << tr.children << endl;\n        os << \"euler_tour:\
     \  \" << tr.euler_tour << endl;\n        os << \"et_fpos:     \" << tr.et_fpos\
     \ << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp << endl;\n    \
-    \    return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n#line 4 \"library/cpp/graph/tree.lib/reroot.cpp\"\
+    \    return os;\n    }\n#endif /*}}}*/\n}; \n    // initialize code\n    // ll\
+    \ n;cin>>n;\n    // tree tr(n);\n    // rep(i, n-1){\n    //     ll u,v;cin>>u>>v;\n\
+    \    //     u--;v--;\n    //     tr.add_edge(u, v);\n    // }\n    // tr.build(0);\n\
+    \    // dump(tr);\n//%snippet.end()%\n#line 4 \"library/cpp/graph/tree.lib/reroot.cpp\"\
     \n\nsigned main() {\n    int n;\n    cin >> n;\n    vector<int> col(n);\n    rep(i,\
     \ n) {\n        cin >> col[i];\n        if (col[i] == 0) col[i] = -1;\n    }\n\
     \n    //%snippet.set('reroot')%\n    tree tr(n);\n    rep(i, n - 1) {\n      \
@@ -308,7 +311,7 @@ data:
   isVerificationFile: false
   path: library/cpp/graph/tree.lib/reroot.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/reroot.cpp

@@ -229,7 +229,10 @@ data:
     \        os << \"children:    \" << tr.children << endl;\n        os << \"euler_tour:\
     \  \" << tr.euler_tour << endl;\n        os << \"et_fpos:     \" << tr.et_fpos\
     \ << endl;\n        os << \"head_of_comp:\" << tr.head_of_comp << endl;\n    \
-    \    return os;\n    }\n#endif /*}}}*/\n}; \n//%snippet.end()%\n#line 4 \"library/cpp/graph/tree.lib/hld.test.cpp\"\
+    \    return os;\n    }\n#endif /*}}}*/\n}; \n    // initialize code\n    // ll\
+    \ n;cin>>n;\n    // tree tr(n);\n    // rep(i, n-1){\n    //     ll u,v;cin>>u>>v;\n\
+    \    //     u--;v--;\n    //     tr.add_edge(u, v);\n    // }\n    // tr.build(0);\n\
+    \    // dump(tr);\n//%snippet.end()%\n#line 4 \"library/cpp/graph/tree.lib/hld.test.cpp\"\
     \n\nsigned main() {\n    tree tr(12);\n    tr.add_edge(9, 6, 1);\n    tr.add_edge(0,\
     \ 9, 1);\n    tr.add_edge(0, 3, 1);\n    tr.add_edge(9, 5, 1);\n    tr.add_edge(6,\
     \ 8, 1);\n    tr.add_edge(0, 10, 1);\n    tr.add_edge(10, 2, 1);\n    tr.add_edge(3,\
@@ -251,7 +254,7 @@ data:
   isVerificationFile: true
   path: library/cpp/graph/tree.lib/hld.test.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-16 13:20:39+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: library/cpp/graph/tree.lib/hld.test.cpp
