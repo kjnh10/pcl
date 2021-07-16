@@ -8,6 +8,9 @@ struct RectangleSum {
     vector<vector<T>> sum;
     T GetSum(int top, int bottom, int left, int right){ // {{{
         // [left, right), [top, bottom)
+        assert(top<bottom);
+        assert(left<right);
+
         T res = sum[bottom-1][right-1];
         if (left > 0) res -= sum[bottom-1][left - 1];
         if (top > 0) res -= sum[top - 1][right-1];

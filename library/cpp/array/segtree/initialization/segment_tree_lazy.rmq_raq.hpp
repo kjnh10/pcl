@@ -18,6 +18,6 @@ auto make_lseg_rmq_raq(){
 // auto lseg = make_lseg_rmq_raq();
 // lseg.build(a);
 //   or
-// lseg.build(vector<X>(n, <初期値>);
+// lseg.build(vector<X>(n, <初期値>));
 
 //%snippet.end()%

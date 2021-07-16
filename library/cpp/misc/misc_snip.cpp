@@ -2,7 +2,7 @@
 cout << ${0} << endl;
 
 //%snippet.set('couts')%
-rep(i, sz(${1:x})) cout << $1[i] << (i!=sz($1)-1 ? " " : "\n");
+rep(j, sz(${1:x})) cout << $1[j] << (j!=sz($1)-1 ? " " : "\n");
 
 //%snippet.set('?')%
 (${1} ? ${2} : ${3})
@@ -349,7 +349,7 @@ vector<ll> get_rank(vector<ll>& score){
 auto nid = [&](int i, int j){return (i*w + j);}; // int u = nid(i, j);
 auto pos = [&](int idx) -> pair<int, int> { return {idx/w, idx%w}; }; // auto [i,j] = pos(u);
 // auto nid = [&](int i, int j, int k){return (i*(y*z) + j*(z) + k);};
-// auto pos = [&](int idx) -> pair<int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };
+// auto pos = [&](int idx) -> tuple<int, int, int> { return {idx/(y*z), (idx/z)%y, idx%z}; };
 
 
 //%snippet.set('atcoder')%
@@ -369,3 +369,26 @@ auto pos = [&](int idx) -> pair<int, int> { return {idx/w, idx%w}; }; // auto [i
 // #include <atcoder/twosat>
 // using namespace atcoder;
 // }}}
+
+
+//%snippet.set('syuuki')%
+ll P = 100000; // mod
+auto nxt = [&](ll x){
+    return (x + digitSum(x))%P;
+};
+
+vec<ll> last(P, -1);
+last[n] = 0;
+ll d; // 周期
+ll x = n;
+rep(i, 1, P+1){
+    x = nxt(x);
+    if (last[x]==-1) last[x] = i;
+    else {
+        d = i - last[x];  // 周期
+        if (k>i) k = i+(k-i)%d;
+        break;
+    }
+}
+while(k--) n = nxt(n);
+

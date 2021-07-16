@@ -8,14 +8,10 @@ signed main(){
 //%snippet.set('syakutori')%
 //%snippet.config({'abbr':'syakutori-hou-[l,r)', 'indent':True})%
     ll sum = 0;
-
     auto isok = [&](ll next_r) {  // check [l, next_r) is ok?
-        if (sum + x[next_r - 1] <= k)
-            return true;
-        else
-            return false;
+        if (sum + x[next_r - 1] <= k) return true;
+        else return false;
     };
-
     ll res = 0;
     ll r = 0;
     for (ll l = 0; l < n; ++l) {
@@ -26,13 +22,9 @@ signed main(){
         }
         chmax(res, (r - l));
 
-        // leftをincrementする準備
-        if (r == l){
-            ++r;  // 空区間から空区間への変動なので何もしない。
-        }
-        else{
-            sum -= x[l];
-        }
+        // 次のloopへの準備
+        if (r == l) ++r;  // 空区間から空区間への変動なので何もしない。
+        else sum -= x[l]; // leftをincrementする準備
     }
 //%snippet.end()%
 }

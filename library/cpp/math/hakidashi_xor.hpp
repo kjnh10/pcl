@@ -2,27 +2,20 @@
 #include "../header.hpp"
 
 //%snippet.set('hakidasi_xor')%
-vector<ll> hakidasi_xor(vector<ll>& a){
+const int D = 64;
+using B = bitset<D>;
+void hakidasi_xor(vector<B>& a){
     int r = 0;
     int n = sz(a);
-    r_rep(d, 0, 64){
+    rep(d, 0, D){
         int p = -1;
-        rep(i, r, n) {
-            if (a[i]>>d&1) {
-                p = i;
-            }
-        }
+        rep(i, r, n) if(a[i][d]) p = i;
         if (p == -1) continue;
 
         swap(a[r], a[p]);
-        rep(i, n){
-            if (a[i]>>d&1 && i!=r) a[i] ^= a[r];
-        }
+        rep(i, n) if(a[i][d] && i!=r) a[i] ^= a[r];
         r++;
     }
-    vector<ll> res;
-    rep(i, r) res.pb(a[i]);
-    return res;
 }
 //%snippet.end()%
 

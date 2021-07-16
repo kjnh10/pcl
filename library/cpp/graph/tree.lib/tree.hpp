@@ -188,4 +188,14 @@ struct tree {
     }
 #endif /*}}}*/
 }; 
+    // initialize code
+    // ll n;cin>>n;
+    // tree tr(n);
+    // rep(i, n-1){
+    //     ll u,v;cin>>u>>v;
+    //     u--;v--;
+    //     tr.add_edge(u, v);
+    // }
+    // tr.build(0);
+    // dump(tr);
 //%snippet.end()%
