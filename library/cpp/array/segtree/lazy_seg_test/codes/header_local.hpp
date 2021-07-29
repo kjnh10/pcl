@@ -29,8 +29,8 @@ template <class T> constexpr T inf = numeric_limits<T>::max() / 2.1;
 #define upos(A, x) (upper_bound(all(A), x) - A.begin())
 template <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a) = (b); }
 template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b)) (a) = (b); }
-template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x, a); }
-template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x, cont); }
+template <typename X, typename T> auto mv(X x, T a) { return vector<T>(x, a); }
+template <typename X, typename Y, typename Z, typename... Zs> auto mv(X x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...); return vector<decltype(cont)>(x, cont); }
 
 #define cdiv(a, b) (((a) + (b)-1) / (b))
 #define is_in(x, a, b) ((a) <= (x) && (x) < (b))

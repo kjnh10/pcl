@@ -65,19 +65,19 @@ vector<int> local_min_cycle_undirected(Graph<T>& g){
 // ・全辺を走査してショートカットの辺があれば不要なノードを削除していく。サイクルは(index, node-num)のsetで管理しておくと各ノードの削除はlog
 
 template<class T>
-vec<int> local_min_cycle_directed(Graph<T>& g){
+vector<int> local_min_cycle_directed(Graph<T>& g){
     int n = g.n;
-    vec<bool> seen(n);
-    vec<bool> finished(n);
-    vec<int> hist;
+    vector<bool> seen(n);
+    vector<bool> finished(n);
+    vector<int> hist;
     bool exist_loop = false;
     int starting_point = -1;
     auto dfs = [&](const auto& dfs, int u, int pre) -> void {
         seen[u] = true;
         hist.push_back(u);
         each(e, g[u]){
-            if (e.to == pre) continue;
-            else if (finished[e.to]) continue;
+            // if (e.to == pre) continue;
+            if (finished[e.to]) continue;
             else if (seen[e.to]){
                 starting_point = e.to;
                 exist_loop = true;
@@ -97,7 +97,7 @@ vec<int> local_min_cycle_directed(Graph<T>& g){
         if (finished[u]) continue;
         dfs(dfs, u, -1);
         if (exist_loop){
-            vec<int> loop;
+            vector<int> loop;
             r_rep(i, sz(hist)){
                 loop.pb(hist[i]);
                 if (hist[i] == starting_point) break;
@@ -108,7 +108,7 @@ vec<int> local_min_cycle_directed(Graph<T>& g){
             // find short cut
             map<int, int> pos;
             rep(i, m) pos[loop[i]] = i;
-            vec<int> ans;
+            vector<int> ans;
             int next_right = -1;
             int next_left = -1;
             rep(i, m) {
@@ -117,23 +117,17 @@ vec<int> local_min_cycle_directed(Graph<T>& g){
                     next_right = -1;
                     each(e, g[loop[i]]){
                         if (e.to != loop[(i+1)%m] && pos.find(e.to) != pos.end()) {
-                            if (pos[e.to] < i)
-                                chmax(next_left, pos[e.to]); // back-edge
-                            else
-                                chmax(next_right, pos[e.to]); // to-edge
+                            if (pos[e.to] < i) chmax(next_left, pos[e.to]); // back-edge
+                            else               chmax(next_right, pos[e.to]); // to-edge
                         }
                     }
                     if (next_left != -1){
                         ans.clear();
-                        rep(j, next_left, i+1){
-                            if (pos.find(loop[j]) != pos.end()) ans.pb(loop[j]);
-                        }
+                        rep(j, next_left, i+1) if (pos.find(loop[j]) != pos.end()) ans.pb(loop[j]);
                         return ans;
                     }
                 }
-                else{
-                    pos.erase(loop[i]);
-                }
+                else pos.erase(loop[i]);
             }
             return ans;
         }

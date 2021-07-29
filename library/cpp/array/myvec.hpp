@@ -38,9 +38,11 @@ template<typename T=ll>
 struct asvector {
     vector<T> v; //accumulative sum
     vector<T> cum; //accumulative sum
+    bool is_build = false;
     asvector(){};
     asvector(int n_){ v = vector<T>(n_); }
     asvector(int n_, T x){ v = vector<T>(n_, x); }
+    asvector(vector<T> a){ v  = a;}
     T& operator[](int i){
         if (i>=0) return v[i];
         else return v[(int)v.size()+i];
@@ -55,11 +57,13 @@ struct asvector {
     auto back() {this[-1];}
 
     void build() {
-        cum.resize(sz(v));
+        is_build = true;
+        cum = vector<T>(v);
         rep(i, 1, sz(v)) cum[i]+=cum[i-1];
     }
 
     T sum(int l, int r) {  // return sum of [l, r) of data.  {{{
+        if (!is_build) build();
         l = max(0, l);
         r = min(r, sz(cum));
         if (l<r) return cum[r-1] - (l-1>=0 ? cum[l-1] : 0);

@@ -4,7 +4,7 @@ int main(){
     //%snippet.set('range_dp')%
     //%snippet.config({'alias':'dp_range'})%
     //%snippet.fold()%
-    auto dp = make_table(n, n+1, inf<int>);
+    auto dp = mv(n, n+1, inf<int>);
     for (int len = 1; len <= n ; len++) {
         rep(l, 0, n-len+1){
             int r = l + len;

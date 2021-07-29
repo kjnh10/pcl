@@ -119,11 +119,11 @@ struct Graph {
         return res;
     }/*}}}*/
 
-    vector<Edge<Cost>> get_edges() const {
+    vector<Edge<Cost>> get_edges() const {/*{{{*/
         vector<Edge<Cost>> edges;
         rep(u, n) for (auto& edge : adj_list[u]) edges.push_back(edge);
         return edges;
-    }
+    }/*}}}*/
 
     vector<Edge<Cost>> kruskal_tree() {/*{{{*/
         // 使用される辺のvectorを返す
@@ -159,7 +159,9 @@ struct Graph {
             auto [cost, u] = cp;
             if (cost > dist[u]) continue;
             for (const auto& edge : adj_list[u]) {
-                Cost new_cost = cost + edge.cost;  // TODO: 問題によってはここが変更の必要あり
+                auto sum = [](Cost a, Cost b){return a + b;};
+                // auto sum = [](Cost a, Cost b){return make_pair(a.first+b.first, a.second+b.second);};
+                Cost new_cost = sum(cost, edge.cost);
                 if (new_cost < dist[edge.to]) {
                     dist[edge.to] = new_cost;
                     pq.push(make_pair(new_cost, edge.to));
