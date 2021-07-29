@@ -122,16 +122,16 @@ data:
   isVerificationFile: false
   path: library/cpp/math/modint.hpp
   requiredBy:
-  - library/cpp/misc/constant.cpp
-  - library/cpp/math/combination.hpp
   - library/cpp/math/bsgs.hpp
+  - library/cpp/math/combination.hpp
+  - library/cpp/misc/constant.cpp
   - library/cpp/include/modint.hpp
   - library/cpp/include/combination.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/math/matrix_pow.test.cpp
   - library/cpp/math/combination.test.cpp
+  - library/cpp/math/matrix_pow.test.cpp
 documentation_of: library/cpp/math/modint.hpp
 layout: document
 redirect_from:

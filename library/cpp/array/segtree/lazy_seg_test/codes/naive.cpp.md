@@ -26,15 +26,15 @@ data:
     \ x) - A.begin())\n#define upos(A, x) (upper_bound(all(A), x) - A.begin())\ntemplate\
     \ <class T, class U> inline void chmax(T &a, const U &b) { if ((a) < (b)) (a)\
     \ = (b); }\ntemplate <class T, class U> inline void chmin(T &a, const U &b) {\
-    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto make_table(X\
-    \ x, T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
-    \ Z, typename... Zs> auto make_table(X x, Y y, Z z, Zs... zs) { auto cont = make_table(y,\
-    \ z, zs...); return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a)\
-    \ + (b)-1) / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x)\
-    \ sort(all(x)); x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l,\
-    \ r - l)\n\ntypedef long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\n\
-    using vvl = vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\n\
-    using PQ = priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
+    \ if ((a) > (b)) (a) = (b); }\ntemplate <typename X, typename T> auto mv(X x,\
+    \ T a) { return vector<T>(x, a); }\ntemplate <typename X, typename Y, typename\
+    \ Z, typename... Zs> auto mv(X x, Y y, Z z, Zs... zs) { auto cont = mv(y, z, zs...);\
+    \ return vector<decltype(cont)>(x, cont); }\n\n#define cdiv(a, b) (((a) + (b)-1)\
+    \ / (b))\n#define is_in(x, a, b) ((a) <= (x) && (x) < (b))\n#define uni(x) sort(all(x));\
+    \ x.erase(unique(all(x)), x.end())\n#define slice(l, r) substr(l, r - l)\n\ntypedef\
+    \ long long ll;\ntypedef long double ld;\nusing vl = vector<ll>;\nusing vvl =\
+    \ vector<vl>;\nusing pll = pair<ll, ll>;\n\ntemplate <typename T>\nusing PQ =\
+    \ priority_queue<T, vector<T>, greater<T>>;\nvoid check_input() { assert(cin.eof()\
     \ == 0); int tmp; cin >> tmp; assert(cin.eof() == 1); }\n\n#if defined(PCM) ||\
     \ defined(LOCAL)\n#else\n#define dump(...) ;\n#define dump_1d(...) ;\n#define\
     \ dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n#endif /* HEADER_H */\n#line 2\
@@ -77,7 +77,7 @@ data:
   isVerificationFile: false
   path: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
   requiredBy: []
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp

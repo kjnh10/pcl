@@ -58,19 +58,21 @@ data:
     \ using vec = pyvec<T>;\n//%snippet.end()%\n\n\n//%snippet.set('asvector')%\n\
     //%snippet.fold()%\n// acumulative sum vector \ntemplate<typename T=ll>\nstruct\
     \ asvector {\n    vector<T> v; //accumulative sum\n    vector<T> cum; //accumulative\
-    \ sum\n    asvector(){};\n    asvector(int n_){ v = vector<T>(n_); }\n    asvector(int\
-    \ n_, T x){ v = vector<T>(n_, x); }\n    T& operator[](int i){\n        if (i>=0)\
+    \ sum\n    bool is_build = false;\n    asvector(){};\n    asvector(int n_){ v\
+    \ = vector<T>(n_); }\n    asvector(int n_, T x){ v = vector<T>(n_, x); }\n   \
+    \ asvector(vector<T> a){ v  = a;}\n    T& operator[](int i){\n        if (i>=0)\
     \ return v[i];\n        else return v[(int)v.size()+i];\n    }\n    auto begin(){\
     \ return v.begin(); }\n    auto end(){ return v.end(); }\n    auto push_back(){\
     \ return v.push_back(); }\n    auto emplace_back(){ return v.emplace_back(); }\n\
     \    auto size() const { return v.size(); }\n    auto clear() { v.clear(); }\n\
     \    auto resize(int x) { v.resize(x); }\n    auto back() {this[-1];}\n\n    void\
-    \ build() {\n        cum.resize(sz(v));\n        rep(i, 1, sz(v)) cum[i]+=cum[i-1];\n\
-    \    }\n\n    T sum(int l, int r) {  // return sum of [l, r) of data.  {{{\n \
-    \       l = max(0, l);\n        r = min(r, sz(cum));\n        if (l<r) return\
-    \ cum[r-1] - (l-1>=0 ? cum[l-1] : 0);\n        else     return 0;\n    } // }}}\n\
-    \n    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{\n       \
-    \ os << as.v; return os;\n    } //}}}\n};\n//\n\n\n// TODO\n// neg shifter vec\n"
+    \ build() {\n        is_build = true;\n        cum = vector<T>(v);\n        rep(i,\
+    \ 1, sz(v)) cum[i]+=cum[i-1];\n    }\n\n    T sum(int l, int r) {  // return sum\
+    \ of [l, r) of data.  {{{\n        if (!is_build) build();\n        l = max(0,\
+    \ l);\n        r = min(r, sz(cum));\n        if (l<r) return cum[r-1] - (l-1>=0\
+    \ ? cum[l-1] : 0);\n        else     return 0;\n    } // }}}\n\n    friend ostream&\
+    \ operator<<(ostream &os, asvector<T>& as){//{{{\n        os << as.v; return os;\n\
+    \    } //}}}\n};\n//\n\n\n// TODO\n// neg shifter vec\n"
   code: "#pragma once\n#include \"../header.hpp\"\n\n//%snippet.set('pyvec')%\n//%snippet.config({'alias':'vector_neg'})%\n\
     //%snippet.fold()%\ntemplate <class T>\nstruct pyvec {\n    vector<T> v;\n   \
     \ pyvec(){}\n    pyvec(int n_){ v = vector<T>(n_); }\n    pyvec(int n_, T x){\
@@ -84,27 +86,28 @@ data:
     \ os; \n}\ntemplate<class T=ll> using vec = pyvec<T>;\n//%snippet.end()%\n\n\n\
     //%snippet.set('asvector')%\n//%snippet.fold()%\n// acumulative sum vector \n\
     template<typename T=ll>\nstruct asvector {\n    vector<T> v; //accumulative sum\n\
-    \    vector<T> cum; //accumulative sum\n    asvector(){};\n    asvector(int n_){\
-    \ v = vector<T>(n_); }\n    asvector(int n_, T x){ v = vector<T>(n_, x); }\n \
-    \   T& operator[](int i){\n        if (i>=0) return v[i];\n        else return\
-    \ v[(int)v.size()+i];\n    }\n    auto begin(){ return v.begin(); }\n    auto\
-    \ end(){ return v.end(); }\n    auto push_back(){ return v.push_back(); }\n  \
-    \  auto emplace_back(){ return v.emplace_back(); }\n    auto size() const { return\
-    \ v.size(); }\n    auto clear() { v.clear(); }\n    auto resize(int x) { v.resize(x);\
-    \ }\n    auto back() {this[-1];}\n\n    void build() {\n        cum.resize(sz(v));\n\
+    \    vector<T> cum; //accumulative sum\n    bool is_build = false;\n    asvector(){};\n\
+    \    asvector(int n_){ v = vector<T>(n_); }\n    asvector(int n_, T x){ v = vector<T>(n_,\
+    \ x); }\n    asvector(vector<T> a){ v  = a;}\n    T& operator[](int i){\n    \
+    \    if (i>=0) return v[i];\n        else return v[(int)v.size()+i];\n    }\n\
+    \    auto begin(){ return v.begin(); }\n    auto end(){ return v.end(); }\n  \
+    \  auto push_back(){ return v.push_back(); }\n    auto emplace_back(){ return\
+    \ v.emplace_back(); }\n    auto size() const { return v.size(); }\n    auto clear()\
+    \ { v.clear(); }\n    auto resize(int x) { v.resize(x); }\n    auto back() {this[-1];}\n\
+    \n    void build() {\n        is_build = true;\n        cum = vector<T>(v);\n\
     \        rep(i, 1, sz(v)) cum[i]+=cum[i-1];\n    }\n\n    T sum(int l, int r)\
-    \ {  // return sum of [l, r) of data.  {{{\n        l = max(0, l);\n        r\
-    \ = min(r, sz(cum));\n        if (l<r) return cum[r-1] - (l-1>=0 ? cum[l-1] :\
-    \ 0);\n        else     return 0;\n    } // }}}\n\n    friend ostream& operator<<(ostream\
-    \ &os, asvector<T>& as){//{{{\n        os << as.v; return os;\n    } //}}}\n};\n\
-    //\n\n\n// TODO\n// neg shifter vec\n"
+    \ {  // return sum of [l, r) of data.  {{{\n        if (!is_build) build();\n\
+    \        l = max(0, l);\n        r = min(r, sz(cum));\n        if (l<r) return\
+    \ cum[r-1] - (l-1>=0 ? cum[l-1] : 0);\n        else     return 0;\n    } // }}}\n\
+    \n    friend ostream& operator<<(ostream &os, asvector<T>& as){//{{{\n       \
+    \ os << as.v; return os;\n    } //}}}\n};\n//\n\n\n// TODO\n// neg shifter vec\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/array/myvec.hpp
   requiredBy:
   - library/cpp/include/myvec.hpp
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/myvec.hpp

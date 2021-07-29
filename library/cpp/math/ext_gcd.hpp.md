@@ -43,19 +43,19 @@ data:
     #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
     #endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/math/ext_gcd.hpp\"\
     \n\n//%snippet.set('ext_gcd')%\n//%snippet.config({'alias':'gcd_ext'})%\n//%snippet.fold()%\n\
-    \ntemplate<class T>\npair<T, T> ext_gcd(T x, T y){\n    // return ax + by = gcd(x,y)\n\
-    \    if (y == 0) return {1, 0};\n    auto [aa, bb] = ext_gcd(y, x-y*(x/y));\n\
-    \    return {bb, aa - bb*(x/y)};\n}\n\n//%snippet.end()%\n"
+    \ntemplate<class T>\npair<T, T> ext_gcd(T a, T b){\n    // return (x, y) s.t ax\
+    \ + by = gcd(a,b)\n    if (b == 0) return {1, 0};\n    auto [aa, bb] = ext_gcd(b,\
+    \ a-b*(a/b));\n    return {bb, aa - bb*(a/b)};\n}\n\n//%snippet.end()%\n"
   code: "#include \"../header.hpp\"\n\n//%snippet.set('ext_gcd')%\n//%snippet.config({'alias':'gcd_ext'})%\n\
-    //%snippet.fold()%\n\ntemplate<class T>\npair<T, T> ext_gcd(T x, T y){\n    //\
-    \ return ax + by = gcd(x,y)\n    if (y == 0) return {1, 0};\n    auto [aa, bb]\
-    \ = ext_gcd(y, x-y*(x/y));\n    return {bb, aa - bb*(x/y)};\n}\n\n//%snippet.end()%\n"
+    //%snippet.fold()%\n\ntemplate<class T>\npair<T, T> ext_gcd(T a, T b){\n    //\
+    \ return (x, y) s.t ax + by = gcd(a,b)\n    if (b == 0) return {1, 0};\n    auto\
+    \ [aa, bb] = ext_gcd(b, a-b*(a/b));\n    return {bb, aa - bb*(a/b)};\n}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/math/ext_gcd.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/math/ext_gcd.hpp

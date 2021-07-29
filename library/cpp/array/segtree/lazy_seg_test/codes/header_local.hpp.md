@@ -77,11 +77,11 @@ data:
     template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b))
     (a) = (b); }
 
-    template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x,
-    a); }
+    template <typename X, typename T> auto mv(X x, T a) { return vector<T>(x, a);
+    }
 
-    template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X
-    x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x,
+    template <typename X, typename Y, typename Z, typename... Zs> auto mv(X x, Y y,
+    Z z, Zs... zs) { auto cont = mv(y, z, zs...); return vector<decltype(cont)>(x,
     cont); }
 
 
@@ -191,11 +191,11 @@ data:
     template <class T, class U> inline void chmin(T &a, const U &b) { if ((a) > (b))
     (a) = (b); }
 
-    template <typename X, typename T> auto make_table(X x, T a) { return vector<T>(x,
-    a); }
+    template <typename X, typename T> auto mv(X x, T a) { return vector<T>(x, a);
+    }
 
-    template <typename X, typename Y, typename Z, typename... Zs> auto make_table(X
-    x, Y y, Z z, Zs... zs) { auto cont = make_table(y, z, zs...); return vector<decltype(cont)>(x,
+    template <typename X, typename Y, typename Z, typename... Zs> auto mv(X x, Y y,
+    Z z, Zs... zs) { auto cont = mv(y, z, zs...); return vector<decltype(cont)>(x,
     cont); }
 
 
@@ -252,7 +252,7 @@ data:
   - library/cpp/array/segtree/lazy_seg_test/codes/solve.cpp
   - library/cpp/array/segtree/lazy_seg_test/codes/naive.cpp
   - library/cpp/include/header_local.hpp
-  timestamp: '2020-10-17 17:32:46+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/array/segtree/lazy_seg_test/codes/header_local.hpp

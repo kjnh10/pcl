@@ -133,8 +133,8 @@ data:
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - library/cpp/misc/zipper.lib/zipper.test.cpp
   - library/cpp/misc/zipper.lib/zipper2.test.cpp
+  - library/cpp/misc/zipper.lib/zipper.test.cpp
 documentation_of: library/cpp/misc/zipper.lib/zipper.hpp
 layout: document
 redirect_from:

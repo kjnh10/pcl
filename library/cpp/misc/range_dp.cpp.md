@@ -43,25 +43,24 @@ data:
     #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
     #endif /* HEADER_H */\n//%snippet.end()%\n#line 2 \"library/cpp/misc/range_dp.cpp\"\
     \n\nint main(){\n    //%snippet.set('range_dp')%\n    //%snippet.config({'alias':'dp_range'})%\n\
-    \    //%snippet.fold()%\n    auto dp = make_table(n, n+1, inf<int>);\n    for\
-    \ (int len = 1; len <= n ; len++) {\n        rep(l, 0, n-len+1){\n           \
-    \ int r = l + len;\n            // calc dp[l][r] : [l, r)\n            chmin(dp[l][r],\
-    \ single(l, r));\n            rep(mid, l+1, r) {\n                chmin(dp[l][r],\
-    \ dp[l][mid]+dp[mid][r]);\n            }\n        }\n    }\n    //%snippet.end()%\n\
-    }\n"
+    \    //%snippet.fold()%\n    auto dp = mv(n, n+1, inf<int>);\n    for (int len\
+    \ = 1; len <= n ; len++) {\n        rep(l, 0, n-len+1){\n            int r = l\
+    \ + len;\n            // calc dp[l][r] : [l, r)\n            chmin(dp[l][r], single(l,\
+    \ r));\n            rep(mid, l+1, r) {\n                chmin(dp[l][r], dp[l][mid]+dp[mid][r]);\n\
+    \            }\n        }\n    }\n    //%snippet.end()%\n}\n"
   code: "#include \"../header.hpp\"\n\nint main(){\n    //%snippet.set('range_dp')%\n\
     \    //%snippet.config({'alias':'dp_range'})%\n    //%snippet.fold()%\n    auto\
-    \ dp = make_table(n, n+1, inf<int>);\n    for (int len = 1; len <= n ; len++)\
-    \ {\n        rep(l, 0, n-len+1){\n            int r = l + len;\n            //\
-    \ calc dp[l][r] : [l, r)\n            chmin(dp[l][r], single(l, r));\n       \
-    \     rep(mid, l+1, r) {\n                chmin(dp[l][r], dp[l][mid]+dp[mid][r]);\n\
-    \            }\n        }\n    }\n    //%snippet.end()%\n}\n"
+    \ dp = mv(n, n+1, inf<int>);\n    for (int len = 1; len <= n ; len++) {\n    \
+    \    rep(l, 0, n-len+1){\n            int r = l + len;\n            // calc dp[l][r]\
+    \ : [l, r)\n            chmin(dp[l][r], single(l, r));\n            rep(mid, l+1,\
+    \ r) {\n                chmin(dp[l][r], dp[l][mid]+dp[mid][r]);\n            }\n\
+    \        }\n    }\n    //%snippet.end()%\n}\n"
   dependsOn:
   - library/cpp/header.hpp
   isVerificationFile: false
   path: library/cpp/misc/range_dp.cpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/misc/range_dp.cpp

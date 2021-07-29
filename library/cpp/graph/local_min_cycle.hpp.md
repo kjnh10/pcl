@@ -301,14 +301,14 @@ data:
     \        rep(u, n){\n            for (auto& edge : adj_list[u]){\n           \
     \     if (tr.ord[edge.from] < lowlink[edge.to]) res.push_back(edge);\n       \
     \     }\n        }\n        return res;\n    }/*}}}*/\n\n    vector<Edge<Cost>>\
-    \ get_edges() const {\n        vector<Edge<Cost>> edges;\n        rep(u, n) for\
-    \ (auto& edge : adj_list[u]) edges.push_back(edge);\n        return edges;\n \
-    \   }\n\n    vector<Edge<Cost>> kruskal_tree() {/*{{{*/\n        // \u4F7F\u7528\
-    \u3055\u308C\u308B\u8FBA\u306Evector\u3092\u8FD4\u3059\n        auto edges = get_edges();\n\
-    \n        vector<Edge<Cost>> res(n - 1);\n        sort(all(edges), [&](auto l,\
-    \ auto r) { return l.cost < r.cost; });\n        union_find uf(n);\n\n       \
-    \ Cost total_cost = zerocost;\n        int idx = 0;\n        each(e, edges) {\n\
-    \            if (uf.same(e.from, e.to)) continue;\n            uf.merge(e.from,\
+    \ get_edges() const {/*{{{*/\n        vector<Edge<Cost>> edges;\n        rep(u,\
+    \ n) for (auto& edge : adj_list[u]) edges.push_back(edge);\n        return edges;\n\
+    \    }/*}}}*/\n\n    vector<Edge<Cost>> kruskal_tree() {/*{{{*/\n        // \u4F7F\
+    \u7528\u3055\u308C\u308B\u8FBA\u306Evector\u3092\u8FD4\u3059\n        auto edges\
+    \ = get_edges();\n\n        vector<Edge<Cost>> res(n - 1);\n        sort(all(edges),\
+    \ [&](auto l, auto r) { return l.cost < r.cost; });\n        union_find uf(n);\n\
+    \n        Cost total_cost = zerocost;\n        int idx = 0;\n        each(e, edges)\
+    \ {\n            if (uf.same(e.from, e.to)) continue;\n            uf.merge(e.from,\
     \ e.to);\n            total_cost = total_cost + e.cost;\n            res[idx]\
     \ = e;\n            idx++;\n        }\n        assert(idx == n - 1);\n\n     \
     \   return res;\n    }/*}}}*/\n\n    vector<Cost> dijkstra(vector<Pos> starts)\
@@ -318,14 +318,15 @@ data:
     \          pq.push(make_pair(zerocost, start));\n        }\n        while (!pq.empty())\
     \ {\n            auto cp = pq.top(); pq.pop();\n            auto [cost, u] = cp;\n\
     \            if (cost > dist[u]) continue;\n            for (const auto& edge\
-    \ : adj_list[u]) {\n                Cost new_cost = cost + edge.cost;  // TODO:\
-    \ \u554F\u984C\u306B\u3088\u3063\u3066\u306F\u3053\u3053\u304C\u5909\u66F4\u306E\
-    \u5FC5\u8981\u3042\u308A\n                if (new_cost < dist[edge.to]) {\n  \
-    \                  dist[edge.to] = new_cost;\n                    pq.push(make_pair(new_cost,\
-    \ edge.to));\n                }\n            }\n        }\n        return dist;\n\
-    \    };/*}}}*/\n\n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\
-    \u30FC\u30C8{{{\n        vector<Pos> starts = {start};\n        return dijkstra(starts);\n\
-    \    };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/local_min_cycle.hpp\"\
+    \ : adj_list[u]) {\n                auto sum = [](Cost a, Cost b){return a + b;};\n\
+    \                // auto sum = [](Cost a, Cost b){return make_pair(a.first+b.first,\
+    \ a.second+b.second);};\n                Cost new_cost = sum(cost, edge.cost);\n\
+    \                if (new_cost < dist[edge.to]) {\n                    dist[edge.to]\
+    \ = new_cost;\n                    pq.push(make_pair(new_cost, edge.to));\n  \
+    \              }\n            }\n        }\n        return dist;\n    };/*}}}*/\n\
+    \n    vector<Cost> dijkstra(Pos start) {  // 1\u70B9\u30B9\u30BF\u30FC\u30C8{{{\n\
+    \        vector<Pos> starts = {start};\n        return dijkstra(starts);\n   \
+    \ };/*}}}*/\n};\n\n//%snippet.end()%\n#line 3 \"library/cpp/graph/local_min_cycle.hpp\"\
     \n\n//%snippet.set('local_min_cycle_undirected')%\n//%snippet.config({'alias':'cycle'})%\n\
     //%snippet.include('Graph')%\n//%snippet.fold()%\n\n// verified by https://codeforces.com/contest/1364/problem/D\n\
     \ntemplate<class T>\nvector<int> local_min_cycle_undirected(Graph<T>& g){\n  \
@@ -356,37 +357,35 @@ data:
     \u306E\u8FBA\u304C\u3042\u308C\u3070\u4E0D\u8981\u306A\u30CE\u30FC\u30C9\u3092\
     \u524A\u9664\u3057\u3066\u3044\u304F\u3002\u30B5\u30A4\u30AF\u30EB\u306F(index,\
     \ node-num)\u306Eset\u3067\u7BA1\u7406\u3057\u3066\u304A\u304F\u3068\u5404\u30CE\
-    \u30FC\u30C9\u306E\u524A\u9664\u306Flog\n\ntemplate<class T>\nvec<int> local_min_cycle_directed(Graph<T>&\
-    \ g){\n    int n = g.n;\n    vec<bool> seen(n);\n    vec<bool> finished(n);\n\
-    \    vec<int> hist;\n    bool exist_loop = false;\n    int starting_point = -1;\n\
-    \    auto dfs = [&](const auto& dfs, int u, int pre) -> void {\n        seen[u]\
-    \ = true;\n        hist.push_back(u);\n        each(e, g[u]){\n            if\
-    \ (e.to == pre) continue;\n            else if (finished[e.to]) continue;\n  \
-    \          else if (seen[e.to]){\n                starting_point = e.to;\n   \
-    \             exist_loop = true;\n                return;\n            }\n   \
-    \         else{\n                dfs(dfs, e.to, u);\n            }\n         \
-    \   if (exist_loop) return;\n        }\n        hist.pop_back();\n        finished[u]\
+    \u30FC\u30C9\u306E\u524A\u9664\u306Flog\n\ntemplate<class T>\nvector<int> local_min_cycle_directed(Graph<T>&\
+    \ g){\n    int n = g.n;\n    vector<bool> seen(n);\n    vector<bool> finished(n);\n\
+    \    vector<int> hist;\n    bool exist_loop = false;\n    int starting_point =\
+    \ -1;\n    auto dfs = [&](const auto& dfs, int u, int pre) -> void {\n       \
+    \ seen[u] = true;\n        hist.push_back(u);\n        each(e, g[u]){\n      \
+    \      // if (e.to == pre) continue;\n            if (finished[e.to]) continue;\n\
+    \            else if (seen[e.to]){\n                starting_point = e.to;\n \
+    \               exist_loop = true;\n                return;\n            }\n \
+    \           else{\n                dfs(dfs, e.to, u);\n            }\n       \
+    \     if (exist_loop) return;\n        }\n        hist.pop_back();\n        finished[u]\
     \ = true;\n        return;\n    };\n\n    rep(u, n){\n        if (finished[u])\
-    \ continue;\n        dfs(dfs, u, -1);\n        if (exist_loop){\n            vec<int>\
+    \ continue;\n        dfs(dfs, u, -1);\n        if (exist_loop){\n            vector<int>\
     \ loop;\n            r_rep(i, sz(hist)){\n                loop.pb(hist[i]);\n\
     \                if (hist[i] == starting_point) break;\n            }\n      \
     \      reverse(all(loop));\n            int m = sz(loop);\n\n            // find\
     \ short cut\n            map<int, int> pos;\n            rep(i, m) pos[loop[i]]\
-    \ = i;\n            vec<int> ans;\n            int next_right = -1;\n        \
-    \    int next_left = -1;\n            rep(i, m) {\n                if (next_right\
+    \ = i;\n            vector<int> ans;\n            int next_right = -1;\n     \
+    \       int next_left = -1;\n            rep(i, m) {\n                if (next_right\
     \ == -1 || next_right == i){\n                    ans.pb(loop[i]);\n         \
     \           next_right = -1;\n                    each(e, g[loop[i]]){\n     \
     \                   if (e.to != loop[(i+1)%m] && pos.find(e.to) != pos.end())\
-    \ {\n                            if (pos[e.to] < i)\n                        \
-    \        chmax(next_left, pos[e.to]); // back-edge\n                         \
-    \   else\n                                chmax(next_right, pos[e.to]); // to-edge\n\
-    \                        }\n                    }\n                    if (next_left\
-    \ != -1){\n                        ans.clear();\n                        rep(j,\
-    \ next_left, i+1){\n                            if (pos.find(loop[j]) != pos.end())\
-    \ ans.pb(loop[j]);\n                        }\n                        return\
-    \ ans;\n                    }\n                }\n                else{\n    \
-    \                pos.erase(loop[i]);\n                }\n            }\n     \
-    \       return ans;\n        }\n    }\n    return {};\n}\n\n//%snippet.end()%\n"
+    \ {\n                            if (pos[e.to] < i) chmax(next_left, pos[e.to]);\
+    \ // back-edge\n                            else               chmax(next_right,\
+    \ pos[e.to]); // to-edge\n                        }\n                    }\n \
+    \                   if (next_left != -1){\n                        ans.clear();\n\
+    \                        rep(j, next_left, i+1) if (pos.find(loop[j]) != pos.end())\
+    \ ans.pb(loop[j]);\n                        return ans;\n                    }\n\
+    \                }\n                else pos.erase(loop[i]);\n            }\n\
+    \            return ans;\n        }\n    }\n    return {};\n}\n\n//%snippet.end()%\n"
   code: "#pragma once\n#include \"graph.hpp\"\n\n//%snippet.set('local_min_cycle_undirected')%\n\
     //%snippet.config({'alias':'cycle'})%\n//%snippet.include('Graph')%\n//%snippet.fold()%\n\
     \n// verified by https://codeforces.com/contest/1364/problem/D\n\ntemplate<class\
@@ -418,37 +417,35 @@ data:
     \u306E\u8FBA\u304C\u3042\u308C\u3070\u4E0D\u8981\u306A\u30CE\u30FC\u30C9\u3092\
     \u524A\u9664\u3057\u3066\u3044\u304F\u3002\u30B5\u30A4\u30AF\u30EB\u306F(index,\
     \ node-num)\u306Eset\u3067\u7BA1\u7406\u3057\u3066\u304A\u304F\u3068\u5404\u30CE\
-    \u30FC\u30C9\u306E\u524A\u9664\u306Flog\n\ntemplate<class T>\nvec<int> local_min_cycle_directed(Graph<T>&\
-    \ g){\n    int n = g.n;\n    vec<bool> seen(n);\n    vec<bool> finished(n);\n\
-    \    vec<int> hist;\n    bool exist_loop = false;\n    int starting_point = -1;\n\
-    \    auto dfs = [&](const auto& dfs, int u, int pre) -> void {\n        seen[u]\
-    \ = true;\n        hist.push_back(u);\n        each(e, g[u]){\n            if\
-    \ (e.to == pre) continue;\n            else if (finished[e.to]) continue;\n  \
-    \          else if (seen[e.to]){\n                starting_point = e.to;\n   \
-    \             exist_loop = true;\n                return;\n            }\n   \
-    \         else{\n                dfs(dfs, e.to, u);\n            }\n         \
-    \   if (exist_loop) return;\n        }\n        hist.pop_back();\n        finished[u]\
+    \u30FC\u30C9\u306E\u524A\u9664\u306Flog\n\ntemplate<class T>\nvector<int> local_min_cycle_directed(Graph<T>&\
+    \ g){\n    int n = g.n;\n    vector<bool> seen(n);\n    vector<bool> finished(n);\n\
+    \    vector<int> hist;\n    bool exist_loop = false;\n    int starting_point =\
+    \ -1;\n    auto dfs = [&](const auto& dfs, int u, int pre) -> void {\n       \
+    \ seen[u] = true;\n        hist.push_back(u);\n        each(e, g[u]){\n      \
+    \      // if (e.to == pre) continue;\n            if (finished[e.to]) continue;\n\
+    \            else if (seen[e.to]){\n                starting_point = e.to;\n \
+    \               exist_loop = true;\n                return;\n            }\n \
+    \           else{\n                dfs(dfs, e.to, u);\n            }\n       \
+    \     if (exist_loop) return;\n        }\n        hist.pop_back();\n        finished[u]\
     \ = true;\n        return;\n    };\n\n    rep(u, n){\n        if (finished[u])\
-    \ continue;\n        dfs(dfs, u, -1);\n        if (exist_loop){\n            vec<int>\
+    \ continue;\n        dfs(dfs, u, -1);\n        if (exist_loop){\n            vector<int>\
     \ loop;\n            r_rep(i, sz(hist)){\n                loop.pb(hist[i]);\n\
     \                if (hist[i] == starting_point) break;\n            }\n      \
     \      reverse(all(loop));\n            int m = sz(loop);\n\n            // find\
     \ short cut\n            map<int, int> pos;\n            rep(i, m) pos[loop[i]]\
-    \ = i;\n            vec<int> ans;\n            int next_right = -1;\n        \
-    \    int next_left = -1;\n            rep(i, m) {\n                if (next_right\
+    \ = i;\n            vector<int> ans;\n            int next_right = -1;\n     \
+    \       int next_left = -1;\n            rep(i, m) {\n                if (next_right\
     \ == -1 || next_right == i){\n                    ans.pb(loop[i]);\n         \
     \           next_right = -1;\n                    each(e, g[loop[i]]){\n     \
     \                   if (e.to != loop[(i+1)%m] && pos.find(e.to) != pos.end())\
-    \ {\n                            if (pos[e.to] < i)\n                        \
-    \        chmax(next_left, pos[e.to]); // back-edge\n                         \
-    \   else\n                                chmax(next_right, pos[e.to]); // to-edge\n\
-    \                        }\n                    }\n                    if (next_left\
-    \ != -1){\n                        ans.clear();\n                        rep(j,\
-    \ next_left, i+1){\n                            if (pos.find(loop[j]) != pos.end())\
-    \ ans.pb(loop[j]);\n                        }\n                        return\
-    \ ans;\n                    }\n                }\n                else{\n    \
-    \                pos.erase(loop[i]);\n                }\n            }\n     \
-    \       return ans;\n        }\n    }\n    return {};\n}\n\n//%snippet.end()%\n"
+    \ {\n                            if (pos[e.to] < i) chmax(next_left, pos[e.to]);\
+    \ // back-edge\n                            else               chmax(next_right,\
+    \ pos[e.to]); // to-edge\n                        }\n                    }\n \
+    \                   if (next_left != -1){\n                        ans.clear();\n\
+    \                        rep(j, next_left, i+1) if (pos.find(loop[j]) != pos.end())\
+    \ ans.pb(loop[j]);\n                        return ans;\n                    }\n\
+    \                }\n                else pos.erase(loop[i]);\n            }\n\
+    \            return ans;\n        }\n    }\n    return {};\n}\n\n//%snippet.end()%\n"
   dependsOn:
   - library/cpp/graph/graph.hpp
   - library/cpp/header.hpp
@@ -460,7 +457,7 @@ data:
   path: library/cpp/graph/local_min_cycle.hpp
   requiredBy:
   - library/cpp/include/local_min_cycle.hpp
-  timestamp: '2021-07-16 13:20:39+09:00'
+  timestamp: '2021-07-29 23:23:37+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/graph/local_min_cycle.hpp

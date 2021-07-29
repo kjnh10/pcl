@@ -214,8 +214,8 @@ data:
   path: library/cpp/array/segtree/initialization/monoid_affin_transformation.hpp
   requiredBy:
   - library/cpp/array/segtree/initialization/segment_tree_lazy.rsq_raffinq.hpp
-  - library/cpp/include/monoid_affin_transformation.hpp
   - library/cpp/include/segment_tree_lazy.rsq_raffinq.hpp
+  - library/cpp/include/monoid_affin_transformation.hpp
   timestamp: '2021-05-31 23:41:24+09:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
