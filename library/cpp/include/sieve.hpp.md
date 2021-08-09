@@ -48,34 +48,45 @@ data:
     \n\n//%snippet.set('sieve')%\n//%snippet.config({'alias':'prime_factor_by_sieve'})%\n\
     //%snippet.fold()%\n\nstruct Sieve {/*{{{*/\n    // \u30A8\u30E9\u30C8\u30B9\u30C6\
     \u30CD\u30B9\u306E\u3075\u308B\u3044 O(NloglogN)\n    ll n;                  \
-    \            // n: max number for defined f and primes\n    vector<ll> f;    \
-    \                  // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]\n    vector<ll> primes;\
-    \                 // [2, 3, 5, .......]\n    Sieve(ll n = 1) : n(n), f(n + 1)\
-    \ { /*{{{*/\n        f[0] = f[1] = -1;\n        for (ll i = 2; i <= n; ++i) {\n\
-    \            if (f[i]) continue;\n            primes.push_back(i);\n         \
-    \   f[i] = i;\n            for (ll j = i * i; j <= n; j += i) {\n            \
-    \    if (!f[j]) f[j] = i;\n            }\n        }\n    } /*}}}*/\n    bool is_prime(ll\
-    \ x) {\n        if (x <= n) return f[x] == x; \n        return sz(factor_list(x))\
-    \ == 1;\n    }\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(0\
+    \            // n: max number for defined minfactor and primes\n    vector<ll>\
+    \ minfactor;              // [-1, 2, 3, 2, 5, 2, 7, 2, 3, ....]\n    vector<ll>\
+    \ primes;                 // [2, 3, 5, .......]\n    vector<int> mobius;     \
+    \           // \u30E1\u30D3\u30A6\u30B9\u95A2\u6570\u5024\n\n    Sieve(ll n =\
+    \ 1) : n(n), minfactor(n + 1), mobius(n + 1, 1) { /*{{{*/\n        minfactor[0]\
+    \ = minfactor[1] = -1;\n        for (ll p = 2; p <= n; ++p) {\n            if\
+    \ (minfactor[p]) continue;\n            primes.push_back(p);\n            minfactor[p]\
+    \ = p;\n            mobius[p] = -1;\n            for (ll x = p * p; x <= n; x\
+    \ += p) {\n                if (!minfactor[x]) minfactor[x] = p;\n            \
+    \    if ((x / p) % p == 0) mobius[x] = 0;\n                else mobius[x] *= -1;\n\
+    \            }\n        }\n    } /*}}}*/\n\n    bool is_prime(ll x) {/*{{{*/\n\
+    \        if (x <= n) return minfactor[x] == x; \n        return sz(factor_list(x))\
+    \ == 1;\n    }/*}}}*/\n\n    vector<ll> factor_list(ll x) { /*{{{*/\n        assert(0\
     \ < x && x <= n*n); // \u3053\u308C\u304C\u6E80\u305F\u3055\u308C\u306A\u3044\u3068\
     \u6B63\u3057\u304F\u8A08\u7B97\u3055\u308C\u306A\u3044\u53EF\u80FD\u6027\u304C\
     \u3042\u308B\u3002\n\n        vector<ll> res;\n        if (x <= n) {\n       \
-    \     while (x != 1) {\n                res.push_back(f[x]);\n               \
-    \ x /= f[x];\n            }\n        }\n        else {\n            for (ll i\
-    \ = 0; primes[i] * primes[i] <= x; i++) {\n                while (x % primes[i]\
-    \ == 0) {\n                    res.pb(primes[i]);\n                    x /= primes[i];\n\
-    \                }\n            }\n            if (x != 1) res.pb(x);\n      \
-    \  }\n\n        return res;  // [2, 3, 3, 5, 5, 5.....]\n    }               \
-    \ /*}}}*/\n\n    vector<pair<ll, ll>> prime_factor(ll x) { /*{{{*/\n        //\
-    \ just change fl vector to map form\n        vector<ll> fl = factor_list(x);\n\
-    \        if (fl.size() == 0) return {};\n        vector<pair<ll, ll>> res = {mp(fl[0],\
-    \ 0)};\n        for (ll p : fl) {\n            if (res.back().first == p) {\n\
-    \                res.back().second++;\n            } else {\n                res.emplace_back(p,\
-    \ 1);\n            }\n        }\n        return res;  // [(2,1), (3,2), (5,3),\
-    \ .....]\n    }                /*}}}*/\n};/*}}}*/\nSieve sv(1e6);\n// How to use\n\
-    \    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\n    // sv.prime_factor(x);\
-    \  // \u7D20\u56E0\u6570\u5206\u89E3\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/sieve.hpp\"\
-    \n"
+    \     while (x != 1) {\n                res.push_back(minfactor[x]);\n       \
+    \         x /= minfactor[x];\n            }\n        }\n        else {\n     \
+    \       for (ll i = 0; primes[i] * primes[i] <= x; i++) {\n                while\
+    \ (x % primes[i] == 0) {\n                    res.pb(primes[i]);\n           \
+    \         x /= primes[i];\n                }\n            }\n            if (x\
+    \ != 1) res.pb(x);\n        }\n\n        return res;  // [2, 3, 3, 5, 5, 5.....]\n\
+    \    }                /*}}}*/\n\n    vector<pair<ll, ll>> prime_factor(ll x) {\
+    \ /*{{{*/\n        // just change fl vector to map form\n        vector<ll> fl\
+    \ = factor_list(x);\n        if (fl.size() == 0) return {};\n        vector<pair<ll,\
+    \ ll>> res = {mp(fl[0], 0)};\n        for (ll p : fl) {\n            if (res.back().first\
+    \ == p) {\n                res.back().second++;\n            } else {\n      \
+    \          res.emplace_back(p, 1);\n            }\n        }\n        return res;\
+    \  // [(2,1), (3,2), (5,3), .....]\n    }                /*}}}*/\n\n    vector<ll>\
+    \ divisors(ll x) { // \u9AD8\u901F\u7D04\u6570\u5217\u6319{{{\n        vector<ll>\
+    \ res({1});\n        auto ps = prime_factor(x);\n\n        // \u7D04\u6570\u5217\
+    \u6319\n        for (auto p : ps) {\n            ll s = (ll)res.size();\n    \
+    \        for (ll i = 0; i < s; ++i) {\n                ll v = 1;\n           \
+    \     for (ll j = 0; j < p.second; ++j) {\n                    v *= p.first;\n\
+    \                    res.push_back(res[i] * v);\n                }\n         \
+    \   }\n        }\n        return res;\n    }/*}}}*/\n\n};/*}}}*/\nSieve sv(1e6);\n\
+    // How to use\n    // sv.primes            // \u7D20\u6570\u306E\u30EA\u30B9\u30C8\
+    \n    // sv.prime_factor(x);  // \u7D20\u56E0\u6570\u5206\u89E3\n\n//%snippet.end()%\n\
+    #line 2 \"library/cpp/include/sieve.hpp\"\n"
   code: '#include "../math/sieve.hpp"'
   dependsOn:
   - library/cpp/math/sieve.hpp
@@ -83,7 +94,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/sieve.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-08-09 13:06:12+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/sieve.hpp

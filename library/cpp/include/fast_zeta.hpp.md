@@ -45,15 +45,10 @@ data:
     \ == 1); }\n\n#if defined(PCM) || defined(LOCAL)\n#else\n#define dump(...) ;\n\
     #define dump_1d(...) ;\n#define dump_2d(...) ;\n#define cerrendl ;\n#endif\n\n\
     #endif /* HEADER_H */\n//%snippet.end()%\n#line 3 \"library/cpp/array/fast_zeta.hpp\"\
-    \n\n//%snippet.set('zeta')%\n//%snippet.fold()%\n\ntemplate <class T> \nvec<T>\
-    \ zeta(const vec<T>& a, int n){\n    vec<T> res(a);\n    // \u81EA\u7531\u5EA6\
-    0\n    rep(j, 0, n){\n        // j\u6841\u76EE\u3092\u81EA\u7531\u306B\u3059\u308B\
-    \u3002\n        rep(i, 1<<n) {\n            if (i >> j & 1) {\n              \
-    \  res[i] += res[i ^ 1<<j];\n                // j\u6841\u76EE\u304C\u7ACB\u3063\
-    \u3066\u306A\u3044\u3084\u3064\u304B\u3089j\u6841\u76EE\u304C\u7ACB\u3063\u3066\
-    \u308B\u3084\u3064\u306B\u66F4\u65B0\u304C\u884C\u304F\u306E\u3067\u9806\u756A\
-    \u306E\u5FC3\u914D\u306F\u4E0D\u8981\n            }\n        }\n    }\n    return\
-    \ res;\n}\n\n//%snippet.end()%\n#line 2 \"library/cpp/include/fast_zeta.hpp\"\n"
+    \n\n//%snippet.set('zeta')%\n//%snippet.fold()%\n\ntemplate <class T> \nvector<T>\
+    \ zeta(const vector<T>& a, int d){\n    vector<T> res(a);\n    rep(j, 0, d) rep(i,\
+    \ 1<<d) if (i >> j & 1) res[i] += res[i ^ 1<<j];\n    return res;\n}\n\n//%snippet.end()%\n\
+    #line 2 \"library/cpp/include/fast_zeta.hpp\"\n"
   code: '#include "../array/fast_zeta.hpp"'
   dependsOn:
   - library/cpp/array/fast_zeta.hpp
@@ -61,7 +56,7 @@ data:
   isVerificationFile: false
   path: library/cpp/include/fast_zeta.hpp
   requiredBy: []
-  timestamp: '2021-05-31 23:41:24+09:00'
+  timestamp: '2021-08-09 13:06:23+09:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: library/cpp/include/fast_zeta.hpp
